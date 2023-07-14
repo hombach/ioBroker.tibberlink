@@ -1,0 +1,210 @@
+<html>
+
+<head>
+
+	<!-- Load ioBroker scripts and styles-->
+	<link rel="stylesheet" type="text/css" href="../../css/adapter.css" />
+	<link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+
+	<script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+
+	<script type="text/javascript" src="../../js/translate.js"></script>
+	<script type="text/javascript" src="../../lib/js/materialize.js"></script>
+	<script type="text/javascript" src="../../js/adapter-settings.js"></script>
+
+	<!-- Load our own files -->
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<script type="text/javascript" src="words.js"></script>
+
+	<script type="text/javascript">
+		// This will be called by the admin adapter when the settings page loads
+		function load(settings, onChange) {
+			// example: select elements with id=key and class=value and insert value
+			if (!settings) return;
+			$('.value').each(function () {
+				var $key = $(this);
+				var id = $key.attr('id');
+				if ($key.attr('type') === 'checkbox') {
+					// do not call onChange direct, because onChange could expect some arguments
+					$key.prop('checked', settings[id])
+						.on('change', () => onChange())
+						;
+				} else {
+					// do not call onChange direct, because onChange could expect some arguments
+					$key.val(settings[id])
+						.on('change', () => onChange())
+						.on('keyup', () => onChange())
+						;
+				}
+			});
+
+			$('#FeedActive').on('change', function () {
+				var val = $(this).prop('checked');
+				if (val)
+				{
+					$('#feedDataDetail').fadeIn();
+				} else {
+					$('#feedDataDetail').fadeOut();
+				}
+			});
+
+			$('#FeedActive').trigger('change');
+
+			onChange(false);
+			// reinitialize all the Materialize labels on the page if you are dynamically adding inputs:
+			if (M) M.updateTextFields();
+		}
+
+		// This will be called by the admin adapter when the user presses the save button
+		function save(callback) {
+			// example: select elements with class=value and build settings object
+			var obj = {};
+			$('.value').each(function () {
+				var $this = $(this);
+				if ($this.attr('type') === 'checkbox') {
+					obj[$this.attr('id')] = $this.prop('checked');
+				} else if ($this.attr('type') === 'number') {
+					obj[$this.attr('id')] = parseFloat($this.val());
+				} else {
+					obj[$this.attr('id')] = $this.val();
+				}
+			});
+			callback(obj);
+		}
+	</script>
+
+</head>
+
+<body>
+
+	<div class="m adapter-container">
+
+		<div class="row">
+			<div class="col s12 m4 l2">
+				<img src="tibberconnect.png" class="logo">
+			</div>
+		</div>
+
+		<!-- Put your content here -->
+
+		<!-- For example columns with settings: -->
+		<div class="row">
+			<div class="col s6 input-field">
+				<input type="text" class="value" id="TibberAPIToken" />
+				<label for="TibberAPIToken" class="translate">TibberAPIToken</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6 input-field" onload="fadeFeedDetailConfigDiv()">
+				<input type="checkbox" class="value" id="FeedActive" />
+				<label for="FeedActive" class="translate">PulseActive</label>
+			</div>
+		</div>
+		<div id="feedDataDetail" style="display: none;">
+			<div class="row">
+				<div class="col s12">
+					<span class="translate">SelectFieldsForFeed</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigLastMeterConsumption" />
+					<label for="FeedConfigLastMeterConsumption" class="translate">LastMeterConsumption</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigAccumulatedConsumption" />
+					<label for="FeedConfigAccumulatedConsumption" class="translate">AccumulatedConsumption</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigAccumulatedProduction" />
+					<label for="FeedConfigAccumulatedProduction" class="translate">AccumulatedProduction</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigAccumulatedConsumptionLastHour" />
+					<label for="FeedConfigAccumulatedConsumptionLastHour" class="translate">AccumulatedConsumptionLastHour</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigAccumulatedProductionLastHour" />
+					<label for="FeedConfigAccumulatedProductionLastHour" class="translate">AccumulatedProductionLastHour</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigAccumulatedCost" />
+					<label for="FeedConfigAccumulatedCost" class="translate">AccumulatedCost</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigAccumulatedReward" />
+					<label for="FeedConfigAccumulatedReward" class="translate">AccumulatedReward</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigCurrency" />
+					<label for="FeedConfigCurrency" class="translate">Currency</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigMinPower" />
+					<label for="FeedConfigMinPower" class="translate">MinPower</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigAveragePower" />
+					<label for="FeedConfigAveragePower" class="translate">AveragePower</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigMaxPower" />
+					<label for="FeedConfigMaxPower" class="translate">MaxPower</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigPowerProduction" />
+					<label for="FeedConfigPowerProduction" class="translate">PowerProduction</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigMinPowerProduction" />
+					<label for="FeedConfigMinPowerProduction" class="translate">MinPowerProduction</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigMaxPowerProduction" />
+					<label for="FeedConfigMaxPowerProduction" class="translate">MaxPowerProduction</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigLastMeterProduction" />
+					<label for="FeedConfigLastMeterProduction" class="translate">LastMeterProduction</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigPowerFactor" />
+					<label for="FeedConfigPowerFactor" class="translate">PowerFactor</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigVoltagePhase1" />
+					<label for="FeedConfigVoltagePhase1" class="translate">VoltagePhase1</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigVoltagePhase2" />
+					<label for="FeedConfigVoltagePhase2" class="translate">VoltagePhase2</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigVoltagePhase3" />
+					<label for="FeedConfigVoltagePhase3" class="translate">VoltagePhase3</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigCurrentL1" />
+					<label for="FeedConfigCurrentL1" class="translate">CurrentL1</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigCurrentL2" />
+					<label for="FeedConfigCurrentL2" class="translate">CurrentL2</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigCurrentL3" />
+					<label for="FeedConfigCurrentL3" class="translate">CurrentL3</label>
+				</div>
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigSignalStrength" />
+					<label for="FeedConfigSignalStrength" class="translate">SignalStrength</label>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+</html>
