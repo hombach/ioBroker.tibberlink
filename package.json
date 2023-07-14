@@ -1,24 +1,22 @@
 {
-  "name": "iobroker.tibberconnect",
-  "version": "0.0.10",
-  "description": "connects tibber API and ioBroker",
+  "name": "iobroker.tibberlink",
+  "version": "0.1.0",
+  "description": "links tibber API data to be used in ioBroker",
   "author": {
-    "name": "Codibris",
-    "email": "email@codibris.de"
+    "name": "Hombach",
+    "email": "tibberlink@homba.ch"
   },
-  "homepage": "https://github.com/Codibris/ioBroker.tibberconnect",
+  "homepage": "https://github.com/Hombach/ioBroker.tibberlink",
   "license": "GPL-3.0",
   "keywords": [
-    "Strom",
-    "Energie",
+    "power",
+    "energy",
     "Energieversorger",
-    "Stromversorger",
-    "Tibber",
-    "smart home"
+    "Tibber"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Codibris/ioBroker.tibberconnect"
+    "url": "https://github.com/Hombach/ioBroker.tibberlink"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^2.6.8",
@@ -80,7 +78,7 @@
     "release": "release-script"
   },
   "bugs": {
-    "url": "https://github.com/Codibris/ioBroker.tibberconnect/issues"
+    "url": "https://github.com/Hombach/ioBroker.tibberlink/issues"
   },
   "readmeFilename": "README.md"
 }
