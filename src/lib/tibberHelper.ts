@@ -43,7 +43,7 @@ export class TibberHelper {
 		value: number,
 		description?: string,
 	): Promise<void> {
-		if (value) {
+		if (value != undefined) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
 				common: {

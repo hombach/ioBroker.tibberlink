@@ -12,7 +12,7 @@ import { TibberPulse } from "./lib/tibberPulse";
 // Load your modules here, e.g.:
 // import * as fs from "fs";
 
-class Tibberconnect extends utils.Adapter {
+class Tibberlink extends utils.Adapter {
 	intervallList: ioBroker.Interval[];
 	homeIdList: string[];
 	queryUrl = "";
@@ -20,7 +20,7 @@ class Tibberconnect extends utils.Adapter {
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
 		super({
 			...options,
-			name: "tibberconnect",
+			name: "tibberlink",
 		});
 		this.on("ready", this.onReady.bind(this));
 		this.on("stateChange", this.onStateChange.bind(this));
@@ -312,8 +312,8 @@ class Tibberconnect extends utils.Adapter {
 
 if (require.main !== module) {
 	// Export the constructor in compact mode
-	module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new Tibberconnect(options);
+	module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new Tibberlink(options);
 } else {
 	// otherwise start the instance directly
-	(() => new Tibberconnect())();
+	(() => new Tibberlink())();
 }
