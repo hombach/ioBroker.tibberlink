@@ -1,13 +1,11 @@
 {
     "template adapter settings": "Adapter settings for Kostal Piko (BA)",
-    "ipaddress": "IP address of your Kostal Piko (like '192.168.100.33' no HTTP-adresses or other texts)",
     "normAn4Min": "Minimum value for analog input 4 - equals 0V",
     "normAn4Max": "Maximum value for analog input 4 - equals 10V"
 }
 
 {
 	"tibberlink adapter settings": 
-		en: "Adapter settings for TibberLink",
 		ru: "Настройки адаптера для TibberLink",
 		pt: "Configurações do adaptador para TibberLink",
 		nl: "Adapterinstellingen voor TibberLink",
@@ -17,7 +15,6 @@
 		pl: "Ustawienia adaptera dla TibberLink",
 		"zh-cn": "TibberLink",
 	"TibberAPIToken":
-		en: "token for Tibber api",
 		ru: "токен для Tibber api",
 		pt: "token para Tibber api",
 		nl: "Token voor Tibber API",
@@ -28,7 +25,6 @@
 		uk: "токен для Tibber api",
 		"zh-cn": "浮动",
 	"PulseActive":
-		en: "use Tibber pulse (all homes)",
 		ru: "использовать Tibber импульс (все дома)",
 		pt: "usar pulso de Tibber (todas as casas)",
 		nl: "gebruik kietel pols",
@@ -39,7 +35,6 @@
 		uk: "використовувати Tibber імпульс (всі будинки)",
 		"zh-cn": "1. 使用季节(所有住房)",
 	"SelectFieldsForFeed":
-		en: "Select all fields you want to load in feed data (power and timestamp are default):"
 		ru: "Выберите все поля, которые вы хотите загрузить в данных корма (сила и метка по умолчанию):"
 		pt: "Selecione todos os campos que você deseja carregar em dados de feed (poder e timestamp são padrão):"
 		nl: "Selecteer alle velden die je wilt laden in voedingsgegevens"
