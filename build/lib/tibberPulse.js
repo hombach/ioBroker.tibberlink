@@ -56,9 +56,16 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
         });
     }
     fetchLiveMeasurement(objectDestination, liveMeasurement) {
+        let power = 0;
+        if (liveMeasurement.power > 0) {
+            power = liveMeasurement.power;
+        }
+        else if (liveMeasurement.powerProduction > 0) {
+            power = liveMeasurement.powerProduction * -1;
+        }
         if (this.tibberConfig.homeId !== undefined) {
             this.checkAndSetValue(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "timestamp"), liveMeasurement.timestamp, "Timestamp when usage occurred");
-            this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"), liveMeasurement.power, "Consumption at the moment (Watt)");
+            this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"), power, "Consumption at the moment (Watt)");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"), liveMeasurement.lastMeterConsumption, "Last meter active import register state (kWh)");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumption"), liveMeasurement.accumulatedConsumption, "kWh consumed since midnight");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProduction"), liveMeasurement.accumulatedProduction, "net kWh produced since midnight");
@@ -70,6 +77,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"), liveMeasurement.minPower, "Min consumption since midnight (Watt)");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "averagePower"), liveMeasurement.averagePower, "Average consumption since midnight (Watt)");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPower"), liveMeasurement.maxPower, "Peak consumption since midnight (Watt)");
+            this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerConsumption"), liveMeasurement.power, "Net consumption (A+) at the moment (Watt)");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"), liveMeasurement.powerProduction, "Net production (A-) at the moment (Watt)");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPowerProduction"), liveMeasurement.minPowerProduction, "Min net production since midnight (Watt)");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPowerProduction"), liveMeasurement.maxPowerProduction, "Max net production since midnight (Watt)");

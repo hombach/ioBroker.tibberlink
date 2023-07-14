@@ -37,7 +37,7 @@
 
 		"sourceMap": true,
 		"inlineSourceMap": false,
-		"watch": false
+		// "watch": false
 	},
 	"include": ["src/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx"],
 	"exclude": ["build/**", "node_modules/**"]

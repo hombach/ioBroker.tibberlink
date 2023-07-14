@@ -22,7 +22,7 @@ class TibberHelper {
                     role: "String",
                     desc: description,
                     read: true,
-                    write: true,
+                    write: false,
                 },
                 native: {},
             });
@@ -30,7 +30,7 @@ class TibberHelper {
         }
     }
     async checkAndSetValueNumber(stateName, value, description) {
-        if (value) {
+        if (value != undefined) {
             await this.adapter.setObjectNotExistsAsync(stateName.value, {
                 type: "state",
                 common: {
@@ -39,7 +39,7 @@ class TibberHelper {
                     role: "Number",
                     desc: description,
                     read: true,
-                    write: true,
+                    write: false,
                 },
                 native: {},
             });
@@ -56,7 +56,7 @@ class TibberHelper {
                     role: "Boolean",
                     desc: description,
                     read: true,
-                    write: true,
+                    write: false,
                 },
                 native: {},
             });
