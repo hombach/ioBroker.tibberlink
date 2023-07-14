@@ -1,0 +1,58 @@
+{
+    "template adapter settings": "Adapter settings for Kostal Piko (BA)",
+    "ipaddress": "IP address of your Kostal Piko (like '192.168.100.33' no HTTP-adresses or other texts)",
+    "normAn1Min": "Minimum value for analog input 1 - equals 0V",
+    "normAn1Max": "Maximum value for analog input 1 - equals 10V",
+    "normAn4Min": "Minimum value for analog input 4 - equals 0V",
+    "normAn4Max": "Maximum value for analog input 4 - equals 10V"
+}
+
+{
+	"tibberlink adapter settings": 
+		en: "Adapter settings for TibberLink",
+		de: "Adaptereinstellungen für TibberLink",
+		ru: "Настройки адаптера для TibberLink",
+		pt: "Configurações do adaptador para TibberLink",
+		nl: "Adapterinstellingen voor TibberLink",
+		fr: "Paramètres d'adaptateur pour TibberLink",
+		it: "Impostazioni dell'adattatore per TibberLink",
+		es: "Ajustes del adaptador para TibberLink",
+		pl: "Ustawienia adaptera dla TibberLink",
+		"zh-cn": "TibberLink",
+	"TibberAPIToken":
+		en: "token for Tibber api",
+		de: "Token für Tibber API",
+		ru: "токен для Tibber api",
+		pt: "token para Tibber api",
+		nl: "Token voor Tibber API",
+		fr: "jeton pour Tibber api",
+		it: "token per Tibber api",
+		es: "token for Tibber api",
+		pl: "znajdował się w dżibli apib",
+		uk: "токен для Tibber api",
+		"zh-cn": "浮动",
+	"PulseActive":
+		en: "use Tibber pulse (all homes)",
+		de: "Tibber Pulse verwenden (alle Zuhause)",
+		ru: "использовать Tibber импульс (все дома)",
+		pt: "usar pulso de Tibber (todas as casas)",
+		nl: "gebruik kietel pols",
+		fr: "utiliser l'impulsion de Tibber (toutes les maisons)",
+		it: "usare il polso del Tibber (tutte le case)",
+		es: "use pulso de Tibber (todas las casas)",
+		pl: "użycie impulsu (wszystkie domy)",
+		uk: "використовувати Tibber імпульс (всі будинки)",
+		"zh-cn": "1. 使用季节(所有住房)",
+	"SelectFieldsForFeed":
+		en: "Select all fields you want to load in feed data (power and timestamp are default):",
+		de: "Wählen Sie alle Felder, die beim Abruf der Live Messung abgerufen werden sollen (Power und Zeitstempel sind per Standard enthalten):",
+		ru: "Выберите все поля, которые вы хотите загрузить в данных корма (сила и метка по умолчанию):",
+		pt: "Selecione todos os campos que você deseja carregar em dados de feed (poder e timestamp são padrão):",
+		nl: "Selecteer alle velden die je wilt laden in voedingsgegevens",
+		fr: "Sélectionnez tous les champs que vous souhaitez charger dans les données d'alimentation (puissance et timetamp sont par défaut):",
+		it: "Selezionare tutti i campi che si desidera caricare nei dati di alimentazione (potenza e timestamp sono di default):",
+		es: "Seleccione todos los campos que desea cargar en los datos de alimentación (la potencia y el temporizador son predeterminados):",
+		pl: "Wybrane wszystkie pola, które chcemy załadować dane karmiące (potrzebowanie na czas) są domyślne",
+		uk: "Виберіть всі поля, які ви хочете завантажити в живих даних (потужність та час) за замовчуванням:",
+		"zh-cn": "离开你想装载饲料数据的所有领域(权力和时间包):",
+}
