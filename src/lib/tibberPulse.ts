@@ -143,7 +143,7 @@ export class TibberPulse extends TibberHelper {
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerConsumption"),
 				liveMeasurement.power,
 				"Net consumption (A+) at the moment (Watt)",
-			);		
+			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"),
 				liveMeasurement.powerProduction,
