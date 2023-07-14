@@ -1,7 +1,3 @@
-/*
- * Created with @iobroker/create-adapter v2.0.2
- */
-
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
