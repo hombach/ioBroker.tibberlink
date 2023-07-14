@@ -1,23 +1,6 @@
 {
-    "template adapter settings": "Adapter settings for Kostal Piko (BA)",
-    "normAn4Max": "Maximum value for analog input 4 - equals 10V"
-}
-
-{
-	"tibberlink adapter settings": 
-		"ru": "Настройки адаптера для TibberLink",
-		"uk": "Параметри адаптера для TibberLink",
-		"zh-cn": "TibberLink",
-	"TibberAPIToken":
-		"ru": "токен для Tibber api",
-		"uk": "токен для Tibber api",
-		"zh-cn": "浮动",
-	"PulseActive":
-		"ru": "использовать Tibber импульс (все дома)",
-		"uk": "використовувати Tibber імпульс (всі будинки)",
-		"zh-cn": "1. 使用季节(所有住房)",
-	"SelectFieldsForFeed":
-		"ru": "Выберите все поля, которые вы хотите загрузить в данных корма (сила и метка по умолчанию):"
-		"uk": "Виберіть всі поля, які ви хочете завантажити в живих даних (потужність та час) за замовчуванням:"
-		"zh-cn": "离开你想装载饲料数据的所有领域(权力和时间包):"
+	"tibberlink adapter settings": "Параметри адаптера для TibberLink",
+	"TibberAPIToken": "токен для Tibber api",
+	"PulseActive": "використовувати Tibber імпульс (всі будинки)",
+	"SelectFieldsForFeed": "Виберіть всі поля, які ви хочете завантажити в живих даних (потужність та час) за замовчуванням:"
 }
