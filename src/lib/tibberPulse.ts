@@ -67,6 +67,12 @@ export class TibberPulse extends TibberHelper {
 	}
 
 	private fetchLiveMeasurement(objectDestination: string, liveMeasurement: ILiveMeasurement): void {
+		let power = 0;
+		if (liveMeasurement.power > 0) {
+			power = liveMeasurement.power;
+		} else if (liveMeasurement.powerProduction > 0) {
+			power = liveMeasurement.powerProduction * -1;
+		}
 		if (this.tibberConfig.homeId !== undefined) {
 			this.checkAndSetValue(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "timestamp"),
@@ -75,7 +81,7 @@ export class TibberPulse extends TibberHelper {
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"),
-				liveMeasurement.power,
+				power,
 				"Consumption at the moment (Watt)",
 			);
 			this.checkAndSetValueNumber(
@@ -133,6 +139,11 @@ export class TibberPulse extends TibberHelper {
 				liveMeasurement.maxPower,
 				"Peak consumption since midnight (Watt)",
 			);
+			this.checkAndSetValueNumber(
+				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerConsumption"),
+				liveMeasurement.power,
+				"Net consumption (A+) at the moment (Watt)",
+			);		
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"),
 				liveMeasurement.powerProduction,

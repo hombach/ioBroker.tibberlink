@@ -2,17 +2,17 @@
 "use strict";
 
 systemDictionary = {
-	"tibberconnect adapter settings": {
-		en: "Adapter settings for tibberconnect",
-		de: "Adaptereinstellungen für tibberconnect",
-		ru: "Настройки адаптера для tibberconnect",
-		pt: "Configurações do adaptador para tibberconnect",
-		nl: "Adapterinstellingen voor tibberconnect",
-		fr: "Paramètres d'adaptateur pour tibberconnect",
-		it: "Impostazioni dell'adattatore per tibberconnect",
-		es: "Ajustes del adaptador para tibberconnect",
-		pl: "Ustawienia adaptera dla tibberconnect",
-		"zh-cn": "tibberconnect的适配器设置",
+	"tibberlink adapter settings": {
+		en: "Adapter settings for tibberlink",
+		de: "Adaptereinstellungen für tibberlink",
+		ru: "Настройки адаптера для tibberlink",
+		pt: "Configurações do adaptador para tibberlink",
+		nl: "Adapterinstellingen voor tibberlink",
+		fr: "Paramètres d'adaptateur pour tibberlink",
+		it: "Impostazioni dell'adattatore per tibberlink",
+		es: "Ajustes del adaptador para tibberlink",
+		pl: "Ustawienia adaptera dla tibberlink",
+		"zh-cn": "tibberlink",
 	},
 	TibberAPIToken: {
 		en: "token for tibber api",

@@ -33,11 +33,11 @@ const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberPulse_1 = require("./lib/tibberPulse");
 // Load your modules here, e.g.:
 // import * as fs from "fs";
-class Tibberconnect extends utils.Adapter {
+class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
         super({
             ...options,
-            name: "tibberconnect",
+            name: "tibberlink",
         });
         this.queryUrl = "";
         this.on("ready", this.onReady.bind(this));
@@ -320,10 +320,10 @@ class Tibberconnect extends utils.Adapter {
 }
 if (require.main !== module) {
     // Export the constructor in compact mode
-    module.exports = (options) => new Tibberconnect(options);
+    module.exports = (options) => new Tibberlink(options);
 }
 else {
     // otherwise start the instance directly
-    (() => new Tibberconnect())();
+    (() => new Tibberlink())();
 }
 //# sourceMappingURL=main.js.map

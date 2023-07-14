@@ -32,7 +32,6 @@
 			"zh-cn": "网络联系"
 		},
 		"desc": {
-
 			"en": "links tibber API data to be used in ioBroker",
 			"de": "Verbindet Tibber API-Daten um in ioBroker verwendet zu werden",
 			"ru": "ссылки tibber API данные, которые будут использоваться в ioBroker",
@@ -64,7 +63,13 @@
 		"materialize": true,
 		"dependencies": [
 			{
-				"js-controller": ">=2.0.0"
+				"js-controller": ">=3.2.16"
+			}
+		],
+
+		"globalDependencies": [
+			{
+			  "admin": ">=5.0.0"
 			}
 		]
 	},
