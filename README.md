@@ -1,71 +1,40 @@
-![Logo](admin/tibberconnect.png)
+![Logo](admin/tibberlink.png)
 
-# ioBroker.tibberconnect
+# ioBroker.tibberlink
 
-![![NPM version](https://img.shields.io/npm/v/iobroker.tibberconnect.svg)](https://www.npmjs.com/package/iobroker.tibberconnect)
-![![Downloads](https://img.shields.io/npm/dm/iobroker.tibberconnect.svg)](https://www.npmjs.com/package/iobroker.tibberconnect)
-![Number of Installations](https://iobroker.live/badges/tibberconnect-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/tibberconnect-stable.svg)
-[![Dependency Status](https://img.shields.io/david/Codibris/iobroker.tibberconnect.svg)](https://david-dm.org/Codibris/iobroker.tibberconnect)
+![![NPM version](https://img.shields.io/npm/v/iobroker.tibberlink.svg)](https://www.npmjs.com/package/iobroker.tibberlink)
+![![Downloads](https://img.shields.io/npm/dm/iobroker.tibberlink.svg)](https://www.npmjs.com/package/iobroker.tibberlink)
+![Number of Installations](https://iobroker.live/badges/tibberlink-installed.svg)
+![Current version in stable repository](https://iobroker.live/badges/tibberlink-stable.svg)
+[![Dependency Status](https://img.shields.io/david/Hombach/iobroker.tibberlink.svg)](https://david-dm.org/Hombach/iobroker.tibberlink)
 
-[![NPM](https://nodei.co/npm/iobroker.tibberconnect.png?downloads=true)](https://nodei.co/npm/iobroker.tibberconnect/)
+[![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
 
-**Tests:** ![Test and Release](https://github.com/Codibris/ioBroker.tibberconnect/workflows/Test%20and%20Release/badge.svg)
+**Tests:** ![Test and Release](https://github.com/Hombach/ioBroker.tibberlink/workflows/Test%20and%20Release/badge.svg)
 
-Willkommen beim ioBroker Adapter für Tibber. Ich freue mich, dass Du diesen Adapter einsetzen möchtest. 
-Falls du noch zu Tibber wechseln und mich dabei mit unterstützen möchstest kannst Du gerne meinen Einladungslink verwenden:
 
-https://invite.tibber.com/hgg53izs
+## Adapter for reading Kostal Piko & Piko BA data for iOBroker
+Adapter for linking reading Data from your Tibber account API to be used in ioBroker
 
-## tibberconnect adapter for ioBroker
+If you're not a Tibber user right now, it's greatly appreciated when you're using my reveral link:
 
-connects tibber API and ioBroker
+https://invite.tibber.com/7frhh5t4
+
+
+## TibberLink adapter for ioBroker
+
+links Tibber API data to be used in ioBroker
 
 ## Changelog
-### 0.0.10 (2023-04-04)
-- check current issues and update packages
-- fixed issue #181 'Error in Tibber Feed on "undefined" with message "undefined"'
-- fixed issue #130 pulse stream is not working
 
-### 0.0.9 (2022-12-10)
-- try automatically reconnecting websocket connection (pulse data) in 5s interval
-- add some technical improvements on api calls
-- add some debug logs
+! Note that missing version entries are typically dependency updates for improved security.
 
-### 0.0.8 (2022-12-02)
-- add some error handling while api calls
-
-### 0.0.7 (2022-11-19)
-- change connection state with live measurement
-- Tibber API: breaking change in websocket subscriptions December 2022
-
-### 0.0.6 (2022-11-19)
-- quick temp. implementation of new tibber api Package
-
-### 0.0.3 (2022-02-27)
-- get prices of today and tomorrow
-
-### 0.0.2 (2022-02-26)
-- switch from schedule to deamon
-- Load current energy price on 5 min interval
-- optimize structure and internal objects
-- connects tibber pulse and get data
-- configurate fields for tibber pulse feed
-
-### 0.0.1 (2022-02-18)
-Reading data from tibber API:
-
-- list and details of homes
-- details of metering point
-- features of account
-- current energy price
-- energy prices of today
-- energy prices of tomorrow
-- acitvate or deaktivate pulse (no data at the moment)
+### 0.1.0 (2023-07-14)
+initial version
 
 ## License
 
 GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 
-Copyright (c) 2023 Codibris <email@codibris.de>
+Copyright (c) 2023 Hombach <TibberLink@homba.ch>
