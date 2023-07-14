@@ -133,3 +133,6 @@ dist
 
 # ioBroker dev-server
 .dev-server/
+
+# Visual Studio cache/options directory
+.vs/
