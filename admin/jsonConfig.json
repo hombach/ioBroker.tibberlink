@@ -159,36 +159,3 @@
 	    }
 	}
 }
-
-
-
-
-	<div class="m adapter-container">
-
-		<!-- For example columns with settings: -->
-		<div class="row">
-			<div class="col s6 input-field">
-				<input type="text" class="value" id="TibberAPIToken" />
-				<label for="TibberAPIToken" class="translate">TibberAPIToken</label>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col s6 input-field" onload="fadeFeedDetailConfigDiv()">
-				<input type="checkbox" class="value" id="FeedActive" />
-				<label for="FeedActive" class="translate">PulseActive</label>
-			</div>
-		</div>
-		<div id="feedDataDetail" style="display: none;">
-			<div class="row">
-				<div class="col s12">
-					<span class="translate">SelectFieldsForFeed</span>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col s3 input-field">
-					<input type="checkbox" class="value" id="FeedConfigCurrentL2" />
-					<label for="FeedConfigCurrentL2" class="translate">CurrentL2</label>
-				</div>
-			</div>
-		</div>
-	</div>
