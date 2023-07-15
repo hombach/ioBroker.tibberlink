@@ -85,7 +85,11 @@ class Tibberlink extends utils.Adapter {
 				//if (last?.val != await today.getDate()) {
 				if (sentryInstance) {
 					const Sentry = sentryInstance.getSentryObject();
-					Sentry && Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void; }) => {
+					Sentry && Sentry.withScope(
+						(scope: {
+							setLevel: (arg0: string) => void;
+							setTag: (arg0: string, arg1: number) => void;
+						}) => {
 						scope.setLevel("info");
 						scope.setTag("SentryDay", today.getDate());
 						scope.setTag("HomeIDs", this.homeIdList.length);
