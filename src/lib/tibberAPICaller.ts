@@ -121,6 +121,8 @@ export class TibberAPICaller extends TibberHelper {
 		const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
 		this.adapter.log.debug("Get prices today from tibber api: " + JSON.stringify(pricesToday));
 		this.currentHomeId = homeId;
+		this.checkAndSetValue(
+			this.getStatePrefix(this.currentHomeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices as json",);
 		for (const index in pricesToday) {
 			const price = pricesToday[index];
 			const hour = new Date(price.startsAt).getHours();
@@ -132,6 +134,11 @@ export class TibberAPICaller extends TibberHelper {
 		const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 		this.adapter.log.debug("Get prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
 		this.currentHomeId = homeId;
+		this.checkAndSetValue(
+			this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"),
+			JSON.stringify(pricesTomorrow),
+			"The prices as json",
+		);
 		for (const index in pricesTomorrow) {
 			const price = pricesTomorrow[index];
 			const hour = new Date(price.startsAt).getHours();
