@@ -18,7 +18,7 @@ Adapter for linking reading Data from your Tibber account API to be used in ioBr
 
 If you're not a Tibber user right now, it's greatly appreciated when you're using my reveral link:
 
-https://invite.tibber.com/2gwuign3
+https://invite.tibber.com/2gwuign3.
 
 ## Notes
 This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more details and for informations on how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
