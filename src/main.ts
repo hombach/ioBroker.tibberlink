@@ -4,11 +4,6 @@ import * as utils from "@iobroker/adapter-core";
 import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
-//import * as Sentry from "@sentry/node";
-//import { RewriteFrames } from "@sentry/integrations";
-
-// Load your modules here, e.g.:
-// import * as fs from "fs";
 
 class Tibberlink extends utils.Adapter {
 	intervallList: ioBroker.Interval[];
@@ -277,63 +272,6 @@ class Tibberlink extends utils.Adapter {
 		}
 	}
 
-	/* Never used!?
-	private async checkAndSetStateStringFromAPI(name: string, value: string, displayName: string): Promise<void> {
-		if (value) {
-			await this.setObjectNotExistsAsync(name, {
-				type: "state",
-				common: {
-					name: displayName,
-					type: "string",
-					role: "string",
-					read: true,
-					write: true,
-				},
-				native: {},
-			});
-
-			await this.setStateAsync(name, value);
-		}
-	}
-	*/
-
-	/* Never used!?
-	private async checkAndSetStateNumberFromAPI(name: string, value: number, displayName: string): Promise<void> {
-		if (value) {
-			await this.setObjectNotExistsAsync(name, {
-				type: "state",
-				common: {
-					name: displayName,
-					type: "number",
-					role: "number",
-					read: true,
-					write: true,
-				},
-				native: {},
-			});
-
-			await this.setStateAsync(name, value);
-		}
-	}
-	*/
-
-	/* Never used!?
-	private async setStateBoolFromAPI(name: string, value: boolean, displayName: string): Promise<void> {
-		await this.setObjectNotExistsAsync(name, {
-			type: "state",
-			common: {
-				name: displayName,
-				type: "boolean",
-				role: "boolean",
-				read: true,
-				write: true,
-			},
-			native: {},
-		});
-
-		await this.setStateAsync(name, value);
-	}
-	*/
 }
 
 if (require.main !== module) {

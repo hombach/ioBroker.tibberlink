@@ -28,10 +28,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberPulse_1 = require("./lib/tibberPulse");
-//import * as Sentry from "@sentry/node";
-//import { RewriteFrames } from "@sentry/integrations";
-// Load your modules here, e.g.:
-// import * as fs from "fs";
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
         super({
