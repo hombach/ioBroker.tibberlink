@@ -1,0 +1,99 @@
+{
+	"i18n": true,
+	"type": "tabs",
+	"items":  {
+	    "_StandardTab": {
+       		"type": "panel",
+		"label": "Standard settings",
+	        "items": {
+		    "ipaddress": {
+			"type": "text",
+			"label": "ipaddress",
+	    		"maxLength": 15,
+			"sm": 12,
+			"md": 6,
+			"lg": 6,
+			"newLine": true
+		    },
+    		    "polltimelive": {
+	    		"type": "number",
+			"label": "polltimelive",
+			"min": 5000,
+			"step": 100,
+			"sm": 12,
+			"md": 6,
+			"lg": 6,
+			"newLine": true
+		    },
+		    "polltimedaily": {
+			"type": "number",
+			"label": "polltimedaily",
+			"min": 10000,
+			"step": 100,
+			"sm": 12,
+			"md": 6,
+			"lg": 6,
+			"newLine": true
+		    },
+		    "polltimetotal": {
+			"type": "number",
+			"label": "polltimetotal",
+			"min": 20000,
+			"step": 100,
+			"sm": 12,
+			"md": 6,
+			"lg": 6,
+			"newLine": true
+		    }
+    		}
+	    },
+
+	    "_AnalogTab": {
+		"type": "panel",
+		"label": "Analog settings",
+		"items": {
+		    "readanalogs": {
+			"type": "checkbox",
+			"label": "readanalogs"
+		    },
+		    "normAnalogs": {
+			"type": "header",
+			"text": "normAnalogs",
+			"size": 3
+		    },
+		    "normAn1Min": {
+			"type": "number",
+			"label": "normAn1Min",
+			"min": 0,
+			"sm": 12,
+			"md": 6,
+			"lg": 6
+		    },
+		    "normAn1Max": {
+			"type": "number",
+			"label": "normAn1Max",
+			"min": 0,
+			"sm": 12,
+			"md": 6,
+			"lg": 6
+		    },
+		    "normAn4Min": {
+			"type": "number",
+			"label": "normAn4Min",
+			"min": 0,
+			"sm": 12,
+			"md": 6,
+			"lg": 6
+		    },
+		    "normAn4Max": {
+			"type": "number",
+			"label": "normAn4Max",
+			"min": 0,
+			"sm": 12,
+			"md": 6,
+			"lg": 6
+		    }
+		}
+	    }
+	}
+}
