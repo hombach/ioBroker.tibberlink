@@ -4,6 +4,8 @@ import * as utils from "@iobroker/adapter-core";
 import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
+//import * as Sentry from "@sentry/node";
+//import { RewriteFrames } from "@sentry/integrations";
 
 // Load your modules here, e.g.:
 // import * as fs from "fs";
@@ -32,15 +34,13 @@ class Tibberlink extends utils.Adapter {
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	private async onReady(): Promise<void> {
-		// Initialize your adapter here
-
 		// Reset the connection indicator during startup;
 		if (!this.config.TibberAPIToken) {
 			// No Token defined in configuration
 			this.log.warn("Missing API Token - please check configuration");
 			this.setState("info.connection", false, true);
 		} else {
-			// Need 2 configs - API and Feed (feed chaged query url)
+			// Need 2 configs - API and Feed (feed changed query url)
 			const tibberConfigAPI: IConfig = {
 				active: true,
 				apiEndpoint: {
@@ -66,16 +66,33 @@ class Tibberlink extends utils.Adapter {
 			if (!this.config.FeedActive) {
 				if (this.homeIdList) {
 					this.setState("info.connection", true, true);
-					this.log.debug(
-						"Connection Check: Feed not enabled and I received home list from api - good connection",
-					);
+					this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
 				} else {
 					this.setState("info.connection", false, true);
-					this.log.debug(
-						"Connection Check: Feed not enabled and I do not get home list from api - bad connection",
-					);
+					this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
 				}
 			}
+
+			// sentry.io ping
+			if (this.supportsFeature && this.supportsFeature('PLUGINS')) {
+				const sentryInstance = this.getPluginInstance('sentry');
+				const today = new Date();
+				//var last = await this.getStateAsync('LastSentryLogDay')
+				//if (last?.val != await today.getDate()) {
+					if (sentryInstance) {
+						const Sentry = sentryInstance.getSentryObject();
+						Sentry && Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void; }) => {
+							scope.setLevel('info');
+							scope.setTag('SentryDay', today.getDate());
+							scope.setTag('HomeIDs', this.homeIdList.length);
+							Sentry.captureMessage('Adapter TibberLink started', 'info'); // Level "info"
+						});
+					}
+					//this.setStateAsync('LastSentryLoggedError', { val: 'unknown', ack: true }); // Clean last error every adapter start
+					//this.setStateAsync('LastSentryLogDay', { val: today.getDate(), ack: true });
+				//}
+			}
+
 			// Init Load Data for home
 			if (this.homeIdList.length > 0) {
 				for (const index in this.homeIdList) {
@@ -224,8 +241,6 @@ class Tibberlink extends utils.Adapter {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
 			// clearTimeout(timeout1);
-			// clearTimeout(timeout2);
-			// ...
 			// clearInterval(interval1);
 			for (const index in this.intervallList) {
 				this.clearInterval(this.intervallList[index]);
@@ -253,6 +268,7 @@ class Tibberlink extends utils.Adapter {
 		}
 	}
 
+	/* Never used!?
 	private async checkAndSetStateStringFromAPI(name: string, value: string, displayName: string): Promise<void> {
 		if (value) {
 			await this.setObjectNotExistsAsync(name, {
@@ -270,7 +286,9 @@ class Tibberlink extends utils.Adapter {
 			await this.setStateAsync(name, value);
 		}
 	}
+	*/
 
+	/* Never used!?
 	private async checkAndSetStateNumberFromAPI(name: string, value: number, displayName: string): Promise<void> {
 		if (value) {
 			await this.setObjectNotExistsAsync(name, {
@@ -288,7 +306,9 @@ class Tibberlink extends utils.Adapter {
 			await this.setStateAsync(name, value);
 		}
 	}
+	*/
 
+	/* Never used!?
 	private async setStateBoolFromAPI(name: string, value: boolean, displayName: string): Promise<void> {
 		await this.setObjectNotExistsAsync(name, {
 			type: "state",
@@ -304,6 +324,7 @@ class Tibberlink extends utils.Adapter {
 
 		await this.setStateAsync(name, value);
 	}
+	*/
 }
 
 if (require.main !== module) {

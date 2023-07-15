@@ -28,6 +28,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberPulse_1 = require("./lib/tibberPulse");
+//import * as Sentry from "@sentry/node";
+//import { RewriteFrames } from "@sentry/integrations";
 // Load your modules here, e.g.:
 // import * as fs from "fs";
 class Tibberlink extends utils.Adapter {
@@ -50,7 +52,6 @@ class Tibberlink extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        // Initialize your adapter here
         // Reset the connection indicator during startup;
         if (!this.config.TibberAPIToken) {
             // No Token defined in configuration
@@ -58,7 +59,7 @@ class Tibberlink extends utils.Adapter {
             this.setState("info.connection", false, true);
         }
         else {
-            // Need 2 configs - API and Feed (feed chaged query url)
+            // Need 2 configs - API and Feed (feed changed query url)
             const tibberConfigAPI = {
                 active: true,
                 apiEndpoint: {
@@ -91,6 +92,25 @@ class Tibberlink extends utils.Adapter {
                     this.setState("info.connection", false, true);
                     this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
                 }
+            }
+            // sentry.io ping
+            if (this.supportsFeature && this.supportsFeature('PLUGINS')) {
+                const sentryInstance = this.getPluginInstance('sentry');
+                const today = new Date();
+                //var last = await this.getStateAsync('LastSentryLogDay')
+                //if (last?.val != await today.getDate()) {
+                if (sentryInstance) {
+                    const Sentry = sentryInstance.getSentryObject();
+                    Sentry && Sentry.withScope((scope) => {
+                        scope.setLevel('info');
+                        scope.setTag('SentryDay', today.getDate());
+                        scope.setTag('HomeIDs', this.homeIdList.length);
+                        Sentry.captureMessage('Adapter TibberLink started', 'info'); // Level "info"
+                    });
+                }
+                //this.setStateAsync('LastSentryLoggedError', { val: 'unknown', ack: true }); // Clean last error every adapter start
+                //this.setStateAsync('LastSentryLogDay', { val: today.getDate(), ack: true });
+                //}
             }
             // Init Load Data for home
             if (this.homeIdList.length > 0) {
@@ -241,8 +261,6 @@ class Tibberlink extends utils.Adapter {
         try {
             // Here you must clear all timeouts or intervals that may still be active
             // clearTimeout(timeout1);
-            // clearTimeout(timeout2);
-            // ...
             // clearInterval(interval1);
             for (const index in this.intervallList) {
                 this.clearInterval(this.intervallList[index]);
@@ -267,52 +285,6 @@ class Tibberlink extends utils.Adapter {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
         }
-    }
-    async checkAndSetStateStringFromAPI(name, value, displayName) {
-        if (value) {
-            await this.setObjectNotExistsAsync(name, {
-                type: "state",
-                common: {
-                    name: displayName,
-                    type: "string",
-                    role: "string",
-                    read: true,
-                    write: true,
-                },
-                native: {},
-            });
-            await this.setStateAsync(name, value);
-        }
-    }
-    async checkAndSetStateNumberFromAPI(name, value, displayName) {
-        if (value) {
-            await this.setObjectNotExistsAsync(name, {
-                type: "state",
-                common: {
-                    name: displayName,
-                    type: "number",
-                    role: "number",
-                    read: true,
-                    write: true,
-                },
-                native: {},
-            });
-            await this.setStateAsync(name, value);
-        }
-    }
-    async setStateBoolFromAPI(name, value, displayName) {
-        await this.setObjectNotExistsAsync(name, {
-            type: "state",
-            common: {
-                name: displayName,
-                type: "boolean",
-                role: "boolean",
-                read: true,
-                write: true,
-            },
-            native: {},
-        });
-        await this.setStateAsync(name, value);
     }
 }
 if (require.main !== module) {
