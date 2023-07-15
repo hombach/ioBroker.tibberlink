@@ -13,17 +13,12 @@
 **Tests:** ![Test and Release](https://github.com/Hombach/ioBroker.tibberlink/workflows/Test%20and%20Release/badge.svg)
 
 
-## Adapter for reading Kostal Piko & Piko BA data for iOBroker
+## Adapter for using TIBBER energy data in iOBroker
 Adapter for linking reading Data from your Tibber account API to be used in ioBroker
 
 If you're not a Tibber user right now, it's greatly appreciated when you're using my reveral link:
 
 https://invite.tibber.com/7frhh5t4
-
-
-## TibberLink adapter for ioBroker
-
-links Tibber API data to be used in ioBroker
 
 ## Changelog
 
