@@ -49,7 +49,7 @@ export class TibberPulse extends TibberHelper {
 			this.adapter.log.debug("Tibber Feed: " + data.toString());
 			this.adapter.setState("info.connection", false, true);
 			if (this.adapter.config.FeedActive) {
-				this.adapter.log.info("Feed was disconnected. I try to reconnect in 5s");
+				this.adapter.log.warn("Feed was disconnected. I try to reconnect in 5s");
 				this.reconnect();
 			}
 		});
@@ -79,10 +79,11 @@ export class TibberPulse extends TibberHelper {
 				liveMeasurement.timestamp,
 				"Timestamp when usage occurred",
 			);
-			this.checkAndSetValueNumber(
+			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"),
 				power,
 				"Consumption at the moment (Watt)",
+				"W",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"),
@@ -92,22 +93,22 @@ export class TibberPulse extends TibberHelper {
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumption"),
 				liveMeasurement.accumulatedConsumption,
-				"kWh consumed since midnight",
+				"Energy consumed since midnight (kWh)",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProduction"),
 				liveMeasurement.accumulatedProduction,
-				"net kWh produced since midnight",
+				"Energy produced since midnight (kWh)",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumptionLastHour"),
 				liveMeasurement.accumulatedConsumptionLastHour,
-				"kWh consumed since since last hour shift",
+				"Energy consumed since since last hour shift (kWh)",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProductionLastHour"),
 				liveMeasurement.accumulatedProductionLastHour,
-				"net kWh produced since last hour shift",
+				"Energy produced since last hour shift (kWh)",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedCost"),

@@ -154,16 +154,10 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "address2"), address.address2);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "address3"), address.address3);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "City"), address.city);
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "PostalCode"),
-			address.postalCode,
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "PostalCode"), address.postalCode,);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Country"), address.country);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Latitude"), address.latitude);
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "Longitude"),
-			address.longitude,
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Longitude"), address.longitude);
 	}
 
 	private fetchPrice(objectDestination: string, price: IPrice): void {
@@ -175,7 +169,7 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "energy"),
 			price.energy,
-			"Nordpool spot price",
+			"Spotmarket price",
 		);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "tax"),
@@ -185,43 +179,31 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "startsAt"),
 			price.startsAt,
-			"The start time of the price",
+			"Start time of the price",
 		);
 		//this.checkAndSetValue(this.getStatePrefix(objectDestination, "currency"), price.currency, "The price currency");
 		this.checkAndSetValue(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "level"),
 			price.level,
-			"The price level compared to recent price values",
+			"Price level compared to recent price values",
 		);
 	}
 
 	private fetchLegalEntity(objectDestination: string, legalEntity: ILegalEntity): void {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Id"), legalEntity.id);
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "FirstName"),
-			legalEntity.firstName,
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "FirstName"), legalEntity.firstName);
 		this.checkAndSetValueBoolean(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "IsCompany"),
 			legalEntity.isCompany,
 		);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Name"), legalEntity.name);
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "MiddleName"),
-			legalEntity.middleName,
-		);
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "LastName"),
-			legalEntity.lastName,
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "MiddleName"), legalEntity.middleName);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "LastName"), legalEntity.lastName);
 		this.checkAndSetValue(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "OrganizationNo"),
 			legalEntity.organizationNo,
 		);
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "Language"),
-			legalEntity.language,
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Language"), legalEntity.language);
 		if (legalEntity.contactInfo) {
 			this.fetchContactInfo(objectDestination + ".ContactInfo", legalEntity.contactInfo);
 		}
