@@ -13,20 +13,22 @@ class TibberHelper {
         return statePrefix;
     }
     async checkAndSetValue(stateName, value, description) {
-        if (value.length > 0) {
-            await this.adapter.setObjectNotExistsAsync(stateName.value, {
-                type: "state",
-                common: {
-                    name: stateName.key,
-                    type: "string",
-                    role: "String",
-                    desc: description,
-                    read: true,
-                    write: false,
-                },
-                native: {},
-            });
-            await this.adapter.setStateAsync(stateName.value, value, true);
+        if (value != undefined) {
+            if (value.trim().length > 0) {
+                await this.adapter.setObjectNotExistsAsync(stateName.value, {
+                    type: "state",
+                    common: {
+                        name: stateName.key,
+                        type: "string",
+                        role: "String",
+                        desc: description,
+                        read: true,
+                        write: false,
+                    },
+                    native: {},
+                });
+                await this.adapter.setStateAsync(stateName.value, value, true);
+            }
         }
     }
     async checkAndSetValueNumber(stateName, value, description) {
