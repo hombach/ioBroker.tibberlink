@@ -18,6 +18,9 @@
     "type": "git",
     "url": "git+https://github.com/hombach/ioBroker.tibberlink.git"
   },
+  "engines": {
+    "node": ">= 16.4.0"
+  },
   "dependencies": {
     "@iobroker/adapter-core": "^2.6.8",
     "tibber-api": "~5.1.9"
