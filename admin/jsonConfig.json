@@ -5,95 +5,190 @@
 	    "_StandardTab": {
        		"type": "panel",
 		"label": "Standard settings",
-	        "items": {
-		    "ipaddress": {
-			"type": "text",
-			"label": "ipaddress",
-	    		"maxLength": 15,
-			"sm": 12,
-			"md": 6,
-			"lg": 6,
-			"newLine": true
-		    },
-    		    "polltimelive": {
-	    		"type": "number",
-			"label": "polltimelive",
-			"min": 5000,
-			"step": 100,
-			"sm": 12,
-			"md": 6,
-			"lg": 6,
-			"newLine": true
-		    },
-		    "polltimedaily": {
-			"type": "number",
-			"label": "polltimedaily",
-			"min": 10000,
-			"step": 100,
-			"sm": 12,
-			"md": 6,
-			"lg": 6,
-			"newLine": true
-		    },
-		    "polltimetotal": {
-			"type": "number",
-			"label": "polltimetotal",
-			"min": 20000,
-			"step": 100,
-			"sm": 12,
-			"md": 6,
-			"lg": 6,
-			"newLine": true
-		    }
-    		}
-	    },
-
-	    "_AnalogTab": {
-		"type": "panel",
-		"label": "Analog settings",
 		"items": {
-		    "readanalogs": {
-			"type": "checkbox",
-			"label": "readanalogs"
+		    "TibberAPIToken": {
+			"type": "text",
+			"label": "TibberAPIToken",
+	    		"maxLength": 60,
+			"sm": 6,
+			"md": 6,
+			"lg": 6,
+			"newLine": true
 		    },
-		    "normAnalogs": {
+		    "FeedActive": {
+			"type": "checkbox",
+			"label": "PulseActive",
+			"sm": 6,
+			"md": 6,
+			"lg": 6,
+			"newLine": true
+		    },
+
+			
+		    "feedDataDetail": {
 			"type": "header",
-			"text": "normAnalogs",
+			"text": "SelectFieldsForFeed",
 			"size": 3
 		    },
-		    "normAn1Min": {
-			"type": "number",
-			"label": "normAn1Min",
-			"min": 0,
-			"sm": 12,
-			"md": 6,
-			"lg": 6
+
+			
+
+
+		    "FeedConfigLastMeterConsumption": {
+			"type": "checkbox",
+			"label": "LastMeterConsumption",
+			"sm": 3, "md": 3, "lg": 3,
+			"newLine": true
 		    },
-		    "normAn1Max": {
-			"type": "number",
-			"label": "normAn1Max",
-			"min": 0,
-			"sm": 12,
-			"md": 6,
-			"lg": 6
+		    "FeedConfigAccumulatedConsumption": {
+			"type": "checkbox",
+			"label": "AccumulatedConsumption",
+			"sm": 3, "md": 3, "lg": 3,
 		    },
-		    "normAn4Min": {
-			"type": "number",
-			"label": "normAn4Min",
-			"min": 0,
-			"sm": 12,
-			"md": 6,
-			"lg": 6
+		    "FeedConfigAccumulatedProduction": {
+			"type": "checkbox",
+			"label": "AccumulatedProduction",
+			"sm": 3, "md": 3, "lg": 3,
 		    },
-		    "normAn4Max": {
-			"type": "number",
-			"label": "normAn4Max",
-			"min": 0,
-			"sm": 12,
-			"md": 6,
-			"lg": 6
+		    "FeedConfigAccumulatedConsumptionLastHour": {
+			"type": "checkbox",
+			"label": "AccumulatedConsumptionLastHour",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+
+		    "FeedConfigAccumulatedProductionLastHour": {
+			"type": "checkbox",
+			"label": "AccumulatedProductionLastHour",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigAccumulatedCost": {
+			"type": "checkbox",
+			"label": "AccumulatedCost",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigAccumulatedReward": {
+			"type": "checkbox",
+			"label": "AccumulatedReward",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigCurrency": {
+			"type": "checkbox",
+			"label": "Currency",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+			
+		    "FeedConfigMinPower": {
+			"type": "checkbox",
+			"label": "MinPower",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigAveragePower": {
+			"type": "checkbox",
+			"label": "AveragePower",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigMaxPower": {
+			"type": "checkbox",
+			"label": "MaxPower",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigPowerProduction": {
+			"type": "checkbox",
+			"label": "PowerProduction",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+
+		    "FeedConfigMinPowerProduction": {
+			"type": "checkbox",
+			"label": "MinPowerProduction",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigMaxPowerProduction": {
+			"type": "checkbox",
+			"label": "MaxPowerProduction",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigLastMeterProduction": {
+			"type": "checkbox",
+			"label": "LastMeterProduction",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigPowerFactor": {
+			"type": "checkbox",
+			"label": "PowerFactor",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+
+		    "FeedConfigVoltagePhase1": {
+			"type": "checkbox",
+			"label": "VoltagePhase1",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigVoltagePhase2": {
+			"type": "checkbox",
+			"label": "VoltagePhase2",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigVoltagePhase3": {
+			"type": "checkbox",
+			"label": "VoltagePhase3",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigCurrentL1": {
+			"type": "checkbox",
+			"label": "CurrentL1",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+
+		    "FeedConfigCurrentL2": {
+			"type": "checkbox",
+			"label": "CurrentL2",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigCurrentL3": {
+			"type": "checkbox",
+			"label": "CurrentL3",
+			"sm": 3, "md": 3, "lg": 3,
+		    },
+		    "FeedConfigSignalStrength": {
+			"type": "checkbox",
+			"label": "SignalStrength",
+			"sm": 3, "md": 3, "lg": 3,
 		    }
-		}
+    		}
 	    }
 	}
 }
+
+
+
+
+	<div class="m adapter-container">
+
+		<!-- For example columns with settings: -->
+		<div class="row">
+			<div class="col s6 input-field">
+				<input type="text" class="value" id="TibberAPIToken" />
+				<label for="TibberAPIToken" class="translate">TibberAPIToken</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col s6 input-field" onload="fadeFeedDetailConfigDiv()">
+				<input type="checkbox" class="value" id="FeedActive" />
+				<label for="FeedActive" class="translate">PulseActive</label>
+			</div>
+		</div>
+		<div id="feedDataDetail" style="display: none;">
+			<div class="row">
+				<div class="col s12">
+					<span class="translate">SelectFieldsForFeed</span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col s3 input-field">
+					<input type="checkbox" class="value" id="FeedConfigCurrentL2" />
+					<label for="FeedConfigCurrentL2" class="translate">CurrentL2</label>
+				</div>
+			</div>
+		</div>
+	</div>
