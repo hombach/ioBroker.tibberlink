@@ -122,7 +122,10 @@ export class TibberAPICaller extends TibberHelper {
 		this.adapter.log.debug("Get prices today from tibber api: " + JSON.stringify(pricesToday));
 		this.currentHomeId = homeId;
 		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices as json",);
+			this.getStatePrefix(this.currentHomeId, "PricesToday", "json"),
+			JSON.stringify(pricesToday),
+			"The prices as json",
+		);
 		for (const index in pricesToday) {
 			const price = pricesToday[index];
 			const hour = new Date(price.startsAt).getHours();
