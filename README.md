@@ -29,7 +29,6 @@ initial version
 
 ## License
 
-GNU GENERAL PUBLIC LICENSE
-Version 3, 29 June 2007
+GNU General Public License v3.0 only
 
 Copyright (c) 2023 Hombach <TibberLink@homba.ch>
