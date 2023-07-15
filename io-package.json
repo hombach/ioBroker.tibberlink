@@ -65,12 +65,20 @@
 				"js-controller": ">=3.2.16"
 			}
 		],
-
 		"globalDependencies": [
 			{
 			  "admin": ">=5.0.0"
 			}
 		]
+		"plugins": {
+			"sentry": {
+				"dsn": "https://0e33dc63a0e34165850d97add3cc3684@o415875.ingest.sentry.io/5307610"
+			}
+		},
+	},
+	"native": {
+		"TibberAPIToken": "",
+		"PulseActive": false
 	},
 	"objects": [],
 	"instanceObjects": [
@@ -95,9 +103,5 @@
 			},
 			"native": {}
 		}
-	],
-	"native": {
-		"TibberAPIToken": "",
-		"PulseActive": false
-	}
+	]
 }
