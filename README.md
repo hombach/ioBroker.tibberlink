@@ -31,4 +31,5 @@ initial version
 
 ## License
 GNU General Public License v3.0 only
+
 Copyright (c) 2023 Hombach <TibberLink@homba.ch>
