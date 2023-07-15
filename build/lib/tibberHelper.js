@@ -48,7 +48,7 @@ class TibberHelper {
             await this.adapter.setStateAsync(stateName.value, value, true);
         }
     }
-    async checkAndSetValueNumberUnit(stateName, value, description, unit) {
+    async checkAndSetValueNumberUnit(stateName, value, unit, description) {
         if (value != undefined) {
             await this.adapter.setObjectNotExistsAsync(stateName.value, {
                 type: "state",

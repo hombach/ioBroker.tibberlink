@@ -29,11 +29,7 @@ export class TibberAPICaller extends TibberHelper {
 			// Set HomeId in tibberConfig for further API Calls
 			this.tibberConfig.homeId = this.currentHomeId;
 			// Home GENERAL
-			this.checkAndSetValue(
-				this.getStatePrefix(this.currentHomeId, "General", "Id"),
-				currentHome.id,
-				"ID of your home",
-			);
+			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Id"),currentHome.id,"ID of your home");
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "General", "Timezone"),
 				currentHome.timeZone,
@@ -48,32 +44,22 @@ export class TibberAPICaller extends TibberHelper {
 				this.getStatePrefix(this.currentHomeId, "General", "AvatarInApp"),
 				currentHome.appAvatar,
 				"The chosen avatar for the home",
-			); // Values: APARTMENT, ROWHOUSE, FLOORHOUSE1, FLOORHOUSE2, FLOORHOUSE3, COTTAGE, CASTLE
-			this.checkAndSetValue(
-				this.getStatePrefix(this.currentHomeId, "General", "Type"),
-				currentHome.type,
-				"The type of home.",
-			); // Values: APARTMENT, ROWHOUSE, HOUSE, COTTAGE
+			);
+			// Values: APARTMENT, ROWHOUSE, FLOORHOUSE1, FLOORHOUSE2, FLOORHOUSE3, COTTAGE, CASTLE
+			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Type"),currentHome.type,"The type of home.");
+			// Values: APARTMENT, ROWHOUSE, HOUSE, COTTAGE
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "General", "PrimaryHeatingSource"),
 				currentHome.primaryHeatingSource,
 				"The primary form of heating in the household",
 			); // Values: AIR2AIR_HEATPUMP, ELECTRICITY, GROUND, DISTRICT_HEATING, ELECTRIC_BOILER, AIR2WATER_HEATPUMP, OTHER
-			this.checkAndSetValueNumber(
-				this.getStatePrefix(this.currentHomeId, "General", "Size"),
-				currentHome.size,
-				"The size of the home in square meters",
-			);
+			this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "General", "Size"), currentHome.size, "The size of the home in square meters");
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.currentHomeId, "General", "NumberOfResidents"),
 				currentHome.numberOfResidents,
 				"The number of people living in the home",
 			);
-			this.checkAndSetValueNumber(
-				this.getStatePrefix(this.currentHomeId, "General", "MainFuseSize"),
-				currentHome.mainFuseSize,
-				"The main fuse size",
-			);
+			this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "General", "MainFuseSize"), currentHome.mainFuseSize, "The main fuse size");
 			this.checkAndSetValueBoolean(
 				this.getStatePrefix(this.currentHomeId, "General", "HasVentilationSystem"),
 				currentHome.hasVentilationSystem,
@@ -154,55 +140,33 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "address2"), address.address2);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "address3"), address.address3);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "City"), address.city);
-		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "PostalCode"), address.postalCode,);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "PostalCode"), address.postalCode);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Country"), address.country);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Latitude"), address.latitude);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Longitude"), address.longitude);
 	}
 
 	private fetchPrice(objectDestination: string, price: IPrice): void {
-		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "total"),
-			price.total,
-			"The total price (energy + taxes)",
-		);
-		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "energy"),
-			price.energy,
-			"Spotmarket price",
-		);
+		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), price.total, "The total price (energy + taxes)");
+		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), price.energy, "Spotmarket price");
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "tax"),
 			price.tax,
 			"The tax part of the price (guarantee of origin certificate, energy tax (Sweden only) and VAT)",
 		);
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "startsAt"),
-			price.startsAt,
-			"Start time of the price",
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "startsAt"), price.startsAt, "Start time of the price");
 		//this.checkAndSetValue(this.getStatePrefix(objectDestination, "currency"), price.currency, "The price currency");
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "level"),
-			price.level,
-			"Price level compared to recent price values",
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "level"), price.level, "Price level compared to recent price values");
 	}
 
 	private fetchLegalEntity(objectDestination: string, legalEntity: ILegalEntity): void {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Id"), legalEntity.id);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "FirstName"), legalEntity.firstName);
-		this.checkAndSetValueBoolean(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "IsCompany"),
-			legalEntity.isCompany,
-		);
+		this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, objectDestination, "IsCompany"), legalEntity.isCompany);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Name"), legalEntity.name);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "MiddleName"), legalEntity.middleName);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "LastName"), legalEntity.lastName);
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "OrganizationNo"),
-			legalEntity.organizationNo,
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "OrganizationNo"), legalEntity.organizationNo);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Language"), legalEntity.language);
 		if (legalEntity.contactInfo) {
 			this.fetchContactInfo(objectDestination + ".ContactInfo", legalEntity.contactInfo);
