@@ -18,7 +18,6 @@
 			}
 		},
 		"titleLang": {
-
 			"en": "Tibber Link",
 			"de": "Tibber Link",
 			"ru": "Тиббер Ссылка",
@@ -53,7 +52,7 @@
 		"enabled": true,
 		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/main/admin/tibberlink.png",
 		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/main/README.md",
-		"loglevel": "debug",
+		"loglevel": "info",
 		"mode": "daemon",
 		"allowInit": true,
 		"type": "communication",

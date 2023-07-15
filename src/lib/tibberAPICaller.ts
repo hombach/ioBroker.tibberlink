@@ -124,7 +124,7 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(
 			this.getStatePrefix(this.currentHomeId, "PricesToday", "json"),
 			JSON.stringify(pricesToday),
-			"The prices as json",
+			"The prices today as json",
 		);
 		for (const index in pricesToday) {
 			const price = pricesToday[index];
@@ -140,7 +140,7 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(
 			this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"),
 			JSON.stringify(pricesTomorrow),
-			"The prices as json",
+			"The prices tomorrow as json",
 		);
 		for (const index in pricesTomorrow) {
 			const price = pricesTomorrow[index];
