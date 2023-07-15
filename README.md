@@ -1,11 +1,10 @@
 ![Logo](admin/tibberlink.png)
-
 # ioBroker.tibberlink
 
-![![NPM version](https://img.shields.io/npm/v/iobroker.tibberlink.svg)](https://www.npmjs.com/package/iobroker.tibberlink)
-![![Downloads](https://img.shields.io/npm/dm/iobroker.tibberlink.svg)](https://www.npmjs.com/package/iobroker.tibberlink)
-![Number of Installations](https://iobroker.live/badges/tibberlink-installed.svg)
-![Current version in stable repository](https://iobroker.live/badges/tibberlink-stable.svg)
+[![NPM version](https://img.shields.io/npm/v/iobroker.tibberlink.svg)](https://www.npmjs.com/package/iobroker.tibberlink)
+![NPM version (stable)](https://iobroker.live/badges/tibberlink-stable.svg)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.tibberlink.svg)](https://www.npmjs.com/package/iobroker.tibberlink)
+![Number of Installations (latest)](https://iobroker.live/badges/tibberlink-installed.svg)
 [![Dependency Status](https://img.shields.io/david/Hombach/iobroker.tibberlink.svg)](https://david-dm.org/Hombach/iobroker.tibberlink)
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
