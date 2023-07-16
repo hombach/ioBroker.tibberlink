@@ -5,7 +5,8 @@
 ![NPM version (stable)](https://iobroker.live/badges/tibberlink-stable.svg)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.tibberlink.svg)](https://www.npmjs.com/package/iobroker.tibberlink)
 ![Number of Installations (latest)](https://iobroker.live/badges/tibberlink-installed.svg)
-[![Dependency Status](https://img.shields.io/david/Hombach/iobroker.tibberlink.svg)](https://david-dm.org/Hombach/iobroker.tibberlink)
+[![Known Vulnerabilities](https://snyk.io/test/github/hombach/ioBroker.tibberlink.svg)](https://snyk.io/test/github/hombach/ioBroker.tibberlink)
+
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
 
