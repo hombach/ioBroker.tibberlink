@@ -29,26 +29,23 @@
 				"text": "SelectFieldsForFeed",
 				"size": 3
 			},
-
 			"FeedConfigLastMeterConsumption": {
 				"type": "checkbox",
 				"label": "LastMeterConsumption",
 				"sm": 3, "md": 3, "lg": 3,
-				"disabled": "true",
+				"disabled": "!data.FeedActive",
 				"newLine": true
 			},
-
-			
 			"FeedConfigAccumulatedConsumption": {
 				"type": "checkbox",
 				"label": "AccumulatedConsumption",
-				"disabled": "native.FeedActive",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigAccumulatedProduction": {
 				"type": "checkbox",
 				"label": "AccumulatedProduction",
-				"disabled": "data.FeedActive",
+				"hideOnlyControl": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigAccumulatedConsumptionLastHour": {
