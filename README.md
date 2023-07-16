@@ -20,6 +20,12 @@ If you're not a Tibber user right now, it's greatly appreciated when you're usin
 
 [https://invite.tibber.com/2gwuign3.](https://invite.tibber.com/2gwuign3.)
 
+## Configuration
+1. Create a new instance of the adapter
+2. Fill in your Tibber API token 
+3. Choose to also pull data from your Tibber Pulse  -  !! Only working if hardware is installed
+4. Save the settings
+
 ## Notes
 This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more details and for informations on how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
