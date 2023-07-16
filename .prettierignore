@@ -1,4 +1,4 @@
 package.json
 package-lock.json
 build/
-src/X_main.ts
+src/main.ts
