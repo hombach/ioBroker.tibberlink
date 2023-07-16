@@ -61,14 +61,10 @@ class Tibberlink extends utils.Adapter {
 			if (!this.config.FeedActive) {
 				if (this.homeIdList) {
 					this.setState("info.connection", true, true);
-					this.log.debug(
-						"Connection Check: Feed not enabled and I received home list from api - good connection",
-					);
+					this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
 				} else {
 					this.setState("info.connection", false, true);
-					this.log.debug(
-						"Connection Check: Feed not enabled and I do not get home list from api - bad connection",
-					);
+					this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
 				}
 			}
 
@@ -148,14 +144,14 @@ class Tibberlink extends utils.Adapter {
 						}
 					}
 				}
-			}, 300000);
+			}, 1500000);
 			this.intervallList.push(energyPricesListUpdateInterval);
 
 			// If User uses TibberConfig - start connection
 			if (this.config.FeedActive) {
 				for (const index in this.homeIdList) {
 					try {
-						tibberConfigFeed.homeId = this.homeIdList[index];
+						tibberConfigFeed.homeId = this.homeIdList[index]; // ERROR: Only latest homeID will be used at this point
 						// define fields for Datafeed
 						tibberConfigFeed.timestamp = true;
 						tibberConfigFeed.power = true;
@@ -245,14 +241,11 @@ class Tibberlink extends utils.Adapter {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
 			// clearTimeout(timeout1);
-			// clearInterval(interval1);
 			for (const index in this.intervallList) {
 				this.clearInterval(this.intervallList[index]);
 			}
-
 			// info.connect to false, if adapter is closed
 			this.setState("info.connection", false, true);
-
 			callback();
 		} catch (e) {
 			callback();

@@ -161,13 +161,13 @@ class Tibberlink extends utils.Adapter {
                         }
                     }
                 }
-            }, 300000);
+            }, 1500000);
             this.intervallList.push(energyPricesListUpdateInterval);
             // If User uses TibberConfig - start connection
             if (this.config.FeedActive) {
                 for (const index in this.homeIdList) {
                     try {
-                        tibberConfigFeed.homeId = this.homeIdList[index];
+                        tibberConfigFeed.homeId = this.homeIdList[index]; // ERROR: Only latest homeID will be used at this point
                         // define fields for Datafeed
                         tibberConfigFeed.timestamp = true;
                         tibberConfigFeed.power = true;
@@ -257,7 +257,6 @@ class Tibberlink extends utils.Adapter {
         try {
             // Here you must clear all timeouts or intervals that may still be active
             // clearTimeout(timeout1);
-            // clearInterval(interval1);
             for (const index in this.intervallList) {
                 this.clearInterval(this.intervallList[index]);
             }
