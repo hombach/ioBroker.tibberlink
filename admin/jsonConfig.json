@@ -42,10 +42,10 @@
 			"FeedConfigAccumulatedConsumption": {
 				"type": "checkbox",
 				"label": "AccumulatedConsumption",
-				"disabled": "data.myType === 2", // disabled if myType is 2
+				"disabled": "data.myType === 2",
 				"sm": 3, "md": 3, "lg": 3
 			},
-			"options.myType": { // name could support more than one levelhelperText
+			"options.myType": {
                     		"type": "select",
                     		"label": "Type",
                     		"sm": 3,
