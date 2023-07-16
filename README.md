@@ -36,6 +36,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ### 0.1.2 (2023-07-17) - WIP
 hide unused checkboxes in config
+fix snyc and appveyor
 ### 0.1.1 (2023-07-16)
 remove release script and dev-server
 ### 0.1.0 (2023-07-14)
