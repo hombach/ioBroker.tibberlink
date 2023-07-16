@@ -4,17 +4,17 @@
 		"version": "0.1.1",
 		"news": {
 			"0.1.1": {
-				"en": "remove release script",
-				"de": "löschskript entfernen",
-				"ru": "удалить сценарий выпуска",
-				"pt": "remover script de versão",
-				"nl": "verwijder het script",
-				"fr": "supprimer script",
-				"it": "rimuovere lo script di rilascio",
-				"es": "eliminar script de liberación",
-				"pl": "usunąć script",
-				"uk": "видалити скрипт релізу",
-				"zh-cn": "删除说明"
+				"en": "remove release script and dev-server",
+				"de": "release-script und dev-server entfernen",
+				"ru": "удалить сценарий выпуска и dev-server",
+				"pt": "remover script de versão e dev-server",
+				"nl": "verwijder het script en dev-server",
+				"fr": "supprimer script de publication et dev-server",
+				"it": "rimuovere lo script di rilascio e dev-server",
+				"es": "eliminar script de liberación y servidor dev",
+				"pl": "usunąć skrypt i dev-serwerver",
+				"uk": "видалити скрипт релізу і dev-server",
+				"zh-cn": "删除 说明和保留"
 			},
 			"0.1.0": {
 				"en": "initial release",
