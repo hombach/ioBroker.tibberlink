@@ -7,10 +7,12 @@
 ![Number of Installations (latest)](https://iobroker.live/badges/tibberlink-installed.svg)
 [![Known Vulnerabilities](https://snyk.io/test/github/hombach/ioBroker.tibberlink.svg)](https://snyk.io/test/github/hombach/ioBroker.tibberlink)
 
+**CI-Tests:**
+![Test and Release](https://github.com/hombach/ioBroker.tibberlink/workflows/Test%20and%20Release/badge.svg)
+[![CodeQL](https://github.com/hombach/ioBroker.tibberlink/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/hombach/ioBroker.tibberlink/actions/workflows/codeql-analysis.yml)
+[![Appveyor-CI](https://ci.appveyor.com/api/projects/status/github/hombach/ioBroker.tibberlink?branch=main&svg=true)](https://ci.appveyor.com/project/hombach/tibberlink)
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
-
-**Tests:** ![Test and Release](https://github.com/Hombach/ioBroker.tibberlink/workflows/Test%20and%20Release/badge.svg)
 
 
 ## Adapter for using TIBBER energy data in iOBroker
