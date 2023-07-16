@@ -25,6 +25,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.1.1 (2023-07-16)
+remove release script
 ### 0.1.0 (2023-07-14)
 initial version
 

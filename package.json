@@ -1,6 +1,6 @@
 {
   "name": "iobroker.tibberlink",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "links tibber API data to be used in ioBroker",
   "author": {
     "name": "Hombach",
@@ -26,7 +26,6 @@
     "tibber-api": "~5.1.9"
   },
   "devDependencies": {
-    "@alcalzone/release-script": "^3.5.9",
     "@iobroker/testing": "^4.1.0",
     "@iobroker/dev-server": "^0.6.0",
     "@types/chai": "^4.3.5",
@@ -75,8 +74,7 @@
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:ts && npm run test:package",
     "check": "tsc --noEmit",
-    "lint": "eslint --ext .ts src/",
-    "release": "release-script"
+    "lint": "eslint --ext .ts src/"
   },
   "bugs": {
     "url": "https://github.com/Hombach/ioBroker.tibberlink/issues"

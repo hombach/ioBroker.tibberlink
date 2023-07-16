@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.0",
+		"version": "0.1.1",
 		"news": {
+			"0.1.1": {
+				"en": "remove release script",
+				"de": "löschskript entfernen",
+				"ru": "удалить сценарий выпуска",
+				"pt": "remover script de versão",
+				"nl": "verwijder het script",
+				"fr": "supprimer script",
+				"it": "rimuovere lo script di rilascio",
+				"es": "eliminar script de liberación",
+				"pl": "usunąć script",
+				"uk": "видалити скрипт релізу",
+				"zh-cn": "删除说明"
+			},
 			"0.1.0": {
 				"en": "initial release",
 				"de": "Erstveröffentlichung",
