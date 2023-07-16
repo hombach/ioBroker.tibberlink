@@ -42,20 +42,9 @@
 			"FeedConfigAccumulatedConsumption": {
 				"type": "checkbox",
 				"label": "AccumulatedConsumption",
-				"disabled": "data.myType === 2",
+				"disabled": "native.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
-			"options.myType": {
-                    		"type": "select",
-                    		"label": "Type",
-                    		"sm": 3,
-				"options": [
-					{"label": "option 1", value: 1},
-					{"label": "option 2", value: 2}
-				] 
-			},
-
-			
 			"FeedConfigAccumulatedProduction": {
 				"type": "checkbox",
 				"label": "AccumulatedProduction",
