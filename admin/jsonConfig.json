@@ -27,13 +27,14 @@
 			"feedDataDetail": {
 				"type": "header",
 				"text": "SelectFieldsForFeed",
+				"hidden": "!data.FeedActive",
 				"size": 3
 			},
 			"FeedConfigLastMeterConsumption": {
 				"type": "checkbox",
 				"label": "LastMeterConsumption",
 				"sm": 3, "md": 3, "lg": 3,
-				"disabled": "!data.FeedActive",
+				"hidden": "!data.FeedActive",
 				"newLine": true
 			},
 			"FeedConfigAccumulatedConsumption": {
@@ -45,107 +46,127 @@
 			"FeedConfigAccumulatedProduction": {
 				"type": "checkbox",
 				"label": "AccumulatedProduction",
-				"hideOnlyControl": "!data.FeedActive",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigAccumulatedConsumptionLastHour": {
 				"type": "checkbox",
 				"label": "AccumulatedConsumptionLastHour",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigAccumulatedProductionLastHour": {
 				"type": "checkbox",
 				"label": "AccumulatedProductionLastHour",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigAccumulatedCost": {
 				"type": "checkbox",
 				"label": "AccumulatedCost",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigAccumulatedReward": {
 				"type": "checkbox",
 				"label": "AccumulatedReward",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigCurrency": {
 				"type": "checkbox",
 				"label": "Currency",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigMinPower": {
 				"type": "checkbox",
 				"label": "MinPower",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigAveragePower": {
 				"type": "checkbox",
 				"label": "AveragePower",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigMaxPower": {
 				"type": "checkbox",
 				"label": "MaxPower",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigPowerProduction": {
 				"type": "checkbox",
 				"label": "PowerProduction",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigMinPowerProduction": {
 				"type": "checkbox",
 				"label": "MinPowerProduction",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigMaxPowerProduction": {
 				"type": "checkbox",
 				"label": "MaxPowerProduction",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigLastMeterProduction": {
 				"type": "checkbox",
 				"label": "LastMeterProduction",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigPowerFactor": {
 				"type": "checkbox",
 				"label": "PowerFactor",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigVoltagePhase1": {
 				"type": "checkbox",
 				"label": "VoltagePhase1",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigVoltagePhase2": {
 				"type": "checkbox",
 				"label": "VoltagePhase2",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigVoltagePhase3": {
 				"type": "checkbox",
 				"label": "VoltagePhase3",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigCurrentL1": {
 				"type": "checkbox",
 				"label": "CurrentL1",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigCurrentL2": {
 				"type": "checkbox",
 				"label": "CurrentL2",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigCurrentL3": {
 				"type": "checkbox",
 				"label": "CurrentL3",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			},
 			"FeedConfigSignalStrength": {
 				"type": "checkbox",
 				"label": "SignalStrength",
+				"hidden": "!data.FeedActive",
 				"sm": 3, "md": 3, "lg": 3
 			}
     		}
