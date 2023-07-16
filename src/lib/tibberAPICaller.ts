@@ -29,24 +29,16 @@ export class TibberAPICaller extends TibberHelper {
 			// Set HomeId in tibberConfig for further API Calls
 			this.tibberConfig.homeId = this.currentHomeId;
 			// Home GENERAL
-			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Id"),currentHome.id,"ID of your home");
-			this.checkAndSetValue(
-				this.getStatePrefix(this.currentHomeId, "General", "Timezone"),
-				currentHome.timeZone,
-				"The time zone the home resides in",
-			);
+			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Id"), currentHome.id, "ID of your home");
+			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Timezone"), currentHome.timeZone, "The time zone the home resides in");
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "General", "NameInApp"),
 				currentHome.appNickname,
 				"The nickname given to the home by the user",
 			);
-			this.checkAndSetValue(
-				this.getStatePrefix(this.currentHomeId, "General", "AvatarInApp"),
-				currentHome.appAvatar,
-				"The chosen avatar for the home",
-			);
+			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "AvatarInApp"), currentHome.appAvatar, "The chosen avatar for the home");
 			// Values: APARTMENT, ROWHOUSE, FLOORHOUSE1, FLOORHOUSE2, FLOORHOUSE3, COTTAGE, CASTLE
-			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Type"),currentHome.type,"The type of home.");
+			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Type"), currentHome.type, "The type of home.");
 			// Values: APARTMENT, ROWHOUSE, HOUSE, COTTAGE
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "General", "PrimaryHeatingSource"),
@@ -107,11 +99,7 @@ export class TibberAPICaller extends TibberHelper {
 		const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
 		this.adapter.log.debug("Get prices today from tibber api: " + JSON.stringify(pricesToday));
 		this.currentHomeId = homeId;
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, "PricesToday", "json"),
-			JSON.stringify(pricesToday),
-			"The prices today as json",
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
 		for (const index in pricesToday) {
 			const price = pricesToday[index];
 			const hour = new Date(price.startsAt).getHours();
@@ -123,11 +111,7 @@ export class TibberAPICaller extends TibberHelper {
 		const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 		this.adapter.log.debug("Get prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
 		this.currentHomeId = homeId;
-		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"),
-			JSON.stringify(pricesTomorrow),
-			"The prices tomorrow as json",
-		);
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
 		for (const index in pricesTomorrow) {
 			const price = pricesTomorrow[index];
 			const hour = new Date(price.startsAt).getHours();

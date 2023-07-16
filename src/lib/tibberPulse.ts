@@ -79,12 +79,7 @@ export class TibberPulse extends TibberHelper {
 				liveMeasurement.timestamp,
 				"Timestamp when usage occurred",
 			);
-			this.checkAndSetValueNumberUnit(
-				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"),
-				power,
-				"W",
-				"Consumption at the moment",
-			);
+			this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"), power, "W", "Consumption at the moment");
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"),
 				liveMeasurement.lastMeterConsumption,

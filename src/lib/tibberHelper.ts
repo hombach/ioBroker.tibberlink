@@ -15,11 +15,7 @@ export class TibberHelper {
 		return statePrefix;
 	}
 
-	protected async checkAndSetValue(
-		stateName: { [key: string]: string },
-		value: string,
-		description?: string,
-	): Promise<void> {
+	protected async checkAndSetValue(stateName: { [key: string]: string }, value: string, description?: string): Promise<void> {
 		if (value != undefined) {
 			if (value.trim().length > 0) {
 				await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -34,17 +30,12 @@ export class TibberHelper {
 					},
 					native: {},
 				});
-
 				await this.adapter.setStateAsync(stateName.value, value, true);
 			}
 		}
 	}
 
-	protected async checkAndSetValueNumber(
-		stateName: { [key: string]: string },
-		value: number,
-		description?: string,
-	): Promise<void> {
+	protected async checkAndSetValueNumber(stateName: { [key: string]: string }, value: number, description?: string): Promise<void> {
 		if (value != undefined) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
@@ -58,17 +49,11 @@ export class TibberHelper {
 				},
 				native: {},
 			});
-
 			await this.adapter.setStateAsync(stateName.value, value, true);
 		}
 	}
 
-	protected async checkAndSetValueNumberUnit(
-		stateName: { [key: string]: string },
-		value: number,
-		unit?: string,
-		description?: string,
-	): Promise<void> {
+	protected async checkAndSetValueNumberUnit(stateName: { [key: string]: string }, value: number, unit?: string, description?: string): Promise<void> {
 		if (value != undefined) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
@@ -83,16 +68,11 @@ export class TibberHelper {
 				},
 				native: {},
 			});
-
 			await this.adapter.setStateAsync(stateName.value, value, true);
 		}
 	}
 
-	protected async checkAndSetValueBoolean(
-		stateName: { [key: string]: string },
-		value: boolean,
-		description?: string,
-	): Promise<void> {
+	protected async checkAndSetValueBoolean(stateName: { [key: string]: string }, value: boolean, description?: string): Promise<void> {
 		if (value) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
@@ -106,7 +86,6 @@ export class TibberHelper {
 				},
 				native: {},
 			});
-
 			await this.adapter.setStateAsync(stateName.value, value, true);
 		}
 	}
