@@ -72,7 +72,7 @@ class Tibberlink extends utils.Adapter {
 			if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
 				const sentryInstance = this.getPluginInstance("sentry");
 				const today = new Date();
-				var last = await this.getStateAsync("LastSentryLogDay")
+				let last = await this.getStateAsync("LastSentryLogDay")
 				// if (last?.val != await today.getDate()) {
 				if (sentryInstance) {
 					const Sentry = sentryInstance.getSentryObject();
