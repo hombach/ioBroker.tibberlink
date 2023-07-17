@@ -4,17 +4,17 @@
 		"version": "0.1.4",
 		"news": {
 			"0.1.4": {
-				"en": "encrypted API-Token in ioBroker",
-				"de": "verschlüsselte API-Token in ioBroker",
-				"ru": "зашифрованный API-Token в ioBroker",
-				"pt": "aPI-Token criptografado no ioBroker",
-				"nl": "gecodeerde API-Token in ioBroker",
-				"fr": "crypté API-Token in ioBroker",
-				"it": "aPI-Token crittografato in ioBroker",
-				"es": "encriptado API-Token en ioBroker",
-				"pl": "zaszyfrowane API-Token w ioBrokerie",
-				"uk": "зашифрований API-Token в ioBroker",
-				"zh-cn": "加密的API-Token inio Broker"
+				"en": "BREAKING: encrypted API-Token in ioBroker; rearranged configuration options; fixed bug in state generation",
+				"de": "BREAKING: verschlüsselte API-Token in ioBroker; erweiterte Konfigurationsoptionen; Fehler in der Zustandsgeneration behoben",
+				"ru": "ЗАВТРАК: зашифрованный API-токен в ioBroker; перестроенные варианты конфигурации; исправлена ошибка в государственном поколению",
+				"pt": "BREAKING: API-Token criptografado no ioBroker; opções de configuração rearranjada; bug fixo na geração de estado",
+				"nl": "Gecodeerde API-Token in ioBroker, herschikte configuratie opties",
+				"fr": "BREAKING: crypté API-Token dans ioBroker; réarranger les options de configuration; bug fixe dans la génération d'état",
+				"it": "BREAKING: API-Token crittografato in ioBroker; opzioni di configurazione riorganizzate; bug fisso nella generazione di stato",
+				"es": "BREAKING: API-Token encriptada en ioBroker; opciones de configuración reorganizadas; bug fijo en generación estatal",
+				"pl": "BREAKING – szyfrowany interfejs API-Token w ioBrokera, opcja konfiguracji; uruchliwy błąd w pokoleniu stanów",
+				"uk": "BREAKING: зашифрований API-Token в ioBroker; параметри перепланованої конфігурації; фіксована помилка в державному генеруванні",
+				"zh-cn": "BREAKRE: 加密的API-Token inio Broker;重新安排的备选办法;国家代代用的固定配件。"
 			},
 			"0.1.3": {
 				"en": "all log messages in English, remove unused state change handler, fixed state roles",

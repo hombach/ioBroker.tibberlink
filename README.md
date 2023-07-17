@@ -35,20 +35,21 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ! Note that missing version entries are typically dependency updates for improved security.
 
 ### 0.1.4 (2023-07-17)
-encrypted API-Token in ioBroker,
-rearranged configuration options
+* (HombachC) BREAKING: encrypted API-Token in ioBroker
+* (HombachC) rearranged configuration options
+* (HombachC) fixed bug in state generation
 ### 0.1.3 (2023-07-17)
-all log messages in English, 
-remove unused state change handler,
-fixed state roles
+* (HombachC) all log messages in English
+* (HombachC) remove unused state change handler
+* (HombachC) fixed state roles
 ### 0.1.2 (2023-07-17)
-round grid consumption meter values to Wh accuracy, 
-hide unused checkboxes in config, 
-fix snyc and appveyor
+* (HombachC) round grid consumption meter values to Wh accuracy
+* (HombachC) hide unused checkboxes in config
+* (HombachC) fix snyc and appveyor
 ### 0.1.1 (2023-07-16)
-remove release script and dev-server
+* (HombachC) remove release script and dev-server
 ### 0.1.0 (2023-07-14)
-initial version
+* (HombachC) initial version
 
 ## License
 GNU General Public License v3.0 only
