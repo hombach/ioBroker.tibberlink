@@ -81,7 +81,7 @@
 		"loglevel": "info",
 		"mode": "daemon",
 		"allowInit": true,
-		"type": "communication",
+		"type": "energy",
 		"compact": true,
 		"connectionType": "cloud",
 		"dataSource": "poll",
