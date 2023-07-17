@@ -66,9 +66,9 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
         if (this.tibberConfig.homeId !== undefined) {
             this.checkAndSetValue(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "timestamp"), liveMeasurement.timestamp, "Timestamp when usage occurred");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"), power, "W", "Consumption at the moment");
-            this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"), (Math.round(1000 * liveMeasurement.lastMeterConsumption)) / 1000, "kWh", "Last meter active import register state");
+            this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"), (Math.round(1000 * liveMeasurement.lastMeterConsumption)) / 1000, "kWh", "Last consumption meter state");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumption"), (Math.round(1000 * liveMeasurement.accumulatedConsumption)) / 1000, "kWh", "Energy consumed since midnight");
-            this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProduction"), liveMeasurement.accumulatedProduction, "kWh", "Energy produced since midnight");
+            this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProduction"), (Math.round(1000 * liveMeasurement.accumulatedProduction)) / 1000, "kWh", "Energy produced since midnight");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumptionLastHour"), liveMeasurement.accumulatedConsumptionLastHour, "kWh", "Energy consumed since since last hour shift");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProductionLastHour"), liveMeasurement.accumulatedProductionLastHour, "kWh", "Energy produced since last hour shift");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedCost"), liveMeasurement.accumulatedCost, "Accumulated cost since midnight; requires active Tibber power deal");
