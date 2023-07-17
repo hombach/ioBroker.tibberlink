@@ -35,8 +35,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ! Note that missing version entries are typically dependency updates for improved security.
 
 ### 0.1.2 (2023-07-17)
-round grid consumption meter values to Wh accuracy
-hide unused checkboxes in config
+round grid consumption meter values to Wh accuracy, 
+hide unused checkboxes in config, 
 fix snyc and appveyor
 ### 0.1.1 (2023-07-16)
 remove release script and dev-server
