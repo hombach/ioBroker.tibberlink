@@ -36,7 +36,7 @@ class Tibberlink extends utils.Adapter {
         });
         this.queryUrl = "";
         this.on("ready", this.onReady.bind(this));
-        this.on("stateChange", this.onStateChange.bind(this));
+        // this.on("stateChange", this.onStateChange.bind(this));
         // this.on("objectChange", this.onObjectChange.bind(this));
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
@@ -76,7 +76,7 @@ class Tibberlink extends utils.Adapter {
                 this.homeIdList = await tibberAPICaller.updateHomesFromAPI();
             }
             catch (error) {
-                this.log.warn(tibberAPICaller.generateErrorMessage(error, "Abruf 'homes'"));
+                this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of homes"));
             }
             // if feed is not used - set info.connection if data received
             if (!this.config.FeedActive) {
@@ -115,19 +115,19 @@ class Tibberlink extends utils.Adapter {
                         await tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
                     }
                     catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "Abruf 'Aktueller Preis'"));
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));
                     }
                     try {
                         await tibberAPICaller.updatePricesToday(this.homeIdList[index]);
                     }
                     catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "Abruf 'Preise von heute'"));
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices today"));
                     }
                     try {
                         await tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
                     }
                     catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "Abruf 'Preise von morgen'"));
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices tomorrow"));
                     }
                 }
             }
@@ -138,7 +138,7 @@ class Tibberlink extends utils.Adapter {
                             tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
                         }
                         catch (error) {
-                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "Abruf 'Aktueller Preis'"));
+                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));
                         }
                     }
                 }
@@ -151,19 +151,19 @@ class Tibberlink extends utils.Adapter {
                             tibberAPICaller.updatePricesToday(this.homeIdList[index]);
                         }
                         catch (error) {
-                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "Abruf 'Preise von heute'"));
+                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices today"));
                         }
                         try {
                             tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
                         }
                         catch (error) {
-                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "Abruf 'Preise von morgen'"));
+                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices tomorrow"));
                         }
                     }
                 }
             }, 1500000);
             this.intervallList.push(energyPricesListUpdateInterval);
-            // If User uses TibberConfig - start connection
+            // If User uses live feed - start connection
             if (this.config.FeedActive) {
                 for (const index in this.homeIdList) {
                     try {
@@ -266,19 +266,6 @@ class Tibberlink extends utils.Adapter {
         }
         catch (e) {
             callback();
-        }
-    }
-    /**
-     * Is called if a subscribed state changes
-     */
-    onStateChange(id, state) {
-        if (state) {
-            // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-        }
-        else {
-            // The state was deleted
-            this.log.info(`state ${id} deleted`);
         }
     }
 }

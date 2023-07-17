@@ -60,7 +60,7 @@ export class TibberAPICaller extends TibberHelper {
 			}
 			errorMessages += error.errors[index].message;
 		}
-		return "Fehler (" + error.statusMessage + ") bei Vorgang: " + context + ": " + errorMessages;
+		return "Error (" + error.statusMessage + ") during: " + context + ": " + errorMessages;
 	}
 
 	async updateCurrentPrice(homeId: string): Promise<void> {

@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.2",
+		"version": "0.1.3",
 		"news": {
+			"0.1.3": {
+				"en": "all log messages in English, remove unused state change handler",
+				"de": "alle Log-Nachrichten in englischer Sprache, entfernen Sie ungenutzte Zustand ändern Handler",
+				"ru": "все лог-сообщения на английском языке, удалить неиспользуемый государственный обработчик",
+				"pt": "todas as mensagens de log em inglês, remover unused estado change handler",
+				"nl": "alle logberichten in het Engels, verwijder onbruikbare staatsveranderaar",
+				"fr": "tous les messages journaux en anglais, supprimer le gestionnaire de changement d'état inutilisé",
+				"it": "tutti i messaggi di registro in inglese, rimuovere inutilizzato stato change handler",
+				"es": "todos los mensajes de registro en inglés, eliminar el manejador de cambio de estado no utilizado",
+				"pl": "wszystkie wiadomości w języku angielskim usuwają nieużywaną zmianę stanu",
+				"uk": "всі повідомлення журналу англійською мовою, видалити невикористаний державний обробник змін",
+				"zh-cn": "英文的所有文信,删除未用国家变化手字"
+			},
 			"0.1.2": {
 				"en": "round grid consumption meter values to Wh accuracy",
 				"de": "rundgitter-Verbrauchsmesswerte zur Wh-Genauigkeit",
