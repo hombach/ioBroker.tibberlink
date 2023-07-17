@@ -72,25 +72,25 @@ class Tibberlink extends utils.Adapter {
 			if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
 				const sentryInstance = this.getPluginInstance("sentry");
 				const today = new Date();
-				let last = await this.getStateAsync("LastSentryLogDay")
-				// if (last?.val != await today.getDate()) {
-				if (sentryInstance) {
-					const Sentry = sentryInstance.getSentryObject();
-					Sentry && Sentry.withScope(
-						(scope: {
-							setLevel: (arg0: string) => void;
-							setTag: (arg0: string, arg1: number) => void;
-						}) => {
-							scope.setLevel("info");
-							scope.setTag("SentryDay", today.getDate());
-							scope.setTag("HomeIDs", this.homeIdList.length);
-							Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
-						}
-					);
+				const last = await this.getStateAsync("LastSentryLogDay")
+				if (last?.val != await today.getDate()) {
+					if (sentryInstance) {
+						const Sentry = sentryInstance.getSentryObject();
+						Sentry && Sentry.withScope(
+							(scope: {
+								setLevel: (arg0: string) => void;
+								setTag: (arg0: string, arg1: number) => void;
+							}) => {
+								scope.setLevel("info");
+								scope.setTag("SentryDay", today.getDate());
+								scope.setTag("HomeIDs", this.homeIdList.length);
+								Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
+							}
+						);
+					}
+					// this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
+					this.setStateAsync("LastSentryLogDay", { val: today.getDate(), ack: true });
 				}
-				// this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
-				this.setStateAsync("LastSentryLogDay", { val: today.getDate(), ack: true });
-				// }
 			}
 
 			// Init Load Data for home
