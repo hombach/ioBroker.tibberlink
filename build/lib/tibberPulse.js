@@ -69,7 +69,9 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"), (Math.round(1000 * liveMeasurement.lastMeterConsumption)) / 1000, "kWh", "Latest consumption meter state");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumption"), (Math.round(1000 * liveMeasurement.accumulatedConsumption)) / 1000, "kWh", "Energy consumed since midnight");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProduction"), (Math.round(1000 * liveMeasurement.accumulatedProduction)) / 1000, "kWh", "Energy produced since midnight");
-            this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumptionLastHour"), (Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour)) / 1000, "kWh", "Energy consumed since since last hour shift");
+            if (liveMeasurement.accumulatedConsumptionLastHour) {
+                this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumptionLastHour"), (Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour)) / 1000, "kWh", "Energy consumed since since last hour shift");
+            }
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProductionLastHour"), (Math.round(1000 * liveMeasurement.accumulatedProductionLastHour)) / 1000, "kWh", "Energy produced since last hour shift");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedCost"), liveMeasurement.accumulatedCost, "Accumulated cost since midnight; requires active Tibber power deal");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedReward"), liveMeasurement.accumulatedReward, "Accumulated reward since midnight; requires active Tibber power deal");

@@ -34,6 +34,9 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.1.4 (2023-07-17)
+encrypted API-Token in ioBroker,
+rearranged configuration options
 ### 0.1.3 (2023-07-17)
 all log messages in English, 
 remove unused state change handler,

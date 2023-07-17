@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.3",
+		"version": "0.1.4",
 		"news": {
+			"0.1.4": {
+				"en": "encrypted API-Token in ioBroker",
+				"de": "verschlüsselte API-Token in ioBroker",
+				"ru": "зашифрованный API-Token в ioBroker",
+				"pt": "aPI-Token criptografado no ioBroker",
+				"nl": "gecodeerde API-Token in ioBroker",
+				"fr": "crypté API-Token in ioBroker",
+				"it": "aPI-Token crittografato in ioBroker",
+				"es": "encriptado API-Token en ioBroker",
+				"pl": "zaszyfrowane API-Token w ioBrokerie",
+				"uk": "зашифрований API-Token в ioBroker",
+				"zh-cn": "加密的API-Token inio Broker"
+			},
 			"0.1.3": {
 				"en": "all log messages in English, remove unused state change handler, fixed state roles",
 				"de": "alle Log-Nachrichten in Englisch, entfernen Sie ungenutzte Zustandsänderungs-Handler, Zustandsrollen korrigiert",
@@ -82,8 +95,8 @@
 			"uk": "посилання tibber дані API для використання в ioBroker",
 			"zh-cn": "broker将使用的tibber API数据链接"
 		},
-		"authors": ["Hombach <TibberLink@homba.ch>"],
-		"keywords": ["power", "energy", "Tibber"],
+		"authors": [ "Hombach <TibberLink@homba.ch>" ],
+		"keywords": [ "power", "energy", "Tibber" ],
 		"license": "GPL-3.0-only",
 		"platform": "Javascript/Node.js",
 		"main": "build/main.js",
@@ -109,7 +122,7 @@
 		],
 		"globalDependencies": [
 			{
-			  "admin": ">=5.0.0"
+				"admin": ">=5.0.0"
 			}
 		],
 		"plugins": {
@@ -118,6 +131,8 @@
 			}
 		}
 	},
+	"encryptedNative": ["TibberAPIToken"],
+	"protectedNative": ["TibberAPIToken"],
 	"native": {
 		"TibberAPIToken": "",
 		"PulseActive": false
@@ -129,6 +144,20 @@
 			"type": "channel",
 			"common": {
 				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.LastSentryLogDay",
+			"type": "state",
+			"common": {
+				"role": "value",
+				"name": "Last day of month for Sentry log",
+				"type": "number",
+				"unit": "",
+				"read": true,
+				"write": false,
+				"def": 0
 			},
 			"native": {}
 		},
