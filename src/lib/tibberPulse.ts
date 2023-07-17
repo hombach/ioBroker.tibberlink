@@ -84,7 +84,7 @@ export class TibberPulse extends TibberHelper {
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"),
 				(Math.round(1000 * liveMeasurement.lastMeterConsumption)) / 1000,
 				"kWh",
-				"Last consumption meter state",
+				"Latest consumption meter state",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumption"),
@@ -100,13 +100,13 @@ export class TibberPulse extends TibberHelper {
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumptionLastHour"),
-				liveMeasurement.accumulatedConsumptionLastHour,
+				(Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour)) / 1000,
 				"kWh",
 				"Energy consumed since since last hour shift",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProductionLastHour"),
-				liveMeasurement.accumulatedProductionLastHour,
+				(Math.round(1000 * liveMeasurement.accumulatedProductionLastHour)) / 1000,
 				"kWh",
 				"Energy produced since last hour shift",
 			);
@@ -169,9 +169,9 @@ export class TibberPulse extends TibberHelper {
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterProduction"),
-				liveMeasurement.lastMeterProduction,
+				(Math.round(1000 * liveMeasurement.lastMeterProduction)) / 1000,
 				"kWh",
-				"Last meter active export register state",
+				"Latest production meter state",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerFactor"),
@@ -193,19 +193,22 @@ export class TibberPulse extends TibberHelper {
 				liveMeasurement.voltagePhase3,
 				"Voltage on phase 3; on Kaifa and Aidon meters the value is not part of every HAN data frame therefore the value is null at timestamps with second value other than 0, 10, 20, 30, 40, 50. There can be other deviations based on concrete meter firmware.",
 			);
-			this.checkAndSetValueNumber(
+			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL1"),
 				liveMeasurement.currentL1,
+				"A",
 				"Current on L1; on Kaifa and Aidon meters the value is not part of every HAN data frame therefore the value is null at timestamps with second value other than 0, 10, 20, 30, 40, 50. There can be other deviations based on concrete meter firmware.",
 			);
-			this.checkAndSetValueNumber(
+			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL2"),
 				liveMeasurement.currentL2,
+				"A",
 				"Current on L2; on Kaifa and Aidon meters the value is not part of every HAN data frame therefore the value is null at timestamps with second value other than 0, 10, 20, 30, 40, 50. There can be other deviations based on concrete meter firmware.",
 			);
-			this.checkAndSetValueNumber(
+			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL3"),
 				liveMeasurement.currentL3,
+				"A",
 				"Current on L3; on Kaifa and Aidon meters the value is not part of every HAN data frame therefore the value is null at timestamps with second value other than 0, 10, 20, 30, 40, 50. There can be other deviations based on concrete meter firmware.",
 			);
 			this.checkAndSetValueNumber(
