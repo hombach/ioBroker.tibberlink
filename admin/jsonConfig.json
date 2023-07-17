@@ -108,13 +108,15 @@
 				"md": 3,
 				"lg": 3
 			},
+
 			"FeedConfigMinPower": {
 				"type": "checkbox",
 				"label": "MinPower",
 				"hidden": "!data.FeedActive",
 				"sm": 3,
 				"md": 3,
-				"lg": 3
+				"lg": 3,
+				"newLine": true
 			},
 			"FeedConfigAveragePower": {
 				"type": "checkbox",
@@ -132,13 +134,15 @@
 				"md": 3,
 				"lg": 3
 			},
+
 			"FeedConfigPowerProduction": {
 				"type": "checkbox",
 				"label": "PowerProduction",
 				"hidden": "!data.FeedActive",
 				"sm": 3,
 				"md": 3,
-				"lg": 3
+				"lg": 3,
+				"newLine": true
 			},
 			"FeedConfigMinPowerProduction": {
 				"type": "checkbox",
