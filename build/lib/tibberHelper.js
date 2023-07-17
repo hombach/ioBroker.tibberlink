@@ -20,7 +20,7 @@ class TibberHelper {
                     common: {
                         name: stateName.key,
                         type: "string",
-                        role: "String",
+                        role: "text",
                         desc: description,
                         read: true,
                         write: false,
@@ -38,7 +38,7 @@ class TibberHelper {
                 common: {
                     name: stateName.key,
                     type: "number",
-                    role: "Number",
+                    role: "value",
                     desc: description,
                     read: true,
                     write: false,
@@ -55,7 +55,7 @@ class TibberHelper {
                 common: {
                     name: stateName.key,
                     type: "number",
-                    role: "Number",
+                    role: "value",
                     desc: description,
                     unit: unit,
                     read: true,
@@ -73,7 +73,7 @@ class TibberHelper {
                 common: {
                     name: stateName.key,
                     type: "boolean",
-                    role: "Boolean",
+                    role: "indicator",
                     desc: description,
                     read: true,
                     write: false,

@@ -37,6 +37,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ### 0.1.3 (2023-07-17)
 all log messages in English, 
 remove unused state change handler
+fixed state roles
 ### 0.1.2 (2023-07-17)
 round grid consumption meter values to Wh accuracy, 
 hide unused checkboxes in config, 
