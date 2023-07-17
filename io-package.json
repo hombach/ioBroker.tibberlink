@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.1",
+		"version": "0.1.2",
 		"news": {
+			"0.1.2": {
+				"en": "round grid consumption meter values to Wh accuracy",
+				"de": "rundgitter-Verbrauchsmesswerte zur Wh-Genauigkeit",
+				"ru": "круглые значения счетчика потребления сетки для точности Wh",
+				"pt": "valores do medidor de consumo de grade redonda para a precisão de Wh",
+				"nl": "rond de grid consumptiemeter waarden aan Wh accurateur",
+				"fr": "valeurs des compteurs de consommation de grille ronde à la précision Wh",
+				"it": "valori del contatore di consumo della griglia tonda alla precisione Wh",
+				"es": "valores del medidor de rejilla redonda a la precisión Wh",
+				"pl": "okrągłe zużycie liczników do dokładności Wh",
+				"uk": "значення лічильника потужності круглої сітки до точності wh",
+				"zh-cn": "圆电网消费参数值"
+			},
 			"0.1.1": {
 				"en": "remove release script and dev-server",
 				"de": "release-script und dev-server entfernen",

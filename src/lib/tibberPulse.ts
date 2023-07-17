@@ -82,13 +82,13 @@ export class TibberPulse extends TibberHelper {
 			this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"), power, "W", "Consumption at the moment");
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"),
-				liveMeasurement.lastMeterConsumption,
+				(Math.round(1000 * liveMeasurement.lastMeterConsumption)) / 1000,
 				"kWh",
 				"Last meter active import register state",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumption"),
-				liveMeasurement.accumulatedConsumption,
+				(Math.round(1000 * liveMeasurement.accumulatedConsumption)) / 1000,
 				"kWh",
 				"Energy consumed since midnight",
 			);
