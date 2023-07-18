@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.4",
+		"version": "0.1.5",
 		"news": {
+			"0.1.5": {
+				"en": "Fix error in sentry logging",
+				"de": "Fehler beim Versandprotokoll beheben",
+				"ru": "Исправлена ошибка в отосланном входе",
+				"pt": "Corrigir erro no registro de sentinela",
+				"nl": "Vergissing",
+				"fr": "Correction de l'erreur dans la journalisation des sentinelles",
+				"it": "Risolvere l'errore nella registrazione delle sentinelle",
+				"es": "Corregir error en registro de centinelas",
+				"pl": "Błędy w pracy",
+				"uk": "Виправлення помилки в журналі відправлення",
+				"zh-cn": "寄发伐木中的固定错误"
+			},
 			"0.1.4": {
 				"en": "BREAKING: encrypted API-Token in ioBroker; rearranged configuration options; fixed bug in state generation",
 				"de": "BREAKING: verschlüsselte API-Token in ioBroker; erweiterte Konfigurationsoptionen; Fehler in der Zustandsgeneration behoben",
