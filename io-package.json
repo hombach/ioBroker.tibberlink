@@ -140,7 +140,7 @@
 		],
 		"plugins": {
 			"sentry": {
-				"dsn": "https://0e33dc63a0e34165850d97add3cc3684@o415875.ingest.sentry.io/5307610"
+				"dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
 			}
 		}
 	},
