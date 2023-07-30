@@ -5,7 +5,7 @@ import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
-	intervallList: any[]; // intervallList: ioBroker.Interval[];
+	intervallList: any[]; // intervallList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
 	homeIdList: string[];
 	queryUrl = "";
 
