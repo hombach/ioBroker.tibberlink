@@ -4,7 +4,7 @@
 		"version": "0.1.6",
 		"news": {
 			"0.1.6": {
-				"en": "Bump dependencies, minor fixes"
+				"en": "add unit Volt for live data, bump dependencies"
 			},
 			"0.1.5": {
 				"en": "Fix error in sentry logging",
