@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberPulse = void 0;
 const tibber_api_1 = require("tibber-api");
-require("@iobroker/types"); //NEW
 const tibberHelper_1 = require("./tibberHelper");
 class TibberPulse extends tibberHelper_1.TibberHelper {
     constructor(tibberConfig, adapter) {
