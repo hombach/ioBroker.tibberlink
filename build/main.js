@@ -34,6 +34,7 @@ class Tibberlink extends utils.Adapter {
             ...options,
             name: "tibberlink",
         });
+        this.intervallList = []; // intervallList: ioBroker.Interval[];
         this.queryUrl = "";
         this.on("ready", this.onReady.bind(this));
         // this.on("stateChange", this.onStateChange.bind(this));

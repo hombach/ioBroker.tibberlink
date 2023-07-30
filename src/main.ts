@@ -6,7 +6,7 @@ import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
-	intervallList: ioBroker.Interval[];
+	intervallList: Array<ioBroker.Interval> = []; // intervallList: ioBroker.Interval[];
 	homeIdList: string[];
 	queryUrl = "";
 
@@ -115,6 +115,7 @@ class Tibberlink extends utils.Adapter {
 					}
 				}
 			}
+
 			const energyPriceCallIntervall = this.setInterval(() => {
 				if (this.homeIdList.length > 0) {
 					for (const index in this.homeIdList) {
