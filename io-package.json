@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.5",
+		"version": "0.1.6",
 		"news": {
+			"0.1.6": {
+				"en": "Bump dependencies, minor fixes"
+			},
 			"0.1.5": {
 				"en": "Fix error in sentry logging",
 				"de": "Fehler beim Versandprotokoll beheben",
