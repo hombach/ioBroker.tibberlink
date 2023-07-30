@@ -23,8 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// The adapter-core module gives you access to the core ioBroker functions
-// you need to create an adapter
+// The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberPulse_1 = require("./lib/tibberPulse");
@@ -34,7 +33,6 @@ class Tibberlink extends utils.Adapter {
             ...options,
             name: "tibberlink",
         });
-        this.intervallList = []; // intervallList: ioBroker.Interval[];
         this.queryUrl = "";
         this.on("ready", this.onReady.bind(this));
         // this.on("stateChange", this.onStateChange.bind(this));

@@ -1,12 +1,11 @@
-// The adapter-core module gives you access to the core ioBroker functions
-// you need to create an adapter
+// The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
 import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
-	intervallList: Array<ioBroker.Interval> = []; // intervallList: ioBroker.Interval[];
+	intervallList: any[]; // intervallList: ioBroker.Interval[];
 	homeIdList: string[];
 	queryUrl = "";
 
