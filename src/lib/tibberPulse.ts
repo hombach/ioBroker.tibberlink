@@ -1,5 +1,6 @@
 import { TibberFeed, IConfig, TibberQuery } from "tibber-api";
 import * as utils from "@iobroker/adapter-core";
+import "@iobroker/types"; //NEW
 import { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement";
 import { TibberHelper } from "./tibberHelper";
 
@@ -198,7 +199,7 @@ export class TibberPulse extends TibberHelper {
 	}
 
 	private reconnect(): void {
-		const reconnectionInterval: any = this.adapter.setInterval(() => {
+		const reconnectionInterval = this.adapter.setInterval(() => {
 			if (!this.tibberFeed.connected) {
 				this.adapter.log.debug("No TibberFeed connected try reconnecting now in 5sec interval!");
 				this.ConnectPulseStream();
@@ -206,6 +207,6 @@ export class TibberPulse extends TibberHelper {
 				this.adapter.log.debug("Reconnection successful! Interval not necessary (anymore).");
 				this.adapter.clearInterval(reconnectionInterval);
 			}
-		}, 5000);
+		}, 6000);
 	}
 }

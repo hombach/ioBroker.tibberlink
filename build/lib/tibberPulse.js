@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberPulse = void 0;
 const tibber_api_1 = require("tibber-api");
+require("@iobroker/types"); //NEW
 const tibberHelper_1 = require("./tibberHelper");
 class TibberPulse extends tibberHelper_1.TibberHelper {
     constructor(tibberConfig, adapter) {
@@ -108,7 +109,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
                 this.adapter.log.debug("Reconnection successful! Interval not necessary (anymore).");
                 this.adapter.clearInterval(reconnectionInterval);
             }
-        }, 5000);
+        }, 6000);
     }
 }
 exports.TibberPulse = TibberPulse;
