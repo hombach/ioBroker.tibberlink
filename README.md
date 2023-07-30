@@ -36,7 +36,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ! Note that missing version entries are typically dependency updates for improved security.
 
 ### 0.1.6 (2023-07-30)
-* (HombachC) add unit Volt for live data, bump dependencies
+* (HombachC) add units for live data, bump adapter-core to 3.x
 ### 0.1.5 (2023-07-18)
 * (HombachC) fix error in sentry logging
 ### 0.1.4 (2023-07-17)

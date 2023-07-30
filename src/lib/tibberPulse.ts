@@ -189,8 +189,6 @@ export class TibberPulse extends TibberHelper {
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL3"),
 				liveMeasurement.currentL3, "A", "Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
 				// "Current on L3; on Kaifa and Aidon meters the value is not part of every HAN data frame therefore the value is null at timestamps with second value other than 0, 10, 20, 30, 40, 50. There can be other deviations based on concrete meter firmware."
-
-
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "signalStrength"),
 				liveMeasurement.signalStrength,
