@@ -35,6 +35,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.1.7 (2023-08-06)
+* (HombachC) code cleanup, fix error for obsolete next day pricing
 ### 0.1.6 (2023-07-30)
 * (HombachC) add units for live data, bump adapter-core to 3.x
 ### 0.1.5 (2023-07-18)

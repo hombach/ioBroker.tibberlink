@@ -73,7 +73,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
         this.adapter.log.debug("Get prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
         this.currentHomeId = homeId;
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
+        if (pricesTomorrow) {
+            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
+            this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "PricesTomorrow.test", "tax"), 0, "The tax part of the price (energy tax, VAT, etc.)");
+        }
+        else {
+            this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "PricesTomorrow.test", "tax"), 5, "The tax part of the price (energy tax, VAT, etc.)");
+        }
+        // this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
         for (const index in pricesTomorrow) {
             const price = pricesTomorrow[index];
             const hour = new Date(price.startsAt).getHours();
@@ -93,7 +100,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     fetchPrice(objectDestination, price) {
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), price.total, "The total price (energy + taxes)");
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), price.energy, "Spotmarket price");
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), price.tax, "The tax part of the price (guarantee of origin certificate, energy tax (Sweden only) and VAT)");
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), price.tax, "The tax part of the price (energy tax, VAT, etc.)");
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "startsAt"), price.startsAt, "Start time of the price");
         //this.checkAndSetValue(this.getStatePrefix(objectDestination, "currency"), price.currency, "The price currency");
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "level"), price.level, "Price level compared to recent price values");
