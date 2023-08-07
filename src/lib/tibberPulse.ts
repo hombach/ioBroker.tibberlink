@@ -169,7 +169,7 @@ export class TibberPulse extends TibberHelper {
 	private reconnect(): void {
 		const reconnectionInterval: any = this.adapter.setInterval(() => {
 			if (!this.tibberFeed.connected) {
-				this.adapter.log.debug("No TibberFeed connected try reconnecting now in 5sec interval!");
+				this.adapter.log.debug("No TibberFeed connected try reconnecting now in 6 sec interval!");
 				this.ConnectPulseStream();
 			} else {
 				this.adapter.log.debug("Reconnection successful! Interval not necessary (anymore).");
