@@ -4,7 +4,7 @@
 		"version": "0.1.7",
 		"news": {
 			"0.1.7": {
-				"en": "code cleanup, fix error for obsolete next day pricing #23"
+				"en": "code cleanup, fix error for obsolete next day pricing #23; add try/catch while fetching homes list #32"
 			},
 			"0.1.6": {
 				"en": "add units for live data, bump adapter-core to 3.x",
