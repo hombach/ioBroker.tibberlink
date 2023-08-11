@@ -52,11 +52,7 @@ export class TibberAPICaller extends TibberHelper {
 			}
 			return homeIdList;
 		} catch (error) {
-			if (error instanceof Error) {
-				this.adapter.log.error("An error occurred while fetching homes from Tibber API: " + error.message);
-			} else {
-				this.adapter.log.error("An unknown error occurred while fetching homes from Tibber API.");
-			}
+			this.adapter.log.error(this.generateErrorMessage(error,"fetching homes from Tibber API"))
 			// Hier evtl. weitere Schritte unternehmen, um auf den Fehler zu reagieren. Neustart?
 			return [];
 		}
@@ -96,17 +92,6 @@ export class TibberAPICaller extends TibberHelper {
 		return homeIdList;
 	}
 */
-
-	public generateErrorMessage(error: any, context: string): string {
-		let errorMessages = "";
-		for (const index in error.errors) {
-			if (errorMessages) {
-				errorMessages += ", ";
-			}
-			errorMessages += error.errors[index].message;
-		}
-		return "Error (" + error.statusMessage + ") during: " + context + ": " + errorMessages;
-	}
 
 	async updateCurrentPrice(homeId: string): Promise<void> {
 		if (homeId) {
@@ -197,6 +182,17 @@ export class TibberAPICaller extends TibberHelper {
 	private fetchContactInfo(objectDestination: string, contactInfo: IContactInfo): void {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Email"), contactInfo.email);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Mobile"), contactInfo.mobile);
+	}
+
+	public generateErrorMessage(error: any, context: string): string {
+		let errorMessages = "";
+		for (const index in error.errors) {
+			if (errorMessages) {
+				errorMessages += ", ";
+			}
+			errorMessages += error.errors[index].message;
+		}
+		return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
 	}
 
 }

@@ -42,12 +42,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             return homeIdList;
         }
         catch (error) {
-            if (error instanceof Error) {
-                this.adapter.log.error("An error occurred while fetching homes from Tibber API: " + error.message);
-            }
-            else {
-                this.adapter.log.error("An unknown error occurred while fetching homes from Tibber API.");
-            }
+            this.adapter.log.error(this.generateErrorMessage(error, "fetching homes from Tibber API"));
             // Hier evtl. weitere Schritte unternehmen, um auf den Fehler zu reagieren. Neustart?
             return [];
         }
@@ -86,16 +81,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             return homeIdList;
         }
     */
-    generateErrorMessage(error, context) {
-        let errorMessages = "";
-        for (const index in error.errors) {
-            if (errorMessages) {
-                errorMessages += ", ";
-            }
-            errorMessages += error.errors[index].message;
-        }
-        return "Error (" + error.statusMessage + ") during: " + context + ": " + errorMessages;
-    }
     async updateCurrentPrice(homeId) {
         if (homeId) {
             const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
@@ -178,6 +163,16 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     fetchContactInfo(objectDestination, contactInfo) {
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Email"), contactInfo.email);
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Mobile"), contactInfo.mobile);
+    }
+    generateErrorMessage(error, context) {
+        let errorMessages = "";
+        for (const index in error.errors) {
+            if (errorMessages) {
+                errorMessages += ", ";
+            }
+            errorMessages += error.errors[index].message;
+        }
+        return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
     }
 }
 exports.TibberAPICaller = TibberAPICaller;
