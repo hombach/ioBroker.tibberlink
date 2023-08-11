@@ -18,9 +18,54 @@ export class TibberAPICaller extends TibberHelper {
 		this.currentHomeId = "";
 	}
 
+
+	async updateHomesFromAPI(): Promise<string[]> {
+		try {
+			const currentHomes = await this.tibberQuery.getHomes();
+			this.adapter.log.debug("Got homes from tibber api: " + JSON.stringify(currentHomes));
+			const homeIdList: string[] = [];
+			for (const homeIndex in currentHomes) {
+				const currentHome = currentHomes[homeIndex];
+				this.currentHomeId = currentHome.id;
+				homeIdList.push(this.currentHomeId);
+				// Set HomeId in tibberConfig for further API Calls
+				this.tibberConfig.homeId = this.currentHomeId;
+				// Home GENERAL
+				this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Id"), currentHome.id, "ID of your home");
+				this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Timezone"), currentHome.timeZone, "The time zone the home resides in");
+				this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "NameInApp"), currentHome.appNickname, "The nickname given to the home");
+				this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "AvatarInApp"), currentHome.appAvatar, "The chosen app avatar for the home");
+				// Values: APARTMENT, ROWHOUSE, FLOORHOUSE1, FLOORHOUSE2, FLOORHOUSE3, COTTAGE, CASTLE
+				this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Type"), currentHome.type, "The type of home.");
+				// Values: APARTMENT, ROWHOUSE, HOUSE, COTTAGE
+				this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "PrimaryHeatingSource"), currentHome.primaryHeatingSource, "The primary form of heating in the home");
+				// Values: AIR2AIR_HEATPUMP, ELECTRICITY, GROUND, DISTRICT_HEATING, ELECTRIC_BOILER, AIR2WATER_HEATPUMP, OTHER
+				this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "General", "Size"), currentHome.size, "The size of the home in square meters");
+				this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "General", "NumberOfResidents"), currentHome.numberOfResidents, "The number of people living in the home");
+				this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "General", "MainFuseSize"), currentHome.mainFuseSize, "The main fuse size");
+				this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "General", "HasVentilationSystem"), currentHome.hasVentilationSystem, "Whether the home has a ventilation system");
+
+				this.fetchAddress("Address", currentHome.address);
+				this.fetchLegalEntity("Owner", currentHome.owner);
+
+				this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
+			}
+			return homeIdList;
+		} catch (error) {
+			if (error instanceof Error) {
+				this.adapter.log.error("An error occurred while fetching homes from Tibber API: " + error.message);
+			} else {
+				this.adapter.log.error("An unknown error occurred while fetching homes from Tibber API.");
+			}
+			// Hier evtl. weitere Schritte unternehmen, um auf den Fehler zu reagieren. Neustart?
+			return [];
+		}
+	}
+
+/*
 	async updateHomesFromAPI(): Promise<string[]> {
 		const currentHomes = await this.tibberQuery.getHomes();
-		this.adapter.log.debug("Get homes from tibber api: " + JSON.stringify(currentHomes));
+		this.adapter.log.debug("Got homes from tibber api: " + JSON.stringify(currentHomes));
 		const homeIdList: string[] = [];
 		for (const homeIndex in currentHomes) {
 			const currentHome = currentHomes[homeIndex];
@@ -48,9 +93,9 @@ export class TibberAPICaller extends TibberHelper {
 
 			this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
 		}
-
 		return homeIdList;
 	}
+*/
 
 	public generateErrorMessage(error: any, context: string): string {
 		let errorMessages = "";
@@ -89,7 +134,7 @@ export class TibberAPICaller extends TibberHelper {
 		this.adapter.log.debug("Got prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
 		this.currentHomeId = homeId;
 
-		if(JSON.stringify(pricesTomorrow).length === 0 ) { // pricing not known, before about 13:00 - delete the states
+		if(pricesTomorrow.length === 0) { // pricing not known, before about 13:00 - delete the states
 			this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "PricesTomorrow.test", "tax"), 5000, "The tax part of the price (energy tax, VAT, etc.)"); // TEST !! TEST !! TEST
 			for (let i = 0; i < 3; i++) {
 				const hour = i;
