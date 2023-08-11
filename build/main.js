@@ -69,13 +69,13 @@ class Tibberlink extends utils.Adapter {
                     queryUrl: this.queryUrl,
                 },
             };
-            // Now read all Data from API
+            // Now read homes list from API
             const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeIdList = await tibberAPICaller.updateHomesFromAPI();
             }
             catch (error) {
-                this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of homes"));
+                this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes"));
             }
             // if feed is not used - set info.connection if data received
             if (!this.config.FeedActive) {

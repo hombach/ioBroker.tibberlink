@@ -4,7 +4,17 @@
 		"version": "0.1.7",
 		"news": {
 			"0.1.7": {
-				"en": "code cleanup, fix error for obsolete next day pricing #23; add try/catch while fetching homes list #32"
+				"en": "code cleanup, fix error for obsolete next day pricing #23; add another try/catch while fetching homes list #32",
+				"de": "code cleanup, fix fehler für veraltete am nächsten tag preis #23; fügen sie einen weiteren versuch / fang, während das fetching homes list #32",
+				"ru": "очистка кода, исправление ошибки для устаревших на следующий день цены #23; добавить еще одну попытку/качать при выборе списка домов #32",
+				"pt": "limpeza de código, corrigir erro para obsoleto no dia seguinte preços #23; adicionar outro try/catch ao buscar lista casas #32",
+				"nl": "codeopruiming, fixfout voor veroudering volgende dag pricing #23, voeg nog een poging/vang toe terwijl je huizenlijst haalt 32",
+				"fr": "nettoyage de code, corriger l'erreur pour obsolète prix du lendemain #23; ajouter un autre essai/catch tout en récupérant la liste des maisons #32",
+				"it": "pulizia del codice, errore di correzione per obsoleto giorno successivo prezzo #23; aggiungere un altro tentativo/catch mentre il fetching home list #32",
+				"es": "limpieza del código, corregir el error para obsoleto precio del día siguiente #23; añadir otro intento / captura mientras que buscar la lista de casas #32",
+				"pl": "oczyszczenie kodu dla przestarzałego następnego dnia numer 23; dodanie kolejnego / katego podczas przyzwoitej listy #32",
+				"uk": "чистка коду, виправлена помилка для застарілого наступного дня ціни #23; додати ще одну спробу / обману при списці будинків #32",
+				"zh-cn": "守则的清理,下一天过时定价的固定错误,第23号;在住房名单中增加一宗尝试/观察。"
 			},
 			"0.1.6": {
 				"en": "add units for live data, bump adapter-core to 3.x",

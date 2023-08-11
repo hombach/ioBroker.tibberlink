@@ -43,44 +43,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         }
         catch (error) {
             this.adapter.log.error(this.generateErrorMessage(error, "fetching homes from Tibber API"));
-            // Hier evtl. weitere Schritte unternehmen, um auf den Fehler zu reagieren. Neustart?
+            // Hier weitere Schritte unternehmen, um auf den Fehler zu reagieren. Neustart?
             return [];
         }
     }
-    /*
-        async updateHomesFromAPI(): Promise<string[]> {
-            const currentHomes = await this.tibberQuery.getHomes();
-            this.adapter.log.debug("Got homes from tibber api: " + JSON.stringify(currentHomes));
-            const homeIdList: string[] = [];
-            for (const homeIndex in currentHomes) {
-                const currentHome = currentHomes[homeIndex];
-                this.currentHomeId = currentHome.id;
-                homeIdList.push(this.currentHomeId);
-                // Set HomeId in tibberConfig for further API Calls
-                this.tibberConfig.homeId = this.currentHomeId;
-                // Home GENERAL
-                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Id"), currentHome.id, "ID of your home");
-                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Timezone"), currentHome.timeZone, "The time zone the home resides in");
-                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "NameInApp"), currentHome.appNickname, "The nickname given to the home");
-                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "AvatarInApp"), currentHome.appAvatar, "The chosen app avatar for the home");
-                    // Values: APARTMENT, ROWHOUSE, FLOORHOUSE1, FLOORHOUSE2, FLOORHOUSE3, COTTAGE, CASTLE
-                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Type"), currentHome.type, "The type of home.");
-                    // Values: APARTMENT, ROWHOUSE, HOUSE, COTTAGE
-                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "PrimaryHeatingSource"), currentHome.primaryHeatingSource, "The primary form of heating in the home");
-                    // Values: AIR2AIR_HEATPUMP, ELECTRICITY, GROUND, DISTRICT_HEATING, ELECTRIC_BOILER, AIR2WATER_HEATPUMP, OTHER
-                this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "General", "Size"), currentHome.size, "The size of the home in square meters");
-                this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "General", "NumberOfResidents"), currentHome.numberOfResidents, "The number of people living in the home");
-                this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "General", "MainFuseSize"), currentHome.mainFuseSize, "The main fuse size");
-                this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "General", "HasVentilationSystem"), currentHome.hasVentilationSystem, "Whether the home has a ventilation system");
-    
-                this.fetchAddress("Address", currentHome.address);
-                this.fetchLegalEntity("Owner", currentHome.owner);
-    
-                this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
-            }
-            return homeIdList;
-        }
-    */
     async updateCurrentPrice(homeId) {
         if (homeId) {
             const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);

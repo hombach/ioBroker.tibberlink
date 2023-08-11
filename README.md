@@ -37,7 +37,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ### 0.1.7 (2023-08-11)
 * (HombachC) code cleanup, fix error for obsolete next day pricing (#23)
-* (HombachC) add try/catch while fetching homes list (#32)
+* (HombachC) add another try/catch while fetching homes list (#32)
 ### 0.1.6 (2023-07-30)
 * (HombachC) add units for live data, bump adapter-core to 3.x
 ### 0.1.5 (2023-07-18)
