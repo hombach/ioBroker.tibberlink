@@ -7,4 +7,3 @@ src/lib/tibberHelper.ts
 src/lib/tibberPulse.ts
 src/lib/tools.ts
 src/main.ts
-src/main.test.ts
