@@ -5,5 +5,4 @@ src/lib/adapter-config.d.ts
 src/lib/tibberAPICaller.ts
 src/lib/tibberHelper.ts
 src/lib/tibberPulse.ts
-src/lib/tools.ts
 src/main.ts
