@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.7",
+		"version": "0.1.8",
 		"news": {
+			"0.1.8": {
+				"en": "bump dev-dependencies, fix eslint/prettier issue",
+				"de": "update dev-dependencies, eslint/prettier Problem behoben",
+				"ru": "bump dev-зависимости, исправить eslint/prettier вопрос",
+				"pt": "balance dev-dependencies, corrigir eslint / problema mais bonito",
+				"nl": "quality over quantity (qoq) releases vertaling:",
+				"fr": "dev-dépendances de bosse, correction eslint/prettier issue",
+				"it": "urto dev-dipendenze, risolvere eslint / problema più bello",
+				"es": "dev-dependencies, fijar eslint/prettier issue",
+				"pl": "dev-dependencies fix eslint/prettier problem",
+				"uk": "bump dev-залежність, виправити проблему eslint/prettier",
+				"zh-cn": "b 倾销-变暖、固定电梯/升级问题"
+			},
 			"0.1.7": {
 				"en": "code cleanup, fix error for obsolete next day pricing #23; add another try/catch while fetching homes list #32",
 				"de": "code cleanup, fix fehler für veraltete am nächsten tag preis #23; fügen sie einen weiteren versuch / fang, während das fetching homes list #32",

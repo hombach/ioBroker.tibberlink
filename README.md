@@ -35,6 +35,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.1.8 (2023-08-12)
+* (HombachC) bump dev-dependencies, fix eslint/prettier issue
 ### 0.1.7 (2023-08-11)
 * (HombachC) code cleanup, fix error for obsolete next day pricing (#23)
 * (HombachC) add another try/catch while fetching homes list (#32)
