@@ -107,7 +107,7 @@ class Tibberlink extends utils.Adapter {
                     this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
                 }
             }
-            // Init Load Data for home
+            // Init Load Data for all homes
             if (this.homeIdList.length > 0) {
                 for (const index in this.homeIdList) {
                     try {

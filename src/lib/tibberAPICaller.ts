@@ -85,7 +85,6 @@ export class TibberAPICaller extends TibberHelper {
 		this.currentHomeId = homeId;
 
 		if(pricesTomorrow.length === 0) { // pricing not known, before about 13:00 - delete the states
-			this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "PricesTomorrow.test", "tax"), 5000, "The tax part of the price (energy tax, VAT, etc.)"); // TEST !! TEST !! TEST
 			for (let i = 0; i < 3; i++) {
 				const hour = i;
 				this.emptyingPrice("PricesTomorrow." + hour);
