@@ -27,6 +27,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberPulse_1 = require("./lib/tibberPulse");
+const tibberCalculator_1 = require("./lib/tibberCalculator");
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
         super({
@@ -109,10 +110,12 @@ class Tibberlink extends utils.Adapter {
             }
             // Init Load Data for all homes
             if (this.homeIdList.length > 0) {
+                const tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
                 for (const index in this.homeIdList) {
                     // Set up calculation channel 1 states if channel is configured
                     if (this.config.CalCh01Configured) {
                         try {
+                            await tibberCalculator.setupCalculatorStates(this.homeIdList[index], 1);
                             this.log.debug("setting up calculation channel 1 states");
                         }
                         catch (error) {

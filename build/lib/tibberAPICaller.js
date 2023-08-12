@@ -129,16 +129,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Email"), contactInfo.email);
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Mobile"), contactInfo.mobile);
     }
-    generateErrorMessage(error, context) {
-        let errorMessages = "";
-        for (const index in error.errors) {
-            if (errorMessages) {
-                errorMessages += ", ";
-            }
-            errorMessages += error.errors[index].message;
-        }
-        return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
-    }
 }
 exports.TibberAPICaller = TibberAPICaller;
 //# sourceMappingURL=tibberAPICaller.js.map

@@ -3,6 +3,7 @@ import * as utils from "@iobroker/adapter-core";
 import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
+import { TibberCalculator } from "./lib/tibberCalculator";
 
 class Tibberlink extends utils.Adapter {
 	intervallList: any[]; // intervallList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
@@ -96,14 +97,14 @@ class Tibberlink extends utils.Adapter {
 
 			// Init Load Data for all homes
 			if (this.homeIdList.length > 0) {
+				const tibberCalculator = new TibberCalculator(this);
+
 				for (const index in this.homeIdList) {
 
 					// Set up calculation channel 1 states if channel is configured
 					if (this.config.CalCh01Configured) {
 						try {
-
-
-
+							await tibberCalculator.setupCalculatorStates(this.homeIdList[index], 1);
 							this.log.debug("setting up calculation channel 1 states");
 						} catch (error: any) {
 							this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculation states for channel 01"));

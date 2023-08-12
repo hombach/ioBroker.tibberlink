@@ -89,4 +89,16 @@ export class TibberHelper {
 			await this.adapter.setStateAsync(stateName.value, value, true);
 		}
 	}
+
+	public generateErrorMessage(error: any, context: string): string {
+		let errorMessages = "";
+		for (const index in error.errors) {
+			if (errorMessages) {
+				errorMessages += ", ";
+			}
+			errorMessages += error.errors[index].message;
+		}
+		return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
+	}
+
 }
