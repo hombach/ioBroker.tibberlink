@@ -100,5 +100,4 @@ export class TibberHelper {
 		}
 		return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
 	}
-
 }
