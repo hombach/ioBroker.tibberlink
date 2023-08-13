@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "master"
+      - "SwitchLowPrice"
   pull_request: {}
 
 jobs:
