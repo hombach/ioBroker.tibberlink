@@ -111,9 +111,7 @@ class Tibberlink extends utils.Adapter {
                 this.log.warn("Got no homes in your account - probably by a Tibber Server Error- will restarting adapter in 2 minutes");
                 const adapterrestart = this.setInterval(() => {
                     this.log.warn("restarting adapter...");
-                    //					this.restart;
-                    //					this.terminate;
-                    this.terminate("no homes availablen", utils.EXIT_CODES.ADAPTER_REQUESTED_TERMINATION);
+                    this.restart();
                 }, 120000);
                 this.intervallList.push(adapterrestart);
             }
@@ -255,6 +253,10 @@ class Tibberlink extends utils.Adapter {
             }
         }
     }
+    /**
+     * Is called when adapter starts up - tries to connect to Tibber several times
+     */
+    async setup() { }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      */
