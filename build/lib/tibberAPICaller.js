@@ -39,8 +39,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.fetchLegalEntity("Owner", currentHome.owner);
                 this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
             }
-            //TEST!!			return homeIdList;
-            return [];
+            return homeIdList;
         }
         catch (error) {
             this.adapter.log.error(this.generateErrorMessage(error, "fetching homes from Tibber API"));

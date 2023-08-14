@@ -110,7 +110,6 @@ class Tibberlink extends utils.Adapter {
             if (!(this.homeIdList.length > 0)) { // if no homeIDs available - adapter can't do that much
                 this.log.warn("Got no homes in your account - probably by a Tibber Server Error- will restarting adapter in 2 minutes");
                 const adapterrestart = this.setInterval(() => {
-                    this.log.warn("restarting adapter...");
                     this.restart();
                 }, 120000);
                 this.intervallList.push(adapterrestart);
@@ -166,7 +165,7 @@ class Tibberlink extends utils.Adapter {
                 }, 1500000);
                 this.intervallList.push(energyPricesListUpdateInterval);
             }
-            // If User uses live feed - start connection
+            // If user uses live feed - start connection
             if (this.config.FeedActive) {
                 for (const index in this.homeIdList) {
                     try {
@@ -253,10 +252,6 @@ class Tibberlink extends utils.Adapter {
             }
         }
     }
-    /**
-     * Is called when adapter starts up - tries to connect to Tibber several times
-     */
-    async setup() { }
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      */
