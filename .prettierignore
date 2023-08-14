@@ -3,4 +3,5 @@ package-lock.json
 build/
 src/lib/tibberAPICaller.ts
 src/lib/tibberPulse.ts
+src/lib/tibberCalculator.ts
 src/main.ts
