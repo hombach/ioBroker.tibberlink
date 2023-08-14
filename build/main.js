@@ -107,31 +107,36 @@ class Tibberlink extends utils.Adapter {
                     this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
                 }
             }
+            if (!(this.homeIdList.length > 0)) { // if no homeIDs available - adapter can't do that much
+                this.log.warn("Got no homes in your account - probably ba an Tibber Server Error- restarting adapter");
+                const adapterrestart = this.setInterval(() => {
+                    this.restart;
+                }, 120000);
+                this.intervallList.push(adapterrestart);
+            }
             // Init Load Data for all homes
-            if (this.homeIdList.length > 0) {
+            if (this.homeIdList.length > 0) { // only if there are any homes the adapter will do something
                 for (const index in this.homeIdList) {
                     try {
                         await tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
                     }
                     catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "first pull of current price"));
                     }
                     try {
                         await tibberAPICaller.updatePricesToday(this.homeIdList[index]);
                     }
                     catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices today"));
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "first pull of prices today"));
                     }
                     try {
                         await tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
                     }
                     catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices tomorrow"));
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "first pull of prices tomorrow"));
                     }
                 }
-            }
-            const energyPriceCallIntervall = this.setInterval(() => {
-                if (this.homeIdList.length > 0) {
+                const energyPriceCallIntervall = this.setInterval(() => {
                     for (const index in this.homeIdList) {
                         try {
                             tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
@@ -140,11 +145,9 @@ class Tibberlink extends utils.Adapter {
                             this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));
                         }
                     }
-                }
-            }, 300000);
-            this.intervallList.push(energyPriceCallIntervall);
-            const energyPricesListUpdateInterval = this.setInterval(() => {
-                if (this.homeIdList.length > 0) {
+                }, 300000);
+                this.intervallList.push(energyPriceCallIntervall);
+                const energyPricesListUpdateInterval = this.setInterval(() => {
                     for (const index in this.homeIdList) {
                         try {
                             tibberAPICaller.updatePricesToday(this.homeIdList[index]);
@@ -159,9 +162,9 @@ class Tibberlink extends utils.Adapter {
                             this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices tomorrow"));
                         }
                     }
-                }
-            }, 1500000);
-            this.intervallList.push(energyPricesListUpdateInterval);
+                }, 1500000);
+                this.intervallList.push(energyPricesListUpdateInterval);
+            }
             // If User uses live feed - start connection
             if (this.config.FeedActive) {
                 for (const index in this.homeIdList) {

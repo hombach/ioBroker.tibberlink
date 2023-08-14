@@ -49,7 +49,7 @@ export class TibberPulse extends TibberHelper {
 			this.adapter.log.debug("Tibber Feed: " + data.toString());
 			this.adapter.setState("info.connection", false, true);
 			if (this.adapter.config.FeedActive) {
-				this.adapter.log.warn("Feed was disconnected. I try to reconnect in 5s");
+				this.adapter.log.warn("Feed was disconnected. I try to reconnect in 6s");
 				this.reconnect();
 			}
 		});

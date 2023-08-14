@@ -50,10 +50,12 @@ export class TibberAPICaller extends TibberHelper {
 
 				this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
 			}
-			return homeIdList;
+//TEST!!			return homeIdList;
+			return [];
 		} catch (error) {
 			this.adapter.log.error(this.generateErrorMessage(error,"fetching homes from Tibber API"))
-			// Hier weitere Schritte unternehmen, um auf den Fehler zu reagieren. Neustart?
+			// Hier weitere Schritte unternehmen, um auf den Fehler zu reagieren. Neustart? JA!!!!  HIER stirbt er nach Neustart des Adapter wenn derzeit Fehler im Tibber Server vorhanden ist
+			// this.adapter.restart;  // Oder besser in main umsetzen
 			return [];
 		}
 	}
