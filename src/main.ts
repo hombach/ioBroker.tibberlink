@@ -97,6 +97,8 @@ class Tibberlink extends utils.Adapter {
 				const adapterrestart = this.setInterval(() => {
 					this.log.warn("restarting adapter...");
 					this.restart;
+					this.terminate;
+
 				}, 120000);
 				this.intervallList.push(adapterrestart);
 			}
