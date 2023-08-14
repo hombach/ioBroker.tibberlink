@@ -170,7 +170,7 @@ class Tibberlink extends utils.Adapter {
                 for (const index in this.homeIdList) {
                     try {
                         tibberConfigFeed.homeId = this.homeIdList[index]; // ERROR: Only latest homeID will be used at this point
-                        // define fields for Datafeed
+                        // now define the fields for datafeed
                         tibberConfigFeed.timestamp = true;
                         tibberConfigFeed.power = true;
                         if (this.config.FeedConfigLastMeterConsumption) {

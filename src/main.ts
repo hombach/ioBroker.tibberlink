@@ -150,80 +150,37 @@ class Tibberlink extends utils.Adapter {
 				this.intervallList.push(energyPricesListUpdateInterval);
             }
 
-
 			// If user uses live feed - start connection
 			if (this.config.FeedActive) {
 				for (const index in this.homeIdList) {
 					try {
 						tibberConfigFeed.homeId = this.homeIdList[index]; // ERROR: Only latest homeID will be used at this point
-						// define fields for Datafeed
+						// now define the fields for datafeed
 						tibberConfigFeed.timestamp = true;
 						tibberConfigFeed.power = true;
-						if (this.config.FeedConfigLastMeterConsumption)           { tibberConfigFeed.lastMeterConsumption   = true }
-						if (this.config.FeedConfigAccumulatedConsumption)         { tibberConfigFeed.accumulatedConsumption = true }
-						if (this.config.FeedConfigAccumulatedProduction)          {
-							tibberConfigFeed.accumulatedProduction = true;
-						}
-						if (this.config.FeedConfigAccumulatedConsumptionLastHour) {
-							tibberConfigFeed.accumulatedConsumptionLastHour = true;
-						}
-						if (this.config.FeedConfigAccumulatedProductionLastHour) {
-							tibberConfigFeed.accumulatedProductionLastHour = true;
-						}
-						if (this.config.FeedConfigAccumulatedCost) {
-							tibberConfigFeed.accumulatedCost = true;
-						}
-						if (this.config.FeedConfigAccumulatedCost) {
-							tibberConfigFeed.accumulatedReward = true;
-						}
-						if (this.config.FeedConfigCurrency) {
-							tibberConfigFeed.currency = true;
-						}
-						if (this.config.FeedConfigMinPower) {
-							tibberConfigFeed.minPower = true;
-						}
-						if (this.config.FeedConfigAveragePower) {
-							tibberConfigFeed.averagePower = true;
-						}
-						if (this.config.FeedConfigMaxPower) {
-							tibberConfigFeed.maxPower = true;
-						}
-						if (this.config.FeedConfigPowerProduction) {
-							tibberConfigFeed.powerProduction = true;
-						}
-						if (this.config.FeedConfigMinPowerProduction) {
-							tibberConfigFeed.minPowerProduction = true;
-						}
-						if (this.config.FeedConfigMaxPowerProduction) {
-							tibberConfigFeed.maxPowerProduction = true;
-						}
-						if (this.config.FeedConfigLastMeterProduction) {
-							tibberConfigFeed.lastMeterProduction = true;
-						}
-						if (this.config.FeedConfigPowerFactor) {
-							tibberConfigFeed.powerFactor = true;
-						}
-						if (this.config.FeedConfigVoltagePhase1) {
-							tibberConfigFeed.voltagePhase1 = true;
-						}
-						if (this.config.FeedConfigVoltagePhase2) {
-							tibberConfigFeed.voltagePhase2 = true;
-						}
-						if (this.config.FeedConfigVoltagePhase3) {
-							tibberConfigFeed.voltagePhase3 = true;
-						}
-						if (this.config.FeedConfigCurrentL1) {
-							tibberConfigFeed.currentL1 = true;
-						}
-						if (this.config.FeedConfigCurrentL2) {
-							tibberConfigFeed.currentL2 = true;
-						}
-						if (this.config.FeedConfigCurrentL3) {
-							tibberConfigFeed.currentL3 = true;
-						}
-						if (this.config.FeedConfigSignalStrength) {
-							tibberConfigFeed.signalStrength = true;
-						}
+						if (this.config.FeedConfigLastMeterConsumption)	          { tibberConfigFeed.lastMeterConsumption			= true }
+						if (this.config.FeedConfigAccumulatedConsumption)         { tibberConfigFeed.accumulatedConsumption			= true }
+						if (this.config.FeedConfigAccumulatedProduction)          { tibberConfigFeed.accumulatedProduction			= true }
+						if (this.config.FeedConfigAccumulatedConsumptionLastHour) { tibberConfigFeed.accumulatedConsumptionLastHour	= true }
+						if (this.config.FeedConfigAccumulatedProductionLastHour)  { tibberConfigFeed.accumulatedProductionLastHour	= true }
+						if (this.config.FeedConfigAccumulatedCost)                { tibberConfigFeed.accumulatedCost				= true }
+						if (this.config.FeedConfigAccumulatedCost)                { tibberConfigFeed.accumulatedReward				= true }
+						if (this.config.FeedConfigCurrency)                       { tibberConfigFeed.currency						= true }
+						if (this.config.FeedConfigMinPower)                       { tibberConfigFeed.minPower						= true }
+						if (this.config.FeedConfigAveragePower)                   { tibberConfigFeed.averagePower					= true }
+						if (this.config.FeedConfigMaxPower)                       { tibberConfigFeed.maxPower						= true }
+						if (this.config.FeedConfigPowerProduction)                { tibberConfigFeed.powerProduction				= true }
+						if (this.config.FeedConfigMinPowerProduction)             { tibberConfigFeed.minPowerProduction				= true }
+						if (this.config.FeedConfigMaxPowerProduction)             { tibberConfigFeed.maxPowerProduction				= true }
+						if (this.config.FeedConfigLastMeterProduction)            { tibberConfigFeed.lastMeterProduction			= true }
+						if (this.config.FeedConfigPowerFactor)                    { tibberConfigFeed.powerFactor					= true }
+						if (this.config.FeedConfigVoltagePhase1)                  { tibberConfigFeed.voltagePhase1					= true }
+						if (this.config.FeedConfigVoltagePhase2)                  { tibberConfigFeed.voltagePhase2					= true }
+						if (this.config.FeedConfigVoltagePhase3)                  { tibberConfigFeed.voltagePhase3					= true }
+						if (this.config.FeedConfigCurrentL1)                      { tibberConfigFeed.currentL1						= true }
+						if (this.config.FeedConfigCurrentL2)                      { tibberConfigFeed.currentL2						= true }
+						if (this.config.FeedConfigCurrentL3)                      { tibberConfigFeed.currentL3						= true }
+						if (this.config.FeedConfigSignalStrength)                 { tibberConfigFeed.signalStrength					= true }
 						const tibberPulse = new TibberPulse(tibberConfigFeed, this);
 						tibberPulse.ConnectPulseStream();
 					} catch (e) {
