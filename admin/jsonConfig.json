@@ -236,6 +236,7 @@
 		"_CalculatorTab": {
 			"type": "panel",
 			"label": "Calculator settings",
+			"hidden": true,
 			"items": {
 				"CalCh01Header": {
 					"type": "header",
@@ -245,12 +246,11 @@
 				},
 				"CalCh01Configured": {
 					"type": "checkbox",
-					"label": "Channel active",
+					"label": "Configure Channel 01",
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
-					"newLine": true,
-					"hidden": "!data.FeedActive"
+					"newLine": true
 				},
 				"CalCh01Active": {
 					"type": "checkbox",
@@ -260,7 +260,17 @@
 					"lg": 6,
 					"newLine": true,
 					"hidden": "!data.CalCh01Configured"
+				},
+				"CalCh01TargetState": {
+					"type": "objectId",
+					"label": "Target State",
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
+					"newLine": true,
+					"hidden": "!data.CalCh01Configured"
 				}
+
 			}
 		}
 	
