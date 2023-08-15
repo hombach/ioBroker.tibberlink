@@ -106,19 +106,19 @@ class Tibberlink extends utils.Adapter {
 					try {
 						await tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
 					} catch (error: any) {
-						this.log.warn(tibberAPICaller.generateErrorMessage(error, "first pull of current price"));
+						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of current price"));
 					}
 
 					try {
 						await tibberAPICaller.updatePricesToday(this.homeIdList[index]);
 					} catch (error: any) {
-						this.log.warn(tibberAPICaller.generateErrorMessage(error, "first pull of prices today"));
+						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices today"));
 					}
 
 					try {
 						await tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
 					} catch (error: any) {
-						this.log.warn(tibberAPICaller.generateErrorMessage(error, "first pull of prices tomorrow"));
+						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices tomorrow"));
 					}
 				}
 
