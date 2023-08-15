@@ -169,7 +169,7 @@ class Tibberlink extends utils.Adapter {
 
 			// If user uses live feed - start connection
 			if (this.config.FeedActive) {
-				const tibberPulseInstances = []; // array for TibberPulse-instances //NEWTEST
+				const tibberPulseInstances = []; // array for TibberPulse-instances
 				for (const index in this.homeInfoList) {
 					this.log.debug("try to establish feed of live data for home: " + this.homeInfoList[index].ID);
 					if (this.homeInfoList[index].RealTime) {
@@ -202,8 +202,7 @@ class Tibberlink extends utils.Adapter {
 							if (this.config.FeedConfigCurrentL3) { tibberConfigFeed.currentL3 = true }
 							if (this.config.FeedConfigSignalStrength) { tibberConfigFeed.signalStrength = true }
 							const tibberPulse = new TibberPulse(tibberConfigFeed, this);
-							tibberPulseInstances.push(tibberPulse); // add instance to array  //NEWTEST
-//							tibberPulse.ConnectPulseStream();
+							tibberPulseInstances.push(tibberPulse); // add instance to array
 							tibberPulseInstances[index].ConnectPulseStream();
 						} catch (e) {
 							this.log.warn((e as Error).message);
