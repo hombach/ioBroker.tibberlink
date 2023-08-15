@@ -170,6 +170,7 @@ class Tibberlink extends utils.Adapter {
 			// If user uses live feed - start connection
 			if (this.config.FeedActive) {
 				for (const index in this.homeInfoList) {
+					this.log.debug("try to establish feed of live data for home: " + this.homeInfoList[index].ID);
 					if (this.homeInfoList[index].RealTime) {
 						try {
 							// define the fields for datafeed
@@ -205,7 +206,7 @@ class Tibberlink extends utils.Adapter {
 							this.log.warn((e as Error).message);
 						}
 					} else {
-						this.log.warn("skipping datafeed of live data - no Pulse configured for this home according to Tibber server");
+						this.log.warn("skipping feed of live data - no Pulse configured for this home according to Tibber server");
                     }
 				}
 			}
