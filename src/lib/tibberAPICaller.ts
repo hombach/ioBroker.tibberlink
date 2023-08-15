@@ -147,7 +147,7 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Mobile"), contactInfo.mobile);
 	}
 
-	public generateErrorMessage(error: any, context: string): string {
+/*	public generateErrorMessage(error: any, context: string): string {
 		let errorMessages = "";
 		for (const index in error.errors) {
 			if (errorMessages) {
@@ -157,5 +157,5 @@ export class TibberAPICaller extends TibberHelper {
 		}
 		return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
 	}
-
+*/
 }

@@ -83,6 +83,16 @@ class TibberHelper {
             await this.adapter.setStateAsync(stateName.value, value, true);
         }
     }
+    generateErrorMessage(error, context) {
+        let errorMessages = "";
+        for (const index in error.errors) {
+            if (errorMessages) {
+                errorMessages += ", ";
+            }
+            errorMessages += error.errors[index].message;
+        }
+        return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
+    }
 }
 exports.TibberHelper = TibberHelper;
 //# sourceMappingURL=tibberHelper.js.map
