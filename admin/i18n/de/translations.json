@@ -1,4 +1,6 @@
 {
+	"Standard settings": "Standardeinstellungen",
+	"Calculator settings": "Berechnungseinstellungen",
 	"tibberlink adapter settings": "Adaptereinstellungen für TibberLink",
 	"TibberAPIToken": "Token für Tibber API",
 	"PulseActive": "Tibber Pulse verwenden (alle Zuhause)",

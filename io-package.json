@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.9",
+		"version": "0.1.10",
 		"news": {
+			"0.1.10": {
+				"en": "bump dependencies, preparations for tibber calculator, code cleanup",
+				"de": "Abhängigkeiten aktualisiert, Vorbereitungen für Tibber Calculator, Code Bereinigung",
+				"ru": "bump зависимости, подготовка к калькулятору tibber, очистка кода",
+				"pt": "dependências, preparações para calculadora de tibber, limpeza de código",
+				"nl": "quality over quantity (qoq) releases vertaling:",
+				"fr": "dépendances de bosse, préparations pour calculateur de tibber, nettoyage de code",
+				"it": "paraurti dipendenze, preparazioni per calcolatore di tibber, pulizia del codice",
+				"es": "dependencias de parachoques, preparaciones para la calculadora de tibber, limpieza de códigos",
+				"pl": "w zależności od miejsca, przygotowania do kalkulatora piszczelnego",
+				"uk": "bump залежностей, підготовка до тибер калькулятора, очищення коду",
+				"zh-cn": "b 倾覆取决于、浮动器的准备、守则清理"
+			},
 			"0.1.9": {
 				"en": "optimizing fetching homes list (#32) after Tibber server error",
 				"de": "optimierung der Fetching-Homes-Liste #(32) nach Tibber-Server-Fehler",

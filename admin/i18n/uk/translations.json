@@ -1,4 +1,6 @@
 {
+	"Standard settings": "Стандартні налаштування",
+	"Calculator settings": "Налаштування калькулятора",
 	"tibberlink adapter settings": "Параметри адаптера для TibberLink",
 	"TibberAPIToken": "токен для Tibber api",
 	"PulseActive": "використовувати Tibber імпульс (всі будинки)",
