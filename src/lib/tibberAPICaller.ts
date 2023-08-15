@@ -19,16 +19,13 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	async updateHomesFromAPI(): Promise<{ ID: string, RealTime: boolean }[]> {
-//	async updateHomesFromAPI(): Promise<string[]> {
 		try {
 			const Homes = await this.tibberQuery.getHomes();
 			this.adapter.log.debug("Got homes from tibber api: " + JSON.stringify(Homes));
-//			const homeIdList: string[] = [];
 			const homeInfoList: { ID: string, RealTime: boolean }[] = [];
-			for (const homeIndex in Homes) {
-				const currentHome = Homes[homeIndex];
+			for (const index in Homes) {
+				const currentHome = Homes[index];
 				this.currentHomeId = currentHome.id;
-//				homeIdList.push(this.currentHomeId);
 				homeInfoList.push({ ID: this.currentHomeId, RealTime: currentHome.features.realTimeConsumptionEnabled });
 				// Set HomeId in tibberConfig for further API Calls
 				this.tibberConfig.homeId = this.currentHomeId;
@@ -52,7 +49,6 @@ export class TibberAPICaller extends TibberHelper {
 
 				this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
 			}
-//			return homeIdList;
 			return homeInfoList;
 		} catch (error) {
 			this.adapter.log.error(this.generateErrorMessage(error,"fetching homes from Tibber API"))

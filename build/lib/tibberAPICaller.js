@@ -11,16 +11,13 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.currentHomeId = "";
     }
     async updateHomesFromAPI() {
-        //	async updateHomesFromAPI(): Promise<string[]> {
         try {
             const Homes = await this.tibberQuery.getHomes();
             this.adapter.log.debug("Got homes from tibber api: " + JSON.stringify(Homes));
-            //			const homeIdList: string[] = [];
             const homeInfoList = [];
-            for (const homeIndex in Homes) {
-                const currentHome = Homes[homeIndex];
+            for (const index in Homes) {
+                const currentHome = Homes[index];
                 this.currentHomeId = currentHome.id;
-                //				homeIdList.push(this.currentHomeId);
                 homeInfoList.push({ ID: this.currentHomeId, RealTime: currentHome.features.realTimeConsumptionEnabled });
                 // Set HomeId in tibberConfig for further API Calls
                 this.tibberConfig.homeId = this.currentHomeId;
@@ -42,7 +39,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.fetchLegalEntity("Owner", currentHome.owner);
                 this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
             }
-            //			return homeIdList;
             return homeInfoList;
         }
         catch (error) {

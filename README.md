@@ -36,9 +36,11 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ! Note that missing version entries are typically dependency updates for improved security.
 
 ### 0.1.10 (2023-08-15)
-* (HombachC) bump dependencies, preparations for tibber calculator, code cleanup
+* (HombachC) bump dependencies, code cleanups
+* (HombachC) preparations for tibber calculator
+* (HombachC) mitigate multi homes & pulse problems
 ### 0.1.9 (2023-08-14)
-* (HombachC) optimizing fetching homes list (#32) after Tibber server error
+* (HombachC) optimizing fetching homes list (#32) after Tibber server error, restart adapter in case of trouble
 ### 0.1.8 (2023-08-12)
 * (HombachC) bump dev-dependencies, fix eslint/prettier issue
 ### 0.1.7 (2023-08-11)
