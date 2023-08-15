@@ -8,7 +8,8 @@ import { TibberCalculator } from "./lib/tibberCalculator";
 
 class Tibberlink extends utils.Adapter {
 	intervallList: any[]; // intervallList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
-	homeIdList: string[];
+//	homeIdList: string[];
+	homeInfoList: { ID: string, RealTime: boolean } [] = [];
 	queryUrl = "";
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -21,7 +22,8 @@ class Tibberlink extends utils.Adapter {
 		// this.on("objectChange", this.onObjectChange.bind(this));
 		// this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
-		this.homeIdList = [];
+//		this.homeIdList = [];
+		this.homeInfoList = [];
 		this.intervallList = [];
 		this.queryUrl = "https://api.tibber.com/v1-beta/gql";
 	}
@@ -54,13 +56,15 @@ class Tibberlink extends utils.Adapter {
 			// Now read homes list from API
 			const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
 			try {
-				this.homeIdList = await tibberAPICaller.updateHomesFromAPI();
+//				this.homeIdList = await tibberAPICaller.updateHomesFromAPI();
+				this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
 			} catch (error: any) {
 				this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes from Tibber-Server"));
 			}
 			// if feed is not used - set info.connection if data received
 			if (!this.config.FeedActive) {
-				if (this.homeIdList) {
+//				if (this.homeIdList) {
+				if (this.homeInfoList) {
 					this.setState("info.connection", true, true);
 					this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
 				} else {
@@ -84,7 +88,8 @@ class Tibberlink extends utils.Adapter {
 							}) => {
 								scope.setLevel("info");
 								scope.setTag("SentryDay", today.getDate());
-								scope.setTag("HomeIDs", this.homeIdList.length);
+//								scope.setTag("HomeIDs", this.homeIdList.length);
+								scope.setTag("HomeIDs", this.homeInfoList.length);
 								Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
 							}
 						);
@@ -94,7 +99,8 @@ class Tibberlink extends utils.Adapter {
 				}
 			}
 
-			if (!(this.homeIdList.length > 0)) {// if no homeIDs available - adapter can't do that much
+//			if (!(this.homeIdList.length > 0)) {// if no homeIDs available - adapter can't do that much
+			if (!(this.homeInfoList.length > 0)) {// if no homeIDs available - adapter can't do that much
 				this.log.warn("Got no homes in your account - probably by a Tibber Server Error- will restarting adapter in 2 minutes");
 				const adapterrestart = this.setInterval(() => {
 					this.restart();
@@ -103,14 +109,17 @@ class Tibberlink extends utils.Adapter {
 			}
 
 			// Init Load Data for all homes
-			if (this.homeIdList.length > 0) { // only if there are any homes the adapter will do something
+//			if (this.homeIdList.length > 0) { // only if there are any homes the adapter will do something
+			if (this.homeInfoList.length > 0) { // only if there are any homes the adapter will do something
 				const tibberCalculator = new TibberCalculator(this);
-				for (const index in this.homeIdList) {
+//				for (const index in this.homeIdList) {
+				for (const index in this.homeInfoList) {
 
 					// Set up calculation channel 1 states if channel is configured
 					if (this.config.CalCh01Configured) {
 						try {
-							await tibberCalculator.setupCalculatorStates(this.homeIdList[index], 1);
+//							await tibberCalculator.setupCalculatorStates(this.homeIdList[index], 1);
+							await tibberCalculator.setupCalculatorStates(this.homeInfoList[index].ID, 1);
 							this.log.debug("setting up calculation channel 1 states");
 						} catch (error: any) {
 							this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculation states for channel 01"));
@@ -119,30 +128,35 @@ class Tibberlink extends utils.Adapter {
 
 					// Get current price for the first time
 					try {
-						await tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
+//						await tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
+						await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
 					} catch (error: any) {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of current price"));
 					}
 
 					// Get today prices for the first time
 					try {
-						await tibberAPICaller.updatePricesToday(this.homeIdList[index]);
+//						await tibberAPICaller.updatePricesToday(this.homeIdList[index]);
+						await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
 					} catch (error: any) {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices today"));
 					}
 
 					// Get tomorrow prices for the first time
 					try {
-						await tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
+//						await tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
+						await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
 					} catch (error: any) {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices tomorrow"));
 					}
 				}
 
 				const energyPriceCallIntervall = this.setInterval(() => {
-					for (const index in this.homeIdList) {
+//					for (const index in this.homeIdList) {
+					for (const index in this.homeInfoList) {
 						try {
-							tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
+//							tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
+							tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
 						} catch (error: any) {
 							this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));
 						}
@@ -151,14 +165,17 @@ class Tibberlink extends utils.Adapter {
 				this.intervallList.push(energyPriceCallIntervall);
 
 				const energyPricesListUpdateInterval = this.setInterval(() => {
-					for (const index in this.homeIdList) {
+//					for (const index in this.homeIdList) {
+					for (const index in this.homeInfoList) {
 						try {
-							tibberAPICaller.updatePricesToday(this.homeIdList[index]);
+//							tibberAPICaller.updatePricesToday(this.homeIdList[index]);
+							tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
 						} catch (error: any) {
 							this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices today"));
 						}
 						try {
-							tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
+//							tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
+							tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
 						} catch (error: any) {
 							this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices tomorrow"));
 						}
@@ -169,9 +186,11 @@ class Tibberlink extends utils.Adapter {
 
 			// If user uses live feed - start connection
 			if (this.config.FeedActive) {
-				for (const index in this.homeIdList) {
+//				for (const index in this.homeIdList) {
+				for (const index in this.homeInfoList) {
 					try {
-						tibberConfigFeed.homeId = this.homeIdList[index]; // ERROR: Only latest homeID will be used at this point
+//						tibberConfigFeed.homeId = this.homeIdList[index]; // ERROR: Only latest homeID will be used at this point
+						tibberConfigFeed.homeId = this.homeInfoList[index].ID; // ERROR: Only latest homeID will be used at this point
 						// now define the fields for datafeed
 						tibberConfigFeed.timestamp = true;
 						tibberConfigFeed.power = true;

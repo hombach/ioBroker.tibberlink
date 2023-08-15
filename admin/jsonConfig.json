@@ -236,7 +236,6 @@
 		"_CalculatorTab": {
 			"type": "panel",
 			"label": "Calculator settings",
-			"hidden": true,
 			"items": {
 				"CalCh01Header": {
 					"type": "header",
@@ -250,7 +249,8 @@
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
-					"newLine": true
+					"newLine": true,
+					"hidden": true
 				},
 				"CalCh01Active": {
 					"type": "checkbox",
