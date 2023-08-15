@@ -252,6 +252,23 @@
 					"newLine": true,
 					"hidden": true
 				},
+				"CalCh01Type": {
+					"type": "select",
+					"label": "Channel Type",
+					"options": [
+						{
+							"label": "best cost - not implemented",
+							"value": 1
+						},
+						{
+							"label": "best hours - not implemented",
+							"value": 2
+						}
+					],
+					"sm": 6, "md": 6, "lg": 6,
+					"hidden": "!data.CalCh01Configured"
+				},
+
 				"CalCh01Active": {
 					"type": "checkbox",
 					"label": "Channel active",
@@ -261,6 +278,7 @@
 					"newLine": true,
 					"hidden": "!data.CalCh01Configured"
 				},
+
 				"CalCh01TargetState": {
 					"type": "objectId",
 					"label": "Target State",
