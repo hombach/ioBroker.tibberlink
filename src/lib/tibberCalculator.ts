@@ -14,7 +14,7 @@ export class TibberCalculator extends TibberHelper {
 			this.checkAndSetValueNumber(this.getStatePrefix(homeId, "Calculations." + channel, "TriggerPrice"), 0.0, "pricelevel to trigger this channel at");
 			this.checkAndSetValueBoolean(this.getStatePrefix(homeId, "Calculations." + channel, "Active"), false, "Whether the calculation channel is active");
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error, "fetching homes from Tibber API"))
+			this.adapter.log.warn(this.generateErrorMessage(error, "setup of states for calculator"))
 		}
 	}
 

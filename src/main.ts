@@ -3,6 +3,8 @@ import * as utils from "@iobroker/adapter-core";
 import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
+import { TibberCalculator } from "./lib/tibberCalculator";
+
 
 class Tibberlink extends utils.Adapter {
 	intervallList: any[]; // intervallList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
@@ -54,7 +56,7 @@ class Tibberlink extends utils.Adapter {
 			try {
 				this.homeIdList = await tibberAPICaller.updateHomesFromAPI();
 			} catch (error: any) {
-				this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes"));
+				this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes from Tibber-Server"));
 			}
 			// if feed is not used - set info.connection if data received
 			if (!this.config.FeedActive) {
@@ -102,19 +104,34 @@ class Tibberlink extends utils.Adapter {
 
 			// Init Load Data for all homes
 			if (this.homeIdList.length > 0) { // only if there are any homes the adapter will do something
+				const tibberCalculator = new TibberCalculator(this);
 				for (const index in this.homeIdList) {
+
+					// Set up calculation channel 1 states if channel is configured
+					if (this.config.CalCh01Configured) {
+						try {
+							await tibberCalculator.setupCalculatorStates(this.homeIdList[index], 1);
+							this.log.debug("setting up calculation channel 1 states");
+						} catch (error: any) {
+							this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculation states for channel 01"));
+						}
+					}
+
+					// Get current price for the first time
 					try {
 						await tibberAPICaller.updateCurrentPrice(this.homeIdList[index]);
 					} catch (error: any) {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of current price"));
 					}
 
+					// Get today prices for the first time
 					try {
 						await tibberAPICaller.updatePricesToday(this.homeIdList[index]);
 					} catch (error: any) {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices today"));
 					}
 
+					// Get tomorrow prices for the first time
 					try {
 						await tibberAPICaller.updatePricesTomorrow(this.homeIdList[index]);
 					} catch (error: any) {

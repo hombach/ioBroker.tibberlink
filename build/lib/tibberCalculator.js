@@ -14,7 +14,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.checkAndSetValueBoolean(this.getStatePrefix(homeId, "Calculations." + channel, "Active"), false, "Whether the calculation channel is active");
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, "fetching homes from Tibber API"));
+            this.adapter.log.warn(this.generateErrorMessage(error, "setup of states for calculator"));
         }
     }
 }
