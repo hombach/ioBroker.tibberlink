@@ -266,6 +266,9 @@ class Tibberlink extends utils.Adapter {
                             this.log.warn(e.message);
                         }
                     }
+                    else {
+                        this.log.warn("scipping datafeed of live data - no Pulse configured according to Tibber server");
+                    }
                 }
             }
         }
