@@ -166,7 +166,25 @@
 					"hidden": "!data.FeedActive",
 					"sm": 3,
 					"md": 3,
+					"lg": 3,
+					"newLine": true
+				},
+
+				"FeedConfigSignalStrength": {
+					"type": "checkbox",
+					"label": "SignalStrength",
+					"hidden": "!data.FeedActive",
+					"sm": 3,
+					"md": 3,
 					"lg": 3
+				},
+
+
+				"_phases": {
+					"type": "header",
+					"text": "Voltage and current values - on several meters the value is not part of the data frame therefore the values might be null. There can be other deviations based on concrete meter firmware.",
+					"hidden": "!data.FeedActive",
+					"size": 2
 				},
 
 				"FeedConfigVoltagePhase1": {
@@ -219,17 +237,8 @@
 					"sm": 3,
 					"md": 3,
 					"lg": 3
-				},
-
-				"FeedConfigSignalStrength": {
-					"type": "checkbox",
-					"label": "SignalStrength",
-					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
-					"newLine": true
 				}
+
 			}
 		},
 
