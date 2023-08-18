@@ -1,8 +1,10 @@
 {
 	"Standard settings": "Standardowe ustawienia",
+	"s_ReferalLink": "Jeśli nie masz już prawa użytkownika, jest bardzo ceniona, kiedy używasz mego odwróconego linku.",
 	"Calculator settings": "Ustawienie kalkulatora",
 	"tibberlink adapter settings": "Ustawienia adaptera dla TibberLink",
 	"TibberAPIToken": "znajdował się w dżibli apib",
 	"PulseActive": "użycie impulsu (wszystkie domy)",
-	"SelectFieldsForFeed": "Wybrane wszystkie pola, które chcemy załadować dane karmiące (potrzebowanie na czas) są domyślne"
+	"SelectFieldsForFeed": "Wybrane wszystkie pola, które chcemy załadować dane karmiące (potrzebowanie na czas) są domyślne",
+	"s_PhasesExplanation": "\n\nWartość i aktualne wartości – na kilku metrów wartości te nie są częścią ramy danych, więc wartości mogą być nieważne. Istnieje wiele odchyleń opartych na betonowych warzywach. Wartości Null nie generują stanu we wszystkich obiektach iobrokera."
 }

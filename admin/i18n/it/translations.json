@@ -1,8 +1,10 @@
 {
 	"Standard settings": "Impostazioni standard",
+	"s_ReferalLink": "Se non sei un utente Tibber in questo momento, è molto apprezzato quando si utilizza il mio collegamento riverbero.",
 	"Calculator settings": "Impostazioni del calcolatore",
 	"tibberlink adapter settings": "Impostazioni dell'adattatore per TibberLink",
 	"TibberAPIToken": "token per Tibber api",
 	"PulseActive": "usare il polso del Tibber (tutte le case)",
-	"SelectFieldsForFeed": "Selezionare tutti i campi che si desidera caricare nei dati di alimentazione (potenza e timestamp sono di default):"
+	"SelectFieldsForFeed": "Selezionare tutti i campi che si desidera caricare nei dati di alimentazione (potenza e timestamp sono di default):",
+	"s_PhasesExplanation": "Tensione e valori correnti - su diversi metri questi valori non fanno parte del data frame, quindi i valori potrebbero essere nulli. Ci possono essere altre deviazioni basate sul firmware del misuratore di calcestruzzo. I valori di null non generano uno stato nei tuoi oggetti ioBroker."
 }

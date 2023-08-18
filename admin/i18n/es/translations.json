@@ -1,8 +1,10 @@
 {
 	"Standard settings": "Ajustes estándar",
+	"s_ReferalLink": "Si no eres un usuario de Tibber ahora mismo, es muy apreciado cuando estás usando mi enlace reveral.",
 	"Calculator settings": "Ajustes de la calculadora",
 	"tibberlink adapter settings": "Ajustes del adaptador para TibberLink",
 	"TibberAPIToken": "token for Tibber api",
 	"PulseActive": "use pulso de Tibber (todas las casas)",
-	"SelectFieldsForFeed": "Seleccione todos los campos que desea cargar en los datos de alimentación (la potencia y el temporizador son predeterminados):"
+	"SelectFieldsForFeed": "Seleccione todos los campos que desea cargar en los datos de alimentación (la potencia y el temporizador son predeterminados):",
+	"s_PhasesExplanation": "Valores voltaje y corriente - en varios metros estos valores no forman parte del marco de datos, por lo que los valores podrían ser nulos. Puede haber otras desviaciones basadas en el firmware de medidores de hormigón. Los valores nulos no generarán un estado en sus objetos yoBroker."
 }

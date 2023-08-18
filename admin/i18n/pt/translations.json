@@ -1,8 +1,10 @@
 {
 	"Standard settings": "Definições padrão",
+	"s_ReferalLink": "Se você não é um usuário do Tibber agora, é muito apreciado quando você está usando meu link reveral.",
 	"Calculator settings": "Definições da calculadora",
 	"tibberlink adapter settings": "Configurações do adaptador para TibberLink",
 	"TibberAPIToken": "token para Tibber api",
 	"PulseActive": "usar pulso de Tibber (todas as casas)",
-	"SelectFieldsForFeed": "Selecione todos os campos que você deseja carregar em dados de feed (poder e timestamp são padrão):"
+	"SelectFieldsForFeed": "Selecione todos os campos que você deseja carregar em dados de feed (poder e timestamp são padrão):",
+	"s_PhasesExplanation": "Tensão e valores atuais - em vários metros esses valores não são parte do quadro de dados, portanto os valores podem ser nulos. Pode haver outros desvios com base no firmware do medidor de concreto. Os valores nulos não gerarão um estado em seus objetos ioBroker."
 }

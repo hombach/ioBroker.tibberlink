@@ -1,8 +1,10 @@
 {
 	"Standard settings": "标准环境",
+	"s_ReferalLink": "如果你目前没有一个提法用户的权利,在你利用我的几个联系时,它非常赞赏。",
 	"Calculator settings": "计算地点",
 	"tibberlink adapter settings": "TibberLink",
 	"TibberAPIToken": "浮动",
 	"PulseActive": "1. 使用季节(所有住房)",
-	"SelectFieldsForFeed": "离开你想装载饲料数据的所有领域(权力和时间包):"
+	"SelectFieldsForFeed": "离开你想装载饲料数据的所有领域(权力和时间包):",
+	"s_PhasesExplanation": "几名达到者,这些价值不是数据框架的一部分,因此,价值可能无效。 可能出现基于具体参数的警觉的其他偏离。 祖先的价值观在你的万国宫里产生一种国家。."
 }

@@ -1,8 +1,10 @@
 {
 	"Standard settings": "Standaard setting",
+	"s_ReferalLink": "Als je nu geen Tibber gebruiker bent, is het zeer gewaardeerd als je mijn reverale link gebruikt.",
 	"Calculator settings": "Calculator setting",
 	"tibberlink adapter settings": "Adapterinstellingen voor TibberLink",
 	"TibberAPIToken": "Token voor Tibber API",
 	"PulseActive": "gebruik kietel pols",
-	"SelectFieldsForFeed": "Selecteer alle velden die je wilt laden in voedingsgegevens"
+	"SelectFieldsForFeed": "Selecteer alle velden die je wilt laden in voedingsgegevens",
+	"s_PhasesExplanation": "Voltage en huidige waarden - op verschillende meters deze waarden zijn geen onderdeel van het data frame, daarom zijn de waarden nul. Er kunnen andere afwijkingen zijn gebaseerd op betonmeter firmaware. Nulwaarden zullen geen staat opleveren in je ioburate objecten."
 }

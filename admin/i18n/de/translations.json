@@ -1,8 +1,10 @@
 {
 	"Standard settings": "Standardeinstellungen",
+	"s_ReferalLink": "Wenn Sie noch kein Tibber-Benutzer sind, wäre es mir sehr willkommen, wenn Sie meinen Reveral-Link verwenden.",
 	"Calculator settings": "Berechnungseinstellungen",
 	"tibberlink adapter settings": "Adaptereinstellungen für TibberLink",
 	"TibberAPIToken": "Token für Tibber API",
 	"PulseActive": "Tibber Pulse verwenden (alle Zuhause)",
-	"SelectFieldsForFeed": "Wählen Sie alle Felder, die beim Abruf der Live Messung abgerufen werden sollen (Power und Zeitstempel sind per Standard enthalten):"
+	"SelectFieldsForFeed": "Wählen Sie alle Felder, die beim Abruf der Live Messung abgerufen werden sollen (Power und Zeitstempel sind per Standard enthalten):",
+	"s_PhasesExplanation": "Spannung und Stromwerte - auf mehreren Metern sind diese Werte nicht Teil des Datenrahmens, daher könnten die Werte null sein. Es können andere Abweichungen auf der Grundlage von Beton Meter Firmware. Nullwerte erzeugen überhaupt keinen Zustand in Ihren ioBroker Objekten."
 }
