@@ -6,5 +6,5 @@
 	"TibberAPIToken": "Token für Tibber API",
 	"PulseActive": "Tibber Pulse verwenden (alle Zuhause)",
 	"SelectFieldsForFeed": "Wählen Sie alle Felder, die beim Abruf der Live Messung abgerufen werden sollen (Power und Zeitstempel sind per Standard enthalten):",
-	"s_PhasesExplanation": "Spannung und Stromwerte - auf mehreren Metern sind diese Werte nicht Teil des Datenrahmens, daher könnten die Werte null sein. Es können andere Abweichungen auf der Grundlage von Beton Meter Firmware. Nullwerte erzeugen überhaupt keinen Zustand in Ihren ioBroker Objekten."
+	"s_PhasesExplanation": "Spannungs und Stromwerte - bei einigen Stromzählern sind diese Werte nicht Teil des Datenpakets, daher könnten die Werte null sein. Es können auch andere Abweichungen auf Grund von Zähler Firmware auftreten. Nullwerte erzeugen keinen State in Ihren ioBroker Objekten."
 }
