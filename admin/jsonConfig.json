@@ -24,7 +24,14 @@
 					"newLine": true
 				},
 
-				"feedDataDetail": {
+				"_link": {
+					"type": "staticLink",
+					"label": "If you're not a Tibber user right now, it's greatly appreciated when you're using my reveral link",
+					"href": "https://invite.tibber.com/2gwuign3.](https://invite.tibber.com/2gwuign3.",
+					"newLine": true
+				},
+
+				"_feedDataDetail": {
 					"type": "header",
 					"text": "SelectFieldsForFeed",
 					"hidden": "!data.FeedActive",
@@ -181,10 +188,9 @@
 
 
 				"_phases": {
-					"type": "header",
-					"text": "Voltage and current values - on several meters the value is not part of the data frame therefore the values might be null. There can be other deviations based on concrete meter firmware.",
+					"type": "staticText",
+					"text": "Voltage and current values - on several meters these values is not part of the data frame, therefore the values might be null. There can be other deviations based on concrete meter firmware. Null values won't generate a state in your ioBroker objects at all.",
 					"hidden": "!data.FeedActive",
-					"size": 2
 				},
 
 				"FeedConfigVoltagePhase1": {
