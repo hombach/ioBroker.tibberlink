@@ -35,6 +35,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.2.0 (2023-08-18)
+* (HombachC) introduces JSONs for prices sorted by price ascending
 ### 0.1.10 (2023-08-15)
 * (HombachC) bump dependencies, code cleanups
 * (HombachC) preparations for tibber calculator

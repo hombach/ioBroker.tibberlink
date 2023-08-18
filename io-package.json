@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.1.10",
+		"version": "0.2.0",
 		"news": {
+			"0.2.0": {
+				"en": "introduces JSONs for prices sorted by total price ascending",
+				"de": "führt JSONs für Preise sortiert nach Gesamtpreis aufsteigend ein",
+				"ru": "вводит JSONs для цены, отсортированных по полной цене по возрастанию",
+				"pt": "introduz JSONs para preços classificados pelo preço total ascendente",
+				"nl": "_",
+				"fr": "introduit JSONs pour les prix triés par le prix total ascendant",
+				"it": "introduce JSONs per i prezzi ordinati per prezzo totale crescente",
+				"es": "presenta JSONs para precios ordenados por precio total ascendente",
+				"pl": "wprowadzanie JSON za ceny uporządkowane przez całkowity wzrost cen",
+				"uk": "вводить JSON для цін, що відсортовані загальним зростанням цін",
+				"zh-cn": "公司采用以总价格计算价格计算的价格"
+			},
 			"0.1.10": {
 				"en": "bump dependencies, preparations for tibber calculator, code cleanup, mitigate multi homes & pulse problems (#41)",
 				"de": "Abhängigkeiten aktualisiert, Vorbereitungen für tibber-rechner, Code Bereinigung, Minderung multi homes & Pulse probleme (#41)",
