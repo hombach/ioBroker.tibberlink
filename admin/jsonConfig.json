@@ -255,7 +255,6 @@
 				"CalCh01Header": {
 					"type": "header",
 					"text": "Not yet implemented",
-					"hidden": "!data.FeedActive",
 					"size": 3
 				},
 				"CalCh01Configured": {
@@ -265,7 +264,7 @@
 					"md": 6,
 					"lg": 6,
 					"newLine": true,
-					"hidden": true
+					"hidden": "!data.FeedActive"
 				},
 				"CalCh01Type": {
 					"type": "select",
@@ -276,11 +275,17 @@
 							"value": 1
 						},
 						{
-							"label": "best hours - not implemented",
+							"label": "best single hours - not implemented",
+							"value": 2
+						},
+						{
+							"label": "best hours block- not implemented",
 							"value": 2
 						}
 					],
-					"sm": 6, "md": 6, "lg": 6,
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
 					"hidden": "!data.CalCh01Configured"
 				},
 
@@ -293,14 +298,32 @@
 					"newLine": true,
 					"hidden": "!data.CalCh01Configured"
 				},
-
 				"CalCh01TargetState": {
 					"type": "objectId",
 					"label": "Target State",
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
+					"hidden": "!data.CalCh01Configured"
+				},
+
+				"CalCh01ValueOn": {
+					"type": "text",
+					"label": "Value YES",
+					"maxLength": 20,
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
 					"newLine": true,
+					"hidden": "!data.CalCh01Configured"
+				},
+				"CalCh01ValueOff": {
+					"type": "text",
+					"label": "Value NO",
+					"maxLength": 20,
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
 					"hidden": "!data.CalCh01Configured"
 				}
 

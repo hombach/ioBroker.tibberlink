@@ -30,8 +30,8 @@ declare global {
 			FeedConfigCurrentL3: boolean;
 			FeedConfigSignalStrength: boolean;
 			CalCh01Configured: boolean; // configs for calculator channel 01
+			CalCh01Active: boolean;
 			CalCh01Type: string;
-			CalCh01Multi: boolean;
 			CalCh01ValueOn: string;
 			CalCh01ValueOff: string;
 		}
