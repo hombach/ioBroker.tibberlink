@@ -75,7 +75,7 @@ export class TibberAPICaller extends TibberHelper {
 			const hour = new Date(price.startsAt).getHours();
 			this.fetchPrice("PricesToday." + hour, price);
 		}
-		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending"); //NEW NEW NEW
+		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
 	}
 
 	async updatePricesTomorrow(homeId: string): Promise<void> {
@@ -95,7 +95,7 @@ export class TibberAPICaller extends TibberHelper {
 				const hour = new Date(price.startsAt).getHours();
 				this.fetchPrice("PricesTomorrow." + hour, price);
 			}
-			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending"); //NEW NEW NEW
+			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
 		}
 	}
 
