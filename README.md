@@ -37,7 +37,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ### 0.2.0 (2023-08-18)
 * (HombachC) introduces JSONs for prices sorted by price ascending
-* (HombachC) fix stupid error for obsolete next day pricing (#23)
+* (HombachC) fix stupid error for obsolete next day pricing (#23, #50)
 ### 0.1.10 (2023-08-15)
 * (HombachC) bump dependencies, code cleanups
 * (HombachC) preparations for tibber calculator
