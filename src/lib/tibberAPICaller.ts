@@ -110,8 +110,8 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	private emptyingPrice(objectDestination: string): void {
-		this.adapter.log.debug("Emptying prices tomorrow cause old ones are obsolete");
-		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0, "The total price (energy + taxes)");
+		this.adapter.log.debug("Emptying prices tomorrow cause old ones are obsolete...");
+		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0.0, "The total price (energy + taxes)");
 		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), 0, "Spotmarket price");
 		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), 0, "The tax part of the price (energy tax, VAT, etc.)");
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
