@@ -68,10 +68,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     }
     async updatePricesTomorrow(homeId) {
         let pricesTomorrow = [];
-        pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
+        //TEST pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
         this.adapter.log.debug("Got prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
         this.currentHomeId = homeId;
-        if (pricesTomorrow.length <= 1) { // pricing not known, before about 13:00 - delete the states
+        if (pricesTomorrow.length === 0) { // pricing not known, before about 13:00 - delete the states
             for (let i = 0; i < 3; i++) {
                 const hour = i;
                 this.emptyingPrice("PricesTomorrow." + hour);
