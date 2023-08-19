@@ -78,13 +78,13 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
 	}
 
-	async updatePricesTomorrow(homeId: string): Promise<void> { // OOPS something has been chnaged by Tibber - price tomorrow isn't empty anymore when invalid
+	async updatePricesTomorrow(homeId: string): Promise<void> {
 		let pricesTomorrow : IPrice[] = [];
 		pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 		this.adapter.log.debug("Got prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
 		this.currentHomeId = homeId;
 
-		if(pricesTomorrow.length === 0) { // pricing not known, before about 13:00 - delete the states
+		if(pricesTomorrow.length <= 1) { // pricing not known, before about 13:00 - delete the states
 			for (let i = 0; i < 3; i++) {
 				const hour = i;
 				this.emptyingPrice("PricesTomorrow." + hour);
@@ -110,6 +110,7 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	private emptyingPrice(objectDestination: string): void {
+		this.adapter.log.debug("Emptying prices tomorrow cause old ones are obsolete");
 		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0, "The total price (energy + taxes)");
 		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), 0, "Spotmarket price");
 		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), 0, "The tax part of the price (energy tax, VAT, etc.)");

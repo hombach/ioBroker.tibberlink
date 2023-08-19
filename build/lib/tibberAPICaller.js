@@ -71,7 +71,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
         this.adapter.log.debug("Got prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
         this.currentHomeId = homeId;
-        if (pricesTomorrow.length === 0) { // pricing not known, before about 13:00 - delete the states
+        if (pricesTomorrow.length <= 1) { // pricing not known, before about 13:00 - delete the states
             for (let i = 0; i < 3; i++) {
                 const hour = i;
                 this.emptyingPrice("PricesTomorrow." + hour);
@@ -96,6 +96,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "level"), price.level, "Price level compared to recent price values");
     }
     emptyingPrice(objectDestination) {
+        this.adapter.log.debug("Emptying prices tomorrow cause old ones are obsolete");
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0, "The total price (energy + taxes)");
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), 0, "Spotmarket price");
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), 0, "The tax part of the price (energy tax, VAT, etc.)");
