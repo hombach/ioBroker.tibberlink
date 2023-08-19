@@ -78,8 +78,9 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
 	}
 
-	async updatePricesTomorrow(homeId: string): Promise<void> {
-		const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
+	async updatePricesTomorrow(homeId: string): Promise<void> { // OOPS something has been chnaged by Tibber - price tomorrow isn't empty anymore when invalid
+		let pricesTomorrow : IPrice[] = [];
+		pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 		this.adapter.log.debug("Got prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
 		this.currentHomeId = homeId;
 
