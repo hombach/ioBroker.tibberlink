@@ -254,12 +254,12 @@
 			"items": {
 				"CalCh01Header": {
 					"type": "header",
-					"text": "Not yet implemented",
+					"text": "Calculator Channel 01 - Not yet implemented",
 					"size": 3
 				},
 				"CalCh01Configured": {
 					"type": "checkbox",
-					"label": "Configure Channel 01",
+					"label": "Configure Channel 01 - Not yet implemented",
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
