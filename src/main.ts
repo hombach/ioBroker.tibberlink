@@ -95,7 +95,7 @@ class Tibberlink extends utils.Adapter {
 			}
 
 			if (!(this.homeInfoList.length > 0)) {// if no homeIDs available - adapter can't do that much
-				this.log.warn("Got no homes in your account - probably by a Tibber Server Error- will restarting adapter in 2 minutes");
+				this.log.warn("Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes");
 				const adapterrestart = this.setInterval(() => {
 					this.restart();
 				}, 120000);
