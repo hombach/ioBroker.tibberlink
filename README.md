@@ -35,6 +35,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.2.1 (2023-08-21)
+* (HombachC) double timeout for Tibber server queries
 ### 0.2.0 (2023-08-18)
 * (HombachC) introduces JSONs for prices sorted by price ascending
 * (HombachC) fix stupid error for obsolete next day pricing (#23, #50)
