@@ -7,7 +7,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.tibberConfig = tibberConfig;
-        this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig);
+        this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig, 60000);
         this.currentHomeId = "";
     }
     async updateHomesFromAPI() {

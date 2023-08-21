@@ -14,7 +14,7 @@ export class TibberAPICaller extends TibberHelper {
 	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
 		super(adapter);
 		this.tibberConfig = tibberConfig;
-		this.tibberQuery = new TibberQuery(this.tibberConfig);
+		this.tibberQuery = new TibberQuery(this.tibberConfig, 60000);
 		this.currentHomeId = "";
 	}
 
