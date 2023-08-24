@@ -76,24 +76,33 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         }
     }
     async updatePricesTomorrow(homeId) {
-        const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
-        this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
-        this.currentHomeId = homeId;
-        if (pricesTomorrow.length === 0) { // pricing not known, before about 13:00 - delete the states
-            this.adapter.log.debug(`Emptying PricesTomorrow cause existing ones are obsolete...`);
-            for (let hour = 0; hour < 24; hour++) {
-                this.emptyingPrice(`PricesTomorrow.${hour}`);
+        const exJSON = await this.getStateValue(`Homes.${this.currentHomeId}.PricesTomorrow.json`);
+        const exPricesToday = JSON.parse(exJSON);
+        const exDate = new Date(exPricesToday[1].startsAt).getDate();
+        const heute = new Date().getDate();
+        if (exDate !== (heute + 1)) {
+            const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
+            this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
+            this.currentHomeId = homeId;
+            if (pricesTomorrow.length === 0) { // pricing not known, before about 13:00 - delete the states
+                this.adapter.log.debug(`Emptying PricesTomorrow cause existing ones are obsolete...`);
+                for (let hour = 0; hour < 24; hour++) {
+                    this.emptyingPrice(`PricesTomorrow.${hour}`);
+                }
             }
-        }
-        else if (pricesTomorrow) { // pricing known, after about 13:00 - write the states
-            for (const i in pricesTomorrow) {
-                const price = pricesTomorrow[i];
-                const hour = new Date(price.startsAt).getHours();
-                this.fetchPrice("PricesTomorrow." + hour, price);
+            else if (pricesTomorrow) { // pricing known, after about 13:00 - write the states
+                for (const i in pricesTomorrow) {
+                    const price = pricesTomorrow[i];
+                    const hour = new Date(price.startsAt).getHours();
+                    this.fetchPrice("PricesTomorrow." + hour, price);
+                }
             }
+            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
+            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
         }
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
+        else {
+            this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices toomorrow from Tibber skipped`);
+        }
     }
     fetchPrice(objectDestination, price) {
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), price.total, "The total price (energy + taxes)");
