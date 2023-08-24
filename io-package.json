@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.2.1",
+		"version": "0.2.2",
 		"news": {
+			"0.2.2": {
+				"en": "reducing polls at Tibber server by precheck of known data"
+			},
 			"0.2.1": {
 				"en": "double timeout for Tibber server queries",
 				"de": "doppelter Timeout für Tibber Server-Abfragen",

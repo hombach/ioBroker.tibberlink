@@ -35,6 +35,11 @@ export class TibberHelper {
 		}
 	}
 
+	protected async getValue(stateName: { [key: string]: string }): Promise<any> {
+		const value = await this.adapter.getStateAsync(stateName.value);
+		return value;
+	}
+
 	protected async checkAndSetValueNumber(stateName: { [key: string]: string }, value: number, description?: string): Promise<void> {
 		if (value || value === 0) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
