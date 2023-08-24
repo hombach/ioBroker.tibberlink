@@ -67,14 +67,14 @@ export class TibberAPICaller extends TibberHelper {
 
 	async updatePricesToday(homeId: string): Promise<void> {
 		const exJSON = await this.getValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json").value);
-		const exPricesToday: IPrice[] = JSON.parse(exJSON);
+		//const exPricesToday: IPrice[] = JSON.parse(exJSON);
 		//const startsAt = new Date(exPricesToday[1].startsAt);
 		//const exDate = new Date(exPricesToday[1].startsAt).getDate();
-		const heute = new Date().getDate();
+		//const heute = new Date().getDate();
 		//if (exDate !== heute) {
 		//} else {
 		this.adapter.log.debug(`Existing date (${exJSON}) of price info is already the today date, polling of prices today from Tibber skipped`);
-		this.adapter.log.debug(`Existing date (${exPricesToday}) of price info is already the today date, polling of prices today from Tibber skipped`);
+		//this.adapter.log.debug(`Existing date (${exPricesToday}) of price info is already the today date, polling of prices today from Tibber skipped`);
 		//}
 
 		const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
