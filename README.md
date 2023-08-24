@@ -38,6 +38,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ### 0.2.2 (2023-08-24)
 * (HombachC) reducing polls at Tibber server by precheck of known data
 * (HombachC) code optimizations
+* (HombachC) fix config screen (#55)
 ### 0.2.1 (2023-08-21)
 * (HombachC) double timeout for Tibber server queries
 ### 0.2.0 (2023-08-18)

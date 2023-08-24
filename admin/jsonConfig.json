@@ -223,8 +223,8 @@
 					"type": "checkbox",
 					"label": "CurrentL1",
 					"hidden": "!data.FeedActive",
-					"sm": 4,
-					"md": 4,
+					"sm": 12,
+					"md": 6,
 					"lg": 4,
 					"newLine": true
 				},
@@ -232,16 +232,16 @@
 					"type": "checkbox",
 					"label": "CurrentL2",
 					"hidden": "!data.FeedActive",
-					"sm": 4,
-					"md": 4,
+					"sm": 12,
+					"md": 6,
 					"lg": 4
 				},
 				"FeedConfigCurrentL3": {
 					"type": "checkbox",
 					"label": "CurrentL3",
 					"hidden": "!data.FeedActive",
-					"sm": 4,
-					"md": 4,
+					"sm": 12,
+					"md": 6,
 					"lg": 4
 				}
 

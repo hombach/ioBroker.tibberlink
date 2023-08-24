@@ -4,7 +4,17 @@
 		"version": "0.2.2",
 		"news": {
 			"0.2.2": {
-				"en": "reducing polls at Tibber server by precheck of known data, code optimizations"
+				"en": "reducing polls at Tibber server by precheck of known data, code optimizations, fix config screen (#55)",
+				"de": "Reduktion von Anfragen am Tibber-Server durch Vorprüfung bekannter Daten, Codeoptimierungen, Fix Config-Bildschirm (#55)",
+				"ru": "сокращение опросов на сервере Tibber путем предварительного проверки известных данных, оптимизации кода, фиксации config экрана (#55)",
+				"pt": "reduzindo pesquisas no servidor Tibber por pré-verificação de dados conhecidos, otimizações de código, corrigir tela de configuração (#55)",
+				"nl": "polls verminderen bij Tibberserver met voorzien van bekende gegevens, code optimaties, config screen repareren",
+				"fr": "réduire les sondages sur le serveur Tibber en prévérant les données connues, les optimisations de code, fixer l'écran de configuration (#55)",
+				"it": "ridurre i sondaggi al server Tibber precheck di dati noti, ottimizzazioni di codice, fix config screen (#55)",
+				"es": "reducir las encuestas en el servidor Tibber por precheck de datos conocidos, optimizaciones de códigos, fijar la pantalla de configuración (#55)",
+				"pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez sprawdzanie znanych danych, optymalizacje kodu, naprawy ekranu (#55)",
+				"uk": "знижувати опитування на сервері Tibber за допомогою пречбеку відомих даних, оптимізації коду, фіксації екрана конфігурації (#55)",
+				"zh-cn": "通过预先检查已知数据、守则优化、固定集群筛查(第55号)减少Tibber服务器的污染"
 			},
 			"0.2.1": {
 				"en": "double timeout for Tibber server queries",
