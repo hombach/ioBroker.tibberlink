@@ -49,7 +49,8 @@ class TibberHelper {
             if (!stateObject) {
                 throw `State '${stateName}' does not exist.`;
             }
-            else { // Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
+            else {
+                // Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
                 const stateValueObject = await this.adapter.getStateAsync(stateName);
                 if (!this.isLikeEmpty(stateValueObject)) {
                     return stateValueObject;

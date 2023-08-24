@@ -51,7 +51,8 @@ export class TibberHelper {
 			const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
 			if (!stateObject) {
 				throw `State '${stateName}' does not exist.`;
-			} else { // Get state value, so like: {val: false, ack: true, ts: 1591117034451, …}
+			} else {
+				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, …}
 				const stateValueObject = await this.adapter.getStateAsync(stateName);
 				if (!this.isLikeEmpty(stateValueObject)) {
 					return stateValueObject;
@@ -65,7 +66,7 @@ export class TibberHelper {
 		}
 	}
 
-	private isLikeEmpty(inputVar: ioBroker.State | null | undefined) {
+	private isLikeEmpty(inputVar: ioBroker.State | null | undefined): boolean {
 		if (typeof inputVar !== "undefined" && inputVar !== null) {
 			let sTemp = JSON.stringify(inputVar);
 			sTemp = sTemp.replace(/\s+/g, ""); // remove all white spaces
