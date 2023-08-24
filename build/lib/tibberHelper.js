@@ -32,7 +32,7 @@ class TibberHelper {
         }
     }
     async getValue(stateName) {
-        const value = await this.adapter.getStateAsync(stateName.value);
+        const value = await this.adapter.getStateAsync(stateName);
         return value;
     }
     async checkAndSetValueNumber(stateName, value, description) {

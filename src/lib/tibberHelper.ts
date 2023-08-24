@@ -35,8 +35,8 @@ export class TibberHelper {
 		}
 	}
 
-	protected async getValue(stateName: { [key: string]: string }): Promise<any> {
-		const value = await this.adapter.getStateAsync(stateName.value);
+	protected async getValue(stateName: string): Promise<any> {
+		const value = await this.adapter.getStateAsync(stateName);
 		return value;
 	}
 
