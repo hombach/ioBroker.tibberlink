@@ -21,7 +21,7 @@ export class TibberAPICaller extends TibberHelper {
 	async updateHomesFromAPI(): Promise<{ ID: string, RealTime: boolean }[]> {
 		try {
 			const Homes = await this.tibberQuery.getHomes();
-			this.adapter.log.debug("Got homes from tibber api: " + JSON.stringify(Homes));
+			this.adapter.log.debug(`Got homes from tibber api: ${JSON.stringify(Homes)}`);
 			const homeInfoList: { ID: string, RealTime: boolean }[] = [];
 			for (const index in Homes) {
 				const currentHome = Homes[index];
@@ -66,10 +66,10 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	async updatePricesToday(homeId: string): Promise<void> {
-		const exJSON = await this.getValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json"));
-		const exPricesToday: IPrice[] = JSON.parse(exJSON);
-		const exDate = new Date(exPricesToday[1].startsAt).getDate();
-		//const heute = new Date().getDate();
+		//const exJSON = await this.getValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json"));
+		//const exPricesToday: IPrice[] = JSON.parse(exJSON);
+		//const exDate = new Date(exPricesToday[1].startsAt).getDate();
+		const exDate = new Date().getDate(); //heute
 		//if (exDate !== heute) {
 		//} else {
 			this.adapter.log.debug(`Existing date ${exDate} + of price info is already today date, poll of prices today from Tibber skipped`);
