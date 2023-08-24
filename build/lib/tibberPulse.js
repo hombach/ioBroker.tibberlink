@@ -17,7 +17,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.tibberFeed.connect();
         }
         catch (e) {
-            this.adapter.log.warn("Error on connect Feed:" + e.message);
+            this.adapter.log.warn(`Error on connect Feed: ${e.message}`);
         }
     }
     DisconnectPulseStream() {
@@ -25,7 +25,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.tibberFeed.close();
         }
         catch (e) {
-            this.adapter.log.warn("Error on Feed closed:" + e.message);
+            this.adapter.log.warn(`Error on Feed closed: ${e.message}`);
         }
         // reinit Tibberfeed
         this.tibberFeed = new tibber_api_1.TibberFeed(new tibber_api_1.TibberQuery(this.tibberConfig));
@@ -33,12 +33,12 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
     addEventHandlerOnFeed(currentFeed) {
         // Set info.connection state
         currentFeed.on("connected", (data) => {
-            this.adapter.log.debug("Tibber Feed: " + data.toString());
+            this.adapter.log.debug(`Tibber Feed: ${data.toString()}`);
             this.adapter.setState("info.connection", true, true);
         });
         // Set info.connection state
         currentFeed.on("disconnected", (data) => {
-            this.adapter.log.debug("Tibber Feed: " + data.toString());
+            this.adapter.log.debug(`Tibber Feed: ${data.toString()}`);
             this.adapter.setState("info.connection", false, true);
             if (this.adapter.config.FeedActive) {
                 this.adapter.log.warn("a feed was disconnected. I try to reconnect in 6s");

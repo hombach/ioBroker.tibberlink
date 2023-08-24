@@ -41,9 +41,9 @@
 				"FeedConfigLastMeterConsumption": {
 					"type": "checkbox",
 					"label": "LastMeterConsumption",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
+					"sm": 4,
+					"md": 4,
+					"lg": 4,
 					"hidden": "!data.FeedActive",
 					"newLine": true
 				},
@@ -51,129 +51,129 @@
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 				"FeedConfigAccumulatedConsumptionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumptionLastHour",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 
 				"FeedConfigLastMeterProduction": {
 					"type": "checkbox",
 					"label": "LastMeterProduction",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
+					"sm": 4,
+					"md": 4,
+					"lg": 4,
 					"newLine": true
 				},
 				"FeedConfigAccumulatedProduction": {
 					"type": "checkbox",
 					"label": "AccumulatedProduction",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 				"FeedConfigAccumulatedProductionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedProductionLastHour",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 
 				"FeedConfigAccumulatedCost": {
 					"type": "checkbox",
 					"label": "AccumulatedCost",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
+					"sm": 4,
+					"md": 4,
+					"lg": 4,
 					"newLine": true
 				},
 				"FeedConfigAccumulatedReward": {
 					"type": "checkbox",
 					"label": "AccumulatedReward",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 				"FeedConfigCurrency": {
 					"type": "checkbox",
 					"label": "Currency",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 
 				"FeedConfigMinPower": {
 					"type": "checkbox",
 					"label": "MinPower",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
+					"sm": 4,
+					"md": 4,
+					"lg": 4,
 					"newLine": true
 				},
 				"FeedConfigAveragePower": {
 					"type": "checkbox",
 					"label": "AveragePower",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 				"FeedConfigMaxPower": {
 					"type": "checkbox",
 					"label": "MaxPower",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 
 				"FeedConfigPowerProduction": {
 					"type": "checkbox",
 					"label": "PowerProduction",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
+					"sm": 4,
+					"md": 4,
+					"lg": 4,
 					"newLine": true
 				},
 				"FeedConfigMinPowerProduction": {
 					"type": "checkbox",
 					"label": "MinPowerProduction",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 				"FeedConfigMaxPowerProduction": {
 					"type": "checkbox",
 					"label": "MaxPowerProduction",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 				"FeedConfigPowerFactor": {
 					"type": "checkbox",
 					"label": "PowerFactor",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
+					"sm": 4,
+					"md": 4,
+					"lg": 4,
 					"newLine": true
 				},
 
@@ -181,9 +181,9 @@
 					"type": "checkbox",
 					"label": "SignalStrength",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 
 
@@ -197,52 +197,52 @@
 					"type": "checkbox",
 					"label": "VoltagePhase1",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
+					"sm": 4,
+					"md": 4,
+					"lg": 4,
 					"newLine": true
 				},
 				"FeedConfigVoltagePhase2": {
 					"type": "checkbox",
 					"label": "VoltagePhase2",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 				"FeedConfigVoltagePhase3": {
 					"type": "checkbox",
 					"label": "VoltagePhase3",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 
 				"FeedConfigCurrentL1": {
 					"type": "checkbox",
 					"label": "CurrentL1",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3,
+					"sm": 4,
+					"md": 4,
+					"lg": 4,
 					"newLine": true
 				},
 				"FeedConfigCurrentL2": {
 					"type": "checkbox",
 					"label": "CurrentL2",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				},
 				"FeedConfigCurrentL3": {
 					"type": "checkbox",
 					"label": "CurrentL3",
 					"hidden": "!data.FeedActive",
-					"sm": 3,
-					"md": 3,
-					"lg": 3
+					"sm": 4,
+					"md": 4,
+					"lg": 4
 				}
 
 			}
