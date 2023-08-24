@@ -55,7 +55,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         }
     }
     async updatePricesToday(homeId) {
-        const exJSON = await this.getValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json").value);
+        //const exJSON = await this.getValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json").v);
+        const exJSON = await this.getValue(`Homes.${this.currentHomeId}.PricesToday.json`);
         //const exPricesToday: IPrice[] = JSON.parse(exJSON);
         //const startsAt = new Date(exPricesToday[1].startsAt);
         //const exDate = new Date(exPricesToday[1].startsAt).getDate();
