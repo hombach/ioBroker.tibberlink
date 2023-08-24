@@ -31,9 +31,69 @@ class TibberHelper {
             }
         }
     }
-    async getValue(stateName) {
+    /*
+    protected async getValue(stateName: string): Promise<any> {
         const value = await this.adapter.getStateAsync(stateName);
         return value;
+    }
+    */
+    async getStateValue(stateName) {
+        try {
+            let stateObject = await this.getState(stateName);
+            if (stateObject == null)
+                return null; // errors thrown already in GetState()
+            return stateObject.val;
+        }
+        catch (e) {
+            this.adapter.log.error(`[getStateValue](${stateName}): ${e}`);
+            return null;
+        }
+    }
+    /**
+    * Get state
+    * @return {Promise<object>}       - State object: {val: false, ack: true, ts: 1591117034451, �}, or null if error
+    */
+    async getState(stateName) {
+        try {
+            let stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
+            if (!stateObject) {
+                throw (`State '${stateName}' does not exist.`);
+            }
+            else { // Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
+                const stateValueObject = await this.adapter.getStateAsync(stateName);
+                if (!this.isLikeEmpty(stateValueObject)) {
+                    return stateValueObject;
+                }
+                else {
+                    throw (`Unable to retrieve info from state '${stateName}'.`);
+                }
+            }
+        }
+        catch (e) {
+            this.adapter.log.error(`[asyncGetState](${stateName}): ${e}`);
+            return null;
+        }
+    }
+    isLikeEmpty(inputVar) {
+        if (typeof inputVar !== 'undefined' && inputVar !== null) {
+            let sTemp = JSON.stringify(inputVar);
+            sTemp = sTemp.replace(/\s+/g, ''); // remove all white spaces
+            sTemp = sTemp.replace(/"+/g, ''); // remove all >"<
+            sTemp = sTemp.replace(/'+/g, ''); // remove all >'<
+            sTemp = sTemp.replace(/\[+/g, ''); // remove all >[<
+            sTemp = sTemp.replace(/\]+/g, ''); // remove all >]<
+            sTemp = sTemp.replace(/\{+/g, ''); // remove all >{<
+            sTemp = sTemp.replace(/\}+/g, ''); // remove all >}<
+            if (sTemp !== '') {
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
+            return true;
+        }
     }
     async checkAndSetValueNumber(stateName, value, description) {
         if (value || value === 0) {
