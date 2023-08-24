@@ -103,7 +103,7 @@ export class TibberHelper {
 			}
 			errorMessages += error.errors[index].message;
 		}
-//		return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
-		return `Error (${+ error.statusMessage}) occured during: ${context} : ${errorMessages}`;
+		//return "Error (" + error.statusMessage + ") occured during: " + context + ": " + errorMessages;
+		return `Error (${error.statusMessage}) occured during: ${context} : ${errorMessages}`;
 	}
 }

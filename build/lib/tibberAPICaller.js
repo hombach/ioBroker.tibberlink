@@ -64,7 +64,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         //if (exDate !== heute) {
         //} else {
         this.adapter.log.debug(`Existing date (${exJSON}) of price info is already the today date, polling of prices today from Tibber skipped`);
-        //this.adapter.log.debug(`Existing date (${exPricesToday}) of price info is already the today date, polling of prices today from Tibber skipped`);
+        this.adapter.log.debug(`Homes.${this.currentHomeId}.PricesToday.json`);
         //}
         const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
         this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
