@@ -49,7 +49,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updateCurrentPrice(homeId) {
         if (homeId) {
             const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
-            this.adapter.log.debug("Got current price from tibber api: " + JSON.stringify(currentPrice));
+            this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
             this.currentHomeId = homeId;
             await this.fetchPrice("CurrentPrice", currentPrice);
         }
@@ -58,14 +58,13 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         const exJSON = await this.getValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json"));
         const exPricesToday = JSON.parse(exJSON);
         const exDate = new Date(exPricesToday[1].startsAt).getDate();
-        const heute = new Date().getDate();
-        if (exDate !== heute) {
-        }
-        else {
-            this.adapter.log.debug(`Existing date ${exDate} + of price info is already today date, poll of prices today from Tibber skipped`);
-        }
+        //const heute = new Date().getDate();
+        //if (exDate !== heute) {
+        //} else {
+        this.adapter.log.debug(`Existing date ${exDate} + of price info is already today date, poll of prices today from Tibber skipped`);
+        //}
         const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
-        this.adapter.log.debug("Got prices today from tibber api: " + JSON.stringify(pricesToday));
+        this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
         this.currentHomeId = homeId;
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
         for (const i in pricesToday) {
@@ -77,12 +76,12 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     }
     async updatePricesTomorrow(homeId) {
         const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
-        this.adapter.log.debug("Got prices tomorrow from tibber api: " + JSON.stringify(pricesTomorrow));
+        this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
         this.currentHomeId = homeId;
         if (pricesTomorrow.length === 0) { // pricing not known, before about 13:00 - delete the states
-            this.adapter.log.debug("Emptying PricesTomorrow cause existing ones are obsolete...");
+            this.adapter.log.debug(`Emptying PricesTomorrow cause existing ones are obsolete...`);
             for (let hour = 0; hour < 24; hour++) {
-                this.emptyingPrice("PricesTomorrow." + hour);
+                this.emptyingPrice(`PricesTomorrow.${hour}`);
             }
         }
         else if (pricesTomorrow) { // pricing known, after about 13:00 - write the states
