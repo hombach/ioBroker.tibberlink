@@ -4,7 +4,7 @@
 		"version": "0.2.2",
 		"news": {
 			"0.2.2": {
-				"en": "reducing polls at Tibber server by precheck of known data"
+				"en": "reducing polls at Tibber server by precheck of known data, code optimizations"
 			},
 			"0.2.1": {
 				"en": "double timeout for Tibber server queries",

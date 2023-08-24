@@ -43,16 +43,13 @@ class TibberHelper {
             return null;
         }
     }
-    /*
-    * @return {Promise<object>}       - State object: {val: false, ack: true, ts: 1591117034451, �}, or null if error
-    */
     async getState(stateName) {
         try {
             const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
             if (!stateObject) {
                 throw `State '${stateName}' does not exist.`;
             }
-            else { //Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
+            else { // Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
                 const stateValueObject = await this.adapter.getStateAsync(stateName);
                 if (!this.isLikeEmpty(stateValueObject)) {
                     return stateValueObject;
@@ -70,14 +67,14 @@ class TibberHelper {
     isLikeEmpty(inputVar) {
         if (typeof inputVar !== "undefined" && inputVar !== null) {
             let sTemp = JSON.stringify(inputVar);
-            sTemp = sTemp.replace(/\s+/g, ''); // remove all white spaces
-            sTemp = sTemp.replace(/"+/g, ''); // remove all >"<
-            sTemp = sTemp.replace(/'+/g, ''); // remove all >'<
-            sTemp = sTemp.replace(/\[+/g, ''); // remove all >[<
-            sTemp = sTemp.replace(/\]+/g, ''); // remove all >]<
-            sTemp = sTemp.replace(/\{+/g, ''); // remove all >{<
-            sTemp = sTemp.replace(/\}+/g, ''); // remove all >}<
-            if (sTemp !== '') {
+            sTemp = sTemp.replace(/\s+/g, ""); // remove all white spaces
+            sTemp = sTemp.replace(/"+/g, ""); // remove all >"<
+            sTemp = sTemp.replace(/'+/g, ""); // remove all >'<
+            sTemp = sTemp.replace(/\[+/g, ""); // remove all >[<
+            sTemp = sTemp.replace(/\]+/g, ""); // remove all >]<
+            sTemp = sTemp.replace(/\{+/g, ""); // remove all >{<
+            sTemp = sTemp.replace(/\}+/g, ""); // remove all >}<
+            if (sTemp !== "") {
                 return false;
             }
             else {
