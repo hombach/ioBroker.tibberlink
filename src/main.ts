@@ -33,7 +33,7 @@ class Tibberlink extends utils.Adapter {
 		// Reset the connection indicator during startup;
 		if (!this.config.TibberAPIToken) {
 			// No Token defined in configuration
-			this.log.warn("Missing API Token - please check configuration");
+			this.log.warn(`Missing API Token - please check configuration`);
 			this.setState("info.connection", false, true);
 		} else {
 			// Need 2 configs - API and Feed (feed changed query url)
@@ -171,7 +171,7 @@ class Tibberlink extends utils.Adapter {
 			if (this.config.FeedActive) {
 				const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 				for (const index in this.homeInfoList) {
-					this.log.debug("try to establish feed of live data for home: " + this.homeInfoList[index].ID);
+					this.log.debug(`try to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
 					if (this.homeInfoList[index].RealTime) {
 						try {
 							// define the fields for datafeed

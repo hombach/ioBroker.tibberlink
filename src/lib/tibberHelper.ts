@@ -35,16 +35,9 @@ export class TibberHelper {
 		}
 	}
 
-	/*
-	protected async getValue(stateName: string): Promise<any> {
-		const value = await this.adapter.getStateAsync(stateName);
-		return value;
-	}
-	*/
-
 	protected async getStateValue(stateName: string): Promise<any> {
 		try {
-			let stateObject = await this.getState(stateName);
+			const stateObject = await this.getState(stateName);
 			if (stateObject == null) return null; // errors thrown already in GetState()
 			return stateObject.val;
 		} catch (e) {
@@ -53,21 +46,20 @@ export class TibberHelper {
 		}
 	}
 
-	/**
-	* Get state
+	/*
 	* @return {Promise<object>}       - State object: {val: false, ack: true, ts: 1591117034451, …}, or null if error
 	*/
 	private async getState(stateName: string): Promise<any> {
 		try {
-			let stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
+			const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
 			if (!stateObject) {
-				throw (`State '${stateName}' does not exist.`);
-			} else { // Get state value, so like: {val: false, ack: true, ts: 1591117034451, …}
+				throw `State '${stateName}' does not exist.`;
+			} else { //Get state value, so like: {val: false, ack: true, ts: 1591117034451, …}
 				const stateValueObject = await this.adapter.getStateAsync(stateName);
 				if (!this.isLikeEmpty(stateValueObject)) {
 					return stateValueObject;
 				} else {
-					throw (`Unable to retrieve info from state '${stateName}'.`);
+					throw `Unable to retrieve info from state '${stateName}'.`;
 				}
 			}
 		} catch (e) {
@@ -77,7 +69,7 @@ export class TibberHelper {
 	}
 
 	private isLikeEmpty(inputVar: ioBroker.State | null | undefined) {
-		if (typeof inputVar !== 'undefined' && inputVar !== null) {
+		if (typeof inputVar !== "undefined" && inputVar !== null) {
 			let sTemp = JSON.stringify(inputVar);
 			sTemp = sTemp.replace(/\s+/g, ''); // remove all white spaces
 			sTemp = sTemp.replace(/"+/g, ''); // remove all >"<
