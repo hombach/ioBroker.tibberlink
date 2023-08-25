@@ -57,7 +57,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updatePricesToday(homeId) {
         const exJSON = await this.getStateValue(`Homes.${this.currentHomeId}.PricesToday.json`);
         const exPricesToday = JSON.parse(exJSON);
-        const exDate = new Date(exPricesToday[1].startsAt).getDate();
+        var exDate = 0;
+        if (exPricesToday[1] && exPricesToday[1].startsAt) {
+            exDate = new Date(exPricesToday[1].startsAt).getDate();
+        }
         const heute = new Date().getDate();
         if (exDate !== heute) {
             const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
@@ -77,10 +80,19 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     }
     async updatePricesTomorrow(homeId) {
         const exJSON = await this.getStateValue(`Homes.${this.currentHomeId}.PricesTomorrow.json`);
-        const exPricesToday = JSON.parse(exJSON);
-        const exDate = new Date(exPricesToday[1].startsAt).getDate();
-        const heute = new Date().getDate();
-        if (exDate !== (heute + 1)) {
+        const exPricesTomorrow = JSON.parse(exJSON);
+        //let exDate: number = 0
+        let exDate = null;
+        if (exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
+            //exDate = new Date(exPricesTomorrow[1].startsAt).getDate();
+            exDate = new Date(exPricesTomorrow[2].startsAt);
+        }
+        const morgen = new Date();
+        morgen.setDate(morgen.getDate() + 1);
+        morgen.setHours(0, 0, 0, 0); // Setzt die Uhrzeit auf 0:00 Uhr
+        //const heute = new Date().getDate();
+        //if (exDate !== (heute+1)) {
+        if (!exDate || exDate <= morgen) {
             const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
             this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
             this.currentHomeId = homeId;
@@ -97,7 +109,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     this.fetchPrice("PricesTomorrow." + hour, price);
                 }
             }
-            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
+            // ORG			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
+            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), "[]", "The prices tomorrow as json");
             this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
         }
         else {
