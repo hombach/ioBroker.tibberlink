@@ -57,12 +57,13 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updatePricesToday(homeId) {
         const exJSON = await this.getStateValue(`Homes.${this.currentHomeId}.PricesToday.json`);
         const exPricesToday = JSON.parse(exJSON);
-        var exDate = 0;
-        if (exPricesToday[1] && exPricesToday[1].startsAt) {
-            exDate = new Date(exPricesToday[1].startsAt).getDate();
+        let exDate = null;
+        if (exPricesToday[2] && exPricesToday[2].startsAt) {
+            exDate = new Date(exPricesToday[2].startsAt);
         }
-        const heute = new Date().getDate();
-        if (exDate !== heute) {
+        const heute = new Date();
+        heute.setHours(0, 0, 0, 0); // sets clock to 0:00
+        if (!exDate || exDate <= heute) {
             const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
             this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
             this.currentHomeId = homeId;
@@ -81,17 +82,13 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updatePricesTomorrow(homeId) {
         const exJSON = await this.getStateValue(`Homes.${this.currentHomeId}.PricesTomorrow.json`);
         const exPricesTomorrow = JSON.parse(exJSON);
-        //let exDate: number = 0
         let exDate = null;
         if (exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
-            //exDate = new Date(exPricesTomorrow[1].startsAt).getDate();
             exDate = new Date(exPricesTomorrow[2].startsAt);
         }
         const morgen = new Date();
         morgen.setDate(morgen.getDate() + 1);
-        morgen.setHours(0, 0, 0, 0); // Setzt die Uhrzeit auf 0:00 Uhr
-        //const heute = new Date().getDate();
-        //if (exDate !== (heute+1)) {
+        morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
         if (!exDate || exDate <= morgen) {
             const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
             this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
