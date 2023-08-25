@@ -116,8 +116,7 @@ export class TibberAPICaller extends TibberHelper {
 					this.fetchPrice("PricesTomorrow." + hour, price);
 				}
 			}
-// ORG			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
-			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), "[]", "The prices tomorrow as json");
+			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
 			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
 		} else {
 			this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
