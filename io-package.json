@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.2.2",
+		"version": "0.2.3",
 		"news": {
+			"0.2.3": {
+				"en": "fix error in 0.2.2 in start conditions of adapter",
+				"de": "korrigiert Fehler in 0.2.2 bei Startbedingungen des Adapters",
+				"ru": "исправить ошибку в 0.2.2 в начальных условиях адаптера",
+				"pt": "corrigir erro em 0,2.2 em condições de início do adaptador",
+				"nl": "herstel in 0.2.2 in de start voorwaarden van adapter",
+				"fr": "corriger l'erreur dans 0.2.2 dans les conditions de démarrage de l'adaptateur",
+				"it": "errore di correzione in 0.2.2 in condizioni di inizio dell'adattatore",
+				"es": "error de fijación en 0.2.2 en las condiciones de inicio del adaptador",
+				"pl": "ustępowanie błędów 0,2 w warunkach startowych",
+				"uk": "виправити помилку в 0.2.2 в початкових умовах адаптера",
+				"zh-cn": "f 在适应人员开始的条件下,在0.2.2年内出现错误"
+			},
 			"0.2.2": {
 				"en": "reducing polls at Tibber server by precheck of known data, code optimizations, fix config screen (#55)",
 				"de": "Reduktion von Anfragen am Tibber-Server durch Vorprüfung bekannter Daten, Codeoptimierungen, Fix Config-Bildschirm (#55)",

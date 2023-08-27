@@ -69,7 +69,7 @@ export class TibberAPICaller extends TibberHelper {
 		const exJSON = await this.getStateValue(`Homes.${this.currentHomeId}.PricesToday.json`);
 		const exPricesToday: IPrice[] = JSON.parse(exJSON);
 		let exDate: Date | null = null;
-		if (exPricesToday[2] && exPricesToday[2].startsAt) {
+		if(Array.isArray(exPricesToday) && exPricesToday[2] && exPricesToday[2].startsAt) {
 			exDate = new Date(exPricesToday[2].startsAt);
 		}
 		const heute = new Date();
@@ -94,7 +94,7 @@ export class TibberAPICaller extends TibberHelper {
 		const exJSON = await this.getStateValue(`Homes.${this.currentHomeId}.PricesTomorrow.json`);
 		const exPricesTomorrow: IPrice[] = JSON.parse(exJSON);
 		let exDate: Date | null = null;
-		if (exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
+		if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
 			exDate = new Date(exPricesTomorrow[2].startsAt);
 		}
 		const morgen = new Date();
