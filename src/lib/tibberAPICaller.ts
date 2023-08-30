@@ -81,7 +81,8 @@ export class TibberAPICaller extends TibberHelper {
 			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
 			for (const i in pricesToday) {
 				const price = pricesToday[i];
-				const hour = new Date(price.startsAt).getHours();
+				// const hour = new Date(price.startsAt).getHours();
+				const hour = new Date(price.startsAt.substr(0, 19)).getHours();
 				this.fetchPrice(`PricesToday.${hour}`, price);
 			}
 			this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
@@ -112,7 +113,8 @@ export class TibberAPICaller extends TibberHelper {
 			} else if (pricesTomorrow) { // pricing known, after about 13:00 - write the states
 				for (const i in pricesTomorrow) {
 					const price = pricesTomorrow[i];
-					const hour = new Date(price.startsAt).getHours();
+					//const hour = new Date(price.startsAt).getHours();
+					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
 					this.fetchPrice("PricesTomorrow." + hour, price);
 				}
 			}

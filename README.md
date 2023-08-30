@@ -35,6 +35,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.2.4 (2023-08-30)
+* (HombachC) enable correct price poll also for adapter running in different timezones (#63) 
 ### 0.2.3 (2023-08-27)
 * (HombachC) fix error in 0.2.2 in start conditions of adapter
 ### 0.2.2 (2023-08-24)

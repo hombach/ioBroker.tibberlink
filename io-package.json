@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.2.3",
+		"version": "0.2.4",
 		"news": {
+			"0.2.4": {
+				"en": "enable correct price poll also for adapter running in different timezones (#63)",
+				"de": "korrekte Preisabfrage auch für Adapter in verschiedenen Zeitzonen (#63)",
+				"ru": "включите правильный опрос цены также для переходника работает в различных часовых поясах (#63)",
+				"pt": "habilitar a pesquisa de preços correta também para o adaptador em execução em diferentes fusos horários (#63)",
+				"nl": "en de juiste prijs poll ook voor adapter die in verschillende tijdzones loopt",
+				"fr": "activer le sondage de prix correct également pour l'adaptateur fonctionnant dans différents fuseaux horaires (#63)",
+				"it": "abilitare il sondaggio dei prezzi corretto anche per l'adattatore in esecuzione in diversi fusi orari (#63)",
+				"es": "habilitar la encuesta de precios correcta también para el adaptador que se ejecuta en diferentes zonas de tiempo (#63)",
+				"pl": "poprawne badania cenowe umożliwiają również stosowanie adaptacji w różnych strefach czasowych (#63)",
+				"uk": "увімкніть правильний ціновий пил також для адаптерів, що працюють в різних часових поясах (#63)",
+				"zh-cn": "能够纠正价格污染,使不同时间区(63年)的适应行动更加适应。"
+			},
 			"0.2.3": {
 				"en": "fix error in 0.2.2 in start conditions of adapter",
 				"de": "korrigiert Fehler in 0.2.2 bei Startbedingungen des Adapters",
@@ -184,19 +197,6 @@
 				"pl": "usunąć skrypt i dev-serwerver",
 				"uk": "видалити скрипт релізу і dev-server",
 				"zh-cn": "删除 说明和保留"
-			},
-			"0.1.0": {
-				"en": "initial release",
-				"de": "Erstveröffentlichung",
-				"ru": "начальный выпуск",
-				"pt": "lançamento inicial",
-				"nl": "niet",
-				"fr": "initial release",
-				"it": "rilascio iniziale",
-				"es": "liberación inicial",
-				"pl": "pierwsze wydanie",
-				"uk": "початковий реліз",
-				"zh-cn": "初步释放"
 			}
 		},
 		"titleLang": {
