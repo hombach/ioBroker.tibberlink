@@ -18,7 +18,7 @@ export class TibberCalculator extends TibberHelper {
 				0.0,
 				"pricelevel to trigger this channel at",
 			);
-			this.checkAndSetValueBoolean( 
+			this.checkAndSetValueBoolean(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, "Active"),
 				false,
 				"Whether the calculation channel is active",
