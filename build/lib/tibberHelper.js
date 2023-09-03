@@ -103,6 +103,24 @@ class TibberHelper {
             await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
         }
     }
+    async checkAndSetValueNumber2(stateName, value, description, writeable) {
+        writeable = writeable !== undefined ? writeable : false; // writeable = false if not provided
+        if (value || value === 0) {
+            await this.adapter.setObjectNotExistsAsync(stateName.value, {
+                type: "state",
+                common: {
+                    name: stateName.key,
+                    type: "number",
+                    role: "value",
+                    desc: description,
+                    read: true,
+                    write: writeable,
+                },
+                native: {},
+            });
+            await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+        }
+    }
     async checkAndSetValueNumberUnit(stateName, value, unit, description) {
         if (value || value === 0) {
             await this.adapter.setObjectNotExistsAsync(stateName.value, {
