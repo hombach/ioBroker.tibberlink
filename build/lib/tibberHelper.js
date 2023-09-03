@@ -104,7 +104,10 @@ class TibberHelper {
         }
     }
     async checkAndSetValueNumber2(stateName, value, description, writeable) {
-        writeable = writeable !== undefined ? writeable : false; // writeable = false if not provided
+        //writeable = writeable !== undefined ? writeable : false; // writeable = false if not provided
+        if (writeable === undefined) {
+            writeable = false;
+        }
         if (value || value === 0) {
             await this.adapter.setObjectNotExistsAsync(stateName.value, {
                 type: "state",
