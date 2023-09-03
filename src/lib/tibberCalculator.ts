@@ -8,20 +8,12 @@ export class TibberCalculator extends TibberHelper {
 
 	async setupCalculatorStates(homeId: string, channel: number): Promise<void> {
 		try {
-			/*
 			this.checkAndSetValueNumber(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, "TriggerPrice"),
-				0.0,
-				"pricelevel to trigger this channel at",
-			);
-			*/
-			this.checkAndSetValueNumber2(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, "TriggerPrice"),
 				0.0,
 				"pricelevel to trigger this channel at",
 				true,
 			);
-
 			this.checkAndSetValueBoolean(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, "Active"),
 				false,

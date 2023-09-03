@@ -86,25 +86,7 @@ export class TibberHelper {
 		}
 	}
 
-	protected async checkAndSetValueNumber(stateName: { [key: string]: string }, value: number, description?: string): Promise<void> {
-		if (value || value === 0) {
-			await this.adapter.setObjectNotExistsAsync(stateName.value, {
-				type: "state",
-				common: {
-					name: stateName.key,
-					type: "number",
-					role: "value",
-					desc: description,
-					read: true,
-					write: false,
-				},
-				native: {},
-			});
-			await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
-		}
-	}
-
-	protected async checkAndSetValueNumber2(
+	protected async checkAndSetValueNumber(
 		stateName: { [key: string]: string },
 		value: number,
 		description?: string,
