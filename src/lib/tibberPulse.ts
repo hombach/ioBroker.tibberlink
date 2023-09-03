@@ -130,7 +130,8 @@ export class TibberPulse extends TibberHelper {
 				liveMeasurement.currency,
 				"Currency of displayed cost; requires active Tibber power deal",
 			);
-			this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"),
+			this.checkAndSetValueNumberUnit(
+				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"),
 				liveMeasurement.minPower,
 				"W",
 				"Min consumption since midnight",
