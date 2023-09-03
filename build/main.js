@@ -109,7 +109,7 @@ class Tibberlink extends utils.Adapter {
                     this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
                 }
             }
-            if (!(this.homeInfoList.length > 0)) { // if no homeIDs available - adapter can't do that much
+            if (!(this.homeInfoList.length > 0)) { // if no homeIDs available - adapter can't do that much and restarts
                 this.log.warn("Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes");
                 const adapterrestart = this.setInterval(() => {
                     this.restart();
@@ -124,7 +124,7 @@ class Tibberlink extends utils.Adapter {
                     if (this.config.CalCh01Configured) {
                         try {
                             await tibberCalculator.setupCalculatorStates(this.homeInfoList[index].ID, 1);
-                            this.log.debug("setting up calculation channel 1 states");
+                            this.log.debug("Setting up calculation channel 1 states");
                         }
                         catch (error) {
                             this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculation states for channel 01"));
@@ -185,7 +185,7 @@ class Tibberlink extends utils.Adapter {
             if (this.config.FeedActive) {
                 const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
                 for (const index in this.homeInfoList) {
-                    this.log.debug(`try to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
+                    this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
                     if (this.homeInfoList[index].RealTime) {
                         try {
                             // define the fields for datafeed

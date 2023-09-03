@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.2.5",
+		"version": "0.2.6",
 		"news": {
+			"0.2.6": {
+				"en": "fix error with boolean states",
+				"de": "Fehler behoben mit booleschen States",
+				"ru": "исправить ошибку с boolean состояния",
+				"pt": "corrigir erro com estados booleanos",
+				"nl": "vergissing met boolean staten",
+				"fr": "corriger l'erreur avec les états booléens",
+				"it": "errore di correzione con stati booleani",
+				"es": "error de fijación con estados booleanos",
+				"pl": "ustępowanie błędów w państwie booleańskim",
+				"uk": "виправити помилку з болеанськими станами",
+				"zh-cn": "f 假释国错误"
+			},
 			"0.2.5": {
 				"en": "optimize code to mitigate set state timing for long JSON states (#68)",
 				"de": "optimieren Sie den Code zur Minderung des eingestellten Zustandszeitpunkts für lange JSON-Staaten (#68)",

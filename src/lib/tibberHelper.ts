@@ -124,7 +124,7 @@ export class TibberHelper {
 	}
 
 	protected async checkAndSetValueBoolean(stateName: { [key: string]: string }, value: boolean, description?: string): Promise<void> {
-		if (value) {
+		if (value !== undefined && value !== null) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
 				common: {

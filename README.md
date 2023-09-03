@@ -35,6 +35,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.2.6 (2023-09- WORK in PROGRESS)
+* (HombachC) fix error with boolean states
 ### 0.2.5 (2023-09-03)
 * (HombachC) optimize code to mitigate set state timing for long JSON states (#68) 
 ### 0.2.4 (2023-08-30)
