@@ -82,7 +82,7 @@ class TibberHelper {
                     },
                     native: {},
                 });
-                await this.adapter.setStateAsync(stateName.value, value, true);
+                //await this.adapter.setStateAsync(stateName.value, value, true);
             }
         }
     }
