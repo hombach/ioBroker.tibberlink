@@ -110,7 +110,7 @@ export class TibberHelper {
 		description?: string,
 		writeable?: boolean,
 	): Promise<void> {
-		if (writeable !== true) {
+		if (writeable === undefined) {
 			writeable = false;
 		}
 		if (value || value === 0) {

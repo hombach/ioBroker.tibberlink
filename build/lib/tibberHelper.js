@@ -104,7 +104,7 @@ class TibberHelper {
         }
     }
     async checkAndSetValueNumber2(stateName, value, description, writeable) {
-        if (writeable !== true) {
+        if (writeable === undefined) {
             writeable = false;
         }
         if (value || value === 0) {
