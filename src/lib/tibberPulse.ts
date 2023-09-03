@@ -76,25 +76,43 @@ export class TibberPulse extends TibberHelper {
 		if (this.tibberConfig.homeId !== undefined) {
 			this.checkAndSetValue(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "timestamp"),
-				liveMeasurement.timestamp, "Timestamp when usage occurred");
+				liveMeasurement.timestamp,
+				"Timestamp when usage occurred",
+			);
 			this.checkAndSetValueNumberUnit(
-				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"), power, "W", "Powerlevel measured at the moment +/-");
+				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "power"),
+				power,
+				"W",
+				"Powerlevel measured at the moment +/-",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterConsumption"),
-				(Math.round(1000 * liveMeasurement.lastMeterConsumption)) / 1000, "kWh", "Latest consumption meter state");
+				(Math.round(1000 * liveMeasurement.lastMeterConsumption)) / 1000,
+				"kWh",
+				"Latest consumption meter state",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumption"),
-				(Math.round(1000 * liveMeasurement.accumulatedConsumption)) / 1000, "kWh", "Energy consumed since midnight");
+				(Math.round(1000 * liveMeasurement.accumulatedConsumption)) / 1000,
+				"kWh",
+				"Energy consumed since midnight",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProduction"),
-				(Math.round(1000 * liveMeasurement.accumulatedProduction)) / 1000, "kWh", "Energy produced since midnight");
+				(Math.round(1000 * liveMeasurement.accumulatedProduction)) / 1000,
+				"kWh",
+				"Energy produced since midnight",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumptionLastHour"),
-				(Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour)) / 1000, "kWh",
-				"Energy consumed since since last hour shift");
+				(Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour)) / 1000,
+				"kWh",
+				"Energy consumed since since last hour shift",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProductionLastHour"),
-				(Math.round(1000 * liveMeasurement.accumulatedProductionLastHour)) / 1000, "kWh",
+				(Math.round(1000 * liveMeasurement.accumulatedProductionLastHour)) / 1000,
+				"kWh",
 				"Energy produced since last hour shift",
 			);
 			this.checkAndSetValueNumber(
@@ -115,40 +133,55 @@ export class TibberPulse extends TibberHelper {
 			this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"), liveMeasurement.minPower, "W", "Min consumption since midnight");
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "averagePower"),
-				liveMeasurement.averagePower, "W", "Average consumption since midnight",
+				liveMeasurement.averagePower,
+				"W",
+				"Average consumption since midnight",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPower"),
-				liveMeasurement.maxPower, "W", "Peak consumption since midnight",
+				liveMeasurement.maxPower,
+				"W",
+				"Peak consumption since midnight",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerConsumption"),
-				liveMeasurement.power, "W", "Net consumption (A+) at the moment",
+				liveMeasurement.power,
+				"W",
+				"Net consumption (A+) at the moment",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"),
-				liveMeasurement.powerProduction, "W", "Net production (A-) at the moment",
+				liveMeasurement.powerProduction,
+				"W",
+				"Net production (A-) at the moment",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPowerProduction"),
-				liveMeasurement.minPowerProduction, "W", "Min net production since midnight",	
-				);
+				liveMeasurement.minPowerProduction,
+				"W",
+				"Min net production since midnight",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPowerProduction"),
-				liveMeasurement.maxPowerProduction, "W", "Max net production since midnight",
-				);
+				liveMeasurement.maxPowerProduction,
+				"W",
+				"Max net production since midnight",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterProduction"),
-				(Math.round(1000 * liveMeasurement.lastMeterProduction)) / 1000, "kWh",
+				(Math.round(1000 * liveMeasurement.lastMeterProduction)) / 1000,
+				"kWh",
 				"Latest production meter state",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerFactor"),
-				liveMeasurement.powerFactor, "Power factor (active power / apparent power)",
+				liveMeasurement.powerFactor,
+				"Power factor (active power / apparent power)",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "signalStrength"),
-				liveMeasurement.signalStrength, "Device signal strength (Pulse - dB; Watty - percent)",
+				liveMeasurement.signalStrength,
+				"Device signal strength (Pulse - dB; Watty - percent)",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "voltagePhase1"),
