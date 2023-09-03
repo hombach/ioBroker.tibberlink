@@ -95,68 +95,97 @@ export class TibberPulse extends TibberHelper {
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProductionLastHour"),
 				(Math.round(1000 * liveMeasurement.accumulatedProductionLastHour)) / 1000, "kWh",
-				"Energy produced since last hour shift");
+				"Energy produced since last hour shift",
+			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedCost"),
 				liveMeasurement.accumulatedCost,
-				"Accumulated cost since midnight; requires active Tibber power deal");
+				"Accumulated cost since midnight; requires active Tibber power deal",
+			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedReward"),
 				liveMeasurement.accumulatedReward,
-				"Accumulated reward since midnight; requires active Tibber power deal");
+				"Accumulated reward since midnight; requires active Tibber power deal",
+			);
 			this.checkAndSetValue(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currency"),
 				liveMeasurement.currency,
-				"Currency of displayed cost; requires active Tibber power deal");
-			this.checkAndSetValueNumberUnit(
-				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"),
-				liveMeasurement.minPower, "W", "Min consumption since midnight");
+				"Currency of displayed cost; requires active Tibber power deal",
+			);
+			this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"), liveMeasurement.minPower, "W", "Min consumption since midnight");
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "averagePower"),
-				liveMeasurement.averagePower, "W", "Average consumption since midnight");
+				liveMeasurement.averagePower, "W", "Average consumption since midnight",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPower"),
-				liveMeasurement.maxPower, "W", "Peak consumption since midnight");
+				liveMeasurement.maxPower, "W", "Peak consumption since midnight",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerConsumption"),
-				liveMeasurement.power, "W", "Net consumption (A+) at the moment");
+				liveMeasurement.power, "W", "Net consumption (A+) at the moment",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"),
-				liveMeasurement.powerProduction, "W", "Net production (A-) at the moment");
+				liveMeasurement.powerProduction, "W", "Net production (A-) at the moment",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPowerProduction"),
-				liveMeasurement.minPowerProduction, "W", "Min net production since midnight");
+				liveMeasurement.minPowerProduction, "W", "Min net production since midnight",	
+				);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPowerProduction"),
-				liveMeasurement.maxPowerProduction, "W", "Max net production since midnight");
+				liveMeasurement.maxPowerProduction, "W", "Max net production since midnight",
+				);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterProduction"),
 				(Math.round(1000 * liveMeasurement.lastMeterProduction)) / 1000, "kWh",
-				"Latest production meter state");
+				"Latest production meter state",
+			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerFactor"),
-				liveMeasurement.powerFactor, "Power factor (active power / apparent power)");
+				liveMeasurement.powerFactor, "Power factor (active power / apparent power)",
+			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "signalStrength"),
-				liveMeasurement.signalStrength, "Device signal strength (Pulse - dB; Watty - percent)");
+				liveMeasurement.signalStrength, "Device signal strength (Pulse - dB; Watty - percent)",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "voltagePhase1"),
-				liveMeasurement.voltagePhase1, "V", "Voltage on phase 1; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
+				liveMeasurement.voltagePhase1,
+				"V",
+				"Voltage on phase 1; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "voltagePhase2"),
-				liveMeasurement.voltagePhase2, "V", "Voltage on phase 2; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
+				liveMeasurement.voltagePhase2,
+				"V",
+				"Voltage on phase 2; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "voltagePhase3"),
-				liveMeasurement.voltagePhase3, "V", "Voltage on phase 3; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
+				liveMeasurement.voltagePhase3,
+				"V",
+				"Voltage on phase 3; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL1"),
-				liveMeasurement.currentL1, "A", "Current on L1; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
+				liveMeasurement.currentL1,
+				"A",
+				"Current on L1; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL2"),
-				liveMeasurement.currentL2, "A", "Current on L2; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
+				liveMeasurement.currentL2,
+				"A",
+				"Current on L2; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL3"),
-				liveMeasurement.currentL3, "A", "Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
+				liveMeasurement.currentL3,
+				"A",
+				"Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+			);
 		}
 	}
 

@@ -35,6 +35,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.2.5 (2023-09 WORK IN PROGRESS)
+* (HombachC) optimize code to mitigate set state timing for long JSON states (#68) 
 ### 0.2.4 (2023-08-30)
 * (HombachC) enable correct price poll also for adapter running in different timezones (#63) 
 ### 0.2.3 (2023-08-27)
