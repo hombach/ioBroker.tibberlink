@@ -8,28 +8,9 @@ class TibberHelper {
     getStatePrefix(homeId, space, name) {
         const statePrefix = {
             key: name,
-            value: "Homes." + homeId + "." + space + "." + name,
+            value: `Homes.${homeId}.${space}.${name}`,
         };
         return statePrefix;
-    }
-    async checkAndSetValue(stateName, value, description) {
-        if (value != undefined) {
-            if (value.trim().length > 0) {
-                await this.adapter.setObjectNotExistsAsync(stateName.value, {
-                    type: "state",
-                    common: {
-                        name: stateName.key,
-                        type: "string",
-                        role: "text",
-                        desc: description,
-                        read: true,
-                        write: false,
-                    },
-                    native: {},
-                });
-                await this.adapter.setStateAsync(stateName.value, value, true);
-            }
-        }
     }
     async getStateValue(stateName) {
         try {
@@ -84,6 +65,25 @@ class TibberHelper {
         }
         else {
             return true;
+        }
+    }
+    async checkAndSetValue(stateName, value, description) {
+        if (value != undefined) {
+            if (value.trim().length > 0) {
+                await this.adapter.setObjectNotExistsAsync(stateName.value, {
+                    type: "state",
+                    common: {
+                        name: stateName.key,
+                        type: "string",
+                        role: "text",
+                        desc: description,
+                        read: true,
+                        write: false,
+                    },
+                    native: {},
+                });
+                await this.adapter.setStateAsync(stateName.value, value, true);
+            }
         }
     }
     async checkAndSetValueNumber(stateName, value, description) {
