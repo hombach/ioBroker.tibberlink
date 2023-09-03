@@ -77,6 +77,7 @@ async function translateYandex(text, targetLang, apiKey) {
  */
 async function translateGoogle(text, targetLang) {
     try {
+        // prettier-ignore
         const url = `http://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}&ie=UTF-8&oe=UTF-8`;
         const response = await axios_1.default.request({ url, timeout: 15000 });
         if (isArray(response.data)) {
