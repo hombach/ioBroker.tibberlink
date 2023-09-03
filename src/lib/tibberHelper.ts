@@ -111,7 +111,9 @@ export class TibberHelper {
 		writeable?: boolean,
 	): Promise<void> {
 		//writeable = writeable !== undefined ? writeable : false; // writeable = false if not provided
-		if (writeable === undefined) {writeable = false}
+		if (writeable === undefined) {
+			writeable = false;
+		}
 		if (value || value === 0) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
