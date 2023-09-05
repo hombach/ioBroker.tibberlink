@@ -67,7 +67,7 @@ export class TibberAPICaller extends TibberHelper {
 				this.currentHomeId = homeId;
 				await this.fetchPrice("CurrentPrice", currentPrice);
 			} else {
-				this.adapter.log.debug(`Hour (${exDate.getHours}) of known current price is already the current hour, polling of current price from Tibber skipped`);
+				this.adapter.log.debug(`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`);
 			}
 		}
 	}
