@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.2.6",
+		"version": "0.2.7",
 		"news": {
+			"0.2.7": {
+				"en": "reducing polls at Tibber server by precheck of current price data",
+				"de": "Reduktion von Anfragen an den Tibber-Server durch Vorabkontrolle der bekannten Preisdaten",
+				"ru": "сокращение опросов на сервере Tibber путем предварительной проверки текущих ценовых данных",
+				"pt": "reduzindo pesquisas no servidor Tibber por pré-verificação de dados de preços atuais",
+				"nl": "verminderen van polls bij Tibberserver door de huidige prijsgegevens",
+				"fr": "réduction des sondages sur le serveur Tibber en prévérant les données de prix actuelles",
+				"it": "ridurre i sondaggi al server Tibber precheck dei dati attuali dei prezzi",
+				"es": "reducir las encuestas en el servidor de Tibber prever los datos de precios actuales",
+				"pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez przeprowadzenie bieżących danych cenowych",
+				"uk": "знижувати опитування на сервері Tibber за допомогою попереднього з'єднання даних поточної ціни",
+				"zh-cn": "通过预先检查目前价格数据减少Tibber服务器的污染"
+			},
 			"0.2.6": {
 				"en": "fix error with boolean states",
 				"de": "Fehler behoben mit booleschen States",

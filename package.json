@@ -1,6 +1,6 @@
 {
   "name": "iobroker.tibberlink",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "links tibber API data to be used in ioBroker",
   "author": {
     "name": "Hombach",
