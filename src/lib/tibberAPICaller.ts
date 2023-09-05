@@ -61,7 +61,7 @@ export class TibberAPICaller extends TibberHelper {
 			let exDate: Date | null = null;
 			exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`))
 			const now = new Date();
-			if (!exDate || now.getHours !== exDate.getHours) {
+			if (!exDate || now.getHours() !== exDate.getHours()) {
 				const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
 				this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
 				this.currentHomeId = homeId;
