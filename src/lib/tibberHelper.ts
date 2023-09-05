@@ -66,12 +66,7 @@ export class TibberHelper {
 		}
 	}
 
-	protected async checkAndSetValue(
-		stateName: { [key: string]: string },
-		value: string,
-		description?: string,
-		writeable?: boolean,
-	): Promise<void> {
+	protected async checkAndSetValue(stateName: { [key: string]: string }, value: string, description?: string, writeable?: boolean): Promise<void> {
 		if (writeable === undefined) {
 			writeable = false;
 		}
