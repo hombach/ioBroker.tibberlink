@@ -18,6 +18,7 @@ export class TibberCalculator extends TibberHelper {
 				this.getStatePrefix(homeId, `Calculations.${channel}`, "Active"),
 				false,
 				"Whether the calculation channel is active",
+				true,
 			);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, "setup of states for calculator"));

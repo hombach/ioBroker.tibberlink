@@ -67,7 +67,10 @@ class TibberHelper {
             return true;
         }
     }
-    async checkAndSetValue(stateName, value, description) {
+    async checkAndSetValue(stateName, value, description, writeable) {
+        if (writeable === undefined) {
+            writeable = false;
+        }
         if (value != undefined) {
             if (value.trim().length > 0) {
                 await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -78,7 +81,7 @@ class TibberHelper {
                         role: "text",
                         desc: description,
                         read: true,
-                        write: false,
+                        write: writeable,
                     },
                     native: {},
                 });
@@ -106,7 +109,10 @@ class TibberHelper {
             await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
         }
     }
-    async checkAndSetValueNumberUnit(stateName, value, unit, description) {
+    async checkAndSetValueNumberUnit(stateName, value, unit, description, writeable) {
+        if (writeable === undefined) {
+            writeable = false;
+        }
         if (value || value === 0) {
             await this.adapter.setObjectNotExistsAsync(stateName.value, {
                 type: "state",
@@ -117,14 +123,17 @@ class TibberHelper {
                     desc: description,
                     unit: unit,
                     read: true,
-                    write: false,
+                    write: writeable,
                 },
                 native: {},
             });
             await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
         }
     }
-    async checkAndSetValueBoolean(stateName, value, description) {
+    async checkAndSetValueBoolean(stateName, value, description, writeable) {
+        if (writeable === undefined) {
+            writeable = false;
+        }
         if (value !== undefined && value !== null) {
             await this.adapter.setObjectNotExistsAsync(stateName.value, {
                 type: "state",
@@ -134,7 +143,7 @@ class TibberHelper {
                     role: "indicator",
                     desc: description,
                     read: true,
-                    write: false,
+                    write: writeable,
                 },
                 native: {},
             });

@@ -66,7 +66,15 @@ export class TibberHelper {
 		}
 	}
 
-	protected async checkAndSetValue(stateName: { [key: string]: string }, value: string, description?: string): Promise<void> {
+	protected async checkAndSetValue(
+		stateName: { [key: string]: string },
+		value: string,
+		description?: string,
+		writeable?: boolean,
+	): Promise<void> {
+		if (writeable === undefined) {
+			writeable = false;
+		}
 		if (value != undefined) {
 			if (value.trim().length > 0) {
 				await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -77,7 +85,7 @@ export class TibberHelper {
 						role: "text",
 						desc: description,
 						read: true,
-						write: false,
+						write: writeable,
 					},
 					native: {},
 				});
@@ -117,7 +125,11 @@ export class TibberHelper {
 		value: number,
 		unit?: string,
 		description?: string,
+		writeable?: boolean,
 	): Promise<void> {
+		if (writeable === undefined) {
+			writeable = false;
+		}
 		if (value || value === 0) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
@@ -128,7 +140,7 @@ export class TibberHelper {
 					desc: description,
 					unit: unit,
 					read: true,
-					write: false,
+					write: writeable,
 				},
 				native: {},
 			});
@@ -136,7 +148,15 @@ export class TibberHelper {
 		}
 	}
 
-	protected async checkAndSetValueBoolean(stateName: { [key: string]: string }, value: boolean, description?: string): Promise<void> {
+	protected async checkAndSetValueBoolean(
+		stateName: { [key: string]: string },
+		value: boolean,
+		description?: string,
+		writeable?: boolean,
+	): Promise<void> {
+		if (writeable === undefined) {
+			writeable = false;
+		}
 		if (value !== undefined && value !== null) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
@@ -146,7 +166,7 @@ export class TibberHelper {
 					role: "indicator",
 					desc: description,
 					read: true,
-					write: false,
+					write: writeable,
 				},
 				native: {},
 			});
