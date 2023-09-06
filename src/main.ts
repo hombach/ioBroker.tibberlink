@@ -8,7 +8,7 @@ import { TibberCalculator } from "./lib/tibberCalculator";
 class Tibberlink extends utils.Adapter {
 	intervallList: any[]; // intervallList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
 	homeInfoList: { ID: string; RealTime: boolean }[] = [];
-	queryUrl = "";
+	queryUrl: string = "";
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
 		super({
