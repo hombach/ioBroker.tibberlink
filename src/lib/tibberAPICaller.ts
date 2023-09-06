@@ -86,7 +86,7 @@ export class TibberAPICaller extends TibberHelper {
 			}
 			return homeInfoList;
 		} catch (error) {
-			this.adapter.log.error(this.generateErrorMessage(error, "fetching homes from Tibber API"))
+			this.adapter.log.error(this.generateErrorMessage(error, "fetching homes from Tibber API"));
 			return [];
 		}
 	}
@@ -257,8 +257,5 @@ export class TibberAPICaller extends TibberHelper {
 	}
 }
 
-//Error: 21: 50  error  Replace`,` with `;`                                                                                                                                                                                                                                                                                                                                                                                  prettier / prettier
-//Error: 25: 36  error  Replace`,` with `;`                                                                                                                                                                                                                                                                                                                                                                                  prettier / prettier
-
-
-
+//Error: 21: 50  error  Replace`,` with `;`
+//Error: 25: 36  error  Replace`,` with `;`
