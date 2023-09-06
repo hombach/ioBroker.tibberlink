@@ -95,7 +95,7 @@ class Tibberlink extends utils.Adapter {
                 const sentryInstance = this.getPluginInstance("sentry");
                 const today = new Date();
                 const last = await this.getStateAsync("info.LastSentryLogDay");
-                if (last?.val != await today.getDate()) {
+                if (last?.val != (await today.getDate())) {
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
                         Sentry && Sentry.withScope((scope) => {
@@ -109,7 +109,8 @@ class Tibberlink extends utils.Adapter {
                     this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
                 }
             }
-            if (!(this.homeInfoList.length > 0)) { // if no homeIDs available - adapter can't do that much and restarts
+            if (!(this.homeInfoList.length > 0)) {
+                // if no homeIDs available - adapter can't do that much and restarts
                 this.log.warn("Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes");
                 const adapterrestart = this.setInterval(() => {
                     this.restart();
@@ -117,7 +118,8 @@ class Tibberlink extends utils.Adapter {
                 this.intervallList.push(adapterrestart);
             }
             // Init Load Data for all homes
-            if (this.homeInfoList.length > 0) { // only if there are any homes the adapter will do something
+            if (this.homeInfoList.length > 0) {
+                // only if there are any homes the adapter will do something
                 const tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
                 for (const index in this.homeInfoList) {
                     // Set up calculation channel 1 states if channel is configured

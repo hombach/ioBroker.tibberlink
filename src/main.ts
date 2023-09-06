@@ -5,10 +5,9 @@ import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
 import { TibberCalculator } from "./lib/tibberCalculator";
 
-
 class Tibberlink extends utils.Adapter {
 	intervallList: any[]; // intervallList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
-	homeInfoList: { ID: string, RealTime: boolean } [] = [];
+	homeInfoList: { ID: string; RealTime: boolean } [] = [];
 	queryUrl = "";
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -73,28 +72,24 @@ class Tibberlink extends utils.Adapter {
 			if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
 				const sentryInstance = this.getPluginInstance("sentry");
 				const today = new Date();
-				const last = await this.getStateAsync("info.LastSentryLogDay")
-				if (last?.val != await today.getDate()) {
+				const last = await this.getStateAsync("info.LastSentryLogDay");
+				if (last?.val != (await today.getDate())) {
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
-						Sentry && Sentry.withScope(
-							(scope: {
-								setLevel: (arg0: string) => void;
-								setTag: (arg0: string, arg1: number) => void;
-							}) => {
+						Sentry && Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void; }) => {
 								scope.setLevel("info");
 								scope.setTag("SentryDay", today.getDate());
 								scope.setTag("HomeIDs", this.homeInfoList.length);
 								Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
-							}
-						);
+							});
 					}
 					// this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
 					this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
 				}
 			}
 
-			if (!(this.homeInfoList.length > 0)) {// if no homeIDs available - adapter can't do that much and restarts
+			if (!(this.homeInfoList.length > 0)) {
+				// if no homeIDs available - adapter can't do that much and restarts
 				this.log.warn("Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes");
 				const adapterrestart = this.setInterval(() => {
 					this.restart();
@@ -103,10 +98,10 @@ class Tibberlink extends utils.Adapter {
 			}
 
 			// Init Load Data for all homes
-			if (this.homeInfoList.length > 0) { // only if there are any homes the adapter will do something
+			if (this.homeInfoList.length > 0) {
+				// only if there are any homes the adapter will do something
 				const tibberCalculator = new TibberCalculator(this);
 				for (const index in this.homeInfoList) {
-
 					// Set up calculation channel 1 states if channel is configured
 					if (this.config.CalCh01Configured) {
 						try {
@@ -165,7 +160,7 @@ class Tibberlink extends utils.Adapter {
 					}
 				}, 1500000);
 				this.intervallList.push(energyPricesListUpdateInterval);
-            }
+			}
 
 			// If user uses live feed - start connection
 			if (this.config.FeedActive) {
@@ -178,29 +173,75 @@ class Tibberlink extends utils.Adapter {
 							tibberConfigFeed.homeId = this.homeInfoList[index].ID; // ERROR: Only latest homeID will be used at this point
 							tibberConfigFeed.timestamp = true;
 							tibberConfigFeed.power = true;
-							if (this.config.FeedConfigLastMeterConsumption) { tibberConfigFeed.lastMeterConsumption = true }
-							if (this.config.FeedConfigAccumulatedConsumption) { tibberConfigFeed.accumulatedConsumption = true }
-							if (this.config.FeedConfigAccumulatedProduction) { tibberConfigFeed.accumulatedProduction = true }
-							if (this.config.FeedConfigAccumulatedConsumptionLastHour) { tibberConfigFeed.accumulatedConsumptionLastHour = true }
-							if (this.config.FeedConfigAccumulatedProductionLastHour) { tibberConfigFeed.accumulatedProductionLastHour = true }
-							if (this.config.FeedConfigAccumulatedCost) { tibberConfigFeed.accumulatedCost = true }
-							if (this.config.FeedConfigAccumulatedCost) { tibberConfigFeed.accumulatedReward = true }
-							if (this.config.FeedConfigCurrency) { tibberConfigFeed.currency = true }
-							if (this.config.FeedConfigMinPower) { tibberConfigFeed.minPower = true }
-							if (this.config.FeedConfigAveragePower) { tibberConfigFeed.averagePower = true }
-							if (this.config.FeedConfigMaxPower) { tibberConfigFeed.maxPower = true }
-							if (this.config.FeedConfigPowerProduction) { tibberConfigFeed.powerProduction = true }
-							if (this.config.FeedConfigMinPowerProduction) { tibberConfigFeed.minPowerProduction = true }
-							if (this.config.FeedConfigMaxPowerProduction) { tibberConfigFeed.maxPowerProduction = true }
-							if (this.config.FeedConfigLastMeterProduction) { tibberConfigFeed.lastMeterProduction = true }
-							if (this.config.FeedConfigPowerFactor) { tibberConfigFeed.powerFactor = true }
-							if (this.config.FeedConfigVoltagePhase1) { tibberConfigFeed.voltagePhase1 = true }
-							if (this.config.FeedConfigVoltagePhase2) { tibberConfigFeed.voltagePhase2 = true }
-							if (this.config.FeedConfigVoltagePhase3) { tibberConfigFeed.voltagePhase3 = true }
-							if (this.config.FeedConfigCurrentL1) { tibberConfigFeed.currentL1 = true }
-							if (this.config.FeedConfigCurrentL2) { tibberConfigFeed.currentL2 = true }
-							if (this.config.FeedConfigCurrentL3) { tibberConfigFeed.currentL3 = true }
-							if (this.config.FeedConfigSignalStrength) { tibberConfigFeed.signalStrength = true }
+							if (this.config.FeedConfigLastMeterConsumption) {
+								tibberConfigFeed.lastMeterConsumption = true
+							}
+							if (this.config.FeedConfigAccumulatedConsumption) {
+								tibberConfigFeed.accumulatedConsumption = true
+							}
+							if (this.config.FeedConfigAccumulatedProduction) {
+								tibberConfigFeed.accumulatedProduction = true
+							}
+							if (this.config.FeedConfigAccumulatedConsumptionLastHour) {
+								tibberConfigFeed.accumulatedConsumptionLastHour = true
+							}
+							if (this.config.FeedConfigAccumulatedProductionLastHour) {
+								tibberConfigFeed.accumulatedProductionLastHour = true
+							}
+							if (this.config.FeedConfigAccumulatedCost) {
+								tibberConfigFeed.accumulatedCost = true
+							}
+							if (this.config.FeedConfigAccumulatedCost) {
+								tibberConfigFeed.accumulatedReward = true
+							}
+							if (this.config.FeedConfigCurrency) {
+								tibberConfigFeed.currency = true
+							}
+							if (this.config.FeedConfigMinPower) {
+								tibberConfigFeed.minPower = true
+							}
+							if (this.config.FeedConfigAveragePower) {
+								tibberConfigFeed.averagePower = true
+							}
+							if (this.config.FeedConfigMaxPower) {
+								tibberConfigFeed.maxPower = true
+							}
+							if (this.config.FeedConfigPowerProduction) {
+								tibberConfigFeed.powerProduction = true
+							}
+							if (this.config.FeedConfigMinPowerProduction) {
+								tibberConfigFeed.minPowerProduction = true
+							}
+							if (this.config.FeedConfigMaxPowerProduction) {
+								tibberConfigFeed.maxPowerProduction = true
+							}
+							if (this.config.FeedConfigLastMeterProduction) {
+								tibberConfigFeed.lastMeterProduction = true
+							}
+							if (this.config.FeedConfigPowerFactor) {
+								tibberConfigFeed.powerFactor = true
+							}
+							if (this.config.FeedConfigVoltagePhase1) {
+								tibberConfigFeed.voltagePhase1 = true
+							}
+							if (this.config.FeedConfigVoltagePhase2) {
+								tibberConfigFeed.voltagePhase2 = true
+							}
+							if (this.config.FeedConfigVoltagePhase3) {
+								tibberConfigFeed.voltagePhase3 = true
+							}
+							if (this.config.FeedConfigCurrentL1) {
+								tibberConfigFeed.currentL1 = true
+							}
+							if (this.config.FeedConfigCurrentL2) {
+								tibberConfigFeed.currentL2 = true
+							}
+							if (this.config.FeedConfigCurrentL3) {
+								tibberConfigFeed.currentL3 = true
+							}
+							if (this.config.FeedConfigSignalStrength) {
+								tibberConfigFeed.signalStrength = true
+							}
 							tibberPulseInstances[index] = new TibberPulse(tibberConfigFeed, this); // add instance to array
 							tibberPulseInstances[index].ConnectPulseStream();
 						} catch (e) {
@@ -208,7 +249,7 @@ class Tibberlink extends utils.Adapter {
 						}
 					} else {
 						this.log.warn("skipping feed of live data - no Pulse configured for this home according to Tibber server");
-                    }
+					}
 				}
 			}
 		}
@@ -234,7 +275,7 @@ class Tibberlink extends utils.Adapter {
 
 	/**
 	 * Is called if a subscribed state changes
-	*/
+	 */
 	/*
 	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
 		if (state) {
@@ -246,7 +287,6 @@ class Tibberlink extends utils.Adapter {
 		}
 	}
 	*/
-
 }
 
 if (require.main !== module) {
