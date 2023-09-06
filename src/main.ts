@@ -7,7 +7,7 @@ import { TibberCalculator } from "./lib/tibberCalculator";
 
 class Tibberlink extends utils.Adapter {
 	intervallList: any[]; // intervallList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
-	homeInfoList: { ID: string; RealTime: boolean } [] = [];
+	homeInfoList: { ID: string; RealTime: boolean }[] = [];
 	queryUrl = "";
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -76,12 +76,12 @@ class Tibberlink extends utils.Adapter {
 				if (last?.val != (await today.getDate())) {
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
-						Sentry && Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void; }) => {
-								scope.setLevel("info");
-								scope.setTag("SentryDay", today.getDate());
-								scope.setTag("HomeIDs", this.homeInfoList.length);
-								Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
-							});
+						Sentry && Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void }) => {
+							scope.setLevel("info");
+							scope.setTag("SentryDay", today.getDate());
+							scope.setTag("HomeIDs", this.homeInfoList.length);
+							Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
+						});
 					}
 					// this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
 					this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
@@ -174,73 +174,73 @@ class Tibberlink extends utils.Adapter {
 							tibberConfigFeed.timestamp = true;
 							tibberConfigFeed.power = true;
 							if (this.config.FeedConfigLastMeterConsumption) {
-								tibberConfigFeed.lastMeterConsumption = true
+								tibberConfigFeed.lastMeterConsumption = true;
 							}
 							if (this.config.FeedConfigAccumulatedConsumption) {
-								tibberConfigFeed.accumulatedConsumption = true
+								tibberConfigFeed.accumulatedConsumption = true;
 							}
 							if (this.config.FeedConfigAccumulatedProduction) {
-								tibberConfigFeed.accumulatedProduction = true
+								tibberConfigFeed.accumulatedProduction = true;
 							}
 							if (this.config.FeedConfigAccumulatedConsumptionLastHour) {
-								tibberConfigFeed.accumulatedConsumptionLastHour = true
+								tibberConfigFeed.accumulatedConsumptionLastHour = true;
 							}
 							if (this.config.FeedConfigAccumulatedProductionLastHour) {
-								tibberConfigFeed.accumulatedProductionLastHour = true
+								tibberConfigFeed.accumulatedProductionLastHour = true;
 							}
 							if (this.config.FeedConfigAccumulatedCost) {
-								tibberConfigFeed.accumulatedCost = true
+								tibberConfigFeed.accumulatedCost = true;
 							}
 							if (this.config.FeedConfigAccumulatedCost) {
-								tibberConfigFeed.accumulatedReward = true
+								tibberConfigFeed.accumulatedReward = true;
 							}
 							if (this.config.FeedConfigCurrency) {
-								tibberConfigFeed.currency = true
+								tibberConfigFeed.currency = true;
 							}
 							if (this.config.FeedConfigMinPower) {
-								tibberConfigFeed.minPower = true
+								tibberConfigFeed.minPower = true;
 							}
 							if (this.config.FeedConfigAveragePower) {
-								tibberConfigFeed.averagePower = true
+								tibberConfigFeed.averagePower = true;
 							}
 							if (this.config.FeedConfigMaxPower) {
-								tibberConfigFeed.maxPower = true
+								tibberConfigFeed.maxPower = true;
 							}
 							if (this.config.FeedConfigPowerProduction) {
-								tibberConfigFeed.powerProduction = true
+								tibberConfigFeed.powerProduction = true;
 							}
 							if (this.config.FeedConfigMinPowerProduction) {
-								tibberConfigFeed.minPowerProduction = true
+								tibberConfigFeed.minPowerProduction = true;
 							}
 							if (this.config.FeedConfigMaxPowerProduction) {
-								tibberConfigFeed.maxPowerProduction = true
+								tibberConfigFeed.maxPowerProduction = true;
 							}
 							if (this.config.FeedConfigLastMeterProduction) {
-								tibberConfigFeed.lastMeterProduction = true
+								tibberConfigFeed.lastMeterProduction = true;
 							}
 							if (this.config.FeedConfigPowerFactor) {
-								tibberConfigFeed.powerFactor = true
+								tibberConfigFeed.powerFactor = true;
 							}
 							if (this.config.FeedConfigVoltagePhase1) {
-								tibberConfigFeed.voltagePhase1 = true
+								tibberConfigFeed.voltagePhase1 = true;
 							}
 							if (this.config.FeedConfigVoltagePhase2) {
-								tibberConfigFeed.voltagePhase2 = true
+								tibberConfigFeed.voltagePhase2 = true;
 							}
 							if (this.config.FeedConfigVoltagePhase3) {
-								tibberConfigFeed.voltagePhase3 = true
+								tibberConfigFeed.voltagePhase3 = true;
 							}
 							if (this.config.FeedConfigCurrentL1) {
-								tibberConfigFeed.currentL1 = true
+								tibberConfigFeed.currentL1 = true;
 							}
 							if (this.config.FeedConfigCurrentL2) {
-								tibberConfigFeed.currentL2 = true
+								tibberConfigFeed.currentL2 = true;
 							}
 							if (this.config.FeedConfigCurrentL3) {
-								tibberConfigFeed.currentL3 = true
+								tibberConfigFeed.currentL3 = true;
 							}
 							if (this.config.FeedConfigSignalStrength) {
-								tibberConfigFeed.signalStrength = true
+								tibberConfigFeed.signalStrength = true;
 							}
 							tibberPulseInstances[index] = new TibberPulse(tibberConfigFeed, this); // add instance to array
 							tibberPulseInstances[index].ConnectPulseStream();
