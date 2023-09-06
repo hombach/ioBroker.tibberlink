@@ -76,12 +76,13 @@ class Tibberlink extends utils.Adapter {
 				if (last?.val != (await today.getDate())) {
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
-						Sentry && Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void }) => {
-							scope.setLevel("info");
-							scope.setTag("SentryDay", today.getDate());
-							scope.setTag("HomeIDs", this.homeInfoList.length);
-							Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
-						});
+						Sentry &&
+							Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void }) => {
+								scope.setLevel("info");
+								scope.setTag("SentryDay", today.getDate());
+								scope.setTag("HomeIDs", this.homeInfoList.length);
+								Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
+							});
 					}
 					// this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
 					this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
