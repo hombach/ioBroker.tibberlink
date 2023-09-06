@@ -169,6 +169,4 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     }
 }
 exports.TibberAPICaller = TibberAPICaller;
-//Error: 21: 50  error  Replace`,` with `;`
-//Error: 25: 36  error  Replace`,` with `;`
 //# sourceMappingURL=tibberAPICaller.js.map

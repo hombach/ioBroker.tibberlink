@@ -1,5 +1,4 @@
 package.json
 package-lock.json
 build/
-src/lib/TST_tibberAPICaller.ts
-src/main.ts
+src/TSTmain.ts

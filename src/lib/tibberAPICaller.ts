@@ -256,6 +256,3 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Mobile"), contactInfo.mobile);
 	}
 }
-
-//Error: 21: 50  error  Replace`,` with `;`
-//Error: 25: 36  error  Replace`,` with `;`
