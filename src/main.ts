@@ -98,21 +98,22 @@ class Tibberlink extends utils.Adapter {
 				this.intervallList.push(adapterrestart);
 			}
 
-			// Init Load Data for all homes
+			// Init load data and calculator for all homes
 			if (this.homeInfoList.length > 0) {
 				// only if there are any homes the adapter will do something
 				const tibberCalculator = new TibberCalculator(this);
-				for (const index in this.homeInfoList) {
-					// Set up calculation channel 1 states if channel is configured
-					if (this.config.CalCh01Configured) {
-						try {
-							await tibberCalculator.setupCalculatorStates(this.homeInfoList[index].ID, 1);
-							this.log.debug("Setting up calculation channel 1 states");
-						} catch (error: any) {
-							this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculation states for channel 01"));
-						}
-					}
 
+				// Set up calculation channel 1 states if channel is configured
+				if (this.config.CalCh01Configured && this.config.CalCh01Home?.length > 5) {
+					try {
+						await tibberCalculator.setupCalculatorStates(this.config.CalCh01Home, 1);
+						this.log.debug("Setting up calculation channel 1 states");
+					} catch (error: any) {
+						this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculation states for channel 01"));
+					}
+				}
+
+				for (const index in this.homeInfoList) {
 					// Get current price for the first time
 					try {
 						await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
@@ -163,7 +164,7 @@ class Tibberlink extends utils.Adapter {
 				this.intervallList.push(energyPricesListUpdateInterval);
 			}
 
-			// If user uses live feed - start connection
+			// If user uses live feed - start feed connection
 			if (this.config.FeedActive) {
 				const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 				for (const index in this.homeInfoList) {

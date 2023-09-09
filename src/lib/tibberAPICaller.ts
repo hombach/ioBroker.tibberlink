@@ -124,7 +124,7 @@ export class TibberAPICaller extends TibberHelper {
 			this.currentHomeId = homeId;
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "PricesToday", "json"),
-				JSON.stringify(pricesToday),
+				await JSON.stringify(pricesToday),
 				"The prices today as json",
 			);
 			for (const i in pricesToday) {
@@ -134,7 +134,7 @@ export class TibberAPICaller extends TibberHelper {
 			}
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"),
-				JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)),
+				await JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)),
 				"prices sorted by cost ascending",
 			);
 		} else {
@@ -172,12 +172,12 @@ export class TibberAPICaller extends TibberHelper {
 			}
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"),
-				JSON.stringify(pricesTomorrow),
+				await JSON.stringify(pricesTomorrow),
 				"The prices tomorrow as json",
 			);
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"),
-				JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
+				await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
 				"prices sorted by cost ascending",
 			);
 		} else {

@@ -248,6 +248,8 @@
 			}
 		},
 
+
+
 		"_CalculatorTab": {
 			"type": "panel",
 			"label": "Calculator settings",
@@ -257,6 +259,7 @@
 					"text": "Calculator Channel 01 - Not yet implemented",
 					"size": 3
 				},
+
 				"CalCh01Configured": {
 					"type": "checkbox",
 					"label": "Configure Channel 01 - Not yet implemented",
@@ -266,6 +269,30 @@
 					"newLine": true,
 					"hidden": "!data.FeedActive"
 				},
+
+				"CalCh01Home": {
+					"type": "select",
+					"label": "Channel Home",
+					"options": [
+						{
+							"label": "Home 1",
+							"value": 1
+						},
+						{
+							"label": "Home 2",
+							"value": 2
+						},
+						{
+							"label": "Home 3",
+							"value": 3
+						}
+					],
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
+					"hidden": "!data.CalCh01Configured"
+				},
+
 				"CalCh01Type": {
 					"type": "select",
 					"label": "Channel Type",
@@ -280,7 +307,7 @@
 						},
 						{
 							"label": "best hours block- not implemented",
-							"value": 2
+							"value": 3
 						}
 					],
 					"sm": 6,

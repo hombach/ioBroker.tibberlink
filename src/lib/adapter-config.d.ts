@@ -34,6 +34,7 @@ declare global {
 			CalCh01Type: string;
 			CalCh01ValueOn: string;
 			CalCh01ValueOff: string;
+			CalCh01Home: string;
 		}
 	}
 }
