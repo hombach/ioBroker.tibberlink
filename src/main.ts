@@ -18,9 +18,8 @@ class Tibberlink extends utils.Adapter {
 		this.on("ready", this.onReady.bind(this));
 		// this.on("stateChange", this.onStateChange.bind(this));
 		// this.on("objectChange", this.onObjectChange.bind(this));
-		// this.on("message", this.onMessage.bind(this));
+		this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
-		this.on("message", this.onMessage.bind(this)); // NEW NEW NEW
 		this.homeInfoList = [];
 		this.intervallList = [];
 		this.queryUrl = "https://api.tibber.com/v1-beta/gql";
