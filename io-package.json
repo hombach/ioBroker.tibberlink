@@ -288,6 +288,7 @@
 		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/main/README.md",
 		"loglevel": "info",
 		"mode": "daemon",
+		"messagebox": true,
 		"allowInit": true,
 		"type": "energy",
 		"compact": true,
