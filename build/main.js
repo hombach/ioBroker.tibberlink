@@ -41,6 +41,7 @@ class Tibberlink extends utils.Adapter {
         // this.on("objectChange", this.onObjectChange.bind(this));
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
+        this.on("message", this.onMessage.bind(this)); // NEW NEW NEW
         this.homeInfoList = [];
         this.intervallList = [];
         this.queryUrl = "https://api.tibber.com/v1-beta/gql";
@@ -275,6 +276,32 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn("skipping feed of live data - no Pulse configured for this home according to Tibber server");
                     }
                 }
+            }
+        }
+    }
+    /**
+     * Is called from adapter config screen
+     */
+    onMessage(obj) {
+        if (obj) {
+            switch (obj.command) {
+                case 'CalHomes':
+                    if (obj.callback) {
+                        try {
+                            if (this.homeInfoList.length > 0) {
+                                this.log.info(`List of homes: ${this.homeInfoList.map(item => ({ label: item.ID }))}`);
+                                this.sendTo(obj.from, obj.command, this.homeInfoList.map(item => ({ label: item.ID, value: item.ID })), obj.callback);
+                            }
+                            else {
+                                this.log.warn(`No Homes available to config TibberLink Calculator`);
+                                this.sendTo(obj.from, obj.command, [{ label: "None available", value: "" }], obj.callback);
+                            }
+                        }
+                        catch (error) {
+                            this.sendTo(obj.from, obj.command, [{ label: "None available", value: "" }], obj.callback);
+                        }
+                    }
+                    break;
             }
         }
     }

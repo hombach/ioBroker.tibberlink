@@ -271,22 +271,9 @@
 				},
 
 				"CalCh01Home": {
-					"type": "select",
+					"type": "selectSendTo",
 					"label": "Channel Home",
-					"options": [
-						{
-							"label": "Home 1",
-							"value": 1
-						},
-						{
-							"label": "Home 2",
-							"value": 2
-						},
-						{
-							"label": "Home 3",
-							"value": 3
-						}
-					],
+					"command":  "CalHomes",
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
