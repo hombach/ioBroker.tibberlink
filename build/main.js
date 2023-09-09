@@ -42,7 +42,7 @@ class Tibberlink extends utils.Adapter {
         this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
         this.homeInfoList = [];
-        this.intervallList = [];
+        this.intervalList = [];
         this.queryUrl = "https://api.tibber.com/v1-beta/gql";
     }
     /**
@@ -116,7 +116,7 @@ class Tibberlink extends utils.Adapter {
                 const adapterrestart = this.setInterval(() => {
                     this.restart();
                 }, 120000);
-                this.intervallList.push(adapterrestart);
+                this.intervalList.push(adapterrestart);
             }
             // Init load data and calculator for all homes
             if (this.homeInfoList.length > 0) {
@@ -165,7 +165,7 @@ class Tibberlink extends utils.Adapter {
                         }
                     }
                 }, 300000);
-                this.intervallList.push(energyPriceCallIntervall);
+                this.intervalList.push(energyPriceCallIntervall);
                 const energyPricesListUpdateInterval = this.setInterval(() => {
                     for (const index in this.homeInfoList) {
                         try {
@@ -182,7 +182,7 @@ class Tibberlink extends utils.Adapter {
                         }
                     }
                 }, 1500000);
-                this.intervallList.push(energyPricesListUpdateInterval);
+                this.intervalList.push(energyPricesListUpdateInterval);
             }
             // If user uses live feed - start feed connection
             if (this.config.FeedActive) {
@@ -288,7 +288,6 @@ class Tibberlink extends utils.Adapter {
                     if (obj.callback) {
                         try {
                             if (this.homeInfoList.length > 0) {
-                                this.log.info(`List of homes: ${this.homeInfoList.map((item) => ({ label: item.ID }))}`);
                                 this.sendTo(obj.from, obj.command, this.homeInfoList.map((item) => ({ label: item.ID, value: item.ID })), obj.callback);
                             }
                             else {
@@ -311,8 +310,8 @@ class Tibberlink extends utils.Adapter {
         try {
             // Here you must clear all timeouts or intervals that may still be active
             // clearTimeout(timeout1);
-            for (const index in this.intervallList) {
-                this.clearInterval(this.intervallList[index]);
+            for (const index in this.intervalList) {
+                this.clearInterval(this.intervalList[index]);
             }
             // info.connect to false, if adapter is closed
             this.setState("info.connection", false, true);

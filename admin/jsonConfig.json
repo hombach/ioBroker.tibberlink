@@ -269,6 +269,14 @@
 					"newLine": true,
 					"hidden": "!data.FeedActive"
 				},
+				"CalCh01Active": {
+					"type": "checkbox",
+					"label": "Channel active",
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
+					"hidden": "!data.CalCh01Configured"
+				},
 
 				"CalCh01Home": {
 					"type": "selectSendTo",
@@ -282,9 +290,9 @@
 					"alsoDependsOn": [
 						"CalCh01Configured"
 					],
+					"newLine": true,
 					"hidden": "!data.CalCh01Configured"
 				},
-
 				"CalCh01Type": {
 					"type": "select",
 					"label": "Channel Type",
@@ -308,21 +316,13 @@
 					"hidden": "!data.CalCh01Configured"
 				},
 
-				"CalCh01Active": {
-					"type": "checkbox",
-					"label": "Channel active",
-					"sm": 6,
-					"md": 6,
-					"lg": 6,
-					"newLine": true,
-					"hidden": "!data.CalCh01Configured"
-				},
 				"CalCh01TargetState": {
 					"type": "objectId",
 					"label": "Target State",
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
+					"newLine": true,
 					"hidden": "!data.CalCh01Configured"
 				},
 
