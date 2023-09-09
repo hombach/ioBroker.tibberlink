@@ -286,12 +286,12 @@ class Tibberlink extends utils.Adapter {
         this.log.debug("Got message from config screen");
         if (obj) {
             switch (obj.command) {
-                case 'CalHomes':
+                case "CalHomes":
                     if (obj.callback) {
                         try {
                             if (this.homeInfoList.length > 0) {
-                                this.log.info(`List of homes: ${this.homeInfoList.map(item => ({ label: item.ID }))}`);
-                                this.sendTo(obj.from, obj.command, this.homeInfoList.map(item => ({ label: item.ID, value: item.ID })), obj.callback);
+                                this.log.info(`List of homes: ${this.homeInfoList.map((item) => ({ label: item.ID }))}`);
+                                this.sendTo(obj.from, obj.command, this.homeInfoList.map((item) => ({ label: item.ID, value: item.ID })), obj.callback);
                             }
                             else {
                                 this.log.warn(`No Homes available to config TibberLink Calculator`);
