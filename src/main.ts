@@ -330,5 +330,3 @@ if (require.main !== module) {
 	// otherwise start the instance directly
 	(() => new Tibberlink())();
 }
-
-
