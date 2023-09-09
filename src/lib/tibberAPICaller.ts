@@ -26,7 +26,11 @@ export class TibberAPICaller extends TibberHelper {
 			for (const index in Homes) {
 				const currentHome = Homes[index];
 				this.currentHomeId = currentHome.id;
-				homeInfoList.push({ ID: this.currentHomeId, NameInApp: currentHome.appNickname, RealTime: currentHome.features.realTimeConsumptionEnabled });
+				homeInfoList.push({
+					ID: this.currentHomeId,
+					NameInApp: currentHome.appNickname,
+					RealTime: currentHome.features.realTimeConsumptionEnabled,
+				});
 				// Set HomeId in tibberConfig for further API Calls
 				this.tibberConfig.homeId = this.currentHomeId;
 				// Home GENERAL

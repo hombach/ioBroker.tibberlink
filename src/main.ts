@@ -271,7 +271,8 @@ class Tibberlink extends utils.Adapter {
 									obj.from,
 									obj.command,
 									this.homeInfoList.map((item) => ({
-										label: (`${item.NameInApp} (${item.ID})`), value: item.ID
+										label: `${item.NameInApp} (${item.ID})`,
+										value: item.ID,
 									})),
 									obj.callback,
 								);
