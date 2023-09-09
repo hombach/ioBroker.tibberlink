@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.2.7",
+		"version": "0.2.8",
 		"news": {
+			"0.2.8": {
+				"en": "WORK in PROGRESS"
+			},
 			"0.2.7": {
 				"en": "reducing polls at Tibber server by precheck of current price data",
 				"de": "Reduktion von Anfragen an den Tibber-Server durch Vorabkontrolle der bekannten Preisdaten",
