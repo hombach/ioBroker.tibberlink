@@ -273,7 +273,7 @@
 				"CalCh01Home": {
 					"type": "selectSendTo",
 					"label": "Channel Home",
-					"command":  "CalHomes",
+					"command": "CalHomes",
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
