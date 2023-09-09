@@ -270,6 +270,21 @@
 					"hidden": "!data.FeedActive"
 				},
 
+				"CalCh01Home": {
+					"type": "selectSendTo",
+					"label": "Channel Home",
+					"default": "No Home selected",
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
+					"jsonData": "{\"CalCh01Configured\": \"${data.CalCh01Configured}\"}",
+					"command": "CalHomes",
+					"alsoDependsOn": [
+						"CalCh01Configured"
+					],
+					"hidden": "!data.CalCh01Configured"
+				},
+
 				"CalCh01Type": {
 					"type": "select",
 					"label": "Channel Type",
@@ -291,20 +306,6 @@
 					"md": 6,
 					"lg": 6,
 					"hidden": "!data.CalCh01Configured"
-				},
-
-				"CalCh01Home": {
-					"type": "selectSendTo",
-					"label": "Channel Home",
-					"default": "No Home selected",
-					"sm": 6,
-					"md": 6,
-					"lg": 6,
-					"jsonData": "{\"CalCh01Configured\": \"${data.CalCh01Configured}\"}",
-					"command": "CalHomes",
-					"alsoDependsOn": [
-						"CalCh01Configured"
-					]
 				},
 
 				"CalCh01Active": {

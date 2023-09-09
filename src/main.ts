@@ -261,8 +261,6 @@ class Tibberlink extends utils.Adapter {
 	 * Is called from adapter config screen
 	 */
 	private onMessage(obj: any): void {
-		this.log.debug("Got message from config screen");
-		this.sendTo(obj.from, obj.command, [{ label: "Not yet implemented", value: "4711" }], obj.callback);
 		if (obj) {
 			switch (obj.command) {
 				case "CalHomes":
