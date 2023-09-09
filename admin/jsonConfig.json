@@ -272,11 +272,17 @@
 
 				"CalCh01Home": {
 					"type": "selectSendTo",
-					"title": "Channel Home",
+					"label": "Channel Home",
+					"default": "No Home selected",
+					"sm": 6,
+					"md": 6,
+					"lg": 6,
+					"jsonData": "{\"CalCh01Configured\":\"${data.CalCh01Configured}\",\"CalCh01Type\":\"${data.CalCh01Type}\"}",
 					"command": "CalHomes",
-					"default": "",
-					"sort": true,
-					"filter": false,
+					"alsoDependsOn": [
+						"CalCh01Configured",
+						"CalCh01Type"
+					]
 				},
 
 				"CalCh01Type": {
