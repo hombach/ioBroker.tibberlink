@@ -272,12 +272,11 @@
 
 				"CalCh01Home": {
 					"type": "selectSendTo",
-					"label": "Channel Home",
+					"title": "Channel Home",
 					"command": "CalHomes",
-					"sm": 6,
-					"md": 6,
-					"lg": 6,
-					"hidden": "!data.CalCh01Configured"
+					"default": "",
+					"sort": true,
+					"filter": false,
 				},
 
 				"CalCh01Type": {
