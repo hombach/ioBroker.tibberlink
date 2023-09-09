@@ -263,6 +263,7 @@ class Tibberlink extends utils.Adapter {
 	 * Is called from adapter config screen
 	 */
 	private onMessage(obj: any): void {
+		this.log.debug("Got message from config screen");
 		if (obj) {
 			switch (obj.command) {
 				case 'CalHomes':
