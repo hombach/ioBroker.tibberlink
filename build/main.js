@@ -160,13 +160,13 @@ class Tibberlink extends utils.Adapter {
             if (this.homeInfoList.length > 0) {
                 const tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
                 // Set up calculation channel 1 states if channel is configured
-                if (this.config.CalCh01Configured && this.config.CalCh01Home?.length > 5) {
+                if (this.config.CalCh01Configured && this.config.CalculatorList[0].chHome?.length > 5) {
                     try {
-                        await tibberCalculator.setupCalculatorStates(this.config.CalCh01Home, 1);
-                        this.log.debug("Setting up calculation channel 1 states");
+                        await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[0].chHome, 1);
+                        this.log.debug(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
                     }
                     catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculation states for channel 01"));
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculator states"));
                     }
                 }
                 // Get prices for the first time
@@ -323,7 +323,7 @@ class Tibberlink extends utils.Adapter {
     onMessage(obj) {
         if (obj) {
             switch (obj.command) {
-                case "CalHomes":
+                case "HomesForConfig":
                     if (obj.callback) {
                         try {
                             if (this.homeInfoList.length > 0) {
