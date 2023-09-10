@@ -40,15 +40,6 @@
 					"label": "Homes Feed Table",
 					"items": [
 						{
-							"type": "checkbox",
-							"title": "Pulse Active",
-							"attr": "feedActive",
-							"filter": false,
-							"sort": false,
-							"width": "35%",
-							"default": false
-						},
-						{
 							"type": "selectSendTo",
 							"title": "Home",
 							"command": "CalHomes",
@@ -57,8 +48,16 @@
 							"sort": false,
 							"width": "65%",
 							"default": "No Home selected"
+						},
+						{
+							"type": "checkbox",
+							"title": "PulseActive",
+							"attr": "feedActive",
+							"filter": false,
+							"sort": false,
+							"width": "35%",
+							"default": false
 						}
-
 					]
 				},
 
