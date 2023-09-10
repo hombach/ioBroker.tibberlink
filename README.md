@@ -36,7 +36,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ! Note that missing version entries are typically dependency updates for improved security.
 
 ### 0.3.0 (2023-09-WORK in PROGRESS)
-* (HombachC) change Pulse usage to be configurable for all homes seperately (#xx)
+* (HombachC) BREAKING: change Pulse usage to be configurable for all homes seperately (#xx)
 * (HombachC) optimize code again to mitigate set state timing for long JSON states (#68)
 * (HombachC) preparations for tibber calculator
 ### 0.2.7 (2023-09-07)

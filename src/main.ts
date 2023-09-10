@@ -63,18 +63,22 @@ class Tibberlink extends utils.Adapter {
 							//set data in homeinfolist according to config data
 							const result: any[] = [];
 							for (const home of this.config.HomesList) {
-									const matchingHomeInfo = this.homeInfoList.find((info) => info.ID === home.homeID);
-									if (!matchingHomeInfo) {
-										this.log.error(`Configured feed for Home ID: ${home.homeID} not found in current data from Tibber server - delete the configurstion line or verify any faults in your Tibber connection`);
-										continue;
-									}
-									if (result.some((info) => info.ID === matchingHomeInfo.ID)) {
-										this.log.warn(`Double configuration of Home ID: ${home.homeID} found - please remove obsolete line in config - data of first instance will be used`);
-										continue;
-									}
-									matchingHomeInfo.FeedActive = home.feedActive;
-									// Füge das aktualisierte HomeInfo-Objekt zum Ergebnis hinzu.
-									result.push(matchingHomeInfo);
+								const matchingHomeInfo = this.homeInfoList.find((info) => info.ID === home.homeID);
+								if (!matchingHomeInfo) {
+									this.log.error(
+										`Configured feed for Home ID: ${home.homeID} not found in current data from Tibber server - delete the configurstion line or verify any faults in your Tibber connection`,
+									);
+									continue;
+								}
+								if (result.some((info) => info.ID === matchingHomeInfo.ID)) {
+									this.log.warn(
+										`Double configuration of Home ID: ${home.homeID} found - please remove obsolete line in config - data of first instance will be used`,
+									);
+									continue;
+								}
+								matchingHomeInfo.FeedActive = home.feedActive;
+								// Füge das aktualisierte HomeInfo-Objekt zum Ergebnis hinzu.
+								result.push(matchingHomeInfo);
 							}
 							for (const index in this.homeInfoList) {
 								this.log.debug(
