@@ -228,7 +228,7 @@ class Tibberlink extends utils.Adapter {
                             this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
                             try {
                                 // define the fields for datafeed
-                                tibberConfigFeed.homeId = this.homeInfoList[index].ID; // ERROR: Only latest homeID will be used at this point
+                                tibberConfigFeed.homeId = this.homeInfoList[index].ID;
                                 tibberConfigFeed.timestamp = true;
                                 tibberConfigFeed.power = true;
                                 if (this.config.FeedConfigLastMeterConsumption) {

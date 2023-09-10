@@ -144,7 +144,6 @@ class Tibberlink extends utils.Adapter {
 			// if there are any homes the adapter will do something
 			// Init load data and calculator for all homes
 			if (this.homeInfoList.length > 0) {
-
 				const tibberCalculator = new TibberCalculator(this);
 				// Set up calculation channel 1 states if channel is configured
 				if (this.config.CalCh01Configured && this.config.CalCh01Home?.length > 5) {
@@ -207,17 +206,16 @@ class Tibberlink extends utils.Adapter {
 				}, 1500000);
 				this.intervalList.push(energyPricesListUpdateInterval);
 
-
 				// If user uses live feed - start feed connection
 				if (this.homeInfoList.some((info) => !info.FeedActive)) {
-				//if (this.config.FeedActive) {
+					//if (this.config.FeedActive) {
 					const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 					for (const index in this.homeInfoList) {
 						if (this.homeInfoList[index].FeedActive && this.homeInfoList[index].RealTime) {
 							this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
 							try {
 								// define the fields for datafeed
-								tibberConfigFeed.homeId = this.homeInfoList[index].ID; // ERROR: Only latest homeID will be used at this point
+								tibberConfigFeed.homeId = this.homeInfoList[index].ID;
 								tibberConfigFeed.timestamp = true;
 								tibberConfigFeed.power = true;
 								if (this.config.FeedConfigLastMeterConsumption) {
@@ -289,7 +287,7 @@ class Tibberlink extends utils.Adapter {
 								if (this.config.FeedConfigSignalStrength) {
 									tibberConfigFeed.signalStrength = true;
 								}
-									tibberPulseInstances[index] = new TibberPulse(tibberConfigFeed, this); // add instance to array
+								tibberPulseInstances[index] = new TibberPulse(tibberConfigFeed, this); // add instance to array
 								tibberPulseInstances[index].ConnectPulseStream();
 							} catch (e) {
 								this.log.warn((e as Error).message);
