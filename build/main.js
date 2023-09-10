@@ -86,6 +86,9 @@ class Tibberlink extends utils.Adapter {
                         //tibberlink.0	2023 - 09 - 10 13: 40: 07.696	debug	Read config data Homeslist.1.feedActive: true
                         //tibberlink.0	2023 - 09 - 10 13: 40: 07.696	debug	Read config data Homeslist.1.homeID: 26b5774b - 07ea - 47f0 - b816 - 124628785327
                         //tibberlink.0	2023 - 09 - 10 13: 40: 07.689	debug	Got homes from tibber api: [{"id": "26b5774b-07ea-47f0-b816-124628785327","timeZone":"Europe/Berlin","appNickname":"Castle",
+                        if (this.homeInfoList.length > 0) {
+                            //set data in homeinfolist according to config data
+                        }
                     }
                 }
                 else {
