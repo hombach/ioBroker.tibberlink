@@ -6,6 +6,12 @@ declare global {
 		interface AdapterConfig {
 			TibberAPIToken: string;
 			FeedActive: boolean;
+			HomesList: [
+				{
+					feedActive: boolean;
+					homeID: string;
+				},
+			];
 			FeedConfigLastMeterConsumption: boolean;
 			FeedConfigAccumulatedConsumption: boolean;
 			FeedConfigAccumulatedProduction: boolean;
@@ -35,10 +41,10 @@ declare global {
 			CalCh01ValueOn: string;
 			CalCh01ValueOff: string;
 			CalCh01Home: string;
-			HomesList: [
+			CalculatorList: [
 				{
-					feedActive: boolean;
-					homeID: number;
+					channelActive: boolean;
+					channelType: string;
 				},
 			];
 		}

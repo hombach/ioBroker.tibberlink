@@ -54,11 +54,16 @@ class Tibberlink extends utils.Adapter {
 			const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
 			try {
 				this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
-				if (this.config.HomesList.length > 0) {
+				if (this.config.HomesList.length > 0) { //are there feeds configured ??
 					for (const index in this.config.HomesList) {
-						this.log.debug(`Read config data Homeslist: ${this.config.HomesList}`);
-						this.log.debug(`Read config data Homeslist.1.homeID: ${this.config.HomesList[index].homeID}`);
-						this.log.debug(`Read config data Homeslist.1.feedActive: ${this.config.HomesList[index].feedActive}`);
+						this.log.debug(`Found config data Homeslist.${index}.homeID: ${this.config.HomesList[index].homeID}`);
+						this.log.debug(`Found config data Homeslist.${index}.feedActive: ${this.config.HomesList[index].feedActive}`);
+						//tibberlink.0	2023 - 09 - 10 13: 40: 07.728	debug	Setting up calculation channel 1 states
+						//tibberlink.0	2023 - 09 - 10 13: 40: 07.698	debug	Read config data Homeslist.1.feedActive: true
+						//tibberlink.0	2023 - 09 - 10 13: 40: 07.697	debug	Read config data Homeslist.1.homeID: 26b5774b - 07ea - 47f0 - b816 - 124628785327
+						//tibberlink.0	2023 - 09 - 10 13: 40: 07.696	debug	Read config data Homeslist.1.feedActive: true
+						//tibberlink.0	2023 - 09 - 10 13: 40: 07.696	debug	Read config data Homeslist.1.homeID: 26b5774b - 07ea - 47f0 - b816 - 124628785327
+						//tibberlink.0	2023 - 09 - 10 13: 40: 07.689	debug	Got homes from tibber api: [{"id": "26b5774b-07ea-47f0-b816-124628785327","timeZone":"Europe/Berlin","appNickname":"Castle",
 					}
 				}
 			} catch (error: any) {
