@@ -114,7 +114,7 @@ class Tibberlink extends utils.Adapter {
                 this.setState("info.connection", false, true);
                 this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
             }
-            /* OLD
+            /* OLD // REMOVED in 0.3.0
             if (!this.config.FeedActive) {
                 if (this.homeInfoList) {
                     this.setState("info.connection", true, true);
@@ -221,8 +221,7 @@ class Tibberlink extends utils.Adapter {
                 this.intervalList.push(energyPricesListUpdateInterval);
                 // If user uses live feed - start feed connection
                 if (this.homeInfoList.some((info) => info.FeedActive)) {
-                    this.log.debug(`Trying to establish feeds...... `);
-                    //if (this.config.FeedActive) {
+                    //if (this.config.FeedActive) { // REMOVED in 0.3.0
                     const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
                     for (const index in this.homeInfoList) {
                         if (this.homeInfoList[index].FeedActive && this.homeInfoList[index].RealTime) {

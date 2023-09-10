@@ -4,7 +4,9 @@
 	"Calculator settings": "Definições da calculadora",
 	"tibberlink adapter settings": "Configurações do adaptador para TibberLink",
 	"TibberAPIToken": "token para Tibber api",
-	"PulseActive": "usar pulso de Tibber (todas as casas)",
+	"s_HomesFeedTable": "Configuração de fluxos de dados ao vivo de Pulse",
+	"s_Home": "Tibber Home",
+	"s_PulseActive": "use Tibber Pulse para esta casa",
 	"SelectFieldsForFeed": "Selecione todos os campos que você deseja carregar em dados de feed (poder e timestamp são padrão):",
 	"s_PhasesExplanation": "Tensão e valores atuais - em vários metros esses valores não são parte do quadro de dados, portanto os valores podem ser nulos. Pode haver outros desvios com base no firmware do medidor de concreto. Os valores nulos não gerarão um estado em seus objetos ioBroker."
 }

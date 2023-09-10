@@ -23,25 +23,16 @@
 					"newLine": true
 				},
 
-				"FeedActive": {
-					"type": "checkbox",
-					"label": "PulseActive",
-					"sm": 12,
-					"md": 6,
-					"lg": 6,
-					"newLine": true
-				},
-
 				"HomesList": {
 					"type": "table",
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
-					"label": "Homes Feed Table",
+					"label": "s_HomesFeedTable",
 					"items": [
 						{
 							"type": "selectSendTo",
-							"title": "Home",
+							"title": "s_Home",
 							"command": "CalHomes",
 							"attr": "homeID",
 							"filter": false,
@@ -51,7 +42,7 @@
 						},
 						{
 							"type": "checkbox",
-							"title": "PulseActive",
+							"title": "s_PulseActive",
 							"attr": "feedActive",
 							"filter": false,
 							"sort": false,
@@ -376,25 +367,27 @@
 					"lg": 6,
 					"hidden": "!data.CalCh01Configured"
 				},
+
 				"CalculatorList": {
 					"type": "table",
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
-					"label": "Calculator Table",
+					"label": "CalculatorChannels - Not yet implemented",
+					"hidden": "!data.CalCh01Configured",
 					"items": [
 						{
 							"type": "checkbox",
 							"title": "Active",
-							"attr": "channelActive",
+							"attr": "chActive",
 							"filter": false,
 							"sort": false,
 							"width": "100%",
-							"hidden": "!data.CalCh01Configured",
 							"default": false
 						}
 					]
 				}
+			
 			}
 		}
 

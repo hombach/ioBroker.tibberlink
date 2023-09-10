@@ -4,7 +4,9 @@
 	"Calculator settings": "Paramètres de calcul",
 	"tibberlink adapter settings": "Paramètres d'adaptateur pour TibberLink",
 	"TibberAPIToken": "jeton pour Tibber api",
-	"PulseActive": "utiliser l'impulsion de Tibber (toutes les maisons)",
+	"s_HomesFeedTable": "Configuration des flux de données en direct Pulse",
+	"s_Home": "Tibber Home",
+	"s_PulseActive": "utiliser Tibber Pulse pour cette maison",
 	"SelectFieldsForFeed": "Sélectionnez tous les champs que vous souhaitez charger dans les données d'alimentation (puissance et timetamp sont par défaut):",
 	"s_PhasesExplanation": "\n\nTension et valeurs actuelles - sur plusieurs mètres, ces valeurs ne font pas partie du cadre de données, donc les valeurs peuvent être nulles. Il peut y avoir d'autres écarts basés sur le firmware de compteur de béton. Les valeurs Null ne généreront pas d'état dans vos objets ioBroker du tout."
 }

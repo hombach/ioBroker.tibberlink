@@ -4,7 +4,9 @@
 	"Calculator settings": "Ajustes de la calculadora",
 	"tibberlink adapter settings": "Ajustes del adaptador para TibberLink",
 	"TibberAPIToken": "token for Tibber api",
-	"PulseActive": "use pulso de Tibber (todas las casas)",
+	"s_HomesFeedTable": "Configuración de flujos de datos en vivo Pulse",
+	"s_Home": "Tibber Home",
+	"s_PulseActive": "use Tibber Pulse para esta casa",
 	"SelectFieldsForFeed": "Seleccione todos los campos que desea cargar en los datos de alimentación (la potencia y el temporizador son predeterminados):",
 	"s_PhasesExplanation": "Valores voltaje y corriente - en varios metros estos valores no forman parte del marco de datos, por lo que los valores podrían ser nulos. Puede haber otras desviaciones basadas en el firmware de medidores de hormigón. Los valores nulos no generarán un estado en sus objetos yoBroker."
 }

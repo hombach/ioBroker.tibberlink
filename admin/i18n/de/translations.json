@@ -4,7 +4,9 @@
 	"Calculator settings": "Berechnungseinstellungen",
 	"tibberlink adapter settings": "Adaptereinstellungen für TibberLink",
 	"TibberAPIToken": "Token für Tibber API",
-	"PulseActive": "Tibber Pulse verwenden (alle Zuhause)",
+	"s_HomesFeedTable": "Konfiguration von Pulse Live-Datenstreams",
+	"s_Home": "Tibber Home",
+	"s_PulseActive": "Verwenden Sie Tibber Pulse für dieses Zuhause",
 	"SelectFieldsForFeed": "Wählen Sie alle Felder, die beim Abruf der Live Messung abgerufen werden sollen (Power und Zeitstempel sind per Standard enthalten):",
 	"s_PhasesExplanation": "Spannungs und Stromwerte - bei einigen Stromzählern sind diese Werte nicht Teil des Datenpakets, daher könnten die Werte null sein. Es können auch andere Abweichungen auf Grund von Zähler Firmware auftreten. Nullwerte erzeugen keinen State in Ihren ioBroker Objekten."
 }

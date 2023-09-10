@@ -1,10 +1,12 @@
-{
+﻿{
 	"Standard settings": "Standard settings",
 	"s_ReferalLink": "If you're not a Tibber user right now, it's greatly appreciated when you're using my reveral link.",
 	"Calculator settings": "Calculator settings",
 	"tibberlink adapter settings": "Adapter settings for TibberLink",
 	"TibberAPIToken": "token for Tibber api",
-	"PulseActive": "use Tibber pulse (all homes)",
+	"s_HomesFeedTable": "Configuration of Pulse live data streams",
+	"s_Home": "Tibber Home",
+	"s_PulseActive": "use Tibber pulse for this home",
 	"SelectFieldsForFeed": "Select all fields you want to load in feed data (power and timestamp are default):",
 	"s_PhasesExplanation": "Voltage and current values  -  on several meters these values are not part of the data frame, therefore the values might be null. There can be other deviations based on concrete meter firmware. Null values won't generate a state in your ioBroker objects at all."
 }

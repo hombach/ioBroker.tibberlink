@@ -4,7 +4,9 @@
 	"Calculator settings": "计算地点",
 	"tibberlink adapter settings": "TibberLink",
 	"TibberAPIToken": "浮动",
-	"PulseActive": "1. 使用季节(所有住房)",
+	"s_HomesFeedTable": "A. 包围生活数据流",
+	"s_Home": "Tibber Home",
+	"s_PulseActive": "为这个家庭使用Tibber Pulse",
 	"SelectFieldsForFeed": "离开你想装载饲料数据的所有领域(权力和时间包):",
 	"s_PhasesExplanation": "几名达到者,这些价值不是数据框架的一部分,因此,价值可能无效。 可能出现基于具体参数的警觉的其他偏离。 祖先的价值观在你的万国宫里产生一种国家。."
 }

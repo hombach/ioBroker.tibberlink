@@ -38,17 +38,18 @@ export class TibberPulse extends TibberHelper {
 	}
 
 	private addEventHandlerOnFeed(currentFeed: TibberFeed): void {
-		// Set info.connection state
+		// Set info.connection state for event "connected"
 		currentFeed.on("connected", (data) => {
 			this.adapter.log.debug(`Tibber Feed: ${data.toString()}`);
 			this.adapter.setState("info.connection", true, true);
 		});
 
-		// Set info.connection state
+		// Set info.connection state for event "disconnected"
 		currentFeed.on("disconnected", (data) => {
 			this.adapter.log.debug(`Tibber Feed: ${data.toString()}`);
 			this.adapter.setState("info.connection", false, true);
-			if (this.adapter.config.FeedActive) {
+			if (this.adapter.config.HomesList.some((info) => info.feedActive)) {
+			//if (this.adapter.config.FeedActive) { // REMOVED in 0.3.0
 				this.adapter.log.warn("A feed was disconnected. I try to reconnect in 6s");
 				this.reconnect();
 			}

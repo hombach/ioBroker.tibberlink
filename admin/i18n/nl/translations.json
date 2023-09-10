@@ -4,7 +4,9 @@
 	"Calculator settings": "Calculator setting",
 	"tibberlink adapter settings": "Adapterinstellingen voor TibberLink",
 	"TibberAPIToken": "Token voor Tibber API",
-	"PulseActive": "gebruik kietel pols",
+	"s_HomesFeedTable": "Configuration of Pulse live datastreams",
+	"s_Home": "Tibber Home",
+	"s_PulseActive": "gebruik Tibber Pulse voor dit huis",
 	"SelectFieldsForFeed": "Selecteer alle velden die je wilt laden in voedingsgegevens",
 	"s_PhasesExplanation": "Voltage en huidige waarden - op verschillende meters deze waarden zijn geen onderdeel van het data frame, daarom zijn de waarden nul. Er kunnen andere afwijkingen zijn gebaseerd op betonmeter firmaware. Nulwaarden zullen geen staat opleveren in je ioburate objecten."
 }

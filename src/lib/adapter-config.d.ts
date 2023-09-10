@@ -5,7 +5,6 @@ declare global {
 	namespace ioBroker {
 		interface AdapterConfig {
 			TibberAPIToken: string;
-			FeedActive: boolean;
 			HomesList: [
 				{
 					feedActive: boolean;
@@ -43,8 +42,8 @@ declare global {
 			CalCh01Home: string;
 			CalculatorList: [
 				{
-					channelActive: boolean;
-					channelType: string;
+					chActive: boolean;
+					chType: string;
 				},
 			];
 		}
