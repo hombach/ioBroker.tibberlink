@@ -75,6 +75,13 @@ class Tibberlink extends utils.Adapter {
             const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
+                if (this.config.HomesList.length > 0) {
+                    for (const index in this.config.HomesList) {
+                        this.log.debug(`Read config data Homeslist: ${this.config.HomesList}`);
+                        this.log.debug(`Read config data Homeslist.1.homeID: ${this.config.HomesList[index].homeID}`);
+                        this.log.debug(`Read config data Homeslist.1.feedActive: ${this.config.HomesList[index].feedActive}`);
+                    }
+                }
             }
             catch (error) {
                 this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes from Tibber-Server"));
