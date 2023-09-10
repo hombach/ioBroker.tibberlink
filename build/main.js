@@ -94,7 +94,6 @@ class Tibberlink extends utils.Adapter {
                                     continue;
                                 }
                                 matchingHomeInfo.FeedActive = home.feedActive;
-                                // F�ge das aktualisierte HomeInfo-Objekt zum Ergebnis hinzu.
                                 result.push(matchingHomeInfo);
                             }
                             for (const index in this.homeInfoList) {
@@ -111,6 +110,15 @@ class Tibberlink extends utils.Adapter {
                 this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes from Tibber-Server"));
             }
             // if feed is not used - set info.connection if data received
+            if (this.homeInfoList?.every((info) => !info.FeedActive)) {
+                this.log.warn(`All homes in homeInfoList have FeedActive set to false. Please verify your configuration.`);
+                //this.setState("info.connection", true, true);
+                //this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
+            }
+            else {
+                //this.setState("info.connection", false, true);
+                //this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
+            }
             if (!this.config.FeedActive) {
                 if (this.homeInfoList) {
                     this.setState("info.connection", true, true);
