@@ -24,6 +24,40 @@
 					"newLine": true
 				},
 
+
+
+				"HomesList": {
+					"type": "table",
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"label": "Homes Feed Table",
+					"items": [
+						{
+							"type": "checkbox",
+							"title": "PulseActive",
+							"attr": "feedActive",
+							"filter": false,
+							"sort": false,
+							"width": "30%",
+							"default": false
+						},
+						{
+							"type": "selectSendTo",
+							"title": "Home",
+							"command": "CalHomes",
+							"attr": "homeID",
+							"filter": false,
+							"sort": false,
+							"width": "70%",
+							"default": "No Home selected"
+						}
+
+					]
+				},
+
+
+
 				"_link": {
 					"type": "staticLink",
 					"label": "s_ReferalLink",
@@ -344,10 +378,28 @@
 					"md": 6,
 					"lg": 6,
 					"hidden": "!data.CalCh01Configured"
+				},
+				"CalculatorList": {
+					"type": "table",
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"label": "Calculator Table",
+					"items": [
+						{
+							"type": "checkbox",
+							"title": "Active",
+							"attr": "active",
+							"filter": false,
+							"sort": false,
+							"width": "20%",
+							"hidden": "!data.CalCh01Configured",
+							"default": false
+						}
+					]
 				}
-
 			}
 		}
-	
+
 	}
 }
