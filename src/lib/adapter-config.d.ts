@@ -37,9 +37,9 @@ declare global {
 			CalCh01Home: string;
 			HomesList: [
 				{
-					"feedActive": false,
-					"homeID": ""
-				}
+					feedActive: boolean,
+					homeID: number
+				},
 			];
 		}
 	}
