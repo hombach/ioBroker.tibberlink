@@ -56,7 +56,7 @@
 				"_feedDataDetail": {
 					"type": "header",
 					"text": "SelectFieldsForFeed",
-					"oldhidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"size": 3
 				},
 
@@ -72,7 +72,7 @@
 				"FeedConfigAccumulatedConsumption": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
-					"hidden": "!data.HomesList[1].feedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -80,7 +80,7 @@
 				"FeedConfigAccumulatedConsumptionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumptionLastHour",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -89,7 +89,7 @@
 				"FeedConfigLastMeterProduction": {
 					"type": "checkbox",
 					"label": "LastMeterProduction",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -98,7 +98,7 @@
 				"FeedConfigAccumulatedProduction": {
 					"type": "checkbox",
 					"label": "AccumulatedProduction",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -106,7 +106,7 @@
 				"FeedConfigAccumulatedProductionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedProductionLastHour",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -115,7 +115,7 @@
 				"FeedConfigAccumulatedCost": {
 					"type": "checkbox",
 					"label": "AccumulatedCost",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -124,7 +124,7 @@
 				"FeedConfigAccumulatedReward": {
 					"type": "checkbox",
 					"label": "AccumulatedReward",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -132,7 +132,7 @@
 				"FeedConfigCurrency": {
 					"type": "checkbox",
 					"label": "Currency",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -141,7 +141,7 @@
 				"FeedConfigMinPower": {
 					"type": "checkbox",
 					"label": "MinPower",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -150,7 +150,7 @@
 				"FeedConfigAveragePower": {
 					"type": "checkbox",
 					"label": "AveragePower",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -158,7 +158,7 @@
 				"FeedConfigMaxPower": {
 					"type": "checkbox",
 					"label": "MaxPower",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -167,7 +167,7 @@
 				"FeedConfigPowerProduction": {
 					"type": "checkbox",
 					"label": "PowerProduction",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -176,7 +176,7 @@
 				"FeedConfigMinPowerProduction": {
 					"type": "checkbox",
 					"label": "MinPowerProduction",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -184,7 +184,7 @@
 				"FeedConfigMaxPowerProduction": {
 					"type": "checkbox",
 					"label": "MaxPowerProduction",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -192,7 +192,7 @@
 				"FeedConfigPowerFactor": {
 					"type": "checkbox",
 					"label": "PowerFactor",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -202,7 +202,7 @@
 				"FeedConfigSignalStrength": {
 					"type": "checkbox",
 					"label": "SignalStrength",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -212,13 +212,13 @@
 				"_phases": {
 					"type": "staticText",
 					"label": "s_PhasesExplanation",
-					"hidden": "!data.FeedActive"
+					"hidden": "!data.HomesList[0].feedActive"
 				},
 
 				"FeedConfigVoltagePhase1": {
 					"type": "checkbox",
 					"label": "VoltagePhase1",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -227,7 +227,7 @@
 				"FeedConfigVoltagePhase2": {
 					"type": "checkbox",
 					"label": "VoltagePhase2",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -235,7 +235,7 @@
 				"FeedConfigVoltagePhase3": {
 					"type": "checkbox",
 					"label": "VoltagePhase3",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -244,7 +244,7 @@
 				"FeedConfigCurrentL1": {
 					"type": "checkbox",
 					"label": "CurrentL1",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -253,7 +253,7 @@
 				"FeedConfigCurrentL2": {
 					"type": "checkbox",
 					"label": "CurrentL2",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -261,7 +261,7 @@
 				"FeedConfigCurrentL3": {
 					"type": "checkbox",
 					"label": "CurrentL3",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -290,14 +290,6 @@
 					"lg": 6,
 					"newLine": true
 				},
-				"CalCh01Active": {
-					"type": "checkbox",
-					"label": "Channel active",
-					"sm": 6,
-					"md": 6,
-					"lg": 6,
-					"hidden": "!data.CalCh01Configured"
-				},
 
 				"CalCh01Home": {
 					"type": "selectSendTo",
@@ -312,28 +304,6 @@
 						"CalCh01Configured"
 					],
 					"newLine": true,
-					"hidden": "!data.CalCh01Configured"
-				},
-				"CalCh01Type": {
-					"type": "select",
-					"label": "Channel Type",
-					"options": [
-						{
-							"label": "best cost - not implemented",
-							"value": 1
-						},
-						{
-							"label": "best single hours - not implemented",
-							"value": 2
-						},
-						{
-							"label": "best hours block- not implemented",
-							"value": 3
-						}
-					],
-					"sm": 6,
-					"md": 6,
-					"lg": 6,
 					"hidden": "!data.CalCh01Configured"
 				},
 
@@ -376,12 +346,35 @@
 					"hidden": "!data.CalCh01Configured",
 					"items": [
 						{
+							"type": "select",
+							"title": "Channel Type",
+							"attr": "chType",
+							"options": [
+								{
+									"label": "best cost - not implemented",
+									"value": 1
+								},
+								{
+									"label": "best single hours - not implemented",
+									"value": 2
+								},
+								{
+									"label": "best hours block- not implemented",
+									"value": 3
+								}
+							],
+							"filter": false,
+							"sort": false,
+							"width": "80%",
+							"default": "EMPTY"
+						},
+						{
 							"type": "checkbox",
 							"title": "Active",
 							"attr": "chActive",
 							"filter": false,
 							"sort": false,
-							"width": "100%",
+							"width": "20%",
 							"default": false
 						}
 					]
