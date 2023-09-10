@@ -71,19 +71,19 @@
 				"FeedConfigAccumulatedConsumption": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
-					"hidden": "data.HomesList.some((info) => !info.feedActive)",
+					"hidden": "data.HomesList.each((info) => !info.feedActive)",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
 				},
-					"FeedConfigAccumulatedConsumptionLastHour": {
-						"type": "checkbox",
-						"label": "AccumulatedConsumptionLastHour",
-						"hidden": "!data.HomesList[0].feedActive",
-						"sm": 12,
-						"md": 6,
-						"lg": 4
-					},
+				"FeedConfigAccumulatedConsumptionLastHour": {
+					"type": "checkbox",
+					"label": "AccumulatedConsumptionLastHour",
+					"hidden": "data.HomesList.each((info) => !info.feedActive)",
+					"sm": 12,
+					"md": 6,
+					"lg": 4
+				},
 
 					"FeedConfigLastMeterProduction": {
 						"type": "checkbox",
@@ -290,16 +290,6 @@
 					"newLine": true
 				},
 
-				"CalCh01TargetState": {
-					"type": "objectId",
-					"label": "Target State",
-					"sm": 6,
-					"md": 6,
-					"lg": 6,
-					"newLine": true,
-					"hidden": "!data.CalCh01Configured"
-				},
-
 				"CalCh01ValueOn": {
 					"type": "text",
 					"label": "Value YES",
@@ -367,7 +357,7 @@
 							"attr": "chActive",
 							"filter": false,
 							"sort": false,
-							"width": "15%",
+							"width": "5%",
 							"default": false
 						},
 						{
@@ -376,7 +366,7 @@
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "25%",
+							"width": "35%",
 							"default": ""
 						}
 					]
