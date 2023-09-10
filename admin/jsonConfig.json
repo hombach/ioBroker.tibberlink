@@ -56,7 +56,7 @@
 				"_feedDataDetail": {
 					"type": "header",
 					"text": "SelectFieldsForFeed",
-					"hidden": "!data.FeedActive",
+					"oldhidden": "!data.FeedActive",
 					"size": 3
 				},
 
@@ -66,13 +66,13 @@
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[0].feedActive",
 					"newLine": true
 				},
 				"FeedConfigAccumulatedConsumption": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
-					"hidden": "!data.FeedActive",
+					"hidden": "!data.HomesList[1].feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -288,8 +288,7 @@
 					"sm": 6,
 					"md": 6,
 					"lg": 6,
-					"newLine": true,
-					"hidden": "!data.FeedActive"
+					"newLine": true
 				},
 				"CalCh01Active": {
 					"type": "checkbox",
