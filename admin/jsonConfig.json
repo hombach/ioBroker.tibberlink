@@ -19,7 +19,6 @@
 				"_link": {
 					"type": "staticLink",
 					"label": "s_ReferalLink",
-					"size": 3,
 					"href": "https://invite.tibber.com/2gwuign3.",
 					"newLine": true
 				},
@@ -72,7 +71,7 @@
 				"FeedConfigAccumulatedConsumption": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
-					"hidden": "data.HomesList.every((info) => !info.feedActive",
+					"hidden": "data.HomesList.some((info) => !info.feedActive",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -348,12 +347,11 @@
 						{
 							"type": "selectSendTo",
 							"title": "Channel Home",
-							"attr": "chHome",
+							"attr": "chHomeID",
 							"default": "No Home selected",
 							"filter": false,
 							"sort": false,
 							"width": "40%",
-							"jsonData": "{\"CalCh01Configured\": \"${data.CalCh01Configured}\"}",
 							"command": "HomesForConfig"
 						},
 						{

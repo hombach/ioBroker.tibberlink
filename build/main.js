@@ -160,9 +160,11 @@ class Tibberlink extends utils.Adapter {
             if (this.homeInfoList.length > 0) {
                 const tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
                 // Set up calculation channel 1 states if channel is configured
-                if (this.config.CalCh01Configured && this.config.CalculatorList[0].chHome?.length > 5) {
+                if (this.config.CalCh01Configured) {
                     try {
-                        await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[0].chHome, 1);
+                        for (const index in this.config.CalculatorList) {
+                            await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[index].chHomeID, 1);
+                        }
                         this.log.debug(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
                     }
                     catch (error) {

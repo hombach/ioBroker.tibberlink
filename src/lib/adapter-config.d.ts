@@ -39,7 +39,7 @@ declare global {
 			CalCh01ValueOff: string;
 			CalculatorList: [
 				{
-					chHome: string;
+					chHomeID: string;
 					chType: string;
 					chActive: boolean;
 				},
