@@ -15,6 +15,14 @@
 					"lg": 6,
 					"newLine": true
 				},
+
+				"_link": {
+					"type": "staticLink",
+					"label": "s_ReferalLink",
+					"href": "https://invite.tibber.com/2gwuign3.",
+					"newLine": true
+				},
+
 				"FeedActive": {
 					"type": "checkbox",
 					"label": "PulseActive",
@@ -23,8 +31,6 @@
 					"lg": 6,
 					"newLine": true
 				},
-
-
 
 				"HomesList": {
 					"type": "table",
@@ -56,14 +62,6 @@
 					]
 				},
 
-
-
-				"_link": {
-					"type": "staticLink",
-					"label": "s_ReferalLink",
-					"href": "https://invite.tibber.com/2gwuign3.",
-					"newLine": true
-				},
 
 				"_feedDataDetail": {
 					"type": "header",

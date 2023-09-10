@@ -22,6 +22,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     ID: this.currentHomeId,
                     NameInApp: currentHome.appNickname,
                     RealTime: currentHome.features.realTimeConsumptionEnabled,
+                    FeedActive: false,
                 });
                 // Set HomeId in tibberConfig for further API Calls
                 this.tibberConfig.homeId = this.currentHomeId;

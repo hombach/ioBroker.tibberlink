@@ -7,7 +7,7 @@ import { TibberCalculator } from "./lib/tibberCalculator";
 
 class Tibberlink extends utils.Adapter {
 	intervalList: any[]; // intervalList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
-	homeInfoList: { ID: string; NameInApp: string; RealTime: boolean }[] = [];
+	homeInfoList: { ID: string; NameInApp: string; RealTime: boolean; FeedActive: boolean }[] = [];
 	queryUrl: string = "";
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -59,14 +59,28 @@ class Tibberlink extends utils.Adapter {
 					for (const index in this.config.HomesList) {
 						this.log.debug(`Found config data Homeslist.${index}.homeID: ${this.config.HomesList[index].homeID}`);
 						this.log.debug(`Found config data Homeslist.${index}.feedActive: ${this.config.HomesList[index].feedActive}`);
-						//tibberlink.0	2023 - 09 - 10 13: 40: 07.728	debug	Setting up calculation channel 1 states
-						//tibberlink.0	2023 - 09 - 10 13: 40: 07.698	debug	Read config data Homeslist.1.feedActive: true
-						//tibberlink.0	2023 - 09 - 10 13: 40: 07.697	debug	Read config data Homeslist.1.homeID: 26b5774b - 07ea - 47f0 - b816 - 124628785327
-						//tibberlink.0	2023 - 09 - 10 13: 40: 07.696	debug	Read config data Homeslist.1.feedActive: true
-						//tibberlink.0	2023 - 09 - 10 13: 40: 07.696	debug	Read config data Homeslist.1.homeID: 26b5774b - 07ea - 47f0 - b816 - 124628785327
-						//tibberlink.0	2023 - 09 - 10 13: 40: 07.689	debug	Got homes from tibber api: [{"id": "26b5774b-07ea-47f0-b816-124628785327","timeZone":"Europe/Berlin","appNickname":"Castle",
 						if (this.homeInfoList.length > 0) {
 							//set data in homeinfolist according to config data
+							const result: any[] = [];
+							for (const home of this.config.HomesList) {
+									const matchingHomeInfo = this.homeInfoList.find((info) => info.ID === home.homeID);
+									if (!matchingHomeInfo) {
+										this.log.error(`Configured feed for Home ID: ${home.homeID} not found in current data from Tibber server - delete the configurstion line or verify any faults in your Tibber connection`);
+										continue;
+									}
+									if (result.some((info) => info.ID === matchingHomeInfo.ID)) {
+										this.log.warn(`Double configuration of Home ID: ${home.homeID} found - please remove obsolete line in config - data of first instance will be used`);
+										continue;
+									}
+									matchingHomeInfo.FeedActive = home.feedActive;
+									// Füge das aktualisierte HomeInfo-Objekt zum Ergebnis hinzu.
+									result.push(matchingHomeInfo);
+							}
+							for (const index in this.homeInfoList) {
+								this.log.debug(
+									`FeedConfig for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`,
+								);
+							}
 						}
 					}
 				} else {

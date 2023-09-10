@@ -1,9 +1,9 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.2.8",
+		"version": "0.3.0",
 		"news": {
-			"0.2.8": {
+			"0.3.0": {
 				"en": "optimize code to mitigate set state timing for long JSON states (#68)",
 				"de": "optimieren Sie den Code zur Minderung des eingestellten Zustandszeitpunkts für lange JSON-Staaten (#68)",
 				"ru": "оптимизировать код для смягчения установленных государственных сроков для дальних стран JSON (#68)",
