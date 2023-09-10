@@ -71,7 +71,7 @@
 				"FeedConfigAccumulatedConsumption": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
-					"hidden": "data.HomesList.some((info) => !info.feedActive",
+					"hidden": "data.HomesList.some((info) => !info.feedActive)",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -275,35 +275,19 @@
 			"type": "panel",
 			"label": "Calculator settings",
 			"items": {
-				"CalCh01Header": {
+				"_CalCh01Header": {
 					"type": "header",
-					"text": "Calculator Channel 01 - Not yet implemented",
+					"text": "Calculator Channels - Not yet implemented",
 					"size": 3
 				},
 
 				"CalCh01Configured": {
 					"type": "checkbox",
-					"label": "Configure Channel 01 - Not yet implemented",
-					"sm": 6,
-					"md": 6,
-					"lg": 6,
+					"label": "Configure Channels - Not yet implemented",
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
 					"newLine": true
-				},
-
-				"CalCh01Home": {
-					"type": "selectSendTo",
-					"label": "Channel Home",
-					"default": "No Home selected",
-					"sm": 6,
-					"md": 6,
-					"lg": 6,
-					"jsonData": "{\"CalCh01Configured\": \"${data.CalCh01Configured}\"}",
-					"command": "CalHomes",
-					"alsoDependsOn": [
-						"CalCh01Configured"
-					],
-					"newLine": true,
-					"hidden": "!data.CalCh01Configured"
 				},
 
 				"CalCh01TargetState": {
@@ -374,8 +358,8 @@
 							],
 							"filter": false,
 							"sort": false,
-							"width": "40%",
-							"default": "EMPTY"
+							"width": "20%",
+							"default": ""
 						},
 						{
 							"type": "checkbox",
@@ -383,8 +367,17 @@
 							"attr": "chActive",
 							"filter": false,
 							"sort": false,
-							"width": "20%",
+							"width": "15%",
 							"default": false
+						},
+						{
+							"type": "objectId",
+							"title": "Target State",
+							"attr": "chTargetState",
+							"filter": false,
+							"sort": false,
+							"width": "25%",
+							"default": ""
 						}
 					]
 				}

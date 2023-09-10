@@ -6,7 +6,7 @@ export class TibberCalculator extends TibberHelper {
 		super(adapter);
 	}
 
-	async setupCalculatorStates(homeId: string, channel: number): Promise<void> {
+	async setupCalculatorStates(homeId: string, channel: string): Promise<void> {
 		try {
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, "TriggerPrice"),

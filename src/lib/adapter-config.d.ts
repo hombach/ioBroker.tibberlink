@@ -42,6 +42,7 @@ declare global {
 					chHomeID: string;
 					chType: string;
 					chActive: boolean;
+					chTargetState: string;
 				},
 			];
 		}
