@@ -92,7 +92,7 @@ class Tibberlink extends utils.Adapter {
 			}
 
 			// if feed is not used - set info.connection if data received
-			if (this.homeInfoList?.every((info) => !info.FeedActive)) {
+			if (this.homeInfoList?.some((info) => !info.FeedActive)) {
 				this.setState("info.connection", true, true);
 				this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
 			} else {
@@ -208,6 +208,7 @@ class Tibberlink extends utils.Adapter {
 
 				// If user uses live feed - start feed connection
 				if (this.homeInfoList.some((info) => !info.FeedActive)) {
+					this.log.debug(`Trying to establish feeds...... `);
 					//if (this.config.FeedActive) {
 					const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 					for (const index in this.homeInfoList) {
