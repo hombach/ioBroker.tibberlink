@@ -35,14 +35,14 @@ declare global {
 			FeedConfigCurrentL3: boolean;
 			FeedConfigSignalStrength: boolean;
 			CalCh01Configured: boolean; // configs for calculator channel 01
-			CalCh01ValueOn: string;
-			CalCh01ValueOff: string;
 			CalculatorList: [
 				{
 					chHomeID: string;
 					chType: string;
 					chActive: boolean;
 					chTargetState: string;
+					chValueOn: string;
+					chValueOff: string;
 				},
 			];
 		}
