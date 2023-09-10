@@ -75,7 +75,8 @@ class Tibberlink extends utils.Adapter {
             const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
-                if (this.config.HomesList.length > 0) { //are there feeds configured ??
+                if (this.config.HomesList.length > 0) {
+                    //are there feeds configured ??
                     for (const index in this.config.HomesList) {
                         this.log.debug(`Found config data Homeslist.${index}.homeID: ${this.config.HomesList[index].homeID}`);
                         this.log.debug(`Found config data Homeslist.${index}.feedActive: ${this.config.HomesList[index].feedActive}`);
@@ -86,6 +87,9 @@ class Tibberlink extends utils.Adapter {
                         //tibberlink.0	2023 - 09 - 10 13: 40: 07.696	debug	Read config data Homeslist.1.homeID: 26b5774b - 07ea - 47f0 - b816 - 124628785327
                         //tibberlink.0	2023 - 09 - 10 13: 40: 07.689	debug	Got homes from tibber api: [{"id": "26b5774b-07ea-47f0-b816-124628785327","timeZone":"Europe/Berlin","appNickname":"Castle",
                     }
+                }
+                else {
+                    this.log.warn(`No configuration of Tibber Pulse feeds found! Please configure to get live data - or configure to discard live data`);
                 }
             }
             catch (error) {
