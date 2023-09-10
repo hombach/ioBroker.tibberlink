@@ -106,13 +106,15 @@ class Tibberlink extends utils.Adapter {
                 this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes from Tibber-Server"));
             }
             // if feed is not used - set info.connection if data received
-            if (this.homeInfoList?.every((info) => !info.FeedActive)) {
-                this.setState("info.connection", true, true);
-                this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
-            }
-            else {
-                this.setState("info.connection", false, true);
-                this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
+            if (this.config.HomesList?.every((info) => !info.feedActive)) {
+                if (this.homeInfoList) {
+                    this.setState("info.connection", true, true);
+                    this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
+                }
+                else {
+                    this.setState("info.connection", false, true);
+                    this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
+                }
             }
             /* OLD // REMOVED in 0.3.0
             if (!this.config.FeedActive) {

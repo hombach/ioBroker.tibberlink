@@ -37,9 +37,9 @@ declare global {
 			CalCh01Configured: boolean; // configs for calculator channel 01
 			CalCh01ValueOn: string;
 			CalCh01ValueOff: string;
-			CalCh01Home: string;
 			CalculatorList: [
 				{
+					chHome: string;
 					chType: string;
 					chActive: boolean;
 				},
