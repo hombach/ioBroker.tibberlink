@@ -250,6 +250,45 @@
 				"zh-cn": "删除 说明和保留"
 			}
 		},
+		"messages": [
+			{
+				"condition": {
+					"operand": "and",
+					"rules": [
+						"oldVersion<0.3.0",
+						"newVersion>=0.3.0"
+					]
+				},
+				"title": {
+					"en": "Important notice!",
+					"de": "Wichtiger Hinweis!",
+					"ru": "Важное замечание!",
+					"pt": "Notícia importante!",
+					"nl": "Belangrijke mededeling!",
+					"fr": "Avis important!",
+					"it": "Avviso IMPORTANTE!",
+					"es": "Noticia importante!",
+					"pl": "Ważna uwaga!",
+					"uk": "Погода!",
+					"zh-cn": "重要通知!"
+				},
+				"text": {
+					"en": "Configuration of Pulse live data feed has changed!! You have to reenable it in the configuration! Now you can enable or disable for each Home.",
+					"de": "Die Konfiguration des Pulse Live-Datenfeeds hat sich geändert! Sie müssen es in der Konfiguration wieder aktivieren! Jetzt können Sie für jedes Zuhause aktivieren oder deaktivieren.",
+					"ru": "Конфигурация базы данных Pulse изменилась! Вы должны восстановить его в конфигурации! Теперь вы можете включить или отключить для каждого дома.",
+					"pt": "A configuração do feed de dados ao vivo do Pulse mudou! Você tem que reenable-lo na configuração! Agora você pode ativar ou desativar para cada casa.",
+					"nl": "Vermomming van Pulse live gegevens is veranderd! Je moet het vergoeden in het vertrouwen. Nu kun je in staat zijn voor elk huis.",
+					"fr": "Configuration du flux de données en direct Pulse a changé! Vous devez le réactiver dans la configuration ! Maintenant, vous pouvez activer ou désactiver pour chaque Maison.",
+					"it": "La configurazione dell'alimentazione dei dati live Pulse è cambiata! Devi riattivarlo nella configurazione! Ora è possibile attivare o disattivare per ogni casa.",
+					"es": "¡La configuración de los datos de Pulse en vivo ha cambiado! ¡Tienes que volver a habilitarlo en la configuración! Ahora usted puede habilitar o desactivar para cada hogar.",
+					"pl": "Zmiana danych na żywo została zmieniona. Zrezygnujesz go w konfiguracji! Teraz możesz umieścić lub uwolnić każdy dom.",
+					"uk": "Настроювання імпульсних живих даних змінено! Ви повинні змінити його в конфігурації! Тепер ви можете ввімкнути або вимкнути для кожного будинку.",
+					"zh-cn": "皮尔西人生活数据集成已改变! 你们必须把它重新纳入组合! 现在,你可以为每一个家庭提供或可分割的东西。."
+				},
+				"level": "warn",
+				"buttons": [ "ok" ]
+			}
+		],
 		"titleLang": {
 			"en": "Tibber Link",
 			"de": "Tibber Link",
