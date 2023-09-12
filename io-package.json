@@ -4,8 +4,17 @@
 		"version": "0.3.0",
 		"news": {
 			"0.3.0": {
-				"en": "optimize code to mitigate set state timing for long JSON states (#68)"
-			},
+				"en": "BREAKING: change Pulse usage to be configurable for all homes seperately (#41) & mitigate set state timing for long JSON states (#68)",
+				"de": "BREAKING: Änderung Pulse Konfiguration, jetzt für alle Häuser separat (#41) & Verbesserung im Timing für lange JSON Zustände (#68)",
+				"ru": "ЗАВТРАК: изменение Использование импульсов, чтобы быть конфигурируемым для всех домов отдельно (#41) & смягчить установленные государственные сроки для дальних стран JSON (#68)",
+				"pt": "BREAKING: mudança Uso de pulso para ser configurável para todas as casas seperadamente (#41) & mitigar o tempo de estado definido para estados longos JSON (#68)",
+				"nl": "BREAKING: Verandering Pulse gebruik om configurabel te zijn voor alle huizen seperaat * (#41)",
+				"fr": "BREAKING: changement L'utilisation de pouls pour être configurable pour toutes les maisons isolément (#41) & atténuer le calendrier de l'état pour les longs états JSON (#68)",
+				"it": "BREAKING: cambiamento Uso di impulso per essere configurabile per tutte le case seperately (#41) & mitigare i tempi di stato impostati per i lunghi stati JSON (#68)",
+				"es": "BREAKING: cambio Uso del pulso para ser configurable para todos los hogares seperately (#41) & mitiga el tiempo del estado establecido para los estados JSON largos (#68)",
+				"pl": "BREAKING: change (ang.). Pulse wykorzystuje się jako konfigurowalne dla wszystkich domów podzielnie (#41) i złagodził stan długości stanów JSON (#68)",
+				"uk": "БРЕАКІНГ: зміна Імпульсне використання, щоб бути налаштованим для всіх будинків, захоплених (#41) & пом'якшення встановити стан частим часу для довгих JSON станів (#68)",
+				"zh-cn": "挑战:变革 在所有住房中,可对各种住房使用加以严格限制,第(#41)和减轻长期合作行动联盟国家时间表"			},
 			"0.2.7": {
 				"en": "reducing polls at Tibber server by precheck of current price data",
 				"de": "Reduktion von Anfragen an den Tibber-Server durch Vorabkontrolle der bekannten Preisdaten",
