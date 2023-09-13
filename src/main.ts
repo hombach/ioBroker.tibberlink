@@ -52,7 +52,7 @@ class Tibberlink extends utils.Adapter {
 				},
 			};
 			// Now read homes list from API
-			this.log.warn("Hierbinich")
+			this.log.warn("Hierbinich");
 			const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
 			try {
 				this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
