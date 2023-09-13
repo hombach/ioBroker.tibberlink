@@ -4,7 +4,17 @@
 		"version": "0.3.1",
 		"news": {
 			"0.3.1": {
-				"en": "BREAKING: change Pulse usage to be configurable for all homes seperately (#41) & mitigate set state timing for long JSON states (#68)"
+				"en": "Fix error in admin config from 0.3.0 (#81)",
+				"de": "Fehler in admin config von 0.3.0 (#81) behoben",
+				"ru": "Исправлена ошибка в admin config от 0.3.0 (#81)",
+				"pt": "Corrigir erro na configuração de admin de 0.3.0 (#81)",
+				"nl": "Quality over Quantity (QoQ) Releases Vertaling:",
+				"fr": "Correction d'erreur dans la configuration d'administration à partir de 0.3.0 (#81)",
+				"it": "Risolvere l'errore in admin config da 0.3.0 (#81)",
+				"es": "Corregir error en el configuración de administración de 0.3.0 (#81)",
+				"pl": "Błąd Fixa w formacie 0,3.0 (#81)",
+				"uk": "Виправлення помилки в налаштуваннях адміністратора від 0.3.0 (#81)",
+				"zh-cn": "从0.3.0 (#81)起,注释中的固定错误"
 			},
 			"0.3.0": {
 				"en": "BREAKING: change Pulse usage to be configurable for all homes seperately (#41) & mitigate set state timing for long JSON states (#68)",
