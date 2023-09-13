@@ -35,7 +35,9 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 0.3.0 (2023-09-WORK in PROGRESS)
+### 0.3.1 (2023-09-13) WORK in PROGRESS
+* (HombachC) Fix error in admin config from 0.3.0 (#81)
+### 0.3.0 (2023-09-12)
 * (HombachC) BREAKING: change Pulse usage to be configurable for all homes seperately (#41)
 * (HombachC) optimize code again to mitigate set state timing for long JSON states (#68)
 * (HombachC) preparations for tibber calculator

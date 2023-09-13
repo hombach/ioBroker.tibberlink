@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.3.0",
+		"version": "0.3.1",
 		"news": {
+			"0.3.1": {
+				"en": "BREAKING: change Pulse usage to be configurable for all homes seperately (#41) & mitigate set state timing for long JSON states (#68)"
+			},
 			"0.3.0": {
 				"en": "BREAKING: change Pulse usage to be configurable for all homes seperately (#41) & mitigate set state timing for long JSON states (#68)",
 				"de": "BREAKING: Änderung Pulse Konfiguration, jetzt für alle Häuser separat (#41) & Verbesserung im Timing für lange JSON Zustände (#68)",
@@ -14,7 +17,8 @@
 				"es": "BREAKING: cambio Uso del pulso para ser configurable para todos los hogares seperately (#41) & mitiga el tiempo del estado establecido para los estados JSON largos (#68)",
 				"pl": "BREAKING: change (ang.). Pulse wykorzystuje się jako konfigurowalne dla wszystkich domów podzielnie (#41) i złagodził stan długości stanów JSON (#68)",
 				"uk": "БРЕАКІНГ: зміна Імпульсне використання, щоб бути налаштованим для всіх будинків, захоплених (#41) & пом'якшення встановити стан частим часу для довгих JSON станів (#68)",
-				"zh-cn": "挑战:变革 在所有住房中,可对各种住房使用加以严格限制,第(#41)和减轻长期合作行动联盟国家时间表"			},
+				"zh-cn": "挑战:变革 在所有住房中,可对各种住房使用加以严格限制,第(#41)和减轻长期合作行动联盟国家时间表"
+			},
 			"0.2.7": {
 				"en": "reducing polls at Tibber server by precheck of current price data",
 				"de": "Reduktion von Anfragen an den Tibber-Server durch Vorabkontrolle der bekannten Preisdaten",
