@@ -29,6 +29,7 @@
 					"md": 12,
 					"lg": 12,
 					"label": "s_HomesFeedTable",
+					"hidden": "!data.TibberAPIToken",
 					"items": [
 						{
 							"type": "selectSendTo",
