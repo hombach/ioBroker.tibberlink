@@ -268,7 +268,7 @@
 			{
 				"condition": {
 					"rules": [
-						"oldVersion<=0.3.0"
+						"oldVersion <= 0.3.0"
 					]
 				},
 				"title": {
