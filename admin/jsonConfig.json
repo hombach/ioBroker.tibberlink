@@ -66,11 +66,13 @@
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
+					"hidden": "!data.TibberAPIToken",
 					"newLine": true
 				},
 				"FeedConfigAccumulatedConsumption": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -78,6 +80,7 @@
 				"FeedConfigAccumulatedConsumptionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumptionLastHour",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -86,6 +89,7 @@
 				"FeedConfigLastMeterProduction": {
 					"type": "checkbox",
 					"label": "LastMeterProduction",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -94,6 +98,7 @@
 				"FeedConfigAccumulatedProduction": {
 					"type": "checkbox",
 					"label": "AccumulatedProduction",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -101,6 +106,7 @@
 				"FeedConfigAccumulatedProductionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedProductionLastHour",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -109,6 +115,7 @@
 				"FeedConfigAccumulatedCost": {
 					"type": "checkbox",
 					"label": "AccumulatedCost",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -117,6 +124,7 @@
 				"FeedConfigAccumulatedReward": {
 					"type": "checkbox",
 					"label": "AccumulatedReward",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -124,6 +132,7 @@
 				"FeedConfigCurrency": {
 					"type": "checkbox",
 					"label": "Currency",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -132,6 +141,7 @@
 				"FeedConfigMinPower": {
 					"type": "checkbox",
 					"label": "MinPower",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -140,6 +150,7 @@
 				"FeedConfigAveragePower": {
 					"type": "checkbox",
 					"label": "AveragePower",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -147,6 +158,7 @@
 				"FeedConfigMaxPower": {
 					"type": "checkbox",
 					"label": "MaxPower",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -155,6 +167,7 @@
 				"FeedConfigPowerProduction": {
 					"type": "checkbox",
 					"label": "PowerProduction",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -163,6 +176,7 @@
 				"FeedConfigMinPowerProduction": {
 					"type": "checkbox",
 					"label": "MinPowerProduction",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -170,6 +184,7 @@
 				"FeedConfigMaxPowerProduction": {
 					"type": "checkbox",
 					"label": "MaxPowerProduction",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -177,6 +192,7 @@
 				"FeedConfigPowerFactor": {
 					"type": "checkbox",
 					"label": "PowerFactor",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -186,6 +202,7 @@
 				"FeedConfigSignalStrength": {
 					"type": "checkbox",
 					"label": "SignalStrength",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -194,12 +211,14 @@
 
 				"_phases": {
 					"type": "staticText",
-					"label": "s_PhasesExplanation",
+					"hidden": "!data.TibberAPIToken",
+					"label": "s_PhasesExplanation"
 				},
 
 				"FeedConfigVoltagePhase1": {
 					"type": "checkbox",
 					"label": "VoltagePhase1",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -208,6 +227,7 @@
 				"FeedConfigVoltagePhase2": {
 					"type": "checkbox",
 					"label": "VoltagePhase2",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -215,6 +235,7 @@
 				"FeedConfigVoltagePhase3": {
 					"type": "checkbox",
 					"label": "VoltagePhase3",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -223,6 +244,7 @@
 				"FeedConfigCurrentL1": {
 					"type": "checkbox",
 					"label": "CurrentL1",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
@@ -231,6 +253,7 @@
 				"FeedConfigCurrentL2": {
 					"type": "checkbox",
 					"label": "CurrentL2",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4
@@ -238,6 +261,7 @@
 				"FeedConfigCurrentL3": {
 					"type": "checkbox",
 					"label": "CurrentL3",
+					"hidden": "!data.TibberAPIToken",
 					"sm": 12,
 					"md": 6,
 					"lg": 4

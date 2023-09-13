@@ -28,7 +28,6 @@ const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberPulse_1 = require("./lib/tibberPulse");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
-const node_util_1 = require("node:util");
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
         super({
@@ -328,21 +327,25 @@ class Tibberlink extends utils.Adapter {
             switch (obj.command) {
                 case "HomesForConfig":
                     if (obj.callback) {
-                        try {
-                            if (!(0, node_util_1.isNullOrUndefined)(this.homeInfoList) && this.homeInfoList.length > 0) {
-                                this.sendTo(obj.from, obj.command, this.homeInfoList.map((item) => ({
-                                    label: `${item.NameInApp} (${item.ID})`,
-                                    value: item.ID,
-                                })), obj.callback);
-                            }
-                            else {
+                        this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
+                        /*try {
+                            if (!isNullOrUndefined(this.homeInfoList) && this.homeInfoList.length > 0) {
+                                this.sendTo(
+                                    obj.from,
+                                    obj.command,
+                                    this.homeInfoList.map((item) => ({
+                                        label: `${item.NameInApp} (${item.ID})`,
+                                        value: item.ID,
+                                    })),
+                                    obj.callback,
+                                );
+                            } else {
                                 this.log.warn(`No Homes available to config TibberLink Calculator`);
                                 this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
                             }
-                        }
-                        catch (error) {
+                        } catch (error) {
                             this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
-                        }
+                        }*/
                     }
                     break;
             }

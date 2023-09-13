@@ -313,7 +313,8 @@ class Tibberlink extends utils.Adapter {
 			switch (obj.command) {
 				case "HomesForConfig":
 					if (obj.callback) {
-						try {
+						this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
+						/*try {
 							if (!isNullOrUndefined(this.homeInfoList) && this.homeInfoList.length > 0) {
 								this.sendTo(
 									obj.from,
@@ -330,7 +331,7 @@ class Tibberlink extends utils.Adapter {
 							}
 						} catch (error) {
 							this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
-						}
+						}*/
 					}
 					break;
 			}
