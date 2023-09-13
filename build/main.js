@@ -73,14 +73,12 @@ class Tibberlink extends utils.Adapter {
                 },
             };
             // Now read homes list from API
+            this.log.warn("Hierbinich");
             const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
-                if (!(0, node_util_1.isNullOrUndefined)(this.config.HomesList)) {
-                    this.log.debug("da");
-                }
-                else {
-                    this.log.debug("nicht da");
+                if ((0, node_util_1.isNullOrUndefined)(this.config.HomesList)) {
+                    throw "no initial pull from Tibber server done";
                 }
                 if (this.config.HomesList.length > 0) {
                     //are there feeds configured to be used??
