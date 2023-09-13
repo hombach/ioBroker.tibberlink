@@ -28,6 +28,7 @@ const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberPulse_1 = require("./lib/tibberPulse");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
+const node_util_1 = require("node:util");
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
         super({
@@ -75,7 +76,7 @@ class Tibberlink extends utils.Adapter {
             const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
-                if (this.config.HomesList.length > 0) {
+                if (!(0, node_util_1.isNullOrUndefined)(this.config.HomesList) && this.config.HomesList.length > 0) {
                     //are there feeds configured to be used??
                     if (this.homeInfoList.length > 0) {
                         //set data in homeinfolist according to config data
