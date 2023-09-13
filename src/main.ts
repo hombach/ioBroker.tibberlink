@@ -313,7 +313,7 @@ class Tibberlink extends utils.Adapter {
 				case "HomesForConfig":
 					if (obj.callback) {
 						try {
-							if (this.homeInfoList.length > 0) {
+							if (this.homeInfoList?.length > 0) {
 								this.sendTo(
 									obj.from,
 									obj.command,
