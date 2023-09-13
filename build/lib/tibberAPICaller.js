@@ -54,7 +54,12 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updateCurrentPrice(homeId) {
         if (homeId) {
             let exDate = null;
-            exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+            try {
+                exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+            }
+            catch (error) {
+                this.adapter.log.debug(`First start of adapter instance "Homes.${homeId}.CurrentPrice.startsAt" not existing yet`);
+            }
             const now = new Date();
             if (!exDate || now.getHours() !== exDate.getHours()) {
                 const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);

@@ -37,6 +37,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.3.2 (2023-09-13) WORK in PROCESS
+* (HombachC) Fixed error when starting adapter first time (#82)
 ### 0.3.1 (2023-09-13)
 * (HombachC) Mitigate error in admin config from 0.3.0 (#81)
 * (HombachC) Change logging of TibberFeed errors from type error to type warn - because of too many downtimes of Tibber server (#80)
