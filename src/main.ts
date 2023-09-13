@@ -55,7 +55,13 @@ class Tibberlink extends utils.Adapter {
 			const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
 			try {
 				this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
-				if (!isNullOrUndefined(this.config.HomesList) && this.config.HomesList.length > 0) {
+				if (!isNullOrUndefined(this.config.HomesList)) {
+					this.log.debug("da")
+				} else {
+					this.log.debug("nicht da")
+                }
+
+				if (this.config.HomesList.length > 0) {
 					//are there feeds configured to be used??
 					if (this.homeInfoList.length > 0) {
 						//set data in homeinfolist according to config data
