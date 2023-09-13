@@ -29,15 +29,13 @@
 					"md": 12,
 					"lg": 12,
 					"label": "s_HomesFeedTable",
-
-					"disabled": "!data.CalCh01Configured",
-
 					"items": [
 						{
 							"type": "selectSendTo",
 							"title": "s_Home",
 							"command": "HomesForConfig",
 							"attr": "homeID",
+							"disabled": "!data.CalCh01Configured",
 							"filter": false,
 							"sort": false,
 							"width": "65%",
@@ -47,6 +45,7 @@
 							"type": "checkbox",
 							"title": "s_PulseActive",
 							"attr": "feedActive",
+							"disabled": "!data.CalCh01Configured",
 							"filter": false,
 							"sort": false,
 							"width": "35%",
