@@ -57,6 +57,7 @@
 				"_feedDataDetail": {
 					"type": "header",
 					"text": "SelectFieldsForFeed",
+					"hidden": "!data.TibberAPIToken",
 					"size": 3
 				},
 
