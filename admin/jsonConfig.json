@@ -23,12 +23,34 @@
 					"newLine": true
 				},
 
-
-
-
-
-
-
+				"HomesList": {
+					"type": "table",
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"label": "s_HomesFeedTable",
+					"items": [
+						{
+							"type": "selectSendTo",
+							"title": "s_Home",
+							"command": "HomesForConfig",
+							"attr": "homeID",
+							"filter": false,
+							"sort": false,
+							"width": "65%",
+							"default": "No Home selected"
+						},
+						{
+							"type": "checkbox",
+							"title": "s_PulseActive",
+							"attr": "feedActive",
+							"filter": false,
+							"sort": false,
+							"width": "35%",
+							"default": false
+						}
+					]
+				},
 
 				"_feedDataDetail": {
 					"type": "header",
