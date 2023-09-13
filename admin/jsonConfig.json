@@ -29,6 +29,9 @@
 					"md": 12,
 					"lg": 12,
 					"label": "s_HomesFeedTable",
+
+					"disabled": "!data.CalCh01Configured",
+
 					"items": [
 						{
 							"type": "selectSendTo",
