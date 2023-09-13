@@ -92,19 +92,3 @@
 
 
 }
-
-
-
-
-
-tibberlink.1
-2023-09-13 21:28:37.714	error	[asyncGetState](Homes.26b5774b-07ea-47f0-b816-124628785327.PricesTomorrow.json): State 'Homes.26b5774b-07ea-47f0-b816-124628785327.PricesTomorrow.json' does not exist.
-
-tibberlink.1
-2023-09-13 21:28:37.444	error	[asyncGetState](Homes.26b5774b-07ea-47f0-b816-124628785327.PricesToday.json): State 'Homes.26b5774b-07ea-47f0-b816-124628785327.PricesToday.json' does not exist.
-
-tibberlink.1
-2023-09-13 21:28:37.123	error	[asyncGetState](Homes.26b5774b-07ea-47f0-b816-124628785327.CurrentPrice.startsAt): State 'Homes.26b5774b-07ea-47f0-b816-124628785327.CurrentPrice.startsAt' does not exist.
-
-tibberlink.1
-2023-09-13 21:28:36.984	error	Configured feed for Home ID: None available not found in current data from Tibber server - delete the configuration line or verify any faults in your Tibber connection
