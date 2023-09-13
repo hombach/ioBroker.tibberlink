@@ -27,9 +27,9 @@ class TibberHelper {
     async getState(stateName) {
         try {
             //const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
-            //	if (!stateObject) {
-            //			throw `State '${stateName}' does not exist.`;
-            //			} else {
+            //if (!stateObject) {
+            //throw `State '${stateName}' does not exist.`;
+            //} else {
             if (await this.verifyStateAvailable(stateName)) {
                 // Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
                 const stateValueObject = await this.adapter.getStateAsync(stateName);
