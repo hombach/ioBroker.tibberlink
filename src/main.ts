@@ -316,7 +316,7 @@ class Tibberlink extends utils.Adapter {
 					if (obj.callback) {
 						try {
 							this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
-							if (!isNullOrUndefined(this.homeInfoList) && this.homeInfoList.length > 0) {
+							if (this.homeInfoList.length > 0) {
 								this.sendTo(
 									obj.from,
 									obj.command,
@@ -325,93 +325,6 @@ class Tibberlink extends utils.Adapter {
 										value: item.ID,
 									})),
 									obj.callback,
-
-				/*
-				"CalculatorList": {
-					"type": "table",
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"label": "CalculatorChannels - Not yet implemented",
-					"hidden": "!data.CalCh01Configured",
-					"items": [
-						{
-							"type": "selectSendTo",
-							"title": "Channel Home",
-							"attr": "chHomeID",
-							"default": "No Home selected",
-							"filter": false,
-							"sort": false,
-							"width": "25%",
-							"command": "HomesForConfig"
-						},
-						{
-							"type": "select",
-							"title": "Channel Type",
-							"attr": "chType",
-							"options": [
-								{
-									"label": "best cost - not implemented",
-									"value": 1
-								},
-								{
-									"label": "best single hours - not implemented",
-									"value": 2
-								},
-								{
-									"label": "best hours block- not implemented",
-									"value": 3
-								}
-							],
-							"filter": false,
-							"sort": false,
-							"width": "20%",
-							"default": ""
-						},
-						{
-							"type": "checkbox",
-							"title": "Active",
-							"attr": "chActive",
-							"filter": false,
-							"sort": false,
-							"width": "5%",
-							"default": false
-						},
-						{
-							"type": "objectId",
-							"title": "Target State",
-							"attr": "chTargetState",
-							"filter": false,
-							"sort": false,
-							"width": "30%",
-							"default": ""
-						},
-						{
-							"type": "text",
-							"title": "Value YES",
-							"maxLength": 20,
-							"attr": "chValueOn",
-							"filter": false,
-							"sort": false,
-							"width": "10%",
-							"default": ""
-						},
-						{
-							"type": "text",
-							"title": "Value NO",
-							"maxLength": 20,
-							"attr": "chValueOff",
-							"filter": false,
-							"sort": false,
-							"width": "10%",
-							"default": ""
-						}
-					]
-				}
-				*/
-
-
-
 								);
 							} else {
 								this.log.warn(`No Homes available to config TibberLink Calculator`);

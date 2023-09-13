@@ -1,0 +1,110 @@
+{
+
+
+
+
+	"CalculatorList": {
+		"type": "table",
+		"sm": 12,
+		"md": 12,
+		"lg": 12,
+		"label": "CalculatorChannels - Not yet implemented",
+		"hidden": "!data.CalCh01Configured",
+		"items": [
+			{
+				"type": "selectSendTo",
+				"title": "Channel Home",
+				"attr": "chHomeID",
+				"default": "No Home selected",
+				"filter": false,
+				"sort": false,
+				"width": "25%",
+				"command": "HomesForConfig"
+			},
+			{
+				"type": "select",
+				"title": "Channel Type",
+				"attr": "chType",
+				"options": [
+					{
+						"label": "best cost - not implemented",
+						"value": 1
+					},
+					{
+						"label": "best single hours - not implemented",
+						"value": 2
+					},
+					{
+						"label": "best hours block- not implemented",
+						"value": 3
+					}
+				],
+				"filter": false,
+				"sort": false,
+				"width": "20%",
+				"default": ""
+			},
+			{
+				"type": "checkbox",
+				"title": "Active",
+				"attr": "chActive",
+				"filter": false,
+				"sort": false,
+				"width": "5%",
+				"default": false
+			},
+			{
+				"type": "objectId",
+				"title": "Target State",
+				"attr": "chTargetState",
+				"filter": false,
+				"sort": false,
+				"width": "30%",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"title": "Value YES",
+				"maxLength": 20,
+				"attr": "chValueOn",
+				"filter": false,
+				"sort": false,
+				"width": "10%",
+				"default": ""
+			},
+			{
+				"type": "text",
+				"title": "Value NO",
+				"maxLength": 20,
+				"attr": "chValueOff",
+				"filter": false,
+				"sort": false,
+				"width": "10%",
+				"default": ""
+			}
+		]
+	}
+
+
+
+
+
+
+
+}
+
+
+
+
+
+tibberlink.1
+2023-09-13 21:28:37.714	error	[asyncGetState](Homes.26b5774b-07ea-47f0-b816-124628785327.PricesTomorrow.json): State 'Homes.26b5774b-07ea-47f0-b816-124628785327.PricesTomorrow.json' does not exist.
+
+tibberlink.1
+2023-09-13 21:28:37.444	error	[asyncGetState](Homes.26b5774b-07ea-47f0-b816-124628785327.PricesToday.json): State 'Homes.26b5774b-07ea-47f0-b816-124628785327.PricesToday.json' does not exist.
+
+tibberlink.1
+2023-09-13 21:28:37.123	error	[asyncGetState](Homes.26b5774b-07ea-47f0-b816-124628785327.CurrentPrice.startsAt): State 'Homes.26b5774b-07ea-47f0-b816-124628785327.CurrentPrice.startsAt' does not exist.
+
+tibberlink.1
+2023-09-13 21:28:36.984	error	Configured feed for Home ID: None available not found in current data from Tibber server - delete the configuration line or verify any faults in your Tibber connection
