@@ -28,10 +28,11 @@ export class TibberHelper {
 
 	private async getState(stateName: string): Promise<any> {
 		try {
-			const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
-			if (!stateObject) {
-				throw `State '${stateName}' does not exist.`;
-			} else {
+			//const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
+		//	if (!stateObject) {
+	//			throw `State '${stateName}' does not exist.`;
+//			} else {
+			if (await this.verifyStateAvailable(stateName)) {
 				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, …}
 				const stateValueObject = await this.adapter.getStateAsync(stateName);
 				if (!this.isLikeEmpty(stateValueObject)) {
@@ -44,6 +45,15 @@ export class TibberHelper {
 			this.adapter.log.error(`[asyncGetState](${stateName}): ${e}`);
 			return null;
 		}
+	}
+
+	private async verifyStateAvailable(stateName: string): Promise<any> {
+		const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
+		if (!stateObject) {
+			this.adapter.log.debug(`[verifyStateAvailable](${stateName}): State does not exist.`);
+			return false;
+		}
+		return true;
 	}
 
 	private isLikeEmpty(inputVar: ioBroker.State | null | undefined): boolean {

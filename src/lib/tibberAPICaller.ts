@@ -99,11 +99,7 @@ export class TibberAPICaller extends TibberHelper {
 	async updateCurrentPrice(homeId: string): Promise<void> {
 		if (homeId) {
 			let exDate: Date | null = null;
-			try {
-				exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
-			} catch (error) {
-				this.adapter.log.debug(`First start of adapter instance "Homes.${homeId}.CurrentPrice.startsAt" not existing yet`);
-            }
+			exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
 			const now = new Date();
 			if (!exDate || now.getHours() !== exDate.getHours()) {
 				const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
@@ -119,9 +115,9 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	async updatePricesToday(homeId: string): Promise<void> {
+		let exDate: Date | null = null;
 		const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
 		const exPricesToday: IPrice[] = JSON.parse(exJSON);
-		let exDate: Date | null = null;
 		if (Array.isArray(exPricesToday) && exPricesToday[2] && exPricesToday[2].startsAt) {
 			exDate = new Date(exPricesToday[2].startsAt);
 		}
@@ -152,9 +148,9 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	async updatePricesTomorrow(homeId: string): Promise<void> {
+		let exDate: Date | null = null;
 		const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
 		const exPricesTomorrow: IPrice[] = JSON.parse(exJSON);
-		let exDate: Date | null = null;
 		if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
 			exDate = new Date(exPricesTomorrow[2].startsAt);
 		}

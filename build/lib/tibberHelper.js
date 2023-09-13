@@ -26,11 +26,11 @@ class TibberHelper {
     }
     async getState(stateName) {
         try {
-            const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
-            if (!stateObject) {
-                throw `State '${stateName}' does not exist.`;
-            }
-            else {
+            //const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
+            //	if (!stateObject) {
+            //			throw `State '${stateName}' does not exist.`;
+            //			} else {
+            if (await this.verifyStateAvailable(stateName)) {
                 // Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
                 const stateValueObject = await this.adapter.getStateAsync(stateName);
                 if (!this.isLikeEmpty(stateValueObject)) {
@@ -45,6 +45,14 @@ class TibberHelper {
             this.adapter.log.error(`[asyncGetState](${stateName}): ${e}`);
             return null;
         }
+    }
+    async verifyStateAvailable(stateName) {
+        const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
+        if (!stateObject) {
+            this.adapter.log.debug(`[verifyStateAvailable](${stateName}): State does not exist.`);
+            return false;
+        }
+        return true;
     }
     isLikeEmpty(inputVar) {
         if (typeof inputVar !== "undefined" && inputVar !== null) {
