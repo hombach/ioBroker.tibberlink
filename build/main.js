@@ -121,7 +121,7 @@ class Tibberlink extends utils.Adapter {
                     this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
                 }
             }
-            /* OLD // REMOVED in 0.3.0
+            /* OLD //  REMOVED in 0.3.0
             if (!this.config.FeedActive) {
                 if (this.homeInfoList) {
                     this.setState("info.connection", true, true);

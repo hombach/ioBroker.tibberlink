@@ -1,10 +1,11 @@
 // This file extends the AdapterConfig type from "@types/iobroker"
 
+// TibberAPIToken: string;
+
 // Augment the globally declared type ioBroker.AdapterConfig
 declare global {
 	namespace ioBroker {
 		interface AdapterConfig {
-			TibberAPIToken: string;
 			HomesList: [
 				{
 					feedActive: boolean;

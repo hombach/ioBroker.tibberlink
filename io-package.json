@@ -367,8 +367,7 @@
 	"encryptedNative": ["TibberAPIToken"],
 	"protectedNative": ["TibberAPIToken"],
 	"native": {
-		"TibberAPIToken": "",
-		"PulseActive": false
+		"TibberAPIToken": ""
 	},
 	"objects": [],
 	"instanceObjects": [
