@@ -52,14 +52,9 @@ class Tibberlink extends utils.Adapter {
 				},
 			};
 			// Now read homes list from API
-			this.log.warn("Hierbinich");
 			const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
 			try {
 				this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
-
-				if (isNullOrUndefined(this.config.HomesList)) {
-					throw "no initial pull from Tibber server done";
-				}
 
 				if (this.config.HomesList.length > 0) {
 					//are there feeds configured to be used??
@@ -321,7 +316,7 @@ class Tibberlink extends utils.Adapter {
 					if (obj.callback) {
 						try {
 							this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
-							/*if (!isNullOrUndefined(this.homeInfoList) && this.homeInfoList.length > 0) {
+							if (!isNullOrUndefined(this.homeInfoList) && this.homeInfoList.length > 0) {
 								this.sendTo(
 									obj.from,
 									obj.command,
@@ -331,40 +326,7 @@ class Tibberlink extends utils.Adapter {
 									})),
 									obj.callback,
 
-
-				"HomesList": {
-					"type": "table",
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"label": "s_HomesFeedTable",
-					"hidden": "true",
-					"items": [
-						{
-							"type": "selectSendTo",
-							"title": "s_Home",
-							"command": "HomesForConfig",
-							"attr": "homeID",
-							"filter": false,
-							"sort": false,
-							"width": "65%",
-							"default": "No Home selected"
-						},
-						{
-							"type": "checkbox",
-							"title": "s_PulseActive",
-							"attr": "feedActive",
-							"filter": false,
-							"sort": false,
-							"width": "35%",
-							"default": false
-						}
-					]
-				},
-
-
-
-
+				/*
 				"CalculatorList": {
 					"type": "table",
 					"sm": 12,
@@ -446,11 +408,7 @@ class Tibberlink extends utils.Adapter {
 						}
 					]
 				}
-
-
-
-
-
+				*/
 
 
 
@@ -458,7 +416,7 @@ class Tibberlink extends utils.Adapter {
 							} else {
 								this.log.warn(`No Homes available to config TibberLink Calculator`);
 								this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
-							}*/
+							}
 						} catch (error) {
 							this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
 						}

@@ -73,13 +73,9 @@ class Tibberlink extends utils.Adapter {
                 },
             };
             // Now read homes list from API
-            this.log.warn("Hierbinich");
             const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
-                if ((0, node_util_1.isNullOrUndefined)(this.config.HomesList)) {
-                    throw "no initial pull from Tibber server done";
-                }
                 if (this.config.HomesList.length > 0) {
                     //are there feeds configured to be used??
                     if (this.homeInfoList.length > 0) {
@@ -334,144 +330,16 @@ class Tibberlink extends utils.Adapter {
                     if (obj.callback) {
                         try {
                             this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
-                            /*if (!isNullOrUndefined(this.homeInfoList) && this.homeInfoList.length > 0) {
-                                this.sendTo(
-                                    obj.from,
-                                    obj.command,
-                                    this.homeInfoList.map((item) => ({
-                                        label: `${item.NameInApp} (${item.ID})`,
-                                        value: item.ID,
-                                    })),
-                                    obj.callback,
-
-
-                "HomesList": {
-                    "type": "table",
-                    "sm": 12,
-                    "md": 12,
-                    "lg": 12,
-                    "label": "s_HomesFeedTable",
-                    "hidden": "true",
-                    "items": [
-                        {
-                            "type": "selectSendTo",
-                            "title": "s_Home",
-                            "command": "HomesForConfig",
-                            "attr": "homeID",
-                            "filter": false,
-                            "sort": false,
-                            "width": "65%",
-                            "default": "No Home selected"
-                        },
-                        {
-                            "type": "checkbox",
-                            "title": "s_PulseActive",
-                            "attr": "feedActive",
-                            "filter": false,
-                            "sort": false,
-                            "width": "35%",
-                            "default": false
-                        }
-                    ]
-                },
-
-
-
-
-                "CalculatorList": {
-                    "type": "table",
-                    "sm": 12,
-                    "md": 12,
-                    "lg": 12,
-                    "label": "CalculatorChannels - Not yet implemented",
-                    "hidden": "!data.CalCh01Configured",
-                    "items": [
-                        {
-                            "type": "selectSendTo",
-                            "title": "Channel Home",
-                            "attr": "chHomeID",
-                            "default": "No Home selected",
-                            "filter": false,
-                            "sort": false,
-                            "width": "25%",
-                            "command": "HomesForConfig"
-                        },
-                        {
-                            "type": "select",
-                            "title": "Channel Type",
-                            "attr": "chType",
-                            "options": [
-                                {
-                                    "label": "best cost - not implemented",
-                                    "value": 1
-                                },
-                                {
-                                    "label": "best single hours - not implemented",
-                                    "value": 2
-                                },
-                                {
-                                    "label": "best hours block- not implemented",
-                                    "value": 3
-                                }
-                            ],
-                            "filter": false,
-                            "sort": false,
-                            "width": "20%",
-                            "default": ""
-                        },
-                        {
-                            "type": "checkbox",
-                            "title": "Active",
-                            "attr": "chActive",
-                            "filter": false,
-                            "sort": false,
-                            "width": "5%",
-                            "default": false
-                        },
-                        {
-                            "type": "objectId",
-                            "title": "Target State",
-                            "attr": "chTargetState",
-                            "filter": false,
-                            "sort": false,
-                            "width": "30%",
-                            "default": ""
-                        },
-                        {
-                            "type": "text",
-                            "title": "Value YES",
-                            "maxLength": 20,
-                            "attr": "chValueOn",
-                            "filter": false,
-                            "sort": false,
-                            "width": "10%",
-                            "default": ""
-                        },
-                        {
-                            "type": "text",
-                            "title": "Value NO",
-                            "maxLength": 20,
-                            "attr": "chValueOff",
-                            "filter": false,
-                            "sort": false,
-                            "width": "10%",
-                            "default": ""
-                        }
-                    ]
-                }
-
-
-
-
-
-
-
-
-                                );
-                            } else {
+                            if (!(0, node_util_1.isNullOrUndefined)(this.homeInfoList) && this.homeInfoList.length > 0) {
+                                this.sendTo(obj.from, obj.command, this.homeInfoList.map((item) => ({
+                                    label: `${item.NameInApp} (${item.ID})`,
+                                    value: item.ID,
+                                })), obj.callback);
+                            }
+                            else {
                                 this.log.warn(`No Homes available to config TibberLink Calculator`);
                                 this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
-                            }*/
+                            }
                         }
                         catch (error) {
                             this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
