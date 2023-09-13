@@ -48,7 +48,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
         });
         // Add Error Handler on connection
         currentFeed.on("error", (e) => {
-            this.adapter.log.error(`ERROR on Tibber-Feed: ${e.toString()}`);
+            this.adapter.log.warn(`ERROR on Tibber-Feed: ${e.toString()}`);
         });
         // Add data receiver
         currentFeed.on("data", (data) => {
