@@ -325,10 +325,10 @@ class Tibberlink extends utils.Adapter {
 								);
 							} else {
 								this.log.warn(`No Homes available to config TibberLink Calculator`);
-								this.sendTo(obj.from, obj.command, [{ label: "None available", value: "" }], obj.callback);
+								this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
 							}
 						} catch (error) {
-							this.sendTo(obj.from, obj.command, [{ label: "None available", value: "" }], obj.callback);
+							this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
 						}
 					}
 					break;
