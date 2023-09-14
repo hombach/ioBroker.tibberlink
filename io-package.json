@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.3.2",
+		"version": "0.3.3",
 		"news": {
+			"0.3.3": {
+				"en": "WIP"
+			},
 			"0.3.2": {
 				"en": "fixed error when starting adapter first time (#82); fixed error in admin config from 0.3.0 (#81)",
 				"de": "Fehler beim ersten Start des Adapters gefixt (#82;) Fehler in Admin Config aus 0.3.0 beseitigt (#81)",
@@ -249,19 +252,6 @@
 				"pl": "okrągłe zużycie liczników do dokładności Wh",
 				"uk": "значення лічильника потужності круглої сітки до точності wh",
 				"zh-cn": "圆电网消费参数值"
-			},
-			"0.1.1": {
-				"en": "remove release script and dev-server",
-				"de": "release-script und dev-server entfernen",
-				"ru": "удалить сценарий выпуска и dev-server",
-				"pt": "remover script de versão e dev-server",
-				"nl": "verwijder het script en dev-server",
-				"fr": "supprimer script de publication et dev-server",
-				"it": "rimuovere lo script di rilascio e dev-server",
-				"es": "eliminar script de liberación y servidor dev",
-				"pl": "usunąć skrypt i dev-serwerver",
-				"uk": "видалити скрипт релізу і dev-server",
-				"zh-cn": "删除 说明和保留"
 			}
 		},
 		"messages": [
@@ -372,6 +362,16 @@
 			{
 				"feedActive": "false",
 				"homeID": "None available - restart adapter after entering token"
+			}
+		],
+		"CalculatorList": [
+			{
+				"chHomeID": "None available - restart adapter after entering token",
+				"chType": "best cost - not implemented",
+				"chActive": "false",
+				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
+				"chValueOn": "true",
+				"chValueOff": "false"
 			}
 		]
 	},

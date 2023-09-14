@@ -36,6 +36,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.3.3 (2023-09-xx)WORK in PROGRESS
+* (HombachC) WIP (#87), (#80), calculator
 ### 0.3.2 (2023-09-14)
 * (HombachC) Fixed error when starting adapter first time (#82)
 * (HombachC) Fixed error in admin config from 0.3.0 (#81)
