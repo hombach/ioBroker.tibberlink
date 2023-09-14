@@ -358,18 +358,12 @@
 	"protectedNative": ["TibberAPIToken"],
 	"native": {
 		"TibberAPIToken": "",
-
-
 		"HomesList": [
 			{
-				"feedActive": "boolean",
-				"homeID": "string"
+				"feedActive": "false",
+				"homeID": "None available - restart adapter after entering token"
 			}
 		]
-
-
-
-
 	},
 	"objects": [],
 	"instanceObjects": [
