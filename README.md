@@ -25,11 +25,10 @@ If you're not a Tibber user right now, it's greatly appreciated when you're usin
 ## Configuration
 1. Create a new instance of the adapter
 2. You will also need an API token from Tibber. Get it here: [https://developer.tibber.com/](https://developer.tibber.com/)
-3. Fill in your Tibber API token -> create minimum one line Live Feed Configuration (choose the "None available") otherwise config screen can't be initiated and saved
-4. Save the settings and leave configaration to get adapter restarted
-4. go back to config screen and choose the homes to also pull live data from your Tibber Pulse or choose home and disable feed  -  !! Only working if hardware is installed
+3. Fill in your Tibber API token -> create minimum one line Live Feed Configuration (choose the "None available")
+4. Save the settings and leave configaration to get adapter restarted (your home(s) will be polled from Tibber server now)
+4. Go back to config screen and choose the home(s) to also pull live data from your Tibber Pulse or choose home(s) and disable feed  -  (!! Only working if hardware is installed and Tibber server verified connection to Pulse)
 5. Save the settings
-6. THIS IS A TEMPORARY WORKAROUND - Config problems to be solved soon
 
 ## Notes
 This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more details and for informations on how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
@@ -37,9 +36,9 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 0.3.2 (2023-09-13) WORK in PROCESS
+### 0.3.2 (2023-09-14)
 * (HombachC) Fixed error when starting adapter first time (#82)
-* (HombachC) Mitigate error in admin config from 0.3.0 (#81)
+* (HombachC) Fixed error in admin config from 0.3.0 (#81)
 ### 0.3.1 (2023-09-13)
 * (HombachC) Mitigate error in admin config from 0.3.0 (#81)
 * (HombachC) Change logging of TibberFeed errors from type error to type warn - because of too many downtimes of Tibber server (#80)

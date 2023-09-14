@@ -4,7 +4,17 @@
 		"version": "0.3.2",
 		"news": {
 			"0.3.2": {
-				"en": "Fixed error when starting adapter first time (#82)"
+				"en": "fixed error when starting adapter first time (#82); fixed error in admin config from 0.3.0 (#81)",
+				"de": "Fehler beim ersten Start des Adapters gefixt (#82;) Fehler in Admin Config aus 0.3.0 beseitigt (#81)",
+				"ru": "исправлена ошибка при запуске адаптера в первый раз (#82;) исправлена ошибка в admin config от 0.3.0 (#81)",
+				"pt": "erro fixo ao iniciar o adaptador pela primeira vez (#82;) erro fixo em admin config de 0.3.0 (#81)",
+				"nl": "vergissing van het begin van adapter first time (#82) gerepareerde fout in administratie van 0.3.0 (#81)",
+				"fr": "erreur fixe lors du démarrage de l'adaptateur première fois (#82;) erreur fixe dans la configuration d'administration à partir de 0.3.0 (#81)",
+				"it": "errore fisso quando si avvia l'adattatore prima volta (#82;) errore fisso in admin config da 0.3.0 (#81)",
+				"es": "error fijo al iniciar el adaptador primera vez (#82;) error fijo en el configuración de administración de 0.3.0 (#81)",
+				"pl": "uruchomiony błąd po raz pierwszy od adapterów (#82;) stał się błędem w adminowym konfiguście 0.3.0 (#81)",
+				"uk": "виправлена помилка при запуску адаптера вперше (#82;) виправлена помилка в конфігурації адміністратора від 0.3.0 (#81)",
+				"zh-cn": "初步调整时的固定错误(#82)"
 			},
 			"0.3.1": {
 				"en": "Fixed error in admin config from 0.3.0 (#81) - Change logging of TibberFeed errors to type warn (#80)",

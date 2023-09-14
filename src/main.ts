@@ -102,17 +102,6 @@ class Tibberlink extends utils.Adapter {
 					this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
 				}
 			}
-			/* OLD //  REMOVED in 0.3.0
-			if (!this.config.FeedActive) {
-				if (this.homeInfoList) {
-					this.setState("info.connection", true, true);
-					this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
-				} else {
-					this.setState("info.connection", false, true);
-					this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
-				}
-			}
-			*/
 
 			// sentry.io ping
 			if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
@@ -212,7 +201,6 @@ class Tibberlink extends utils.Adapter {
 
 				// If user uses live feed - start feed connection
 				if (this.homeInfoList.some((info) => info.FeedActive)) {
-					//if (this.config.FeedActive) { // REMOVED in 0.3.0
 					const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 					for (const index in this.homeInfoList) {
 						if (this.homeInfoList[index].FeedActive && this.homeInfoList[index].RealTime) {
