@@ -38,8 +38,7 @@
 							"filter": false,
 							"sort": false,
 							"width": "65%",
-							"default": "No Home selected",
-							"validator":  "globalData.myTable.length >= 1"
+							"default": "No Home selected"
 						},
 						{
 							"type": "checkbox",

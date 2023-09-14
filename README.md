@@ -25,8 +25,8 @@ If you're not a Tibber user right now, it's greatly appreciated when you're usin
 ## Configuration
 1. Create a new instance of the adapter
 2. You will also need an API token from Tibber. Get it here: [https://developer.tibber.com/](https://developer.tibber.com/)
-3. Fill in your Tibber API token -> choose the "None available" in Live Feed Configuration
-4. Save the settings  and leave configaration to get adapter restarted
+3. Fill in your Tibber API token -> create minimum one line Live Feed Configuration (choose the "None available") otherwise config screen can't be initiated and saved
+4. Save the settings and leave configaration to get adapter restarted
 4. go back to config screen and choose the homes to also pull live data from your Tibber Pulse or choose home and disable feed  -  !! Only working if hardware is installed
 5. Save the settings
 6. THIS IS A TEMPORARY WORKAROUND - Config problems to be solved soon
@@ -39,6 +39,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ### 0.3.2 (2023-09-13) WORK in PROCESS
 * (HombachC) Fixed error when starting adapter first time (#82)
+* (HombachC) Mitigate error in admin config from 0.3.0 (#81)
 ### 0.3.1 (2023-09-13)
 * (HombachC) Mitigate error in admin config from 0.3.0 (#81)
 * (HombachC) Change logging of TibberFeed errors from type error to type warn - because of too many downtimes of Tibber server (#80)

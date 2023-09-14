@@ -357,7 +357,19 @@
 	"encryptedNative": ["TibberAPIToken"],
 	"protectedNative": ["TibberAPIToken"],
 	"native": {
-		"TibberAPIToken": ""
+		"TibberAPIToken": "",
+
+
+		"HomesList": [
+			{
+				"feedActive": "boolean",
+				"homeID": "string"
+			}
+		]
+
+
+
+
 	},
 	"objects": [],
 	"instanceObjects": [
