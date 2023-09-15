@@ -4,7 +4,7 @@
 		"version": "0.3.3",
 		"news": {
 			"0.3.3": {
-				"en": "WIP"
+				"en": "Fixed false positive connection message (#87)"
 			},
 			"0.3.2": {
 				"en": "fixed error when starting adapter first time (#82); fixed error in admin config from 0.3.0 (#81)",
