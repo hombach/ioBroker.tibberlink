@@ -275,6 +275,7 @@
 		"_CalculatorTab": {
 			"type": "panel",
 			"label": "Calculator settings",
+			"hidden": "!data.TibberAPIToken",
 			"items": {
 				"_CalculatorHeader": {
 					"type": "header",
