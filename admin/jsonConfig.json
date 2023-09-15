@@ -29,6 +29,7 @@
 					"md": 12,
 					"lg": 12,
 					"label": "s_HomesFeedTable",
+					"hidden": "!data.TibberAPIToken",
 					"items": [
 						{
 							"type": "selectSendTo",
@@ -275,28 +276,103 @@
 			"type": "panel",
 			"label": "Calculator settings",
 			"items": {
-				"_CalCh01Header": {
+				"_CalculatorHeader": {
 					"type": "header",
 					"text": "Calculator Channels - Not yet implemented",
 					"size": 3
 				},
 
-				"CalCh01Configured": {
+				"UseCalculator": {
 					"type": "checkbox",
-					"label": "Configure Channels - Not yet implemented",
+					"label": "Use Calculator - Not yet implemented",
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
 					"newLine": true
 				},
 
+				"CalculatorList": {
+					"type": "table",
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"label": "CalculatorChannels - Not yet implemented",
+					"hidden": "!data.UseCalculator",
+					"items": [
+						{
+							"type": "selectSendTo",
+							"title": "Channel Home",
+							"attr": "chHomeID",
+							"default": "No Home selected",
+							"filter": false,
+							"sort": false,
+							"width": "25%",
+							"command": "HomesForConfig"
+						},
+						{
+							"type": "select",
+							"title": "Channel Type",
+							"attr": "chType",
+							"options": [
+								{
+									"label": "best cost - not implemented",
+									"value": 1
+								},
+								{
+									"label": "best single hours - not implemented",
+									"value": 2
+								},
+								{
+									"label": "best hours block- not implemented",
+									"value": 3
+								}
+							],
+							"filter": false,
+							"sort": false,
+							"width": "20%",
+							"default": ""
+						},
+						{
+							"type": "checkbox",
+							"title": "Active",
+							"attr": "chActive",
+							"filter": false,
+							"sort": false,
+							"width": "5%",
+							"default": false
+						},
+						{
+							"type": "objectId",
+							"title": "Target State",
+							"attr": "chTargetState",
+							"filter": false,
+							"sort": false,
+							"width": "30%",
+							"default": ""
+						},
+						{
+							"type": "text",
+							"title": "Value YES",
+							"maxLength": 20,
+							"attr": "chValueOn",
+							"filter": false,
+							"sort": false,
+							"width": "10%",
+							"default": ""
+						},
+						{
+							"type": "text",
+							"title": "Value NO",
+							"maxLength": 20,
+							"attr": "chValueOff",
+							"filter": false,
+							"sort": false,
+							"width": "10%",
+							"default": ""
+						}
+					]
+				}
 
-
-
-
-
-
-			
 			}
 		}
 
