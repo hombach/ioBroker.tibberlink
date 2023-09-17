@@ -274,18 +274,18 @@
 
 		"_CalculatorTab": {
 			"type": "panel",
-			"label": "Calculator settings",
+			"label": "s_CalculatorSettings",
 			"hidden": "!data.TibberAPIToken",
 			"items": {
 				"_CalculatorHeader": {
 					"type": "header",
-					"text": "Calculator Channels - Not yet implemented",
+					"text": "s_CalculatorChannels",
 					"size": 3
 				},
 
 				"UseCalculator": {
 					"type": "checkbox",
-					"label": "Use Calculator - Not yet implemented",
+					"label": "s_UseCalculator",
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
@@ -297,12 +297,12 @@
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
-					"label": "CalculatorChannels - Not yet implemented",
+					"label": "s_CalculatorChannels",
 					"hidden": "!data.UseCalculator",
 					"items": [
 						{
 							"type": "selectSendTo",
-							"title": "Channel Home",
+							"title": "s_ChannelHome",
 							"attr": "chHomeID",
 							"default": "No Home selected",
 							"filter": false,
@@ -312,19 +312,19 @@
 						},
 						{
 							"type": "select",
-							"title": "Channel Type",
+							"title": "s_ChannelType",
 							"attr": "chType",
 							"options": [
 								{
-									"label": "best cost - not implemented",
+									"label": "s_BestCost",
 									"value": 1
 								},
 								{
-									"label": "best single hours - not implemented",
+									"label": "s_BestSingleHours",
 									"value": 2
 								},
 								{
-									"label": "best hours block- not implemented",
+									"label": "s_BestHoursBlock",
 									"value": 3
 								}
 							],
@@ -335,7 +335,7 @@
 						},
 						{
 							"type": "checkbox",
-							"title": "Active",
+							"title": "s_Active",
 							"attr": "chActive",
 							"filter": false,
 							"sort": false,
@@ -344,7 +344,7 @@
 						},
 						{
 							"type": "objectId",
-							"title": "Target State",
+							"title": "s_TargetState",
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
@@ -353,7 +353,7 @@
 						},
 						{
 							"type": "text",
-							"title": "Value YES",
+							"title": "s_ValueYES",
 							"maxLength": 20,
 							"attr": "chValueOn",
 							"filter": false,
@@ -363,7 +363,7 @@
 						},
 						{
 							"type": "text",
-							"title": "Value NO",
+							"title": "s_ValueNO",
 							"maxLength": 20,
 							"attr": "chValueOff",
 							"filter": false,
