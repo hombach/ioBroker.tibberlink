@@ -39,7 +39,6 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ### 0.3.3 (2023-09-xx)WORK in PROGRESS
 * (HombachC) Fixed false positive connection message (#87)
 * (HombachC) Updated translations with ChatGPT
-* (HombachC) WIP (#80)
 * (HombachC) preparations for tibber calculator
 ### 0.3.2 (2023-09-14)
 * (HombachC) Fixed error when starting adapter first time (#82)

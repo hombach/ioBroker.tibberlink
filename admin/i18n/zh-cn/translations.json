@@ -1,15 +1,15 @@
 {
 	"s_StandardSettings": "标准设置",
-	"s_ReferalLink": "如果您现在不是Tibber用户，当您使用我的推荐链接时，我们会非常感激。",
+	"s_ReferalLink": "如果您目前不是Tibber用户，我们非常感谢您使用我的推荐链接。",
 	"s_TibberAPIToken": "Tibber API令牌",
 	"s_HomesFeedTable": "Pulse实时数据流配置",
 	"s_Home": "Tibber家",
-	"s_PulseActive": "为此家庭使用Tibber Pulse",
-	"s_SelectFieldsForFeed": "选择要加载到数据流中的所有字段（功率和时间戳是默认的）：",
-	"s_PhasesExplanation": "电压和电流值 - 在几个电表上，这些值不是数据帧的一部分，因此值可能为空。根据具体电表固件，还可能存在其他偏差。零值根本不会在您的ioBroker对象中生成状态。",
-	"s_CalculatorSettings": "计算器设置",
-	"s_CalculatorChannels": "计算器通道 - 尚未实施",
-	"s_UseCalculator": "使用计算器 - 尚未实施",
+	"s_PulseActive": "为此家使用Tibber Pulse",
+	"s_SelectFieldsForFeed": "选择要加载到数据流中的所有字段（功率和时间戳是默认值）：",
+	"s_PhasesExplanation": "电压和电流值 - 在多个电表上，这些值不是数据帧的一部分，因此值可能为null。具体电表固件可能存在其他偏差。null值不会在您的ioBroker对象中生成状态。",
+	"s_CalculatorSettings": "自动化设置",
+	"s_CalculatorChannels": "自动化通道 - 尚未实施",
+	"s_UseCalculator": "使用自动化 - 尚未实施",
 	"s_ChannelHome": "家庭通道",
 	"s_ChannelType": "通道类型",
 	"s_BestCost": "最佳成本 - 未实施",
@@ -17,6 +17,6 @@
 	"s_BestHoursBlock": "最佳小时块 - 未实施",
 	"s_Active": "活跃",
 	"s_TargetState": "目标状态",
-	"s_ValueYES": "值是",
-	"s_ValueNO": "值不是"
+	"s_ValueYES": "值 是",
+	"s_ValueNO": "值 否"
 }
