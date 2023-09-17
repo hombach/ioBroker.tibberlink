@@ -1,6 +1,6 @@
 {
 	"s_StandardSettings": "Standard-Einstellungen",
-	"s_ReferalLink": "Wenn Sie derzeit kein Tibber-Benutzer sind, würden wir es sehr schätzen, wenn Sie meinen Empfehlungslink verwenden.",
+	"s_ReferalLink": "Wenn Sie derzeit kein Tibber-Benutzer sind, würden ich es sehr schätzen, wenn Sie meinen Empfehlungslink verwenden.",
 	"s_TibberAPIToken": "Token für die Tibber-API",
 	"s_HomesFeedTable": "Konfiguration der Pulse-Live-Datenströme",
 	"s_Home": "Tibber Zuhause",
@@ -16,7 +16,7 @@
 	"s_BestSingleHours": "Beste Einzelstunden - Nicht implementiert",
 	"s_BestHoursBlock": "Beste Stundenblöcke - Nicht implementiert",
 	"s_Active": "Aktiv",
-	"s_TargetState": "Zielzustand",
+	"s_TargetState": "Ziel State",
 	"s_ValueYES": "Wert JA",
 	"s_ValueNO": "Wert NEIN"
 }
