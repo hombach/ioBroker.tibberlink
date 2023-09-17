@@ -4,11 +4,11 @@
 	"items": {
 		"_StandardTab": {
 			"type": "panel",
-			"label": "Standard settings",
+			"label": "s_StandardSettings",
 			"items": {
 				"TibberAPIToken": {
 					"type": "text",
-					"label": "TibberAPIToken",
+					"label": "s_TibberAPIToken",
 					"maxLength": 60,
 					"sm": 12,
 					"md": 6,
@@ -55,7 +55,7 @@
 
 				"_feedDataDetail": {
 					"type": "header",
-					"text": "SelectFieldsForFeed",
+					"text": "s_SelectFieldsForFeed",
 					"hidden": "!data.TibberAPIToken",
 					"size": 3
 				},
