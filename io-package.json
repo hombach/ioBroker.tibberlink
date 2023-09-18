@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.3.3",
+		"version": "0.4.0",
 		"news": {
+			"0.4.0": {
+				"en": "Added daily average price values (#89)",
+				"de": "Tägliche Durchschnittspreise hinzugefügt (#89)",
+				"ru": "Добавлены средние дневные цены (#89)",
+				"pt": "Adicionados valores médios diários de preços (#89)",
+				"nl": "Dagelijkse gemiddelde prijswaarden toegevoegd (#89)",
+				"fr": "Ajout des valeurs moyennes quotidiennes des prix (#89)",
+				"it": "Aggiunti valori medi giornalieri dei prezzi (#89)",
+				"es": "Añadidos valores promedio diarios de precios (#89)",
+				"pl": "Dodano codzienne średnie wartości cenowe (#89)",
+				"uk": "Додані середні щоденні значення цін (#89)",
+				"zh-cn": "添加每日平均价格值 (#89)"
+			},
 			"0.3.3": {
 				"en": "Fixed a false positive connection message (#87); Updated translations with ChatGPT",
 				"de": "Behobene falsch positive Verbindungsmeldung (#87); Aktualisierte Übersetzungen mit ChatGPT",

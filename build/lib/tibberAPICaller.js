@@ -81,12 +81,13 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
             this.currentHomeId = homeId;
             this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "json"), await JSON.stringify(pricesToday), "The prices today as json");
+            this.fetchPriceAverage(`PricesToday.average`, pricesToday);
             for (const i in pricesToday) {
                 const price = pricesToday[i];
                 const hour = new Date(price.startsAt.substr(0, 19)).getHours();
                 this.fetchPrice(`PricesToday.${hour}`, price);
             }
-            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), await JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
+            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), await JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
         }
         else {
             this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
@@ -122,7 +123,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 }
             }
             this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), await JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
-            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending");
+            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+            this.fetchPriceAverage(`PricesTomorrow.average`, pricesTomorrow);
         }
         else {
             this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
@@ -135,6 +137,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "startsAt"), price.startsAt, "Start time of the price");
         //this.checkAndSetValue(this.getStatePrefix(objectDestination, "currency"), price.currency, "The price currency");
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "level"), price.level, "Price level compared to recent price values");
+    }
+    fetchPriceAverage(objectDestination, price) {
+        const totalSum = price.reduce((sum, item) => sum + item.total, 0);
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "objectDestination", "total"), (totalSum / price.length), "The todays total price average");
+        const energySum = price.reduce((sum, item) => sum + item.energy, 0);
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "objectDestination", "energy"), (energySum / price.length), "The todays avarage spotmarket price");
+        const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, "objectDestination", "tax"), (taxSum / price.length), "The todays avarage tax price");
     }
     emptyingPrice(objectDestination) {
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0, "The total price (energy + taxes)");

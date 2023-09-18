@@ -132,6 +132,7 @@ export class TibberAPICaller extends TibberHelper {
 				await JSON.stringify(pricesToday),
 				"The prices today as json",
 			);
+			this.fetchPriceAverage(`PricesToday.average`, pricesToday);
 			for (const i in pricesToday) {
 				const price = pricesToday[i];
 				const hour = new Date(price.startsAt.substr(0, 19)).getHours();
@@ -140,7 +141,7 @@ export class TibberAPICaller extends TibberHelper {
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"),
 				await JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)),
-				"prices sorted by cost ascending",
+				"prices sorted by cost ascending as json",
 			);
 		} else {
 			this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
@@ -183,8 +184,9 @@ export class TibberAPICaller extends TibberHelper {
 			this.checkAndSetValue(
 				this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"),
 				await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
-				"prices sorted by cost ascending",
+				"prices sorted by cost ascending as json",
 			);
+			this.fetchPriceAverage(`PricesTomorrow.average`, pricesTomorrow);
 		} else {
 			this.adapter.log.debug(
 				`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`,
@@ -210,6 +212,27 @@ export class TibberAPICaller extends TibberHelper {
 			this.getStatePrefix(this.currentHomeId, objectDestination, "level"),
 			price.level,
 			"Price level compared to recent price values",
+		);
+	}
+
+	private fetchPriceAverage(objectDestination: string, price: IPrice[]): void {
+		const totalSum = price.reduce((sum, item) => sum + item.total, 0);
+		this.checkAndSetValueNumber(
+			this.getStatePrefix(this.currentHomeId, "objectDestination", "total"),
+			(totalSum / price.length),
+			"The todays total price average",
+		);
+		const energySum = price.reduce((sum, item) => sum + item.energy, 0);
+		this.checkAndSetValueNumber(
+			this.getStatePrefix(this.currentHomeId, "objectDestination", "energy"),
+			(energySum / price.length),
+			"The todays avarage spotmarket price",
+		);
+		const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
+		this.checkAndSetValueNumber(
+			this.getStatePrefix(this.currentHomeId, "objectDestination", "tax"),
+			(taxSum / price.length),
+			"The todays avarage tax price",
 		);
 	}
 
@@ -260,4 +283,5 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Email"), contactInfo.email);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Mobile"), contactInfo.mobile);
 	}
+
 }
