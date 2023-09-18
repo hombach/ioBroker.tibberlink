@@ -219,19 +219,19 @@ export class TibberAPICaller extends TibberHelper {
 		const totalSum = price.reduce((sum, item) => sum + item.total, 0);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, "objectDestination", "total"),
-			(totalSum / price.length),
+			totalSum / price.length,
 			"The todays total price average",
 		);
 		const energySum = price.reduce((sum, item) => sum + item.energy, 0);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, "objectDestination", "energy"),
-			(energySum / price.length),
+			energySum / price.length,
 			"The todays avarage spotmarket price",
 		);
 		const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, "objectDestination", "tax"),
-			(taxSum / price.length),
+			taxSum / price.length,
 			"The todays avarage tax price",
 		);
 	}
@@ -283,5 +283,4 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Email"), contactInfo.email);
 		this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Mobile"), contactInfo.mobile);
 	}
-
 }
