@@ -250,19 +250,6 @@
 				"uk": "BREAKING: зашифрований API-Token в ioBroker; параметри перепланованої конфігурації; фіксована помилка в державному генеруванні",
 				"zh-cn": "BREAKRE: 加密的API-Token inio Broker;重新安排的备选办法;国家代代用的固定配件。"
 			},
-			"0.1.3": {
-				"en": "all log messages in English, remove unused state change handler, fixed state roles",
-				"de": "alle Log-Nachrichten in Englisch, entfernen Sie ungenutzte Zustandsänderungs-Handler, Zustandsrollen korrigiert",
-				"ru": "все лог-сообщения на английском языке, удалить неиспользуемый государственный обработчик, фиксированные государственные роли",
-				"pt": "todas as mensagens de log em Inglês, remover manipulador de mudança de estado não usado, funções de estado fixo",
-				"nl": "alle logberichten in het Engels, verwijder onbruikbare staatsveranderaar, gerepareerde staatsrollen",
-				"fr": "tous les messages journaux en anglais, supprimer le gestionnaire de changement d'état inutilisé, les rôles d'état fixes",
-				"it": "tutti i messaggi di registro in inglese, rimuovere il gestore di cambiamento di stato non utilizzato, ruoli di stato fissi",
-				"es": "todos los mensajes de registro en inglés, eliminar el manejador de cambio de estado no utilizado, papeles de estado fijo",
-				"pl": "wszystkie wiadomości w języku angielskim usuwają nieużywaną zmianę stanu",
-				"uk": "всі повідомлення в журналі англійською мовою, видалити невикористаний державний обробник, фіксовані ролі держави",
-				"zh-cn": "英文的所有文信,删除未用的州变化手字,固定国家作用"
-			},
 			"0.1.2": {
 				"en": "round grid consumption meter values to Wh accuracy",
 				"de": "rundgitter-Verbrauchsmesswerte zur Wh-Genauigkeit",
