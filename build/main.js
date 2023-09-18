@@ -188,6 +188,9 @@ class Tibberlink extends utils.Adapter {
                     for (const index in this.homeInfoList) {
                         try {
                             tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
+                            //CalculatorBestCost
+                            //CalculatorBestSingleHours
+                            //CalculatorBestHoursBlock
                         }
                         catch (error) {
                             this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));

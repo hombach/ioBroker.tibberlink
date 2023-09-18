@@ -218,19 +218,19 @@ export class TibberAPICaller extends TibberHelper {
 	private fetchPriceAverage(objectDestination: string, price: IPrice[]): void {
 		const totalSum = price.reduce((sum, item) => sum + item.total, 0);
 		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, "objectDestination", "total"),
+			this.getStatePrefix(this.currentHomeId, objectDestination, "total"),
 			totalSum / price.length,
 			"The todays total price average",
 		);
 		const energySum = price.reduce((sum, item) => sum + item.energy, 0);
 		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, "objectDestination", "energy"),
+			this.getStatePrefix(this.currentHomeId, objectDestination, "energy"),
 			energySum / price.length,
 			"The todays avarage spotmarket price",
 		);
 		const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
 		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, "objectDestination", "tax"),
+			this.getStatePrefix(this.currentHomeId, objectDestination, "tax"),
 			taxSum / price.length,
 			"The todays avarage tax price",
 		);
