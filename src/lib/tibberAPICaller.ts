@@ -219,19 +219,19 @@ export class TibberAPICaller extends TibberHelper {
 		const totalSum = price.reduce((sum, item) => sum + item.total, 0);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "total"),
-			totalSum / price.length,
+			Math.round(1000 * totalSum / price.length) / 1000,
 			"The todays total price average",
 		);
 		const energySum = price.reduce((sum, item) => sum + item.energy, 0);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "energy"),
-			energySum / price.length,
+			Math.round(1000 * energySum / price.length) / 1000,
 			"The todays avarage spotmarket price",
 		);
 		const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(this.currentHomeId, objectDestination, "tax"),
-			taxSum / price.length,
+			Math.round(1000 * taxSum / price.length) / 1000,
 			"The todays avarage tax price",
 		);
 	}

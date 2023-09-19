@@ -140,11 +140,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     }
     fetchPriceAverage(objectDestination, price) {
         const totalSum = price.reduce((sum, item) => sum + item.total, 0);
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), totalSum / price.length, "The todays total price average");
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), Math.round(1000 * totalSum / price.length) / 1000, "The todays total price average");
         const energySum = price.reduce((sum, item) => sum + item.energy, 0);
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), energySum / price.length, "The todays avarage spotmarket price");
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), Math.round(1000 * energySum / price.length) / 1000, "The todays avarage spotmarket price");
         const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), taxSum / price.length, "The todays avarage tax price");
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), Math.round(1000 * taxSum / price.length) / 1000, "The todays avarage tax price");
     }
     emptyingPrice(objectDestination) {
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0, "The total price (energy + taxes)");
