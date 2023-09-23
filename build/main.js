@@ -37,7 +37,7 @@ class Tibberlink extends utils.Adapter {
         this.homeInfoList = [];
         this.queryUrl = "";
         this.on("ready", this.onReady.bind(this));
-        // this.on("stateChange", this.onStateChange.bind(this));
+        this.on("stateChange", this.onStateChange.bind(this));
         // this.on("objectChange", this.onObjectChange.bind(this));
         this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
@@ -148,13 +148,13 @@ class Tibberlink extends utils.Adapter {
             // Init load data and calculator for all homes
             if (this.homeInfoList.length > 0) {
                 const tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
-                // Set up calculation channel 1 states if channel is configured
+                // Set up calculation channel states if configured
                 if (this.config.UseCalculator) {
                     try {
+                        this.log.debug(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
                         for (const index in this.config.CalculatorList) {
                             await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[index].chHomeID, index);
                         }
-                        this.log.debug(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
                     }
                     catch (error) {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculator states"));
@@ -354,6 +354,33 @@ class Tibberlink extends utils.Adapter {
         }
         catch (e) {
             callback();
+        }
+    }
+    /**
+     * Is called if a subscribed state changes
+     */
+    onStateChange(id, state) {
+        try {
+            if (state) {
+                // The state was changed
+                // this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}`);
+                this.log.debug(`state ${id} changed to val: ${state.val} (ack = ${state.ack})`);
+                if (!state.ack) {
+                    if (id.includes(`.Calculations.`)) {
+                    }
+                    /*
+                    ChargeNOW = await this.asyncGetStateVal('Settings.ChargeNOW'); // Get charging override trigger
+                    this.setStateAsync('Settings.ChargeNOW', ChargeNOW, true);
+                    */
+                }
+            }
+            else {
+                // The state was deleted
+                this.log.warn(`state ${id} deleted`);
+            }
+        }
+        catch (e) {
+            this.log.error(`Unhandled exception processing onstateChange: ${e}`);
         }
     }
 }

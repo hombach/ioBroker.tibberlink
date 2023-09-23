@@ -38,6 +38,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ### 0.4.1 (2023-09-23) WORK in PROGRESS
 * (HombachC) Hardened 2 typeerrors uppon sentry recognition
+* (HombachC) preparations for tibber calculator
 ### 0.4.0 (2023-09-20)
 * (HombachC) Added daily average price values (#89)
 ### 0.3.3 (2023-09-17)
