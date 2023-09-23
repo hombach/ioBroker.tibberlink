@@ -43,6 +43,7 @@ declare global {
 					chTargetState: string;
 					chValueOn: string;
 					chValueOff: string;
+					chTriggerPrice: number;
 				},
 			];
 		}

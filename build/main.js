@@ -368,7 +368,7 @@ class Tibberlink extends utils.Adapter {
                 if (!state.ack) {
                     if (id.includes(`.Calculations.`)) {
                         const statePath = id.split(".");
-                        this.log.debug(`state ${statePath[0]}.${statePath[1]}.${statePath[2]}.${statePath[3]}.${statePath[4]}`);
+                        this.log.debug(`home: ${statePath[3]} channel: ${statePath[5]} type: ${statePath[6]}`);
                         //this.config.CalculatorList.
                     }
                     /*
