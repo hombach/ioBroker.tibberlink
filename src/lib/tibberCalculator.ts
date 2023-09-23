@@ -20,7 +20,7 @@ export class TibberCalculator extends TibberHelper {
 				"Whether the calculation channel is active",
 				true,
 			);
-			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 			// all states changes inside the Calculator channel settings namespace are subscribed
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, "setup of states for calculator"));
