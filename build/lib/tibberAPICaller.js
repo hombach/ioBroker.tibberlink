@@ -87,7 +87,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 const hour = new Date(price.startsAt.substr(0, 19)).getHours();
                 this.fetchPrice(`PricesToday.${hour}`, price);
             }
-            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), await JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+            if (Array.isArray(pricesToday)) {
+                // Sort the array if it is an array - possible type error discovered by sentry
+                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), await JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+            }
+            else {
+                // Handle the case when pricesToday is not an array, it's empty?, so just don't sort
+                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"), await JSON.stringify(pricesToday), "prices sorted by cost ascending as json");
+            }
         }
         else {
             this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
@@ -123,7 +130,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 }
             }
             this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"), await JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
-            this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+            if (Array.isArray(pricesTomorrow)) {
+                // Sort the array if it is an array - possible type error discovered by sentry
+                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+            }
+            else {
+                // Handle the case when pricesToday is not an array, it's empty?, so just don't sort
+                this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
+            }
             this.fetchPriceAverage(`PricesTomorrow.average`, pricesTomorrow);
         }
         else {

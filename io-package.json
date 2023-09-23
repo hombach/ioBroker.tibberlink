@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.4.0",
+		"version": "0.4.1",
 		"news": {
+			"0.4.1": {
+				"en": "Hardened 2 typeerrors upon Sentry recognition",
+				"de": "Behebung von 2 Typfehlern bei Erkennung durch Sentry",
+				"ru": "Усилено 2 типовых ошибки при определении Sentry",
+				"pt": "Fortalecimento de 2 erros de tipo após reconhecimento pelo Sentry",
+				"nl": "Versterkte 2 typenfouten bij herkenning door Sentry",
+				"fr": "Durcissement de 2 erreurs de type lors de la reconnaissance par le Sentry",
+				"it": "Rafforzati 2 errori di tipo al riconoscimento da parte del Sentry",
+				"es": "Refuerzo de 2 errores de tipo al reconocimiento por parte del Sentry",
+				"pl": "Usztywnione 2 błędy typów po rozpoznaniu przez Sentry",
+				"uk": "Підсилено 2 типові помилки при визначенні Sentry",
+				"zh-cn": "Sentry识别后加强了2种类型错误"
+			},
 			"0.4.0": {
 				"en": "Added daily average price values (#89)",
 				"de": "Tägliche Durchschnittspreise hinzugefügt (#89)",
@@ -223,19 +236,6 @@
 				"pl": "dodanie do danych na żywo, adapter-core",
 				"uk": "до 3.x",
 				"zh-cn": "增加生活数据单位,使倾销者适应3.x"
-			},
-			"0.1.5": {
-				"en": "Fix error in sentry logging",
-				"de": "Fehler beim Versandprotokoll beheben",
-				"ru": "Исправлена ошибка в отосланном входе",
-				"pt": "Corrigir erro no registro de sentinela",
-				"nl": "Vergissing",
-				"fr": "Correction de l'erreur dans la journalisation des sentinelles",
-				"it": "Risolvere l'errore nella registrazione delle sentinelle",
-				"es": "Corregir error en registro de centinelas",
-				"pl": "Błędy w pracy",
-				"uk": "Виправлення помилки в журналі відправлення",
-				"zh-cn": "寄发伐木中的固定错误"
 			},
 			"0.1.4": {
 				"en": "BREAKING: encrypted API-Token in ioBroker; rearranged configuration options; fixed bug in state generation",
