@@ -234,7 +234,9 @@ class Tibberlink extends utils.Adapter {
 								if (this.config.FeedConfigAccumulatedCost) {
 									tibberConfigFeed.accumulatedReward = true;
 								}
-								if (this.config.FeedConfigCurrency) {tibberConfigFeed.currency = true}
+								if (this.config.FeedConfigCurrency) {
+									tibberConfigFeed.currency = true
+								}
 								if (this.config.FeedConfigMinPower) {
 									tibberConfigFeed.minPower = true;
 								}
@@ -355,6 +357,8 @@ class Tibberlink extends utils.Adapter {
 				this.log.debug(`state ${id} changed to val: ${state.val} (ack = ${state.ack})`);
 				if (!state.ack) {
 					if (id.includes(`.Calculations.`)) {
+						const statePath = id.split(".")
+						//this.config.CalculatorList.
 					}
 					/*
 					ChargeNOW = await this.asyncGetStateVal('Settings.ChargeNOW'); // Get charging override trigger

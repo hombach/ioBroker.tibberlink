@@ -367,6 +367,8 @@ class Tibberlink extends utils.Adapter {
                 this.log.debug(`state ${id} changed to val: ${state.val} (ack = ${state.ack})`);
                 if (!state.ack) {
                     if (id.includes(`.Calculations.`)) {
+                        const statePath = id.split(".");
+                        //this.config.CalculatorList.
                     }
                     /*
                     ChargeNOW = await this.asyncGetStateVal('Settings.ChargeNOW'); // Get charging override trigger
