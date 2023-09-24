@@ -353,15 +353,13 @@ class Tibberlink extends utils.Adapter {
 		try {
 			if (state) {
 				// The state was changed
-				// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}`);
-				this.log.debug(`state ${id} changed to val: ${state.val} (ack = ${state.ack})`);
+				// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 				if (!state.ack) {
 					if (id.includes(`.Calculations.`)) {
 						const statePath = id.split(".");
 						const homeIDToMatch = statePath[3];
 						const calcChannel = parseInt(statePath[5]);
 						const settingType = statePath[6];
-						this.log.debug(`home: ${homeIDToMatch} channel: ${calcChannel} type: ${settingType}`);
 						if (!isNaN(calcChannel) && calcChannel < this.config.CalculatorList.length && settingType !== undefined) {
 							if (this.config.CalculatorList[calcChannel].chHomeID === homeIDToMatch) {
 								switch (settingType) {
@@ -370,7 +368,7 @@ class Tibberlink extends utils.Adapter {
 										if (typeof state.val === "boolean") {
 											this.config.CalculatorList[calcChannel].chActive = state.val;
 											this.log.debug(
-												`home: ${homeIDToMatch} channel: ${calcChannel} Active: ${this.config.CalculatorList[calcChannel].chActive}`,
+												`settings state in home: ${homeIDToMatch} channel: ${calcChannel} changed to Active: ${this.config.CalculatorList[calcChannel].chActive}`,
 											);
 											this.setStateAsync(id, state.val, true);
 										} else {
@@ -382,7 +380,7 @@ class Tibberlink extends utils.Adapter {
 										if (typeof state.val === "number") {
 											this.config.CalculatorList[calcChannel].chTriggerPrice = state.val;
 											this.log.debug(
-												`home: ${homeIDToMatch} channel: ${calcChannel} TriggerPrice: ${this.config.CalculatorList[calcChannel].chTriggerPrice}`,
+												`settings state in home: ${homeIDToMatch} channel: ${calcChannel} changed to TriggerPrice: ${this.config.CalculatorList[calcChannel].chTriggerPrice}`,
 											);
 											this.setStateAsync(id, state.val, true);
 										} else {
