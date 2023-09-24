@@ -369,21 +369,25 @@ class Tibberlink extends utils.Adapter {
 						) {
 							if (this.config.CalculatorList[calcChannel].chHomeID === homeIDToMatch) {
 								switch (settingType) {
-									case 'Active':
+									case "Active":
 										// Update .chActive based on state.val if it's a boolean
-										if (typeof state.val === 'boolean') {
+										if (typeof state.val === "boolean") {
 											this.config.CalculatorList[calcChannel].chActive = state.val;
-											this.log.debug(`home: ${homeIDToMatch} channel: ${calcChannel} Active: ${this.config.CalculatorList[calcChannel].chActive}`);
+											this.log.debug(
+												`home: ${homeIDToMatch} channel: ${calcChannel} Active: ${this.config.CalculatorList[calcChannel].chActive}`,
+											);
 											this.setStateAsync(id, state.val, true);
 										} else {
 											this.log.debug(`Wrong type for chActive: ${state.val}`);
 										}
 										break;
-									case 'TriggerPrice':
+									case "TriggerPrice":
 										// Update .chTriggerPrice based on state.val if it's a number
-										if (typeof state.val === 'number') {
+										if (typeof state.val === "number") {
 											this.config.CalculatorList[calcChannel].chTriggerPrice = state.val;
-											this.log.debug(`home: ${homeIDToMatch} channel: ${calcChannel} TriggerPrice: ${this.config.CalculatorList[calcChannel].chTriggerPrice}`);
+											this.log.debug(
+												`home: ${homeIDToMatch} channel: ${calcChannel} TriggerPrice: ${this.config.CalculatorList[calcChannel].chTriggerPrice}`,
+											);
 											this.setStateAsync(id, state.val, true);
 										} else {
 											this.log.debug(`Wrong type for chTriggerPrice: ${state.val}`);
