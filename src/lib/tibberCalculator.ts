@@ -26,5 +26,4 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.warn(this.generateErrorMessage(error, "setup of states for calculator"));
 		}
 	}
-
 }
