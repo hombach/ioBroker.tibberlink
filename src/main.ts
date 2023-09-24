@@ -362,11 +362,7 @@ class Tibberlink extends utils.Adapter {
 						const calcChannel = parseInt(statePath[5]);
 						const settingType = statePath[6];
 						this.log.debug(`home: ${homeIDToMatch} channel: ${calcChannel} type: ${settingType}`);
-						if (
-							!isNaN(calcChannel) &&
-							calcChannel < this.config.CalculatorList.length &&
-							settingType !== undefined
-						) {
+						if (!isNaN(calcChannel) && calcChannel < this.config.CalculatorList.length && settingType !== undefined) {
 							if (this.config.CalculatorList[calcChannel].chHomeID === homeIDToMatch) {
 								switch (settingType) {
 									case "Active":
