@@ -368,13 +368,46 @@ class Tibberlink extends utils.Adapter {
                 if (!state.ack) {
                     if (id.includes(`.Calculations.`)) {
                         const statePath = id.split(".");
-                        this.log.debug(`home: ${statePath[3]} channel: ${statePath[5]} type: ${statePath[6]}`);
-                        //this.config.CalculatorList.
+                        const homeIDToMatch = statePath[3];
+                        const calcChannel = parseInt(statePath[5]);
+                        const settingType = statePath[6];
+                        this.log.debug(`home: ${homeIDToMatch} channel: ${calcChannel} type: ${settingType}`);
+                        if (!isNaN(calcChannel) &&
+                            calcChannel < this.config.CalculatorList.length &&
+                            settingType !== undefined) {
+                            if (this.config.CalculatorList[calcChannel].chHomeID === homeIDToMatch) {
+                                switch (settingType) {
+                                    case 'Active':
+                                        // Update .chActive based on state.val if it's a boolean
+                                        if (typeof state.val === 'boolean') {
+                                            this.config.CalculatorList[calcChannel].chActive = state.val;
+                                            this.log.debug(`home: ${homeIDToMatch} channel: ${calcChannel} Active: ${this.config.CalculatorList[calcChannel].chActive}`);
+                                            this.setStateAsync(id, state.val, true);
+                                        }
+                                        else {
+                                            this.log.debug(`Wrong type for chActive: ${state.val}`);
+                                        }
+                                        break;
+                                    case 'TriggerPrice':
+                                        // Update .chTriggerPrice based on state.val if it's a number
+                                        if (typeof state.val === 'number') {
+                                            this.config.CalculatorList[calcChannel].chTriggerPrice = state.val;
+                                            this.log.debug(`home: ${homeIDToMatch} channel: ${calcChannel} TriggerPrice: ${this.config.CalculatorList[calcChannel].chTriggerPrice}`);
+                                            this.setStateAsync(id, state.val, true);
+                                        }
+                                        else {
+                                            this.log.debug(`Wrong type for chTriggerPrice: ${state.val}`);
+                                        }
+                                        break;
+                                    default:
+                                        this.log.debug(`unknown Value for setting type: ${settingType}`);
+                                }
+                            }
+                            else {
+                                this.log.debug(`wrong indexvalues in state ID or missing value for settingType.`);
+                            }
+                        }
                     }
-                    /*
-                    ChargeNOW = await this.asyncGetStateVal('Settings.ChargeNOW'); // Get charging override trigger
-                    this.setStateAsync('Settings.ChargeNOW', ChargeNOW, true);
-                    */
                 }
             }
             else {

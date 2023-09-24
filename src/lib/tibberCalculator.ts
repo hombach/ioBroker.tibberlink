@@ -10,13 +10,13 @@ export class TibberCalculator extends TibberHelper {
 		try {
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
-				0.0,
+				this.adapter.config.CalculatorList[parseInt(channel)].chTriggerPrice,
 				"pricelevel to trigger this channel at",
 				true,
 			);
 			this.checkAndSetValueBoolean(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`),
-				false,
+				this.adapter.config.CalculatorList[parseInt(channel)].chActive,
 				"Whether the calculation channel is active",
 				true,
 			);
