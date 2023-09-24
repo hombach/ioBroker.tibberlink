@@ -116,10 +116,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             this.currentHomeId = homeId;
             if (pricesTomorrow.length === 0) {
                 // pricing not known, before about 13:00 - delete the states
-                this.adapter.log.debug(`Emptying PricesTomorrow cause existing ones are obsolete...`);
+                this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
                 for (let hour = 0; hour < 24; hour++) {
                     this.emptyingPrice(`PricesTomorrow.${hour}`);
                 }
+                this.emptyingPriceAverage(`PricesTomorrow.average`);
             }
             else if (pricesTomorrow) {
                 // pricing known, after about 13:00 - write the states
@@ -165,6 +166,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), 0, "Spotmarket price");
         this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), 0, "The tax part of the price (energy tax, VAT, etc.)");
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
+    }
+    emptyingPriceAverage(objectDestination) {
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0, "The todays total price average");
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), 0, "The todays avarage spotmarket price");
+        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), 0, "The todays avarage tax price");
     }
     fetchAddress(objectDestination, address) {
         this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "address1"), address.address1);
