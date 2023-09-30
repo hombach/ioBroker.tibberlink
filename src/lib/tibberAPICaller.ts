@@ -5,8 +5,7 @@ import { IContactInfo } from "tibber-api/lib/src/models/IContactInfo";
 import { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { TibberHelper } from "./tibberHelper";
-import { IHomeInfo } from './tibberHelper';
-
+import { IHomeInfo } from "./tibberHelper";
 
 export class TibberAPICaller extends TibberHelper {
 	tibberConfig: IConfig;
@@ -19,7 +18,6 @@ export class TibberAPICaller extends TibberHelper {
 		this.tibberQuery = new TibberQuery(this.tibberConfig, 60000);
 		this.currentHomeId = "";
 	}
-
 
 	async updateHomesFromAPI(): Promise<IHomeInfo[]> {
 		try {
