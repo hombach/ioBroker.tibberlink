@@ -4,7 +4,17 @@
 		"version": "0.4.2",
 		"news": {
 			"0.4.2": {
-				"en": "Lots of dependency updates"
+				"en": "Lots of dependency updates; code optimizations",
+				"de": "Viele Abhängigkeitsaktualisierungen; Codeoptimierungen",
+				"ru": "Много обновлений зависимостей; оптимизация кода",
+				"pt": "Muitas atualizações de dependências; otimizações de código",
+				"nl": "Veel afhankelijkheidsupdates; code-optimalisaties",
+				"fr": "Beaucoup de mises à jour de dépendances ; optimisations du code",
+				"it": "Molteplici aggiornamenti delle dipendenze; ottimizzazioni del codice",
+				"es": "Muchas actualizaciones de dependencias; optimizaciones del código",
+				"pl": "Wiele aktualizacji zależności; optymalizacje kodu",
+				"uk": "Багато оновлень залежностей; оптимізація коду",
+				"zh-cn": "许多依赖项更新；代码优化"
 			},
 			"0.4.1": {
 				"en": "Hardened 2 typeerrors recognitioned by Sentry; fix error of not deleted averages of tomorrow pricing (#95)",
@@ -239,19 +249,6 @@
 				"pl": "BREAKING – szyfrowany interfejs API-Token w ioBrokera, opcja konfiguracji; uruchliwy błąd w pokoleniu stanów",
 				"uk": "BREAKING: зашифрований API-Token в ioBroker; параметри перепланованої конфігурації; фіксована помилка в державному генеруванні",
 				"zh-cn": "BREAKRE: 加密的API-Token inio Broker;重新安排的备选办法;国家代代用的固定配件。"
-			},
-			"0.1.2": {
-				"en": "round grid consumption meter values to Wh accuracy",
-				"de": "rundgitter-Verbrauchsmesswerte zur Wh-Genauigkeit",
-				"ru": "круглые значения счетчика потребления сетки для точности Wh",
-				"pt": "valores do medidor de consumo de grade redonda para a precisão de Wh",
-				"nl": "rond de grid consumptiemeter waarden aan Wh accurateur",
-				"fr": "valeurs des compteurs de consommation de grille ronde à la précision Wh",
-				"it": "valori del contatore di consumo della griglia tonda alla precisione Wh",
-				"es": "valores del medidor de rejilla redonda a la precisión Wh",
-				"pl": "okrągłe zużycie liczników do dokładności Wh",
-				"uk": "значення лічильника потужності круглої сітки до точності wh",
-				"zh-cn": "圆电网消费参数值"
 			}
 		},
 		"messages": [
