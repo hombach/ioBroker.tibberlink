@@ -1,5 +1,14 @@
 import * as utils from "@iobroker/adapter-core";
 
+export interface IHomeInfo {
+	ID: string;
+	NameInApp: string;
+	RealTime: boolean;
+	FeedActive: boolean;
+	//FeedReconnectTime: number;
+	//FeedReconnectCount: number;
+}
+
 export class TibberHelper {
 	adapter: utils.AdapterInstance;
 

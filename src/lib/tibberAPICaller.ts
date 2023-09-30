@@ -5,6 +5,8 @@ import { IContactInfo } from "tibber-api/lib/src/models/IContactInfo";
 import { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { TibberHelper } from "./tibberHelper";
+import { IHomeInfo } from './tibberHelper';
+
 
 export class TibberAPICaller extends TibberHelper {
 	tibberConfig: IConfig;
@@ -18,11 +20,12 @@ export class TibberAPICaller extends TibberHelper {
 		this.currentHomeId = "";
 	}
 
-	async updateHomesFromAPI(): Promise<{ ID: string; NameInApp: string; RealTime: boolean; FeedActive: boolean }[]> {
+
+	async updateHomesFromAPI(): Promise<IHomeInfo[]> {
 		try {
 			const Homes = await this.tibberQuery.getHomes();
 			this.adapter.log.debug(`Got homes from tibber api: ${JSON.stringify(Homes)}`);
-			const homeInfoList: { ID: string; NameInApp: string; RealTime: boolean; FeedActive: boolean }[] = [];
+			const homeInfoList: IHomeInfo[] = [];
 			for (const index in Homes) {
 				const currentHome = Homes[index];
 				this.currentHomeId = currentHome.id;
@@ -31,6 +34,9 @@ export class TibberAPICaller extends TibberHelper {
 					NameInApp: currentHome.appNickname,
 					RealTime: currentHome.features.realTimeConsumptionEnabled,
 					FeedActive: false,
+					//FeedReconnectTime: 6000,
+					//FeedReconnectCount: 0,
+
 				});
 				// Set HomeId in tibberConfig for further API Calls
 				this.tibberConfig.homeId = this.currentHomeId;

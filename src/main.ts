@@ -4,19 +4,11 @@ import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
 import { TibberCalculator } from "./lib/tibberCalculator";
-
-interface typeHomeInfo {
-	ID: string;
-	NameInApp: string;
-	RealTime: boolean;
-	FeedActive: boolean;
-	//FeedReconnectTime: number;
-	//FeedReconnectCount: number;
-}
+import { IHomeInfo } from './lib/tibberHelper';
 
 class Tibberlink extends utils.Adapter {
 	intervalList: any[]; // intervalList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
-	homeInfoList: typeHomeInfo[] = [];
+	homeInfoList: IHomeInfo[] = [];
 	queryUrl: string = "";
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
