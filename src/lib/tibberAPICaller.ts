@@ -34,9 +34,6 @@ export class TibberAPICaller extends TibberHelper {
 					NameInApp: currentHome.appNickname,
 					RealTime: currentHome.features.realTimeConsumptionEnabled,
 					FeedActive: false,
-					//FeedReconnectTime: 6000,
-					//FeedReconnectCount: 0,
-
 				});
 				// Set HomeId in tibberConfig for further API Calls
 				this.tibberConfig.homeId = this.currentHomeId;

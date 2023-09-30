@@ -5,8 +5,6 @@ export interface IHomeInfo {
 	NameInApp: string;
 	RealTime: boolean;
 	FeedActive: boolean;
-	//FeedReconnectTime: number;
-	//FeedReconnectCount: number;
 }
 
 export class TibberHelper {
