@@ -53,7 +53,7 @@ class Tibberlink extends utils.Adapter {
         if (!this.config.TibberAPIToken) {
             // No Token defined in configuration
             this.log.warn(`Missing API Token - please check configuration`);
-            this.setState("info.connection", false, true);
+            this.setState(`info.connection`, false, true);
         }
         else {
             // Need 2 configs - API and Feed (feed changed query url)
@@ -400,7 +400,7 @@ class Tibberlink extends utils.Adapter {
                                 }
                             }
                             else {
-                                this.log.debug(`wrong indexvalues in state ID or missing value for settingType.`);
+                                this.log.debug(`wrong index values in state ID or missing value for settingType`);
                             }
                         }
                     }

@@ -5,9 +5,18 @@ import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberPulse } from "./lib/tibberPulse";
 import { TibberCalculator } from "./lib/tibberCalculator";
 
+interface typeHomeInfo {
+	ID: string;
+	NameInApp: string;
+	RealTime: boolean;
+	FeedActive: boolean;
+	//FeedReconnectTime: number;
+	//FeedReconnectCount: number;
+}
+
 class Tibberlink extends utils.Adapter {
 	intervalList: any[]; // intervalList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
-	homeInfoList: { ID: string; NameInApp: string; RealTime: boolean; FeedActive: boolean }[] = [];
+	homeInfoList: typeHomeInfo[] = [];
 	queryUrl: string = "";
 
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
@@ -33,7 +42,7 @@ class Tibberlink extends utils.Adapter {
 		if (!this.config.TibberAPIToken) {
 			// No Token defined in configuration
 			this.log.warn(`Missing API Token - please check configuration`);
-			this.setState("info.connection", false, true);
+			this.setState(`info.connection`, false, true);
 		} else {
 			// Need 2 configs - API and Feed (feed changed query url)
 			const tibberConfigAPI: IConfig = {
@@ -391,7 +400,7 @@ class Tibberlink extends utils.Adapter {
 										this.log.debug(`unknown Value for setting type: ${settingType}`);
 								}
 							} else {
-								this.log.debug(`wrong indexvalues in state ID or missing value for settingType.`);
+								this.log.debug(`wrong index values in state ID or missing value for settingType`);
 							}
 						}
 					}
