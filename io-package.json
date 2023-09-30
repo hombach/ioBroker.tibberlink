@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.4.1",
+		"version": "0.4.2",
 		"news": {
+			"0.4.2": {
+				"en": "Lots of dependency updates"
+			},
 			"0.4.1": {
 				"en": "Hardened 2 typeerrors recognitioned by Sentry; fix error of not deleted averages of tomorrow pricing (#95)",
 				"de": "Verstärkte 2 Typfehler erkannt von Sentry; Fehler behoben, nicht gelöschte Durchschnittswerte der morgigen Preisgestaltung (#95)",

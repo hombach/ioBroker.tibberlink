@@ -36,6 +36,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 0.4.2 (2023-10-0x)WORK in PROGRESS!!
+* (HombachC) Lots of dependency updates
 ### 0.4.1 (2023-09-24)
 * (HombachC) Hardened 2 typeerrors uppon sentry recognition
 * (HombachC) Fix error with not deleted averages of tomorrow pricing (#95)
