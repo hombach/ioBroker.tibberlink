@@ -66,15 +66,6 @@ class Tibberlink extends utils.Adapter {
             };
             // Now read homes list from API
             const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
-            /*const tibberConfigFeed: IConfig = {
-                active: true,
-                apiEndpoint: {
-                    apiKey: this.config.TibberAPIToken,
-                    queryUrl: this.queryUrl,
-                },
-            };*/
-            // Now read homes list from API
-            // moved in 0.4.2 const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
                 if (this.config.HomesList.length > 0) {
@@ -219,6 +210,7 @@ class Tibberlink extends utils.Adapter {
                 this.intervalList.push(energyPricesListUpdateInterval);
                 // If user uses live feed - start feed connection
                 if (this.homeInfoList.some((info) => info.FeedActive)) {
+                    // array with configs of feeds, init with base data set
                     const tibberFeedConfigs = Array.from({ length: this.homeInfoList.length }, () => {
                         return {
                             active: true,
@@ -226,6 +218,7 @@ class Tibberlink extends utils.Adapter {
                                 apiKey: this.config.TibberAPIToken,
                                 queryUrl: this.queryUrl,
                             },
+                            timestamp: true,
                         };
                     });
                     const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
@@ -235,7 +228,6 @@ class Tibberlink extends utils.Adapter {
                             try {
                                 // define the fields for datafeed
                                 tibberFeedConfigs[index].homeId = this.homeInfoList[index].ID;
-                                tibberFeedConfigs[index].timestamp = true;
                                 tibberFeedConfigs[index].power = true;
                                 if (this.config.FeedConfigLastMeterConsumption) {
                                     tibberFeedConfigs[index].lastMeterConsumption = true;

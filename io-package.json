@@ -4,17 +4,17 @@
 		"version": "0.4.2",
 		"news": {
 			"0.4.2": {
-				"en": "Lots of dependency updates; code optimizations",
-				"de": "Viele Abhängigkeitsaktualisierungen; Codeoptimierungen",
-				"ru": "Много обновлений зависимостей; оптимизация кода",
-				"pt": "Muitas atualizações de dependências; otimizações de código",
-				"nl": "Veel afhankelijkheidsupdates; code-optimalisaties",
-				"fr": "Beaucoup de mises à jour de dépendances ; optimisations du code",
-				"it": "Molteplici aggiornamenti delle dipendenze; ottimizzazioni del codice",
-				"es": "Muchas actualizaciones de dependencias; optimizaciones del código",
-				"pl": "Wiele aktualizacji zależności; optymalizacje kodu",
-				"uk": "Багато оновлень залежностей; оптимізація коду",
-				"zh-cn": "许多依赖项更新；代码优化"
+				"en": "Fixed error with polling multiple homes live data (#108)",
+				"de": "Behobener Fehler beim Abrufen von Live-Daten für mehrere Häuser (#108)",
+				"ru": "Исправлена ошибка при опросе данных в реальном времени для нескольких домов (#108)",
+				"pt": "Erro corrigido na coleta de dados ao vivo de várias residências (#108)",
+				"nl": "Fout opgelost bij het poll van livegegevens van meerdere huizen (#108)",
+				"fr": "Erreur corrigée lors de la collecte de données en direct de plusieurs maisons (#108)",
+				"it": "Errore corretto nella raccolta dei dati in tempo reale di diverse abitazioni (#108)",
+				"es": "Error corregido en la recopilación de datos en tiempo real de múltiples hogares (#108)",
+				"pl": "Naprawiono błąd podczas zbierania danych na żywo z wielu domów (#108)",
+				"uk": "Виправлено помилку при опитуванні даних в реальному часі для декількох будинків (#108)",
+				"zh-cn": "修复了多个家庭实时数据轮询错误 (#108)"
 			},
 			"0.4.1": {
 				"en": "Hardened 2 typeerrors recognitioned by Sentry; fix error of not deleted averages of tomorrow pricing (#95)",
@@ -254,9 +254,7 @@
 		"messages": [
 			{
 				"condition": {
-					"rules": [
-						"oldVersion <= 0.3.0"
-					]
+					"rules": ["oldVersion <= 0.3.0"]
 				},
 				"title": {
 					"en": "Important notice!",
@@ -285,7 +283,7 @@
 					"zh-cn": "皮尔西人生活数据集成已改变! 你们必须把它重新纳入组合! 现在,你可以为每一个家庭提供或可分割的东西。."
 				},
 				"level": "warn",
-				"buttons": [ "ok" ]
+				"buttons": ["ok"]
 			}
 		],
 		"titleLang": {
@@ -314,8 +312,8 @@
 			"uk": "Посилання на дані Tibber API для використання в ioBroker",
 			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
 		},
-		"authors": [ "Hombach <TibberLink@homba.ch>" ],
-		"keywords": [ "power", "energy", "Tibber" ],
+		"authors": ["Hombach <TibberLink@homba.ch>"],
+		"keywords": ["power", "energy", "Tibber"],
 		"license": "GPL-3.0-only",
 		"platform": "Javascript/Node.js",
 		"main": "build/main.js",
