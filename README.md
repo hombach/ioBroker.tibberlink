@@ -42,7 +42,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ### 0.4.2 (2023-10-0x)WORK in PROGRESS!!
 
--   (HombachC) stopping adapter without defined API key
+-   (HombachC) Lots of dependency updates; code optimizations
 
 ### 0.4.1 (2023-09-24)
 
