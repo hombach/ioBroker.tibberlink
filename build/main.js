@@ -26,8 +26,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
-const tibberPulse_1 = require("./lib/tibberPulse");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
+const tibberPulse_1 = require("./lib/tibberPulse");
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
         super({
@@ -52,259 +52,270 @@ class Tibberlink extends utils.Adapter {
         // Reset the connection indicator during startup;
         if (!this.config.TibberAPIToken) {
             // No Token defined in configuration
-            this.log.warn(`Missing API Token - please check configuration`);
+            this.log.error(`Missing API Token - please check configuration`);
+            this.log.error(`Adapter will be stopped`);
             this.setState(`info.connection`, false, true);
+            this.stop;
         }
-        else {
-            // Need 2 configs - API and Feed (feed changed query url)
-            const tibberConfigAPI = {
-                active: true,
-                apiEndpoint: {
-                    apiKey: this.config.TibberAPIToken,
-                    queryUrl: this.queryUrl,
-                },
-            };
-            const tibberConfigFeed = {
-                active: true,
-                apiEndpoint: {
-                    apiKey: this.config.TibberAPIToken,
-                    queryUrl: this.queryUrl,
-                },
-            };
-            // Now read homes list from API
-            const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
-            try {
-                this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
-                if (this.config.HomesList.length > 0) {
-                    //are there feeds configured to be used??
-                    if (this.homeInfoList.length > 0) {
-                        //set data in homeinfolist according to config data
-                        const result = [];
-                        for (const home of this.config.HomesList) {
-                            const matchingHomeInfo = this.homeInfoList.find((info) => info.ID === home.homeID);
-                            if (!matchingHomeInfo) {
-                                this.log.error(`Configured feed for Home ID: ${home.homeID} not found in current data from Tibber server - delete the configuration line or verify any faults in your Tibber connection`);
-                                continue;
-                            }
-                            if (result.some((info) => info.ID === matchingHomeInfo.ID)) {
-                                this.log.warn(`Double configuration of Home ID: ${home.homeID} found - please remove obsolete line in config - data of first instance will be used`);
-                                continue;
-                            }
-                            matchingHomeInfo.FeedActive = home.feedActive;
-                            result.push(matchingHomeInfo);
-                        }
-                        for (const index in this.homeInfoList) {
-                            this.log.debug(`FeedConfig for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`);
-                        }
-                    }
-                }
-                else {
-                    this.log.warn(`No configuration of Tibber Pulse feeds found! Please configure to get live data - or configure your home(s) to discard live data`);
-                }
-            }
-            catch (error) {
-                this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes from Tibber-Server"));
-            }
-            // if feed is not used - set info.connection if data received
-            if (this.config.HomesList?.every((info) => !info.feedActive)) {
+        // Need 2 configs - API and Feed (feed changed query url)
+        const tibberConfigAPI = {
+            active: true,
+            apiEndpoint: {
+                apiKey: this.config.TibberAPIToken,
+                queryUrl: this.queryUrl,
+            },
+        };
+        // Now read homes list from API
+        const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
+        /*const tibberConfigFeed: IConfig = {
+            active: true,
+            apiEndpoint: {
+                apiKey: this.config.TibberAPIToken,
+                queryUrl: this.queryUrl,
+            },
+        };*/
+        // Now read homes list from API
+        // moved in 0.4.2 const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
+        try {
+            this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
+            if (this.config.HomesList.length > 0) {
+                //are there feeds configured to be used??
                 if (this.homeInfoList.length > 0) {
-                    this.setState("info.connection", true, true);
-                    this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
-                }
-                else {
-                    this.setState("info.connection", false, true);
-                    this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
-                }
-            }
-            // sentry.io ping
-            if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
-                const sentryInstance = this.getPluginInstance("sentry");
-                const today = new Date();
-                const last = await this.getStateAsync("info.LastSentryLogDay");
-                if (last?.val != (await today.getDate())) {
-                    if (sentryInstance) {
-                        const Sentry = sentryInstance.getSentryObject();
-                        Sentry &&
-                            Sentry.withScope((scope) => {
-                                scope.setLevel("info");
-                                scope.setTag("SentryDay", today.getDate());
-                                scope.setTag("HomeIDs", this.homeInfoList.length);
-                                Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
-                            });
+                    //set data in homeinfolist according to config data
+                    const result = [];
+                    for (const home of this.config.HomesList) {
+                        const matchingHomeInfo = this.homeInfoList.find((info) => info.ID === home.homeID);
+                        if (!matchingHomeInfo) {
+                            this.log.error(`Configured feed for Home ID: ${home.homeID} not found in current data from Tibber server - delete the configuration line or verify any faults in your Tibber connection`);
+                            continue;
+                        }
+                        if (result.some((info) => info.ID === matchingHomeInfo.ID)) {
+                            this.log.warn(`Double configuration of Home ID: ${home.homeID} found - please remove obsolete line in config - data of first instance will be used`);
+                            continue;
+                        }
+                        matchingHomeInfo.FeedActive = home.feedActive;
+                        result.push(matchingHomeInfo);
                     }
-                    // this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
-                    this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
+                    for (const index in this.homeInfoList) {
+                        this.log.debug(`FeedConfig for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`);
+                    }
                 }
             }
-            // if no homeIDs available - adapter can't do that much and restarts
-            if (this.homeInfoList.length === 0) {
-                this.log.warn("Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes");
-                const adapterrestart = this.setInterval(() => {
-                    this.restart();
-                }, 120000);
-                this.intervalList.push(adapterrestart);
+            else {
+                this.log.warn(`No configuration of Tibber Pulse feeds found! Please configure to get live data - or configure your home(s) to discard live data`);
             }
-            // if there are any homes the adapter will do something
-            // Init load data and calculator for all homes
+        }
+        catch (error) {
+            this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes from Tibber-Server"));
+        }
+        // if feed is not used - set info.connection if data received
+        if (this.config.HomesList?.every((info) => !info.feedActive)) {
             if (this.homeInfoList.length > 0) {
-                const tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
-                // Set up calculation channel states if configured
-                if (this.config.UseCalculator) {
-                    try {
-                        this.log.debug(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
-                        for (const index in this.config.CalculatorList) {
-                            await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[index].chHomeID, index);
-                        }
-                    }
-                    catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculator states"));
+                this.setState("info.connection", true, true);
+                this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
+            }
+            else {
+                this.setState("info.connection", false, true);
+                this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
+            }
+        }
+        // sentry.io ping
+        if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
+            const sentryInstance = this.getPluginInstance("sentry");
+            const today = new Date();
+            const last = await this.getStateAsync("info.LastSentryLogDay");
+            if (last?.val != (await today.getDate())) {
+                if (sentryInstance) {
+                    const Sentry = sentryInstance.getSentryObject();
+                    Sentry &&
+                        Sentry.withScope((scope) => {
+                            scope.setLevel("info");
+                            scope.setTag("SentryDay", today.getDate());
+                            scope.setTag("HomeIDs", this.homeInfoList.length);
+                            Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
+                        });
+                }
+                // this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
+                this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
+            }
+        }
+        // if no homeIDs available - adapter can't do that much and restarts
+        if (this.homeInfoList.length === 0) {
+            this.log.warn("Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes");
+            const adapterrestart = this.setInterval(() => {
+                this.restart();
+            }, 120000);
+            this.intervalList.push(adapterrestart);
+        }
+        // if there are any homes the adapter will do something
+        // Init load data and calculator for all homes
+        if (this.homeInfoList.length > 0) {
+            const tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
+            // Set up calculation channel states if configured
+            if (this.config.UseCalculator) {
+                try {
+                    this.log.debug(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
+                    for (const index in this.config.CalculatorList) {
+                        await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[index].chHomeID, index);
                     }
                 }
-                // Get prices for the first time
+                catch (error) {
+                    this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculator states"));
+                }
+            }
+            // Get prices for the first time
+            for (const index in this.homeInfoList) {
+                // Get current price for the first time
+                try {
+                    await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
+                }
+                catch (error) {
+                    this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of current price"));
+                }
+                // Get today prices for the first time
+                try {
+                    await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+                }
+                catch (error) {
+                    this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices today"));
+                }
+                // Get tomorrow prices for the first time
+                try {
+                    await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+                }
+                catch (error) {
+                    this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices tomorrow"));
+                }
+            }
+            const energyPriceCallIntervall = this.setInterval(() => {
                 for (const index in this.homeInfoList) {
-                    // Get current price for the first time
                     try {
-                        await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
+                        tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
+                        //CalculatorBestCost
+                        //CalculatorBestSingleHours
+                        //CalculatorBestHoursBlock
                     }
                     catch (error) {
-                        this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of current price"));
-                    }
-                    // Get today prices for the first time
-                    try {
-                        await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-                    }
-                    catch (error) {
-                        this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices today"));
-                    }
-                    // Get tomorrow prices for the first time
-                    try {
-                        await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
-                    }
-                    catch (error) {
-                        this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices tomorrow"));
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));
                     }
                 }
-                const energyPriceCallIntervall = this.setInterval(() => {
-                    for (const index in this.homeInfoList) {
+            }, 300000);
+            this.intervalList.push(energyPriceCallIntervall);
+            const energyPricesListUpdateInterval = this.setInterval(() => {
+                for (const index in this.homeInfoList) {
+                    try {
+                        tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+                    }
+                    catch (error) {
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices today"));
+                    }
+                    try {
+                        tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+                    }
+                    catch (error) {
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices tomorrow"));
+                    }
+                }
+            }, 1500000);
+            this.intervalList.push(energyPricesListUpdateInterval);
+            // If user uses live feed - start feed connection
+            if (this.homeInfoList.some((info) => info.FeedActive)) {
+                const tibberFeedConfigs = Array.from({ length: this.homeInfoList.length }, () => {
+                    return {
+                        active: true,
+                        apiEndpoint: {
+                            apiKey: this.config.TibberAPIToken,
+                            queryUrl: this.queryUrl,
+                        },
+                    };
+                });
+                const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
+                for (const index in this.homeInfoList) {
+                    if (this.homeInfoList[index].FeedActive && this.homeInfoList[index].RealTime) {
+                        this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
                         try {
-                            tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
-                            //CalculatorBestCost
-                            //CalculatorBestSingleHours
-                            //CalculatorBestHoursBlock
+                            // define the fields for datafeed
+                            tibberFeedConfigs[index].homeId = this.homeInfoList[index].ID;
+                            tibberFeedConfigs[index].timestamp = true;
+                            tibberFeedConfigs[index].power = true;
+                            if (this.config.FeedConfigLastMeterConsumption) {
+                                tibberFeedConfigs[index].lastMeterConsumption = true;
+                            }
+                            if (this.config.FeedConfigAccumulatedConsumption) {
+                                tibberFeedConfigs[index].accumulatedConsumption = true;
+                            }
+                            if (this.config.FeedConfigAccumulatedProduction) {
+                                tibberFeedConfigs[index].accumulatedProduction = true;
+                            }
+                            if (this.config.FeedConfigAccumulatedConsumptionLastHour) {
+                                tibberFeedConfigs[index].accumulatedConsumptionLastHour = true;
+                            }
+                            if (this.config.FeedConfigAccumulatedProductionLastHour) {
+                                tibberFeedConfigs[index].accumulatedProductionLastHour = true;
+                            }
+                            if (this.config.FeedConfigAccumulatedCost) {
+                                tibberFeedConfigs[index].accumulatedCost = true;
+                            }
+                            if (this.config.FeedConfigAccumulatedCost) {
+                                tibberFeedConfigs[index].accumulatedReward = true;
+                            }
+                            if (this.config.FeedConfigCurrency) {
+                                tibberFeedConfigs[index].currency = true;
+                            }
+                            if (this.config.FeedConfigMinPower) {
+                                tibberFeedConfigs[index].minPower = true;
+                            }
+                            if (this.config.FeedConfigAveragePower) {
+                                tibberFeedConfigs[index].averagePower = true;
+                            }
+                            if (this.config.FeedConfigMaxPower) {
+                                tibberFeedConfigs[index].maxPower = true;
+                            }
+                            if (this.config.FeedConfigPowerProduction) {
+                                tibberFeedConfigs[index].powerProduction = true;
+                            }
+                            if (this.config.FeedConfigMinPowerProduction) {
+                                tibberFeedConfigs[index].minPowerProduction = true;
+                            }
+                            if (this.config.FeedConfigMaxPowerProduction) {
+                                tibberFeedConfigs[index].maxPowerProduction = true;
+                            }
+                            if (this.config.FeedConfigLastMeterProduction) {
+                                tibberFeedConfigs[index].lastMeterProduction = true;
+                            }
+                            if (this.config.FeedConfigPowerFactor) {
+                                tibberFeedConfigs[index].powerFactor = true;
+                            }
+                            if (this.config.FeedConfigVoltagePhase1) {
+                                tibberFeedConfigs[index].voltagePhase1 = true;
+                            }
+                            if (this.config.FeedConfigVoltagePhase2) {
+                                tibberFeedConfigs[index].voltagePhase2 = true;
+                            }
+                            if (this.config.FeedConfigVoltagePhase3) {
+                                tibberFeedConfigs[index].voltagePhase3 = true;
+                            }
+                            if (this.config.FeedConfigCurrentL1) {
+                                tibberFeedConfigs[index].currentL1 = true;
+                            }
+                            if (this.config.FeedConfigCurrentL2) {
+                                tibberFeedConfigs[index].currentL2 = true;
+                            }
+                            if (this.config.FeedConfigCurrentL3) {
+                                tibberFeedConfigs[index].currentL3 = true;
+                            }
+                            if (this.config.FeedConfigSignalStrength) {
+                                tibberFeedConfigs[index].signalStrength = true;
+                            }
+                            tibberPulseInstances[index] = new tibberPulse_1.TibberPulse(tibberFeedConfigs[index], this); //add instance to array
+                            tibberPulseInstances[index].ConnectPulseStream();
                         }
-                        catch (error) {
-                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));
+                        catch (e) {
+                            this.log.warn(e.message);
                         }
                     }
-                }, 300000);
-                this.intervalList.push(energyPriceCallIntervall);
-                const energyPricesListUpdateInterval = this.setInterval(() => {
-                    for (const index in this.homeInfoList) {
-                        try {
-                            tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-                        }
-                        catch (error) {
-                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices today"));
-                        }
-                        try {
-                            tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
-                        }
-                        catch (error) {
-                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices tomorrow"));
-                        }
-                    }
-                }, 1500000);
-                this.intervalList.push(energyPricesListUpdateInterval);
-                // If user uses live feed - start feed connection
-                if (this.homeInfoList.some((info) => info.FeedActive)) {
-                    const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
-                    for (const index in this.homeInfoList) {
-                        if (this.homeInfoList[index].FeedActive && this.homeInfoList[index].RealTime) {
-                            this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
-                            try {
-                                // define the fields for datafeed
-                                tibberConfigFeed.homeId = this.homeInfoList[index].ID;
-                                tibberConfigFeed.timestamp = true;
-                                tibberConfigFeed.power = true;
-                                if (this.config.FeedConfigLastMeterConsumption) {
-                                    tibberConfigFeed.lastMeterConsumption = true;
-                                }
-                                if (this.config.FeedConfigAccumulatedConsumption) {
-                                    tibberConfigFeed.accumulatedConsumption = true;
-                                }
-                                if (this.config.FeedConfigAccumulatedProduction) {
-                                    tibberConfigFeed.accumulatedProduction = true;
-                                }
-                                if (this.config.FeedConfigAccumulatedConsumptionLastHour) {
-                                    tibberConfigFeed.accumulatedConsumptionLastHour = true;
-                                }
-                                if (this.config.FeedConfigAccumulatedProductionLastHour) {
-                                    tibberConfigFeed.accumulatedProductionLastHour = true;
-                                }
-                                if (this.config.FeedConfigAccumulatedCost) {
-                                    tibberConfigFeed.accumulatedCost = true;
-                                }
-                                if (this.config.FeedConfigAccumulatedCost) {
-                                    tibberConfigFeed.accumulatedReward = true;
-                                }
-                                if (this.config.FeedConfigCurrency) {
-                                    tibberConfigFeed.currency = true;
-                                }
-                                if (this.config.FeedConfigMinPower) {
-                                    tibberConfigFeed.minPower = true;
-                                }
-                                if (this.config.FeedConfigAveragePower) {
-                                    tibberConfigFeed.averagePower = true;
-                                }
-                                if (this.config.FeedConfigMaxPower) {
-                                    tibberConfigFeed.maxPower = true;
-                                }
-                                if (this.config.FeedConfigPowerProduction) {
-                                    tibberConfigFeed.powerProduction = true;
-                                }
-                                if (this.config.FeedConfigMinPowerProduction) {
-                                    tibberConfigFeed.minPowerProduction = true;
-                                }
-                                if (this.config.FeedConfigMaxPowerProduction) {
-                                    tibberConfigFeed.maxPowerProduction = true;
-                                }
-                                if (this.config.FeedConfigLastMeterProduction) {
-                                    tibberConfigFeed.lastMeterProduction = true;
-                                }
-                                if (this.config.FeedConfigPowerFactor) {
-                                    tibberConfigFeed.powerFactor = true;
-                                }
-                                if (this.config.FeedConfigVoltagePhase1) {
-                                    tibberConfigFeed.voltagePhase1 = true;
-                                }
-                                if (this.config.FeedConfigVoltagePhase2) {
-                                    tibberConfigFeed.voltagePhase2 = true;
-                                }
-                                if (this.config.FeedConfigVoltagePhase3) {
-                                    tibberConfigFeed.voltagePhase3 = true;
-                                }
-                                if (this.config.FeedConfigCurrentL1) {
-                                    tibberConfigFeed.currentL1 = true;
-                                }
-                                if (this.config.FeedConfigCurrentL2) {
-                                    tibberConfigFeed.currentL2 = true;
-                                }
-                                if (this.config.FeedConfigCurrentL3) {
-                                    tibberConfigFeed.currentL3 = true;
-                                }
-                                if (this.config.FeedConfigSignalStrength) {
-                                    tibberConfigFeed.signalStrength = true;
-                                }
-                                tibberPulseInstances[index] = new tibberPulse_1.TibberPulse(tibberConfigFeed, this); // add instance to array
-                                tibberPulseInstances[index].ConnectPulseStream();
-                            }
-                            catch (e) {
-                                this.log.warn(e.message);
-                            }
-                        }
-                        else {
-                            this.log.warn("skipping feed of live data - no Pulse configured for this home according to Tibber server");
-                        }
+                    else {
+                        this.log.warn("skipping feed of live data - no Pulse configured for this home according to Tibber server");
                     }
                 }
             }
