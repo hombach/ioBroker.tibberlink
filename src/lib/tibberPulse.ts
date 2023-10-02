@@ -1,5 +1,5 @@
-import { TibberFeed, IConfig, TibberQuery } from "tibber-api";
 import * as utils from "@iobroker/adapter-core";
+import { IConfig, TibberFeed, TibberQuery } from "tibber-api";
 import { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement";
 import { TibberHelper } from "./tibberHelper";
 
@@ -32,7 +32,6 @@ export class TibberPulse extends TibberHelper {
 		} catch (e) {
 			this.adapter.log.warn(`Error on Feed closed: ${(e as Error).message}`);
 		}
-
 		// reinit Tibberfeed
 		this.tibberFeed = new TibberFeed(new TibberQuery(this.tibberConfig));
 	}
