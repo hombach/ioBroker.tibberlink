@@ -17,9 +17,9 @@
 
 ## Adapter for using TIBBER energy data in iOBroker
 
-Adapter for linking data from your Tibber account API to be used in ioBroker
+Adapter for linking data from your Tibber account API to be used in ioBroker. Adapter could be used for single or multiple homes.
 
-If you're not a Tibber user right now, it's greatly appreciated when you're using my reveral link:
+If you're not a Tibber user right now, it's greatly appreciated when you're using my referal link:
 
 [https://invite.tibber.com/2gwuign3.](https://invite.tibber.com/2gwuign3.)
 
