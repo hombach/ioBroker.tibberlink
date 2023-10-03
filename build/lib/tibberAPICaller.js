@@ -40,8 +40,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.checkAndSetValueNumber(this.getStatePrefix(currentHome.id, "General", "NumberOfResidents"), currentHome.numberOfResidents, "The number of people living in the home");
                 this.checkAndSetValueNumber(this.getStatePrefix(currentHome.id, "General", "MainFuseSize"), currentHome.mainFuseSize, "The main fuse size");
                 this.checkAndSetValueBoolean(this.getStatePrefix(currentHome.id, "General", "HasVentilationSystem"), currentHome.hasVentilationSystem, "Whether the home has a ventilation system");
-                this.fetchAddress("Address", currentHome.address);
-                this.fetchLegalEntity("Owner", currentHome.owner);
+                this.fetchAddress(currentHome.id, "Address", currentHome.address);
+                this.fetchLegalEntity(currentHome.id, "Owner", currentHome.owner);
                 this.checkAndSetValueBoolean(this.getStatePrefix(currentHome.id, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
             }
             return homeInfoList;
@@ -60,7 +60,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
                 this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
                 this.currentHomeId = homeId; // POTENTIAL: needed?
-                await this.fetchPrice("CurrentPrice", currentPrice);
+                await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
             }
             else {
                 this.adapter.log.debug(`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`);
@@ -85,7 +85,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             for (const i in pricesToday) {
                 const price = pricesToday[i];
                 const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-                this.fetchPrice(`PricesToday.${hour}`, price);
+                this.fetchPrice(homeId, `PricesToday.${hour}`, price);
             }
             if (Array.isArray(pricesToday)) {
                 // Sort the array if it is an array - possible type error discovered by sentry
@@ -120,14 +120,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 for (let hour = 0; hour < 24; hour++) {
                     this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
                 }
-                this.emptyingPriceAverage(`PricesTomorrow.average`);
+                this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
             }
             else if (pricesTomorrow) {
                 // pricing known, after about 13:00 - write the states
                 for (const i in pricesTomorrow) {
                     const price = pricesTomorrow[i];
                     const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-                    this.fetchPrice("PricesTomorrow." + hour, price);
+                    this.fetchPrice(homeId, "PricesTomorrow." + hour, price);
                 }
             }
             this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), await JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
@@ -145,13 +145,13 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
         }
     }
-    fetchPrice(objectDestination, price) {
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), price.total, "The total price (energy + taxes)");
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), price.energy, "Spotmarket price");
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), price.tax, "The tax part of the price (energy tax, VAT, etc.)");
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "startsAt"), price.startsAt, "Start time of the price");
-        //this.checkAndSetValue(this.getStatePrefix(objectDestination, "currency"), price.currency, "The price currency");
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "level"), price.level, "Price level compared to recent price values");
+    fetchPrice(homeId, objectDestination, price) {
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), price.total, "Total price (energy + taxes)");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), price.energy, "Spotmarket energy price");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), price.tax, "Tax part of the price (energy, tax, VAT...)");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), price.startsAt, "Start time of the price");
+        //this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "currency"), price.currency, "The price currency");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), price.level, "Price level compared to recent price values");
     }
     fetchPriceAverage(homeId, objectDestination, price) {
         const totalSum = price.reduce((sum, item) => sum + item.total, 0);
@@ -167,40 +167,40 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "Tax part of the price (energy tax, VAT, etc.)");
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
     }
-    emptyingPriceAverage(objectDestination) {
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0, "The todays total price average");
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), 0, "The todays avarage spotmarket price");
-        this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "tax"), 0, "The todays avarage tax price");
+    emptyingPriceAverage(homeId, objectDestination) {
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price average");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "The todays avarage spotmarket price");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays avarage tax price");
     }
-    fetchAddress(objectDestination, address) {
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "address1"), address.address1);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "address2"), address.address2);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "address3"), address.address3);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "City"), address.city);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "PostalCode"), address.postalCode);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Country"), address.country);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Latitude"), address.latitude);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Longitude"), address.longitude);
+    fetchAddress(homeId, objectDestination, address) {
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address1"), address.address1);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address2"), address.address2);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address3"), address.address3);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "City"), address.city);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "PostalCode"), address.postalCode);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Country"), address.country);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Latitude"), address.latitude);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Longitude"), address.longitude);
     }
-    fetchLegalEntity(objectDestination, legalEntity) {
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Id"), legalEntity.id);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "FirstName"), legalEntity.firstName);
-        this.checkAndSetValueBoolean(this.getStatePrefix(this.currentHomeId, objectDestination, "IsCompany"), legalEntity.isCompany);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Name"), legalEntity.name);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "MiddleName"), legalEntity.middleName);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "LastName"), legalEntity.lastName);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "OrganizationNo"), legalEntity.organizationNo);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Language"), legalEntity.language);
+    fetchLegalEntity(homeId, objectDestination, legalEntity) {
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Id"), legalEntity.id);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "FirstName"), legalEntity.firstName);
+        this.checkAndSetValueBoolean(this.getStatePrefix(homeId, objectDestination, "IsCompany"), legalEntity.isCompany);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Name"), legalEntity.name);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "MiddleName"), legalEntity.middleName);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "LastName"), legalEntity.lastName);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "OrganizationNo"), legalEntity.organizationNo);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Language"), legalEntity.language);
         if (legalEntity.contactInfo) {
-            this.fetchContactInfo(objectDestination + ".ContactInfo", legalEntity.contactInfo);
+            this.fetchContactInfo(homeId, objectDestination + ".ContactInfo", legalEntity.contactInfo);
         }
         if (legalEntity.address) {
-            this.fetchAddress(objectDestination + ".Address", legalEntity.address);
+            this.fetchAddress(homeId, objectDestination + ".Address", legalEntity.address);
         }
     }
-    fetchContactInfo(objectDestination, contactInfo) {
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Email"), contactInfo.email);
-        this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, objectDestination, "Mobile"), contactInfo.mobile);
+    fetchContactInfo(homeId, objectDestination, contactInfo) {
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Email"), contactInfo.email);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Mobile"), contactInfo.mobile);
     }
 }
 exports.TibberAPICaller = TibberAPICaller;
