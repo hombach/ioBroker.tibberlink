@@ -40,7 +40,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 0.4.2 (2023-10-0x)WORK in PROGRESS!!
+### 0.4.2 (2023-10-03)
 
 -   (HombachC) fixed error with polling multiple homes live data (#108)
 -   (HombachC) Lots of dependency updates; code optimizations
