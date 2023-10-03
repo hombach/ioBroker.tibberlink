@@ -4,19 +4,18 @@ import { IAddress } from "tibber-api/lib/src/models/IAddress";
 import { IContactInfo } from "tibber-api/lib/src/models/IContactInfo";
 import { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { TibberHelper } from "./tibberHelper";
-import { IHomeInfo } from "./tibberHelper";
+import { IHomeInfo, TibberHelper } from "./tibberHelper";
 
 export class TibberAPICaller extends TibberHelper {
 	tibberConfig: IConfig;
 	tibberQuery: TibberQuery;
-	currentHomeId: string;
+	currentHomeId: string; // POTENTIAL: needed?
 
 	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
 		super(adapter);
 		this.tibberConfig = tibberConfig;
 		this.tibberQuery = new TibberQuery(this.tibberConfig, 60000);
-		this.currentHomeId = "";
+		this.currentHomeId = ""; // POTENTIAL: needed?
 	}
 
 	async updateHomesFromAPI(): Promise<IHomeInfo[]> {
@@ -26,58 +25,58 @@ export class TibberAPICaller extends TibberHelper {
 			const homeInfoList: IHomeInfo[] = [];
 			for (const index in Homes) {
 				const currentHome = Homes[index];
-				this.currentHomeId = currentHome.id;
+				this.currentHomeId = currentHome.id; // POTENTIAL: needed?
 				homeInfoList.push({
-					ID: this.currentHomeId,
+					ID: currentHome.id,
 					NameInApp: currentHome.appNickname,
 					RealTime: currentHome.features.realTimeConsumptionEnabled,
 					FeedActive: false,
 				});
 				// Set HomeId in tibberConfig for further API Calls
-				this.tibberConfig.homeId = this.currentHomeId;
+				this.tibberConfig.homeId = currentHome.id;
 				// Home GENERAL
-				this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Id"), currentHome.id, "ID of your home");
+				this.checkAndSetValue(this.getStatePrefix(currentHome.id, "General", "Id"), currentHome.id, "ID of your home");
 				this.checkAndSetValue(
-					this.getStatePrefix(this.currentHomeId, "General", "Timezone"),
+					this.getStatePrefix(currentHome.id, "General", "Timezone"),
 					currentHome.timeZone,
 					"The time zone the home resides in",
 				);
 				this.checkAndSetValue(
-					this.getStatePrefix(this.currentHomeId, "General", "NameInApp"),
+					this.getStatePrefix(currentHome.id, "General", "NameInApp"),
 					currentHome.appNickname,
 					"The nickname given to the home",
 				);
 				this.checkAndSetValue(
-					this.getStatePrefix(this.currentHomeId, "General", "AvatarInApp"),
+					this.getStatePrefix(currentHome.id, "General", "AvatarInApp"),
 					currentHome.appAvatar,
 					"The chosen app avatar for the home",
 				);
 				// Values: APARTMENT, ROWHOUSE, FLOORHOUSE1, FLOORHOUSE2, FLOORHOUSE3, COTTAGE, CASTLE
-				this.checkAndSetValue(this.getStatePrefix(this.currentHomeId, "General", "Type"), currentHome.type, "The type of home.");
+				this.checkAndSetValue(this.getStatePrefix(currentHome.id, "General", "Type"), currentHome.type, "The type of home.");
 				// Values: APARTMENT, ROWHOUSE, HOUSE, COTTAGE
 				this.checkAndSetValue(
-					this.getStatePrefix(this.currentHomeId, "General", "PrimaryHeatingSource"),
+					this.getStatePrefix(currentHome.id, "General", "PrimaryHeatingSource"),
 					currentHome.primaryHeatingSource,
 					"The primary form of heating in the home",
 				);
 				// Values: AIR2AIR_HEATPUMP, ELECTRICITY, GROUND, DISTRICT_HEATING, ELECTRIC_BOILER, AIR2WATER_HEATPUMP, OTHER
 				this.checkAndSetValueNumber(
-					this.getStatePrefix(this.currentHomeId, "General", "Size"),
+					this.getStatePrefix(currentHome.id, "General", "Size"),
 					currentHome.size,
 					"The size of the home in square meters",
 				);
 				this.checkAndSetValueNumber(
-					this.getStatePrefix(this.currentHomeId, "General", "NumberOfResidents"),
+					this.getStatePrefix(currentHome.id, "General", "NumberOfResidents"),
 					currentHome.numberOfResidents,
 					"The number of people living in the home",
 				);
 				this.checkAndSetValueNumber(
-					this.getStatePrefix(this.currentHomeId, "General", "MainFuseSize"),
+					this.getStatePrefix(currentHome.id, "General", "MainFuseSize"),
 					currentHome.mainFuseSize,
 					"The main fuse size",
 				);
 				this.checkAndSetValueBoolean(
-					this.getStatePrefix(this.currentHomeId, "General", "HasVentilationSystem"),
+					this.getStatePrefix(currentHome.id, "General", "HasVentilationSystem"),
 					currentHome.hasVentilationSystem,
 					"Whether the home has a ventilation system",
 				);
@@ -86,7 +85,7 @@ export class TibberAPICaller extends TibberHelper {
 				this.fetchLegalEntity("Owner", currentHome.owner);
 
 				this.checkAndSetValueBoolean(
-					this.getStatePrefix(this.currentHomeId, "Features", "RealTimeConsumptionEnabled"),
+					this.getStatePrefix(currentHome.id, "Features", "RealTimeConsumptionEnabled"),
 					currentHome.features.realTimeConsumptionEnabled,
 				);
 			}
@@ -105,7 +104,7 @@ export class TibberAPICaller extends TibberHelper {
 			if (!exDate || now.getHours() !== exDate.getHours()) {
 				const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
 				this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
-				this.currentHomeId = homeId;
+				this.currentHomeId = homeId; // POTENTIAL: needed?
 				await this.fetchPrice("CurrentPrice", currentPrice);
 			} else {
 				this.adapter.log.debug(
@@ -127,13 +126,9 @@ export class TibberAPICaller extends TibberHelper {
 		if (!exDate || exDate <= today) {
 			const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
 			this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
-			this.currentHomeId = homeId;
-			this.checkAndSetValue(
-				this.getStatePrefix(this.currentHomeId, "PricesToday", "json"),
-				await JSON.stringify(pricesToday),
-				"The prices today as json",
-			);
-			this.fetchPriceAverage(`PricesToday.average`, pricesToday);
+			this.currentHomeId = homeId; // POTENTIAL: needed?
+			this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), await JSON.stringify(pricesToday), "The prices today as json");
+			this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
 			for (const i in pricesToday) {
 				const price = pricesToday[i];
 				const hour = new Date(price.startsAt.substr(0, 19)).getHours();
@@ -142,14 +137,14 @@ export class TibberAPICaller extends TibberHelper {
 			if (Array.isArray(pricesToday)) {
 				// Sort the array if it is an array - possible type error discovered by sentry
 				this.checkAndSetValue(
-					this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"),
+					this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"),
 					await JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)),
 					"prices sorted by cost ascending as json",
 				);
 			} else {
 				// Handle the case when pricesToday is not an array, it's empty?, so just don't sort
 				this.checkAndSetValue(
-					this.getStatePrefix(this.currentHomeId, "PricesToday", "jsonBYpriceASC"),
+					this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"),
 					await JSON.stringify(pricesToday),
 					"prices sorted by cost ascending as json",
 				);
@@ -172,12 +167,12 @@ export class TibberAPICaller extends TibberHelper {
 		if (!exDate || exDate <= morgen) {
 			const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 			this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
-			this.currentHomeId = homeId;
+			this.currentHomeId = homeId; // POTENTIAL: needed?
 			if (pricesTomorrow.length === 0) {
 				// pricing not known, before about 13:00 - delete the states
 				this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
 				for (let hour = 0; hour < 24; hour++) {
-					this.emptyingPrice(`PricesTomorrow.${hour}`);
+					this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
 				}
 				this.emptyingPriceAverage(`PricesTomorrow.average`);
 			} else if (pricesTomorrow) {
@@ -189,26 +184,26 @@ export class TibberAPICaller extends TibberHelper {
 				}
 			}
 			this.checkAndSetValue(
-				this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "json"),
+				this.getStatePrefix(homeId, "PricesTomorrow", "json"),
 				await JSON.stringify(pricesTomorrow),
 				"The prices tomorrow as json",
 			);
 			if (Array.isArray(pricesTomorrow)) {
 				// Sort the array if it is an array - possible type error discovered by sentry
 				this.checkAndSetValue(
-					this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"),
+					this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
 					await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
 					"prices sorted by cost ascending as json",
 				);
 			} else {
 				// Handle the case when pricesToday is not an array, it's empty?, so just don't sort
 				this.checkAndSetValue(
-					this.getStatePrefix(this.currentHomeId, "PricesTomorrow", "jsonBYpriceASC"),
+					this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
 					await JSON.stringify(pricesTomorrow),
 					"prices sorted by cost ascending as json",
 				);
 			}
-			this.fetchPriceAverage(`PricesTomorrow.average`, pricesTomorrow);
+			this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
 		} else {
 			this.adapter.log.debug(
 				`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`,
@@ -237,37 +232,33 @@ export class TibberAPICaller extends TibberHelper {
 		);
 	}
 
-	private fetchPriceAverage(objectDestination: string, price: IPrice[]): void {
+	private fetchPriceAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
 		const totalSum = price.reduce((sum, item) => sum + item.total, 0);
 		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "total"),
+			this.getStatePrefix(homeId, objectDestination, "total"),
 			Math.round(1000 * (totalSum / price.length)) / 1000,
-			"The todays total price average",
+			"Todays total price average",
 		);
 		const energySum = price.reduce((sum, item) => sum + item.energy, 0);
 		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "energy"),
+			this.getStatePrefix(homeId, objectDestination, "energy"),
 			Math.round(1000 * (energySum / price.length)) / 1000,
-			"The todays avarage spotmarket price",
+			"Todays avarage spotmarket price",
 		);
 		const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
 		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "tax"),
+			this.getStatePrefix(homeId, objectDestination, "tax"),
 			Math.round(1000 * (taxSum / price.length)) / 1000,
-			"The todays avarage tax price",
+			"Todays avarage tax price",
 		);
 	}
 
-	private emptyingPrice(objectDestination: string): void {
-		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "total"), 0, "The total price (energy + taxes)");
-		this.checkAndSetValueNumber(this.getStatePrefix(this.currentHomeId, objectDestination, "energy"), 0, "Spotmarket price");
-		this.checkAndSetValueNumber(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "tax"),
-			0,
-			"The tax part of the price (energy tax, VAT, etc.)",
-		);
+	private emptyingPrice(homeId: string, objectDestination: string): void {
+		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The total price (energy + taxes)");
+		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "Spotmarket price");
+		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "Tax part of the price (energy tax, VAT, etc.)");
 		this.checkAndSetValue(
-			this.getStatePrefix(this.currentHomeId, objectDestination, "level"),
+			this.getStatePrefix(homeId, objectDestination, "level"),
 			"Not known now",
 			"Price level compared to recent price values",
 		);

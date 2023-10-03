@@ -1,8 +1,23 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "0.4.2",
+		"version": "1.0.0",
 		"news": {
+			"1.0.0": {
+				"NeueVersion": {
+					"en": "Increase to the first major release, as now a stable level is reached",
+					"de": "Anhebung auf die erste Hauptversion, da nun ein stabiles Niveau erreicht ist",
+					"ru": "Повышение до первого основного релиза, так как теперь достигнут стабильный уровень",
+					"pt": "Elevar para o primeiro lançamento principal, uma vez que agora atingiu um nível estável",
+					"nl": "Verhoging naar de eerste grote release, omdat nu een stabiel niveau is bereikt",
+					"fr": "Passage à la première version majeure, car un niveau stable est désormais atteint",
+					"it": "Aumento alla prima release principale, poiché ora è stato raggiunto un livello stabile",
+					"es": "Aumentar a la primera versión principal, ya que ahora se ha alcanzado un nivel estable",
+					"pl": "Zwiększenie do pierwszej głównej wersji, ponieważ teraz osiągnięto stabilny poziom",
+					"uk": "Підвищення до першої основної версії, оскільки тепер досягнуто стабільного рівня",
+					"zh-cn": "提升到第一个主要发布版，因为现在已经达到了稳定水平"
+				}
+			},
 			"0.4.2": {
 				"en": "Fixed error with polling multiple homes live data (#108)",
 				"de": "Behobener Fehler beim Abrufen von Live-Daten für mehrere Häuser (#108)",
