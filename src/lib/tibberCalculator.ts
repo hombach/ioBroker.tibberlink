@@ -6,23 +6,24 @@ export class TibberCalculator extends TibberHelper {
 		super(adapter);
 	}
 
-	async setupCalculatorStates(homeId: string, channel: string): Promise<void> {
+	async setupCalculatorStates(homeId: string, channel: number): Promise<void> {
 		try {
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
-				this.adapter.config.CalculatorList[parseInt(channel)].chTriggerPrice,
+				this.adapter.config.CalculatorList[channel].chTriggerPrice,
 				`pricelevel to trigger this channel at`,
 				true,
 			);
+			this.adapter.log.debug(`Setting up TriggerPrice for ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
 			this.checkAndSetValueBoolean(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`),
-				this.adapter.config.CalculatorList[parseInt(channel)].chActive,
+				this.adapter.config.CalculatorList[channel].chActive,
 				`Whether the calculation channel is active`,
 				true,
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`),
-				this.adapter.config.CalculatorList[parseInt(channel)].chAmountHours,
+				this.adapter.config.CalculatorList[channel].chAmountHours,
 				`amount of hours to trigger this channel`,
 				true,
 			);
