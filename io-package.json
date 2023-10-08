@@ -240,19 +240,6 @@
 				"uk": "оптимізуйте список фетешних будинків (#32) після помилки сервера Tibber",
 				"zh-cn": "在Tibber服务器错误之后,优化住房名单(32)"
 			},
-			"0.1.6": {
-				"en": "add units for live data, bump adapter-core to 3.x",
-				"de": "hinzufügen von Einheiten für Live-Daten, adapter-core Update auf 3.x",
-				"ru": "добавьте блоки для живых данных, bump adapter-core до 3.x",
-				"pt": "adicionar unidades para dados ao vivo, bater o núcleo do adaptador para 3.x",
-				"nl": "voeg eenheden toe voor live gegevens, bot adaptercore tot 3.x",
-				"fr": "ajouter des unités pour les données en direct, adaptateur de bosse à 3.x",
-				"it": "aggiungere unità per dati dal vivo, urtare adattatore-core a 3.x",
-				"es": "añadir unidades para datos en vivo, adaptador de parachoques a 3.x",
-				"pl": "dodanie do danych na żywo, adapter-core",
-				"uk": "до 3.x",
-				"zh-cn": "增加生活数据单位,使倾销者适应3.x"
-			},
 			"0.1.4": {
 				"en": "BREAKING: encrypted API-Token in ioBroker; rearranged configuration options; fixed bug in state generation",
 				"de": "BREAKING: verschlüsselte API-Token in ioBroker; erweiterte Konfigurationsoptionen; Fehler in der Zustandsgeneration behoben",
