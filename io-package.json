@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"news": {
+			"1.0.1": {
+				"en": "WORK in PROGRESS"
+			},
 			"1.0.0": {
 				"en": "Increase to the first major release, as now a stable level is reached",
 				"de": "Anhebung auf die erste Hauptversion, da nun ein stabiles Niveau erreicht ist",
