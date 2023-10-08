@@ -33,6 +33,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else {
                 this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, this.adapter.config.CalculatorList[channel].chValueOff);
             }
+            this.adapter.log.debug(`calculator channel ${channel} set state ${this.adapter.config.CalculatorList[channel].chTargetState}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
