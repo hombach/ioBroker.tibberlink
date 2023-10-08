@@ -9,11 +9,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async setupCalculatorStates(homeId, channel) {
         try {
             if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
-                this.adapter.config.CalculatorList[channel].chTriggerPrice = 0.1;
+                this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
             }
             this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`), this.adapter.config.CalculatorList[channel].chTriggerPrice, `pricelevel to trigger this channel at`, true);
-            this.adapter.log.debug(`Setting up TriggerPrice for ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
             this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`), this.adapter.config.CalculatorList[channel].chActive, `Whether the calculation channel is active`, true);
+            if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
+                this.adapter.config.CalculatorList[channel].chAmountHours = 0;
+            }
             this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`), this.adapter.config.CalculatorList[channel].chAmountHours, `amount of hours to trigger this channel`, true);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
             // all states changes inside the calculator channel settings namespace are subscribed
