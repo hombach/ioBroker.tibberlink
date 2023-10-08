@@ -369,7 +369,9 @@
 				"chActive": "false",
 				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
 				"chValueOn": "true",
-				"chValueOff": "false"
+				"chValueOff": "false",
+				"chTriggerPrice": 0.5,
+				"chAmountHours": 2
 			}
 		]
 	},
