@@ -11,23 +11,23 @@ export class TibberCalculator extends TibberHelper {
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
 				this.adapter.config.CalculatorList[parseInt(channel)].chTriggerPrice,
-				"pricelevel to trigger this channel at",
+				`pricelevel to trigger this channel at`,
 				true,
 			);
 			this.checkAndSetValueBoolean(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`),
 				this.adapter.config.CalculatorList[parseInt(channel)].chActive,
-				"Whether the calculation channel is active",
+				`Whether the calculation channel is active`,
 				true,
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`),
 				this.adapter.config.CalculatorList[parseInt(channel)].chAmountHours,
-				"amount of hours to trigger this channel",
+				`amount of hours to trigger this channel`,
 				true,
 			);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
-			// all states changes inside the Calculator channel settings namespace are subscribed
+			// all states changes inside the calculator channel settings namespace are subscribed
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
 		}

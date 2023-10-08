@@ -64,7 +64,7 @@ async function translateYandex(text, targetLang, apiKey) {
         if (isArray(response.data?.text)) {
             return response.data.text[0];
         }
-        throw new Error("Invalid response for translate request");
+        throw new Error(`Invalid response for translate request`);
     }
     catch (e) {
         throw new Error(`Could not translate to "${targetLang}": ${e}`);
@@ -84,7 +84,7 @@ async function translateGoogle(text, targetLang) {
             // we got a valid response
             return response.data[0][0][0];
         }
-        throw new Error("Invalid response for translate request");
+        throw new Error(`Invalid response for translate request`);
     }
     catch (e) {
         if (e.response?.status === 429) {

@@ -119,7 +119,7 @@ class Tibberlink extends utils.Adapter {
 
 			// if no homeIDs available - adapter can't do that much and restarts
 			if (this.homeInfoList.length === 0) {
-				this.log.warn("Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes");
+				this.log.warn(`Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes`);
 				const adapterrestart = this.setInterval(() => {
 					this.restart();
 				}, 120000);
@@ -147,14 +147,14 @@ class Tibberlink extends utils.Adapter {
 					try {
 						await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
 					} catch (error: any) {
-						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of current price"));
+						this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of current price`));
 					}
 
 					// Get today prices for the first time
 					try {
 						await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
 					} catch (error: any) {
-						this.log.error(tibberAPICaller.generateErrorMessage(error, "first pull of prices today"));
+						this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices today`));
 					}
 
 					// Get tomorrow prices for the first time
