@@ -1,5 +1,11 @@
 import * as utils from "@iobroker/adapter-core";
 
+export enum enCalcType {
+	BestCost = 1,
+	BestSingleHours = 2,
+	BestHoursBlock = 3,
+}
+
 export interface IHomeInfo {
 	ID: string;
 	NameInApp: string;
@@ -36,7 +42,7 @@ export class TibberHelper {
 	private async getState(stateName: string): Promise<any> {
 		try {
 			if (await this.verifyStateAvailable(stateName)) {
-				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, …}
+				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, ï¿½}
 				const stateValueObject = await this.adapter.getStateAsync(stateName);
 				if (!this.isLikeEmpty(stateValueObject)) {
 					return stateValueObject;

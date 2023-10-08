@@ -3,7 +3,7 @@ import * as utils from "@iobroker/adapter-core";
 import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberCalculator } from "./lib/tibberCalculator";
-import { IHomeInfo } from "./lib/tibberHelper";
+import { IHomeInfo, enCalcType } from "./lib/tibberHelper";
 import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
@@ -176,13 +176,13 @@ class Tibberlink extends utils.Adapter {
 					for (const channel in this.config.CalculatorList) {
 						try {
 							switch (this.config.CalculatorList[channel].chType) {
-								case "BestCost":
+								case enCalcType.BestCost:
 									tibberCalculator.executeCalculatorBestCost(parseInt(channel));
 									break;
-								case "BestSingleHours":
+								case enCalcType.BestSingleHours:
 									//CalculatorBestSingleHours
 									break;
-								case "BestHoursBlock":
+								case enCalcType.BestHoursBlock:
 									//CalculatorBestHoursBlock
 									break;
 								default:

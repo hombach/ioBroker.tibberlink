@@ -27,6 +27,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
+const tibberHelper_1 = require("./lib/tibberHelper");
 const tibberPulse_1 = require("./lib/tibberPulse");
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
@@ -189,13 +190,13 @@ class Tibberlink extends utils.Adapter {
                     for (const channel in this.config.CalculatorList) {
                         try {
                             switch (this.config.CalculatorList[channel].chType) {
-                                case "BestCost":
+                                case tibberHelper_1.enCalcType.BestCost:
                                     tibberCalculator.executeCalculatorBestCost(parseInt(channel));
                                     break;
-                                case "BestSingleHours":
+                                case tibberHelper_1.enCalcType.BestSingleHours:
                                     //CalculatorBestSingleHours
                                     break;
-                                case "BestHoursBlock":
+                                case tibberHelper_1.enCalcType.BestHoursBlock:
                                     //CalculatorBestHoursBlock
                                     break;
                                 default:

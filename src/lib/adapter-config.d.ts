@@ -1,4 +1,5 @@
 // This file extends the AdapterConfig type from "@types/iobroker"
+import { enCalcType } from "./lib/tibberHelper";
 
 // Augment the globally declared type ioBroker.AdapterConfig
 declare global {
@@ -38,7 +39,7 @@ declare global {
 			CalculatorList: [
 				{
 					chHomeID: string;
-					chType: string;
+					chType: enCalcType;
 					chActive: boolean;
 					chTargetState: string;
 					chValueOn: string;

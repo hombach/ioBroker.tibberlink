@@ -1,10 +1,10 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.0.1",
+		"version": "1.1.0",
 		"news": {
-			"1.0.1": {
-				"en": "preparations for tibber calculator - WORK in PROGRESS"
+			"1.1.0": {
+				"en": "implement tibber calculator mode best price (#16) - WORK in PROGRESS"
 			},
 			"1.0.0": {
 				"en": "Increase to the first major release, as now a stable level is reached",

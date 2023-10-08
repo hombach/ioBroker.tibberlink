@@ -40,9 +40,9 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.0.1 (2023-10-xx) WORK in PROGRESS
+### 1.1.0 (2023-10-xx) WORK in PROGRESS
 
--   (HombachC) preparations for tibber calculator
+-   (HombachC) implement tibber calculator mode best price (#16)
 
 ### 1.0.0 (2023-10-05)
 
