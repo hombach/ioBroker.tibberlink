@@ -82,17 +82,17 @@ class Tibberlink extends utils.Adapter {
 					);
 				}
 			} catch (error: any) {
-				this.log.error(tibberAPICaller.generateErrorMessage(error, "pull of homes from Tibber-Server"));
+				this.log.error(tibberAPICaller.generateErrorMessage(error, `pull of homes from Tibber-Server`));
 			}
 
 			// if feed is not used - set info.connection if data received
 			if (this.config.HomesList?.every((info) => !info.feedActive)) {
 				if (this.homeInfoList.length > 0) {
 					this.setState("info.connection", true, true);
-					this.log.debug("Connection Check: Feed not enabled and I received home list from api - good connection");
+					this.log.debug(`Connection Check: Feed not enabled and I received home list from api - good connection`);
 				} else {
 					this.setState("info.connection", false, true);
-					this.log.debug("Connection Check: Feed not enabled and I do not get home list from api - bad connection");
+					this.log.debug(`Connection Check: Feed not enabled and I do not get home list from api - bad connection`);
 				}
 			}
 
@@ -138,7 +138,7 @@ class Tibberlink extends utils.Adapter {
 							await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[index].chHomeID, index);
 						}
 					} catch (error: any) {
-						this.log.warn(tibberAPICaller.generateErrorMessage(error, "setup of calculator states"));
+						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
 					}
 				}
 				// Get prices for the first time
@@ -169,11 +169,27 @@ class Tibberlink extends utils.Adapter {
 					for (const index in this.homeInfoList) {
 						try {
 							tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
-							//CalculatorBestCost
-							//CalculatorBestSingleHours
-							//CalculatorBestHoursBlock
 						} catch (error: any) {
-							this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of current price"));
+							this.log.warn(tibberAPICaller.generateErrorMessage(error, `pull of current price`));
+						}
+					}
+					for (const channel in this.config.CalculatorList) {
+						try {
+							switch (this.config.CalculatorList[channel].chType) {
+								case "BestCost":
+									tibberCalculator.executeCalculatorBestCost(channel);
+									break;
+								case "BestSingleHours":
+									//CalculatorBestSingleHours
+									break;
+								case "BestHoursBlock":
+									//CalculatorBestHoursBlock
+									break;
+								default:
+									this.log.debug(`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`);
+							}
+						} catch (error: any) {
+							this.log.warn(tibberAPICaller.generateErrorMessage(error, `execute calculator channel ${channel}`));
 						}
 					}
 				}, 300000);
@@ -390,8 +406,20 @@ class Tibberlink extends utils.Adapter {
 											this.log.debug(`Wrong type for chTriggerPrice: ${state.val}`);
 										}
 										break;
+									case "AmountHours":
+										// Update .chAmountHours based on state.val if it's a number
+										if (typeof state.val === "number") {
+											this.config.CalculatorList[calcChannel].chAmountHours = state.val;
+											this.log.debug(
+												`settings state in home: ${homeIDToMatch} channel: ${calcChannel} changed to AmountHours: ${this.config.CalculatorList[calcChannel].chAmountHours}`,
+											);
+											this.setStateAsync(id, state.val, true);
+										} else {
+											this.log.debug(`Wrong type for chAmountHours: ${state.val}`);
+										}
+										break;
 									default:
-										this.log.debug(`unknown Value for setting type: ${settingType}`);
+										this.log.debug(`unknown value for setting type: ${settingType}`);
 								}
 							} else {
 								this.log.debug(`wrong index values in state ID or missing value for settingType`);

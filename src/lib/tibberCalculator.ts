@@ -20,10 +20,25 @@ export class TibberCalculator extends TibberHelper {
 				"Whether the calculation channel is active",
 				true,
 			);
+			this.checkAndSetValueNumber(
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`),
+				this.adapter.config.CalculatorList[parseInt(channel)].chAmountHours,
+				"amount of hours to trigger this channel",
+				true,
+			);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 			// all states changes inside the Calculator channel settings namespace are subscribed
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error, "setup of states for calculator"));
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
+		}
+	}
+
+	async executeCalculatorBestCost(channel: string): Promise<void> {
+		try {
+			if (this.adapter.config.CalculatorList[parseInt(channel)].chTriggerPrice) {
+			}
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
 		}
 	}
 }

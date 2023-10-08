@@ -4,7 +4,7 @@
 		"version": "1.0.1",
 		"news": {
 			"1.0.1": {
-				"en": "WORK in PROGRESS"
+				"en": "preparations for tibber calculator - WORK in PROGRESS"
 			},
 			"1.0.0": {
 				"en": "Increase to the first major release, as now a stable level is reached",
@@ -369,7 +369,9 @@
 				"chActive": "false",
 				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
 				"chValueOn": "true",
-				"chValueOff": "false"
+				"chValueOff": "false",
+				"chTriggerPrice": "0.50",
+				"chAmountHours": "1"
 			}
 		]
 	},

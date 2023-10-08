@@ -44,6 +44,7 @@ declare global {
 					chValueOn: string;
 					chValueOff: string;
 					chTriggerPrice: number;
+					chAmountHours: number;
 				},
 			];
 		}

@@ -42,7 +42,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ### 1.0.1 (2023-10-xx) WORK in PROGRESS
 
--   (HombachC)
+-   (HombachC) preparations for tibber calculator
 
 ### 1.0.0 (2023-10-05)
 
