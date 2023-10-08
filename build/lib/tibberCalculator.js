@@ -8,6 +8,9 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async setupCalculatorStates(homeId, channel) {
         try {
+            if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
+                this.adapter.config.CalculatorList[channel].chTriggerPrice = 0.1;
+            }
             this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`), this.adapter.config.CalculatorList[channel].chTriggerPrice, `pricelevel to trigger this channel at`, true);
             this.adapter.log.debug(`Setting up TriggerPrice for ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
             this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`), this.adapter.config.CalculatorList[channel].chActive, `Whether the calculation channel is active`, true);
