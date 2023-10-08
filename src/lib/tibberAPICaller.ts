@@ -96,7 +96,7 @@ export class TibberAPICaller extends TibberHelper {
 		}
 	}
 
-	async updateCurrentPrice(homeId: string): Promise<void> {
+	async updateCurrentPrice(homeId: string): Promise<boolean> {
 		if (homeId) {
 			let exDate: Date | null = null;
 			exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
@@ -106,11 +106,15 @@ export class TibberAPICaller extends TibberHelper {
 				this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
 				// this.currentHomeId = homeId; // POTENTIAL: needed?
 				await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
+				return true;
 			} else {
 				this.adapter.log.debug(
 					`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`,
 				);
+				return false;
 			}
+		} else {
+			return false;
 		}
 	}
 

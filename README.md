@@ -42,7 +42,8 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ### 1.1.0 (2023-10-xx) WORK in PROGRESS
 
--   (HombachC) implement tibber calculator mode best price (#16)
+-   (HombachC) implement tibber calculator mode "best price" (#16)
+-   (HombachC) precise pull times of current cost
 
 ### 1.0.0 (2023-10-05)
 
