@@ -190,7 +190,7 @@ class Tibberlink extends utils.Adapter {
                         try {
                             switch (this.config.CalculatorList[channel].chType) {
                                 case "BestCost":
-                                    tibberCalculator.executeCalculatorBestCost(channel);
+                                    tibberCalculator.executeCalculatorBestCost(parseInt(channel));
                                     break;
                                 case "BestSingleHours":
                                     //CalculatorBestSingleHours

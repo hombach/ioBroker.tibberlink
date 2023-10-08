@@ -33,9 +33,21 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async executeCalculatorBestCost(channel: string): Promise<void> {
+	async executeCalculatorBestCost(channel: number): Promise<void> {
 		try {
-			if (this.adapter.config.CalculatorList[parseInt(channel)].chTriggerPrice) {
+			if (
+				this.adapter.config.CalculatorList[channel].chTriggerPrice <
+				(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`))
+			) {
+				this.adapter.setStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					this.adapter.config.CalculatorList[channel].chValueOn,
+				);
+			} else {
+				this.adapter.setStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					this.adapter.config.CalculatorList[channel].chValueOff,
+				);
 			}
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));

@@ -20,7 +20,12 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async executeCalculatorBestCost(channel) {
         try {
-            if (this.adapter.config.CalculatorList[parseInt(channel)].chTriggerPrice) {
+            if (this.adapter.config.CalculatorList[channel].chTriggerPrice <
+                (await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`))) {
+                this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, this.adapter.config.CalculatorList[channel].chValueOn);
+            }
+            else {
+                this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, this.adapter.config.CalculatorList[channel].chValueOff);
             }
         }
         catch (error) {
