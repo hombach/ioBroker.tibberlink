@@ -485,18 +485,20 @@ class Tibberlink extends utils.Adapter {
 					// if newprice detected call all calculator tasks
 					for (const channel in this.config.CalculatorList) {
 						try {
-							switch (this.config.CalculatorList[channel].chType) {
-								case enCalcType.BestCost:
-									tibberCalculator.executeCalculatorBestCost(parseInt(channel));
-									break;
-								case enCalcType.BestSingleHours:
-									//CalculatorBestSingleHours
-									break;
-								case enCalcType.BestHoursBlock:
-									//CalculatorBestHoursBlock
-									break;
-								default:
-									this.log.debug(`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`);
+							if (this.config.CalculatorList[channel].chActive) {
+								switch (this.config.CalculatorList[channel].chType) {
+									case enCalcType.BestCost:
+										tibberCalculator.executeCalculatorBestCost(parseInt(channel));
+										break;
+									case enCalcType.BestSingleHours:
+										//CalculatorBestSingleHours
+										break;
+									case enCalcType.BestHoursBlock:
+										//CalculatorBestHoursBlock
+										break;
+									default:
+										this.log.debug(`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`);
+								}
 							}
 						} catch (error: any) {
 							this.log.warn(tibberAPICaller.generateErrorMessage(error, `execute calculator channel ${channel}`));
