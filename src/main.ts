@@ -166,7 +166,6 @@ class Tibberlink extends utils.Adapter {
 				}
 
 				//startFullHourTasks(tibberAPICaller, tibberCalculator);
-
 				const startFullHourTasks = (): void => {
 					const currentTime = new Date();
 					const minutesUntilNextHour = 60 - currentTime.getMinutes();

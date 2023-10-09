@@ -47,17 +47,28 @@ export class TibberCalculator extends TibberHelper {
 			) {
 				this.adapter.setStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
-					this.adapter.config.CalculatorList[channel].chValueOn,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
 				);
 			} else {
 				this.adapter.setStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
-					this.adapter.config.CalculatorList[channel].chValueOff,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
 				);
 			}
 			this.adapter.log.debug(`calculator channel ${channel} set state ${this.adapter.config.CalculatorList[channel].chTargetState}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
 		}
+	}
+}
+
+function convertValue(Value: string): boolean | number | string {
+	if (Value.toLowerCase() === "true") {
+		return true;
+	} else if (Value.toLowerCase() === "false") {
+		return false;
+	} else {
+		const numericValue = parseFloat(Value);
+		return isNaN(numericValue) ? Value : numericValue;
 	}
 }

@@ -28,10 +28,10 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         try {
             if (this.adapter.config.CalculatorList[channel].chTriggerPrice <
                 (await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`))) {
-                this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, this.adapter.config.CalculatorList[channel].chValueOn);
+                this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
             }
             else {
-                this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, this.adapter.config.CalculatorList[channel].chValueOff);
+                this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
             }
             this.adapter.log.debug(`calculator channel ${channel} set state ${this.adapter.config.CalculatorList[channel].chTargetState}`);
         }
@@ -41,4 +41,16 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
 }
 exports.TibberCalculator = TibberCalculator;
+function convertValue(Value) {
+    if (Value.toLowerCase() === "true") {
+        return true;
+    }
+    else if (Value.toLowerCase() === "false") {
+        return false;
+    }
+    else {
+        const numericValue = parseFloat(Value);
+        return isNaN(numericValue) ? Value : numericValue;
+    }
+}
 //# sourceMappingURL=tibberCalculator.js.map
