@@ -165,7 +165,60 @@ class Tibberlink extends utils.Adapter {
 					}
 				}
 
-				this.startFullHourTasks(tibberAPICaller, tibberCalculator);
+				//startFullHourTasks(tibberAPICaller, tibberCalculator);
+
+				const startFullHourTasks = (): void => {
+					const currentTime = new Date();
+					const minutesUntilNextHour = 60 - currentTime.getMinutes();
+					setTimeout(
+						() => {
+							let newprice = false;
+							for (const index in this.homeInfoList) {
+								tibberAPICaller
+									.updateCurrentPrice(this.homeInfoList[index].ID)
+									.then((result) => {
+										newprice = result;
+									})
+									.catch((error) => {
+										this.log.warn(tibberAPICaller.generateErrorMessage(error, `pull of current price`));
+									});
+							}
+							if (newprice) {
+								// if newprice detected call all calculator tasks
+								for (const channel in this.config.CalculatorList) {
+									try {
+										if (this.config.CalculatorList[channel].chActive) {
+											switch (this.config.CalculatorList[channel].chType) {
+												case enCalcType.BestCost:
+													tibberCalculator.executeCalculatorBestCost(parseInt(channel));
+													break;
+												case enCalcType.BestSingleHours:
+													//CalculatorBestSingleHours
+													break;
+												case enCalcType.BestHoursBlock:
+													//CalculatorBestHoursBlock
+													break;
+												default:
+													this.log.debug(
+														`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`,
+													);
+											}
+										}
+									} catch (error: any) {
+										this.log.warn(tibberAPICaller.generateErrorMessage(error, `execute calculator channel ${channel}`));
+									}
+								}
+								startFullHourTasks();
+							} else {
+								// if no new price, wait 3 minutes and restart action
+								setTimeout(startFullHourTasks, 3 * 60 * 1000);
+							}
+						},
+						minutesUntilNextHour * 60 * 1000,
+					);
+				};
+				startFullHourTasks();
+
 				/* removed in 1.1.0
 				const energyPriceCallIntervall = this.setInterval(() => {
 					let newprice = false;
@@ -465,6 +518,7 @@ class Tibberlink extends utils.Adapter {
 	}
 	*/
 
+	/*
 	private startFullHourTasks(tibberAPICaller: TibberAPICaller, tibberCalculator: TibberCalculator): void {
 		const currentTime = new Date();
 		const minutesUntilNextHour = 60 - currentTime.getMinutes();
@@ -513,6 +567,7 @@ class Tibberlink extends utils.Adapter {
 			minutesUntilNextHour * 60 * 1000,
 		);
 	}
+	*/
 
 	/*
 	private async performTask(tibberAPICaller: TibberAPICaller, tibberCalculator: TibberCalculator): Promise<boolean> {

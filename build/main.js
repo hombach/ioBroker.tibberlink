@@ -178,7 +178,55 @@ class Tibberlink extends utils.Adapter {
                         this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices tomorrow`));
                     }
                 }
-                this.startFullHourTasks(tibberAPICaller, tibberCalculator);
+                //startFullHourTasks(tibberAPICaller, tibberCalculator);
+                const startFullHourTasks = () => {
+                    const currentTime = new Date();
+                    const minutesUntilNextHour = 60 - currentTime.getMinutes();
+                    setTimeout(() => {
+                        let newprice = false;
+                        for (const index in this.homeInfoList) {
+                            tibberAPICaller
+                                .updateCurrentPrice(this.homeInfoList[index].ID)
+                                .then((result) => {
+                                newprice = result;
+                            })
+                                .catch((error) => {
+                                this.log.warn(tibberAPICaller.generateErrorMessage(error, `pull of current price`));
+                            });
+                        }
+                        if (newprice) {
+                            // if newprice detected call all calculator tasks
+                            for (const channel in this.config.CalculatorList) {
+                                try {
+                                    if (this.config.CalculatorList[channel].chActive) {
+                                        switch (this.config.CalculatorList[channel].chType) {
+                                            case tibberHelper_1.enCalcType.BestCost:
+                                                tibberCalculator.executeCalculatorBestCost(parseInt(channel));
+                                                break;
+                                            case tibberHelper_1.enCalcType.BestSingleHours:
+                                                //CalculatorBestSingleHours
+                                                break;
+                                            case tibberHelper_1.enCalcType.BestHoursBlock:
+                                                //CalculatorBestHoursBlock
+                                                break;
+                                            default:
+                                                this.log.debug(`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`);
+                                        }
+                                    }
+                                }
+                                catch (error) {
+                                    this.log.warn(tibberAPICaller.generateErrorMessage(error, `execute calculator channel ${channel}`));
+                                }
+                            }
+                            startFullHourTasks();
+                        }
+                        else {
+                            // if no new price, wait 3 minutes and restart action
+                            setTimeout(startFullHourTasks, 3 * 60 * 1000);
+                        }
+                    }, minutesUntilNextHour * 60 * 1000);
+                };
+                startFullHourTasks();
                 /* removed in 1.1.0
                 const energyPriceCallIntervall = this.setInterval(() => {
                     let newprice = false;
@@ -453,72 +501,6 @@ class Tibberlink extends utils.Adapter {
         catch (e) {
             this.log.error(`Unhandled exception processing onstateChange: ${e}`);
         }
-    }
-    /*
-    private startFullHourTasks(tibberAPICaller: TibberAPICaller, tibberCalculator: TibberCalculator): void {
-        const currentTime = new Date();
-        const minutesUntilNextHour = 60 - currentTime.getMinutes();
-        setTimeout(
-            () => {
-                this.performTask(tibberAPICaller, tibberCalculator).then((newprice) => {
-                    if (newprice) {
-                        this.startFullHourTasks(tibberAPICaller, tibberCalculator);
-                    } else {
-                        // if no new price, wait 3 minutes and restart action
-                        setTimeout(this.startFullHourTasks, 3 * 60 * 1000);
-                    }
-                });
-            },
-            minutesUntilNextHour * 60 * 1000,
-        );
-    }
-    */
-    startFullHourTasks(tibberAPICaller, tibberCalculator) {
-        const currentTime = new Date();
-        const minutesUntilNextHour = 60 - currentTime.getMinutes();
-        setTimeout(() => {
-            let newprice = false;
-            for (const index in this.homeInfoList) {
-                tibberAPICaller
-                    .updateCurrentPrice(this.homeInfoList[index].ID)
-                    .then((result) => {
-                    newprice = result;
-                })
-                    .catch((error) => {
-                    this.log.warn(tibberAPICaller.generateErrorMessage(error, `pull of current price`));
-                });
-            }
-            if (newprice) {
-                // if newprice detected call all calculator tasks
-                for (const channel in this.config.CalculatorList) {
-                    try {
-                        if (this.config.CalculatorList[channel].chActive) {
-                            switch (this.config.CalculatorList[channel].chType) {
-                                case tibberHelper_1.enCalcType.BestCost:
-                                    tibberCalculator.executeCalculatorBestCost(parseInt(channel));
-                                    break;
-                                case tibberHelper_1.enCalcType.BestSingleHours:
-                                    //CalculatorBestSingleHours
-                                    break;
-                                case tibberHelper_1.enCalcType.BestHoursBlock:
-                                    //CalculatorBestHoursBlock
-                                    break;
-                                default:
-                                    this.log.debug(`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`);
-                            }
-                        }
-                    }
-                    catch (error) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, `execute calculator channel ${channel}`));
-                    }
-                }
-                this.startFullHourTasks(tibberAPICaller, tibberCalculator);
-            }
-            else {
-                // if no new price, wait 3 minutes and restart action
-                setTimeout(this.startFullHourTasks, 3 * 60 * 1000);
-            }
-        }, minutesUntilNextHour * 60 * 1000);
     }
 }
 if (require.main !== module) {
