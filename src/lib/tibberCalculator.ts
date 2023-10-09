@@ -60,6 +60,20 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
 		}
 	}
+
+	async executeCalculatorBestSingleHours(channel: number): Promise<void> {
+		try {
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours in channel ${channel}`));
+		}
+	}
+
+	async executeCalculatorBestHoursBlock(channel: number): Promise<void> {
+		try {
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block in channel ${channel}`));
+		}
+	}
 }
 
 function convertValue(Value: string): boolean | number | string {

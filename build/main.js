@@ -204,10 +204,10 @@ class Tibberlink extends utils.Adapter {
                                                 tibberCalculator.executeCalculatorBestCost(parseInt(channel));
                                                 break;
                                             case tibberHelper_1.enCalcType.BestSingleHours:
-                                                //CalculatorBestSingleHours
+                                                //tibberCalculator.executeCalculatorBestSingleHours(parseInt(channel));
                                                 break;
                                             case tibberHelper_1.enCalcType.BestHoursBlock:
-                                                //CalculatorBestHoursBlock
+                                                //tibberCalculator.executeCalculatorBestHoursBlock(parseInt(channel));
                                                 break;
                                             default:
                                                 this.log.debug(`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`);

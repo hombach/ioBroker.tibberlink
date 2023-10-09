@@ -39,6 +39,20 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
         }
     }
+    async executeCalculatorBestSingleHours(channel) {
+        try {
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours in channel ${channel}`));
+        }
+    }
+    async executeCalculatorBestHoursBlock(channel) {
+        try {
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block in channel ${channel}`));
+        }
+    }
 }
 exports.TibberCalculator = TibberCalculator;
 function convertValue(Value) {
