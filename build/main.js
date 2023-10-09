@@ -27,7 +27,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils = __importStar(require("@iobroker/adapter-core"));
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
-const tibberHelper_1 = require("./lib/tibberHelper");
 const tibberPulse_1 = require("./lib/tibberPulse");
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
@@ -37,6 +36,7 @@ class Tibberlink extends utils.Adapter {
         });
         this.homeInfoList = [];
         this.queryUrl = "";
+        this.tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
         // this.on("objectChange", this.onObjectChange.bind(this));
@@ -178,7 +178,6 @@ class Tibberlink extends utils.Adapter {
                         this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices tomorrow`));
                     }
                 }
-                //startFullHourTasks(tibberAPICaller, tibberCalculator);
                 const startFullHourTasks = () => {
                     const currentTime = new Date();
                     const minutesUntilNextHour = 60 - currentTime.getMinutes();
@@ -196,28 +195,7 @@ class Tibberlink extends utils.Adapter {
                         }
                         if (newprice) {
                             // if newprice detected call all calculator tasks
-                            for (const channel in this.config.CalculatorList) {
-                                try {
-                                    if (this.config.CalculatorList[channel].chActive) {
-                                        switch (this.config.CalculatorList[channel].chType) {
-                                            case tibberHelper_1.enCalcType.BestCost:
-                                                tibberCalculator.executeCalculatorBestCost(parseInt(channel));
-                                                break;
-                                            case tibberHelper_1.enCalcType.BestSingleHours:
-                                                //tibberCalculator.executeCalculatorBestSingleHours(parseInt(channel));
-                                                break;
-                                            case tibberHelper_1.enCalcType.BestHoursBlock:
-                                                //tibberCalculator.executeCalculatorBestHoursBlock(parseInt(channel));
-                                                break;
-                                            default:
-                                                this.log.debug(`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`);
-                                        }
-                                    }
-                                }
-                                catch (error) {
-                                    this.log.warn(tibberAPICaller.generateErrorMessage(error, `execute calculator channel ${channel}`));
-                                }
-                            }
+                            tibberCalculator.startCalculatorTasks();
                             startFullHourTasks();
                         }
                         else {
@@ -485,6 +463,7 @@ class Tibberlink extends utils.Adapter {
                                     default:
                                         this.log.debug(`unknown value for setting type: ${settingType}`);
                                 }
+                                this.tibberCalculator.startCalculatorTasks();
                             }
                             else {
                                 this.log.debug(`wrong index values in state ID or missing value for settingType`);
