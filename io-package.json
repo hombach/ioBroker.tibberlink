@@ -4,7 +4,17 @@
 		"version": "1.1.0",
 		"news": {
 			"1.1.0": {
-				"en": "implement tibber calculator mode best price (#16) - WORK in PROGRESS"
+				"en": "Implement Tibber Calculator Mode 'Best Price' (#16)",
+				"de": "Implementierung des Tibber Calculator Modus 'Bester Preis' (#16)",
+				"ru": "Реализация режима калькулятора Tibber 'Лучшая цена' (#16)",
+				"pt": "Implementar o Modo Calculadora Tibber 'Melhor Preço' (#16)",
+				"nl": "Implementeer Tibber Calculator Modus 'Beste Prijs' (#16)",
+				"fr": "Implémentation du mode Calculateur Tibber 'Meilleur prix' (#16)",
+				"it": "Implementa la Modalità Calcolatrice Tibber 'Miglior Prezzo' (#16)",
+				"es": "Implementar el Modo Calculadora de Tibber 'Mejor Precio' (#16)",
+				"pl": "Wprowadzenie trybu kalkulatora Tibber 'Najlepsza Cena' (#16)",
+				"uk": "Реалізація режиму калькулятора Tibber 'Найкраща ціна' (#16)",
+				"zh-cn": "实施Tibber计算器模式 '最佳价格' (#16)"
 			},
 			"1.0.0": {
 				"en": "Increase to the first major release, as now a stable level is reached",

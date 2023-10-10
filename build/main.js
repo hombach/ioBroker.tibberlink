@@ -180,7 +180,7 @@ class Tibberlink extends utils.Adapter {
                 }
                 const startFullHourTasks = () => {
                     const currentTime = new Date();
-                    const minutesUntilNextHour = 60 - currentTime.getMinutes();
+                    const minutesUntilNextRun = 60 - currentTime.getMinutes() + 0.3;
                     setTimeout(() => {
                         let newprice = false;
                         for (const index in this.homeInfoList) {
@@ -202,46 +202,9 @@ class Tibberlink extends utils.Adapter {
                             // if no new price, wait 3 minutes and restart action
                             setTimeout(startFullHourTasks, 3 * 60 * 1000);
                         }
-                    }, minutesUntilNextHour * 60 * 1000);
+                    }, minutesUntilNextRun * 60 * 1000);
                 };
                 startFullHourTasks();
-                /* removed in 1.1.0
-                const energyPriceCallIntervall = this.setInterval(() => {
-                    let newprice = false;
-                    for (const index in this.homeInfoList) {
-                        tibberAPICaller
-                            .updateCurrentPrice(this.homeInfoList[index].ID)
-                            .then((result) => {
-                                newprice = result;
-                            })
-                            .catch((error) => {
-                                this.log.warn(tibberAPICaller.generateErrorMessage(error, `pull of current price`));
-                            });
-                    }
-                    if (newprice) {
-                        for (const channel in this.config.CalculatorList) {
-                            try {
-                                switch (this.config.CalculatorList[channel].chType) {
-                                    case enCalcType.BestCost:
-                                        tibberCalculator.executeCalculatorBestCost(parseInt(channel));
-                                        break;
-                                    case enCalcType.BestSingleHours:
-                                        //CalculatorBestSingleHours
-                                        break;
-                                    case enCalcType.BestHoursBlock:
-                                        //CalculatorBestHoursBlock
-                                        break;
-                                    default:
-                                        this.log.debug(`unknown value for calculator type: ${this.config.CalculatorList[channel].chType}`);
-                                }
-                            } catch (error: any) {
-                                this.log.warn(tibberAPICaller.generateErrorMessage(error, `execute calculator channel ${channel}`));
-                            }
-                        }
-                    }
-                }, 300000);
-                this.intervalList.push(energyPriceCallIntervall);
-                */
                 const energyPricesListUpdateInterval = this.setInterval(() => {
                     for (const index in this.homeInfoList) {
                         try {
@@ -431,6 +394,9 @@ class Tibberlink extends utils.Adapter {
                                         // Update .chActive based on state.val if it's a boolean
                                         if (typeof state.val === "boolean") {
                                             this.config.CalculatorList[calcChannel].chActive = state.val;
+                                            this.updateConfig({
+                                                "CalculatorList[0].chActive": this.config.CalculatorList[calcChannel].chActive,
+                                            });
                                             this.log.debug(`calculator settings state in home: ${homeIDToMatch} channel: ${calcChannel} changed to Active: ${this.config.CalculatorList[calcChannel].chActive}`);
                                             this.setStateAsync(id, state.val, true);
                                         }
