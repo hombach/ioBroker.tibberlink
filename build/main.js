@@ -394,8 +394,6 @@ class Tibberlink extends utils.Adapter {
                                         // Update .chActive based on state.val if it's a boolean
                                         if (typeof state.val === "boolean") {
                                             this.config.CalculatorList[calcChannel].chActive = state.val;
-                                            this.updateConfig({ useCalculator: this.config.CalculatorList[calcChannel].chActive });
-                                            //this.updateConfig(this.config);
                                             this.log.debug(`calculator settings state in home: ${homeIDToMatch} channel: ${calcChannel} changed to Active: ${this.config.CalculatorList[calcChannel].chActive}`);
                                             this.setStateAsync(id, state.val, true);
                                         }
@@ -428,6 +426,7 @@ class Tibberlink extends utils.Adapter {
                                     default:
                                         this.log.debug(`unknown value for setting type: ${settingType}`);
                                 }
+                                this.updateConfig({ CalculatorList: this.config.CalculatorList });
                                 this.tibberCalculator.startCalculatorTasks();
                             }
                             else {
