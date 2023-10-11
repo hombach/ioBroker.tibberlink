@@ -113,9 +113,13 @@ export class TibberHelper {
 		value: number,
 		description?: string,
 		writeable?: boolean,
+		dontUpdate?: boolean,
 	): Promise<void> {
 		if (writeable === undefined) {
 			writeable = false;
+		}
+		if (dontUpdate === undefined) {
+			dontUpdate = false;
 		}
 		if (value || value === 0) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -130,7 +134,9 @@ export class TibberHelper {
 				},
 				native: {},
 			});
-			await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+			if (!dontUpdate) {
+				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+			}
 		}
 	}
 
@@ -167,9 +173,13 @@ export class TibberHelper {
 		value: boolean,
 		description?: string,
 		writeable?: boolean,
+		dontUpdate?: boolean,
 	): Promise<void> {
 		if (writeable === undefined) {
 			writeable = false;
+		}
+		if (dontUpdate === undefined) {
+			dontUpdate = false;
 		}
 		if (value !== undefined && value !== null) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -184,7 +194,9 @@ export class TibberHelper {
 				},
 				native: {},
 			});
-			await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+			if (!dontUpdate) {
+				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+			}
 		}
 	}
 

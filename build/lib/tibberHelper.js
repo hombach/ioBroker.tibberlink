@@ -99,9 +99,12 @@ class TibberHelper {
             }
         }
     }
-    async checkAndSetValueNumber(stateName, value, description, writeable) {
+    async checkAndSetValueNumber(stateName, value, description, writeable, dontUpdate) {
         if (writeable === undefined) {
             writeable = false;
+        }
+        if (dontUpdate === undefined) {
+            dontUpdate = false;
         }
         if (value || value === 0) {
             await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -116,7 +119,9 @@ class TibberHelper {
                 },
                 native: {},
             });
-            await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+            if (!dontUpdate) {
+                await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+            }
         }
     }
     async checkAndSetValueNumberUnit(stateName, value, unit, description, writeable) {
@@ -140,9 +145,12 @@ class TibberHelper {
             await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
         }
     }
-    async checkAndSetValueBoolean(stateName, value, description, writeable) {
+    async checkAndSetValueBoolean(stateName, value, description, writeable, dontUpdate) {
         if (writeable === undefined) {
             writeable = false;
+        }
+        if (dontUpdate === undefined) {
+            dontUpdate = false;
         }
         if (value !== undefined && value !== null) {
             await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -157,7 +165,9 @@ class TibberHelper {
                 },
                 native: {},
             });
-            await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+            if (!dontUpdate) {
+                await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+            }
         }
     }
     generateErrorMessage(error, context) {
