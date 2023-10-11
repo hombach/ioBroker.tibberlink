@@ -72,9 +72,9 @@ export class TibberCalculator extends TibberHelper {
 		try {
 			const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
 			//
-			this.adapter.log.debug(`currentPrice ${currentPrice} chTriggerPrice ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
+			this.adapter.log.debug(`currentPrice: ${currentPrice} chTriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
 			//
-			if (this.adapter.config.CalculatorList[channel].chTriggerPrice < currentPrice) {
+			if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
 				this.adapter.setForeignStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
 					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
