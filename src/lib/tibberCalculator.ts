@@ -49,7 +49,7 @@ export class TibberCalculator extends TibberHelper {
 				try {
 					if (this.adapter.config.CalculatorList[channel].chActive) {
 						switch (this.adapter.config.CalculatorList[channel].chType) {
-							case enCalcType.BestCost:
+							case 1:
 								this.adapter.log.debug(`calculator type: BestCost`);
 								this.executeCalculatorBestCost(parseInt(channel));
 								break;
@@ -72,6 +72,7 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestCost(channel: number): Promise<void> {
 		try {
+			this.adapter.log.debug(`try execute calculator type: BestCost`);
 			if (
 				this.adapter.config.CalculatorList[channel].chTriggerPrice >
 				(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`))
