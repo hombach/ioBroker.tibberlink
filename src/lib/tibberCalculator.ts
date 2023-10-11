@@ -71,7 +71,7 @@ export class TibberCalculator extends TibberHelper {
 	async executeCalculatorBestCost(channel: number): Promise<void> {
 		try {
 			if (
-				this.adapter.config.CalculatorList[channel].chTriggerPrice <
+				this.adapter.config.CalculatorList[channel].chTriggerPrice >
 				(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`))
 			) {
 				this.adapter.setStateAsync(
