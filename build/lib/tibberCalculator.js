@@ -25,14 +25,14 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         }
     }
     async startCalculatorTasks() {
-        this.adapter.log.debug(`start calculator tasks.....`);
         if (this.adapter.config.UseCalculator) {
             for (const channel in this.adapter.config.CalculatorList) {
-                this.adapter.log.debug(`calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
+                this.adapter.log.debug(`execute calculator channel: ${channel} type: ${this.adapter.config.CalculatorList[channel].chType}`);
                 try {
                     if (this.adapter.config.CalculatorList[channel].chActive) {
                         switch (this.adapter.config.CalculatorList[channel].chType) {
                             case tibberHelper_1.enCalcType.BestCost:
+                                this.adapter.log.debug(`calculator type: BestCost`);
                                 this.executeCalculatorBestCost(parseInt(channel));
                                 break;
                             case tibberHelper_1.enCalcType.BestSingleHours:
