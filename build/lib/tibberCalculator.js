@@ -27,12 +27,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async startCalculatorTasks() {
         if (this.adapter.config.UseCalculator) {
             for (const channel in this.adapter.config.CalculatorList) {
+                //
                 this.adapter.log.debug(`execute calculator channel: ${channel} type: ${this.adapter.config.CalculatorList[channel].chType}`);
+                //
                 try {
                     if (this.adapter.config.CalculatorList[channel].chActive) {
                         switch (this.adapter.config.CalculatorList[channel].chType) {
-                            case 1:
-                                this.adapter.log.debug(`calculator type: BestCost`);
+                            case tibberHelper_1.enCalcType.BestCost:
                                 this.executeCalculatorBestCost(parseInt(channel));
                                 break;
                             case tibberHelper_1.enCalcType.BestSingleHours:
@@ -57,10 +58,10 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`try execute calculator type: BestCost`);
             if (this.adapter.config.CalculatorList[channel].chTriggerPrice >
                 (await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`))) {
-                this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
+                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
             }
             else {
-                this.adapter.setStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
+                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
             }
             this.adapter.log.debug(`calculator channel ${channel} set state ${this.adapter.config.CalculatorList[channel].chTargetState}`);
         }

@@ -45,12 +45,13 @@ export class TibberCalculator extends TibberHelper {
 	async startCalculatorTasks(): Promise<void> {
 		if (this.adapter.config.UseCalculator) {
 			for (const channel in this.adapter.config.CalculatorList) {
+				//
 				this.adapter.log.debug(`execute calculator channel: ${channel} type: ${this.adapter.config.CalculatorList[channel].chType}`);
+				//
 				try {
 					if (this.adapter.config.CalculatorList[channel].chActive) {
 						switch (this.adapter.config.CalculatorList[channel].chType) {
-							case 1:
-								this.adapter.log.debug(`calculator type: BestCost`);
+							case enCalcType.BestCost:
 								this.executeCalculatorBestCost(parseInt(channel));
 								break;
 							case enCalcType.BestSingleHours:
@@ -77,12 +78,12 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chTriggerPrice >
 				(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`))
 			) {
-				this.adapter.setStateAsync(
+				this.adapter.setForeignStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
 					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
 				);
 			} else {
-				this.adapter.setStateAsync(
+				this.adapter.setForeignStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
 					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
 				);
