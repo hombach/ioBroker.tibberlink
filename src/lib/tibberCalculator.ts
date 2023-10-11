@@ -43,6 +43,7 @@ export class TibberCalculator extends TibberHelper {
 	}
 
 	async startCalculatorTasks(): Promise<void> {
+		this.adapter.log.debug(`start calculator tasks.....`);
 		if (this.adapter.config.UseCalculator) {
 			for (const channel in this.adapter.config.CalculatorList) {
 				this.adapter.log.debug(`calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
