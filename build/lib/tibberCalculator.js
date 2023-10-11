@@ -56,7 +56,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async executeCalculatorBestCost(channel) {
         try {
             this.adapter.log.debug(`try execute calculator type: BestCost`);
-            if (this.adapter.config.CalculatorList[channel].chTriggerPrice >
+            if (this.adapter.config.CalculatorList[channel].chTriggerPrice <
                 (await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`))) {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
             }
