@@ -77,9 +77,12 @@ class TibberHelper {
             return true;
         }
     }
-    async checkAndSetValue(stateName, value, description, writeable) {
+    async checkAndSetValue(stateName, value, description, writeable, dontUpdate) {
         if (writeable === undefined) {
             writeable = false;
+        }
+        if (dontUpdate === undefined) {
+            dontUpdate = false;
         }
         if (value != undefined) {
             if (value.trim().length > 0) {
@@ -95,7 +98,9 @@ class TibberHelper {
                     },
                     native: {},
                 });
-                await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+                if (!dontUpdate) {
+                    await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+                }
             }
         }
     }

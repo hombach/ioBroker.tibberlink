@@ -144,9 +144,10 @@ class Tibberlink extends utils.Adapter {
 				}
 				// Get prices for the first time
 				for (const index in this.homeInfoList) {
-					// Get current price for the first time
+					// Get current price for the first time and start calculator tasks once
 					try {
 						await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
+						tibberCalculator.startCalculatorTasks();
 					} catch (error: any) {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of current price`));
 					}

@@ -85,9 +85,18 @@ export class TibberHelper {
 		}
 	}
 
-	protected async checkAndSetValue(stateName: { [key: string]: string }, value: string, description?: string, writeable?: boolean): Promise<void> {
+	protected async checkAndSetValue(
+		stateName: { [key: string]: string },
+		value: string,
+		description?: string,
+		writeable?: boolean,
+		dontUpdate?: boolean,
+	): Promise<void> {
 		if (writeable === undefined) {
 			writeable = false;
+		}
+		if (dontUpdate === undefined) {
+			dontUpdate = false;
 		}
 		if (value != undefined) {
 			if (value.trim().length > 0) {
@@ -103,7 +112,9 @@ export class TibberHelper {
 					},
 					native: {},
 				});
-				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+				if (!dontUpdate) {
+					await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+				}
 			}
 		}
 	}
