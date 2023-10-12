@@ -42,15 +42,12 @@ If you're not a Tibber user currently, it would be greatly appreciated if you us
 10. "Best hours block" - not implemented yet.
 
 ## Notes
-
-This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more details and for informations on how to disable the error reporting see [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
+This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable the error reporting; see the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
 
 ## Changelog
-
 ! Note that missing version entries are typically dependency updates for improved security.
 
 ### 1.1.0 (2023-10-xx) WORK in PROGRESS
-
 -   (HombachC) implement tibber calculator mode "best price" (#16)
 -   (HombachC) precised pull times of current cost
 -   (HombachC) reduced error messages (#80)
