@@ -22,24 +22,25 @@ If you're not a Tibber user currently, it would be greatly appreciated if you us
 [https://invite.tibber.com/2gwuign3.](https://invite.tibber.com/2gwuign3.)
 
 ## Standard Configuration
-1. Create a new instance of the adapter
-2. You will also need an API token from Tibber. Get it here: [https://developer.tibber.com/](https://developer.tibber.com/)
-3. Enter your Tibber API token in the standard settings and create at least one line for live feed configuration (select "None available").
-4. Save the settings and exit the configaration to restart the adapter (your home(s) will now be queried from the Tibber server).
-5. Return to the configuration screen and select the homes from which you want to pull real-time data from your Tibber Pulse or select homes and disable the feed - (!! Only works if hardware is installed and the Tibber server has verified the connection to Pulse).
-6. Save the settings.
++ Create a new instance of the adapter
++ You will also need an API token from Tibber. Get it here: [https://developer.tibber.com/](https://developer.tibber.com/)
++ Enter your Tibber API token in the standard settings and create at least one line for live feed configuration (select "None available").
++ Save the settings and exit the configaration to restart the adapter (your home(s) will now be queried from the Tibber server).
++ Return to the configuration screen and select the homes from which you want to pull real-time data from your Tibber Pulse or select homes and disable the feed - (!! Only works if hardware is installed and the Tibber server has verified the connection to Pulse).
++ Save the settings.
 
 ## Calculator Configuration
-1. Since the Tibber connection is up and running, you can also use the Calculator to include some automation add-ons in the TibberLink adapter.
-2. The Calculator works with channels. Each channel is linked to a selected home.
-3. Channels can be activated or deactivated in the settings tab or in the corresponding state.
-4. All states of a calculator channel are placed near the homes states, named by the channel number.
-5. The behavior of a channel is defined by its type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet.
-6. Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, "0_userdata.0.example_state" or any other writable external state.
-7. The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states, or a number or text to be written.
-8. "Best cost": Uses the "TriggerPrice" state as input - output is "YES" every hour the current Tibber energy cost is below the trigger price.
-9. "Best single hours" - not implemented yet.
-10. "Best hours block" - not implemented yet.
++ Since the Tibber connection is up and running, you can also use the Calculator to include some automation add-ons in the TibberLink adapter.
++ The Calculator works with channels. Each channel is linked to a selected home.
++ Channels can be activated or deactivated in the settings tab or in the corresponding state.
++ All states of a calculator channel are placed near the homes states, named by the channel number.
++ The behavior of a channel is defined by its type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet.
++ Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, "0_userdata.0.example_state" or any other writable external state.
++ The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states, or a number or text to be written.
++ Outputs:
+  + "Best cost": Uses the "TriggerPrice" state as input - output is "YES" every hour the current Tibber energy cost is below the trigger price.
+  + "Best single hours" - not implemented yet.
+  + "Best hours block" - not implemented yet.
 
 ## Notes
 This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable the error reporting; see the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
