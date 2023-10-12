@@ -30,17 +30,17 @@ If you're not a Tibber user currently, it would be greatly appreciated if you us
 + Save the settings.
 
 ## Calculator Configuration
-+ Since the Tibber connection is up and running, you can also use the Calculator to include some automation add-ons in the TibberLink adapter.
-+ The Calculator works with channels. Each channel is linked to a selected home.
-+ Channels can be activated or deactivated in the settings tab or in the corresponding state.
-+ All states of a calculator channel are placed near the homes states, named by the channel number.
-+ The behavior of a channel is defined by its type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet.
-+ Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, "0_userdata.0.example_state" or any other writable external state.
-+ The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states, or a number or text to be written.
-+ Outputs:
-  + "Best cost": Uses the "TriggerPrice" state as input - output is "YES" every hour the current Tibber energy cost is below the trigger price.
-  + "Best single hours" - not implemented yet.
-  + "Best hours block" - not implemented yet.
++   Since the Tibber connection is up and running, you can also use the Calculator to include some automation add-ons in the TibberLink adapter.
++   The Calculator works with channels. Each channel is linked to a selected home.
++   Channels can be activated or deactivated in the settings tab or in the corresponding state.
++   All states of a calculator channel are placed near the homes states, named by the channel number.
++   The behavior of a channel is defined by its type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet.
++   Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, "0_userdata.0.example_state" or any other writable external state.
++   The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states, or a number or text to be written.
++   Outputs:
+    +   "Best cost": Uses the "TriggerPrice" state as input - output is "YES" every hour the current Tibber energy cost is below the trigger price.
+    +   "Best single hours" - not implemented yet.
+    +   "Best hours block" - not implemented yet.
 
 ## Notes
 This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable the error reporting; see the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
@@ -49,14 +49,14 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ! Note that missing version entries are typically dependency updates for improved security.
 
 ### 1.1.0 (2023-10-1x) WORK in PROGRESS
--   (HombachC) implement tibber calculator mode "best price" (#16)
--   (HombachC) precised pull times of current cost
--   (HombachC) reduced error messages (#80)
--   (HombachC) extend documentation
++   (HombachC) implement tibber calculator mode "best price" (#16)
++   (HombachC) precised pull times of current cost
++   (HombachC) reduced error messages (#80)
++   (HombachC) extend documentation
 
 ### 1.0.0 (2023-10-05)
--   (HombachC) Increase to the first major release, as now a stable level is reached
--   (HombachC) Code cleanup
++   (HombachC) Increase to the first major release, as now a stable level is reached
++   (HombachC) Code cleanup
 
 ### 0.4.2 (2023-10-03)
 -   (HombachC) fixed error with polling multiple homes live data (#108)
