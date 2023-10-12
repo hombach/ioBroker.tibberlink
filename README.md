@@ -15,35 +15,31 @@
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
 
-## Adapter for using TIBBER energy data in iOBroker
+## Adapter for utilizing TIBBER energy data in ioBroker
+This adapter connects data from your Tibber account API for use in ioBroker. It can be used for single or multiple homes.
 
-Adapter for linking data from your Tibber account API to be used in ioBroker. Adapter could be used for single or multiple homes.
-
-If you're not a Tibber user right now, it's greatly appreciated when you're using my referal link:
-
+If you're not a Tibber user currently, it would be greatly appreciated if you use my referral link:
 [https://invite.tibber.com/2gwuign3.](https://invite.tibber.com/2gwuign3.)
 
 ## Standard Configuration
-
 1. Create a new instance of the adapter
 2. You will also need an API token from Tibber. Get it here: [https://developer.tibber.com/](https://developer.tibber.com/)
-3. Fill in your Tibber API token in standard settings -> create minimum one line Live Feed Configuration (choose the "None available")
-4. Save the settings and leave configaration to get adapter restarted (your home(s) will be polled from Tibber server now)
-5. Go back to config screen and choose the home(s) to also pull live data from your Tibber Pulse or choose home(s) and disable feed - (!! Only working if hardware is installed and Tibber server verified connection to Pulse)
-6. Save the settings
+3. Enter your Tibber API token in the standard settings and create at least one line for live feed configuration (select "None available").
+4. Save the settings and exit the configaration to restart the adapter (your home(s) will now be queried from the Tibber server).
+5. Return to the configuration screen and select the homes from which you want to pull real-time data from your Tibber Pulse or select homes and disable the feed - (!! Only works if hardware is installed and the Tibber server has verified the connection to Pulse).
+6. Save the settings.
 
 ## Calculator Configuration
-
-1. Since Tibber connection is up and running you could also use Calculator to have some automation addons included in TibberLink adapter.
-2. Calculator is working with channels. Each channel is linked to a selected home.
-3. channels could be activated or deactivated in settings tab or the corresponding state
-4. all states of an calculator channel are placed near the homes states, named by the channel number
-5. the behaviour of a channel is defined by it's type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet
-6. each channel has an external state as output to be choosen in settings tab - this state could e.g. be "0_userdata.0.example_state" or any other writable external state
-7. the values to be written to the output state could be defined in "value YES" and "value NO" e.g. "true" for boolean states, or a number or text to be written
-8. "best cost":  uses state "TriggerPrice" as input - output is "YES" every hour the current Tibber energy cost is below the trigger price
-9. "best single hours" - not implemented yet
-10. "best hours block" - not implemented yet
+1. Since the Tibber connection is up and running, you can also use the Calculator to include some automation add-ons in the TibberLink adapter.
+2. The Calculator works with channels. Each channel is linked to a selected home.
+3. Channels can be activated or deactivated in the settings tab or in the corresponding state.
+4. All states of a calculator channel are placed near the homes states, named by the channel number.
+5. The behavior of a channel is defined by its type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet.
+6. Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, "0_userdata.0.example_state" or any other writable external state.
+7. The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states, or a number or text to be written.
+8. "Best cost": Uses the "TriggerPrice" state as input - output is "YES" every hour the current Tibber energy cost is below the trigger price.
+9. "Best single hours" - not implemented yet.
+10. "Best hours block" - not implemented yet.
 
 ## Notes
 
@@ -58,6 +54,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 -   (HombachC) implement tibber calculator mode "best price" (#16)
 -   (HombachC) precised pull times of current cost
 -   (HombachC) reduced error messages (#80)
+-   (HombachC) extended documentation
 
 ### 1.0.0 (2023-10-05)
 
