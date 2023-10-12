@@ -23,14 +23,27 @@ If you're not a Tibber user right now, it's greatly appreciated when you're usin
 
 [https://invite.tibber.com/2gwuign3.](https://invite.tibber.com/2gwuign3.)
 
-## Configuration
+## Standard Configuration
 
 1. Create a new instance of the adapter
 2. You will also need an API token from Tibber. Get it here: [https://developer.tibber.com/](https://developer.tibber.com/)
-3. Fill in your Tibber API token -> create minimum one line Live Feed Configuration (choose the "None available")
+3. Fill in your Tibber API token in standard settings -> create minimum one line Live Feed Configuration (choose the "None available")
 4. Save the settings and leave configaration to get adapter restarted (your home(s) will be polled from Tibber server now)
 5. Go back to config screen and choose the home(s) to also pull live data from your Tibber Pulse or choose home(s) and disable feed - (!! Only working if hardware is installed and Tibber server verified connection to Pulse)
 6. Save the settings
+
+## Calculator Configuration
+
+1. Since Tibber connection is up and running you could also use Calculator to have some automation addons included in TibberLink adapter.
+2. Calculator is working with channels. Each channel is linked to a selected home.
+3. channels could be activated or deactivated in settings tab or the corresponding state
+4. all states of an calculator channel are placed near the homes states, named by the channel number
+5. the behaviour of a channel is defined by it's type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet
+6. each channel has an external state as output to be choosen in settings tab - this state could e.g. be "0_userdata.0.example_state" or any other writable external state
+7. the values to be written to the output state could be defined in "value YES" and "value NO" e.g. "true" for boolean states, or a number or text to be written
+8. "best cost":  uses state "TriggerPrice" as input - output is "YES" every hour the current Tibber energy cost is below the trigger price
+9. "best single hours" - not implemented yet
+10. "best hours block" - not implemented yet
 
 ## Notes
 
