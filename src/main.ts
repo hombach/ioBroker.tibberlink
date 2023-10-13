@@ -389,7 +389,7 @@ class Tibberlink extends utils.Adapter {
 										if (typeof state.val === "boolean") {
 											this.config.CalculatorList[calcChannel].chActive = state.val;
 											this.log.debug(
-												`calculator settings state in home: ${homeIDToMatch} channel: ${calcChannel} changed to Active: ${this.config.CalculatorList[calcChannel].chActive}`,
+												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to Active: ${this.config.CalculatorList[calcChannel].chActive}`,
 											);
 											this.setStateAsync(id, state.val, true);
 										} else {
@@ -401,7 +401,7 @@ class Tibberlink extends utils.Adapter {
 										if (typeof state.val === "number") {
 											this.config.CalculatorList[calcChannel].chTriggerPrice = state.val;
 											this.log.debug(
-												`calculator settings state in home: ${homeIDToMatch} channel: ${calcChannel} changed to TriggerPrice: ${this.config.CalculatorList[calcChannel].chTriggerPrice}`,
+												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to TriggerPrice: ${this.config.CalculatorList[calcChannel].chTriggerPrice}`,
 											);
 											this.setStateAsync(id, state.val, true);
 										} else {
@@ -413,7 +413,7 @@ class Tibberlink extends utils.Adapter {
 										if (typeof state.val === "number") {
 											this.config.CalculatorList[calcChannel].chAmountHours = state.val;
 											this.log.debug(
-												`calculator settings state in home: ${homeIDToMatch} channel: ${calcChannel} changed to AmountHours: ${this.config.CalculatorList[calcChannel].chAmountHours}`,
+												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours: ${this.config.CalculatorList[calcChannel].chAmountHours}`,
 											);
 											this.setStateAsync(id, state.val, true);
 										} else {
