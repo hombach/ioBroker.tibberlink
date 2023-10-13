@@ -28,20 +28,18 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         if (this.adapter.config.UseCalculator) {
             for (const channel in this.adapter.config.CalculatorList) {
                 try {
-                    if (this.adapter.config.CalculatorList[channel].chActive) {
-                        switch (this.adapter.config.CalculatorList[channel].chType) {
-                            case tibberHelper_1.enCalcType.BestCost:
-                                this.executeCalculatorBestCost(parseInt(channel));
-                                break;
-                            case tibberHelper_1.enCalcType.BestSingleHours:
-                                //tibberCalculator.executeCalculatorBestSingleHours(parseInt(channel));
-                                break;
-                            case tibberHelper_1.enCalcType.BestHoursBlock:
-                                //tibberCalculator.executeCalculatorBestHoursBlock(parseInt(channel));
-                                break;
-                            default:
-                                this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
-                        }
+                    switch (this.adapter.config.CalculatorList[channel].chType) {
+                        case tibberHelper_1.enCalcType.BestCost:
+                            this.executeCalculatorBestCost(parseInt(channel));
+                            break;
+                        case tibberHelper_1.enCalcType.BestSingleHours:
+                            //tibberCalculator.executeCalculatorBestSingleHours(parseInt(channel));
+                            break;
+                        case tibberHelper_1.enCalcType.BestHoursBlock:
+                            //tibberCalculator.executeCalculatorBestHoursBlock(parseInt(channel));
+                            break;
+                        default:
+                            this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
                     }
                 }
                 catch (error) {
@@ -53,7 +51,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async executeCalculatorBestCost(channel) {
         try {
             const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
-            if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
+            if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice && this.adapter.config.CalculatorList[channel].chActive) {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
             }
             else {
