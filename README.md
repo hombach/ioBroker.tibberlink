@@ -32,7 +32,7 @@ If you're not a Tibber user currently, it would be greatly appreciated if you us
 ## Calculator Configuration
 +   Since the Tibber connection is up and running, you can also use the Calculator to include some automation add-ons in the TibberLink adapter.
 +   The Calculator works with channels. Each channel is linked to a selected home.
-+   Channels can be activated or deactivated in the settings tab or in the corresponding state.
++   Channels can be activated or deactivated in a corresponding state.
 +   All states of a calculator channel are placed near the homes states, named by the channel number.
 +   The behavior of a channel is defined by its type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet.
 +   Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, "0_userdata.0.example_state" or any other writable external state.
