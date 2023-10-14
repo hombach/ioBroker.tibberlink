@@ -51,10 +51,10 @@ export class TibberCalculator extends TibberHelper {
 							this.executeCalculatorBestCost(parseInt(channel));
 							break;
 						case enCalcType.BestSingleHours:
-							//tibberCalculator.executeCalculatorBestSingleHours(parseInt(channel));
+							//this.executeCalculatorBestSingleHours(parseInt(channel));
 							break;
 						case enCalcType.BestHoursBlock:
-							//tibberCalculator.executeCalculatorBestHoursBlock(parseInt(channel));
+							//this.executeCalculatorBestHoursBlock(parseInt(channel));
 							break;
 						default:
 							this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
@@ -88,6 +88,43 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestSingleHours(channel: number): Promise<void> {
 		try {
+			//import { DateTime } from "luxon";
+			//const currentDateTime = DateTime.local();
+			const currentDateTime = new Date();
+
+			const jsonPrices = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`);
+
+			// Anzahl der Einträge, die verglichen werden
+			//const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+
+			// function to check for equal hour values
+			function checkHourMatch(entry: any): boolean {
+				//const startDateTime = DateTime.fromISO(entry.startsAt);
+				const startDateTime = new Date(entry.startsAt);
+				//return currentDateTime.hour === startDateTime.hour;
+				return currentDateTime.getHours() === startDateTime.getHours();
+			}
+
+			// get first n entries und test for matching hour
+			//const result: boolean[] = data.slice(0, n).map(checkHourMatch);
+			//const result: boolean[] = data.slice(0, n).map(checkHourMatch);
+			const result: boolean[] = jsonPrices.slice(0, this.adapter.config.CalculatorList[channel].chAmountHours).map(checkHourMatch);
+
+			// identify if any elementis true
+			const isAnyTrue = result.some((value) => value);
+
+			if (isAnyTrue) {
+				this.adapter.setForeignStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
+				);
+			} else {
+				this.adapter.setForeignStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+				);
+			}
+			this.adapter.log.debug(`calculator channel: ${channel} setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours in channel ${channel}`));
 		}
@@ -95,6 +132,14 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestHoursBlock(channel: number): Promise<void> {
 		try {
+			if (false) {
+			} else {
+				this.adapter.setForeignStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+				);
+			}
+			this.adapter.log.debug(`calculator channel: ${channel} setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block in channel ${channel}`));
 		}

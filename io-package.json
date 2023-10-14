@@ -224,19 +224,6 @@
 				"uk": "вводить JSON для цін, що відсортовані загальним зростанням цін",
 				"zh-cn": "公司采用以总价格计算价格计算的价格"
 			},
-			"0.1.10": {
-				"en": "bump dependencies, preparations for tibber calculator, code cleanup, mitigate multi homes & pulse problems (#41)",
-				"de": "Abhängigkeiten aktualisiert, Vorbereitungen für tibber-rechner, Code Bereinigung, Minderung multi homes & Pulse probleme (#41)",
-				"ru": "бамповые зависимости, подготовка к калькулятору tibber, очистка кода, уменьшение нескольких домов и проблемы импульса (#41)",
-				"pt": "dependências de choque, preparações para calculadora de tibber, limpeza de código, mitigar multi casas e problemas de pulso (#41)",
-				"nl": "quality over quantity (qoq) releases vertaling:",
-				"fr": "dépendances de bosse, préparations pour calculateur de tibber, nettoyage de code, atténuer les problèmes de pulsation de plusieurs foyers (#41)",
-				"it": "paraurti dipendenze, preparazioni per calcolatore di tibber, pulizia del codice, mitigare multi case e problemi di polso (#41)",
-				"es": "unidades de parachoques, preparaciones para la calculadora de tibber, limpieza de códigos, mitigación de múltiples hogares \" problemas de pulso (#41)",
-				"pl": "w zależności od zderzenia, przygotowania kalkulatora, czyszczenie kodu, złagodzenie problemów wielodomów i impulsów (#41)",
-				"uk": "bump залежностей, підготовка до тиберного калькулятора, очищення коду, пом'якшення багатобудинків та імпульсних проблем (#41)",
-				"zh-cn": "b 倾覆依赖、浮动器的准备、守则清理、减轻多家住宅和厕所问题"
-			},
 			"0.1.9": {
 				"en": "optimizing fetching homes list (#32) after Tibber server error",
 				"de": "optimierung der Fetching-Homes-Liste (#32) nach Tibber-Server-Fehler",
