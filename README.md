@@ -53,6 +53,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 +   (HombachC) precised pull times of current cost
 +   (HombachC) reduced error messages (#80)
 +   (HombachC) extend documentation
++   (HombachC) update adapter-core
 
 ### 1.0.0 (2023-10-05)
 +   (HombachC) Increase to the first major release, as now a stable level is reached
