@@ -18,5 +18,14 @@
 	"s_Active": "活跃",
 	"s_TargetState": "目标状态",
 	"s_ValueYES": "值 是",
-	"s_ValueNO": "值 否"
+	"s_ValueNO": "值 否",
+	"s_CalculatorHelp1": "通道可以在相应的状态下激活或停用。",
+	"s_CalculatorHelp2": "计算器通道的所有状态都放置在Homes-States附近，并以通道号命名。",
+	"s_CalculatorHelp3": "通道的行为由其类型定义：'最佳成本'；'最佳单小时' - 尚未实施；'最佳小时块' - 尚未实施。",
+	"s_CalculatorHelp4": "每个通道都有一个外部 State 作为输出，可以在设置选项卡中选择。这个 State 可以是，例如，'0_userdata.0.example_state' 或任何其他可写的外部 State。",
+	"s_CalculatorHelp5": "要写入输出 State 的值可以在 '值是' 和 '值不是' 中定义，例如布尔 State 的 'true'，或要写入的数字或文本。",
+	"s_CalculatorHelp6": "输出：",
+	"s_CalculatorHelp7": "“最佳成本”：使用“触发价格”状态作为输入 - 每小时输出为“是”，当前的Tibber能源成本低于触发价格。",
+	"s_CalculatorHelp8": "“最佳单个小时” - 尚未实施。",
+	"s_CalculatorHelp9": "“最佳小时块” - 尚未实施。"
 }

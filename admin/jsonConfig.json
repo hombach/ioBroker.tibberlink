@@ -208,7 +208,6 @@
 					"lg": 4
 				},
 
-
 				"_phases": {
 					"type": "staticText",
 					"hidden": "!data.TibberAPIToken",
@@ -266,11 +265,8 @@
 					"md": 6,
 					"lg": 4
 				}
-
 			}
 		},
-
-
 
 		"_CalculatorTab": {
 			"type": "panel",
@@ -334,21 +330,12 @@
 							"default": ""
 						},
 						{
-							"type": "checkbox",
-							"title": "s_Active",
-							"attr": "chActive",
-							"filter": false,
-							"sort": false,
-							"width": "5%",
-							"default": false
-						},
-						{
 							"type": "objectId",
 							"title": "s_TargetState",
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "30%",
+							"width": "35%",
 							"default": ""
 						},
 						{
@@ -372,10 +359,53 @@
 							"default": ""
 						}
 					]
+				},
+				"_calculatorhelp1": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp1"
+				},
+				"_calculatorhelp2": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp2"
+				},
+				"_calculatorhelp3": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp3"
+				},
+				"_calculatorhelp4": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp4"
+				},
+				"_calculatorhelp5": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp5"
+				},
+				"_calculatorhelp6": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp6"
+				},
+				"_calculatorhelp7": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp7"
+				},
+				"_calculatorhelp8": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp8"
+				},
+				"_calculatorhelp9": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": "s_CalculatorHelp9"
 				}
-
 			}
 		}
-
 	}
 }

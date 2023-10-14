@@ -18,5 +18,14 @@
 	"s_Active": "Active",
 	"s_TargetState": "Target State",
 	"s_ValueYES": "Value YES",
-	"s_ValueNO": "Value NO"
+	"s_ValueNO": "Value NO",
+	"s_CalculatorHelp1": "Channels can be activated or deactivated in a corresponding state.",
+	"s_CalculatorHelp2": "All states of a calculator channel are placed near the homes states, named by the channel number.",
+	"s_CalculatorHelp3": "The behavior of a channel is defined by its type: 'best cost'; 'best single hours' - not implemented yet; 'best hours block' - not implemented yet.",
+	"s_CalculatorHelp4": "Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, '0_userdata.0.example_state' or any other writable external state.",
+	"s_CalculatorHelp5": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written.",
+	"s_CalculatorHelp6": "Outputs:",
+	"s_CalculatorHelp7": "'Best cost': Uses the 'TriggerPrice' state as input - output is 'YES' every hour the current Tibber energy cost is below the trigger price.",
+	"s_CalculatorHelp8": "'Best single hours' - not implemented yet.",
+	"s_CalculatorHelp9": "'Best hours block' - not implemented yet."
 }

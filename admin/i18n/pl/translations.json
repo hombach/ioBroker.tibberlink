@@ -18,5 +18,14 @@
 	"s_Active": "Aktywny",
 	"s_TargetState": "Stan docelowy",
 	"s_ValueYES": "Wartość TAK",
-	"s_ValueNO": "Wartość NIE"
+	"s_ValueNO": "Wartość NIE",
+	"s_CalculatorHelp1": "Kanały można aktywować lub dezaktywować w odpowiednim Stanie.",
+	"s_CalculatorHelp2": "Wszystkie stany kanału kalkulatora są umieszczane w pobliżu States domów i są nazwane numerem kanału.",
+	"s_CalculatorHelp3": "Zachowanie kanału jest określane przez jego typ: 'najlepszy koszt'; 'najlepsze pojedyncze godziny' - jeszcze nie zaimplementowane; 'najlepszy blok godzin' - jeszcze nie zaimplementowane.",
+	"s_CalculatorHelp4": "Każdy kanał ma zewnętrzny State jako wyjście, który można wybrać w karcie ustawień. Stan ten może być na przykład '0_userdata.0.example_state' lub inny zapisywalny zewnętrzny State.",
+	"s_CalculatorHelp5": "Wartości do zapisania w stanie wyjściowym można zdefiniować w 'wartość TAK' i 'wartość NIE', na przykład 'true' dla stanów logicznych lub liczba lub tekst do zapisania.",
+	"s_CalculatorHelp6": "Wyjścia:",
+	"s_CalculatorHelp7": "'Najlepszy koszt': Korzysta ze stanu 'CenaSpustowa' jako wejścia - wyjście to 'TAK' za każdą godzinę, gdy aktualny koszt energii Tibber jest poniżej ceny spustowej.",
+	"s_CalculatorHelp8": "'Najlepsze pojedyncze godziny' - jeszcze nie zaimplementowano.",
+	"s_CalculatorHelp9": "'Najlepszy blok godzin' - jeszcze nie zaimplementowano."
 }
