@@ -360,51 +360,15 @@
 						}
 					]
 				},
-				"_calculatorhelp1": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp1"
-				},
-				"_calculatorhelp2": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp2"
-				},
-				"_calculatorhelp3": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp3"
-				},
-				"_calculatorhelp4": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp4"
-				},
-				"_calculatorhelp5": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp5"
-				},
-				"_calculatorhelp6": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp6"
-				},
-				"_calculatorhelp7": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp7"
-				},
-				"_calculatorhelp8": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp8"
-				},
-				"_calculatorhelp9": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "s_CalculatorHelp9"
-				}
+				"_calculatorhelp1": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp1", "newLine": true },
+				"_calculatorhelp2": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp2", "newLine": true },
+				"_calculatorhelp3": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp3", "newLine": true },
+				"_calculatorhelp4": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp4", "newLine": true },
+				"_calculatorhelp5": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp5", "newLine": true },
+				"_calculatorhelp6": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp6", "newLine": true },
+				"_calculatorhelp7": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp7", "newLine": true },
+				"_calculatorhelp8": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp8", "newLine": true },
+				"_calculatorhelp9": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp9", "newLine": true }
 			}
 		}
 	}
