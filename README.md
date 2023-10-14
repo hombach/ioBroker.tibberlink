@@ -48,7 +48,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ## Changelog
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.1.0 (2023-10-1x) WORK in PROGRESS
+### 1.1.0 (2023-10-14)
 +   (HombachC) implement tibber calculator mode "best price" (#16)
 +   (HombachC) precised pull times of current cost
 +   (HombachC) reduced error messages (#80)
