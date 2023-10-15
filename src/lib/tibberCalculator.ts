@@ -1,4 +1,5 @@
 import * as utils from "@iobroker/adapter-core";
+import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { TibberHelper, enCalcType } from "./tibberHelper";
 
 export class TibberCalculator extends TibberHelper {
@@ -94,10 +95,12 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.debug(`TEST 1 - ${channel}`);
 			const currentDateTime = new Date();
 			this.adapter.log.debug(`TEST 2 - ${currentDateTime}`);
-			const jsonPrices = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`);
+			const jsonPrices: IPrice[] = JSON.parse(
+				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
+			);
 
 			// function to check for equal hour values
-			function checkHourMatch(entry: any): boolean {
+			function checkHourMatch(entry: IPrice): boolean {
 				const startDateTime = new Date(entry.startsAt);
 				return currentDateTime.getHours() === startDateTime.getHours();
 			}
@@ -105,7 +108,7 @@ export class TibberCalculator extends TibberHelper {
 			// get first n entries und test for matching hour
 			const n = this.adapter.config.CalculatorList[channel].chAmountHours;
 			this.adapter.log.debug(`TEST n - ${n}`);
-			const result: boolean[] = jsonPrices.slice(0, n).map(checkHourMatch);
+			const result: boolean[] = jsonPrices.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
 			this.adapter.log.debug(`TEST 3 - ${result[0]}`);
 
 			// identify if any element is true

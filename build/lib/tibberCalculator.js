@@ -71,7 +71,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`TEST 1 - ${channel}`);
             const currentDateTime = new Date();
             this.adapter.log.debug(`TEST 2 - ${currentDateTime}`);
-            const jsonPrices = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`);
+            const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
             // function to check for equal hour values
             function checkHourMatch(entry) {
                 const startDateTime = new Date(entry.startsAt);
@@ -80,7 +80,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             // get first n entries und test for matching hour
             const n = this.adapter.config.CalculatorList[channel].chAmountHours;
             this.adapter.log.debug(`TEST n - ${n}`);
-            const result = jsonPrices.slice(0, n).map(checkHourMatch);
+            const result = jsonPrices.slice(0, n).map((entry) => checkHourMatch(entry));
             this.adapter.log.debug(`TEST 3 - ${result[0]}`);
             // identify if any element is true
             const isAnyTrue = result.some((value) => value);
