@@ -13,7 +13,7 @@
 	"s_ChannelHome": "Channel Home",
 	"s_ChannelType": "Channel Type",
 	"s_BestCost": "best cost",
-	"s_BestSingleHours": "best single hours - not implemented",
+	"s_BestSingleHours": "best single hours",
 	"s_BestHoursBlock": "best hours block- not implemented",
 	"s_Active": "Active",
 	"s_TargetState": "Target State",

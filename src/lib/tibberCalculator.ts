@@ -54,7 +54,7 @@ export class TibberCalculator extends TibberHelper {
 							this.executeCalculatorBestCost(parseInt(channel));
 							break;
 						case enCalcType.BestSingleHours:
-							//this.executeCalculatorBestSingleHours(parseInt(channel));
+							this.executeCalculatorBestSingleHours(parseInt(channel));
 							break;
 						case enCalcType.BestHoursBlock:
 							//this.executeCalculatorBestHoursBlock(parseInt(channel));
@@ -91,26 +91,16 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestSingleHours(channel: number): Promise<void> {
 		try {
-			//import { DateTime } from "luxon";
-			//const currentDateTime = DateTime.local();
 			const currentDateTime = new Date();
-
 			const jsonPrices = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`);
-
-			// Anzahl der Einträge, die verglichen werden
-			//const n = this.adapter.config.CalculatorList[channel].chAmountHours;
 
 			// function to check for equal hour values
 			function checkHourMatch(entry: any): boolean {
-				//const startDateTime = DateTime.fromISO(entry.startsAt);
 				const startDateTime = new Date(entry.startsAt);
-				//return currentDateTime.hour === startDateTime.hour;
 				return currentDateTime.getHours() === startDateTime.getHours();
 			}
 
 			// get first n entries und test for matching hour
-			//const result: boolean[] = data.slice(0, n).map(checkHourMatch);
-			//const result: boolean[] = data.slice(0, n).map(checkHourMatch);
 			const result: boolean[] = jsonPrices.slice(0, this.adapter.config.CalculatorList[channel].chAmountHours).map(checkHourMatch);
 
 			// identify if any elementis true

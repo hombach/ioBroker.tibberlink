@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.1.1",
+		"version": "1.2.0",
 		"news": {
+			"1.2.0": {
+				"en": "Implement Tibber Calculator Mode 'Best Single Hours' (#16)",
+				"de": "Implementiere den Tibber Calculator Modus 'Beste Einzelstunden' (#16)",
+				"ru": "Внедрить режим калькулятора Tibber 'Лучшие часы' (#16)",
+				"pt": "Implementar o Modo de Calculadora Tibber 'Melhores Horas Únicas' (#16)",
+				"nl": "Implementeer Tibber Calculator Modus 'Beste Enkele Uren' (#16)",
+				"fr": "Mettre en œuvre le mode calculatrice Tibber 'Meilleures Heures Individuelles' (#16)",
+				"it": "Implementa la Modalità Calcolatrice Tibber 'Migliori Ore Singole' (#16)",
+				"es": "Implementar el Modo Calculadora Tibber 'Mejores Horas Individuales' (#16)",
+				"pl": "Wdroż Tryb Kalkulatora Tibber 'Najlepsze Godziny Pojedyncze' (#16)",
+				"uk": "Реалізувати режим калькулятора Tibber 'Найкращі години' (#16)",
+				"zh-cn": "实施Tibber计算器模式'最佳单个小时' (#16)"
+			},
 			"1.1.1": {
 				"en": "fix error in startup of additional channels",
 				"de": "Fehler beim Starten zusätzlicher Kanäle beheben",
@@ -249,19 +262,6 @@
 				"pl": "ostateczna lista domów (#32) po błędzie Tibber",
 				"uk": "оптимізуйте список фетешних будинків (#32) після помилки сервера Tibber",
 				"zh-cn": "在Tibber服务器错误之后,优化住房名单(32)"
-			},
-			"0.1.4": {
-				"en": "BREAKING: encrypted API-Token in ioBroker; rearranged configuration options; fixed bug in state generation",
-				"de": "BREAKING: verschlüsselte API-Token in ioBroker; erweiterte Konfigurationsoptionen; Fehler in der Zustandsgeneration behoben",
-				"ru": "ЗАВТРАК: зашифрованный API-токен в ioBroker; перестроенные варианты конфигурации; исправлена ошибка в государственном поколению",
-				"pt": "BREAKING: API-Token criptografado no ioBroker; opções de configuração rearranjada; bug fixo na geração de estado",
-				"nl": "Gecodeerde API-Token in ioBroker, herschikte configuratie opties",
-				"fr": "BREAKING: crypté API-Token dans ioBroker; réarranger les options de configuration; bug fixe dans la génération d'état",
-				"it": "BREAKING: API-Token crittografato in ioBroker; opzioni di configurazione riorganizzate; bug fisso nella generazione di stato",
-				"es": "BREAKING: API-Token encriptada en ioBroker; opciones de configuración reorganizadas; bug fijo en generación estatal",
-				"pl": "BREAKING – szyfrowany interfejs API-Token w ioBrokera, opcja konfiguracji; uruchliwy błąd w pokoleniu stanów",
-				"uk": "BREAKING: зашифрований API-Token в ioBroker; параметри перепланованої конфігурації; фіксована помилка в державному генеруванні",
-				"zh-cn": "BREAKRE: 加密的API-Token inio Broker;重新安排的备选办法;国家代代用的固定配件。"
 			}
 		},
 		"messages": [

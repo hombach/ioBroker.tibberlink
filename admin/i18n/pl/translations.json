@@ -13,7 +13,7 @@
 	"s_ChannelHome": "Kanał domowy",
 	"s_ChannelType": "Typ kanału",
 	"s_BestCost": "Najlepszy koszt",
-	"s_BestSingleHours": "Najlepsze pojedyncze godziny - Nie zaimplementowane",
+	"s_BestSingleHours": "Najlepsze pojedyncze godziny",
 	"s_BestHoursBlock": "Najlepszy blok godzin - Nie zaimplementowane",
 	"s_Active": "Aktywny",
 	"s_TargetState": "Stan docelowy",
