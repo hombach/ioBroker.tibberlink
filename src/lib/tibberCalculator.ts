@@ -96,7 +96,7 @@ export class TibberCalculator extends TibberHelper {
 		try {
 			const currentDateTime = new Date();
 			const jsonPrices: IPrice[] = JSON.parse(
-				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
+				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.PricesToday.jsonBYpriceASC`),
 			);
 			// function to check for equal hour values
 			function checkHourMatch(entry: IPrice): boolean {
@@ -128,7 +128,16 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestHoursBlock(channel: number): Promise<void> {
 		try {
+			//const currentDateTime = new Date();
+			//const jsonPrices: IPrice[] = JSON.parse(
+			//	await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
+			//);
+
 			if (false) {
+				this.adapter.setForeignStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
+				);
 			} else {
 				this.adapter.setForeignStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
