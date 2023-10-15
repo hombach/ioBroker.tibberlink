@@ -26,6 +26,6 @@
 	"s_CalculatorHelp5": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written.",
 	"s_CalculatorHelp6": "Outputs:",
 	"s_CalculatorHelp7": "'Best cost': Uses the 'TriggerPrice' state as input - output is 'YES' every hour the current Tibber energy cost is below the trigger price.",
-	"s_CalculatorHelp8": "'Best single hours' - not implemented yet.",
+	"s_CalculatorHelp8": "'Best single hours' - output is `YES` in the cheapest number of hours. Number is defined in state `AmountHours`.",
 	"s_CalculatorHelp9": "'Best hours block' - not implemented yet."
 }
