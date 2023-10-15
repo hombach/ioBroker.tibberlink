@@ -57,6 +57,10 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 -   (HombachC) implement tibber calculator mode "best single hours" (#16)
 
+### 1.1.2 (2023-10-15)
+
+-   (HombachC) fix timing error in calculator
+
 ### 1.1.1 (2023-10-14)
 
 -   (HombachC) fix error in startup of additional channels
