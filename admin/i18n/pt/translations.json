@@ -26,6 +26,6 @@
 	"s_CalculatorHelp5": "Os valores a serem escritos no Estado de saída podem ser definidos em 'valor SIM' e 'valor NÃO', por exemplo, 'true' para Estados booleanos ou um número ou texto a ser escrito.",
 	"s_CalculatorHelp6": "Saídas:",
 	"s_CalculatorHelp7": "'Melhor custo': Usa o estado 'TriggerPrice' como entrada - a saída é 'SIM' a cada hora em que o custo de energia atual do Tibber estiver abaixo do preço de gatilho.",
-	"s_CalculatorHelp8": "'Melhores horas individuais' - ainda não implementado.",
+	"s_CalculatorHelp8": "'Melhores horas únicas' - a saída é 'SIM' na quantidade mais barata de horas. O número é definido no estado 'AmountHours'.",
 	"s_CalculatorHelp9": "'Melhor bloco de horas' - ainda não implementado."
 }
