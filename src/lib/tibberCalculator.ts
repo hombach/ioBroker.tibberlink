@@ -103,12 +103,13 @@ export class TibberCalculator extends TibberHelper {
 			}
 
 			// get first n entries und test for matching hour
-			const result: boolean[] = jsonPrices.slice(0, this.adapter.config.CalculatorList[channel].chAmountHours).map(checkHourMatch);
-			this.adapter.log.debug(`TEST 3 - ${result}`);
+			const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+			const result: boolean[] = jsonPrices.slice(0, n).map(checkHourMatch);
+			this.adapter.log.debug(`TEST 3 - ${result[0]}`);
 
-			// identify if any elementis true
+			// identify if any element is true
 			const isAnyTrue = result.some((value) => value);
-			this.adapter.log.debug(`TEST 3 - ${isAnyTrue}`);
+			this.adapter.log.debug(`TEST 4 - ${isAnyTrue}`);
 
 			if (isAnyTrue) {
 				this.adapter.setForeignStateAsync(

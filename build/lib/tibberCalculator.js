@@ -78,11 +78,12 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 return currentDateTime.getHours() === startDateTime.getHours();
             }
             // get first n entries und test for matching hour
-            const result = jsonPrices.slice(0, this.adapter.config.CalculatorList[channel].chAmountHours).map(checkHourMatch);
-            this.adapter.log.debug(`TEST 3 - ${result}`);
-            // identify if any elementis true
+            const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+            const result = jsonPrices.slice(0, n).map(checkHourMatch);
+            this.adapter.log.debug(`TEST 3 - ${result[0]}`);
+            // identify if any element is true
             const isAnyTrue = result.some((value) => value);
-            this.adapter.log.debug(`TEST 3 - ${isAnyTrue}`);
+            this.adapter.log.debug(`TEST 4 - ${isAnyTrue}`);
             if (isAnyTrue) {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
             }
