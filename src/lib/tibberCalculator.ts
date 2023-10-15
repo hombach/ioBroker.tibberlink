@@ -92,9 +92,7 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestSingleHours(channel: number): Promise<void> {
 		try {
-			this.adapter.log.debug(`TEST 1 - ${channel}`);
 			const currentDateTime = new Date();
-			this.adapter.log.debug(`TEST 2 - ${currentDateTime}`);
 			const jsonPrices: IPrice[] = JSON.parse(
 				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
 			);
@@ -107,15 +105,9 @@ export class TibberCalculator extends TibberHelper {
 
 			// get first n entries und test for matching hour
 			const n = this.adapter.config.CalculatorList[channel].chAmountHours;
-			this.adapter.log.debug(`TEST n - ${n}`);
 			const result: boolean[] = jsonPrices.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
-			this.adapter.log.debug(`TEST 3 - ${result[0]}`);
-
 			// identify if any element is true
-			const isAnyTrue = result.some((value) => value);
-			this.adapter.log.debug(`TEST 4 - ${isAnyTrue}`);
-
-			if (isAnyTrue) {
+			if (result.some((value) => value)) {
 				this.adapter.setForeignStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
 					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
