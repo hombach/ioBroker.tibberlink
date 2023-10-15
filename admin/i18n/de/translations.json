@@ -26,6 +26,6 @@
 	"s_CalculatorHelp5": "Die Werte, die in den Ausgabe-State geschrieben werden sollen, können in 'Wert JA' und 'Wert NEIN' definiert werden, z. B. 'true' für boolesche States oder eine Zahl oder Text, die geschrieben werden soll.",
 	"s_CalculatorHelp6": "Ausgaben:",
 	"s_CalculatorHelp7": "'Beste Kosten': Verwendet den 'TriggerPrice'-State als Eingabe - die Ausgabe ist 'JA', wenn der aktuelle Tibber-Energiepreis stündlich unter dem Triggerpreis liegt.",
-	"s_CalculatorHelp8": "'Beste Einzelstunden' - noch nicht implementiert.",
+	"s_CalculatorHelp8": "'Beste Einzelstunden' - Ausgabe ist 'JA' in der günstigsten Anzahl von Stunden. Die Anzahl wird im 'AmountHours'-State definiert.",
 	"s_CalculatorHelp9": "'Beste Stundenblock' - noch nicht implementiert."
 }
