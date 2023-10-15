@@ -18,6 +18,9 @@ export class TibberCalculator extends TibberHelper {
 				true,
 				true,
 			);
+			if (this.adapter.config.CalculatorList[channel].chActive === undefined) {
+				this.adapter.config.CalculatorList[channel].chActive = false;
+			}
 			this.checkAndSetValueBoolean(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`),
 				this.adapter.config.CalculatorList[channel].chActive,
