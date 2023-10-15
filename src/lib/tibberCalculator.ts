@@ -23,7 +23,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chActive,
 				`Whether the calculation channel is active`,
 				true,
-				false,
+				true,
 			);
 			if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
 				this.adapter.config.CalculatorList[channel].chAmountHours = 0;
