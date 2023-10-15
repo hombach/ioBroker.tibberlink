@@ -79,6 +79,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             // get first n entries und test for matching hour
             const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+            this.adapter.log.debug(`TEST n - ${n}`);
             const result = jsonPrices.slice(0, n).map(checkHourMatch);
             this.adapter.log.debug(`TEST 3 - ${result[0]}`);
             // identify if any element is true
