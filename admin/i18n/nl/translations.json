@@ -18,14 +18,5 @@
 	"s_Active": "Actief",
 	"s_TargetState": "Doelstaat",
 	"s_ValueYES": "Waarde JA",
-	"s_ValueNO": "Waarde NEE",
-	"s_CalculatorHelp1": "Kanalen kunnen worden geactiveerd of gedeactiveerd in een overeenkomstige Staat.",
-	"s_CalculatorHelp2": "Alle staten van een rekenmachinekanaal worden in de buurt van de Homes-States geplaatst en worden genoemd naar het kanaalnummer.",
-	"s_CalculatorHelp3": "Het gedrag van een kanaal wordt bepaald door het type: 'beste kosten'; 'beste enkele uren' - nog niet geïmplementeerd; 'beste urenblok' - nog niet geïmplementeerd.",
-	"s_CalculatorHelp4": "Elk kanaal heeft een extern State als uitvoer, die kan worden gekozen in het instellingen tabblad. Dit State kan bijvoorbeeld '0_userdata.0.example_state' zijn of enige andere beschrijfbare externe State.",
-	"s_CalculatorHelp5": "De waarden die naar de uitvoer State moeten worden geschreven, kunnen worden gedefinieerd in 'waarde JA' en 'waarde NEE', bijvoorbeeld 'true' voor booleaanse States, of een getal of tekst om te schrijven.",
-	"s_CalculatorHelp6": "Uitgangen:",
-	"s_CalculatorHelp7": "'Beste kosten': Gebruikt de 'TriggerPrijs'-staat als invoer - de uitvoer is 'JA' elk uur dat de huidige Tibber energiekosten lager zijn dan de triggerprijs.",
-	"s_CalculatorHelp8": "'Beste enkele uren' - uitvoer is 'JA' in het goedkoopste aantal uren. Het aantal wordt gedefinieerd in de staat 'AmountHours'.",
-	"s_CalculatorHelp9": "'Beste uren blok' - nog niet geïmplementeerd."
+	"s_ValueNO": "Waarde NEE"
 }

@@ -360,12 +360,114 @@
 						}
 					]
 				},
-				"_calculatorhelp1": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp1", "newLine": true },
-				"_calculatorhelp2": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp2", "newLine": true },
-				"_calculatorhelp3": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp3", "newLine": true },
-				"_calculatorhelp4": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp4", "newLine": true },
-				"_calculatorhelp5": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp5", "newLine": true },
-				"_calculatorhelp6": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp6", "newLine": true },
+				"_calculatorhelp1": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "Channels can be activated or deactivated in a corresponding state.",
+						"de": "Kanäle können in einem entsprechenden Zustand aktiviert oder deaktiviert werden.",
+						"ru": "Каналы могут быть активированы или деактивированы в соответствующем состоянии.",
+						"pt": "Os canais podem ser ativados ou desativados em um estado correspondente.",
+						"nl": "Kanalen kunnen worden geactiveerd of gedeactiveerd in een overeenkomstige status.",
+						"fr": "Les canaux peuvent être activés ou désactivés dans un état correspondant.",
+						"it": "I canali possono essere attivati o disattivati in uno stato corrispondente.",
+						"es": "Los canales se pueden activar o desactivar en un estado correspondiente.",
+						"pl": "Kanały można aktywować lub dezaktywować w odpowiednim stanie.",
+						"uk": "Канали можуть бути активовані або деактивовані в відповідному стані.",
+						"zh-cn": "通道可以在相应状态下激活或停用。"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp2": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "All states of a calculator channel are placed near the homes states, named by the channel number.",
+						"de": "Alle Zustände eines Rechnerkanals sind in der Nähe der Hauszustände platziert und sind nach der Kanalnummer benannt.",
+						"ru": "Все состояния канала калькулятора размещены рядом со состояниями дома и названы номером канала.",
+						"pt": "Todos os estados de um canal de calculadora são colocados perto dos estados das casas, nomeados pelo número do canal.",
+						"nl": "Alle toestanden van een calculator-kanaal worden in de buurt van de toestanden van de huizen geplaatst en worden genoemd naar het kanaalnummer.",
+						"fr": "Tous les états d'un canal de calculatrice sont placés à proximité des états des maisons, nommés par le numéro du canal.",
+						"it": "Tutti gli stati di un canale del calcolatore sono posizionati vicino agli stati delle abitazioni, denominati per numero di canale.",
+						"es": "Todos los estados de un canal de calculadora se colocan cerca de los estados de las viviendas, nombrados por el número del canal.",
+						"pl": "Wszystkie stany kanału kalkulatora są umieszczone w pobliżu stanów domów i nazwane numerem kanału.",
+						"uk": "Всі стани калькуляторного каналу розташовані поруч зі станами будинків і названі номером каналу.",
+						"zh-cn": "计算器通道的所有状态都位于家庭状态附近，以通道号命名。"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp3": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "The behavior of a channel is defined by its type: 'best cost'; 'best single hours'; 'best hours block' - not implemented yet.",
+						"de": "Das Verhalten eines Kanals wird durch seinen Typ definiert: 'beste Kosten'; 'beste Einzelstunden'; 'beste Stundenblock' - noch nicht implementiert.",
+						"ru": "Поведение канала определяется его типом: 'лучшие затраты'; 'лучшие отдельные часы'; 'лучший часовой блок' - пока не реализованы.",
+						"pt": "O comportamento de um canal é definido por seu tipo: 'melhor custo'; 'melhores horas únicas'; 'melhor bloco de horas' - ainda não implementado.",
+						"nl": "Het gedrag van een kanaal wordt bepaald door het type: 'beste kosten'; 'beste enkele uren'; 'beste uren blok' - nog niet geïmplementeerd.",
+						"fr": "Le comportement d'un canal est défini par son type : 'meilleur coût' ; 'meilleures heures uniques' ; 'meilleur bloc d'heures' - pas encore implémenté.",
+						"it": "Il comportamento di un canale è definito dal suo tipo: 'miglior costo'; 'migliori ore singole'; 'miglior blocco di ore' - non ancora implementati.",
+						"es": "El comportamiento de un canal se define por su tipo: 'mejor costo'; 'mejores horas individuales'; 'mejor bloque de horas' - aún no implementados.",
+						"pl": "Zachowanie kanału jest określane przez jego typ: 'najlepszy koszt'; 'najlepsze pojedyncze godziny'; 'najlepszy blok godzin' - jeszcze nie zaimplementowane.",
+						"uk": "Поведінка каналу визначається його типом: 'найкращі витрати'; 'найкращі години'; 'найкращий годинний блок' - поки не реалізовані.",
+						"zh-cn": "通道的行为由其类型定义：'最佳成本'；'最佳单个小时'；'最佳小时块' - 尚未实施。"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp4": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, '0_userdata.0.example_state' or any other writable external state.",
+						"de": "Jeder Kanal hat einen externen Zustand als Ausgabe, der im Einstellungstab ausgewählt werden kann. Dieser Zustand könnte beispielsweise '0_userdata.0.example_state' oder ein anderer beschreibbarer externer Zustand sein.",
+						"ru": "У каждого канала есть внешнее состояние в качестве выхода, которое можно выбрать во вкладке настроек. Этим состоянием может быть, например, '0_userdata.0.example_state' или любое другое записываемое внешнее состояние.",
+						"pt": "Cada canal tem um estado externo como saída, que pode ser escolhido na guia de configurações. Este estado pode ser, por exemplo, '0_userdata.0.example_state' ou qualquer outro estado externo gravável.",
+						"nl": "Elk kanaal heeft een extern staat als uitvoer, die kan worden gekozen in het instellingen tabblad. Deze staat kan bijvoorbeeld '0_userdata.0.example_state' zijn of een andere beschrijfbare externe staat.",
+						"fr": "Chaque canal a un état externe en sortie, qui peut être choisi dans l'onglet des paramètres. Cet état pourrait être, par exemple, '0_userdata.0.example_state' ou tout autre état externe inscriptible.",
+						"it": "Ogni canale ha uno stato esterno come uscita, che può essere scelto nella scheda delle impostazioni. Questo stato potrebbe essere, ad esempio, '0_userdata.0.example_state' o qualsiasi altro stato esterno scrivibile.",
+						"es": "Cada canal tiene un estado externo como salida, que se puede elegir en la pestaña de configuración. Este estado podría ser, por ejemplo, '0_userdata.0.example_state' u cualquier otro estado externo escribible.",
+						"pl": "Każdy kanał ma stan zewnętrzny jako wyjście, który można wybrać w karcie ustawień. Stan ten może być na przykład '0_userdata.0.example_state' lub dowolny inny zapisywalny stan zewnętrzny.",
+						"uk": "У кожного каналу є зовнішній стан як вихід, який можна вибрати в вкладці налаштувань. Цей стан може бути, наприклад, '0_userdata.0.example_state' або будь-який інший записуваний зовнішній стан.",
+						"zh-cn": "每个通道都有一个外部状态作为输出，可以在设置选项卡中选择。此状态可以是，例如，'0_userdata.0.example_state'或任何其他可写的外部状态。"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp5": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written.",
+						"de": "Die Werte, die in den Ausgabestatus geschrieben werden sollen, können in 'Wert JA' und 'Wert NEIN' definiert werden, z.B. 'true' für boolesche Zustände oder eine Zahl oder Text, der geschrieben werden soll.",
+						"ru": "Значения, которые должны быть записаны в состояние вывода, могут быть определены в 'значение ДА' и 'значение НЕТ', например, 'true' для булевых состояний или число или текст, который должен быть записан.",
+						"pt": "Os valores a serem escritos no estado de saída podem ser definidos em 'valor SIM' e 'valor NÃO', por exemplo, 'true' para estados booleanos, ou um número ou texto a ser escrito.",
+						"nl": "De waarden die moeten worden geschreven naar de uitvoerstatus kunnen worden gedefinieerd in 'waarde JA' en 'waarde NEE', bijvoorbeeld 'true' voor booleaanse toestanden, of een getal of tekst om te schrijven.",
+						"fr": "Les valeurs à écrire dans l'état de sortie peuvent être définies dans 'valeur OUI' et 'valeur NON', par exemple 'true' pour les états booléens, ou un nombre ou un texte à écrire.",
+						"it": "I valori da scrivere nello stato di uscita possono essere definiti in 'valore SÌ' e 'valore NO', ad esempio 'true' per gli stati booleani, o un numero o un testo da scrivere.",
+						"es": "Los valores que se deben escribir en el estado de salida se pueden definir en 'valor SÍ' y 'valor NO', por ejemplo, 'true' para estados booleanos, o un número o texto que se debe escribir.",
+						"pl": "Wartości do zapisania w stanie wyjściowym można zdefiniować w 'wartość TAK' i 'wartość NIE', na przykład 'true' dla stanów logicznych lub liczby lub tekst do zapisania.",
+						"uk": "Значення, які слід записувати в вихідний стан, можуть бути визначені у 'значення ТАК' і 'значення НІ', наприклад, 'true' для булевих станів або число або текст для запису.",
+						"zh-cn": "要写入输出状态的值可以在'值是'和'值否'中定义，例如，对于布尔状态可以使用'true'，或者可以写入数字或文本。"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp6": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "Outputs:",
+						"de": "Ausgaben:",
+						"ru": "Вывод:",
+						"pt": "Saídas:",
+						"nl": "Uitvoer:",
+						"fr": "Sorties :",
+						"it": "Uscite:",
+						"es": "Salidas:",
+						"pl": "Wyniki:",
+						"uk": "Виводи:",
+						"zh-cn": "输出："
+					},
+					"newLine": true
+				},
 				"_calculatorhelp7": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",

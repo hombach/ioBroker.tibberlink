@@ -18,14 +18,5 @@
 	"s_Active": "Aktiv",
 	"s_TargetState": "Ziel State",
 	"s_ValueYES": "Wert JA",
-	"s_ValueNO": "Wert NEIN",
-	"s_CalculatorHelp1": "Kanäle können in einem entsprechenden Status aktiviert oder deaktiviert werden.",
-	"s_CalculatorHelp2": "Alle Zustände eines Rechnerkanals sind in der Nähe der Homes-States platziert und werden nach der Kanalnummer benannt.",
-	"s_CalculatorHelp3": "Das Verhalten eines Kanals wird durch seinen Typ definiert: 'Beste Kosten'; 'Beste Einzelstunden' - noch nicht implementiert; 'Beste Stundenblock' - noch nicht implementiert.",
-	"s_CalculatorHelp4": "Jeder Kanal hat einen externen State als Ausgabe, der im Einstellungs-Tab ausgewählt werden kann. Dieser State könnte beispielsweise '0_userdata.0.beispiel_zustand' oder ein anderer beschreibbarer externer State sein.",
-	"s_CalculatorHelp5": "Die Werte, die in den Ausgabe-State geschrieben werden sollen, können in 'Wert JA' und 'Wert NEIN' definiert werden, z. B. 'true' für boolesche States oder eine Zahl oder Text, die geschrieben werden soll.",
-	"s_CalculatorHelp6": "Ausgaben:",
-	"s_CalculatorHelp7": "'Beste Kosten': Verwendet den 'TriggerPrice'-State als Eingabe - die Ausgabe ist 'JA', wenn der aktuelle Tibber-Energiepreis stündlich unter dem Triggerpreis liegt.",
-	"s_CalculatorHelp8": "'Beste Einzelstunden' - Ausgabe ist 'JA' in der günstigsten Anzahl von Stunden. Die Anzahl wird im 'AmountHours'-State definiert.",
-	"s_CalculatorHelp9": "'Beste Stundenblock' - noch nicht implementiert."
+	"s_ValueNO": "Wert NEIN"
 }

@@ -18,14 +18,5 @@
 	"s_Active": "Attivo",
 	"s_TargetState": "Stato obiettivo",
 	"s_ValueYES": "Valore SI",
-	"s_ValueNO": "Valore NO",
-	"s_CalculatorHelp1": "I canali possono essere attivati o disattivati in uno Stato corrispondente.",
-	"s_CalculatorHelp2": "Tutti gli stati di un canale del calcolatore sono posizionati vicino agli States delle case e denominati con il numero del canale.",
-	"s_CalculatorHelp3": "Il comportamento di un canale è definito dal suo tipo: 'miglior costo'; 'migliori ore singole' - non ancora implementate; 'miglior blocco di ore' - non ancora implementato.",
-	"s_CalculatorHelp4": "Ogni canale ha uno stato esterno come uscita, che può essere scelto nella scheda delle impostazioni. Questo stato potrebbe essere, ad esempio, '0_userdata.0.example_state' o qualsiasi altro stato esterno scrivibile.",
-	"s_CalculatorHelp5": "I valori da scrivere nello stato di uscita possono essere definiti in 'valore SÌ' e 'valore NO', ad esempio 'true' per gli stati booleani, o un numero o un testo da scrivere.",
-	"s_CalculatorHelp6": "Uscite:",
-	"s_CalculatorHelp7": "'Miglior costo': Utilizza lo stato 'TriggerPrice' come ingresso - l'uscita è 'SÌ' ogni ora in cui il costo dell'energia Tibber attuale è inferiore al prezzo di scatto.",
-	"s_CalculatorHelp8": "'Migliori ore singole' - l'uscita è 'SÌ' nel minor numero di ore più economico. Il numero è definito nello stato 'AmountHours'.",
-	"s_CalculatorHelp9": "'Miglior blocco di ore' - non ancora implementato."
+	"s_ValueNO": "Valore NO"
 }

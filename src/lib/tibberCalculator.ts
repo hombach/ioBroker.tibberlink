@@ -73,19 +73,16 @@ export class TibberCalculator extends TibberHelper {
 	async executeCalculatorBestCost(channel: number): Promise<void> {
 		try {
 			const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
-			//this.adapter.log.debug(`currentPrice: ${currentPrice}`);
 			if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice && this.adapter.config.CalculatorList[channel].chActive) {
 				this.adapter.setForeignStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
 					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
 				);
-				//this.adapter.log.debug(`debug point eCBC-1: Trigger: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
 			} else {
 				this.adapter.setForeignStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
 					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
 				);
-				//this.adapter.log.debug(`debug point eCBC-2: Trigger: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
 			}
 			this.adapter.log.debug(
 				`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`,
@@ -101,13 +98,11 @@ export class TibberCalculator extends TibberHelper {
 			const jsonPrices: IPrice[] = JSON.parse(
 				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
 			);
-
 			// function to check for equal hour values
 			function checkHourMatch(entry: IPrice): boolean {
 				const startDateTime = new Date(entry.startsAt);
 				return currentDateTime.getHours() === startDateTime.getHours();
 			}
-
 			// get first n entries und test for matching hour
 			const n = this.adapter.config.CalculatorList[channel].chAmountHours;
 			const result: boolean[] = jsonPrices.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));

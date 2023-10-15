@@ -18,14 +18,5 @@
 	"s_Active": "Activo",
 	"s_TargetState": "Estado objetivo",
 	"s_ValueYES": "Valor SÍ",
-	"s_ValueNO": "Valor NO",
-	"s_CalculatorHelp1": "Los canales pueden activarse o desactivarse en un Estado correspondiente.",
-	"s_CalculatorHelp2": "Todos los estados de un canal de calculadora se colocan cerca de los States de las viviendas y se nombran según el número del canal.",
-	"s_CalculatorHelp3": "El comportamiento de un canal se define por su tipo: 'mejor costo'; 'mejores horas individuales' - aún no implementadas; 'mejor bloque de horas' - aún no implementado.",
-	"s_CalculatorHelp4": "Cada canal tiene un Estado externo como salida, que se puede elegir en la pestaña de configuración. Este Estado podría ser, por ejemplo, '0_userdata.0.example_state' u cualquier otro Estado externo escribible.",
-	"s_CalculatorHelp5": "Los valores que se deben escribir en el Estado de salida pueden definirse en 'valor SÍ' y 'valor NO', por ejemplo, 'true' para Estados booleanos o un número o texto a escribir.",
-	"s_CalculatorHelp6": "Salidas:",
-	"s_CalculatorHelp7": "'Mejor costo': Utiliza el estado 'PrecioGatillo' como entrada; la salida es 'SÍ' cada hora en que el costo actual de la energía Tibber esté por debajo del precio de gatillo.",
-	"s_CalculatorHelp8": "'Mejores horas individuales' - la salida es 'SÍ' en la cantidad más barata de horas. El número está definido en el estado 'AmountHours'.",
-	"s_CalculatorHelp9": "'Mejor bloque de horas' - aún no implementado."
+	"s_ValueNO": "Valor NO"
 }
