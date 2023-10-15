@@ -57,11 +57,11 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`currentPrice: ${currentPrice}`);
             if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice && this.adapter.config.CalculatorList[channel].chActive) {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
-                this.adapter.log.debug(`debug point 1: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
+                this.adapter.log.debug(`debug point 1: Trigger: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
             }
             else {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
-                this.adapter.log.debug(`debug point 2: ${currentPrice}`);
+                this.adapter.log.debug(`debug point 2: Trigger: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
             }
             this.adapter.log.debug(`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
         }
