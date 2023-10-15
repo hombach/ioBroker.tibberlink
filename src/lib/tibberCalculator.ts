@@ -91,7 +91,9 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestSingleHours(channel: number): Promise<void> {
 		try {
+			this.adapter.log.debug(`TEST 1 - ${channel}`);
 			const currentDateTime = new Date();
+			this.adapter.log.debug(`TEST 2 - ${currentDateTime}`);
 			const jsonPrices = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`);
 
 			// function to check for equal hour values
@@ -102,9 +104,11 @@ export class TibberCalculator extends TibberHelper {
 
 			// get first n entries und test for matching hour
 			const result: boolean[] = jsonPrices.slice(0, this.adapter.config.CalculatorList[channel].chAmountHours).map(checkHourMatch);
+			this.adapter.log.debug(`TEST 3 - ${result}`);
 
 			// identify if any elementis true
 			const isAnyTrue = result.some((value) => value);
+			this.adapter.log.debug(`TEST 3 - ${isAnyTrue}`);
 
 			if (isAnyTrue) {
 				this.adapter.setForeignStateAsync(
