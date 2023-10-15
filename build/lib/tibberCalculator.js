@@ -54,13 +54,16 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async executeCalculatorBestCost(channel) {
         try {
             const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
+            this.adapter.log.debug(`currentPrice: ${currentPrice}`);
             if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice && this.adapter.config.CalculatorList[channel].chActive) {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
+                this.adapter.log.debug(`debug point 1: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
             }
             else {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
+                this.adapter.log.debug(`debug point 2: ${currentPrice}`);
             }
-            this.adapter.log.debug(`calculator channel: ${channel} setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
+            this.adapter.log.debug(`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
@@ -85,7 +88,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
             }
-            this.adapter.log.debug(`calculator channel: ${channel} setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
+            this.adapter.log.debug(`calculator channel: ${channel}-best single hours; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours in channel ${channel}`));
@@ -98,7 +101,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
             }
-            this.adapter.log.debug(`calculator channel: ${channel} setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
+            this.adapter.log.debug(`calculator channel: ${channel}-besthours block; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block in channel ${channel}`));
