@@ -93,11 +93,29 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async executeCalculatorBestHoursBlock(channel) {
         try {
-            //const currentDateTime = new Date();
-            //const jsonPrices: IPrice[] = JSON.parse(
-            //	await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
-            //);
-            if (false) {
+            const currentDateTime = new Date();
+            const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
+            let minSum = Number.MAX_VALUE;
+            let startIndex = 0;
+            const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+            for (let i = 0; i < jsonPrices.length - n + 1; i++) {
+                let sum = 0;
+                for (let j = i; j < i + n; j++) {
+                    sum += jsonPrices[j].total;
+                }
+                if (sum < minSum) {
+                    minSum = sum;
+                    startIndex = i;
+                }
+            }
+            const minSumEntries = jsonPrices.slice(startIndex, startIndex + n).map((entry) => checkHourMatch(entry));
+            // function to check for equal hour values
+            function checkHourMatch(entry) {
+                const startDateTime = new Date(entry.startsAt);
+                return currentDateTime.getHours() === startDateTime.getHours();
+            }
+            // identify if any element is true
+            if (minSumEntries.some((value) => value)) {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
             }
             else {
