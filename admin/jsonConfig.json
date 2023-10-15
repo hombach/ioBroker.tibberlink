@@ -362,7 +362,7 @@
 							],
 							"filter": false,
 							"sort": false,
-							"width": "20%",
+							"width": "15%",
 							"default": ""
 						},
 						{
@@ -371,7 +371,7 @@
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "35%",
+							"width": "40%",
 							"default": ""
 						},
 						{
