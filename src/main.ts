@@ -147,7 +147,6 @@ class Tibberlink extends utils.Adapter {
 					// Get current price for the first time and start calculator tasks once
 					try {
 						await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
-						tibberCalculator.startCalculatorTasks();
 					} catch (error: any) {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of current price`));
 					}
@@ -165,16 +164,17 @@ class Tibberlink extends utils.Adapter {
 					} catch (error: any) {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices tomorrow`));
 					}
+					tibberCalculator.startCalculatorTasks();
 				}
 
 				const startFullHourTasks = (): void => {
 					const currentTime = new Date();
 					const minutesUntilNextRun = 60 - currentTime.getMinutes() + 0.3;
 					setTimeout(
-						() => {
+						async () => {
 							let newprice = false;
 							for (const index in this.homeInfoList) {
-								tibberAPICaller
+								await tibberAPICaller
 									.updateCurrentPrice(this.homeInfoList[index].ID)
 									.then((result) => {
 										newprice = result;
