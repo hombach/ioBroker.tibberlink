@@ -26,6 +26,6 @@
 	"s_CalculatorHelp5": "I valori da scrivere nello stato di uscita possono essere definiti in 'valore SÌ' e 'valore NO', ad esempio 'true' per gli stati booleani, o un numero o un testo da scrivere.",
 	"s_CalculatorHelp6": "Uscite:",
 	"s_CalculatorHelp7": "'Miglior costo': Utilizza lo stato 'TriggerPrice' come ingresso - l'uscita è 'SÌ' ogni ora in cui il costo dell'energia Tibber attuale è inferiore al prezzo di scatto.",
-	"s_CalculatorHelp8": "'Migliori ore singole' - non ancora implementate.",
+	"s_CalculatorHelp8": "'Migliori ore singole' - l'uscita è 'SÌ' nel minor numero di ore più economico. Il numero è definito nello stato 'AmountHours'.",
 	"s_CalculatorHelp9": "'Miglior blocco di ore' - non ancora implementato."
 }
