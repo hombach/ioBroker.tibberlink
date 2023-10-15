@@ -366,9 +366,60 @@
 				"_calculatorhelp4": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp4", "newLine": true },
 				"_calculatorhelp5": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp5", "newLine": true },
 				"_calculatorhelp6": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp6", "newLine": true },
-				"_calculatorhelp7": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp7", "newLine": true },
-				"_calculatorhelp8": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp8", "newLine": true },
-				"_calculatorhelp9": { "type": "staticText", "hidden": "!data.UseCalculator", "label": "s_CalculatorHelp9", "newLine": true }
+				"_calculatorhelp7": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "'Best cost': Uses the 'TriggerPrice' state as input - output is 'YES' every hour the current Tibber energy cost is below the trigger price.",
+						"de": "'Beste Kosten': Verwendet den 'TriggerPrice'-State als Eingabe - die Ausgabe ist 'JA', wenn der aktuelle Tibber-Energiepreis stündlich unter dem Auslösepreis liegt.",
+						"ru": "'Лучшие затраты': Использует состояние 'TriggerPrice' в качестве входа - выход - 'ДА' каждый час, когда текущая стоимость энергии Tibber ниже уровня срабатывания.",
+						"pt": "'Melhor custo': Usa o estado 'TriggerPrice' como entrada - a saída é 'SIM' a cada hora em que o custo de energia atual do Tibber estiver abaixo do preço de gatilho.",
+						"nl": "'Beste kosten': Gebruikt de 'TriggerPrijs'-staat als invoer - de uitvoer is 'JA' elk uur dat de huidige Tibber energiekosten lager zijn dan de triggerprijs.",
+						"fr": "'Meilleur coût': Utilise l'état 'TriggerPrice' en tant qu'entrée - la sortie est 'OUI' chaque heure où le coût actuel de l'énergie Tibber est inférieur au prix déclencheur.",
+						"it": "'Miglior costo': Utilizza lo stato 'TriggerPrice' come ingresso - l'uscita è 'SÌ' ogni ora in cui il costo dell'energia Tibber attuale è inferiore al prezzo di scatto.",
+						"es": "'Mejor costo': Utiliza el estado 'PrecioGatillo' como entrada; la salida es 'SÍ' cada hora en que el costo actual de la energía Tibber esté por debajo del precio de gatillo.",
+						"pl": "'Najlepszy koszt': Korzysta ze stanu 'CenaSpustowa' jako wejścia - wyjście to 'TAK' za każdą godzinę, gdy aktualny koszt energii Tibber jest poniżej ceny spustowej.",
+						"uk": "'Найкращі витрати': Використовує стан 'Ціна-спуск' в якості входу - вихід - 'ТАК' кожну годину, коли поточна вартість енергії Tibber нижча за ціною спуску.",
+						"zh-cn": "“最佳成本”：使用“触发价格”状态作为输入 - 每小时输出为“是”，当前的Tibber能源成本低于触发价格。"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp8": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "'Best single hours' - output is 'YES' in the cheapest number of hours. Number is defined in state 'AmountHours'.",
+						"de": "'Beste Einzelstunden' - Ausgabe ist 'JA' in der günstigsten Anzahl von Stunden. Die Anzahl wird im 'AmountHours'-State definiert.",
+						"ru": "'Лучшие часы' - вывод 'ДА' в самое дешевое количество часов. Количество определяется в состоянии 'AmountHours'.",
+						"pt": "'Melhores horas únicas' - a saída é 'SIM' na quantidade mais barata de horas. O número é definido no estado 'AmountHours'.",
+						"nl": "'Beste enkele uren' - uitvoer is 'JA' in het goedkoopste aantal uren. Het aantal wordt gedefinieerd in de staat 'AmountHours'.",
+						"fr": "'Meilleures heures individuelles' - la sortie est 'OUI' dans le nombre d'heures le moins cher. Le nombre est défini dans l'état 'AmountHours'.",
+						"it": "'Migliori ore singole' - l'uscita è 'SÌ' nel minor numero di ore più economico. Il numero è definito nello stato 'AmountHours'.",
+						"es": "'Mejores horas individuales' - la salida es 'SÍ' en la cantidad más barata de horas. El número está definido en el estado 'AmountHours'.",
+						"pl": "'Najlepsze pojedyncze godziny' - wyjście jest 'TAK' w najtańszej liczbie godzin. Liczba jest określona w stanie 'AmountHours'.",
+						"uk": "'Найкращі години' - вихід 'ТАК' в найбільш вигідну кількість годин. Кількість визначається у стані 'AmountHours'.",
+						"zh-cn": "“最佳单个小时” - 输出在最便宜的小时数中是“是”。 数量在状态“AmountHours”中定义。"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp9": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "'Best hours block' - not implemented yet.",
+						"de": "'Beste Stundenblock' - noch nicht implementiert.",
+						"ru": "'Лучший часовой блок' - пока не реализовано.",
+						"pt": "'Melhor bloco de horas' - ainda não implementado.",
+						"nl": "'Beste uren blok' - nog niet geïmplementeerd.",
+						"fr": "'Meilleur bloc d'heures' - pas encore implémenté.",
+						"it": "'Miglior blocco di ore' - non ancora implementato.",
+						"es": "'Mejor bloque de horas' - aún no implementado.",
+						"pl": "'Najlepszy blok godzin' - jeszcze nie zaimplementowano.",
+						"uk": "'Кращий годинний блок' - ще не реалізовано.",
+						"zh-cn": "“最佳小时块” - 尚未实施."
+					},
+					"newLine": true
+				}
 			}
 		}
 	}
