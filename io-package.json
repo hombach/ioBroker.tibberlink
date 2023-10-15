@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.1.2",
+		"version": "1.2.0",
 		"news": {
+			"1.2.0": {
+				"en": "Implement Tibber Calculator Mode 'Best Single Hours' (#16)",
+				"de": "Implementiere den Tibber Calculator Modus 'Beste Einzelstunden' (#16)",
+				"ru": "Внедрить режим калькулятора Tibber 'Лучшие часы' (#16)",
+				"pt": "Implementar o Modo de Calculadora Tibber 'Melhores Horas Únicas' (#16)",
+				"nl": "Implementeer Tibber Calculator Modus 'Beste Enkele Uren' (#16)",
+				"fr": "Mettre en œuvre le mode calculatrice Tibber 'Meilleures Heures Individuelles' (#16)",
+				"it": "Implementa la Modalità Calcolatrice Tibber 'Migliori Ore Singole' (#16)",
+				"es": "Implementar el Modo Calculadora Tibber 'Mejores Horas Individuales' (#16)",
+				"pl": "Wdroż Tryb Kalkulatora Tibber 'Najlepsze Godziny Pojedyncze' (#16)",
+				"uk": "Реалізувати режим калькулятора Tibber 'Найкращі години' (#16)",
+				"zh-cn": "实施Tibber计算器模式'最佳单个小时' (#16)"
+			},
 			"1.1.2": {
 				"en": "fix timing error in calculator",
 				"de": "Behebe Zeitfehler im Rechner",
@@ -223,19 +236,6 @@
 				"pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez sprawdzanie znanych danych, optymalizacje kodu, naprawy ekranu (#55)",
 				"uk": "знижувати опитування на сервері Tibber за допомогою пречбеку відомих даних, оптимізації коду, фіксації екрана конфігурації (#55)",
 				"zh-cn": "通过预先检查已知数据、守则优化、固定集群筛查(第55号)减少Tibber服务器的污染"
-			},
-			"0.2.1": {
-				"en": "double timeout for Tibber server queries",
-				"de": "doppelter Timeout für Tibber Server-Abfragen",
-				"ru": "double timeout для запросов сервера Tibber",
-				"pt": "timeout duplo para consultas do servidor Tibber",
-				"nl": "dubbele time-out voor Tibber server quee",
-				"fr": "double timeout pour les requêtes de serveur Tibber",
-				"it": "doppio timeout per le query del server Tibber",
-				"es": "tiempo doble para las consultas del servidor Tibber",
-				"pl": "double timeout for Tibber servers",
-				"uk": "double timeout для запитів сервера Tibber",
-				"zh-cn": "提贝服务商询问的时间翻了一番"
 			},
 			"0.2.0": {
 				"en": "introduces JSONs for prices sorted by total price ascending",

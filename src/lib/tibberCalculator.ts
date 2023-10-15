@@ -55,7 +55,7 @@ export class TibberCalculator extends TibberHelper {
 							this.executeCalculatorBestCost(parseInt(channel));
 							break;
 						case enCalcType.BestSingleHours:
-							//this.executeCalculatorBestSingleHours(parseInt(channel));
+							this.executeCalculatorBestSingleHours(parseInt(channel));
 							break;
 						case enCalcType.BestHoursBlock:
 							//this.executeCalculatorBestHoursBlock(parseInt(channel));
