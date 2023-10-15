@@ -249,19 +249,6 @@
 				"pl": "wprowadzanie JSON za ceny uporządkowane przez całkowity wzrost cen",
 				"uk": "вводить JSON для цін, що відсортовані загальним зростанням цін",
 				"zh-cn": "公司采用以总价格计算价格计算的价格"
-			},
-			"0.1.9": {
-				"en": "optimizing fetching homes list (#32) after Tibber server error",
-				"de": "optimierung der Fetching-Homes-Liste (#32) nach Tibber-Server-Fehler",
-				"ru": "оптимизация выбора списка домов (#32) после ошибки сервера Tibber",
-				"pt": "otimizando a lista de casas de busca (#32) após o erro do servidor Tibber",
-				"nl": "na Tibber serverfout",
-				"fr": "l'optimisation de la liste des maisons d'accueil (#32) après l'erreur de serveur Tibber",
-				"it": "ottimizzare l'elenco delle case di acquisizione (#32) dopo l'errore del server Tibber",
-				"es": "optimización de la lista de hogares de búsqueda (#32) después del error del servidor Tibber",
-				"pl": "ostateczna lista domów (#32) po błędzie Tibber",
-				"uk": "оптимізуйте список фетешних будинків (#32) після помилки сервера Tibber",
-				"zh-cn": "在Tibber服务器错误之后,优化住房名单(32)"
 			}
 		},
 		"messages": [
