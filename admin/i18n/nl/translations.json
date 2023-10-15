@@ -26,6 +26,6 @@
 	"s_CalculatorHelp5": "De waarden die naar de uitvoer State moeten worden geschreven, kunnen worden gedefinieerd in 'waarde JA' en 'waarde NEE', bijvoorbeeld 'true' voor booleaanse States, of een getal of tekst om te schrijven.",
 	"s_CalculatorHelp6": "Uitgangen:",
 	"s_CalculatorHelp7": "'Beste kosten': Gebruikt de 'TriggerPrijs'-staat als invoer - de uitvoer is 'JA' elk uur dat de huidige Tibber energiekosten lager zijn dan de triggerprijs.",
-	"s_CalculatorHelp8": "'Beste enkele uren' - nog niet geïmplementeerd.",
+	"s_CalculatorHelp8": "'Beste enkele uren' - uitvoer is 'JA' in het goedkoopste aantal uren. Het aantal wordt gedefinieerd in de staat 'AmountHours'.",
 	"s_CalculatorHelp9": "'Beste uren blok' - nog niet geïmplementeerd."
 }
