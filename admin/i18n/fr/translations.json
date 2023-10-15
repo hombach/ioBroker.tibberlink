@@ -26,6 +26,6 @@
 	"s_CalculatorHelp5": "Les valeurs à écrire dans l'état de sortie peuvent être définies dans 'valeur OUI' et 'valeur NON', par exemple 'true' pour les états booléens, ou un nombre ou un texte à écrire.",
 	"s_CalculatorHelp6": "Sorties:",
 	"s_CalculatorHelp7": "'Meilleur coût': Utilise l'état 'TriggerPrice' en tant qu'entrée - la sortie est 'OUI' chaque heure où le coût actuel de l'énergie Tibber est inférieur au prix déclencheur.",
-	"s_CalculatorHelp8": "'Meilleures heures individuelles' - pas encore implémentées.",
+	"s_CalculatorHelp8": "'Meilleures heures individuelles' - la sortie est 'OUI' dans le nombre d'heures le moins cher. Le nombre est défini dans l'état 'AmountHours'.",
 	"s_CalculatorHelp9": "'Meilleur bloc d'heures' - pas encore implémenté."
 }
