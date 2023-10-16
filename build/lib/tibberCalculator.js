@@ -69,7 +69,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async executeCalculatorBestSingleHours(channel) {
         try {
             const currentDateTime = new Date();
-            const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.PricesToday.jsonBYpriceASC`));
+            const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`));
             // function to check for equal hour values
             function checkHourMatch(entry) {
                 const startDateTime = new Date(entry.startsAt);

@@ -96,7 +96,7 @@ export class TibberCalculator extends TibberHelper {
 		try {
 			const currentDateTime = new Date();
 			const jsonPrices: IPrice[] = JSON.parse(
-				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.PricesToday.jsonBYpriceASC`),
+				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`),
 			);
 			// function to check for equal hour values
 			function checkHourMatch(entry: IPrice): boolean {
