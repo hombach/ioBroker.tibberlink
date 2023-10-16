@@ -37,7 +37,7 @@ If you're not a Tibber user currently, it would be greatly appreciated if you us
 -   The Calculator works with channels. Each channel is linked to a selected home.
 -   Channels can be activated or deactivated in a corresponding state.
 -   All states of a calculator channel are placed near the homes states, named by the channel number.
--   The behavior of a channel is defined by its type: "best cost"; "best single hours" - not implemented yet; "best hours block" - not implemented yet.
+-   The behavior of a channel is defined by its type: "best cost"; "best single hours"; "best hours block" - not implemented yet.
 -   Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, "0_userdata.0.example_state" or any other writable external state.
 -   The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states, or a number or text to be written.
 -   Outputs:
