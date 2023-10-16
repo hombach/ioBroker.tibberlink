@@ -42,7 +42,7 @@ If you're not a Tibber user currently, it would be greatly appreciated if you us
 -   The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states, or a number or text to be written.
 -   Outputs:
     -   "Best cost": Uses the "TriggerPrice" state as input - output is "YES" every hour the current Tibber energy cost is below the trigger price.
-    -   "Best single hours" - not implemented yet.
+    -   'Best single hours' - output is 'YES' in the cheapest number of hours. Number is defined in state 'AmountHours'.
     -   "Best hours block" - not implemented yet.
 
 ## Notes
