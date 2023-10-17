@@ -13,7 +13,5 @@
 	"s_ChannelHome": "家庭通道",
 	"s_ChannelType": "通道类型",
 	"s_Active": "活跃",
-	"s_TargetState": "目标状态",
-	"s_ValueYES": "值 是",
-	"s_ValueNO": "值 否"
+	"s_TargetState": "目标状态"
 }
