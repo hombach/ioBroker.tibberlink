@@ -15,7 +15,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             if (typeof valueTriggerPrice === "number") {
                 this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
-                this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to Active: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
+                this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to TriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
             }
             else {
                 this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
@@ -39,7 +39,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
             if (typeof valueAmountHours === "number") {
                 this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
-                this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to Active: ${this.adapter.config.CalculatorList[channel].chAmountHours}`);
+                this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to AmountHours: ${this.adapter.config.CalculatorList[channel].chAmountHours}`);
             }
             else {
                 this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueAmountHours}`);
