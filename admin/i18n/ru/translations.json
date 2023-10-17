@@ -13,7 +13,5 @@
 	"s_ChannelHome": "Канал Дом",
 	"s_ChannelType": "Тип канала",
 	"s_Active": "Активен",
-	"s_TargetState": "Целевое состояние",
-	"s_ValueYES": "Значение ДА",
-	"s_ValueNO": "Значение НЕТ"
+	"s_TargetState": "Целевое состояние"
 }
