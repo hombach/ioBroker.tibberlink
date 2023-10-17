@@ -19,7 +19,7 @@ export class TibberCalculator extends TibberHelper {
 				true,
 				true,
 			);
-			const valueTriggerPrice = this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).key);
+			const valueTriggerPrice = await this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).key);
 			if (typeof valueTriggerPrice === "number") {
 				this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
 				this.adapter.log.debug(
@@ -39,7 +39,7 @@ export class TibberCalculator extends TibberHelper {
 				true,
 				true,
 			);
-			const valueActive = this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`).key);
+			const valueActive = await this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`).key);
 			if (typeof valueActive === "boolean") {
 				this.adapter.config.CalculatorList[channel].chActive = valueActive;
 				this.adapter.log.debug(
@@ -59,7 +59,7 @@ export class TibberCalculator extends TibberHelper {
 				true,
 				true,
 			);
-			const valueAmountHours = this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).key);
+			const valueAmountHours = await this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).key);
 			if (typeof valueAmountHours === "number") {
 				this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
 				this.adapter.log.debug(

@@ -12,7 +12,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
             }
             this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`), this.adapter.config.CalculatorList[channel].chTriggerPrice, `pricelevel to trigger this channel at`, true, true);
-            const valueTriggerPrice = this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).key);
+            const valueTriggerPrice = await this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).key);
             if (typeof valueTriggerPrice === "number") {
                 this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
                 this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to Active: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
@@ -24,7 +24,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.config.CalculatorList[channel].chActive = false;
             }
             this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`), this.adapter.config.CalculatorList[channel].chActive, `Whether the calculation channel is active`, true, true);
-            const valueActive = this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`).key);
+            const valueActive = await this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`).key);
             if (typeof valueActive === "boolean") {
                 this.adapter.config.CalculatorList[channel].chActive = valueActive;
                 this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to Active: ${this.adapter.config.CalculatorList[channel].chActive}`);
@@ -36,7 +36,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.config.CalculatorList[channel].chAmountHours = 0;
             }
             this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`), this.adapter.config.CalculatorList[channel].chAmountHours, `amount of hours to trigger this channel`, true, true);
-            const valueAmountHours = this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).key);
+            const valueAmountHours = await this.getStateValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).key);
             if (typeof valueAmountHours === "number") {
                 this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
                 this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to Active: ${this.adapter.config.CalculatorList[channel].chAmountHours}`);
