@@ -13,7 +13,5 @@
 	"s_ChannelHome": "Kanał domowy",
 	"s_ChannelType": "Typ kanału",
 	"s_Active": "Aktywny",
-	"s_TargetState": "Stan docelowy",
-	"s_ValueYES": "Wartość TAK",
-	"s_ValueNO": "Wartość NIE"
+	"s_TargetState": "Stan docelowy"
 }
