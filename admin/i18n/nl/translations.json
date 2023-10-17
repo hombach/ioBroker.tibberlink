@@ -13,7 +13,5 @@
 	"s_ChannelHome": "Kanaal Thuis",
 	"s_ChannelType": "Kanaaltype",
 	"s_Active": "Actief",
-	"s_TargetState": "Doelstaat",
-	"s_ValueYES": "Waarde JA",
-	"s_ValueNO": "Waarde NEE"
+	"s_TargetState": "Doelstaat"
 }
