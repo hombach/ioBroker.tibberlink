@@ -13,7 +13,5 @@
 	"s_ChannelHome": "Канал Дім",
 	"s_ChannelType": "Тип каналу",
 	"s_Active": "Активний",
-	"s_TargetState": "Цільовий стан",
-	"s_ValueYES": "Значення ТАК",
-	"s_ValueNO": "Значення НІ"
+	"s_TargetState": "Цільовий стан"
 }
