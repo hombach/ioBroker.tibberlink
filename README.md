@@ -57,6 +57,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 -   (HombachC) implement tibber calculator mode "best single hours" (#16)
 -   (HombachC) changed i18n files to inline translations, single files aren't update compatible
+-   (HombachC) fixed error in initial read of calculator states
 
 ### 1.1.2 (2023-10-15)
 
