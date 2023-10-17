@@ -100,8 +100,8 @@ export class TibberAPICaller extends TibberHelper {
 			const now = new Date();
 			if (!exDate || now.getHours() !== exDate.getHours()) {
 				const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
-				this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
 				await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
+				this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
 				return true;
 			} else {
 				this.adapter.log.debug(
@@ -131,7 +131,7 @@ export class TibberAPICaller extends TibberHelper {
 			for (const i in pricesToday) {
 				const price = pricesToday[i];
 				const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-				this.fetchPrice(homeId, `PricesToday.${hour}`, price);
+				await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
 			}
 			if (Array.isArray(pricesToday)) {
 				// Sort the array if it is an array - possible type error discovered by sentry
@@ -178,7 +178,7 @@ export class TibberAPICaller extends TibberHelper {
 				for (const i in pricesTomorrow) {
 					const price = pricesTomorrow[i];
 					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-					this.fetchPrice(homeId, "PricesTomorrow." + hour, price);
+					await this.fetchPrice(homeId, "PricesTomorrow." + hour, price);
 				}
 			}
 			this.checkAndSetValue(
@@ -209,8 +209,8 @@ export class TibberAPICaller extends TibberHelper {
 		}
 	}
 
-	private fetchPrice(homeId: string, objectDestination: string, price: IPrice): void {
-		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), price.total, "Total price (energy + taxes)");
+	private async fetchPrice(homeId: string, objectDestination: string, price: IPrice): Promise<void> {
+		await this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), price.total, "Total price (energy + taxes)");
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), price.energy, "Spotmarket energy price");
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), price.tax, "Tax part of the price (energy, tax, VAT...)");
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), price.startsAt, "Start time of the price");

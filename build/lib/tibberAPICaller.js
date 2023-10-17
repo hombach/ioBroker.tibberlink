@@ -4,12 +4,10 @@ exports.TibberAPICaller = void 0;
 const tibber_api_1 = require("tibber-api");
 const tibberHelper_1 = require("./tibberHelper");
 class TibberAPICaller extends tibberHelper_1.TibberHelper {
-    // currentHomeId: string; // POTENTIAL: needed?
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.tibberConfig = tibberConfig;
         this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig, 60000);
-        // this.currentHomeId = ""; // POTENTIAL: needed?
     }
     async updateHomesFromAPI() {
         try {
@@ -18,7 +16,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             const homeInfoList = [];
             for (const index in Homes) {
                 const currentHome = Homes[index];
-                // this.currentHomeId = currentHome.id; // POTENTIAL: needed?
                 homeInfoList.push({
                     ID: currentHome.id,
                     NameInApp: currentHome.appNickname,
@@ -59,9 +56,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             const now = new Date();
             if (!exDate || now.getHours() !== exDate.getHours()) {
                 const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
-                this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
-                // this.currentHomeId = homeId; // POTENTIAL: needed?
                 await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
+                this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
                 return true;
             }
             else {
@@ -85,13 +81,12 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         if (!exDate || exDate <= today) {
             const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
             this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
-            //this.currentHomeId = homeId; // POTENTIAL: needed?
             this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), await JSON.stringify(pricesToday), "The prices today as json");
             this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
             for (const i in pricesToday) {
                 const price = pricesToday[i];
                 const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-                this.fetchPrice(homeId, `PricesToday.${hour}`, price);
+                await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
             }
             if (Array.isArray(pricesToday)) {
                 // Sort the array if it is an array - possible type error discovered by sentry
@@ -119,7 +114,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         if (!exDate || exDate <= morgen) {
             const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
             this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
-            //this.currentHomeId = homeId; // POTENTIAL: needed?
             if (pricesTomorrow.length === 0) {
                 // pricing not known, before about 13:00 - delete the states
                 this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
@@ -133,7 +127,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 for (const i in pricesTomorrow) {
                     const price = pricesTomorrow[i];
                     const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-                    this.fetchPrice(homeId, "PricesTomorrow." + hour, price);
+                    await this.fetchPrice(homeId, "PricesTomorrow." + hour, price);
                 }
             }
             this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), await JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
@@ -151,8 +145,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
         }
     }
-    fetchPrice(homeId, objectDestination, price) {
-        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), price.total, "Total price (energy + taxes)");
+    async fetchPrice(homeId, objectDestination, price) {
+        await this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), price.total, "Total price (energy + taxes)");
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), price.energy, "Spotmarket energy price");
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), price.tax, "Tax part of the price (energy, tax, VAT...)");
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), price.startsAt, "Start time of the price");
