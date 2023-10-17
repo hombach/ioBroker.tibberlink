@@ -1,5 +1,5 @@
 ---
-name: ioBroker.tibberlik bug report
+name: ioBroker.tibberlink bug report
 about: Something is not working as it should
 title: ''
 labels: ''
