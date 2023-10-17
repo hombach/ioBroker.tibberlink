@@ -13,7 +13,5 @@
 	"s_ChannelHome": "Canal Casa",
 	"s_ChannelType": "Tipo de canal",
 	"s_Active": "Activo",
-	"s_TargetState": "Estado objetivo",
-	"s_ValueYES": "Valor SÍ",
-	"s_ValueNO": "Valor NO"
+	"s_TargetState": "Estado objetivo"
 }
