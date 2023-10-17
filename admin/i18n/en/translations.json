@@ -13,7 +13,5 @@
 	"s_ChannelHome": "Channel Home",
 	"s_ChannelType": "Channel Type",
 	"s_Active": "Active",
-	"s_TargetState": "Target State",
-	"s_ValueYES": "Value YES",
-	"s_ValueNO": "Value NO"
+	"s_TargetState": "Target State"
 }
