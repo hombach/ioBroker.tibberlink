@@ -568,17 +568,17 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "   'Best hours block' - not implemented yet.",
-						"de": "   'Beste Stundenblock' - noch nicht implementiert.",
-						"ru": "   'Лучший часовой блок' - пока не реализовано.",
-						"pt": "   'Melhor bloco de horas' - ainda não implementado.",
-						"nl": "   'Beste uren blok' - nog niet geïmplementeerd.",
-						"fr": "   'Meilleur bloc d'heures' - pas encore implémenté.",
-						"it": "   'Miglior blocco di ore' - non ancora implementato.",
-						"es": "   'Mejor bloque de horas' - aún no implementado.",
-						"pl": "   'Najlepszy blok godzin' - jeszcze nie zaimplementowano.",
-						"uk": "   'Кращий годинний блок' - ще не реалізовано.",
-						"zh-cn": "   “最佳小时块” - 尚未实施."
+						"en": "   'Best hours block' - output is 'YES' in the best block of consecutive hours. Number of hours is defined in state 'AmountHours'.",
+						"de": "   'Bester Stundenblock' - Ausgabe ist 'JA' im besten Block aufeinanderfolgender Stunden. Die Anzahl der Stunden ist im Zustand 'AmountHours' definiert.",
+						"ru": "   'Лучший часовой блок' - вывод 'ДА' в лучшем блоке последовательных часов. Количество часов определено в состоянии 'AmountHours'.",
+						"pt": "   'Melhor bloco de horas' - a saída é 'SIM' no melhor bloco de horas consecutivas. O número de horas é definido no estado 'AmountHours'.",
+						"nl": "   'Beste uren blok' - uitvoer is 'JA' in het beste blok opeenvolgende uren. Het aantal uren is gedefinieerd in de staat 'AmountHours'.",
+						"fr": "   'Meilleur bloc d'heures' - la sortie est 'OUI' dans le meilleur bloc d'heures consécutives. Le nombre d'heures est défini dans l'état 'AmountHours'.",
+						"it": "   'Miglior blocco di ore' - l'uscita è 'SÌ' nel miglior blocco di ore consecutive. Il numero di ore è definito nello stato 'AmountHours'.",
+						"es": "   'Mejor bloque de horas' - la salida es 'SÍ' en el mejor bloque de horas consecutivas. El número de horas está definido en el estado 'AmountHours'.",
+						"pl": "   'Najlepszy blok godzin' - wyjście to 'TAK' w najlepszym bloku kolejnych godzin. Liczba godzin jest określona w stanie 'AmountHours'.",
+						"uk": "   'Кращий годинний блок' - вивід 'ТАК' в найкращому блоку послідовних годин. Кількість годин визначено в стані 'AmountHours'.",
+						"zh-cn": "   “最佳小时块” - 输出在最佳连续小时块中为 '是'。 小时数在状态 'AmountHours' 中定义。"
 					},
 					"newLine": true
 				}
