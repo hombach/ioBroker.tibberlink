@@ -53,7 +53,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.2.0 (2023-10-1x) WORK in PROGRESS
+### 1.2.0 (2023-10-18)
 
 -   (HombachC) implement tibber calculator mode "best single hours" (#16)
 -   (HombachC) changed i18n files to inline translations, single files aren't update compatible (#128)
