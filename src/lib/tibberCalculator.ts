@@ -88,7 +88,7 @@ export class TibberCalculator extends TibberHelper {
 							this.executeCalculatorBestSingleHours(parseInt(channel));
 							break;
 						case enCalcType.BestHoursBlock:
-							//this.executeCalculatorBestHoursBlock(parseInt(channel));
+							this.executeCalculatorBestHoursBlock(parseInt(channel));
 							break;
 						default:
 							this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);

@@ -345,17 +345,17 @@
 								},
 								{
 									"label": {
-										"en": "best hours block- not yet implemented",
-										"de": "beste Stundenblock- noch nicht implementiert",
-										"ru": "лучший часовой блок - пока не реализован",
-										"pt": "melhor bloco de horas - ainda não implementado",
-										"nl": "beste uren blok- nog niet geïmplementeerd",
-										"fr": "meilleur bloc d'heures - pas encore implémenté",
-										"it": "miglior blocco di ore - non ancora implementato",
-										"es": "mejor bloque de horas - aún no implementado",
-										"pl": "najlepszy blok godzin - jeszcze nie zaimplementowany",
-										"uk": "кращий годинний блок - поки не реалізований",
-										"zh-cn": "最佳小时块-尚未实施"
+										"en": "best hours block",
+										"de": "beste Stundenblock",
+										"ru": "лучший часовой блок",
+										"pt": "melhor bloco de horas",
+										"nl": "beste uren blok",
+										"fr": "meilleur bloc d'heures",
+										"it": "miglior blocco di ore",
+										"es": "mejor bloque de horas",
+										"pl": "najlepszy blok godzin",
+										"uk": "кращий годинний блок",
+										"zh-cn": "最佳小时块"
 									},
 									"value": 3
 								}
@@ -460,17 +460,17 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "The behavior of a channel is defined by its type: 'best cost'; 'best single hours'; 'best hours block' - not implemented yet.",
-						"de": "Das Verhalten eines Kanals wird durch seinen Typ definiert: 'beste Kosten'; 'beste Einzelstunden'; 'beste Stundenblock' - noch nicht implementiert.",
-						"ru": "Поведение канала определяется его типом: 'лучшие затраты'; 'лучшие отдельные часы'; 'лучший часовой блок' - пока не реализованы.",
-						"pt": "O comportamento de um canal é definido por seu tipo: 'melhor custo'; 'melhores horas únicas'; 'melhor bloco de horas' - ainda não implementado.",
-						"nl": "Het gedrag van een kanaal wordt bepaald door het type: 'beste kosten'; 'beste enkele uren'; 'beste uren blok' - nog niet geïmplementeerd.",
-						"fr": "Le comportement d'un canal est défini par son type : 'meilleur coût' ; 'meilleures heures uniques' ; 'meilleur bloc d'heures' - pas encore implémenté.",
-						"it": "Il comportamento di un canale è definito dal suo tipo: 'miglior costo'; 'migliori ore singole'; 'miglior blocco di ore' - non ancora implementati.",
-						"es": "El comportamiento de un canal se define por su tipo: 'mejor costo'; 'mejores horas individuales'; 'mejor bloque de horas' - aún no implementados.",
-						"pl": "Zachowanie kanału jest określane przez jego typ: 'najlepszy koszt'; 'najlepsze pojedyncze godziny'; 'najlepszy blok godzin' - jeszcze nie zaimplementowane.",
-						"uk": "Поведінка каналу визначається його типом: 'найкращі витрати'; 'найкращі години'; 'найкращий годинний блок' - поки не реалізовані.",
-						"zh-cn": "通道的行为由其类型定义：'最佳成本'；'最佳单个小时'；'最佳小时块' - 尚未实施。"
+						"en": "The behavior of a channel is defined by its type: 'best cost'; 'best single hours'; 'best hours block'.",
+						"de": "Das Verhalten eines Kanals wird durch seinen Typ definiert: 'beste Kosten'; 'beste Einzelstunden'; 'beste Stundenblock'.",
+						"ru": "Поведение канала определяется его типом: 'лучшие затраты'; 'лучшие отдельные часы'; 'лучший часовой блок'.",
+						"pt": "O comportamento de um canal é definido por seu tipo: 'melhor custo'; 'melhores horas únicas'; 'melhor bloco de horas'.",
+						"nl": "Het gedrag van een kanaal wordt bepaald door het type: 'beste kosten'; 'beste enkele uren'; 'beste uren blok'.",
+						"fr": "Le comportement d'un canal est défini par son type : 'meilleur coût' ; 'meilleures heures uniques' ; 'meilleur bloc d'heures'.",
+						"it": "Il comportamento di un canale è definito dal suo tipo: 'miglior costo'; 'migliori ore singole'; 'miglior blocco di ore'.",
+						"es": "El comportamiento de un canal se define por su tipo: 'mejor costo'; 'mejores horas individuales'; 'mejor bloque de horas'.",
+						"pl": "Zachowanie kanału jest określane przez jego typ: 'najlepszy koszt'; 'najlepsze pojedyncze godziny'; 'najlepszy blok godzin'.",
+						"uk": "Поведінка каналу визначається його типом: 'найкращі витрати'; 'найкращі години'; 'найкращий годинний блок'.",
+						"zh-cn": "通道的行为由其类型定义：'最佳成本'；'最佳单个小时'；'最佳小时块'"
 					},
 					"newLine": true
 				},
