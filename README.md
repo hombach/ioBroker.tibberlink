@@ -56,7 +56,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 ### 1.3.0 (2023-10-2x) WORK in PROGRESS
 
 -   (HombachC) implement tibber calculator mode "best hours block" (#16)
--   (HombachC) handle empty calculator destination states
+-   (HombachC) handle empty calculator destination states - detected by sentry
 
 ### 1.2.0 (2023-10-18)
 
