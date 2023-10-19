@@ -77,25 +77,32 @@ export class TibberCalculator extends TibberHelper {
 	}
 
 	async startCalculatorTasks(): Promise<void> {
-		if (this.adapter.config.UseCalculator) {
-			for (const channel in this.adapter.config.CalculatorList) {
-				try {
-					switch (this.adapter.config.CalculatorList[channel].chType) {
-						case enCalcType.BestCost:
-							this.executeCalculatorBestCost(parseInt(channel));
-							break;
-						case enCalcType.BestSingleHours:
-							this.executeCalculatorBestSingleHours(parseInt(channel));
-							break;
-						case enCalcType.BestHoursBlock:
-							this.executeCalculatorBestHoursBlock(parseInt(channel));
-							break;
-						default:
-							this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
-					}
-				} catch (error: any) {
-					this.adapter.log.warn(`unhandled error execute calculator channel ${channel}`);
+		if (!this.adapter.config.UseCalculator) {
+			return;
+		}
+		for (const channel in this.adapter.config.CalculatorList) {
+			if (!this.adapter.config.CalculatorList[channel].chTargetState.trim()) {
+				this.adapter.log.warn(
+					`Empty destination state in calculator channel ${channel} defined - provide correct external state - execution of channel skipped`,
+				);
+				continue;
+			}
+			try {
+				switch (this.adapter.config.CalculatorList[channel].chType) {
+					case enCalcType.BestCost:
+						this.executeCalculatorBestCost(parseInt(channel));
+						break;
+					case enCalcType.BestSingleHours:
+						this.executeCalculatorBestSingleHours(parseInt(channel));
+						break;
+					case enCalcType.BestHoursBlock:
+						this.executeCalculatorBestHoursBlock(parseInt(channel));
+						break;
+					default:
+						this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
 				}
+			} catch (error: any) {
+				this.adapter.log.warn(`unhandled error execute calculator channel ${channel}`);
 			}
 		}
 	}
