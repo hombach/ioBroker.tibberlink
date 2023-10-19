@@ -53,7 +53,7 @@ This adapter uses Sentry libraries to automatically report exceptions and code e
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.3.0 (2023-10-2x) WORK in PROGRESS
+### 1.3.0 (2023-10-20)
 
 -   (HombachC) implement tibber calculator mode "best hours block" (#16)
 -   (HombachC) handle empty calculator destination states - detected by sentry
