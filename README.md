@@ -15,12 +15,11 @@
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
 
-## Adapter for utilizing TIBBER energy data in ioBroker
+## Adapter for Utilizing TIBBER energy data in ioBroker
 
-This adapter connects data from your Tibber account API for use in ioBroker. It can be used for single or multiple homes.
+This adapter facilitates the connection of data from your Tibber account's API to be used within ioBroker, whether for a single home or multiple residences.
 
-If you're not a Tibber user currently, it would be greatly appreciated if you use my referral link:
-[https://invite.tibber.com/2gwuign3.](https://invite.tibber.com/2gwuign3.)
+If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/2gwuign3).
 
 ## Standard Configuration
 
