@@ -24,7 +24,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 ## Standard Configuration
 
 -   Begin by creating a new instance of the adapter.
--   You'll also require an API token from Tibber, which you can obtain here: [Tibber Developer API](https://developer.tibber.com/).
+-   You'll also require an API token from Tibber, which you can obtain here: [Tibber Developer API](https://developer.tibber.com).
 -   Enter your Tibber API token in the standard settings and configure at least one line for live feed settings (select "None available").
 -   Save the settings and exit the configuration to restart the adapter; this step allows your home(s) to be queried from the Tibber server.
 -   Return to the configuration screen and select the homes from which you wish to fetch real-time data using your Tibber Pulse. You can also select homes and disable the feed (Note: This works only if the hardware is installed and the Tibber server has verified the connection to Pulse).
