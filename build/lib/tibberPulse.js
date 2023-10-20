@@ -42,7 +42,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`Tibber Feed: ${data.toString()}`);
             this.adapter.setState("info.connection", false, true);
             if (this.adapter.config.HomesList.some((info) => info.feedActive)) {
-                this.adapter.log.warn(`A feed was disconnected. I try to reconnect in ${this.reconnectTime / 1000}s`);
+                this.adapter.log.warn(`A feed was disconnected. I try to reconnect in ${this.reconnectTime / 1000}sec`);
                 this.reconnect();
             }
         });
