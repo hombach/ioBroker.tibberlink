@@ -53,7 +53,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.3.1 (2023-10-xx) WORK in PROGRESS
+### WORK IN PROGRESS
 
 -   (HombachC) documentation tweaks - dependency updates
   
