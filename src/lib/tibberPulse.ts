@@ -8,6 +8,7 @@ export class TibberPulse extends TibberHelper {
 	tibberQuery: TibberQuery;
 	tibberFeed: TibberFeed;
 	httpQueryUrl: string;
+	reconnectTime: number = 6000;
 
 	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
 		super(adapter);
@@ -48,7 +49,7 @@ export class TibberPulse extends TibberHelper {
 			this.adapter.log.debug(`Tibber Feed: ${data.toString()}`);
 			this.adapter.setState("info.connection", false, true);
 			if (this.adapter.config.HomesList.some((info) => info.feedActive)) {
-				this.adapter.log.warn(`A feed was disconnected. I try to reconnect in 6s`);
+				this.adapter.log.warn(`A feed was disconnected. I try to reconnect in ${this.reconnectTime / 1000}s`);
 				this.reconnect();
 			}
 		});
@@ -229,12 +230,12 @@ export class TibberPulse extends TibberHelper {
 	private reconnect(): void {
 		const reconnectionInterval: any = this.adapter.setInterval(() => {
 			if (!this.tibberFeed.connected) {
-				this.adapter.log.debug(`No TibberFeed connected try reconnecting now in 6sec interval!`);
+				this.adapter.log.debug(`No TibberFeed connected try reconnecting now in ${this.reconnectTime / 1000}sec interval!`);
 				this.ConnectPulseStream();
 			} else {
-				this.adapter.log.debug(`Reconnection successful! Interval not necessary (anymore).`);
+				this.adapter.log.debug(`Reconnection successful! Interval not necessary anymore.`);
 				this.adapter.clearInterval(reconnectionInterval);
 			}
-		}, 6000);
+		}, this.reconnectTime);
 	}
 }
