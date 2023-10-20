@@ -23,35 +23,40 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Standard Configuration
 
--   Create a new instance of the adapter
--   You will also need an API token from Tibber. Get it here: [https://developer.tibber.com/](https://developer.tibber.com/)
--   Enter your Tibber API token in the standard settings and create at least one line for live feed configuration (select "None available").
--   Save the settings and exit the configaration to restart the adapter (your home(s) will now be queried from the Tibber server).
--   Return to the configuration screen and select the homes from which you want to pull real-time data from your Tibber Pulse or select homes and disable the feed - (!! Only works if hardware is installed and the Tibber server has verified the connection to Pulse).
+-   Begin by creating a new instance of the adapter.
+-   You'll also require an API token from Tibber, which you can obtain here: [Tibber Developer API](https://developer.tibber.com/).
+-   Enter your Tibber API token in the standard settings and configure at least one line for live feed settings (select "None available").
+-   Save the settings and exit the configuration to restart the adapter; this step allows your home(s) to be queried from the Tibber server.
+-   Return to the configuration screen and select the homes from which you wish to fetch real-time data using your Tibber Pulse. You can also select homes and disable the feed (Note: This works only if the hardware is installed and the Tibber server has verified the connection to Pulse).
 -   Save the settings.
 
 ## Calculator Configuration
 
--   Since the Tibber connection is up and running, you can also use the Calculator to include some automation add-ons in the TibberLink adapter.
--   The Calculator works with channels. Each channel is linked to a selected home.
--   Channels can be activated or deactivated in a corresponding state.
--   All states of a calculator channel are placed near the homes states, named by the channel number.
--   The behavior of a channel is defined by its type: "best cost"; "best single hours"; "best hours block".
--   Each channel has an external state as output, which can be chosen in the settings tab. This state could be, for example, "0_userdata.0.example_state" or any other writable external state.
--   The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states, or a number or text to be written.
+-   Now that the Tibber connection is up and running, you can also leverage the Calculator to incorporate additional automation features into the TibberLink adapter.
+-   The Calculator operates using channels, with each channel linked to a selected home.
+-   These channels can be activated or deactivated based on corresponding states.
+-   The states of a calculator channel are positioned adjacent to the home states and named according to the channel number.
+![Calculator States](admin/calculatorStates.png)
+-   The behavior of each channel is determined by its type: "best cost," "best single hours," or "best hours block".
+-   Each channel populates an external state as output, which has to be selected in the settings tab. For instance, this state might be "0_userdata.0.example_state" or any other writable external state.
+-   The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states or a number or text to be written.
 -   Outputs:
-    -   "Best cost": Uses the "TriggerPrice" state as input - output is "YES" every hour the current Tibber energy cost is below the trigger price.
-    -   "Best single hours" - output is "YES" in the cheapest number of hours. Number is defined in state "AmountHours".
-    -   "Best hours block" - output is "YES" in the best block of hours. Number of hours is defined in state "AmountHours".
+    -   "Best cost": Utilizes the "TriggerPrice" state as input, and the output is "YES" every hour when the current Tibber energy cost is below the trigger price.
+    -   "Best single hours": The output is "YES" during the cheapest number of hours, with the number defined in the "AmountHours" state.
+    -   "Best hours block": The output is "YES" during the best block of hours, with the number of hours defined in the "AmountHours" state.
 
 ## Notes
 
-This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable the error reporting; see the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is used starting with js-controller 3.0.
+This adapter employs Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable error reporting, please consult the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is initiated starting with js-controller 3.0.
 
 ## Changelog
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 1.3.1 (2023-10-xx) WORK in PROGRESS
+
+-   (HombachC) documentation tweaks - dependency updates
+  
 ### 1.3.0 (2023-10-20)
 
 -   (HombachC) implement tibber calculator mode "best hours block" (#16)
