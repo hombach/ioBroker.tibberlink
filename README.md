@@ -55,7 +55,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ### WORK IN PROGRESS 1.3.1 (2023-10-2x)
 
--   (HombachC) change message "reconnect successful" to level info (#14)
+-   (HombachC) change message "reconnect successful" to level info (#80)
 -   (HombachC) documentation tweaks - dependency updates
   
 ### 1.3.0 (2023-10-20)
