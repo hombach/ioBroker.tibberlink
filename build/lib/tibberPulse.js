@@ -100,7 +100,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
                 this.ConnectPulseStream();
             }
             else {
-                this.adapter.log.debug(`Reconnection successful! Interval not necessary anymore.`);
+                this.adapter.log.info(`Reconnection successful! Stopping reconnection interval.`);
                 this.adapter.clearInterval(reconnectionInterval);
             }
         }, this.reconnectTime);
