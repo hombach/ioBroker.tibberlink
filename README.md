@@ -54,7 +54,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### WORK IN PROGRESS 1.3.1 (2023-10-2x)
+### 1.3.1 (2023-10-21)
 
 -   (HombachC) fix initialisiation of channel states (#141)
 -   (HombachC) change message "reconnect successful" to level info (#80)
