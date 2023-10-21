@@ -35,8 +35,9 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 -   Now that the Tibber connection is up and running, you can also leverage the Calculator to incorporate additional automation features into the TibberLink adapter.
 -   The Calculator operates using channels, with each channel linked to a selected home.
 -   These channels can be activated or deactivated based on corresponding states.
+-   These states are designed to serve as external, dynamic inputs for TibberLink, allowing you to, for example, adjust the marginal cost ("TriggerPrice") from an external source or disable the calculator channel ("Active").
 -   The states of a calculator channel are positioned adjacent to the home states and named according to the channel number.
-![Calculator States](admin/calculatorStates.png)
+    ![Calculator States](admin/calculatorStates.png)
 -   The behavior of each channel is determined by its type: "best cost," "best single hours," or "best hours block".
 -   Each channel populates an external state as output, which has to be selected in the settings tab. For instance, this state might be "0_userdata.0.example_state" or any other writable external state.
 -   The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states or a number or text to be written.
@@ -55,9 +56,10 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ### WORK IN PROGRESS 1.3.1 (2023-10-2x)
 
+-   (HombachC) fix initialisiation of channel states (#141)
 -   (HombachC) change message "reconnect successful" to level info (#80)
 -   (HombachC) documentation tweaks - dependency updates
-  
+
 ### 1.3.0 (2023-10-20)
 
 -   (HombachC) implement tibber calculator mode "best hours block" (#16)
