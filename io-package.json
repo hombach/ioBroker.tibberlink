@@ -1,424 +1,424 @@
 {
-	"common": {
-		"name": "tibberlink",
-		"version": "1.3.0",
-		"news": {
-			"1.3.0": {
-				"en": "Implement Tibber calculator mode 'best hours block' (#16)",
-				"de": "Implementieren des Tibber-Rechnermodus 'beste Stundenblock' (#16)",
-				"ru": "Реализация режима калькулятора Tibber 'лучший часовой блок' (#16)",
-				"pt": "Implementar o modo de calculadora Tibber 'melhor bloco de horas' (#16)",
-				"nl": "Implementeer de Tibber rekenmachine modus 'beste uren blok' (#16)",
-				"fr": "Implémenter le mode calculatrice Tibber 'meilleur bloc d'heures' (#16)",
-				"it": "Implementare la modalità calcolatrice Tibber 'miglior blocco di ore' (#16)",
-				"es": "Implementar el modo calculadora Tibber 'mejor bloque de horas' (#16)",
-				"pl": "Wdrożenie trybu kalkulatora Tibber 'najlepszy blok godzin' (#16)",
-				"uk": "Впровадження режиму калькулятора Tibber 'кращий годинний блок' (#16)",
-				"zh-cn": "实施Tibber计算器模式 '最佳小时块' (#16)"
-			},
-			"1.2.0": {
-				"en": "Implement Tibber calculator mode 'best single hours' (#16); fixed translations (#128); fixed error in initial read of calculator states (#129)",
-				"de": "Implementieren des Tibber-Rechnermodus 'beste Einzelstunden' (#16); behobene Übersetzungen (#128); Fehler bei der initialen Lesung der Rechnerzustände behoben (#129)",
-				"ru": "Реализация режима калькулятора Tibber 'лучшие одиночные часы' (#16); исправлены переводы (#128); исправлена ошибка при первоначальном чтении состояний калькулятора (#129)",
-				"pt": "Implementar o modo de calculadora Tibber 'melhores horas únicas' (#16); traduções corrigidas (#128); erro corrigido na leitura inicial dos estados do calculadora (#129)",
-				"nl": "Implementeer de Tibber rekenmachine modus 'beste enkele uren' (#16); gecorrigeerde vertalingen (#128); fout bij de initiële lezing van de rekenmachine staten gecorrigeerd (#129)",
-				"fr": "Implémenter le mode calculatrice Tibber 'meilleures heures uniques' (#16); traductions corrigées (#128); erreur corrigée lors de la lecture initiale des états de la calculatrice (#129)",
-				"it": "Implementare la modalità calcolatrice Tibber 'migliori ore singole' (#16); traduzioni corrette (#128); errore corretto nella lettura iniziale degli stati della calcolatrice (#129)",
-				"es": "Implementar el modo calculadora Tibber 'mejores horas individuales' (#16); traducciones corregidas (#128); error corregido en la lectura inicial de los estados del calculadora (#129)",
-				"pl": "Wdrożenie trybu kalkulatora Tibber 'najlepsze pojedyncze godziny' (#16); poprawione tłumaczenia (#128); naprawiony błąd przy początkowym odczycie stanów kalkulatora (#129)",
-				"uk": "Впровадження режиму калькулятора Tibber 'кращі одиночні години' (#16); виправлені переклади (#128); виправлено помилку при початковому читанні станів калькулятора (#129)",
-				"zh-cn": "实施Tibber计算器模式 '最佳单个小时' (#16); 修正的翻译 (#128); 修正了计算器状态初始读取中的错误 (#129)"
-			},
-			"1.1.2": {
-				"en": "fix timing error in calculator",
-				"de": "Behebe Zeitfehler im Rechner",
-				"ru": "Исправьте ошибку в расчетах по времени",
-				"pt": "Corrigir erro de temporização na calculadora",
-				"nl": "Los tijdgerelateerde fout op in de calculator",
-				"fr": "Corriger l'erreur de synchronisation dans le calculateur",
-				"it": "Correggi l'errore di sincronizzazione nel calcolatore",
-				"es": "Corregir error de sincronización en la calculadora",
-				"pl": "Napraw błąd czasowania w kalkulatorze",
-				"uk": "Виправити помилку в розрахунках за часом в калькуляторі",
-				"zh-cn": "修复计算器中的时序错误"
-			},
-			"1.1.1": {
-				"en": "fix error in startup of additional channels",
-				"de": "Fehler beim Starten zusätzlicher Kanäle beheben",
-				"ru": "Исправление ошибки при запуске дополнительных каналов",
-				"pt": "Corrigir erro na inicialização de canais adicionais",
-				"nl": "Fout bij opstarten van extra kanalen herstellen",
-				"fr": "Corriger l'erreur au démarrage des canaux supplémentaires",
-				"it": "Correzione dell'errore all'avvio dei canali aggiuntivi",
-				"es": "Corregir error en el inicio de canales adicionales",
-				"pl": "Napraw błąd przy uruchamianiu dodatkowych kanałów",
-				"uk": "Виправити помилку під час запуску додаткових каналів",
-				"zh-cn": "修复启动附加通道时的错误"
-			},
-			"1.1.0": {
-				"en": "Implement Tibber Calculator Mode 'Best Price' (#16)",
-				"de": "Implementierung des Tibber Calculator Modus 'Bester Preis' (#16)",
-				"ru": "Реализация режима калькулятора Tibber 'Лучшая цена' (#16)",
-				"pt": "Implementar o Modo Calculadora Tibber 'Melhor Preço' (#16)",
-				"nl": "Implementeer Tibber Calculator Modus 'Beste Prijs' (#16)",
-				"fr": "Implémentation du mode Calculateur Tibber 'Meilleur prix' (#16)",
-				"it": "Implementa la Modalità Calcolatrice Tibber 'Miglior Prezzo' (#16)",
-				"es": "Implementar el Modo Calculadora de Tibber 'Mejor Precio' (#16)",
-				"pl": "Wprowadzenie trybu kalkulatora Tibber 'Najlepsza Cena' (#16)",
-				"uk": "Реалізація режиму калькулятора Tibber 'Найкраща ціна' (#16)",
-				"zh-cn": "实施Tibber计算器模式 '最佳价格' (#16)"
-			},
-			"1.0.0": {
-				"en": "Increase to the first major release, as now a stable level is reached",
-				"de": "Anhebung auf die erste Hauptversion, da nun ein stabiles Niveau erreicht ist",
-				"ru": "Повышение до первого основного релиза, так как теперь достигнут стабильный уровень",
-				"pt": "Elevar para o primeiro lançamento principal, uma vez que agora atingiu um nível estável",
-				"nl": "Verhoging naar de eerste grote release, omdat nu een stabiel niveau is bereikt",
-				"fr": "Passage à la première version majeure, car un niveau stable est désormais atteint",
-				"it": "Aumento alla prima release principale, poiché ora è stato raggiunto un livello stabile",
-				"es": "Aumentar a la primera versión principal, ya que ahora se ha alcanzado un nivel estable",
-				"pl": "Zwiększenie do pierwszej głównej wersji, ponieważ teraz osiągnięto stabilny poziom",
-				"uk": "Підвищення до першої основної версії, оскільки тепер досягнуто стабільного рівня",
-				"zh-cn": "提升到第一个主要发布版，因为现在已经达到了稳定水平"
-			},
-			"0.4.2": {
-				"en": "Fixed error with polling multiple homes live data (#108)",
-				"de": "Behobener Fehler beim Abrufen von Live-Daten für mehrere Häuser (#108)",
-				"ru": "Исправлена ошибка при опросе данных в реальном времени для нескольких домов (#108)",
-				"pt": "Erro corrigido na coleta de dados ao vivo de várias residências (#108)",
-				"nl": "Fout opgelost bij het poll van livegegevens van meerdere huizen (#108)",
-				"fr": "Erreur corrigée lors de la collecte de données en direct de plusieurs maisons (#108)",
-				"it": "Errore corretto nella raccolta dei dati in tempo reale di diverse abitazioni (#108)",
-				"es": "Error corregido en la recopilación de datos en tiempo real de múltiples hogares (#108)",
-				"pl": "Naprawiono błąd podczas zbierania danych na żywo z wielu domów (#108)",
-				"uk": "Виправлено помилку при опитуванні даних в реальному часі для декількох будинків (#108)",
-				"zh-cn": "修复了多个家庭实时数据轮询错误 (#108)"
-			},
-			"0.4.1": {
-				"en": "Hardened 2 typeerrors recognitioned by Sentry; fix error of not deleted averages of tomorrow pricing (#95)",
-				"de": "Verstärkte 2 Typfehler erkannt von Sentry; Fehler behoben, nicht gelöschte Durchschnittswerte der morgigen Preisgestaltung (#95)",
-				"ru": "Усилено 2 типовых ошибки, распознанных Sentry; исправлена ошибка с неудаленными средними значениями цен на завтра (#95)",
-				"pt": "Reforçado o reconhecimento de 2 erros de tipo pelo Sentry; erro corrigido de médias de preços de amanhã não deletadas (#95)",
-				"nl": "Versterkte 2 typenfouten herkend door Sentry; fout met niet verwijderde gemiddelden van prijsstelling voor morgen opgelost (#95)",
-				"fr": "Renforcement de 2 erreurs de type reconnues par Sentry ; correction de l'erreur avec les moyennes de tarification de demain non supprimées (#95)",
-				"it": "Rafforzati 2 errori di tipo riconosciuti da Sentry; corretto l'errore di non eliminazione delle medie delle tariffe di domani (#95)",
-				"es": "Refuerzo de 2 errores de tipo reconocidos por Sentry; corrección del error de promedios de precios de mañana no eliminados (#95)",
-				"pl": "Usztywnione 2 błędy typów rozpoznawane przez Sentry; naprawa błędu z nieusuniętymi średnimi cenami na jutro (#95)",
-				"uk": "Підсилено 2 типові помилки, визнані Sentry; виправлено помилку з не вилученими середніми цінами на завтра (#95)",
-				"zh-cn": "通过Sentry识别加固了2种类型错误；修复了明天定价的平均值未删除的错误 (#95)"
-			},
-			"0.4.0": {
-				"en": "Added daily average price values (#89)",
-				"de": "Tägliche Durchschnittspreise hinzugefügt (#89)",
-				"ru": "Добавлены средние дневные цены (#89)",
-				"pt": "Adicionados valores médios diários de preços (#89)",
-				"nl": "Dagelijkse gemiddelde prijswaarden toegevoegd (#89)",
-				"fr": "Ajout des valeurs moyennes quotidiennes des prix (#89)",
-				"it": "Aggiunti valori medi giornalieri dei prezzi (#89)",
-				"es": "Añadidos valores promedio diarios de precios (#89)",
-				"pl": "Dodano codzienne średnie wartości cenowe (#89)",
-				"uk": "Додані середні щоденні значення цін (#89)",
-				"zh-cn": "添加每日平均价格值 (#89)"
-			},
-			"0.3.3": {
-				"en": "Fixed a false positive connection message (#87); Updated translations with ChatGPT",
-				"de": "Behobene falsch positive Verbindungsmeldung (#87); Aktualisierte Übersetzungen mit ChatGPT",
-				"ru": "Исправлено ложное положительное сообщение о подключении (#87); Обновлены переводы с помощью ChatGPT",
-				"pt": "Corrigida uma mensagem de conexão falsa positiva (#87); Atualizadas as traduções com o ChatGPT",
-				"nl": "Oplossing voor een vals positief verbindingsbericht (#87); Bijgewerkte vertalingen met ChatGPT",
-				"fr": "Correction d'un message de connexion faussement positif (#87); Mises à jour des traductions avec ChatGPT",
-				"it": "Risolto un falso messaggio di connessione positiva (#87); Traduzioni aggiornate con ChatGPT",
-				"es": "Se corrigió un mensaje de conexión falsamente positivo (#87); Se actualizaron las traducciones con ChatGPT",
-				"pl": "Naprawione fałszywe pozytywne wiadomości o połączeniu (#87); Zaktualizowane tłumaczenia za pomocą ChatGPT",
-				"uk": "Виправлено помилкове повідомлення про позитивне підключення (#87); Оновлено переклади за допомогою ChatGPT",
-				"zh-cn": "修复了虚假的正面连接消息 (#87); 使用 ChatGPT 更新的翻译"
-			},
-			"0.3.2": {
-				"en": "fixed error when starting adapter first time (#82); fixed error in admin config from 0.3.0 (#81)",
-				"de": "Fehler beim ersten Start des Adapters gefixt (#82;) Fehler in Admin Config aus 0.3.0 beseitigt (#81)",
-				"ru": "исправлена ошибка при запуске адаптера в первый раз (#82;) исправлена ошибка в admin config от 0.3.0 (#81)",
-				"pt": "erro fixo ao iniciar o adaptador pela primeira vez (#82;) erro fixo em admin config de 0.3.0 (#81)",
-				"nl": "vergissing van het begin van adapter first time (#82) gerepareerde fout in administratie van 0.3.0 (#81)",
-				"fr": "erreur fixe lors du démarrage de l'adaptateur première fois (#82;) erreur fixe dans la configuration d'administration à partir de 0.3.0 (#81)",
-				"it": "errore fisso quando si avvia l'adattatore prima volta (#82;) errore fisso in admin config da 0.3.0 (#81)",
-				"es": "error fijo al iniciar el adaptador primera vez (#82;) error fijo en el configuración de administración de 0.3.0 (#81)",
-				"pl": "uruchomiony błąd po raz pierwszy od adapterów (#82;) stał się błędem w adminowym konfiguście 0.3.0 (#81)",
-				"uk": "виправлена помилка при запуску адаптера вперше (#82;) виправлена помилка в конфігурації адміністратора від 0.3.0 (#81)",
-				"zh-cn": "初步调整时的固定错误(#82)"
-			},
-			"0.3.1": {
-				"en": "Fixed error in admin config from 0.3.0 (#81) - Change logging of TibberFeed errors to type warn (#80)",
-				"de": "Fehler behoben in admin config von 0.3.0 (#81) - Änderung des Logging von TibberFeed Fehlern zum Typ warn (#80)",
-				"ru": "Исправлена ошибка в admin config от 0.3.0 (#81) - Изменить вход в TibberFeed ошибки, чтобы ввести предупреждение (#80)",
-				"pt": "Erro corrigido em admin config de 0.3.0 (#81) - Altere o registro de erros de TibberFeed para digitar avisar (#80)",
-				"nl": "Quality over Quantity (QoQ) Releases Vertaling:",
-				"fr": "Erreur corrigée dans la configuration d'administration à partir de 0.3.0 (#81) - Changer de journalisation de TibberAchetez des erreurs pour type avertir (#80)",
-				"it": "Errore fisso nella configurazione di amministratore da 0.3.0 (#81) - Modifica della registrazione degli errori TibberFeed per digitare avvertire (#80)",
-				"es": "Error fijo en el configuración de administración de 0.3.0 (#81) - Cambio de registro de errores de TibberFeed para escribir la advertencia (#80)",
-				"pl": "Błękitne błędy w adminach konfigują z 0,3.0 (#81) – Zmiana logowania błędów TibberFeeda do typowania ostrzegania (#80)",
-				"uk": "Виправлено помилку в налаштуваннях адміністратора від 0.3.0 (#81) - Зміна входу в систему TibberFeed похибки для типу попередження (#80)",
-				"zh-cn": "从0.3.0 (#81)——将TibberFe错误改为类战争(#80)"
-			},
-			"0.3.0": {
-				"en": "BREAKING: change Pulse usage to be configurable for all homes seperately (#41) & mitigate set state timing for long JSON states (#68)",
-				"de": "BREAKING: Änderung Pulse Konfiguration, jetzt für alle Häuser separat (#41) & Verbesserung im Timing für lange JSON Zustände (#68)",
-				"ru": "ЗАВТРАК: изменение Использование импульсов, чтобы быть конфигурируемым для всех домов отдельно (#41) & смягчить установленные государственные сроки для дальних стран JSON (#68)",
-				"pt": "BREAKING: mudança Uso de pulso para ser configurável para todas as casas seperadamente (#41) & mitigar o tempo de estado definido para estados longos JSON (#68)",
-				"nl": "BREAKING: Verandering Pulse gebruik om configurabel te zijn voor alle huizen seperaat * (#41)",
-				"fr": "BREAKING: changement L'utilisation de pouls pour être configurable pour toutes les maisons isolément (#41) & atténuer le calendrier de l'état pour les longs états JSON (#68)",
-				"it": "BREAKING: cambiamento Uso di impulso per essere configurabile per tutte le case seperately (#41) & mitigare i tempi di stato impostati per i lunghi stati JSON (#68)",
-				"es": "BREAKING: cambio Uso del pulso para ser configurable para todos los hogares seperately (#41) & mitiga el tiempo del estado establecido para los estados JSON largos (#68)",
-				"pl": "BREAKING: change (ang.). Pulse wykorzystuje się jako konfigurowalne dla wszystkich domów podzielnie (#41) i złagodził stan długości stanów JSON (#68)",
-				"uk": "БРЕАКІНГ: зміна Імпульсне використання, щоб бути налаштованим для всіх будинків, захоплених (#41) & пом'якшення встановити стан частим часу для довгих JSON станів (#68)",
-				"zh-cn": "挑战:变革 在所有住房中,可对各种住房使用加以严格限制,第(#41)和减轻长期合作行动联盟国家时间表"
-			},
-			"0.2.7": {
-				"en": "reducing polls at Tibber server by precheck of current price data",
-				"de": "Reduktion von Anfragen an den Tibber-Server durch Vorabkontrolle der bekannten Preisdaten",
-				"ru": "сокращение опросов на сервере Tibber путем предварительной проверки текущих ценовых данных",
-				"pt": "reduzindo pesquisas no servidor Tibber por pré-verificação de dados de preços atuais",
-				"nl": "verminderen van polls bij Tibberserver door de huidige prijsgegevens",
-				"fr": "réduction des sondages sur le serveur Tibber en prévérant les données de prix actuelles",
-				"it": "ridurre i sondaggi al server Tibber precheck dei dati attuali dei prezzi",
-				"es": "reducir las encuestas en el servidor de Tibber prever los datos de precios actuales",
-				"pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez przeprowadzenie bieżących danych cenowych",
-				"uk": "знижувати опитування на сервері Tibber за допомогою попереднього з'єднання даних поточної ціни",
-				"zh-cn": "通过预先检查目前价格数据减少Tibber服务器的污染"
-			},
-			"0.2.6": {
-				"en": "fix error with boolean states",
-				"de": "Fehler behoben mit booleschen States",
-				"ru": "исправить ошибку с boolean состояния",
-				"pt": "corrigir erro com estados booleanos",
-				"nl": "vergissing met boolean staten",
-				"fr": "corriger l'erreur avec les états booléens",
-				"it": "errore di correzione con stati booleani",
-				"es": "error de fijación con estados booleanos",
-				"pl": "ustępowanie błędów w państwie booleańskim",
-				"uk": "виправити помилку з болеанськими станами",
-				"zh-cn": "f 假释国错误"
-			},
-			"0.2.5": {
-				"en": "optimize code to mitigate set state timing for long JSON states (#68)",
-				"de": "optimieren Sie den Code zur Minderung des eingestellten Zustandszeitpunkts für lange JSON-Staaten (#68)",
-				"ru": "оптимизировать код для смягчения установленных государственных сроков для дальних стран JSON (#68)",
-				"pt": "otimizar o código para mitigar o tempo de estado definido para estados JSON longos (#68)",
-				"nl": "vertaling:",
-				"fr": "optimiser le code pour atténuer le temps d'état défini pour les états JSON longs (#68)",
-				"it": "ottimizzare il codice per mitigare i tempi di stato impostati per i lunghi stati JSON (#68)",
-				"es": "optimizar el código para mitigar el tiempo establecido del estado para los estados JSON largos (#68)",
-				"pl": "kod optymalizacyjny w celu złagodzenia systemu stanowego dla długich stanów JSON (#68)",
-				"uk": "оптимізуйте код для пом'якшення часу стану для довгих станів JSON (#68)",
-				"zh-cn": "完善减少长期合作行动联盟国家时间表的守则(#68)"
-			},
-			"0.2.4": {
-				"en": "enable correct price poll also for adapter running in different timezones (#63)",
-				"de": "korrekte Preisabfrage auch für Adapter in verschiedenen Zeitzonen (#63)",
-				"ru": "включите правильный опрос цены также для переходника работает в различных часовых поясах (#63)",
-				"pt": "habilitar a pesquisa de preços correta também para o adaptador em execução em diferentes fusos horários (#63)",
-				"nl": "en de juiste prijs poll ook voor adapter die in verschillende tijdzones loopt",
-				"fr": "activer le sondage de prix correct également pour l'adaptateur fonctionnant dans différents fuseaux horaires (#63)",
-				"it": "abilitare il sondaggio dei prezzi corretto anche per l'adattatore in esecuzione in diversi fusi orari (#63)",
-				"es": "habilitar la encuesta de precios correcta también para el adaptador que se ejecuta en diferentes zonas de tiempo (#63)",
-				"pl": "poprawne badania cenowe umożliwiają również stosowanie adaptacji w różnych strefach czasowych (#63)",
-				"uk": "увімкніть правильний ціновий пил також для адаптерів, що працюють в різних часових поясах (#63)",
-				"zh-cn": "能够纠正价格污染,使不同时间区(63年)的适应行动更加适应。"
-			},
-			"0.2.3": {
-				"en": "fix error in 0.2.2 in start conditions of adapter",
-				"de": "korrigiert Fehler in 0.2.2 bei Startbedingungen des Adapters",
-				"ru": "исправить ошибку в 0.2.2 в начальных условиях адаптера",
-				"pt": "corrigir erro em 0,2.2 em condições de início do adaptador",
-				"nl": "herstel in 0.2.2 in de start voorwaarden van adapter",
-				"fr": "corriger l'erreur dans 0.2.2 dans les conditions de démarrage de l'adaptateur",
-				"it": "errore di correzione in 0.2.2 in condizioni di inizio dell'adattatore",
-				"es": "error de fijación en 0.2.2 en las condiciones de inicio del adaptador",
-				"pl": "ustępowanie błędów 0,2 w warunkach startowych",
-				"uk": "виправити помилку в 0.2.2 в початкових умовах адаптера",
-				"zh-cn": "f 在适应人员开始的条件下,在0.2.2年内出现错误"
-			},
-			"0.2.2": {
-				"en": "reducing polls at Tibber server by precheck of known data, code optimizations, fix config screen (#55)",
-				"de": "Reduktion von Anfragen am Tibber-Server durch Vorprüfung bekannter Daten, Codeoptimierungen, Fix Config-Bildschirm (#55)",
-				"ru": "сокращение опросов на сервере Tibber путем предварительного проверки известных данных, оптимизации кода, фиксации config экрана (#55)",
-				"pt": "reduzindo pesquisas no servidor Tibber por pré-verificação de dados conhecidos, otimizações de código, corrigir tela de configuração (#55)",
-				"nl": "polls verminderen bij Tibberserver met voorzien van bekende gegevens, code optimaties, config screen repareren",
-				"fr": "réduire les sondages sur le serveur Tibber en prévérant les données connues, les optimisations de code, fixer l'écran de configuration (#55)",
-				"it": "ridurre i sondaggi al server Tibber precheck di dati noti, ottimizzazioni di codice, fix config screen (#55)",
-				"es": "reducir las encuestas en el servidor Tibber por precheck de datos conocidos, optimizaciones de códigos, fijar la pantalla de configuración (#55)",
-				"pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez sprawdzanie znanych danych, optymalizacje kodu, naprawy ekranu (#55)",
-				"uk": "знижувати опитування на сервері Tibber за допомогою пречбеку відомих даних, оптимізації коду, фіксації екрана конфігурації (#55)",
-				"zh-cn": "通过预先检查已知数据、守则优化、固定集群筛查(第55号)减少Tibber服务器的污染"
-			},
-			"0.2.0": {
-				"en": "introduces JSONs for prices sorted by total price ascending",
-				"de": "führt JSONs für Preise sortiert nach Gesamtpreis aufsteigend ein",
-				"ru": "вводит JSONs для цены, отсортированных по полной цене по возрастанию",
-				"pt": "introduz JSONs para preços classificados pelo preço total ascendente",
-				"nl": "_",
-				"fr": "introduit JSONs pour les prix triés par le prix total ascendant",
-				"it": "introduce JSONs per i prezzi ordinati per prezzo totale crescente",
-				"es": "presenta JSONs para precios ordenados por precio total ascendente",
-				"pl": "wprowadzanie JSON za ceny uporządkowane przez całkowity wzrost cen",
-				"uk": "вводить JSON для цін, що відсортовані загальним зростанням цін",
-				"zh-cn": "公司采用以总价格计算价格计算的价格"
-			}
-		},
-		"messages": [
-			{
-				"condition": {
-					"rules": ["oldVersion <= 0.3.0"]
-				},
-				"title": {
-					"en": "Important notice!",
-					"de": "Wichtiger Hinweis!",
-					"ru": "Важное замечание!",
-					"pt": "Notícia importante!",
-					"nl": "Belangrijke mededeling!",
-					"fr": "Avis important!",
-					"it": "Avviso IMPORTANTE!",
-					"es": "Noticia importante!",
-					"pl": "Ważna uwaga!",
-					"uk": "Погода!",
-					"zh-cn": "重要通知!"
-				},
-				"text": {
-					"en": "Configuration of Pulse live data feed has changed!! You have to reenable it in the configuration! Now you can enable or disable for each Home.",
-					"de": "Die Konfiguration des Pulse Live-Datenfeeds hat sich geändert! Sie müssen es in der Konfiguration wieder aktivieren! Jetzt können Sie für jedes Zuhause aktivieren oder deaktivieren.",
-					"ru": "Конфигурация базы данных Pulse изменилась! Вы должны восстановить его в конфигурации! Теперь вы можете включить или отключить для каждого дома.",
-					"pt": "A configuração do feed de dados ao vivo do Pulse mudou! Você tem que reenable-lo na configuração! Agora você pode ativar ou desativar para cada casa.",
-					"nl": "Vermomming van Pulse live gegevens is veranderd! Je moet het vergoeden in het vertrouwen. Nu kun je in staat zijn voor elk huis.",
-					"fr": "Configuration du flux de données en direct Pulse a changé! Vous devez le réactiver dans la configuration ! Maintenant, vous pouvez activer ou désactiver pour chaque Maison.",
-					"it": "La configurazione dell'alimentazione dei dati live Pulse è cambiata! Devi riattivarlo nella configurazione! Ora è possibile attivare o disattivare per ogni casa.",
-					"es": "¡La configuración de los datos de Pulse en vivo ha cambiado! ¡Tienes que volver a habilitarlo en la configuración! Ahora usted puede habilitar o desactivar para cada hogar.",
-					"pl": "Zmiana danych na żywo została zmieniona. Zrezygnujesz go w konfiguracji! Teraz możesz umieścić lub uwolnić każdy dom.",
-					"uk": "Настроювання імпульсних живих даних змінено! Ви повинні змінити його в конфігурації! Тепер ви можете ввімкнути або вимкнути для кожного будинку.",
-					"zh-cn": "皮尔西人生活数据集成已改变! 你们必须把它重新纳入组合! 现在,你可以为每一个家庭提供或可分割的东西。."
-				},
-				"level": "warn",
-				"buttons": ["ok"]
-			}
-		],
-		"titleLang": {
-			"en": "Tibber Link",
-			"de": "Tibber Link",
-			"ru": "Тиббер Ссылка",
-			"pt": "Tibber Link",
-			"nl": "Tibber Link",
-			"fr": "Tibber Link",
-			"it": "Tibber Link",
-			"es": "Tibber Link",
-			"pl": "Tibber Link",
-			"uk": "Посилання",
-			"zh-cn": "网络联系"
-		},
-		"desc": {
-			"en": "Links Tibber API data to be used in ioBroker",
-			"de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
-			"ru": "Ссылки на данные Tibber API для использования в ioBroker",
-			"pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
-			"nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
-			"fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
-			"it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
-			"es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
-			"pl": "Łączy dane z API Tibber do użycia w ioBroker",
-			"uk": "Посилання на дані Tibber API для використання в ioBroker",
-			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
-		},
-		"authors": ["Hombach <TibberLink@homba.ch>"],
-		"keywords": ["power", "energy", "Tibber"],
-		"license": "GPL-3.0-only",
-		"platform": "Javascript/Node.js",
-		"main": "build/main.js",
-		"icon": "tibberlink.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/main/admin/tibberlink.png",
-		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/main/README.md",
-		"loglevel": "info",
-		"mode": "daemon",
-		"messagebox": true,
-		"allowInit": true,
-		"type": "energy",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"materialize": true,
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=3.2.16"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=5.0.0"
-			}
-		],
-		"plugins": {
-			"sentry": {
-				"dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
-			}
-		}
-	},
-	"encryptedNative": ["TibberAPIToken"],
-	"protectedNative": ["TibberAPIToken"],
-	"native": {
-		"TibberAPIToken": "",
-		"HomesList": [
-			{
-				"feedActive": "false",
-				"homeID": "None available - restart adapter after entering token"
-			}
-		],
-		"CalculatorList": [
-			{
-				"chHomeID": "None available - restart adapter after entering token",
-				"chType": "best cost - not implemented",
-				"chActive": "false",
-				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
-				"chValueOn": "true",
-				"chValueOff": "false"
-			}
-		]
-	},
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.LastSentryLogDay",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Last day of month for Sentry log",
-				"type": "number",
-				"unit": "",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "tibberlink",
+    "version": "1.3.1",
+    "news": {
+      "1.3.1": {
+        "en": "Change message 'reconnect successful' to level info (#80); documentation tweaks",
+        "de": "Ändere die Meldung 'Neuverbindung erfolgreich' auf Stufe Info (#80); Anpassungen an der Dokumentation",
+        "ru": "Изменение сообщения 'повторное подключение успешно' на уровень информации (#80); корректировки в документации",
+        "pt": "Alterar a mensagem 'reconexão bem-sucedida' para o nível de informação (#80); ajustes na documentação",
+        "nl": "Wijzig bericht 'herverbinding gelukt' naar infoniveau (#80); aanpassingen in de documentatie",
+        "fr": "Changer le message 'reconnexion réussie' au niveau info (#80); ajustements de la documentation",
+        "it": "Cambiare il messaggio 'riconnessione riuscita' al livello info (#80); modifiche alla documentazione",
+        "es": "Cambiar el mensaje 'reconexión exitosa' a nivel de información (#80); ajustes en la documentación",
+        "pl": "Zmień komunikat 'ponowne połączenie udane' na poziomie informacji (#80); poprawki w dokumentacji",
+        "uk": "Змінити повідомлення 'повторне підключення успішне' на рівень інформації (#80); корекції в документації",
+        "zh-cn": "将消息 '重新连接成功' 更改为信息级别 (#80); 文档微调"
+      },
+      "1.3.0": {
+        "en": "Implement Tibber calculator mode 'best hours block' (#16)",
+        "de": "Implementieren des Tibber-Rechnermodus 'beste Stundenblock' (#16)",
+        "ru": "Реализация режима калькулятора Tibber 'лучший часовой блок' (#16)",
+        "pt": "Implementar o modo de calculadora Tibber 'melhor bloco de horas' (#16)",
+        "nl": "Implementeer de Tibber rekenmachine modus 'beste uren blok' (#16)",
+        "fr": "Implémenter le mode calculatrice Tibber 'meilleur bloc d'heures' (#16)",
+        "it": "Implementare la modalità calcolatrice Tibber 'miglior blocco di ore' (#16)",
+        "es": "Implementar el modo calculadora Tibber 'mejor bloque de horas' (#16)",
+        "pl": "Wdrożenie trybu kalkulatora Tibber 'najlepszy blok godzin' (#16)",
+        "uk": "Впровадження режиму калькулятора Tibber 'кращий годинний блок' (#16)",
+        "zh-cn": "实施Tibber计算器模式 '最佳小时块' (#16)"
+      },
+      "1.2.0": {
+        "en": "Implement Tibber calculator mode 'best single hours' (#16); fixed translations (#128); fixed error in initial read of calculator states (#129)",
+        "de": "Implementieren des Tibber-Rechnermodus 'beste Einzelstunden' (#16); behobene Übersetzungen (#128); Fehler bei der initialen Lesung der Rechnerzustände behoben (#129)",
+        "ru": "Реализация режима калькулятора Tibber 'лучшие одиночные часы' (#16); исправлены переводы (#128); исправлена ошибка при первоначальном чтении состояний калькулятора (#129)",
+        "pt": "Implementar o modo de calculadora Tibber 'melhores horas únicas' (#16); traduções corrigidas (#128); erro corrigido na leitura inicial dos estados do calculadora (#129)",
+        "nl": "Implementeer de Tibber rekenmachine modus 'beste enkele uren' (#16); gecorrigeerde vertalingen (#128); fout bij de initiële lezing van de rekenmachine staten gecorrigeerd (#129)",
+        "fr": "Implémenter le mode calculatrice Tibber 'meilleures heures uniques' (#16); traductions corrigées (#128); erreur corrigée lors de la lecture initiale des états de la calculatrice (#129)",
+        "it": "Implementare la modalità calcolatrice Tibber 'migliori ore singole' (#16); traduzioni corrette (#128); errore corretto nella lettura iniziale degli stati della calcolatrice (#129)",
+        "es": "Implementar el modo calculadora Tibber 'mejores horas individuales' (#16); traducciones corregidas (#128); error corregido en la lectura inicial de los estados del calculadora (#129)",
+        "pl": "Wdrożenie trybu kalkulatora Tibber 'najlepsze pojedyncze godziny' (#16); poprawione tłumaczenia (#128); naprawiony błąd przy początkowym odczycie stanów kalkulatora (#129)",
+        "uk": "Впровадження режиму калькулятора Tibber 'кращі одиночні години' (#16); виправлені переклади (#128); виправлено помилку при початковому читанні станів калькулятора (#129)",
+        "zh-cn": "实施Tibber计算器模式 '最佳单个小时' (#16); 修正的翻译 (#128); 修正了计算器状态初始读取中的错误 (#129)"
+      },
+      "1.1.2": {
+        "en": "fix timing error in calculator",
+        "de": "Behebe Zeitfehler im Rechner",
+        "ru": "Исправьте ошибку в расчетах по времени",
+        "pt": "Corrigir erro de temporização na calculadora",
+        "nl": "Los tijdgerelateerde fout op in de calculator",
+        "fr": "Corriger l'erreur de synchronisation dans le calculateur",
+        "it": "Correggi l'errore di sincronizzazione nel calcolatore",
+        "es": "Corregir error de sincronización en la calculadora",
+        "pl": "Napraw błąd czasowania w kalkulatorze",
+        "uk": "Виправити помилку в розрахунках за часом в калькуляторі",
+        "zh-cn": "修复计算器中的时序错误"
+      },
+      "1.1.1": {
+        "en": "fix error in startup of additional channels",
+        "de": "Fehler beim Starten zusätzlicher Kanäle beheben",
+        "ru": "Исправление ошибки при запуске дополнительных каналов",
+        "pt": "Corrigir erro na inicialização de canais adicionais",
+        "nl": "Fout bij opstarten van extra kanalen herstellen",
+        "fr": "Corriger l'erreur au démarrage des canaux supplémentaires",
+        "it": "Correzione dell'errore all'avvio dei canali aggiuntivi",
+        "es": "Corregir error en el inicio de canales adicionales",
+        "pl": "Napraw błąd przy uruchamianiu dodatkowych kanałów",
+        "uk": "Виправити помилку під час запуску додаткових каналів",
+        "zh-cn": "修复启动附加通道时的错误"
+      },
+      "1.1.0": {
+        "en": "Implement Tibber Calculator Mode 'Best Price' (#16)",
+        "de": "Implementierung des Tibber Calculator Modus 'Bester Preis' (#16)",
+        "ru": "Реализация режима калькулятора Tibber 'Лучшая цена' (#16)",
+        "pt": "Implementar o Modo Calculadora Tibber 'Melhor Preço' (#16)",
+        "nl": "Implementeer Tibber Calculator Modus 'Beste Prijs' (#16)",
+        "fr": "Implémentation du mode Calculateur Tibber 'Meilleur prix' (#16)",
+        "it": "Implementa la Modalità Calcolatrice Tibber 'Miglior Prezzo' (#16)",
+        "es": "Implementar el Modo Calculadora de Tibber 'Mejor Precio' (#16)",
+        "pl": "Wprowadzenie trybu kalkulatora Tibber 'Najlepsza Cena' (#16)",
+        "uk": "Реалізація режиму калькулятора Tibber 'Найкраща ціна' (#16)",
+        "zh-cn": "实施Tibber计算器模式 '最佳价格' (#16)"
+      },
+      "1.0.0": {
+        "en": "Increase to the first major release, as now a stable level is reached",
+        "de": "Anhebung auf die erste Hauptversion, da nun ein stabiles Niveau erreicht ist",
+        "ru": "Повышение до первого основного релиза, так как теперь достигнут стабильный уровень",
+        "pt": "Elevar para o primeiro lançamento principal, uma vez que agora atingiu um nível estável",
+        "nl": "Verhoging naar de eerste grote release, omdat nu een stabiel niveau is bereikt",
+        "fr": "Passage à la première version majeure, car un niveau stable est désormais atteint",
+        "it": "Aumento alla prima release principale, poiché ora è stato raggiunto un livello stabile",
+        "es": "Aumentar a la primera versión principal, ya que ahora se ha alcanzado un nivel estable",
+        "pl": "Zwiększenie do pierwszej głównej wersji, ponieważ teraz osiągnięto stabilny poziom",
+        "uk": "Підвищення до першої основної версії, оскільки тепер досягнуто стабільного рівня",
+        "zh-cn": "提升到第一个主要发布版，因为现在已经达到了稳定水平"
+      },
+      "0.4.2": {
+        "en": "Fixed error with polling multiple homes live data (#108)",
+        "de": "Behobener Fehler beim Abrufen von Live-Daten für mehrere Häuser (#108)",
+        "ru": "Исправлена ошибка при опросе данных в реальном времени для нескольких домов (#108)",
+        "pt": "Erro corrigido na coleta de dados ao vivo de várias residências (#108)",
+        "nl": "Fout opgelost bij het poll van livegegevens van meerdere huizen (#108)",
+        "fr": "Erreur corrigée lors de la collecte de données en direct de plusieurs maisons (#108)",
+        "it": "Errore corretto nella raccolta dei dati in tempo reale di diverse abitazioni (#108)",
+        "es": "Error corregido en la recopilación de datos en tiempo real de múltiples hogares (#108)",
+        "pl": "Naprawiono błąd podczas zbierania danych na żywo z wielu domów (#108)",
+        "uk": "Виправлено помилку при опитуванні даних в реальному часі для декількох будинків (#108)",
+        "zh-cn": "修复了多个家庭实时数据轮询错误 (#108)"
+      },
+      "0.4.1": {
+        "en": "Hardened 2 typeerrors recognitioned by Sentry; fix error of not deleted averages of tomorrow pricing (#95)",
+        "de": "Verstärkte 2 Typfehler erkannt von Sentry; Fehler behoben, nicht gelöschte Durchschnittswerte der morgigen Preisgestaltung (#95)",
+        "ru": "Усилено 2 типовых ошибки, распознанных Sentry; исправлена ошибка с неудаленными средними значениями цен на завтра (#95)",
+        "pt": "Reforçado o reconhecimento de 2 erros de tipo pelo Sentry; erro corrigido de médias de preços de amanhã não deletadas (#95)",
+        "nl": "Versterkte 2 typenfouten herkend door Sentry; fout met niet verwijderde gemiddelden van prijsstelling voor morgen opgelost (#95)",
+        "fr": "Renforcement de 2 erreurs de type reconnues par Sentry ; correction de l'erreur avec les moyennes de tarification de demain non supprimées (#95)",
+        "it": "Rafforzati 2 errori di tipo riconosciuti da Sentry; corretto l'errore di non eliminazione delle medie delle tariffe di domani (#95)",
+        "es": "Refuerzo de 2 errores de tipo reconocidos por Sentry; corrección del error de promedios de precios de mañana no eliminados (#95)",
+        "pl": "Usztywnione 2 błędy typów rozpoznawane przez Sentry; naprawa błędu z nieusuniętymi średnimi cenami na jutro (#95)",
+        "uk": "Підсилено 2 типові помилки, визнані Sentry; виправлено помилку з не вилученими середніми цінами на завтра (#95)",
+        "zh-cn": "通过Sentry识别加固了2种类型错误；修复了明天定价的平均值未删除的错误 (#95)"
+      },
+      "0.4.0": {
+        "en": "Added daily average price values (#89)",
+        "de": "Tägliche Durchschnittspreise hinzugefügt (#89)",
+        "ru": "Добавлены средние дневные цены (#89)",
+        "pt": "Adicionados valores médios diários de preços (#89)",
+        "nl": "Dagelijkse gemiddelde prijswaarden toegevoegd (#89)",
+        "fr": "Ajout des valeurs moyennes quotidiennes des prix (#89)",
+        "it": "Aggiunti valori medi giornalieri dei prezzi (#89)",
+        "es": "Añadidos valores promedio diarios de precios (#89)",
+        "pl": "Dodano codzienne średnie wartości cenowe (#89)",
+        "uk": "Додані середні щоденні значення цін (#89)",
+        "zh-cn": "添加每日平均价格值 (#89)"
+      },
+      "0.3.3": {
+        "en": "Fixed a false positive connection message (#87); Updated translations with ChatGPT",
+        "de": "Behobene falsch positive Verbindungsmeldung (#87); Aktualisierte Übersetzungen mit ChatGPT",
+        "ru": "Исправлено ложное положительное сообщение о подключении (#87); Обновлены переводы с помощью ChatGPT",
+        "pt": "Corrigida uma mensagem de conexão falsa positiva (#87); Atualizadas as traduções com o ChatGPT",
+        "nl": "Oplossing voor een vals positief verbindingsbericht (#87); Bijgewerkte vertalingen met ChatGPT",
+        "fr": "Correction d'un message de connexion faussement positif (#87); Mises à jour des traductions avec ChatGPT",
+        "it": "Risolto un falso messaggio di connessione positiva (#87); Traduzioni aggiornate con ChatGPT",
+        "es": "Se corrigió un mensaje de conexión falsamente positivo (#87); Se actualizaron las traducciones con ChatGPT",
+        "pl": "Naprawione fałszywe pozytywne wiadomości o połączeniu (#87); Zaktualizowane tłumaczenia za pomocą ChatGPT",
+        "uk": "Виправлено помилкове повідомлення про позитивне підключення (#87); Оновлено переклади за допомогою ChatGPT",
+        "zh-cn": "修复了虚假的正面连接消息 (#87); 使用 ChatGPT 更新的翻译"
+      },
+      "0.3.2": {
+        "en": "fixed error when starting adapter first time (#82); fixed error in admin config from 0.3.0 (#81)",
+        "de": "Fehler beim ersten Start des Adapters gefixt (#82;) Fehler in Admin Config aus 0.3.0 beseitigt (#81)",
+        "ru": "исправлена ошибка при запуске адаптера в первый раз (#82;) исправлена ошибка в admin config от 0.3.0 (#81)",
+        "pt": "erro fixo ao iniciar o adaptador pela primeira vez (#82;) erro fixo em admin config de 0.3.0 (#81)",
+        "nl": "vergissing van het begin van adapter first time (#82) gerepareerde fout in administratie van 0.3.0 (#81)",
+        "fr": "erreur fixe lors du démarrage de l'adaptateur première fois (#82;) erreur fixe dans la configuration d'administration à partir de 0.3.0 (#81)",
+        "it": "errore fisso quando si avvia l'adattatore prima volta (#82;) errore fisso in admin config da 0.3.0 (#81)",
+        "es": "error fijo al iniciar el adaptador primera vez (#82;) error fijo en el configuración de administración de 0.3.0 (#81)",
+        "pl": "uruchomiony błąd po raz pierwszy od adapterów (#82;) stał się błędem w adminowym konfiguście 0.3.0 (#81)",
+        "uk": "виправлена помилка при запуску адаптера вперше (#82;) виправлена помилка в конфігурації адміністратора від 0.3.0 (#81)",
+        "zh-cn": "初步调整时的固定错误(#82)"
+      },
+      "0.3.1": {
+        "en": "Fixed error in admin config from 0.3.0 (#81) - Change logging of TibberFeed errors to type warn (#80)",
+        "de": "Fehler behoben in admin config von 0.3.0 (#81) - Änderung des Logging von TibberFeed Fehlern zum Typ warn (#80)",
+        "ru": "Исправлена ошибка в admin config от 0.3.0 (#81) - Изменить вход в TibberFeed ошибки, чтобы ввести предупреждение (#80)",
+        "pt": "Erro corrigido em admin config de 0.3.0 (#81) - Altere o registro de erros de TibberFeed para digitar avisar (#80)",
+        "nl": "Quality over Quantity (QoQ) Releases Vertaling:",
+        "fr": "Erreur corrigée dans la configuration d'administration à partir de 0.3.0 (#81) - Changer de journalisation de TibberAchetez des erreurs pour type avertir (#80)",
+        "it": "Errore fisso nella configurazione di amministratore da 0.3.0 (#81) - Modifica della registrazione degli errori TibberFeed per digitare avvertire (#80)",
+        "es": "Error fijo en el configuración de administración de 0.3.0 (#81) - Cambio de registro de errores de TibberFeed para escribir la advertencia (#80)",
+        "pl": "Błękitne błędy w adminach konfigują z 0,3.0 (#81) – Zmiana logowania błędów TibberFeeda do typowania ostrzegania (#80)",
+        "uk": "Виправлено помилку в налаштуваннях адміністратора від 0.3.0 (#81) - Зміна входу в систему TibberFeed похибки для типу попередження (#80)",
+        "zh-cn": "从0.3.0 (#81)——将TibberFe错误改为类战争(#80)"
+      },
+      "0.3.0": {
+        "en": "BREAKING: change Pulse usage to be configurable for all homes seperately (#41) & mitigate set state timing for long JSON states (#68)",
+        "de": "BREAKING: Änderung Pulse Konfiguration, jetzt für alle Häuser separat (#41) & Verbesserung im Timing für lange JSON Zustände (#68)",
+        "ru": "ЗАВТРАК: изменение Использование импульсов, чтобы быть конфигурируемым для всех домов отдельно (#41) & смягчить установленные государственные сроки для дальних стран JSON (#68)",
+        "pt": "BREAKING: mudança Uso de pulso para ser configurável para todas as casas seperadamente (#41) & mitigar o tempo de estado definido para estados longos JSON (#68)",
+        "nl": "BREAKING: Verandering Pulse gebruik om configurabel te zijn voor alle huizen seperaat * (#41)",
+        "fr": "BREAKING: changement L'utilisation de pouls pour être configurable pour toutes les maisons isolément (#41) & atténuer le calendrier de l'état pour les longs états JSON (#68)",
+        "it": "BREAKING: cambiamento Uso di impulso per essere configurabile per tutte le case seperately (#41) & mitigare i tempi di stato impostati per i lunghi stati JSON (#68)",
+        "es": "BREAKING: cambio Uso del pulso para ser configurable para todos los hogares seperately (#41) & mitiga el tiempo del estado establecido para los estados JSON largos (#68)",
+        "pl": "BREAKING: change (ang.). Pulse wykorzystuje się jako konfigurowalne dla wszystkich domów podzielnie (#41) i złagodził stan długości stanów JSON (#68)",
+        "uk": "БРЕАКІНГ: зміна Імпульсне використання, щоб бути налаштованим для всіх будинків, захоплених (#41) & пом'якшення встановити стан частим часу для довгих JSON станів (#68)",
+        "zh-cn": "挑战:变革 在所有住房中,可对各种住房使用加以严格限制,第(#41)和减轻长期合作行动联盟国家时间表"
+      },
+      "0.2.7": {
+        "en": "reducing polls at Tibber server by precheck of current price data",
+        "de": "Reduktion von Anfragen an den Tibber-Server durch Vorabkontrolle der bekannten Preisdaten",
+        "ru": "сокращение опросов на сервере Tibber путем предварительной проверки текущих ценовых данных",
+        "pt": "reduzindo pesquisas no servidor Tibber por pré-verificação de dados de preços atuais",
+        "nl": "verminderen van polls bij Tibberserver door de huidige prijsgegevens",
+        "fr": "réduction des sondages sur le serveur Tibber en prévérant les données de prix actuelles",
+        "it": "ridurre i sondaggi al server Tibber precheck dei dati attuali dei prezzi",
+        "es": "reducir las encuestas en el servidor de Tibber prever los datos de precios actuales",
+        "pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez przeprowadzenie bieżących danych cenowych",
+        "uk": "знижувати опитування на сервері Tibber за допомогою попереднього з'єднання даних поточної ціни",
+        "zh-cn": "通过预先检查目前价格数据减少Tibber服务器的污染"
+      },
+      "0.2.6": {
+        "en": "fix error with boolean states",
+        "de": "Fehler behoben mit booleschen States",
+        "ru": "исправить ошибку с boolean состояния",
+        "pt": "corrigir erro com estados booleanos",
+        "nl": "vergissing met boolean staten",
+        "fr": "corriger l'erreur avec les états booléens",
+        "it": "errore di correzione con stati booleani",
+        "es": "error de fijación con estados booleanos",
+        "pl": "ustępowanie błędów w państwie booleańskim",
+        "uk": "виправити помилку з болеанськими станами",
+        "zh-cn": "f 假释国错误"
+      },
+      "0.2.5": {
+        "en": "optimize code to mitigate set state timing for long JSON states (#68)",
+        "de": "optimieren Sie den Code zur Minderung des eingestellten Zustandszeitpunkts für lange JSON-Staaten (#68)",
+        "ru": "оптимизировать код для смягчения установленных государственных сроков для дальних стран JSON (#68)",
+        "pt": "otimizar o código para mitigar o tempo de estado definido para estados JSON longos (#68)",
+        "nl": "vertaling:",
+        "fr": "optimiser le code pour atténuer le temps d'état défini pour les états JSON longs (#68)",
+        "it": "ottimizzare il codice per mitigare i tempi di stato impostati per i lunghi stati JSON (#68)",
+        "es": "optimizar el código para mitigar el tiempo establecido del estado para los estados JSON largos (#68)",
+        "pl": "kod optymalizacyjny w celu złagodzenia systemu stanowego dla długich stanów JSON (#68)",
+        "uk": "оптимізуйте код для пом'якшення часу стану для довгих станів JSON (#68)",
+        "zh-cn": "完善减少长期合作行动联盟国家时间表的守则(#68)"
+      },
+      "0.2.4": {
+        "en": "enable correct price poll also for adapter running in different timezones (#63)",
+        "de": "korrekte Preisabfrage auch für Adapter in verschiedenen Zeitzonen (#63)",
+        "ru": "включите правильный опрос цены также для переходника работает в различных часовых поясах (#63)",
+        "pt": "habilitar a pesquisa de preços correta também para o adaptador em execução em diferentes fusos horários (#63)",
+        "nl": "en de juiste prijs poll ook voor adapter die in verschillende tijdzones loopt",
+        "fr": "activer le sondage de prix correct également pour l'adaptateur fonctionnant dans différents fuseaux horaires (#63)",
+        "it": "abilitare il sondaggio dei prezzi corretto anche per l'adattatore in esecuzione in diversi fusi orari (#63)",
+        "es": "habilitar la encuesta de precios correcta también para el adaptador que se ejecuta en diferentes zonas de tiempo (#63)",
+        "pl": "poprawne badania cenowe umożliwiają również stosowanie adaptacji w różnych strefach czasowych (#63)",
+        "uk": "увімкніть правильний ціновий пил також для адаптерів, що працюють в різних часових поясах (#63)",
+        "zh-cn": "能够纠正价格污染,使不同时间区(63年)的适应行动更加适应。"
+      },
+      "0.2.2": {
+        "en": "reducing polls at Tibber server by precheck of known data, code optimizations, fix config screen (#55)",
+        "de": "Reduktion von Anfragen am Tibber-Server durch Vorprüfung bekannter Daten, Codeoptimierungen, Fix Config-Bildschirm (#55)",
+        "ru": "сокращение опросов на сервере Tibber путем предварительного проверки известных данных, оптимизации кода, фиксации config экрана (#55)",
+        "pt": "reduzindo pesquisas no servidor Tibber por pré-verificação de dados conhecidos, otimizações de código, corrigir tela de configuração (#55)",
+        "nl": "polls verminderen bij Tibberserver met voorzien van bekende gegevens, code optimaties, config screen repareren",
+        "fr": "réduire les sondages sur le serveur Tibber en prévérant les données connues, les optimisations de code, fixer l'écran de configuration (#55)",
+        "it": "ridurre i sondaggi al server Tibber precheck di dati noti, ottimizzazioni di codice, fix config screen (#55)",
+        "es": "reducir las encuestas en el servidor Tibber por precheck de datos conocidos, optimizaciones de códigos, fijar la pantalla de configuración (#55)",
+        "pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez sprawdzanie znanych danych, optymalizacje kodu, naprawy ekranu (#55)",
+        "uk": "знижувати опитування на сервері Tibber за допомогою пречбеку відомих даних, оптимізації коду, фіксації екрана конфігурації (#55)",
+        "zh-cn": "通过预先检查已知数据、守则优化、固定集群筛查(第55号)减少Tibber服务器的污染"
+      },
+      "0.2.0": {
+        "en": "introduces JSONs for prices sorted by total price ascending",
+        "de": "führt JSONs für Preise sortiert nach Gesamtpreis aufsteigend ein",
+        "ru": "вводит JSONs для цены, отсортированных по полной цене по возрастанию",
+        "pt": "introduz JSONs para preços classificados pelo preço total ascendente",
+        "nl": "_",
+        "fr": "introduit JSONs pour les prix triés par le prix total ascendant",
+        "it": "introduce JSONs per i prezzi ordinati per prezzo totale crescente",
+        "es": "presenta JSONs para precios ordenados por precio total ascendente",
+        "pl": "wprowadzanie JSON za ceny uporządkowane przez całkowity wzrost cen",
+        "uk": "вводить JSON для цін, що відсортовані загальним зростанням цін",
+        "zh-cn": "公司采用以总价格计算价格计算的价格"
+      }
+    },
+    "messages": [
+      {
+        "condition": {
+          "rules": ["oldVersion <= 0.3.0"]
+        },
+        "title": {
+          "en": "Important notice!",
+          "de": "Wichtiger Hinweis!",
+          "ru": "Важное замечание!",
+          "pt": "Notícia importante!",
+          "nl": "Belangrijke mededeling!",
+          "fr": "Avis important!",
+          "it": "Avviso IMPORTANTE!",
+          "es": "Noticia importante!",
+          "pl": "Ważna uwaga!",
+          "uk": "Погода!",
+          "zh-cn": "重要通知!"
+        },
+        "text": {
+          "en": "Configuration of Pulse live data feed has changed!! You have to reenable it in the configuration! Now you can enable or disable for each Home.",
+          "de": "Die Konfiguration des Pulse Live-Datenfeeds hat sich geändert! Sie müssen es in der Konfiguration wieder aktivieren! Jetzt können Sie für jedes Zuhause aktivieren oder deaktivieren.",
+          "ru": "Конфигурация базы данных Pulse изменилась! Вы должны восстановить его в конфигурации! Теперь вы можете включить или отключить для каждого дома.",
+          "pt": "A configuração do feed de dados ao vivo do Pulse mudou! Você tem que reenable-lo na configuração! Agora você pode ativar ou desativar para cada casa.",
+          "nl": "Vermomming van Pulse live gegevens is veranderd! Je moet het vergoeden in het vertrouwen. Nu kun je in staat zijn voor elk huis.",
+          "fr": "Configuration du flux de données en direct Pulse a changé! Vous devez le réactiver dans la configuration ! Maintenant, vous pouvez activer ou désactiver pour chaque Maison.",
+          "it": "La configurazione dell'alimentazione dei dati live Pulse è cambiata! Devi riattivarlo nella configurazione! Ora è possibile attivare o disattivare per ogni casa.",
+          "es": "¡La configuración de los datos de Pulse en vivo ha cambiado! ¡Tienes que volver a habilitarlo en la configuración! Ahora usted puede habilitar o desactivar para cada hogar.",
+          "pl": "Zmiana danych na żywo została zmieniona. Zrezygnujesz go w konfiguracji! Teraz możesz umieścić lub uwolnić każdy dom.",
+          "uk": "Настроювання імпульсних живих даних змінено! Ви повинні змінити його в конфігурації! Тепер ви можете ввімкнути або вимкнути для кожного будинку.",
+          "zh-cn": "皮尔西人生活数据集成已改变! 你们必须把它重新纳入组合! 现在,你可以为每一个家庭提供或可分割的东西。."
+        },
+        "level": "warn",
+        "buttons": ["ok"]
+      }
+    ],
+    "titleLang": {
+      "en": "Tibber Link",
+      "de": "Tibber Link",
+      "ru": "Тиббер Ссылка",
+      "pt": "Tibber Link",
+      "nl": "Tibber Link",
+      "fr": "Tibber Link",
+      "it": "Tibber Link",
+      "es": "Tibber Link",
+      "pl": "Tibber Link",
+      "uk": "Посилання",
+      "zh-cn": "网络联系"
+    },
+    "desc": {
+      "en": "Links Tibber API data to be used in ioBroker",
+      "de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
+      "ru": "Ссылки на данные Tibber API для использования в ioBroker",
+      "pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
+      "nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
+      "fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
+      "it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
+      "es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
+      "pl": "Łączy dane z API Tibber do użycia w ioBroker",
+      "uk": "Посилання на дані Tibber API для використання в ioBroker",
+      "zh-cn": "连接Tibber API数据以在ioBroker中使用"
+    },
+    "authors": ["Hombach <TibberLink@homba.ch>"],
+    "keywords": ["power", "energy", "Tibber"],
+    "license": "GPL-3.0-only",
+    "platform": "Javascript/Node.js",
+    "main": "build/main.js",
+    "icon": "tibberlink.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/main/admin/tibberlink.png",
+    "readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "messagebox": true,
+    "allowInit": true,
+    "type": "energy",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "materialize": true,
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=3.2.16"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.0.0"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
+      }
+    }
+  },
+  "encryptedNative": ["TibberAPIToken"],
+  "protectedNative": ["TibberAPIToken"],
+  "native": {
+    "TibberAPIToken": "",
+    "HomesList": [
+      {
+        "feedActive": "false",
+        "homeID": "None available - restart adapter after entering token"
+      }
+    ],
+    "CalculatorList": [
+      {
+        "chHomeID": "None available - restart adapter after entering token",
+        "chType": "best cost - not implemented",
+        "chActive": "false",
+        "chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
+        "chValueOn": "true",
+        "chValueOff": "false"
+      }
+    ]
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.LastSentryLogDay",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Last day of month for Sentry log",
+        "type": "number",
+        "unit": "",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
 }
