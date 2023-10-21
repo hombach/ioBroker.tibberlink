@@ -112,7 +112,7 @@ export class TibberHelper {
 					},
 					native: {},
 				});
-				if (!dontUpdate) {
+				if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
 					await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
 				}
 			}
@@ -145,7 +145,7 @@ export class TibberHelper {
 				},
 				native: {},
 			});
-			if (!dontUpdate) {
+			if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
 				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
 			}
 		}
@@ -205,7 +205,7 @@ export class TibberHelper {
 				},
 				native: {},
 			});
-			if (!dontUpdate) {
+			if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
 				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
 			}
 		}
