@@ -4,6 +4,7 @@ export enum enCalcType {
 	BestCost = 1,
 	BestSingleHours = 2,
 	BestHoursBlock = 3,
+	//BestCostMaxHours = 4,
 }
 
 export interface IHomeInfo {

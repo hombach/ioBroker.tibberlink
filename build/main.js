@@ -136,7 +136,8 @@ class Tibberlink extends utils.Adapter {
                 const adapterrestart = this.setInterval(() => {
                     this.restart();
                 }, 120000);
-                this.intervalList.push(adapterrestart);
+                if (adapterrestart)
+                    this.intervalList.push(adapterrestart);
             }
             // if there are any homes the adapter will do something
             // Init load data and calculator for all homes
@@ -222,7 +223,8 @@ class Tibberlink extends utils.Adapter {
                         }
                     }
                 }, 1500000);
-                this.intervalList.push(energyPricesListUpdateInterval);
+                if (energyPricesListUpdateInterval)
+                    this.intervalList.push(energyPricesListUpdateInterval);
                 // If user uses live feed - start feed connection
                 if (this.homeInfoList.some((info) => info.FeedActive)) {
                     // array with configs of feeds, init with base data set
@@ -313,7 +315,7 @@ class Tibberlink extends utils.Adapter {
                                 if (this.config.FeedConfigSignalStrength) {
                                     tibberFeedConfigs[index].signalStrength = true;
                                 }
-                                tibberPulseInstances[index] = new tibberPulse_1.TibberPulse(tibberFeedConfigs[index], this); //add instance to array
+                                tibberPulseInstances[index] = new tibberPulse_1.TibberPulse(tibberFeedConfigs[index], this); // add instance to array
                                 tibberPulseInstances[index].ConnectPulseStream();
                             }
                             catch (e) {
