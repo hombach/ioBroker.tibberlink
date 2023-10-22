@@ -1,8 +1,4 @@
 {
-	"s_StandardSettings": "Standaardinstellingen",
-	"s_ReferalLink": "Als u op dit moment geen Tibber-gebruiker bent, waarderen we het zeer als u onze verwijzingslink gebruikt.",
-	"s_TibberAPIToken": "Token voor Tibber API",
-	"s_HomesFeedTable": "Configuratie van livegegevensstromen van Pulse",
 	"s_Home": "Tibber Thuis",
 	"s_PulseActive": "Gebruik Tibber Pulse voor dit huis",
 	"s_SelectFieldsForFeed": "Selecteer alle velden die u wilt laden in de feedgegevens (vermogen en tijdstempel zijn de standaardwaarden):",

@@ -4,11 +4,35 @@
 	"items": {
 		"_StandardTab": {
 			"type": "panel",
-			"label": "s_StandardSettings",
+			"label": {
+				"en": "Standard settings",
+				"de": "Standard-Einstellungen",
+				"ru": "Стандартные настройки",
+				"pt": "Configurações padrão",
+				"nl": "Standaardinstellingen",
+				"fr": "Paramètres standard",
+				"it": "Impostazioni predefinite",
+				"es": "Configuración estándar",
+				"pl": "Ustawienia standardowe",
+				"uk": "Стандартні налаштування",
+				"zh-cn": "标准设置"
+			},
 			"items": {
 				"TibberAPIToken": {
 					"type": "text",
-					"label": "s_TibberAPIToken",
+					"label": {
+						"en": "Token for Tibber API",
+						"de": "Token für Tibber API",
+						"ru": "Токен для Tibber API",
+						"pt": "Token para a API Tibber",
+						"nl": "Token voor Tibber API",
+						"fr": "Token pour l'API Tibber",
+						"it": "Token per l'API di Tibber",
+						"es": "Token para la API de Tibber",
+						"pl": "Token do API Tibber",
+						"uk": "Токен для API Tibber",
+						"zh-cn": "Tibber API 的令牌"
+					},
 					"maxLength": 60,
 					"sm": 12,
 					"md": 6,
@@ -18,8 +42,20 @@
 
 				"_link": {
 					"type": "staticLink",
-					"label": "s_ReferalLink",
-					"href": "https://invite.tibber.com/2gwuign3.",
+					"label": {
+						"en": "If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link",
+						"de": "Wenn Sie derzeit kein Tibber-Benutzer sind, würde ich es sehr schätzen, wenn Sie meinen Empfehlungslink verwenden könnten",
+						"ru": "Если вы в настоящее время не являетесь пользователем Tibber, я был бы очень признателен, если бы вы могли использовать мою реферальную ссылку",
+						"pt": "Se você não é atualmente um usuário da Tibber, eu ficaria muito agradecido se você pudesse usar meu link de referência",
+						"nl": "Als u op dit moment geen Tibber-gebruiker bent, zou ik het zeer waarderen als u mijn verwijzingslink zou kunnen gebruiken",
+						"fr": "Si vous n'êtes pas actuellement un utilisateur de Tibber, je vous serais très reconnaissant si vous pouviez utiliser mon lien de parrainage",
+						"it": "Se al momento non sei un utente di Tibber, sarei molto grato se potessi utilizzare il mio link di riferimento",
+						"es": "Si actualmente no eres usuario de Tibber, te agradecería mucho si pudieras usar mi enlace de referencia",
+						"pl": "Jeśli obecnie nie jesteś użytkownikiem Tibber, bardzo bym docenił, gdybyś mógł skorzystać z mojego linku polecającego",
+						"uk": "Якщо ви в даний момент не є користувачем Tibber, я б вдячний, якщо ви могли б використовувати мій реферальний посилання",
+						"zh-cn": "如果您目前不是Tibber的用户，如果您能使用我的推荐链接，我将非常感激"
+					},
+					"href": "https://invite.tibber.com/mu8c82n5",
 					"newLine": true
 				},
 
@@ -28,7 +64,19 @@
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
-					"label": "s_HomesFeedTable",
+					"label": {
+						"en": "Configuration of Pulse live data streams",
+						"de": "Konfiguration von Pulse-Live-Datenströmen",
+						"ru": "Настройка потоковых данных в режиме реального времени Pulse",
+						"pt": "Configuração de transmissões de dados ao vivo do Pulse",
+						"nl": "Configuratie van Pulse live gegevensstromen",
+						"fr": "Configuration des flux de données en direct Pulse",
+						"it": "Configurazione dei flussi di dati in tempo reale di Pulse",
+						"es": "Configuración de transmisiones de datos en tiempo real de Pulse",
+						"pl": "Konfiguracja strumieni danych na żywo Pulse",
+						"uk": "Налаштування потокових даних в режимі реального часу Pulse",
+						"zh-cn": "Pulse实时数据流配置"
+					},
 					"hidden": "!data.TibberAPIToken",
 					"items": [
 						{

@@ -1,8 +1,4 @@
 {
-	"s_StandardSettings": "标准设置",
-	"s_ReferalLink": "如果您目前不是Tibber用户，我们非常感谢您使用我的推荐链接。",
-	"s_TibberAPIToken": "Tibber API令牌",
-	"s_HomesFeedTable": "Pulse实时数据流配置",
 	"s_Home": "Tibber家",
 	"s_PulseActive": "为此家使用Tibber Pulse",
 	"s_SelectFieldsForFeed": "选择要加载到数据流中的所有字段（功率和时间戳是默认值）：",

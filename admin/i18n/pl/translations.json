@@ -1,8 +1,4 @@
 {
-	"s_StandardSettings": "Ustawienia standardowe",
-	"s_ReferalLink": "Jeśli nie jesteś obecnie użytkownikiem Tibber, bardzo byśmy to docenili, gdybyś użył mojego linku polecającego.",
-	"s_TibberAPIToken": "Token dla API Tibber",
-	"s_HomesFeedTable": "Konfiguracja strumieni danych na żywo Pulse",
 	"s_Home": "Dom Tibber",
 	"s_PulseActive": "Użyj Tibber Pulse w tym domu",
 	"s_SelectFieldsForFeed": "Wybierz wszystkie pola, które chcesz załadować do danych zasilania (moc i znacznik czasu są domyślnymi wartościami):",

@@ -54,6 +54,11 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### WORK in PROGRESS 1.X.X (2023-10-2x)
+
+-   (HombachC) optimize translations
+-   (HombachC) implement Min/Max states (#131)
+
 ### 1.3.1 (2023-10-21)
 
 -   (HombachC) fix initialisiation of channel states (#141)
