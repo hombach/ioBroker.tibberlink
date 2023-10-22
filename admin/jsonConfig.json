@@ -91,7 +91,19 @@
 						},
 						{
 							"type": "checkbox",
-							"title": "s_PulseActive",
+							"title": {
+								"en": "use Tibber Pulse for this home",
+								"de": "Verwenden Sie Tibber Pulse für dieses Zuhause",
+								"ru": "Используйте Tibber Pulse для этого дома",
+								"pt": "Use o Tibber Pulse para esta casa",
+								"nl": "Gebruik Tibber Pulse voor dit huis",
+								"fr": "Utilisez Tibber Pulse pour cette maison",
+								"it": "Usa Tibber Pulse per questa casa",
+								"es": "Usar Tibber Pulse para esta casa",
+								"pl": "Użyj Tibber Pulse w tym domu",
+								"uk": "Використовуйте Tibber Pulse для цього будинку",
+								"zh-cn": "为这个家使用Tibber Pulse"
+							},
 							"attr": "feedActive",
 							"filter": false,
 							"sort": false,

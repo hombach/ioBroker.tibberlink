@@ -56,7 +56,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ### WORK in PROGRESS 1.4.0 (2023-10-2x)
 
--   (HombachC) optimize translations
+-   (HombachC) optimize translation handling
 -   (HombachC) implement min/max states (#131)
 
 ### 1.3.1 (2023-10-21)

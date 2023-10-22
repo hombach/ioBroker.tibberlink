@@ -1,6 +1,5 @@
 {
 	"s_Home": "Casa Tibber",
-	"s_PulseActive": "Utilizza Tibber Pulse per questa casa",
 	"s_SelectFieldsForFeed": "Seleziona tutti i campi che desideri caricare nei dati del feed (potenza e timestamp sono i valori predefiniti):",
 	"s_PhasesExplanation": "Valori di tensione e corrente - su diversi contatori questi valori non fanno parte del frame dati, quindi i valori potrebbero essere nulli. Potrebbero esserci altre deviazioni basate sul firmware del contatore concreto. I valori nulli non genereranno uno stato nei tuoi oggetti ioBroker.",
 	"s_CalculatorSettings": "Impostazioni di automazione",

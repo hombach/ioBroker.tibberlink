@@ -121,9 +121,7 @@ export class TibberCalculator extends TibberHelper {
 					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
 				);
 			}
-			this.adapter.log.debug(
-				`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`,
-			);
+			this.adapter.log.debug(`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
 		}
@@ -166,9 +164,7 @@ export class TibberCalculator extends TibberHelper {
 	async executeCalculatorBestHoursBlock(channel: number): Promise<void> {
 		try {
 			const currentDateTime = new Date();
-			const jsonPrices: IPrice[] = JSON.parse(
-				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
-			);
+			const jsonPrices: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
 
 			let minSum = Number.MAX_VALUE;
 			let startIndex = 0;
