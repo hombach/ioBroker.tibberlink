@@ -1,7 +1,5 @@
 {
 	"s_Home": "Tibber Home",
-	"s_SelectFieldsForFeed": "Select all fields you want to load in feed data (power and timestamp are default):",
-	"s_PhasesExplanation": "Voltage and current values  -  on several meters these values are not part of the data frame, therefore the values might be null. There can be other deviations based on concrete meter firmware. Null values won't generate a state in your ioBroker objects at all.",
 	"s_CalculatorSettings": "Calculator settings",
 	"s_CalculatorChannels": "Calculator Channels",
 	"s_UseCalculator": "Use Calculator",

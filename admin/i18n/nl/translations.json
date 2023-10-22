@@ -1,7 +1,5 @@
 {
 	"s_Home": "Tibber Thuis",
-	"s_SelectFieldsForFeed": "Selecteer alle velden die u wilt laden in de feedgegevens (vermogen en tijdstempel zijn de standaardwaarden):",
-	"s_PhasesExplanation": "Spannings- en stroomwaarden - op verschillende meters maken deze waarden geen deel uit van het gegevensframe, dus de waarden kunnen nul zijn. Er kunnen andere afwijkingen zijn op basis van de concrete meterfirmware. Nulwaarden genereren helemaal geen status in uw ioBroker-objecten.",
 	"s_CalculatorSettings": "Automatiseringsinstellingen",
 	"s_CalculatorChannels": "Automatiseringskanalen",
 	"s_UseCalculator": "Automatisering gebruiken",

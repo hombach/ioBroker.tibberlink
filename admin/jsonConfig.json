@@ -115,7 +115,19 @@
 
 				"_feedDataDetail": {
 					"type": "header",
-					"text": "s_SelectFieldsForFeed",
+					"text": {
+						"en": "Select all fields you want to load in feed data (power and timestamp are on by default):",
+						"de": "Wählen Sie alle Felder aus, die Sie in den Feed-Daten laden möchten (Leistung und Zeitstempel sind standardmäßig aktiviert):",
+						"ru": "Выберите все поля, которые вы хотите загрузить в данные ленты (мощность и временная метка включены по умолчанию):",
+						"pt": "Selecione todos os campos que deseja carregar nos dados do feed (a potência e o carimbo de hora estão ativados por padrão):",
+						"nl": "Selecteer alle velden die u wilt laden in de feedgegevens (vermogen en tijdstempel zijn standaard ingeschakeld):",
+						"fr": "Sélectionnez tous les champs que vous souhaitez charger dans les données du flux (la puissance et l'horodatage sont activés par défaut) :",
+						"it": "Seleziona tutti i campi che desideri caricare nei dati del feed (potenza e timestamp sono attivi per impostazione predefinita):",
+						"es": "Seleccione todos los campos que desea cargar en los datos del feed (la potencia y la marca de tiempo están habilitados por defecto):",
+						"pl": "Wybierz wszystkie pola, które chcesz załadować do danych kanału (moc i znacznik czasu są domyślnie włączone):",
+						"uk": "Виберіть всі поля, які ви хочете завантажити в дані каналу (потужність та відмітка часу активовані за замовчуванням):",
+						"zh-cn": "选择要加载到数据中的所有字段（功率和时间戳默认处于启用状态）："
+					},
 					"hidden": "!data.TibberAPIToken",
 					"size": 3
 				},
@@ -271,7 +283,19 @@
 				"_phases": {
 					"type": "staticText",
 					"hidden": "!data.TibberAPIToken",
-					"label": "s_PhasesExplanation"
+					"label": {
+						"en": "Voltage and current values - In the case of several meters, these values may not be included in the data frame, which could result in null values. Other deviations may also occur based on the specific firmware of the meter. Null values will not generate a state in your ioBroker objects.",
+						"de": "Spannungs- und Stromwerte - In einigen Fällen können diese Werte bei mehreren Zählern nicht im Datenrahmen enthalten sein, was zu Nullwerten führen kann. Weitere Abweichungen können auch auf der spezifischen Firmware des Zählers basieren. Nullwerte generieren keine Zustände in Ihren ioBroker-Objekten.",
+						"ru": "Значения напряжения и тока - В случае нескольких счетчиков эти значения могут не включаться в кадр данных, что может привести к нулевым значениям. Другие отклонения также могут возникнуть на основе конкретной прошивки счетчика. Нулевые значения не создадут состояние в ваших объектах ioBroker.",
+						"pt": "Valores de tensão e corrente - No caso de vários medidores, esses valores podem não estar incluídos no quadro de dados, o que pode resultar em valores nulos. Outras discrepâncias também podem ocorrer com base na firmware específica do medidor. Valores nulos não gerarão um estado em seus objetos ioBroker.",
+						"nl": "Spannings- en stroomwaarden - In het geval van meerdere meters kunnen deze waarden mogelijk niet zijn opgenomen in het gegevenskader, wat kan resulteren in nulwaarden. Andere afwijkingen kunnen ook optreden op basis van de specifieke firmware van de meter. Nulwaarden genereren geen toestand in uw ioBroker-objecten.",
+						"fr": "Valeurs de tension et de courant - Dans le cas de plusieurs compteurs, ces valeurs peuvent ne pas être incluses dans le cadre de données, ce qui pourrait entraîner des valeurs nulles. D'autres écarts peuvent également se produire en fonction du firmware spécifique du compteur. Les valeurs nulles ne généreront pas d'état dans vos objets ioBroker.",
+						"it": "Valori di tensione e corrente - Nel caso di diversi contatori, questi valori potrebbero non essere inclusi nel frame dati, il che potrebbe comportare valori nulli. Possono verificarsi altre deviazioni in base alla specifica firmware del contatore. I valori nulli non genereranno uno stato nei vostri oggetti ioBroker.",
+						"es": "Valores de voltaje y corriente - En el caso de varios medidores, estos valores pueden no estar incluidos en el marco de datos, lo que podría dar lugar a valores nulos. También pueden producirse otras desviaciones según la firmware específica del medidor. Los valores nulos no generarán un estado en sus objetos ioBroker.",
+						"pl": "Wartości napięcia i prądu - W przypadku kilku liczników te wartości mogą nie być uwzględnione w ramce danych, co może skutkować wartościami zerowymi. Inne odstępstwa mogą również wystąpić na podstawie konkretnej wersji firmware licznika. Wartości zerowe nie wygenerują stanu w twoich obiektach ioBroker.",
+						"uk": "Значення напруги та струму - В разі кількох лічильників ці значення можуть не включати в кадр даних, що може призвести до нульових значень. Інші відхилення також можуть виникнути на основі конкретної прошивки лічильника. Нульові значення не створять стан в ваших об'єктах ioBroker.",
+						"zh-cn": "电压和电流数值 - 在多台仪表的情况下，这些数值可能不包括在数据帧中，可能导致空值。根据电表的具体固件，还可能出现其他偏差。空值不会在您的ioBroker对象中生成状态。"
+					}
 				},
 
 				"FeedConfigVoltagePhase1": {

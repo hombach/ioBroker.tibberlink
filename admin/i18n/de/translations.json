@@ -1,7 +1,5 @@
 {
 	"s_Home": "Tibber Zuhause",
-	"s_SelectFieldsForFeed": "Wählen Sie alle Felder aus, die Sie in den Feed-Daten laden möchten (Leistung und Zeitstempel sind Standard):",
-	"s_PhasesExplanation": "Spannungs- und Stromwerte - auf mehreren Zählern sind diese Werte nicht Teil des Datenrahmens, daher können die Werte null sein. Es können andere Abweichungen aufgrund der konkreten Zähler-Firmware auftreten. Nullwerte generieren überhaupt keinen Status in Ihren ioBroker-Objekten.",
 	"s_CalculatorSettings": "Automatisierungs-Einstellungen",
 	"s_CalculatorChannels": "Automatisierungs-Kanäle",
 	"s_UseCalculator": "Automatisierung verwenden",

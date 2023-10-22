@@ -1,7 +1,5 @@
 {
 	"s_Home": "Dom Tibber",
-	"s_SelectFieldsForFeed": "Wybierz wszystkie pola, które chcesz załadować do danych zasilania (moc i znacznik czasu są domyślnymi wartościami):",
-	"s_PhasesExplanation": "Wartości napięcia i prądu - na kilku licznikach te wartości nie są częścią ramki danych, dlatego wartości mogą być zerowe. Mogą wystąpić inne odstępstwa w zależności od konkretnego oprogramowania licznika. Zera nie generują stanu w twoich obiektach ioBroker.",
 	"s_CalculatorSettings": "Ustawienia automatyzacji",
 	"s_CalculatorChannels": "Kanały automatyzacji",
 	"s_UseCalculator": "Użyj automatyzacji",

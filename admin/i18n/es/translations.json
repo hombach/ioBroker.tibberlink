@@ -1,7 +1,5 @@
 {
 	"s_Home": "Casa Tibber",
-	"s_SelectFieldsForFeed": "Selecciona todos los campos que deseas cargar en los datos del feed (la potencia y la marca de tiempo son los valores predeterminados):",
-	"s_PhasesExplanation": "Valores de voltaje y corriente - en varios medidores, estos valores no forman parte del marco de datos, por lo que los valores pueden ser nulos. Puede haber otras desviaciones basadas en el firmware del medidor concreto. Los valores nulos no generarán un estado en tus objetos ioBroker.",
 	"s_CalculatorSettings": "Configuración de automatización",
 	"s_CalculatorChannels": "Canales de automatización",
 	"s_UseCalculator": "Usar automatización",

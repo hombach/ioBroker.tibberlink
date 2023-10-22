@@ -1,7 +1,5 @@
 {
 	"s_Home": "Casa Tibber",
-	"s_SelectFieldsForFeed": "Selecione todos os campos que deseja carregar nos dados do feed (potência e carimbo de data/hora são os valores padrão):",
-	"s_PhasesExplanation": "Valores de tensão e corrente - em vários medidores, esses valores não fazem parte do quadro de dados, portanto, os valores podem ser nulos. Pode haver outras variações com base no firmware do medidor concreto. Valores nulos não gerarão um estado em seus objetos ioBroker.",
 	"s_CalculatorSettings": "Configurações de automação",
 	"s_CalculatorChannels": "Canais de automação",
 	"s_UseCalculator": "Usar automação",
