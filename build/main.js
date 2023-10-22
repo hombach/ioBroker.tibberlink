@@ -267,33 +267,25 @@ class Tibberlink extends utils.Adapter {
                                 if (this.config.FeedConfigAccumulatedCost) {
                                     tibberFeedConfigs[index].accumulatedReward = true;
                                 }
-                                if (this.config.FeedConfigCurrency) {
+                                if (this.config.FeedConfigCurrency)
                                     tibberFeedConfigs[index].currency = true;
-                                }
-                                if (this.config.FeedConfigMinPower) {
+                                if (this.config.FeedConfigMinPower)
                                     tibberFeedConfigs[index].minPower = true;
-                                }
-                                if (this.config.FeedConfigAveragePower) {
+                                if (this.config.FeedConfigAveragePower)
                                     tibberFeedConfigs[index].averagePower = true;
-                                }
-                                if (this.config.FeedConfigMaxPower) {
+                                if (this.config.FeedConfigMaxPower)
                                     tibberFeedConfigs[index].maxPower = true;
-                                }
-                                if (this.config.FeedConfigPowerProduction) {
+                                if (this.config.FeedConfigPowerProduction)
                                     tibberFeedConfigs[index].powerProduction = true;
-                                }
-                                if (this.config.FeedConfigMinPowerProduction) {
+                                if (this.config.FeedConfigMinPowerProduction)
                                     tibberFeedConfigs[index].minPowerProduction = true;
-                                }
-                                if (this.config.FeedConfigMaxPowerProduction) {
+                                if (this.config.FeedConfigMaxPowerProduction)
                                     tibberFeedConfigs[index].maxPowerProduction = true;
-                                }
                                 if (this.config.FeedConfigLastMeterProduction) {
                                     tibberFeedConfigs[index].lastMeterProduction = true;
                                 }
-                                if (this.config.FeedConfigPowerFactor) {
+                                if (this.config.FeedConfigPowerFactor)
                                     tibberFeedConfigs[index].powerFactor = true;
-                                }
                                 if (this.config.FeedConfigVoltagePhase1) {
                                     tibberFeedConfigs[index].voltagePhase1 = true;
                                 }
