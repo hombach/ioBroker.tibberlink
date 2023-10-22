@@ -83,6 +83,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
             this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), await JSON.stringify(pricesToday), "The prices today as json");
             this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
+            //this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
+            //this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
             for (const i in pricesToday) {
                 const price = pricesToday[i];
                 const hour = new Date(price.startsAt.substr(0, 19)).getHours();
@@ -121,6 +123,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
                 }
                 this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
+                //this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
+                //this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
             }
             else if (pricesTomorrow) {
                 // pricing known, after about 13:00 - write the states
@@ -140,6 +144,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
             }
             this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
+            //this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
+            //this.fetchPriceMinimum(homeId, `PricesTomorrow.minumum`, pricesTomorrow);
         }
         else {
             this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
@@ -171,6 +177,18 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price average");
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "The todays avarage spotmarket price");
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays avarage tax price");
+    }
+    emptyingPriceMaximum(homeId, objectDestination) {
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price maximum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "The todays spotmarket price at total price maximum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays tax price at total price maximum");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
+    }
+    emptyingPriceMinimum(homeId, objectDestination) {
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price minimum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "The todays spotmarket price at total price minimum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays tax price at total price minimum");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
     }
     fetchAddress(homeId, objectDestination, address) {
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address1"), address.address1);

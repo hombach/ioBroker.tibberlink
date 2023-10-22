@@ -128,6 +128,8 @@ export class TibberAPICaller extends TibberHelper {
 			this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
 			this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), await JSON.stringify(pricesToday), "The prices today as json");
 			this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
+			//this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
+			//this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
 			for (const i in pricesToday) {
 				const price = pricesToday[i];
 				const hour = new Date(price.startsAt.substr(0, 19)).getHours();
@@ -173,6 +175,8 @@ export class TibberAPICaller extends TibberHelper {
 					this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
 				}
 				this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
+				//this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
+				//this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
 			} else if (pricesTomorrow) {
 				// pricing known, after about 13:00 - write the states
 				for (const i in pricesTomorrow) {
@@ -202,6 +206,8 @@ export class TibberAPICaller extends TibberHelper {
 				);
 			}
 			this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
+			//this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
+			//this.fetchPriceMinimum(homeId, `PricesTomorrow.minumum`, pricesTomorrow);
 		} else {
 			this.adapter.log.debug(
 				`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`,
@@ -254,6 +260,36 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price average");
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "The todays avarage spotmarket price");
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays avarage tax price");
+	}
+
+	private emptyingPriceMaximum(homeId: string, objectDestination: string): void {
+		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price maximum");
+		this.checkAndSetValueNumber(
+			this.getStatePrefix(homeId, objectDestination, "energy"),
+			0,
+			"The todays spotmarket price at total price maximum",
+		);
+		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays tax price at total price maximum");
+		this.checkAndSetValue(
+			this.getStatePrefix(homeId, objectDestination, "level"),
+			"Not known now",
+			"Price level compared to recent price values",
+		);
+	}
+
+	private emptyingPriceMinimum(homeId: string, objectDestination: string): void {
+		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price minimum");
+		this.checkAndSetValueNumber(
+			this.getStatePrefix(homeId, objectDestination, "energy"),
+			0,
+			"The todays spotmarket price at total price minimum",
+		);
+		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays tax price at total price minimum");
+		this.checkAndSetValue(
+			this.getStatePrefix(homeId, objectDestination, "level"),
+			"Not known now",
+			"Price level compared to recent price values",
+		);
 	}
 
 	private fetchAddress(homeId: string, objectDestination: string, address: IAddress): void {
