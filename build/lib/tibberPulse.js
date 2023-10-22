@@ -17,18 +17,18 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
         try {
             this.tibberFeed.connect();
         }
-        catch (e) {
-            this.adapter.log.warn(`Error on connect Feed: ${e.message}`);
+        catch (error) {
+            this.adapter.log.warn(`Error on connect Feed: ${error.message}`);
         }
     }
     DisconnectPulseStream() {
         try {
             this.tibberFeed.close();
         }
-        catch (e) {
-            this.adapter.log.warn(`Error on Feed closed: ${e.message}`);
+        catch (error) {
+            this.adapter.log.warn(`Error on Feed closed: ${error.message}`);
         }
-        // reinit Tibberfeed
+        // Reinitialize TibberFeed
         this.tibberFeed = new tibber_api_1.TibberFeed(new tibber_api_1.TibberQuery(this.tibberConfig));
     }
     addEventHandlerOnFeed(currentFeed) {

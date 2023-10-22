@@ -29,13 +29,14 @@ export class TibberHelper {
 		return statePrefix;
 	}
 
-	protected async getStateValue(stateName: string): Promise<any> {
+	protected async getStateValue(stateName: string): Promise<any | null> {
 		try {
 			const stateObject = await this.getState(stateName);
-			if (stateObject == null) return null; // errors thrown already in GetState()
-			return stateObject.val;
-		} catch (e) {
-			this.adapter.log.error(`[getStateValue](${stateName}): ${e}`);
+			return stateObject?.val ?? null; // Errors have already been handled in getState()
+			//OLD if (stateObject == null) return null; // Errors have already been handled in getState()
+			//OLD return stateObject.val;
+		} catch (error) {
+			this.adapter.log.error(`[getStateValue](${stateName}): ${error}`);
 			return null;
 		}
 	}
@@ -51,8 +52,8 @@ export class TibberHelper {
 					throw `Unable to retrieve info from state '${stateName}'.`;
 				}
 			}
-		} catch (e) {
-			this.adapter.log.error(`[asyncGetState](${stateName}): ${e}`);
+		} catch (error) {
+			this.adapter.log.error(`[asyncGetState](${stateName}): ${error}`);
 			return null;
 		}
 	}
@@ -93,12 +94,8 @@ export class TibberHelper {
 		writeable?: boolean,
 		dontUpdate?: boolean,
 	): Promise<void> {
-		if (writeable === undefined) {
-			writeable = false;
-		}
-		if (dontUpdate === undefined) {
-			dontUpdate = false;
-		}
+		if (writeable === undefined) writeable = false;
+		if (dontUpdate === undefined) dontUpdate = false;
 		if (value != undefined) {
 			if (value.trim().length > 0) {
 				await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -127,12 +124,8 @@ export class TibberHelper {
 		writeable?: boolean,
 		dontUpdate?: boolean,
 	): Promise<void> {
-		if (writeable === undefined) {
-			writeable = false;
-		}
-		if (dontUpdate === undefined) {
-			dontUpdate = false;
-		}
+		if (writeable === undefined) writeable = false;
+		if (dontUpdate === undefined) dontUpdate = false;
 		if (value || value === 0) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
@@ -159,9 +152,7 @@ export class TibberHelper {
 		description?: string,
 		writeable?: boolean,
 	): Promise<void> {
-		if (writeable === undefined) {
-			writeable = false;
-		}
+		if (writeable === undefined) writeable = false;
 		if (value || value === 0) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
@@ -187,12 +178,8 @@ export class TibberHelper {
 		writeable?: boolean,
 		dontUpdate?: boolean,
 	): Promise<void> {
-		if (writeable === undefined) {
-			writeable = false;
-		}
-		if (dontUpdate === undefined) {
-			dontUpdate = false;
-		}
+		if (writeable === undefined) writeable = false;
+		if (dontUpdate === undefined) dontUpdate = false;
 		if (value !== undefined && value !== null) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
 				type: "state",
@@ -215,9 +202,7 @@ export class TibberHelper {
 	public generateErrorMessage(error: any, context: string): string {
 		let errorMessages = "";
 		for (const index in error.errors) {
-			if (errorMessages) {
-				errorMessages += ", ";
-			}
+			if (errorMessages) errorMessages += ", ";
 			errorMessages += error.errors[index].message;
 		}
 		return `Error (${error.statusMessage}) occured during: -${context}- : ${errorMessages}`;

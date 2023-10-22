@@ -7,7 +7,6 @@ import { IHomeInfo } from "./lib/tibberHelper";
 import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
-	//intervalList: any[]; // intervalList: ioBroker.Interval[]; - - ERROR not working with adapter-core 3.x; has to be any
 	intervalList: ioBroker.Interval[];
 	homeInfoList: IHomeInfo[] = [];
 	queryUrl: string = "";
@@ -235,27 +234,13 @@ class Tibberlink extends utils.Adapter {
 								// define the fields for datafeed
 								tibberFeedConfigs[index].homeId = this.homeInfoList[index].ID;
 								tibberFeedConfigs[index].power = true;
-								if (this.config.FeedConfigLastMeterConsumption) {
-									tibberFeedConfigs[index].lastMeterConsumption = true;
-								}
-								if (this.config.FeedConfigAccumulatedConsumption) {
-									tibberFeedConfigs[index].accumulatedConsumption = true;
-								}
-								if (this.config.FeedConfigAccumulatedProduction) {
-									tibberFeedConfigs[index].accumulatedProduction = true;
-								}
-								if (this.config.FeedConfigAccumulatedConsumptionLastHour) {
-									tibberFeedConfigs[index].accumulatedConsumptionLastHour = true;
-								}
-								if (this.config.FeedConfigAccumulatedProductionLastHour) {
-									tibberFeedConfigs[index].accumulatedProductionLastHour = true;
-								}
-								if (this.config.FeedConfigAccumulatedCost) {
-									tibberFeedConfigs[index].accumulatedCost = true;
-								}
-								if (this.config.FeedConfigAccumulatedCost) {
-									tibberFeedConfigs[index].accumulatedReward = true;
-								}
+								if (this.config.FeedConfigLastMeterConsumption) tibberFeedConfigs[index].lastMeterConsumption = true;
+								if (this.config.FeedConfigAccumulatedConsumption) tibberFeedConfigs[index].accumulatedConsumption = true;
+								if (this.config.FeedConfigAccumulatedProduction) tibberFeedConfigs[index].accumulatedProduction = true;
+								if (this.config.FeedConfigAccumulatedConsumptionLastHour) tibberFeedConfigs[index].accumulatedConsumptionLastHour = true;
+								if (this.config.FeedConfigAccumulatedProductionLastHour) tibberFeedConfigs[index].accumulatedProductionLastHour = true;
+								if (this.config.FeedConfigAccumulatedCost) tibberFeedConfigs[index].accumulatedCost = true;
+								if (this.config.FeedConfigAccumulatedCost) tibberFeedConfigs[index].accumulatedReward = true;
 								if (this.config.FeedConfigCurrency) tibberFeedConfigs[index].currency = true;
 								if (this.config.FeedConfigMinPower) tibberFeedConfigs[index].minPower = true;
 								if (this.config.FeedConfigAveragePower) tibberFeedConfigs[index].averagePower = true;
@@ -263,31 +248,15 @@ class Tibberlink extends utils.Adapter {
 								if (this.config.FeedConfigPowerProduction) tibberFeedConfigs[index].powerProduction = true;
 								if (this.config.FeedConfigMinPowerProduction) tibberFeedConfigs[index].minPowerProduction = true;
 								if (this.config.FeedConfigMaxPowerProduction) tibberFeedConfigs[index].maxPowerProduction = true;
-								if (this.config.FeedConfigLastMeterProduction) {
-									tibberFeedConfigs[index].lastMeterProduction = true;
-								}
+								if (this.config.FeedConfigLastMeterProduction) tibberFeedConfigs[index].lastMeterProduction = true;
 								if (this.config.FeedConfigPowerFactor) tibberFeedConfigs[index].powerFactor = true;
-								if (this.config.FeedConfigVoltagePhase1) {
-									tibberFeedConfigs[index].voltagePhase1 = true;
-								}
-								if (this.config.FeedConfigVoltagePhase2) {
-									tibberFeedConfigs[index].voltagePhase2 = true;
-								}
-								if (this.config.FeedConfigVoltagePhase3) {
-									tibberFeedConfigs[index].voltagePhase3 = true;
-								}
-								if (this.config.FeedConfigCurrentL1) {
-									tibberFeedConfigs[index].currentL1 = true;
-								}
-								if (this.config.FeedConfigCurrentL2) {
-									tibberFeedConfigs[index].currentL2 = true;
-								}
-								if (this.config.FeedConfigCurrentL3) {
-									tibberFeedConfigs[index].currentL3 = true;
-								}
-								if (this.config.FeedConfigSignalStrength) {
-									tibberFeedConfigs[index].signalStrength = true;
-								}
+								if (this.config.FeedConfigVoltagePhase1) tibberFeedConfigs[index].voltagePhase1 = true;
+								if (this.config.FeedConfigVoltagePhase2) tibberFeedConfigs[index].voltagePhase2 = true;
+								if (this.config.FeedConfigVoltagePhase3) tibberFeedConfigs[index].voltagePhase3 = true;
+								if (this.config.FeedConfigCurrentL1) tibberFeedConfigs[index].currentL1 = true;
+								if (this.config.FeedConfigCurrentL2) tibberFeedConfigs[index].currentL2 = true;
+								if (this.config.FeedConfigCurrentL3) tibberFeedConfigs[index].currentL3 = true;
+								if (this.config.FeedConfigSignalStrength) tibberFeedConfigs[index].signalStrength = true;
 								tibberPulseInstances[index] = new TibberPulse(tibberFeedConfigs[index], this); // add instance to array
 								tibberPulseInstances[index].ConnectPulseStream();
 							} catch (e) {

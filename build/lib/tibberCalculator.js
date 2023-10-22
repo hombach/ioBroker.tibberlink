@@ -52,9 +52,8 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         }
     }
     async startCalculatorTasks() {
-        if (!this.adapter.config.UseCalculator) {
+        if (!this.adapter.config.UseCalculator)
             return;
-        }
         for (const channel in this.adapter.config.CalculatorList) {
             if (!this.adapter.config.CalculatorList[channel].chTargetState.trim()) {
                 this.adapter.log.warn(`Empty destination state in calculator channel ${channel} defined - provide correct external state - execution of channel skipped`);

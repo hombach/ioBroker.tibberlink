@@ -22,18 +22,18 @@ export class TibberPulse extends TibberHelper {
 	ConnectPulseStream(): void {
 		try {
 			this.tibberFeed.connect();
-		} catch (e) {
-			this.adapter.log.warn(`Error on connect Feed: ${(e as Error).message}`);
+		} catch (error) {
+			this.adapter.log.warn(`Error on connect Feed: ${(error as Error).message}`);
 		}
 	}
 
 	DisconnectPulseStream(): void {
 		try {
 			this.tibberFeed.close();
-		} catch (e) {
-			this.adapter.log.warn(`Error on Feed closed: ${(e as Error).message}`);
+		} catch (error) {
+			this.adapter.log.warn(`Error on Feed closed: ${(error as Error).message}`);
 		}
-		// reinit Tibberfeed
+		// Reinitialize TibberFeed
 		this.tibberFeed = new TibberFeed(new TibberQuery(this.tibberConfig));
 	}
 
