@@ -354,7 +354,19 @@
 
 		"_CalculatorTab": {
 			"type": "panel",
-			"label": "s_CalculatorSettings",
+			"label": {
+				"en": "Calculator Settings",
+				"de": "Automatisierungs-Einstellungen",
+				"ru": "Настройки автоматизации",
+				"pt": "Configurações de automação",
+				"nl": "Automatiseringsinstellingen",
+				"fr": "Paramètres d'automatisation",
+				"it": "Impostazioni di automazione",
+				"es": "Configuración de automatización",
+				"pl": "Ustawienia automatyzacji",
+				"uk": "Налаштування автоматизації",
+				"zh-cn": "自动化设置"
+			},
 			"hidden": "!data.TibberAPIToken",
 			"items": {
 				"_CalculatorHeader": {
