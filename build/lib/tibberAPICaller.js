@@ -123,8 +123,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
                 }
                 this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
-                //this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
-                //this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
+                this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
+                this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
             }
             else if (pricesTomorrow) {
                 // pricing known, after about 13:00 - write the states
@@ -144,7 +144,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
             }
             this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
-            //this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
+            this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow.sort((a, b) => a.total - b.total));
             //this.fetchPriceMinimum(homeId, `PricesTomorrow.minumum`, pricesTomorrow);
         }
         else {
@@ -167,6 +167,20 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), Math.round(1000 * (taxSum / price.length)) / 1000, "Todays avarage tax price");
     }
+    fetchPriceMaximum(homeId, objectDestination, price) {
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), Math.round(1000 * price[23].total) / 1000, "Todays total price maximum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), Math.round(1000 * price[23].energy) / 1000, "Todays spotmarket price at total price maximum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), Math.round(1000 * price[23].tax) / 1000, "Todays tax price at total price maximum");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), price[23].level, "Price level compared to recent price values");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), price[23].startsAt, "Start time of the price maximum");
+    }
+    fetchPriceMinimum(homeId, objectDestination, price) {
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), Math.round(1000 * price[0].total) / 1000, "Todays total price minimum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), Math.round(1000 * price[0].energy) / 1000, "Todays spotmarket price at total price minimum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), Math.round(1000 * price[0].tax) / 1000, "Todays tax price at total price minimum");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), price[0].level, "Price level compared to recent price values");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), price[0].startsAt, "Start time of the price minimum");
+    }
     emptyingPrice(homeId, objectDestination) {
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The total price (energy + taxes)");
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "Spotmarket price");
@@ -179,16 +193,18 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays avarage tax price");
     }
     emptyingPriceMaximum(homeId, objectDestination) {
-        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price maximum");
-        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "The todays spotmarket price at total price maximum");
-        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays tax price at total price maximum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "Todays total price maximum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "Todays spotmarket price at total price maximum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "Todays tax price at total price maximum");
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), "Not known now", "Start time of the price maximum");
     }
     emptyingPriceMinimum(homeId, objectDestination) {
-        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price minimum");
-        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "The todays spotmarket price at total price minimum");
-        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays tax price at total price minimum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "Todays total price minimum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "Todays spotmarket price at total price minimum");
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "Todays tax price at total price minimum");
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), "Not known now", "Start time of the price minimum");
     }
     fetchAddress(homeId, objectDestination, address) {
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address1"), address.address1);

@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.3.1",
+		"version": "1.4.0",
 		"news": {
+			"1.4.0": {
+				"en": "implement min/max states (#131)",
+				"de": "Implementiere Min/Max-Zustände (#131)",
+				"ru": "Внедрить состояния минимум/максимум (#131)",
+				"pt": "Implementar estados de mínimo/máximo (#131)",
+				"nl": "Implementeer minimum/maximum staten (#131)",
+				"fr": "Mettre en œuvre des états min/max (#131)",
+				"it": "Implementa stati min/max (#131)",
+				"es": "Implementar estados mínimo/máximo (#131)",
+				"pl": "Wprowadź stany min/maks (#131)",
+				"uk": "Реалізувати стани мінімум/максимум (#131)",
+				"zh-cn": "实现最小/最大状态 (#131)"
+			},
 			"1.3.1": {
 				"en": "Changed message 'reconnect successful' to level info (#80); fixed initialization of channel states (#141)",
 				"de": "Geänderte Meldung 'Neuverbindung erfolgreich' auf Stufe Info (#80); behob die Initialisierung der Kanalzustände (#141)",
@@ -236,19 +249,6 @@
 				"pl": "poprawne badania cenowe umożliwiają również stosowanie adaptacji w różnych strefach czasowych (#63)",
 				"uk": "увімкніть правильний ціновий пил також для адаптерів, що працюють в різних часових поясах (#63)",
 				"zh-cn": "能够纠正价格污染,使不同时间区(63年)的适应行动更加适应。"
-			},
-			"0.2.2": {
-				"en": "reducing polls at Tibber server by precheck of known data, code optimizations, fix config screen (#55)",
-				"de": "Reduktion von Anfragen am Tibber-Server durch Vorprüfung bekannter Daten, Codeoptimierungen, Fix Config-Bildschirm (#55)",
-				"ru": "сокращение опросов на сервере Tibber путем предварительного проверки известных данных, оптимизации кода, фиксации config экрана (#55)",
-				"pt": "reduzindo pesquisas no servidor Tibber por pré-verificação de dados conhecidos, otimizações de código, corrigir tela de configuração (#55)",
-				"nl": "polls verminderen bij Tibberserver met voorzien van bekende gegevens, code optimaties, config screen repareren",
-				"fr": "réduire les sondages sur le serveur Tibber en prévérant les données connues, les optimisations de code, fixer l'écran de configuration (#55)",
-				"it": "ridurre i sondaggi al server Tibber precheck di dati noti, ottimizzazioni di codice, fix config screen (#55)",
-				"es": "reducir las encuestas en el servidor Tibber por precheck de datos conocidos, optimizaciones de códigos, fijar la pantalla de configuración (#55)",
-				"pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez sprawdzanie znanych danych, optymalizacje kodu, naprawy ekranu (#55)",
-				"uk": "знижувати опитування на сервері Tibber за допомогою пречбеку відомих даних, оптимізації коду, фіксації екрана конфігурації (#55)",
-				"zh-cn": "通过预先检查已知数据、守则优化、固定集群筛查(第55号)减少Tibber服务器的污染"
 			},
 			"0.2.0": {
 				"en": "introduces JSONs for prices sorted by total price ascending",
