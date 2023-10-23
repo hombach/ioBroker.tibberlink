@@ -133,6 +133,9 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     const hour = new Date(price.startsAt.substr(0, 19)).getHours();
                     await this.fetchPrice(homeId, "PricesTomorrow." + hour, price);
                 }
+                this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
+                this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow.sort((a, b) => a.total - b.total));
+                this.fetchPriceMinimum(homeId, `PricesTomorrow.minumum`, pricesTomorrow.sort((a, b) => a.total - b.total));
             }
             this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), await JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
             if (Array.isArray(pricesTomorrow)) {
@@ -140,12 +143,9 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
             }
             else {
-                // Handle the case when pricesToday is not an array, it's empty?, so just don't sort
+                // Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
             }
-            this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
-            this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow.sort((a, b) => a.total - b.total));
-            this.fetchPriceMinimum(homeId, `PricesTomorrow.minumum`, pricesTomorrow.sort((a, b) => a.total - b.total));
         }
         else {
             this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
