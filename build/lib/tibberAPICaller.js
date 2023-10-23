@@ -81,7 +81,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         if (!exDate || exDate <= today) {
             const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
             this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
-            this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), await JSON.stringify(pricesToday), "The prices today as json");
+            this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
             this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
             this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday.sort((a, b) => a.total - b.total));
             this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday.sort((a, b) => a.total - b.total));
@@ -92,11 +92,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             }
             if (Array.isArray(pricesToday)) {
                 // Sort the array if it is an array - possible type error discovered by sentry
-                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), await JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
             }
             else {
-                // Handle the case when pricesToday is not an array, it's empty?, so just don't sort
-                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), await JSON.stringify(pricesToday), "prices sorted by cost ascending as json");
+                // Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
+                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday), "prices sorted by cost ascending as json");
             }
         }
         else {
@@ -137,14 +137,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow.sort((a, b) => a.total - b.total));
                 this.fetchPriceMinimum(homeId, `PricesTomorrow.minumum`, pricesTomorrow.sort((a, b) => a.total - b.total));
             }
-            this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), await JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
+            this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
             if (Array.isArray(pricesTomorrow)) {
                 // Sort the array if it is an array - possible type error discovered by sentry
-                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
             }
             else {
                 // Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
-                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), await JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
+                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
             }
         }
         else {
