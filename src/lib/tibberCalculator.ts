@@ -107,8 +107,17 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestCost(channel: number): Promise<void> {
 		try {
+			// if not chActive write chValueOff
+			if (!this.adapter.config.CalculatorList[channel].chActive) {
+				this.adapter.setForeignStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+				);
+				return;
+			}
+
 			const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
-			if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice && this.adapter.config.CalculatorList[channel].chActive) {
+			if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
 				this.adapter.setForeignStateAsync(
 					this.adapter.config.CalculatorList[channel].chTargetState,
 					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
@@ -127,6 +136,15 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestSingleHours(channel: number): Promise<void> {
 		try {
+			// if not chActive write chValueOff
+			if (!this.adapter.config.CalculatorList[channel].chActive) {
+				this.adapter.setForeignStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+				);
+				return;
+			}
+
 			const currentDateTime = new Date();
 			const jsonPrices: IPrice[] = JSON.parse(
 				await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`),
@@ -161,6 +179,15 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestHoursBlock(channel: number): Promise<void> {
 		try {
+			// if not chActive write chValueOff
+			if (!this.adapter.config.CalculatorList[channel].chActive) {
+				this.adapter.setForeignStateAsync(
+					this.adapter.config.CalculatorList[channel].chTargetState,
+					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+				);
+				return;
+			}
+
 			const currentDateTime = new Date();
 			const jsonPrices: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
 

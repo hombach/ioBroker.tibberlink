@@ -4,17 +4,17 @@
 		"version": "1.4.0",
 		"news": {
 			"1.4.0": {
-				"en": "implement min/max states (#131)",
-				"de": "Implementiere Min/Max-Zustände (#131)",
-				"ru": "Внедрить состояния минимум/максимум (#131)",
-				"pt": "Implementar estados de mínimo/máximo (#131)",
-				"nl": "Implementeer minimum/maximum staten (#131)",
-				"fr": "Mettre en œuvre des états min/max (#131)",
-				"it": "Implementa stati min/max (#131)",
-				"es": "Implementar estados mínimo/máximo (#131)",
-				"pl": "Wprowadź stany min/maks (#131)",
-				"uk": "Реалізувати стани мінімум/максимум (#131)",
-				"zh-cn": "实现最小/最大状态 (#131)"
+				"en": "implement min/max states (#131); fix error with ignored calculator channel deactivations (#143)",
+				"de": "Implementiere Min-/Max-Werte (#131); Behebung des Fehlers bei ignorierten Deaktivierungen von Taschenrechnerkanälen (#143)",
+				"ru": "Реализованы состояния минимума/максимума (#131); исправлена ошибка с игнорированием деактивации калькуляторных каналов (#143)",
+				"pt": "Implementar estados mínimo/máximo (#131); corrigir erro de desativações ignoradas de canais de calculadora (#143)",
+				"nl": "Implementeer min/max-statussen (#131); fout opgelost met genegeerde deactiveringen van rekenmachinekanalen (#143)",
+				"fr": "Mise en œuvre des états min/max (#131); correction de l'erreur d'activation ignorée des canaux de calcul (#143)",
+				"it": "Implementa stati min/max (#131); risoluzione dell'errore con disattivazioni ignorate dei canali del calcolatore (#143)",
+				"es": "Implementar estados mínimo/máximo (#131); corregir error de desactivaciones de canales de calculadora ignoradas (#143)",
+				"pl": "Wdrożenie stanów min/max (#131); naprawa błędu z pominiętymi dezaktywacjami kanałów kalkulatora (#143)",
+				"uk": "Реалізовано стани мінімуму/максимуму (#131); виправлено помилку з ігноруванням деактивації калькуляторних каналів (#143)",
+				"zh-cn": "实现最小/最大状态 (#131); 修复忽略计算器通道停用错误 (#143)"
 			},
 			"1.3.1": {
 				"en": "Changed message 'reconnect successful' to level info (#80); fixed initialization of channel states (#141)",

@@ -81,8 +81,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async executeCalculatorBestCost(channel) {
         try {
+            // if not chActive write chValueOff
+            if (!this.adapter.config.CalculatorList[channel].chActive) {
+                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
+                return;
+            }
             const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
-            if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice && this.adapter.config.CalculatorList[channel].chActive) {
+            if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
             }
             else {
@@ -96,6 +101,11 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async executeCalculatorBestSingleHours(channel) {
         try {
+            // if not chActive write chValueOff
+            if (!this.adapter.config.CalculatorList[channel].chActive) {
+                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
+                return;
+            }
             const currentDateTime = new Date();
             const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`));
             // function to check for equal hour values
@@ -121,6 +131,11 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async executeCalculatorBestHoursBlock(channel) {
         try {
+            // if not chActive write chValueOff
+            if (!this.adapter.config.CalculatorList[channel].chActive) {
+                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
+                return;
+            }
             const currentDateTime = new Date();
             const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
             let minSum = Number.MAX_VALUE;

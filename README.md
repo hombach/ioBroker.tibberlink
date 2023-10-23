@@ -57,6 +57,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 ### WORK in PROGRESS 1.4.0 (2023-10-2x)
 
 -   (HombachC) implement min/max states (#131)
+-   (HombachC) fix error with ignored calculator channel deaktivations (#143)
 -   (HombachC) optimize translation handling, code cleanup
 
 ### 1.3.1 (2023-10-21)
