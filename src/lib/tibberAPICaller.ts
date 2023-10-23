@@ -184,7 +184,7 @@ export class TibberAPICaller extends TibberHelper {
 				);
 				this.fetchPriceMinimum(
 					homeId,
-					`PricesTomorrow.minumum`,
+					`PricesTomorrow.minimum`,
 					pricesTomorrow.sort((a, b) => a.total - b.total),
 				);
 			}

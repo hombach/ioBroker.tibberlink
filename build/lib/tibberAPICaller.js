@@ -135,7 +135,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 }
                 this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
                 this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow.sort((a, b) => a.total - b.total));
-                this.fetchPriceMinimum(homeId, `PricesTomorrow.minumum`, pricesTomorrow.sort((a, b) => a.total - b.total));
+                this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow.sort((a, b) => a.total - b.total));
             }
             this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
             if (Array.isArray(pricesTomorrow)) {
