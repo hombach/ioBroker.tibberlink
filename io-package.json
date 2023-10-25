@@ -348,7 +348,7 @@
 		},
 		"dependencies": [
 			{
-				"js-controller": ">=3.2.16"
+				"js-controller": ">=3.3.18"
 			}
 		],
 		"globalDependencies": [
