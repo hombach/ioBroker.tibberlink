@@ -77,12 +77,12 @@ export class TibberAPICaller extends TibberHelper {
 		}
 	}
 
-	async updateCurrentPrice(homeId: string): Promise<boolean> {
+	async updateCurrentPrice(homeId: string, forceUpdate?: boolean): Promise<boolean> {
 		if (homeId) {
 			let exDate: Date | null = null;
 			exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
 			const now = new Date();
-			if (!exDate || now.getHours() !== exDate.getHours()) {
+			if ((!exDate || now.getHours() !== exDate.getHours()) && !forceUpdate) {
 				const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
 				await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
 				this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
@@ -98,7 +98,7 @@ export class TibberAPICaller extends TibberHelper {
 		}
 	}
 
-	async updatePricesToday(homeId: string): Promise<void> {
+	async updatePricesToday(homeId: string, forceUpdate?: boolean): Promise<void> {
 		let exDate: Date | null = null;
 		const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
 		const exPricesToday: IPrice[] = JSON.parse(exJSON);
@@ -107,7 +107,7 @@ export class TibberAPICaller extends TibberHelper {
 		}
 		const today = new Date();
 		today.setHours(0, 0, 0, 0); // sets clock to 0:00
-		if (!exDate || exDate <= today) {
+		if ((!exDate || exDate <= today) && !forceUpdate) {
 			const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
 			this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
 			this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
@@ -147,7 +147,7 @@ export class TibberAPICaller extends TibberHelper {
 		}
 	}
 
-	async updatePricesTomorrow(homeId: string): Promise<void> {
+	async updatePricesTomorrow(homeId: string, forceUpdate?: boolean): Promise<void> {
 		let exDate: Date | null = null;
 		const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
 		const exPricesTomorrow: IPrice[] = JSON.parse(exJSON);
@@ -157,7 +157,7 @@ export class TibberAPICaller extends TibberHelper {
 		const morgen = new Date();
 		morgen.setDate(morgen.getDate() + 1);
 		morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
-		if (!exDate || exDate <= morgen) {
+		if ((!exDate || exDate <= morgen) && !forceUpdate) {
 			const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 			this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
 			if (pricesTomorrow.length === 0) {

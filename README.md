@@ -54,6 +54,11 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 1.4.1 (2023-10-2x)
+
+-   (HombachC) implement forced update of all data after adapter restart (#155)
+-   (HombachC) dependency updates
+
 ### 1.4.0 (2023-10-24)
 
 -   (HombachC) implement min/max states (#131)

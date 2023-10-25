@@ -159,21 +159,21 @@ class Tibberlink extends utils.Adapter {
                 for (const index in this.homeInfoList) {
                     // Get current price for the first time and start calculator tasks once
                     try {
-                        await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID);
+                        await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID, true);
                     }
                     catch (error) {
                         this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of current price`));
                     }
                     // Get today prices for the first time
                     try {
-                        await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+                        await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID, true);
                     }
                     catch (error) {
                         this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices today`));
                     }
                     // Get tomorrow prices for the first time
                     try {
-                        await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+                        await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID, true);
                     }
                     catch (error) {
                         this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices tomorrow`));
