@@ -54,7 +54,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             let exDate = null;
             exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
             const now = new Date();
-            if ((!exDate || now.getHours() !== exDate.getHours()) && !forceUpdate) {
+            if ((!exDate || now.getHours() !== exDate.getHours()) && forceUpdate !== true) {
                 const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
                 await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
                 this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
@@ -78,7 +78,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         }
         const today = new Date();
         today.setHours(0, 0, 0, 0); // sets clock to 0:00
-        if ((!exDate || exDate <= today) && !forceUpdate) {
+        if ((!exDate || exDate <= today) && forceUpdate !== true) {
             const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
             this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
             this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
@@ -113,7 +113,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         const morgen = new Date();
         morgen.setDate(morgen.getDate() + 1);
         morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
-        if ((!exDate || exDate <= morgen) && !forceUpdate) {
+        if ((!exDate || exDate <= morgen) && forceUpdate !== true) {
             const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
             this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
             if (pricesTomorrow.length === 0) {
