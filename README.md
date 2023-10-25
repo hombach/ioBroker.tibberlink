@@ -57,6 +57,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 ### 1.4.1 (2023-10-2x)
 
 -   (HombachC) implement forced update of all data after adapter restart (#155)
+-   (HombachC) Bump actions/setup-node from 3.8.1 to 4.0.0 (#157)
 -   (HombachC) dependency updates
 
 ### 1.4.0 (2023-10-24)
