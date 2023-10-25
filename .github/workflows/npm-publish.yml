@@ -4,50 +4,50 @@
 name: Publish to NPM
 
 on:
-  release:
-    types: [created]
-  #push:
-    branches:
-      - master
-  #pull_request: {}
+    release:
+        types: [created]
+        #push:
+        branches:
+            - master
+    #pull_request: {}
 
 jobs:
-  build:
-    name: test-build on node.js ${{ matrix.node_version }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node_version: ['18', '20', '16']
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4.0.0
-        with:
-          node-version: ${{ matrix.node_version }}
-      - name: npm install, build and test
-        run: |
-          npm install
-          npm run build --if-present
-          npm run test:integration --if-present
-          npm test
+    build:
+        name: test-build on node.js ${{ matrix.node_version }}
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                node_version: ["18", "20"]
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4.0.0
+              with:
+                  node-version: ${{ matrix.node_version }}
+            - name: npm install, build and test
+              run: |
+                  npm install
+                  npm run build --if-present
+                  npm run test:integration --if-present
+                  npm test
 
-  publish-to-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4.0.0
-        with:
-          node-version: '16.x'
-          registry-url: https://registry.npmjs.org/
+    publish-to-npm:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4.0.0
+              with:
+                  node-version: "18.x"
+                  registry-url: https://registry.npmjs.org/
 
-      - name: Install Dependencies
-        run: npm ci
-      
-      - name: Publish package to npm
-        run: |
-          npm config set //registry.npmjs.org/:_authToken=${{secrets.NPM}}
-          npm whoami
-          npm config list
-          npm publish
-        env:
-          CI: true
+            - name: Install Dependencies
+              run: npm ci
+
+            - name: Publish package to npm
+              run: |
+                  npm config set //registry.npmjs.org/:_authToken=${{secrets.NPM}}
+                  npm whoami
+                  npm config list
+                  npm publish
+              env:
+                  CI: true
