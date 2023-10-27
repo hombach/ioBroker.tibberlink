@@ -237,7 +237,13 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	private fetchPriceAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
-		const totalSum = price.reduce((sum, item) => sum + item.total, 0);
+		//const totalSum = price.reduce((sum, item) => sum + item.total, 0); // Verify 1.4.2 - Sentry error
+		const totalSum = price.reduce((sum, item) => {
+			if (item && typeof item.total === "number") {
+				return sum + item.total;
+			}
+			return sum;
+		}, 0);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(homeId, objectDestination, "total"),
 			Math.round(1000 * (totalSum / price.length)) / 1000,
@@ -247,13 +253,13 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(homeId, objectDestination, "energy"),
 			Math.round(1000 * (energySum / price.length)) / 1000,
-			"Todays avarage spotmarket price",
+			"Todays average spotmarket price",
 		);
 		const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(homeId, objectDestination, "tax"),
 			Math.round(1000 * (taxSum / price.length)) / 1000,
-			"Todays avarage tax price",
+			"Todays average tax price",
 		);
 	}
 

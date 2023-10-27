@@ -165,6 +165,13 @@ class Tibberlink extends utils.Adapter {
 						this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices tomorrow`));
 					}
 					tibberCalculator.startCalculatorTasks();
+
+					// Get consumption data for the first time
+					try {
+						await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
+					} catch (error: any) {
+						this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of consumption data`));
+					}
 				}
 
 				const startFullHourTasks = (): void => {

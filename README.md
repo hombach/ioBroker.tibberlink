@@ -56,7 +56,8 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ### WORK in PROGRESS 1.4.2 (2023-10-xx)
 
--   (HombachC)
+-   (HombachC) fix debug message typos
+-   (HombachC) fix type error in price average calculation notified by Sentry
 
 ### 1.4.1 (2023-10-25)
 
