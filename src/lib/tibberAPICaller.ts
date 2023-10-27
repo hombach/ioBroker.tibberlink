@@ -79,151 +79,171 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	async updateCurrentPrice(homeId: string, forceUpdate?: boolean): Promise<boolean> {
-		if (homeId) {
-			let exDate: Date | null = null;
-			exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
-			const now = new Date();
-			if (!exDate || now.getHours() !== exDate.getHours() || forceUpdate) {
-				const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
-				await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
-				this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
-				return true;
+		try {
+			if (homeId) {
+				let exDate: Date | null = null;
+				exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+				const now = new Date();
+				if (!exDate || now.getHours() !== exDate.getHours() || forceUpdate) {
+					const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
+					await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
+					this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
+					return true;
+				} else {
+					this.adapter.log.debug(
+						`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`,
+					);
+					return false;
+				}
 			} else {
-				this.adapter.log.debug(
-					`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`,
-				);
 				return false;
 			}
-		} else {
+		} catch (error: any) {
+			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of current price`));
+			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of current price`));
 			return false;
 		}
 	}
 
 	async updatePricesToday(homeId: string, forceUpdate?: boolean): Promise<void> {
-		let exDate: Date | null = null;
-		const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
-		const exPricesToday: IPrice[] = JSON.parse(exJSON);
-		if (Array.isArray(exPricesToday) && exPricesToday[2] && exPricesToday[2].startsAt) {
-			exDate = new Date(exPricesToday[2].startsAt);
-		}
-		const today = new Date();
-		today.setHours(0, 0, 0, 0); // sets clock to 0:00
-		if (!exDate || exDate <= today || forceUpdate) {
-			const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
-			this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
-			this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
-			this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
-			this.fetchPriceMaximum(
-				homeId,
-				`PricesToday.maximum`,
-				pricesToday.sort((a, b) => a.total - b.total),
-			);
-			this.fetchPriceMinimum(
-				homeId,
-				`PricesToday.minimum`,
-				pricesToday.sort((a, b) => a.total - b.total),
-			);
-			for (const i in pricesToday) {
-				const price = pricesToday[i];
-				const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-				await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
+		try {
+			let exDate: Date | null = null;
+			const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
+			const exPricesToday: IPrice[] = JSON.parse(exJSON);
+			if (Array.isArray(exPricesToday) && exPricesToday[2] && exPricesToday[2].startsAt) {
+				exDate = new Date(exPricesToday[2].startsAt);
 			}
-			if (Array.isArray(pricesToday)) {
-				// Sort the array if it is an array - possible type error discovered by sentry
-				this.checkAndSetValue(
-					this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"),
-					JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)),
-					"prices sorted by cost ascending as json",
+			const today = new Date();
+			today.setHours(0, 0, 0, 0); // sets clock to 0:00
+			if (!exDate || exDate <= today || forceUpdate) {
+				const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
+				this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
+				this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
+				this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
+				this.fetchPriceMaximum(
+					homeId,
+					`PricesToday.maximum`,
+					pricesToday.sort((a, b) => a.total - b.total),
 				);
+				this.fetchPriceMinimum(
+					homeId,
+					`PricesToday.minimum`,
+					pricesToday.sort((a, b) => a.total - b.total),
+				);
+				for (const i in pricesToday) {
+					const price = pricesToday[i];
+					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
+					await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
+				}
+				if (Array.isArray(pricesToday)) {
+					// Sort the array if it is an array - possible type error discovered by sentry
+					this.checkAndSetValue(
+						this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"),
+						JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)),
+						"prices sorted by cost ascending as json",
+					);
+				} else {
+					// Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
+					this.checkAndSetValue(
+						this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"),
+						JSON.stringify(pricesToday),
+						"prices sorted by cost ascending as json",
+					);
+				}
 			} else {
-				// Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
-				this.checkAndSetValue(
-					this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"),
-					JSON.stringify(pricesToday),
-					"prices sorted by cost ascending as json",
-				);
+				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
 			}
-		} else {
-			this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
+		} catch (error: any) {
+			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of prices today`));
+			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
 		}
 	}
 
 	async updatePricesTomorrow(homeId: string, forceUpdate?: boolean): Promise<void> {
-		let exDate: Date | null = null;
-		const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
-		const exPricesTomorrow: IPrice[] = JSON.parse(exJSON);
-		if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
-			exDate = new Date(exPricesTomorrow[2].startsAt);
-		}
-		const morgen = new Date();
-		morgen.setDate(morgen.getDate() + 1);
-		morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
-		if (!exDate || exDate <= morgen || forceUpdate) {
-			const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
-			this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
-			if (pricesTomorrow.length === 0) {
-				// pricing not known, before about 13:00 - delete the states
-				this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
-				for (let hour = 0; hour < 24; hour++) {
-					this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
-				}
-				this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
-				this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
-				this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
-			} else if (pricesTomorrow) {
-				// pricing known, after about 13:00 - write the states
-				for (const i in pricesTomorrow) {
-					const price = pricesTomorrow[i];
-					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-					await this.fetchPrice(homeId, "PricesTomorrow." + hour, price);
-				}
-				this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
-				this.fetchPriceMaximum(
-					homeId,
-					`PricesTomorrow.maximum`,
-					pricesTomorrow.sort((a, b) => a.total - b.total),
-				);
-				this.fetchPriceMinimum(
-					homeId,
-					`PricesTomorrow.minimum`,
-					pricesTomorrow.sort((a, b) => a.total - b.total),
-				);
+		try {
+			let exDate: Date | null = null;
+			const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
+			const exPricesTomorrow: IPrice[] = JSON.parse(exJSON);
+			if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
+				exDate = new Date(exPricesTomorrow[2].startsAt);
 			}
-			this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
-			if (Array.isArray(pricesTomorrow)) {
-				// Sort the array if it is an array - possible type error discovered by sentry
-				this.checkAndSetValue(
-					this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
-					JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
-					"prices sorted by cost ascending as json",
-				);
+			const morgen = new Date();
+			morgen.setDate(morgen.getDate() + 1);
+			morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
+			if (!exDate || exDate <= morgen || forceUpdate) {
+				const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
+				this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
+				if (pricesTomorrow.length === 0) {
+					// pricing not known, before about 13:00 - delete the states
+					this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
+					for (let hour = 0; hour < 24; hour++) {
+						this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
+					}
+					this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
+					this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
+					this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
+				} else if (pricesTomorrow) {
+					// pricing known, after about 13:00 - write the states
+					for (const i in pricesTomorrow) {
+						const price = pricesTomorrow[i];
+						const hour = new Date(price.startsAt.substr(0, 19)).getHours();
+						await this.fetchPrice(homeId, "PricesTomorrow." + hour, price);
+					}
+					this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
+					this.fetchPriceMaximum(
+						homeId,
+						`PricesTomorrow.maximum`,
+						pricesTomorrow.sort((a, b) => a.total - b.total),
+					);
+					this.fetchPriceMinimum(
+						homeId,
+						`PricesTomorrow.minimum`,
+						pricesTomorrow.sort((a, b) => a.total - b.total),
+					);
+				}
+				this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
+				if (Array.isArray(pricesTomorrow)) {
+					// Sort the array if it is an array - possible type error discovered by sentry
+					this.checkAndSetValue(
+						this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
+						JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
+						"prices sorted by cost ascending as json",
+					);
+				} else {
+					// Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
+					this.checkAndSetValue(
+						this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
+						JSON.stringify(pricesTomorrow),
+						"prices sorted by cost ascending as json",
+					);
+				}
 			} else {
-				// Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
-				this.checkAndSetValue(
-					this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
-					JSON.stringify(pricesTomorrow),
-					"prices sorted by cost ascending as json",
-				);
+				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
 			}
-		} else {
-			this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
+		} catch (error: any) {
+			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of prices tomorrow`));
+			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));
 		}
 	}
 
 	async getConsumption(homeId: string): Promise<void> {
-		if (homeId) {
-			const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution.WEEKLY, 3, homeId);
-			const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution.MONTHLY, 3, homeId);
-			const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution.ANNUAL, 3, homeId);
-			this.adapter.log.debug(`weeklyConsumption ${JSON.stringify(weeklyConsumption)}`);
-			this.adapter.log.debug(`monthlyConsumption ${JSON.stringify(monthlyConsumption)}`);
-			this.adapter.log.debug(`annualConsumption ${JSON.stringify(annualConsumption)}`);
-			this.adapter.log.debug(`weeklyConsumption ${weeklyConsumption[0].consumption}`);
-			this.adapter.log.debug(`monthlyConsumption ${monthlyConsumption[0].consumption}`);
-			this.adapter.log.debug(`annualConsumption ${annualConsumption[0].consumption}`);
-			this.adapter.log.debug(`weeklyConsumption cost ${weeklyConsumption[0].cost}`);
-			this.adapter.log.debug(`monthlyConsumption cost ${monthlyConsumption[0].cost}`);
-			this.adapter.log.debug(`annualConsumption cost ${annualConsumption[0].cost}`);
+		try {
+			if (homeId) {
+				const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution.WEEKLY, 3, homeId);
+				const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution.MONTHLY, 3, homeId);
+				const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution.ANNUAL, 3, homeId);
+				this.adapter.log.debug(`weeklyConsumption ${JSON.stringify(weeklyConsumption)}`);
+				this.adapter.log.debug(`monthlyConsumption ${JSON.stringify(monthlyConsumption)}`);
+				this.adapter.log.debug(`annualConsumption ${JSON.stringify(annualConsumption)}`);
+				this.adapter.log.debug(`weeklyConsumption ${weeklyConsumption[0].consumption}`);
+				this.adapter.log.debug(`monthlyConsumption ${monthlyConsumption[0].consumption}`);
+				this.adapter.log.debug(`annualConsumption ${annualConsumption[0].consumption}`);
+				this.adapter.log.debug(`weeklyConsumption cost ${weeklyConsumption[0].cost}`);
+				this.adapter.log.debug(`monthlyConsumption cost ${monthlyConsumption[0].cost}`);
+				this.adapter.log.debug(`annualConsumption cost ${annualConsumption[0].cost}`);
+			}
+		} catch (error: any) {
+			this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
 		}
 	}
 

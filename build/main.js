@@ -155,37 +155,14 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
                     }
                 }
-                // Get prices for the first time
+                // Get current prices for the first time and start calculator tasks once
                 for (const index in this.homeInfoList) {
-                    // Get current price for the first time and start calculator tasks once
-                    try {
-                        await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID, true);
-                    }
-                    catch (error) {
-                        this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of current price`));
-                    }
-                    // Get today prices for the first time
-                    try {
-                        await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID, true);
-                    }
-                    catch (error) {
-                        this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices today`));
-                    }
-                    // Get tomorrow prices for the first time
-                    try {
-                        await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID, true);
-                    }
-                    catch (error) {
-                        this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of prices tomorrow`));
-                    }
+                    await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID, true);
+                    await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID, true);
+                    await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID, true);
                     tibberCalculator.startCalculatorTasks();
                     // Get consumption data for the first time
-                    try {
-                        await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
-                    }
-                    catch (error) {
-                        this.log.error(tibberAPICaller.generateErrorMessage(error, `first pull of consumption data`));
-                    }
+                    // await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
                 }
                 const startFullHourTasks = () => {
                     const currentTime = new Date();
@@ -193,14 +170,8 @@ class Tibberlink extends utils.Adapter {
                     setTimeout(async () => {
                         let newprice = false;
                         for (const index in this.homeInfoList) {
-                            await tibberAPICaller
-                                .updateCurrentPrice(this.homeInfoList[index].ID)
-                                .then((result) => {
-                                newprice = result;
-                            })
-                                .catch((error) => {
-                                this.log.warn(tibberAPICaller.generateErrorMessage(error, `pull of current price`));
-                            });
+                            if (await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID))
+                                newprice = true;
                         }
                         if (newprice) {
                             // if newprice detected call all calculator tasks
@@ -216,18 +187,8 @@ class Tibberlink extends utils.Adapter {
                 startFullHourTasks();
                 const energyPricesListUpdateInterval = this.setInterval(() => {
                     for (const index in this.homeInfoList) {
-                        try {
-                            tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-                        }
-                        catch (error) {
-                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices today"));
-                        }
-                        try {
-                            tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
-                        }
-                        catch (error) {
-                            this.log.warn(tibberAPICaller.generateErrorMessage(error, "pull of prices tomorrow"));
-                        }
+                        tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+                        tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
                     }
                 }, 1500000);
                 if (energyPricesListUpdateInterval)
