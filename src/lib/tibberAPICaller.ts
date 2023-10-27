@@ -4,6 +4,7 @@ import { IAddress } from "tibber-api/lib/src/models/IAddress";
 import { IContactInfo } from "tibber-api/lib/src/models/IContactInfo";
 import { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
+import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
 import { IHomeInfo, TibberHelper } from "./tibberHelper";
 
 export class TibberAPICaller extends TibberHelper {
@@ -206,6 +207,23 @@ export class TibberAPICaller extends TibberHelper {
 			}
 		} else {
 			this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
+		}
+	}
+
+	async getConsumption(homeId: string): Promise<void> {
+		if (homeId) {
+			const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution.WEEKLY, 3, homeId);
+			const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution.MONTHLY, 3, homeId);
+			const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution.ANNUAL, 3, homeId);
+			this.adapter.log.debug(`weeklyConsumption ${JSON.stringify(weeklyConsumption)}`);
+			this.adapter.log.debug(`monthlyConsumption ${JSON.stringify(monthlyConsumption)}`);
+			this.adapter.log.debug(`annualConsumption ${JSON.stringify(annualConsumption)}`);
+			this.adapter.log.debug(`weeklyConsumption ${weeklyConsumption[0].consumption}`);
+			this.adapter.log.debug(`monthlyConsumption ${monthlyConsumption[0].consumption}`);
+			this.adapter.log.debug(`annualConsumption ${annualConsumption[0].consumption}`);
+			this.adapter.log.debug(`weeklyConsumption cost ${weeklyConsumption[0].cost}`);
+			this.adapter.log.debug(`monthlyConsumption cost ${monthlyConsumption[0].cost}`);
+			this.adapter.log.debug(`annualConsumption cost ${annualConsumption[0].cost}`);
 		}
 	}
 
