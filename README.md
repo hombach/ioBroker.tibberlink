@@ -7,12 +7,15 @@
 ![node-lts](https://img.shields.io/node/v-lts/iobroker.tibberlink?style=flat-square)
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/iobroker.tibberlink?label=npm%20dependencies&style=flat-square)
 
-![GitHub](https://img.shields.io/github/license/iobroker-community-adapters/iobroker.tibberlink?style=flat-square)
-![GitHub repo size](https://img.shields.io/github/repo-size/iobroker-community-adapters/iobroker.tibberlink?logo=github&style=flat-square)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/iobroker-community-adapters/iobroker.tibberlink?logo=github&style=flat-square)
-![GitHub last commit](https://img.shields.io/github/last-commit/iobroker-community-adapters/iobroker.tibberlink?logo=github&style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/iobroker-community-adapters/iobroker.tibberlink?logo=github&style=flat-square)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/iobroker-community-adapters/iobroker.tibberlink/test-and-release.yml?branch=main&logo=github&style=flat-square)
+[![Known Vulnerabilities](https://snyk.io/test/github/hombach/ioBroker.tibberlink/badge.svg)](https://snyk.io/test/github/hombach/ioBroker.tibberlink)
+
+
+![GitHub](https://img.shields.io/github/license/hombach/iobroker.tibberlink?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/hombach/iobroker.tibberlink?logo=github&style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/hombach/iobroker.tibberlink?logo=github&style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/hombach/iobroker.tibberlink?logo=github&style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/hombach/iobroker.tibberlink?logo=github&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/hombach/iobroker.tibberlink/test-and-release.yml?branch=main&logo=github&style=flat-square)
 
 ## Versions
 
@@ -20,9 +23,6 @@
 ![Stable](https://iobroker.live/badges/tibberlink-stable.svg)
 ![Installed](https://iobroker.live/badges/tibberlink-installed.svg)
 
-![NPM version (stable)](https://iobroker.live/badges/tibberlink-stable.svg)
-![Number of Installations (latest)](https://iobroker.live/badges/tibberlink-installed.svg)
-[![Known Vulnerabilities](https://snyk.io/test/github/hombach/ioBroker.tibberlink/badge.svg)](https://snyk.io/test/github/hombach/ioBroker.tibberlink)
 
 **CI-Tests:**
 ![Test and Release](https://github.com/hombach/ioBroker.tibberlink/workflows/Test%20and%20Release/badge.svg)
