@@ -14,7 +14,6 @@
 ![GitHub issues](https://img.shields.io/github/issues/hombach/iobroker.tibberlink?logo=github&style=flat-square)
 
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/hombach/iobroker.tibberlink/test-and-release.yml?branch=main&logo=github&style=flat-square)
-![Test and Release](https://github.com/hombach/ioBroker.tibberlink/workflows/Test%20and%20Release/badge.svg)
 [![CodeQL](https://github.com/hombach/ioBroker.tibberlink/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/hombach/ioBroker.tibberlink/actions/workflows/codeql-analysis.yml)
 [![Appveyor-CI](https://ci.appveyor.com/api/projects/status/github/hombach/ioBroker.tibberlink?branch=master&svg=true)](https://ci.appveyor.com/project/hombach/iobroker-tibberlink)
 [![Known Vulnerabilities](https://snyk.io/test/github/hombach/ioBroker.tibberlink/badge.svg)](https://snyk.io/test/github/hombach/ioBroker.tibberlink)
@@ -24,12 +23,6 @@
 ![Beta](https://img.shields.io/npm/v/iobroker.tibberlink.svg?color=red&label=beta)
 ![Stable](https://iobroker.live/badges/tibberlink-stable.svg)
 ![Installed](https://iobroker.live/badges/tibberlink-installed.svg)
-
-
-**CI-Tests:**
-![Test and Release](https://github.com/hombach/ioBroker.tibberlink/workflows/Test%20and%20Release/badge.svg)
-[![CodeQL](https://github.com/hombach/ioBroker.tibberlink/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/hombach/ioBroker.tibberlink/actions/workflows/codeql-analysis.yml)
-[![Appveyor-CI](https://ci.appveyor.com/api/projects/status/github/hombach/ioBroker.tibberlink?branch=master&svg=true)](https://ci.appveyor.com/project/hombach/iobroker-tibberlink)
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
 
