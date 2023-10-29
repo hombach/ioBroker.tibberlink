@@ -177,18 +177,23 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));
         }
     }
+    // yet not used in public revisions
     async getConsumption(homeId) {
         try {
             if (homeId) {
-                const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.WEEKLY, 3, homeId);
-                const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.MONTHLY, 3, homeId);
-                const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.ANNUAL, 3, homeId);
+                const dailyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.DAILY, 7, homeId);
+                const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.WEEKLY, 4, homeId);
+                const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.MONTHLY, 4, homeId);
+                const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.ANNUAL, 2, homeId);
+                this.adapter.log.debug(`dailyConsumption ${JSON.stringify(dailyConsumption)}`);
                 this.adapter.log.debug(`weeklyConsumption ${JSON.stringify(weeklyConsumption)}`);
                 this.adapter.log.debug(`monthlyConsumption ${JSON.stringify(monthlyConsumption)}`);
                 this.adapter.log.debug(`annualConsumption ${JSON.stringify(annualConsumption)}`);
+                this.adapter.log.debug(`dailyConsumption ${dailyConsumption[0].consumption}`);
                 this.adapter.log.debug(`weeklyConsumption ${weeklyConsumption[0].consumption}`);
                 this.adapter.log.debug(`monthlyConsumption ${monthlyConsumption[0].consumption}`);
                 this.adapter.log.debug(`annualConsumption ${annualConsumption[0].consumption}`);
+                this.adapter.log.debug(`dailyConsumption cost ${dailyConsumption[0].cost}`);
                 this.adapter.log.debug(`weeklyConsumption cost ${weeklyConsumption[0].cost}`);
                 this.adapter.log.debug(`monthlyConsumption cost ${monthlyConsumption[0].cost}`);
                 this.adapter.log.debug(`annualConsumption cost ${annualConsumption[0].cost}`);
