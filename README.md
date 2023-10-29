@@ -26,7 +26,6 @@
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
 
-
 ## Adapter for Utilizing TIBBER energy data in ioBroker
 
 This adapter facilitates the connection of data from your Tibber account's API to be used within ioBroker, whether for a single home or multiple residences.
@@ -66,7 +65,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### WORK in PROGRESS 1.4.2 (2023-10-xx)
+### 1.4.2 (2023-10-xx) WORK in PROGRESS
 
 -   (HombachC) fix debug message typos, code optimisations
 -   (HombachC) fix type error in price average calculation notified by Sentry
