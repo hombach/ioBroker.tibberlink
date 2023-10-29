@@ -162,7 +162,7 @@ class Tibberlink extends utils.Adapter {
                     await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID, true);
                     tibberCalculator.startCalculatorTasks();
                     // Get consumption data for the first time
-                    await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
+                    // await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
                 }
                 const startFullHourTasks = () => {
                     const currentTime = new Date();
