@@ -4,7 +4,17 @@
 		"version": "1.4.2",
 		"news": {
 			"1.4.2": {
-				"en": "WORK in PROGRESS"
+				"en": "WORK in PROGRESS",
+				"de": "IN ARBEIT",
+				"ru": "В РАБОТЕ",
+				"pt": "EM ANDAMENTO",
+				"nl": "IN UITVOERING",
+				"fr": "EN COURS",
+				"it": "IN CORSO",
+				"es": "EN PROCESO",
+				"pl": "W TRAKCIE PRAC",
+				"uk": "В РОБОТІ",
+				"zh-cn": "进行中"
 			},
 			"1.4.1": {
 				"en": "implement forced update of all data after adapter restart (#155)",
