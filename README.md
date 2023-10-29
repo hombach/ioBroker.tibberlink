@@ -7,6 +7,13 @@
 ![node-lts](https://img.shields.io/node/v-lts/iobroker.tibberlink?style=flat-square)
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/iobroker.tibberlink?label=npm%20dependencies&style=flat-square)
 
+![GitHub](https://img.shields.io/github/license/iobroker-community-adapters/iobroker.tibberlink?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/iobroker-community-adapters/iobroker.tibberlink?logo=github&style=flat-square)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/iobroker-community-adapters/iobroker.tibberlink?logo=github&style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/iobroker-community-adapters/iobroker.tibberlink?logo=github&style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/iobroker-community-adapters/iobroker.tibberlink?logo=github&style=flat-square)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/iobroker-community-adapters/iobroker.tibberlink/test-and-release.yml?branch=main&logo=github&style=flat-square)
+
 ## Versions
 
 ![Beta](https://img.shields.io/npm/v/iobroker.tibberlink.svg?color=red&label=beta)
@@ -23,6 +30,7 @@
 [![Appveyor-CI](https://ci.appveyor.com/api/projects/status/github/hombach/ioBroker.tibberlink?branch=master&svg=true)](https://ci.appveyor.com/project/hombach/iobroker-tibberlink)
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
+
 
 ## Adapter for Utilizing TIBBER energy data in ioBroker
 
