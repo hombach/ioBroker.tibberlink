@@ -145,20 +145,16 @@ class Tibberlink extends utils.Adapter {
 						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
 					}
 				}
+
 				// (force) get current prices for the first time and start calculator tasks once
 				await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
 				await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
 				await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
+				tibberCalculator.startCalculatorTasks();
 				//for (const index in this.homeInfoList) {
-				//await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID, true);
-				//await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID, true);
-				//await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID, true);
-				//tibberCalculator.startCalculatorTasks();
-				//
 				// Get consumption data for the first time
 				// await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
 				//}
-				tibberCalculator.startCalculatorTasks();
 
 				const startFullHourTasks = (): void => {
 					const currentTime = new Date();
@@ -201,7 +197,7 @@ class Tibberlink extends utils.Adapter {
 					},
 					start: true,
 					timeZone: "system",
-					runOnInit: true,
+					runOnInit: false,
 				});
 				if (jobPricesToday) this.cronList.push(jobPricesToday);
 
