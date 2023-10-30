@@ -188,7 +188,7 @@ class Tibberlink extends utils.Adapter {
                 };
                 startFullHourTasks();
                 const jobPricesToday = cron_1.CronJob.from({
-                    cronTime: "15 56 * * * *",
+                    cronTime: "15 56 23 * * *",
                     onTick: async () => {
                         let newPrice = false;
                         do {
@@ -205,7 +205,7 @@ class Tibberlink extends utils.Adapter {
                 if (jobPricesToday)
                     this.cronList.push(jobPricesToday);
                 const jobPricesTomorrow = cron_1.CronJob.from({
-                    cronTime: "15 56 * * * *",
+                    cronTime: "15 56 12 * * *",
                     onTick: async () => {
                         let newPrice = false;
                         do {
