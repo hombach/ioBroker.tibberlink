@@ -9,6 +9,7 @@ import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
 	intervalList: ioBroker.Interval[];
+	cronList: CronJob[];
 	homeInfoList: IHomeInfo[] = [];
 	queryUrl: string = "";
 	tibberCalculator = new TibberCalculator(this);
@@ -25,6 +26,7 @@ class Tibberlink extends utils.Adapter {
 		this.on("unload", this.onUnload.bind(this));
 		this.homeInfoList = [];
 		this.intervalList = [];
+		this.cronList = [];
 		this.queryUrl = "https://api.tibber.com/v1-beta/gql";
 	}
 
@@ -176,19 +178,20 @@ class Tibberlink extends utils.Adapter {
 				};
 				startFullHourTasks();
 
-				// eslint-disable-next-line @typescript-eslint/no-unused-vars
-				const job = CronJob.from({
+				const jobPricesToday = CronJob.from({
 					cronTime: "15 1 * * * *", //"15 1 0 * * *"
 					onTick: async () => {
 						for (const index in this.homeInfoList) {
-							await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-							await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+							this.log.debug(`Cron - Index: ${index}`);
+							//await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+							//await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
 						}
 					},
 					start: true,
-					timeZone: "System",
+					timeZone: "system",
 					runOnInit: true,
 				});
+				if (jobPricesToday) this.cronList.push(jobPricesToday);
 
 				const energyPricesListUpdateInterval = this.setInterval(() => {
 					for (const index in this.homeInfoList) {
@@ -294,6 +297,9 @@ class Tibberlink extends utils.Adapter {
 	private onUnload(callback: () => void): void {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
+			for (const index in this.cronList) {
+				this.cronList[index].stop;
+			}
 			// clearTimeout(timeout1);
 			for (const index in this.intervalList) {
 				this.clearInterval(this.intervalList[index]);

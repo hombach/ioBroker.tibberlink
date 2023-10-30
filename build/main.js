@@ -45,6 +45,7 @@ class Tibberlink extends utils.Adapter {
         this.on("unload", this.onUnload.bind(this));
         this.homeInfoList = [];
         this.intervalList = [];
+        this.cronList = [];
         this.queryUrl = "https://api.tibber.com/v1-beta/gql";
     }
     /**
@@ -186,19 +187,21 @@ class Tibberlink extends utils.Adapter {
                     }, minutesUntilNextRun * 60 * 1000);
                 };
                 startFullHourTasks();
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                const job = cron_1.CronJob.from({
+                const jobPricesToday = cron_1.CronJob.from({
                     cronTime: "15 1 * * * *",
                     onTick: async () => {
                         for (const index in this.homeInfoList) {
-                            await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-                            await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+                            this.log.debug(`Cron - Index: ${index}`);
+                            //await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+                            //await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
                         }
                     },
                     start: true,
-                    timeZone: "System",
+                    timeZone: "system",
                     runOnInit: true,
                 });
+                if (jobPricesToday)
+                    this.cronList.push(jobPricesToday);
                 const energyPricesListUpdateInterval = this.setInterval(() => {
                     for (const index in this.homeInfoList) {
                         tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
@@ -323,6 +326,9 @@ class Tibberlink extends utils.Adapter {
     onUnload(callback) {
         try {
             // Here you must clear all timeouts or intervals that may still be active
+            for (const index in this.cronList) {
+                this.cronList[index].stop;
+            }
             // clearTimeout(timeout1);
             for (const index in this.intervalList) {
                 this.clearInterval(this.intervalList[index]);
