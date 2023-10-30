@@ -204,10 +204,28 @@ class Tibberlink extends utils.Adapter {
                 });
                 if (jobPricesToday)
                     this.cronList.push(jobPricesToday);
+                const jobPricesTomorrow = cron_1.CronJob.from({
+                    cronTime: "15 56 * * * *",
+                    onTick: async () => {
+                        let newPrice = false;
+                        do {
+                            await this.delay(5 * 60 * 1000);
+                            newPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
+                            this.log.debug(`Cron jobPricesTomorrow - newPrice: ${newPrice}`);
+                        } while (!newPrice);
+                        tibberCalculator.startCalculatorTasks();
+                    },
+                    start: true,
+                    timeZone: "system",
+                    runOnInit: false,
+                });
+                if (jobPricesTomorrow)
+                    this.cronList.push(jobPricesTomorrow);
                 const energyPricesListUpdateInterval = this.setInterval(() => {
                     for (const index in this.homeInfoList) {
                         //tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-                        tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+                        this.log.debug(`Old Interval: ${index}`);
+                        //tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
                     }
                 }, 25 * 60 * 1000);
                 if (energyPricesListUpdateInterval)
