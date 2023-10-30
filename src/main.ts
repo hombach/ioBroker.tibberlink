@@ -156,6 +156,7 @@ class Tibberlink extends utils.Adapter {
 				// await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
 				//}
 
+				/*
 				const startFullHourTasks = (): void => {
 					const currentTime = new Date();
 					const minutesUntilNextRun = 60 - currentTime.getMinutes() + 0.3;
@@ -178,6 +179,24 @@ class Tibberlink extends utils.Adapter {
 					);
 				};
 				startFullHourTasks();
+				*/
+
+				const jobCurrentPrice = CronJob.from({
+					cronTime: "20 57 * * * *", //"20 57 * * * *" = 3 minuten vor 00:00:20 jede Stunde
+					onTick: async () => {
+						let newPrice = false;
+						do {
+							await this.delay(3 * 60 * 1000);
+							newPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
+							this.log.debug(`Cron jobCurrentPrice - newPrice: ${newPrice}`);
+						} while (!newPrice);
+						tibberCalculator.startCalculatorTasks();
+					},
+					start: true,
+					timeZone: "system",
+					runOnInit: false,
+				});
+				if (jobCurrentPrice) this.cronList.push(jobCurrentPrice);
 
 				const jobPricesToday = CronJob.from({
 					cronTime: "15 56 23 * * *", //"15 56 23 * * *" = 5 minuten vor 00:01:15
