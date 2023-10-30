@@ -183,16 +183,11 @@ class Tibberlink extends utils.Adapter {
 					cronTime: "15 56 * * * *", //"15 56 23 * * *" = 5 minuten vor 00:01:15
 					onTick: async () => {
 						let newPrice = false;
-						// if no new price, setup 5 minutes Interval to restart action
 						do {
 							await this.delay(5 * 60 * 1000);
 							newPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
-							//for (const index in this.homeInfoList) {
-							//	if (await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID)) newPrice = true;
 							this.log.debug(`Cron jobPricesToday - newPrice: ${newPrice}`);
-							//}
 						} while (!newPrice);
-						// if newprice detected call all calculator tasks
 						tibberCalculator.startCalculatorTasks();
 					},
 					start: true,
