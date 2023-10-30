@@ -145,26 +145,31 @@ class Tibberlink extends utils.Adapter {
 						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
 					}
 				}
-				// Get current prices for the first time and start calculator tasks once
-				for (const index in this.homeInfoList) {
-					await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID, true);
-					await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID, true);
-					await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID, true);
-					tibberCalculator.startCalculatorTasks();
-					// Get consumption data for the first time
-					// await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
-				}
+				// (force) get current prices for the first time and start calculator tasks once
+				await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
+				await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
+				await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
+				//for (const index in this.homeInfoList) {
+				//await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID, true);
+				//await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID, true);
+				//await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID, true);
+				//tibberCalculator.startCalculatorTasks();
+				//
+				// Get consumption data for the first time
+				// await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
+				//}
+				tibberCalculator.startCalculatorTasks();
 
 				const startFullHourTasks = (): void => {
 					const currentTime = new Date();
 					const minutesUntilNextRun = 60 - currentTime.getMinutes() + 0.3;
 					setTimeout(
 						async () => {
-							let newprice = false;
+							let newPrice = false;
 							for (const index in this.homeInfoList) {
-								if (await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID)) newprice = true;
+								if (await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID)) newPrice = true;
 							}
-							if (newprice) {
+							if (newPrice) {
 								// if newprice detected call all calculator tasks
 								tibberCalculator.startCalculatorTasks();
 								startFullHourTasks();
@@ -179,13 +184,20 @@ class Tibberlink extends utils.Adapter {
 				startFullHourTasks();
 
 				const jobPricesToday = CronJob.from({
-					cronTime: "15 1 * * * *", //"15 1 0 * * *"
+					cronTime: "15 56 * * * *", //"15 56 23 * * *" = 5 minuten vor 00:01:15
 					onTick: async () => {
-						for (const index in this.homeInfoList) {
-							this.log.debug(`Cron - Index: ${index}`);
-							//await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-							//await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
-						}
+						let newPrice = false;
+						// if no new price, setup 5 minutes Interval to restart action
+						do {
+							await this.delay(5 * 60 * 1000);
+							newPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
+							//for (const index in this.homeInfoList) {
+							//	if (await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID)) newPrice = true;
+							this.log.debug(`Cron jobPricesToday - newPrice: ${newPrice}`);
+							//}
+						} while (!newPrice);
+						// if newprice detected call all calculator tasks
+						tibberCalculator.startCalculatorTasks();
 					},
 					start: true,
 					timeZone: "system",
@@ -193,12 +205,15 @@ class Tibberlink extends utils.Adapter {
 				});
 				if (jobPricesToday) this.cronList.push(jobPricesToday);
 
-				const energyPricesListUpdateInterval = this.setInterval(() => {
-					for (const index in this.homeInfoList) {
-						tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-						tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
-					}
-				}, 1500000);
+				const energyPricesListUpdateInterval = this.setInterval(
+					() => {
+						for (const index in this.homeInfoList) {
+							//tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+							tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+						}
+					},
+					25 * 60 * 1000,
+				);
 				if (energyPricesListUpdateInterval) this.intervalList.push(energyPricesListUpdateInterval);
 
 				// If user uses live feed - start feed connection

@@ -78,6 +78,13 @@ export class TibberAPICaller extends TibberHelper {
 		}
 	}
 
+	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate?: boolean): Promise<boolean> {
+		let newPrice = false;
+		for (const index in homeInfoList) {
+			if (await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate)) newPrice = true;
+		}
+		return newPrice;
+	}
 	async updateCurrentPrice(homeId: string, forceUpdate?: boolean): Promise<boolean> {
 		try {
 			if (homeId) {
@@ -105,7 +112,15 @@ export class TibberAPICaller extends TibberHelper {
 		}
 	}
 
-	async updatePricesToday(homeId: string, forceUpdate?: boolean): Promise<void> {
+	async updatePricesTodayAllHomes(homeInfoList: IHomeInfo[], forceUpdate?: boolean): Promise<boolean> {
+		let newPrice = false;
+		for (const index in homeInfoList) {
+			if (await this.updatePricesToday(homeInfoList[index].ID, forceUpdate)) newPrice = true;
+		}
+		return newPrice;
+	}
+
+	async updatePricesToday(homeId: string, forceUpdate?: boolean): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
@@ -150,16 +165,27 @@ export class TibberAPICaller extends TibberHelper {
 						"prices sorted by cost ascending as json",
 					);
 				}
+				return true;
 			} else {
 				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
+				return false;
 			}
 		} catch (error: any) {
 			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of prices today`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
+			return false;
 		}
 	}
 
-	async updatePricesTomorrow(homeId: string, forceUpdate?: boolean): Promise<void> {
+	async updatePricesTomorrowAllHomes(homeInfoList: IHomeInfo[], forceUpdate?: boolean): Promise<boolean> {
+		let newPrice = false;
+		for (const index in homeInfoList) {
+			if (await this.updatePricesTomorrow(homeInfoList[index].ID, forceUpdate)) newPrice = true;
+		}
+		return newPrice;
+	}
+
+	async updatePricesTomorrow(homeId: string, forceUpdate?: boolean): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
@@ -217,12 +243,15 @@ export class TibberAPICaller extends TibberHelper {
 						"prices sorted by cost ascending as json",
 					);
 				}
+				return true;
 			} else {
 				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
+				return false;
 			}
 		} catch (error: any) {
 			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of prices tomorrow`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));
+			return false;
 		}
 	}
 

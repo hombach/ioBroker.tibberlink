@@ -50,6 +50,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             return [];
         }
     }
+    async updateCurrentPriceAllHomes(homeInfoList, forceUpdate) {
+        let newPrice = false;
+        for (const index in homeInfoList) {
+            if (await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate))
+                newPrice = true;
+        }
+        return newPrice;
+    }
     async updateCurrentPrice(homeId, forceUpdate) {
         try {
             if (homeId) {
@@ -78,6 +86,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.adapter.log.warn(this.generateErrorMessage(error, `pull of current price`));
             return false;
         }
+    }
+    async updatePricesTodayAllHomes(homeInfoList, forceUpdate) {
+        let newPrice = false;
+        for (const index in homeInfoList) {
+            if (await this.updatePricesToday(homeInfoList[index].ID, forceUpdate))
+                newPrice = true;
+        }
+        return newPrice;
     }
     async updatePricesToday(homeId, forceUpdate) {
         try {
@@ -109,9 +125,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     // Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday), "prices sorted by cost ascending as json");
                 }
+                return true;
             }
             else {
                 this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
+                return false;
             }
         }
         catch (error) {
@@ -119,7 +137,16 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.adapter.log.error(this.generateErrorMessage(error, `pull of prices today`));
             else
                 this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
+            return false;
         }
+    }
+    async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate) {
+        let newPrice = false;
+        for (const index in homeInfoList) {
+            if (await this.updatePricesTomorrow(homeInfoList[index].ID, forceUpdate))
+                newPrice = true;
+        }
+        return newPrice;
     }
     async updatePricesTomorrow(homeId, forceUpdate) {
         try {
@@ -165,9 +192,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     // Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
                 }
+                return true;
             }
             else {
                 this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
+                return false;
             }
         }
         catch (error) {
@@ -175,6 +204,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.adapter.log.error(this.generateErrorMessage(error, `pull of prices tomorrow`));
             else
                 this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));
+            return false;
         }
     }
     // yet not used in public revisions
