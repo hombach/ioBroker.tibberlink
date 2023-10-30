@@ -216,6 +216,7 @@ class Tibberlink extends utils.Adapter {
                             newPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
                             this.log.debug(`Cron jobPricesToday - newPrice: ${newPrice}`);
                         } while (!newPrice);
+                        await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
                         tibberCalculator.startCalculatorTasks();
                     },
                     start: true,
