@@ -213,17 +213,18 @@ class Tibberlink extends utils.Adapter {
 				});
 				if (jobPricesTomorrow) this.cronList.push(jobPricesTomorrow);
 
+				/*
 				const energyPricesListUpdateInterval = this.setInterval(
 					() => {
 						for (const index in this.homeInfoList) {
-							//tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-							this.log.debug(`Old Interval: ${index}`);
-							//tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+							tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+							tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
 						}
 					},
 					25 * 60 * 1000,
 				);
 				if (energyPricesListUpdateInterval) this.intervalList.push(energyPricesListUpdateInterval);
+				*/
 
 				// If user uses live feed - start feed connection
 				if (this.homeInfoList.some((info) => info.FeedActive)) {

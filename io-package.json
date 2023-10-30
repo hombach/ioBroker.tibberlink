@@ -4,17 +4,17 @@
 		"version": "1.4.2",
 		"news": {
 			"1.4.2": {
-				"en": "WORK in PROGRESS",
-				"de": "IN ARBEIT",
-				"ru": "В РАБОТЕ",
-				"pt": "EM ANDAMENTO",
-				"nl": "IN UITVOERING",
-				"fr": "EN COURS",
-				"it": "IN CORSO",
-				"es": "EN PROCESO",
-				"pl": "W TRAKCIE PRAC",
-				"uk": "В РОБОТІ",
-				"zh-cn": "进行中"
+				"en": "Complete rework of task scheduling for more precise pull timing",
+				"de": "Vollständige Überarbeitung der Aufgabenplanung für genauere Pull-Zeiten",
+				"ru": "Полная переработка планирования задач для более точного времени запросов",
+				"pt": "Reformulação completa do agendamento de tarefas para um tempo de busca mais preciso",
+				"nl": "Volledige herziening van taakplanning voor nauwkeurigere pull-timing",
+				"fr": "Refonte complète de la planification des tâches pour des horaires de pull plus précis",
+				"it": "Rielaborazione completa della pianificazione delle attività per una tempistica di pull più precisa",
+				"es": "Revisión completa de la programación de tareas para una temporización de extracción más precisa",
+				"pl": "Całkowita przebudowa harmonogramu zadań dla dokładniejszego czasu pobierania",
+				"uk": "Повна переробка планування завдань для більш точного часу витягування",
+				"zh-cn": "完全重做任务调度以获得更精确的拉取时间"
 			},
 			"1.4.1": {
 				"en": "implement forced update of all data after adapter restart (#155)",
