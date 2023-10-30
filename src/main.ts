@@ -1,6 +1,5 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
-import { CronJob } from "cron";
 import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberCalculator } from "./lib/tibberCalculator";
@@ -175,20 +174,20 @@ class Tibberlink extends utils.Adapter {
 					);
 				};
 				startFullHourTasks();
-
+				/*
 				const job = CronJob.from({
-					cronTime: "15 1 * * * *",
-					onTick: () => {
+					cronTime: "15 1 * * * *", //"15 1 0 * * *"
+					onTick: async () => {
 						for (const index in this.homeInfoList) {
-							tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-							tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+							await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+							await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
 						}
 					},
 					start: true,
 					timeZone: "America/Los_Angeles",
 					runOnInit: true,
 				});
-
+*/
 				const energyPricesListUpdateInterval = this.setInterval(() => {
 					for (const index in this.homeInfoList) {
 						tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
