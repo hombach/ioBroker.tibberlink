@@ -25,6 +25,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 const utils = __importStar(require("@iobroker/adapter-core"));
+const cron_1 = require("cron");
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
 const tibberPulse_1 = require("./lib/tibberPulse");
@@ -185,6 +186,19 @@ class Tibberlink extends utils.Adapter {
                     }, minutesUntilNextRun * 60 * 1000);
                 };
                 startFullHourTasks();
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const job = cron_1.CronJob.from({
+                    cronTime: "15 1 * * * *",
+                    onTick: async () => {
+                        for (const index in this.homeInfoList) {
+                            await tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
+                            await tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
+                        }
+                    },
+                    start: true,
+                    timeZone: "System",
+                    runOnInit: true,
+                });
                 const energyPricesListUpdateInterval = this.setInterval(() => {
                     for (const index in this.homeInfoList) {
                         tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
