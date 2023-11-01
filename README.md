@@ -69,7 +69,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 -   (HombachC) complete rework of task scheduling for more precise pull timing (#149)
 -   (HombachC) critical vulnerability fix for axios
--   (HombachC) fix debug message typos, code optimisations
+-   (HombachC) fix debug message typos, code optimisations in calculator
 -   (HombachC) fix type error in price average calculation notified by Sentry
 
 ### 1.4.1 (2023-10-25)

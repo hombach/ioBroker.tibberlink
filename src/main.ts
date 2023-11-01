@@ -156,31 +156,6 @@ class Tibberlink extends utils.Adapter {
 				// await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
 				//}
 
-				/*
-				const startFullHourTasks = (): void => {
-					const currentTime = new Date();
-					const minutesUntilNextRun = 60 - currentTime.getMinutes() + 0.3;
-					setTimeout(
-						async () => {
-							let newPrice = false;
-							for (const index in this.homeInfoList) {
-								if (await tibberAPICaller.updateCurrentPrice(this.homeInfoList[index].ID)) newPrice = true;
-							}
-							if (newPrice) {
-								// if newprice detected call all calculator tasks
-								tibberCalculator.startCalculatorTasks();
-								startFullHourTasks();
-							} else {
-								// if no new price, wait 3 minutes and restart action
-								setTimeout(startFullHourTasks, 3 * 60 * 1000);
-							}
-						},
-						minutesUntilNextRun * 60 * 1000,
-					);
-				};
-				startFullHourTasks();
-				*/
-
 				const jobCurrentPrice = CronJob.from({
 					cronTime: "20 57 * * * *", //"20 57 * * * *" = 3 minuten vor 00:00:20 jede Stunde
 					onTick: async () => {

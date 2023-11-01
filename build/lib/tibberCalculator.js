@@ -81,19 +81,57 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async executeCalculatorBestCost(channel) {
         try {
-            // if not chActive write chValueOff
+            //NEW
+            let valueToSet = "";
+            // not chActive -> choose chValueOff
             if (!this.adapter.config.CalculatorList[channel].chActive) {
-                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
-                return;
-            }
-            const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
-            if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
-                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
+                valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
             }
             else {
-                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
+                // chActive -> choose desired value
+                const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
+                if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
+                    valueToSet = this.adapter.config.CalculatorList[channel].chValueOn;
+                }
+                else {
+                    valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+                }
             }
-            this.adapter.log.debug(`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
+            this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+            this.adapter.log.debug(`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            //END NEW
+            /*
+            // if not chActive write chValueOff
+            if (!this.adapter.config.CalculatorList[channel].chActive) {
+                this.adapter.setForeignStateAsync(
+                    this.adapter.config.CalculatorList[channel].chTargetState,
+                    convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+                );
+                this.adapter.log.debug(
+                    `calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${this.adapter.config.CalculatorList[channel].chValueOff}`,
+                );
+                return;
+            }
+
+            const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
+            if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
+                this.adapter.setForeignStateAsync(
+                    this.adapter.config.CalculatorList[channel].chTargetState,
+                    convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
+                );
+                this.adapter.log.debug(
+                    `calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${this.adapter.config.CalculatorList[channel].chValueOn}`,
+                );
+            } else {
+                this.adapter.setForeignStateAsync(
+                    this.adapter.config.CalculatorList[channel].chTargetState,
+                    convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+                );
+                this.adapter.log.debug(
+                    `calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${this.adapter.config.CalculatorList[channel].chValueOff}`,
+                );
+            }
+            */
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
@@ -101,29 +139,74 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async executeCalculatorBestSingleHours(channel) {
         try {
+            //NEW
+            let valueToSet = "";
+            // not chActive -> choose chValueOff
+            if (!this.adapter.config.CalculatorList[channel].chActive) {
+                valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+            }
+            else {
+                // chActive -> choose desired value
+                const currentDateTime = new Date();
+                const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`));
+                // function to check for equal hour values
+                function checkHourMatch(entry) {
+                    const startDateTime = new Date(entry.startsAt);
+                    return currentDateTime.getHours() === startDateTime.getHours();
+                }
+                // get first n entries und test for matching hour
+                const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+                const result = jsonPrices.slice(0, n).map((entry) => checkHourMatch(entry));
+                // identify if any element is true
+                if (result.some((value) => value)) {
+                    valueToSet = this.adapter.config.CalculatorList[channel].chValueOn;
+                }
+                else {
+                    valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+                }
+                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+                this.adapter.log.debug(`calculator channel: ${channel}-best single hours; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            }
+            //END NEW
+            /*
             // if not chActive write chValueOff
             if (!this.adapter.config.CalculatorList[channel].chActive) {
-                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
+                this.adapter.setForeignStateAsync(
+                    this.adapter.config.CalculatorList[channel].chTargetState,
+                    convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+                );
                 return;
             }
             const currentDateTime = new Date();
-            const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`));
+            const jsonPrices: IPrice[] = JSON.parse(
+                await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`),
+            );
+
             // function to check for equal hour values
-            function checkHourMatch(entry) {
+            function checkHourMatch(entry: IPrice): boolean {
                 const startDateTime = new Date(entry.startsAt);
                 return currentDateTime.getHours() === startDateTime.getHours();
             }
             // get first n entries und test for matching hour
             const n = this.adapter.config.CalculatorList[channel].chAmountHours;
-            const result = jsonPrices.slice(0, n).map((entry) => checkHourMatch(entry));
+            const result: boolean[] = jsonPrices.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
+
             // identify if any element is true
             if (result.some((value) => value)) {
-                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOn));
+                this.adapter.setForeignStateAsync(
+                    this.adapter.config.CalculatorList[channel].chTargetState,
+                    convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
+                );
+            } else {
+                this.adapter.setForeignStateAsync(
+                    this.adapter.config.CalculatorList[channel].chTargetState,
+                    convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
+                );
             }
-            else {
-                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(this.adapter.config.CalculatorList[channel].chValueOff));
-            }
-            this.adapter.log.debug(`calculator channel: ${channel}-best single hours; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`);
+            this.adapter.log.debug(
+                `calculator channel: ${channel}-best single hours; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`,
+            );
+            */
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours in channel ${channel}`));
