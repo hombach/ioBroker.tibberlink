@@ -125,7 +125,6 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.debug(
 				`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
 			);
-
 			//END NEW
 
 			/*

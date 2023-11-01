@@ -8,7 +8,7 @@ import { IHomeInfo } from "./lib/tibberHelper";
 import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
-	intervalList: ioBroker.Interval[];
+	//intervalList: ioBroker.Interval[];
 	cronList: CronJob[];
 	homeInfoList: IHomeInfo[] = [];
 	queryUrl: string = "";
@@ -25,7 +25,7 @@ class Tibberlink extends utils.Adapter {
 		this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 		this.homeInfoList = [];
-		this.intervalList = [];
+		//this.intervalList = [];
 		this.cronList = [];
 		this.queryUrl = "https://api.tibber.com/v1-beta/gql";
 	}
@@ -123,11 +123,11 @@ class Tibberlink extends utils.Adapter {
 
 			// if no homeIDs available - adapter can't do that much and restarts
 			if (this.homeInfoList.length === 0) {
-				this.log.warn(`Got no homes in your account - probably by a Tibber Server Error- adapter restarts in 2 minutes`);
-				const adapterrestart = this.setInterval(() => {
-					this.restart();
-				}, 120000);
-				if (adapterrestart) this.intervalList.push(adapterrestart);
+				this.log.warn(`Got no homes in your account - probably by a Tibber Server Error - adapter restarts in 2 minutes`);
+				// const adapterrestart = this.setInterval(() => {this.restart();}, 120000);
+				await this.delay(2 * 60 * 1000);
+				this.restart();
+				// if (adapterrestart) this.intervalList.push(adapterrestart);
 			}
 
 			// if there are any homes the adapter will do something
@@ -320,10 +320,10 @@ class Tibberlink extends utils.Adapter {
 			for (const index in this.cronList) {
 				this.cronList[index].stop;
 			}
-			// clearTimeout(timeout1);
-			for (const index in this.intervalList) {
-				this.clearInterval(this.intervalList[index]);
-			}
+			// clearTimeout(timeout);
+			//for (const index in this.intervalList) {
+			//	this.clearInterval(this.intervalList[index]);
+			//}
 			// info.connect to false, if adapter is closed
 			this.setState("info.connection", false, true);
 			callback();
