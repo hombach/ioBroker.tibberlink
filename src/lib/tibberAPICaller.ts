@@ -199,6 +199,7 @@ export class TibberAPICaller extends TibberHelper {
 			if (!exDate || exDate <= morgen || forceUpdate) {
 				const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 				this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
+				this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); //write, also JSON is empty
 				if (pricesTomorrow.length === 0) {
 					// pricing not known, before about 13:00 - delete the states
 					this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
@@ -208,7 +209,13 @@ export class TibberAPICaller extends TibberHelper {
 					this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
 					this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
 					this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
-				} else if (pricesTomorrow) {
+					this.checkAndSetValue(
+						this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
+						JSON.stringify(pricesTomorrow),
+						"prices sorted by cost ascending as json",
+					);
+					return false;
+				} else if (Array.isArray(pricesTomorrow)) {
 					// pricing known, after about 13:00 - write the states
 					for (const i in pricesTomorrow) {
 						const price = pricesTomorrow[i];
@@ -226,28 +233,18 @@ export class TibberAPICaller extends TibberHelper {
 						`PricesTomorrow.minimum`,
 						pricesTomorrow.sort((a, b) => a.total - b.total),
 					);
-				}
-				this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
-				if (Array.isArray(pricesTomorrow)) {
-					// Sort the array if it is an array - possible type error discovered by sentry
 					this.checkAndSetValue(
 						this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
 						JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
 						"prices sorted by cost ascending as json",
 					);
-				} else {
-					// Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
-					this.checkAndSetValue(
-						this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"),
-						JSON.stringify(pricesTomorrow),
-						"prices sorted by cost ascending as json",
-					);
+					return true;
 				}
-				return true;
 			} else {
 				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
 				return false;
 			}
+			return false;
 		} catch (error: any) {
 			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of prices tomorrow`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));

@@ -71,6 +71,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 -   (HombachC) critical vulnerability fix for axios
 -   (HombachC) fix debug message typos, code optimisations in calculator
 -   (HombachC) fix type error in price average calculation notified by Sentry
+-   (HombachC) fix error in update prices tomorrow - possible false positive
 
 ### 1.4.1 (2023-10-25)
 
