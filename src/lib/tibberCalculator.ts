@@ -107,7 +107,6 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestCost(channel: number): Promise<void> {
 		try {
-			//NEW
 			let valueToSet: string = "";
 			// not chActive -> choose chValueOff
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
@@ -125,40 +124,6 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.debug(
 				`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
 			);
-			//END NEW
-
-			/*
-			// if not chActive write chValueOff
-			if (!this.adapter.config.CalculatorList[channel].chActive) {
-				this.adapter.setForeignStateAsync(
-					this.adapter.config.CalculatorList[channel].chTargetState,
-					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
-				);
-				this.adapter.log.debug(
-					`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${this.adapter.config.CalculatorList[channel].chValueOff}`,
-				);
-				return;
-			}
-
-			const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
-			if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
-				this.adapter.setForeignStateAsync(
-					this.adapter.config.CalculatorList[channel].chTargetState,
-					convertValue(this.adapter.config.CalculatorList[channel].chValueOn),
-				);
-				this.adapter.log.debug(
-					`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${this.adapter.config.CalculatorList[channel].chValueOn}`,
-				);
-			} else {
-				this.adapter.setForeignStateAsync(
-					this.adapter.config.CalculatorList[channel].chTargetState,
-					convertValue(this.adapter.config.CalculatorList[channel].chValueOff),
-				);
-				this.adapter.log.debug(
-					`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${this.adapter.config.CalculatorList[channel].chValueOff}`,
-				);
-			}
-			*/
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
 		}
@@ -166,7 +131,6 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestSingleHours(channel: number): Promise<void> {
 		try {
-			//NEW
 			let valueToSet: string = "";
 			// not chActive -> choose chValueOff
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
@@ -197,8 +161,6 @@ export class TibberCalculator extends TibberHelper {
 					`calculator channel: ${channel}-best single hours; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
 				);
 			}
-			//END NEW
-
 			/*
 			// if not chActive write chValueOff
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
@@ -245,7 +207,6 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestHoursBlock(channel: number): Promise<void> {
 		try {
-			//NEW
 			let valueToSet: string = "";
 			// not chActive -> choose chValueOff
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
@@ -255,7 +216,6 @@ export class TibberCalculator extends TibberHelper {
 				const jsonPrices: IPrice[] = JSON.parse(
 					await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
 				);
-
 				let minSum = Number.MAX_VALUE;
 				let startIndex = 0;
 				const n = this.adapter.config.CalculatorList[channel].chAmountHours;
@@ -270,7 +230,6 @@ export class TibberCalculator extends TibberHelper {
 						startIndex = i;
 					}
 				}
-
 				const minSumEntries: boolean[] = jsonPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
 
 				// function to check for equal hour values
@@ -290,8 +249,6 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.debug(
 				`calculator channel: ${channel}-best hours block; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
 			);
-			//END NEW
-
 			/*
 			// if not chActive write chValueOff
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
