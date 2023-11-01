@@ -458,8 +458,7 @@
 							],
 							"filter": false,
 							"sort": false,
-							"width": "15%",
-							"default": ""
+							"width": "15%"
 						},
 						{
 							"type": "objectId",
@@ -467,8 +466,7 @@
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "40%",
-							"default": ""
+							"width": "40%"
 						},
 						{
 							"type": "text",
