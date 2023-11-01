@@ -246,6 +246,54 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorBestHoursBlock(channel: number): Promise<void> {
 		try {
+			//NEW
+			let valueToSet: string = "";
+			// not chActive -> choose chValueOff
+			if (!this.adapter.config.CalculatorList[channel].chActive) {
+				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+			} else {
+				const currentDateTime = new Date();
+				const jsonPrices: IPrice[] = JSON.parse(
+					await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
+				);
+
+				let minSum = Number.MAX_VALUE;
+				let startIndex = 0;
+				const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+
+				for (let i = 0; i < jsonPrices.length - n + 1; i++) {
+					let sum = 0;
+					for (let j = i; j < i + n; j++) {
+						sum += jsonPrices[j].total;
+					}
+					if (sum < minSum) {
+						minSum = sum;
+						startIndex = i;
+					}
+				}
+
+				const minSumEntries: boolean[] = jsonPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+
+				// function to check for equal hour values
+				function checkHourMatch(entry: IPrice): boolean {
+					const startDateTime = new Date(entry.startsAt);
+					return currentDateTime.getHours() === startDateTime.getHours();
+				}
+
+				// identify if any element is true
+				if (minSumEntries.some((value) => value)) {
+					valueToSet = this.adapter.config.CalculatorList[channel].chValueOn;
+				} else {
+					valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+				}
+			}
+			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+			this.adapter.log.debug(
+				`calculator channel: ${channel}-best hours block; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
+			);
+			//END NEW
+
+			/*
 			// if not chActive write chValueOff
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
 				this.adapter.setForeignStateAsync(
@@ -296,6 +344,7 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.debug(
 				`calculator channel: ${channel}-besthours block; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState}`,
 			);
+			*/
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block in channel ${channel}`));
 		}
