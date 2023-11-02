@@ -109,13 +109,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             else {
                 // chActive -> choose desired value
-                //const currentDateTime = new Date();
                 const jsonPrices = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`));
-                // function to check for equal hour values
-                //function checkHourMatch(entry: IPrice): boolean {
-                //	const startDateTime = new Date(entry.startsAt);
-                //	return currentDateTime.getHours() === startDateTime.getHours();
-                //}
                 // get first n entries und test for matching hour
                 const n = this.adapter.config.CalculatorList[channel].chAmountHours;
                 const result = jsonPrices.slice(0, n).map((entry) => checkHourMatch(entry));

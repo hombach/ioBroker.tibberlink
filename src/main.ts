@@ -8,7 +8,6 @@ import { IHomeInfo } from "./lib/tibberHelper";
 import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
-	//intervalList: ioBroker.Interval[];
 	cronList: CronJob[];
 	homeInfoList: IHomeInfo[] = [];
 	queryUrl: string = "";
@@ -25,7 +24,6 @@ class Tibberlink extends utils.Adapter {
 		this.on("message", this.onMessage.bind(this));
 		this.on("unload", this.onUnload.bind(this));
 		this.homeInfoList = [];
-		//this.intervalList = [];
 		this.cronList = [];
 		this.queryUrl = "https://api.tibber.com/v1-beta/gql";
 	}
@@ -208,19 +206,6 @@ class Tibberlink extends utils.Adapter {
 				});
 				if (jobPricesTomorrow) this.cronList.push(jobPricesTomorrow);
 
-				/*
-				const energyPricesListUpdateInterval = this.setInterval(
-					() => {
-						for (const index in this.homeInfoList) {
-							tibberAPICaller.updatePricesToday(this.homeInfoList[index].ID);
-							tibberAPICaller.updatePricesTomorrow(this.homeInfoList[index].ID);
-						}
-					},
-					25 * 60 * 1000,
-				);
-				if (energyPricesListUpdateInterval) this.intervalList.push(energyPricesListUpdateInterval);
-				*/
-
 				// If user uses live feed - start feed connection
 				if (this.homeInfoList.some((info) => info.FeedActive)) {
 					// array with configs of feeds, init with base data set
@@ -321,9 +306,6 @@ class Tibberlink extends utils.Adapter {
 				this.cronList[index].stop;
 			}
 			// clearTimeout(timeout);
-			//for (const index in this.intervalList) {
-			//	this.clearInterval(this.intervalList[index]);
-			//}
 			// info.connect to false, if adapter is closed
 			this.setState("info.connection", false, true);
 			callback();
