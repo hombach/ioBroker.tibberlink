@@ -65,6 +65,11 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### WORK in PROGRESS
+
+-   (HombachC) preparations for other calculator channel times than 24h (#153)
+-   (HombachC) bump dependencies
+
 ### 1.4.2 (2023-11-03)
 
 -   (HombachC) complete rework of task scheduling for more precise pull timing (#149)
