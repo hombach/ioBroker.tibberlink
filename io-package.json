@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.4.2",
+		"version": "1.4.3",
 		"news": {
+			"1.4.3": {
+				"en": "fix possible type error in first calculator calls notified by Sentry"
+			},
 			"1.4.2": {
 				"en": "Complete rework of task scheduling for more precise pull timing (#149)",
 				"de": "Vollständige Überarbeitung der Aufgabenplanung für genauere Pull-Zeiten (#149)",
@@ -249,19 +252,6 @@
 				"pl": "ustępowanie błędów w państwie booleańskim",
 				"uk": "виправити помилку з болеанськими станами",
 				"zh-cn": "f 假释国错误"
-			},
-			"0.2.5": {
-				"en": "optimize code to mitigate set state timing for long JSON states (#68)",
-				"de": "optimieren Sie den Code zur Minderung des eingestellten Zustandszeitpunkts für lange JSON-Staaten (#68)",
-				"ru": "оптимизировать код для смягчения установленных государственных сроков для дальних стран JSON (#68)",
-				"pt": "otimizar o código para mitigar o tempo de estado definido para estados JSON longos (#68)",
-				"nl": "vertaling:",
-				"fr": "optimiser le code pour atténuer le temps d'état défini pour les états JSON longs (#68)",
-				"it": "ottimizzare il codice per mitigare i tempi di stato impostati per i lunghi stati JSON (#68)",
-				"es": "optimizar el código para mitigar el tiempo establecido del estado para los estados JSON largos (#68)",
-				"pl": "kod optymalizacyjny w celu złagodzenia systemu stanowego dla długich stanów JSON (#68)",
-				"uk": "оптимізуйте код для пом'якшення часу стану для довгих станів JSON (#68)",
-				"zh-cn": "完善减少长期合作行动联盟国家时间表的守则(#68)"
 			}
 		},
 		"messages": [

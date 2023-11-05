@@ -73,7 +73,7 @@ export class TibberCalculator extends TibberHelper {
 	async startCalculatorTasks(): Promise<void> {
 		if (!this.adapter.config.UseCalculator) return;
 		for (const channel in this.adapter.config.CalculatorList) {
-			if (!this.adapter.config.CalculatorList[channel].chTargetState.trim()) {
+			if (!this.adapter.config.CalculatorList[channel].chTargetState || !this.adapter.config.CalculatorList[channel].chTargetState.trim()) {
 				this.adapter.log.warn(
 					`Empty destination state in calculator channel ${channel} defined - provide correct external state - execution of channel skipped`,
 				);
