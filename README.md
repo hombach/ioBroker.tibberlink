@@ -68,6 +68,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 ### 1.4.3 (2023-11-xx) WORK in PROGRESS
 
 -   (HombachC) fix possible type error in first calculator calls notified by Sentry
+-   (HombachC) change state object description of production values (#167)
 -   (HombachC) preparations for other calculator channel times than 24h (#153)
 -   (HombachC) bump dependencies
 

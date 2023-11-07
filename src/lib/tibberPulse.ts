@@ -73,6 +73,8 @@ export class TibberPulse extends TibberHelper {
 		} else if (liveMeasurement.powerProduction > 0) {
 			power = liveMeasurement.powerProduction * -1;
 		}
+		// "minpower" should be called "minpowerConsumption" - in fact there is no correct minpower yet,
+		// when we think about minpower and maxpower should be linked to "power" (positive and negative power)
 		if (this.tibberConfig.homeId !== undefined) {
 			this.checkAndSetValue(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "timestamp"),
@@ -101,7 +103,7 @@ export class TibberPulse extends TibberHelper {
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedProduction"),
 				Math.round(1000 * liveMeasurement.accumulatedProduction) / 1000,
 				"kWh",
-				"Energy produced since midnight",
+				"Energy feed into grid since midnight",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedConsumptionLastHour"),
@@ -158,25 +160,25 @@ export class TibberPulse extends TibberHelper {
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"),
 				liveMeasurement.powerProduction,
 				"W",
-				"Net production (A-) at the moment",
+				"Net grid feed-in (A-) at the moment",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPowerProduction"),
 				liveMeasurement.minPowerProduction,
 				"W",
-				"Min net production since midnight",
+				"Min net grid feed-in since midnight",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPowerProduction"),
 				liveMeasurement.maxPowerProduction,
 				"W",
-				"Max net production since midnight",
+				"Max net grid feed-in since midnight",
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterProduction"),
 				Math.round(1000 * liveMeasurement.lastMeterProduction) / 1000,
 				"kWh",
-				"Latest production meter state",
+				"Latest grid feed-in meter state",
 			);
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerFactor"),
