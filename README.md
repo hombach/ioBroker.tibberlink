@@ -69,6 +69,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 -   (HombachC) fix possible type error in first calculator calls notified by Sentry
 -   (HombachC) change state object description of production values (#167)
+-   (HombachC) optimize pulse feed error message in case of error as object (#176)
 -   (HombachC) preparations for other calculator channel times than 24h (#153)
 -   (HombachC) bump dependencies
 

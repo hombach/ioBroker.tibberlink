@@ -4,7 +4,17 @@
 		"version": "1.4.3",
 		"news": {
 			"1.4.3": {
-				"en": "fix possible type error in first calculator calls notified by Sentry"
+				"en": "Some small fixes, see changelog",
+				"de": "Einige kleine Korrekturen, siehe Änderungsprotokoll",
+				"ru": "Несколько небольших исправлений, см. журнал изменений",
+				"pt": "Algumas pequenas correções, consulte o registro de alterações",
+				"nl": "Enkele kleine correcties, zie het wijzigingenlogboek",
+				"fr": "Quelques petites corrections, voir le journal des modifications",
+				"it": "Alcuni piccoli miglioramenti, consulta il registro delle modifiche",
+				"es": "Algunas correcciones menores, consulta el registro de cambios",
+				"pl": "Kilka małych poprawek, zobacz dziennik zmian",
+				"uk": "Кілька дрібних виправлень, див. журнал змін",
+				"zh-cn": "一些小修复，查看变更记录"
 			},
 			"1.4.2": {
 				"en": "Complete rework of task scheduling for more precise pull timing (#149)",
