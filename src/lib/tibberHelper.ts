@@ -21,10 +21,10 @@ export class TibberHelper {
 		this.adapter = adapter;
 	}
 
-	protected getStatePrefix(homeId: string, space: string, name: string): { [key: string]: string } {
+	protected getStatePrefix(homeId: string, space: string, id: string, name?: string): { [key: string]: string } {
 		const statePrefix = {
-			key: name,
-			value: `Homes.${homeId}.${space}.${name}`,
+			key: name ? name : id,
+			value: `Homes.${homeId}.${space}.${id}`,
 		};
 		return statePrefix;
 	}

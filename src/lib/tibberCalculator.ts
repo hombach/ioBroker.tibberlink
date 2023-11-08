@@ -9,7 +9,9 @@ export class TibberCalculator extends TibberHelper {
 
 	async setupCalculatorStates(homeId: string, channel: number): Promise<void> {
 		try {
-			if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
+			if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
+				this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
+			}
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
 				this.adapter.config.CalculatorList[channel].chTriggerPrice,
@@ -27,9 +29,11 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
 			}
 
-			if (this.adapter.config.CalculatorList[channel].chActive === undefined) this.adapter.config.CalculatorList[channel].chActive = false;
+			if (this.adapter.config.CalculatorList[channel].chActive === undefined) {
+				this.adapter.config.CalculatorList[channel].chActive = false;
+			}
 			this.checkAndSetValueBoolean(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`),
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, `Active-${channel}`),
 				this.adapter.config.CalculatorList[channel].chActive,
 				`Whether the calculation channel is active`,
 				true,
@@ -45,7 +49,9 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
 			}
 
-			if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) this.adapter.config.CalculatorList[channel].chAmountHours = 0;
+			if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
+				this.adapter.config.CalculatorList[channel].chAmountHours = 0;
+			}
 			this.checkAndSetValueNumber(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`),
 				this.adapter.config.CalculatorList[channel].chAmountHours,

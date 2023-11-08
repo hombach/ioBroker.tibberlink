@@ -12,10 +12,10 @@ class TibberHelper {
     constructor(adapter) {
         this.adapter = adapter;
     }
-    getStatePrefix(homeId, space, name) {
+    getStatePrefix(homeId, space, id, name) {
         const statePrefix = {
-            key: name,
-            value: `Homes.${homeId}.${space}.${name}`,
+            key: name ? name : id,
+            value: `Homes.${homeId}.${space}.${id}`,
         };
         return statePrefix;
     }
