@@ -33,8 +33,6 @@ export class TibberHelper {
 		try {
 			const stateObject = await this.getState(stateName);
 			return stateObject?.val ?? null; // Errors have already been handled in getState()
-			//OLD if (stateObject == null) return null; // Errors have already been handled in getState()
-			//OLD return stateObject.val;
 		} catch (error) {
 			this.adapter.log.error(`[getStateValue](${stateName}): ${error}`);
 			return null;
@@ -181,7 +179,7 @@ export class TibberHelper {
 		if (writeable === undefined) writeable = false;
 		if (dontUpdate === undefined) dontUpdate = false;
 		if (value !== undefined && value !== null) {
-			if (stateName.value === stateName.key) {
+			if (stateName.value.split(".").pop() === stateName.key) {
 				await this.adapter.setObjectNotExistsAsync(stateName.value, {
 					type: "state",
 					common: {
