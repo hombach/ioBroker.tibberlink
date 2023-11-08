@@ -152,7 +152,8 @@ class TibberHelper {
         if (dontUpdate === undefined)
             dontUpdate = false;
         if (value !== undefined && value !== null) {
-            await this.adapter.setObjectNotExistsAsync(stateName.value, {
+            //await this.adapter.setObjectNotExistsAsync(stateName.value, {
+            await this.adapter.setObjectAsync(stateName.value, {
                 type: "state",
                 common: {
                     name: stateName.key,
