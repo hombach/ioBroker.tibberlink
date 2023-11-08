@@ -181,19 +181,33 @@ export class TibberHelper {
 		if (writeable === undefined) writeable = false;
 		if (dontUpdate === undefined) dontUpdate = false;
 		if (value !== undefined && value !== null) {
-			//await this.adapter.setObjectNotExistsAsync(stateName.value, {
-			await this.adapter.setObjectAsync(stateName.value, {
-				type: "state",
-				common: {
-					name: stateName.key,
-					type: "boolean",
-					role: "indicator",
-					desc: description,
-					read: true,
-					write: writeable,
-				},
-				native: {},
-			});
+			if (stateName.value === stateName.key) {
+				await this.adapter.setObjectNotExistsAsync(stateName.value, {
+					type: "state",
+					common: {
+						name: stateName.key,
+						type: "boolean",
+						role: "indicator",
+						desc: description,
+						read: true,
+						write: writeable,
+					},
+					native: {},
+				});
+			} else {
+				await this.adapter.setObjectAsync(stateName.value, {
+					type: "state",
+					common: {
+						name: stateName.key,
+						type: "boolean",
+						role: "indicator",
+						desc: description,
+						read: true,
+						write: writeable,
+					},
+					native: {},
+				});
+			}
 			if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
 				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
 			}
