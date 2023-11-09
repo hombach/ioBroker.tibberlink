@@ -521,7 +521,7 @@
 							"width": "15%"
 						},
 						{
-							"type": "objectId",
+							"type": "text",
 							"title": {
 								"en": "Channel Name",
 								"de": "Kanalname",
@@ -535,10 +535,12 @@
 								"uk": "Назва каналу",
 								"zh-cn": "通道名称"
 							},
+							"maxLength": 20,
 							"attr": "chName",
 							"filter": false,
 							"sort": false,
-							"width": "20%"
+							"width": "20%",
+							"default": "channel name"
 						},
 						{
 							"type": "objectId",
