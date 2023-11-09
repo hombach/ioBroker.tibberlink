@@ -9,6 +9,19 @@ export class TibberCalculator extends TibberHelper {
 
 	async setupCalculatorStates(homeId: string, channel: number): Promise<void> {
 		try {
+			//"Best cost": Utilizes the "TriggerPrice" state as input.
+			//"Best single hours": The defined by the "AmountHours" state.
+			//"Best hours block": The defined by the "AmountHours" state.
+			switch (this.adapter.config.CalculatorList[channel].chType) {
+				case enCalcType.BestCost:
+					break;
+				case (enCalcType.BestSingleHours, enCalcType.BestHoursBlock):
+					break;
+				default:
+					this.adapter.log.error(`Calculator Type for channel ${channel} nit set, please do!`);
+			}
+
+			//***  chTriggerPrice  ***
 			if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
 				this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
 			}
@@ -29,11 +42,15 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
 			}
 
+			//***  chActive  ***
 			if (this.adapter.config.CalculatorList[channel].chActive === undefined) {
 				this.adapter.config.CalculatorList[channel].chActive = false;
 			}
+			if (this.adapter.config.CalculatorList[channel].chName === undefined) {
+				this.adapter.config.CalculatorList[channel].chName = `Channel Name`;
+			}
 			this.checkAndSetValueBoolean(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, `Active-${this.adapter.config.CalculatorList[channel].chName}`),
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, this.adapter.config.CalculatorList[channel].chName),
 				this.adapter.config.CalculatorList[channel].chActive,
 				`Whether the calculation channel is active`,
 				true,
@@ -49,6 +66,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
 			}
 
+			//***  chAmountHours  ***
 			if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
 				this.adapter.config.CalculatorList[channel].chAmountHours = 0;
 			}
@@ -69,6 +87,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueAmountHours}`);
 			}
 
+			//***  subscribeStates  ***
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 			// all states changes inside the calculator channel settings namespace are subscribed
 		} catch (error) {
