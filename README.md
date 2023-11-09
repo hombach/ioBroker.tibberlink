@@ -48,7 +48,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 -   These channels can be activated or deactivated based on corresponding states.
 -   These states are designed to serve as external, dynamic inputs for TibberLink, allowing you to, for example, adjust the marginal cost ("TriggerPrice") from an external source or disable the calculator channel ("Active").
 -   The states of a calculator channel are positioned adjacent to the home states and named according to the channel number.
-    ![Calculator States](admin/calculatorStates.png)
+    ![Calculator States](docu/calculatorStates.png)
 -   The behavior of each channel is determined by its type: "best cost," "best single hours," or "best hours block".
 -   Each channel populates an external state as output, which has to be selected in the settings tab. For instance, this state might be "0_userdata.0.example_state" or any other writable external state.
 -   The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states or a number or text to be written.

@@ -371,13 +371,37 @@
 			"items": {
 				"_CalculatorHeader": {
 					"type": "header",
-					"text": "s_CalculatorChannels",
+					"text": {
+						"en": "Calculator Channels",
+						"de": "Automatisierungs-Kanäle",
+						"ru": "Каналы автоматизации",
+						"pt": "Canais de automação",
+						"nl": "Automatiseringskanalen",
+						"fr": "Canaux d'automatisation",
+						"it": "Canali di automazione",
+						"es": "Canales de automatización",
+						"pl": "Kanały automatyzacji",
+						"uk": "Канали автоматизації",
+						"zh-cn": "自动化通道"
+					},
 					"size": 3
 				},
 
 				"UseCalculator": {
 					"type": "checkbox",
-					"label": "s_UseCalculator",
+					"label": {
+						"en": "Use Automation",
+						"de": "Automatisierung verwenden",
+						"ru": "Использовать автоматизацию",
+						"pt": "Usar Automação",
+						"nl": "Gebruik Automatisering",
+						"fr": "Utiliser l'Automatisation",
+						"it": "Usa Automazione",
+						"es": "Usar Automatización",
+						"pl": "Użyj Automatyzacji",
+						"uk": "Використовувати автоматизацію",
+						"zh-cn": "使用自动化"
+					},
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
