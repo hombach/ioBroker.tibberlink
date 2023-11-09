@@ -375,8 +375,8 @@
 		"CalculatorList": [
 			{
 				"chHomeID": "None available - restart adapter after entering token",
-				"chType": "best cost - not implemented",
-				"chName": "channel name",
+				"chType": "best cost",
+				"chName": "Channel Name",
 				"chActive": "false",
 				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
 				"chValueOn": "true",

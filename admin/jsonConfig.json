@@ -447,7 +447,7 @@
 							"default": "No Home selected",
 							"filter": false,
 							"sort": false,
-							"width": "15%",
+							"width": "10%",
 							"command": "HomesForConfig"
 						},
 						{
@@ -539,8 +539,8 @@
 							"attr": "chName",
 							"filter": false,
 							"sort": false,
-							"width": "20%",
-							"default": "channel name"
+							"width": "25%",
+							"default": "Channel Name"
 						},
 						{
 							"type": "objectId",
