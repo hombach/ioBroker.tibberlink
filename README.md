@@ -65,9 +65,10 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.4.4 (2023-11-xx) WORK in PROGRESS
+### 1.5.0 (2023-11-xx) WORK in PROGRESS
 
--   (HombachC) implement calculator object names (#186)
+-   (HombachC) implement calculator channel names (#186)
+-   (HombachC) remove not used calculator channel state objects (#188)
 -   (HombachC) optimize translation handling
 
 ### 1.4.3 (2023-11-08)

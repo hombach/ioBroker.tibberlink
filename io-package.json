@@ -1,9 +1,9 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.4.4",
+		"version": "1.5.0",
 		"news": {
-			"1.4.4": {
+			"1.5.0": {
 				"en": "Implement calculator object names (#186)",
 				"de": "Implementiere Objektnamen des Taschenrechners (#186)",
 				"ru": "Реализовать имена объектов калькулятора (#186)",
