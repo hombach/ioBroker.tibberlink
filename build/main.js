@@ -339,6 +339,7 @@ class Tibberlink extends utils.Adapter {
             callback();
         }
         catch (e) {
+            this.log.warn(e.message);
             callback();
         }
     }

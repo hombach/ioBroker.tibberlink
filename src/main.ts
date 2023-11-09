@@ -308,6 +308,7 @@ class Tibberlink extends utils.Adapter {
 			this.setState("info.connection", false, true);
 			callback();
 		} catch (e) {
+			this.log.warn((e as Error).message);
 			callback();
 		}
 	}

@@ -24,24 +24,12 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else {
                 this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
             }
-            //***  chAmountHours  ***
-            if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
-                this.adapter.config.CalculatorList[channel].chAmountHours = 0;
-            }
-            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`), this.adapter.config.CalculatorList[channel].chAmountHours, `amount of hours to trigger this channel`, true, true);
-            const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
-            if (typeof valueAmountHours === "number") {
-                this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
-                this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to AmountHours: ${this.adapter.config.CalculatorList[channel].chAmountHours}`);
-            }
-            else {
-                this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueAmountHours}`);
-            }
             //"Best cost": Utilizes the "TriggerPrice" state as input.
-            //"Best single hours": The defined by the "AmountHours" state.
-            //"Best hours block": The defined by the "AmountHours" state.
+            //"Best single hours": Defined by the "AmountHours" state.
+            //"Best hours block": Defined by the "AmountHours" state.
             switch (this.adapter.config.CalculatorList[channel].chType) {
                 case tibberHelper_1.enCalcType.BestCost:
+                    this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value);
                     //***  chTriggerPrice  ***
                     if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
                         this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
@@ -59,6 +47,19 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 case tibberHelper_1.enCalcType.BestSingleHours:
                 case tibberHelper_1.enCalcType.BestHoursBlock:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value);
+                    //***  chAmountHours  ***
+                    if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
+                        this.adapter.config.CalculatorList[channel].chAmountHours = 0;
+                    }
+                    this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`), this.adapter.config.CalculatorList[channel].chAmountHours, `amount of hours to trigger this channel`, true, true);
+                    const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
+                    if (typeof valueAmountHours === "number") {
+                        this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
+                        this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to AmountHours: ${this.adapter.config.CalculatorList[channel].chAmountHours}`);
+                    }
+                    else {
+                        this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueAmountHours}`);
+                    }
                     break;
                 default:
                     this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
