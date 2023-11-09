@@ -338,7 +338,7 @@ class Tibberlink extends utils.Adapter {
 											);
 											this.setStateAsync(id, state.val, true);
 										} else {
-											this.log.debug(`Wrong type for chActive: ${state.val}`);
+											this.log.warn(`Wrong type for channel: ${calcChannel} - chActive: ${state.val}`);
 										}
 										break;
 									case "TriggerPrice":
@@ -350,7 +350,7 @@ class Tibberlink extends utils.Adapter {
 											);
 											this.setStateAsync(id, state.val, true);
 										} else {
-											this.log.debug(`Wrong type for chTriggerPrice: ${state.val}`);
+											this.log.warn(`Wrong type for channel: ${calcChannel} - chTriggerPrice: ${state.val}`);
 										}
 										break;
 									case "AmountHours":
@@ -362,7 +362,7 @@ class Tibberlink extends utils.Adapter {
 											);
 											this.setStateAsync(id, state.val, true);
 										} else {
-											this.log.debug(`Wrong type for chAmountHours: ${state.val}`);
+											this.log.warn(`Wrong type for channel: ${calcChannel} - chAmountHours: ${state.val}`);
 										}
 										break;
 									default:

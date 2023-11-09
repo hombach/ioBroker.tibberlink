@@ -33,27 +33,6 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
 			}
 
-			//***  chTriggerPrice  ***
-			if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
-				this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
-			}
-			this.checkAndSetValueNumber(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
-				this.adapter.config.CalculatorList[channel].chTriggerPrice,
-				`pricelevel to trigger this channel at`,
-				true,
-				true,
-			);
-			const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
-			if (typeof valueTriggerPrice === "number") {
-				this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
-				this.adapter.log.debug(
-					`calculator settings state in home: ${homeId} - channel: ${channel} - changed to TriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`,
-				);
-			} else {
-				this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
-			}
-
 			//***  chAmountHours  ***
 			if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
 				this.adapter.config.CalculatorList[channel].chAmountHours = 0;
@@ -84,6 +63,26 @@ export class TibberCalculator extends TibberHelper {
 					break;
 				case enCalcType.BestSingleHours:
 				case enCalcType.BestHoursBlock:
+					//***  chTriggerPrice  ***
+					if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
+						this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
+					}
+					this.checkAndSetValueNumber(
+						this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
+						this.adapter.config.CalculatorList[channel].chTriggerPrice,
+						`pricelevel to trigger this channel at`,
+						true,
+						true,
+					);
+					const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
+					if (typeof valueTriggerPrice === "number") {
+						this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
+						this.adapter.log.debug(
+							`calculator settings state in home: ${homeId} - channel: ${channel} - changed to TriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`,
+						);
+					} else {
+						this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
+					}
 					break;
 				default:
 					this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
