@@ -40,6 +40,7 @@ declare global {
 				{
 					chHomeID: string;
 					chType: enCalcType;
+					chName: string;
 					chActive: boolean;
 					chTargetState: string;
 					chValueOn: string;

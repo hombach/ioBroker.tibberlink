@@ -1,9 +1,5 @@
 {
 	"s_Home": "Tibber Дім",
-	"s_CalculatorChannels": "Канали автоматизації",
 	"s_UseCalculator": "Використовувати автоматизацію",
-	"s_ChannelHome": "Канал Дім",
-	"s_ChannelType": "Тип каналу",
-	"s_Active": "Активний",
-	"s_TargetState": "Цільовий стан"
+	"s_Active": "Активний"
 }

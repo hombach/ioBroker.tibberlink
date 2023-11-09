@@ -1,9 +1,5 @@
 {
 	"s_Home": "Tibber Home",
-	"s_CalculatorChannels": "Calculator Channels",
 	"s_UseCalculator": "Use Calculator",
-	"s_ChannelHome": "Channel Home",
-	"s_ChannelType": "Channel Type",
-	"s_Active": "Active",
-	"s_TargetState": "Target State"
+	"s_Active": "Active"
 }

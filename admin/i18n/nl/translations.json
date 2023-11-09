@@ -1,9 +1,5 @@
 {
 	"s_Home": "Tibber Thuis",
-	"s_CalculatorChannels": "Automatiseringskanalen",
 	"s_UseCalculator": "Automatisering gebruiken",
-	"s_ChannelHome": "Kanaal Thuis",
-	"s_ChannelType": "Kanaaltype",
-	"s_Active": "Actief",
-	"s_TargetState": "Doelstaat"
+	"s_Active": "Actief"
 }

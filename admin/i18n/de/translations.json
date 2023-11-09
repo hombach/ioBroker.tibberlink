@@ -1,9 +1,5 @@
 {
 	"s_Home": "Tibber Zuhause",
-	"s_CalculatorChannels": "Automatisierungs-Kanäle",
 	"s_UseCalculator": "Automatisierung verwenden",
-	"s_ChannelHome": "Kanal Zuhause",
-	"s_ChannelType": "Kanaltyp",
-	"s_Active": "Aktiv",
-	"s_TargetState": "Ziel State"
+	"s_Active": "Aktiv"
 }

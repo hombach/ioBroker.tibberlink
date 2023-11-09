@@ -1,9 +1,5 @@
 {
 	"s_Home": "Tibber家",
-	"s_CalculatorChannels": "自动化通道",
 	"s_UseCalculator": "使用自动化",
-	"s_ChannelHome": "家庭通道",
-	"s_ChannelType": "通道类型",
-	"s_Active": "活跃",
-	"s_TargetState": "目标状态"
+	"s_Active": "活跃"
 }

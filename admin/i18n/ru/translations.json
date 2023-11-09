@@ -1,9 +1,5 @@
 {
 	"s_Home": "Дом Tibber",
-	"s_CalculatorChannels": "Каналы автоматизации",
 	"s_UseCalculator": "Использовать автоматизацию",
-	"s_ChannelHome": "Канал Дом",
-	"s_ChannelType": "Тип канала",
-	"s_Active": "Активен",
-	"s_TargetState": "Целевое состояние"
+	"s_Active": "Активен"
 }

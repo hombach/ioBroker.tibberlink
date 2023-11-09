@@ -1,9 +1,5 @@
 {
 	"s_Home": "Casa Tibber",
-	"s_CalculatorChannels": "Canali di automazione",
 	"s_UseCalculator": "Utilizza l'automazione",
-	"s_ChannelHome": "Canale Casa",
-	"s_ChannelType": "Tipo di canale",
-	"s_Active": "Attivo",
-	"s_TargetState": "Stato obiettivo"
+	"s_Active": "Attivo"
 }

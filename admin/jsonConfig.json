@@ -389,22 +389,58 @@
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
-					"label": "s_CalculatorChannels",
+					"label": {
+						"en": "Calculator Channels",
+						"de": "Automatisierungs-Kanäle",
+						"ru": "Каналы автоматизации",
+						"pt": "Canais de automação",
+						"nl": "Automatiseringskanalen",
+						"fr": "Canaux d'automatisation",
+						"it": "Canali di automazione",
+						"es": "Canales de automatización",
+						"pl": "Kanały automatyzacji",
+						"uk": "Канали автоматизації",
+						"zh-cn": "自动化通道"
+					},
 					"hidden": "!data.UseCalculator",
 					"items": [
 						{
 							"type": "selectSendTo",
-							"title": "s_ChannelHome",
+							"title": {
+								"en": "Channel Home",
+								"de": "Kanal Zuhause",
+								"ru": "Домашний канал",
+								"pt": "Canal Residencial",
+								"nl": "Thuis-kanaal",
+								"fr": "Canal Domicile",
+								"it": "Canale Home",
+								"es": "Canal de Hogar",
+								"pl": "Kanał Domowy",
+								"uk": "Домашній канал",
+								"zh-cn": "家庭通道"
+							},
 							"attr": "chHomeID",
 							"default": "No Home selected",
 							"filter": false,
 							"sort": false,
-							"width": "25%",
+							"width": "15%",
 							"command": "HomesForConfig"
 						},
 						{
 							"type": "select",
-							"title": "s_ChannelType",
+							"title": {
+								"en": "Channel Type",
+								"de": "Kanaltyp",
+								"ru": "Тип канала",
+								"pt": "Tipo de Canal",
+								"nl": "Soort Kanaal",
+								"fr": "Type de Canal",
+								"it": "Tipo di Canale",
+								"es": "Tipo de Canal",
+								"pl": "Typ kanału",
+								"uk": "Тип каналу",
+								"zh-cn": "通道类型"
+							},
 							"attr": "chType",
 							"options": [
 								{
@@ -462,11 +498,43 @@
 						},
 						{
 							"type": "objectId",
-							"title": "s_TargetState",
+							"title": {
+								"en": "Channel Name",
+								"de": "Kanalname",
+								"ru": "Имя канала",
+								"pt": "Nome do Canal",
+								"nl": "Kanaalnaam",
+								"fr": "Nom du Canal",
+								"it": "Nome del Canale",
+								"es": "Nombre del Canal",
+								"pl": "Nazwa kanału",
+								"uk": "Назва каналу",
+								"zh-cn": "通道名称"
+							},
+							"attr": "chName",
+							"filter": false,
+							"sort": false,
+							"width": "20%"
+						},
+						{
+							"type": "objectId",
+							"title": {
+								"en": "Target State",
+								"de": "Ziel State",
+								"ru": "Целевое состояние",
+								"pt": "Estado Alvo",
+								"nl": "Doelstaat",
+								"fr": "État Cible",
+								"it": "Stato Obiettivo",
+								"es": "Estado Objetivo",
+								"pl": "Stan Docelowy",
+								"uk": "Цільовий стан",
+								"zh-cn": "目标状态"
+							},
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "40%"
+							"width": "30%"
 						},
 						{
 							"type": "text",

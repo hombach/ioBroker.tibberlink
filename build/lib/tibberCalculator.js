@@ -23,7 +23,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             if (this.adapter.config.CalculatorList[channel].chActive === undefined) {
                 this.adapter.config.CalculatorList[channel].chActive = false;
             }
-            this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, `Active-${channel}`), this.adapter.config.CalculatorList[channel].chActive, `Whether the calculation channel is active`, true, true);
+            this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, `Active-${this.adapter.config.CalculatorList[channel].chName}`), this.adapter.config.CalculatorList[channel].chActive, `Whether the calculation channel is active`, true, true);
             const valueActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
             if (typeof valueActive === "boolean") {
                 this.adapter.config.CalculatorList[channel].chActive = valueActive;

@@ -65,6 +65,11 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 1.4.4 (2023-11-xx) WORK in PROGRESS
+
+-   (HombachC) implement calculator object names (#186)
+-   (HombachC) optimize translation handling
+
 ### 1.4.3 (2023-11-08)
 
 -   (HombachC) fix possible type error in first calculator calls notified by Sentry
