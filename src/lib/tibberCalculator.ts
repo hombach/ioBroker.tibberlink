@@ -29,7 +29,7 @@ export class TibberCalculator extends TibberHelper {
 			if (typeof valueActive === "boolean") {
 				this.adapter.config.CalculatorList[channel].chActive = valueActive;
 				this.adapter.log.debug(
-					`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - changed to Active: ${this.adapter.config.CalculatorList[channel].chActive}`,
+					`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to Active: ${this.adapter.config.CalculatorList[channel].chActive}`,
 				);
 			} else {
 				this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
@@ -57,7 +57,7 @@ export class TibberCalculator extends TibberHelper {
 					if (typeof valueTriggerPrice === "number") {
 						this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
 						this.adapter.log.debug(
-							`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - changed to TriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`,
+							`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to TriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`,
 						);
 					} else {
 						this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
@@ -82,7 +82,7 @@ export class TibberCalculator extends TibberHelper {
 					if (typeof valueAmountHours === "number") {
 						this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
 						this.adapter.log.debug(
-							`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - changed to AmountHours: ${this.adapter.config.CalculatorList[channel].chAmountHours}`,
+							`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to AmountHours: ${this.adapter.config.CalculatorList[channel].chAmountHours}`,
 						);
 					} else {
 						this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueAmountHours}`);
