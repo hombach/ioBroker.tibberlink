@@ -165,12 +165,12 @@ class Tibberlink extends utils.Adapter {
                 const jobCurrentPrice = cron_1.CronJob.from({
                     cronTime: "20 57 * * * *",
                     onTick: async () => {
-                        let newPrice = false;
+                        let okPrice = false;
                         do {
                             await this.delay(3 * 60 * 1000);
-                            newPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
-                            this.log.debug(`Cron jobCurrentPrice - newPrice: ${newPrice}`);
-                        } while (!newPrice);
+                            okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
+                            this.log.debug(`Cron jobCurrentPrice - okPrice: ${okPrice}`);
+                        } while (!okPrice);
                         tibberCalculator.startCalculatorTasks();
                     },
                     start: true,
@@ -182,12 +182,12 @@ class Tibberlink extends utils.Adapter {
                 const jobPricesToday = cron_1.CronJob.from({
                     cronTime: "15 56 23 * * *",
                     onTick: async () => {
-                        let newPrice = false;
+                        let okPrice = false;
                         do {
                             await this.delay(5 * 60 * 1000);
-                            newPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
-                            this.log.debug(`Cron jobPricesToday - newPrice: ${newPrice}`);
-                        } while (!newPrice);
+                            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
+                            this.log.debug(`Cron jobPricesToday - okPrice: ${okPrice}`);
+                        } while (!okPrice);
                         await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
                         tibberCalculator.startCalculatorTasks();
                     },
@@ -200,12 +200,12 @@ class Tibberlink extends utils.Adapter {
                 const jobPricesTomorrow = cron_1.CronJob.from({
                     cronTime: "15 56 12 * * *",
                     onTick: async () => {
-                        let newPrice = false;
+                        let okPrice = false;
                         do {
                             await this.delay(5 * 60 * 1000);
-                            newPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
-                            this.log.debug(`Cron jobPricesTomorrow - newPrice: ${newPrice}`);
-                        } while (!newPrice);
+                            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
+                            this.log.debug(`Cron jobPricesTomorrow - okPrice: ${okPrice}`);
+                        } while (!okPrice);
                         tibberCalculator.startCalculatorTasks();
                     },
                     start: true,

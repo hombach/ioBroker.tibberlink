@@ -65,9 +65,10 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.5.0 (2023-11-xx) WORK in PROGRESS
+### 1.5.0 (2023-11-1x) WORK in PROGRESS
 
 -   (HombachC) implement calculator channel names (#186)
+-   (HombachC) fix error in cron jobs (#190)
 -   (HombachC) remove not used calculator channel state objects (#188)
 -   (HombachC) optimize translation handling
 
@@ -212,7 +213,6 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ### 0.1.10 (2023-08-15)
 
--   (HombachC) bump dependencies, code cleanups
 -   (HombachC) preparations for tibber calculator
 -   (HombachC) mitigate multi homes & pulse problems (#41)
 -   (HombachC) add documentation to config screen (#47)
@@ -255,10 +255,6 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 -   (HombachC) round grid consumption meter values to Wh accuracy
 -   (HombachC) hide unused checkboxes in config
 -   (HombachC) fix snyc and appveyor
-
-### 0.1.1 (2023-07-16)
-
--   (HombachC) remove release script and dev-server
 
 ### 0.1.0 (2023-07-14)
 

@@ -53,6 +53,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updateCurrentPriceAllHomes(homeInfoList, forceUpdate) {
         let newPrice = false;
         for (const index in homeInfoList) {
+            // potential problems with multihome??
             if (await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate))
                 newPrice = true;
         }
@@ -70,8 +71,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
                     return true;
                 }
-                else {
+                else if (now.getHours() !== exDate.getHours()) {
                     this.adapter.log.debug(`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`);
+                    return true;
+                }
+                else {
                     return false;
                 }
             }
@@ -143,6 +147,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate) {
         let newPrice = false;
         for (const index in homeInfoList) {
+            // potential problems with multihome??
             if (await this.updatePricesTomorrow(homeInfoList[index].ID, forceUpdate))
                 newPrice = true;
         }
@@ -189,8 +194,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     return true;
                 }
             }
-            else {
+            else if (exDate == morgen) {
                 this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
+                return true;
+            }
+            else {
                 return false;
             }
             return false;
