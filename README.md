@@ -70,6 +70,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 -   (HombachC) implement calculator channel names (#186)
 -   (HombachC) fix error in cron jobs (#190)
 -   (HombachC) remove not used calculator channel state objects (#188)
+-   (HombachC) code optimizations
 -   (HombachC) optimize translation handling
 
 ### 1.4.3 (2023-11-08)

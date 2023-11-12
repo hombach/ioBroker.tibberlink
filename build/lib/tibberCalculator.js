@@ -8,18 +8,19 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     async setupCalculatorStates(homeId, channel) {
         try {
+            if (this.adapter.config.CalculatorList[channel].chName === undefined) {
+                this.adapter.config.CalculatorList[channel].chName = `Channel Name`;
+            }
+            const channelName = this.adapter.config.CalculatorList[channel].chName;
             //***  chActive  ***
             if (this.adapter.config.CalculatorList[channel].chActive === undefined) {
                 this.adapter.config.CalculatorList[channel].chActive = false;
             }
-            if (this.adapter.config.CalculatorList[channel].chName === undefined) {
-                this.adapter.config.CalculatorList[channel].chName = `Channel Name`;
-            }
-            this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, this.adapter.config.CalculatorList[channel].chName), this.adapter.config.CalculatorList[channel].chActive, `Whether the calculation channel is active`, true, true);
+            this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, channelName), this.adapter.config.CalculatorList[channel].chActive, `Whether the calculation channel is active`, true, true);
             const valueActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
             if (typeof valueActive === "boolean") {
                 this.adapter.config.CalculatorList[channel].chActive = valueActive;
-                this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to Active: ${this.adapter.config.CalculatorList[channel].chActive}`);
+                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - changed to Active: ${this.adapter.config.CalculatorList[channel].chActive}`);
             }
             else {
                 this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
@@ -38,7 +39,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
                     if (typeof valueTriggerPrice === "number") {
                         this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
-                        this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to TriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
+                        this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - changed to TriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`);
                     }
                     else {
                         this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
@@ -55,7 +56,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
                     if (typeof valueAmountHours === "number") {
                         this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
-                        this.adapter.log.debug(`calculator settings state in home: ${homeId} - channel: ${channel} - changed to AmountHours: ${this.adapter.config.CalculatorList[channel].chAmountHours}`);
+                        this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - changed to AmountHours: ${this.adapter.config.CalculatorList[channel].chAmountHours}`);
                     }
                     else {
                         this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueAmountHours}`);
