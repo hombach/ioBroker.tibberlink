@@ -18,13 +18,13 @@ export class TibberCalculator extends TibberHelper {
 			let typeDesc: string;
 			switch (this.adapter.config.CalculatorList[channel].chType) {
 				case enCalcType.BestCost:
-					typeDesc = "best cost";
+					typeDesc = "type: best cost";
 					break;
 				case enCalcType.BestSingleHours:
-					typeDesc = "best single hours";
+					typeDesc = "type: best single hours";
 					break;
 				case enCalcType.BestHoursBlock:
-					typeDesc = "best hours block";
+					typeDesc = "type: best hours block";
 					break;
 				default:
 					typeDesc = "---";
