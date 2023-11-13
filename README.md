@@ -65,7 +65,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.5.0 (2023-11-1x) WORK in PROGRESS
+### 1.5.0 (2023-11-13)
 
 -   (HombachC) implement calculator channel names (#186)
 -   (HombachC) fix error in cron jobs (#190)
