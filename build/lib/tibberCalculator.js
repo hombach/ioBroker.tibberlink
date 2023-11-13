@@ -25,6 +25,20 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else {
                 this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
             }
+            //
+            //
+            //
+            await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${10}`, {
+                type: "channel",
+                common: {
+                    name: channelName,
+                    desc: "BlaBlub-Test",
+                },
+                native: {},
+            });
+            //
+            //
+            //
             //"Best cost": Utilizes the "TriggerPrice" state as input.
             //"Best single hours": Defined by the "AmountHours" state.
             //"Best hours block": Defined by the "AmountHours" state.
