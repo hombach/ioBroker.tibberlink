@@ -14,7 +14,32 @@ export class TibberCalculator extends TibberHelper {
 			}
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 
-			//***  chActive  ***
+			//#region *** setup channel folder ***
+			let typeDesc: string;
+			switch (this.adapter.config.CalculatorList[channel].chType) {
+				case enCalcType.BestCost:
+					typeDesc = "best cost";
+					break;
+				case enCalcType.BestSingleHours:
+					typeDesc = "best single hours";
+					break;
+				case enCalcType.BestHoursBlock:
+					typeDesc = "best hours block";
+					break;
+				default:
+					typeDesc = "---";
+			}
+			await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${channel}`, {
+				type: "channel",
+				common: {
+					name: channelName,
+					desc: typeDesc,
+				},
+				native: {},
+			});
+			//#endregion
+
+			//#region *** setup chActive state object ***
 			if (this.adapter.config.CalculatorList[channel].chActive === undefined) {
 				this.adapter.config.CalculatorList[channel].chActive = false;
 			}
@@ -34,21 +59,7 @@ export class TibberCalculator extends TibberHelper {
 			} else {
 				this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
 			}
-
-			//
-			//
-			//
-			await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${10}`, {
-				type: "channel",
-				common: {
-					name: channelName,
-					desc: "BlaBlub-Test",
-				},
-				native: {},
-			});
-			//
-			//
-			//
+			//#endregion
 
 			//"Best cost": Utilizes the "TriggerPrice" state as input.
 			//"Best single hours": Defined by the "AmountHours" state.
