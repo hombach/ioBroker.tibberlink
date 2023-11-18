@@ -26,6 +26,15 @@ export class TibberCalculator extends TibberHelper {
 				case enCalcType.BestHoursBlock:
 					typeDesc = "type: best hours block";
 					break;
+				case enCalcType.BestCostLTF:
+					typeDesc = "type: best cost, limited time frame";
+					break;
+				case enCalcType.BestSingleHoursLTF:
+					typeDesc = "type: best single hours, limited time frame";
+					break;
+				case enCalcType.BestHoursBlockLTF:
+					typeDesc = "type: best hours block, limited time frame";
+					break;
 				default:
 					typeDesc = "---";
 			}
@@ -61,14 +70,20 @@ export class TibberCalculator extends TibberHelper {
 			}
 			//#endregion
 
-			//"Best cost": Utilizes the "TriggerPrice" state as input.
-			//"Best single hours": Defined by the "AmountHours" state.
-			//"Best hours block": Defined by the "AmountHours" state.
+			//"Best cost": Defined by the "TriggerPrice" state as input.
+			//"Best single hours": Defined by the "AmountHours" state as input.
+			//"Best hours block": Defined by the "AmountHours" state as input.
+			//"Best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime" states as input.
+			//"Best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
+			//"Best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
 			switch (this.adapter.config.CalculatorList[channel].chType) {
 				case enCalcType.BestCost:
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value);
-
-					//***  chTriggerPrice  ***
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
+					await this.setup_chTriggerPrice(homeId, channel);
+					//#region *** chTriggerPrice ***
+					/*
 					if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
 						this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
 					}
@@ -88,12 +103,17 @@ export class TibberCalculator extends TibberHelper {
 					} else {
 						this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
 					}
+					*/
+					//#endregion
 					break;
 				case enCalcType.BestSingleHours:
 				case enCalcType.BestHoursBlock:
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value);
-
-					//***  chAmountHours  ***
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
+					await this.setup_chAmountHours(homeId, channel);
+					//#region *** chAmountHours ***
+					/*
 					if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
 						this.adapter.config.CalculatorList[channel].chAmountHours = 0;
 					}
@@ -113,7 +133,21 @@ export class TibberCalculator extends TibberHelper {
 					} else {
 						this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueAmountHours}`);
 					}
-
+					*/
+					//#endregion
+					break;
+				case enCalcType.BestCostLTF:
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value);
+					await this.setup_chTriggerPrice(homeId, channel);
+					await this.setup_chStartTime(homeId, channel);
+					await this.setup_chStopTime(homeId, channel);
+					break;
+				case enCalcType.BestSingleHoursLTF:
+				case enCalcType.BestHoursBlockLTF:
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value);
+					await this.setup_chAmountHours(homeId, channel);
+					await this.setup_chStartTime(homeId, channel);
+					await this.setup_chStopTime(homeId, channel);
 					break;
 				default:
 					this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
@@ -124,6 +158,118 @@ export class TibberCalculator extends TibberHelper {
 			// all states changes inside the calculator channel settings namespace are subscribed
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
+		}
+	}
+
+	async setup_chTriggerPrice(homeId: string, channel: number): Promise<void> {
+		try {
+			const channelName = this.adapter.config.CalculatorList[channel].chName;
+			if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
+				this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
+			}
+			this.checkAndSetValueNumber(
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
+				this.adapter.config.CalculatorList[channel].chTriggerPrice,
+				`pricelevel to trigger this channel at`,
+				true,
+				true,
+			);
+			const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
+			if (typeof valueTriggerPrice === "number") {
+				this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
+				this.adapter.log.debug(
+					`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to TriggerPrice: ${this.adapter.config.CalculatorList[channel].chTriggerPrice}`,
+				);
+			} else {
+				this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
+			}
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state TriggerPrice for calculator`));
+		}
+	}
+	async setup_chAmountHours(homeId: string, channel: number): Promise<void> {
+		try {
+			const channelName = this.adapter.config.CalculatorList[channel].chName;
+			//***  chAmountHours  ***
+			if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
+				this.adapter.config.CalculatorList[channel].chAmountHours = 0;
+			}
+			this.checkAndSetValueNumber(
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`),
+				this.adapter.config.CalculatorList[channel].chAmountHours,
+				`amount of hours to trigger this channel`,
+				true,
+				true,
+			);
+			const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
+			if (typeof valueAmountHours === "number") {
+				this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
+				this.adapter.log.debug(
+					`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to AmountHours: ${this.adapter.config.CalculatorList[channel].chAmountHours}`,
+				);
+			} else {
+				this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueAmountHours}`);
+			}
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AmountHours for calculator`));
+		}
+	}
+	async setup_chStartTime(homeId: string, channel: number): Promise<void> {
+		try {
+			const channelName = this.adapter.config.CalculatorList[channel].chName;
+			//***  chAmountHours  ***
+			if (this.adapter.config.CalculatorList[channel].chStartTime === undefined) {
+				const today = new Date();
+				today.setHours(0, 0, 0, 0); // sets clock to 0:00
+				this.adapter.config.CalculatorList[channel].chStartTime = today;
+			}
+			this.checkAndSetValue(
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`),
+				this.adapter.config.CalculatorList[channel].chStartTime.toISOString(),
+				`Start time for this channel`,
+				true,
+				true,
+			);
+			const valueStartTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StartTime`);
+			if (typeof valueStartTime === "string") {
+				this.adapter.config.CalculatorList[channel].chStartTime.setTime(Date.parse(valueStartTime));
+				this.adapter.log.debug(
+					`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to StartTime: ${this.adapter.config.CalculatorList[channel].chStartTime}`,
+				);
+			} else {
+				this.adapter.log.debug(`Wrong type for chStartTime: ${valueStartTime}`);
+			}
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state StartTime for calculator`));
+		}
+	}
+	async setup_chStopTime(homeId: string, channel: number): Promise<void> {
+		try {
+			const channelName = this.adapter.config.CalculatorList[channel].chName;
+			//***  chAmountHours  ***
+			if (this.adapter.config.CalculatorList[channel].chStopTime === undefined) {
+				const today = new Date();
+				today.setHours(23, 59, 0, 0); // sets clock to 0:00
+				this.adapter.config.CalculatorList[channel].chStopTime = today;
+			}
+			this.checkAndSetValue(
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`),
+				this.adapter.config.CalculatorList[channel].chStopTime.toISOString(),
+				`Start time for this channel`,
+				true,
+				true,
+			);
+			const valueStopTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StopTime`);
+			if (typeof valueStopTime === "string") {
+				this.adapter.config.CalculatorList[channel].chStopTime.setTime(Date.parse(valueStopTime));
+				this.adapter.log.debug(
+					`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to StopTime: ${this.adapter.config.CalculatorList[channel].chStopTime}`,
+				);
+			} else {
+				this.adapter.log.debug(`Wrong type for chStopTime: ${valueStopTime}`);
+			}
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state StopTime for calculator`));
 		}
 	}
 
@@ -147,6 +293,18 @@ export class TibberCalculator extends TibberHelper {
 					case enCalcType.BestHoursBlock:
 						this.executeCalculatorBestHoursBlock(parseInt(channel));
 						break;
+					case enCalcType.BestCostLTF:
+						this.executeCalculatorBestCost(parseInt(channel), true);
+						//ToDo
+						break;
+					case enCalcType.BestSingleHoursLTF:
+						//this.executeCalculatorBestSingleHoursLTF(parseInt(channel));
+						//ToDo
+						break;
+					case enCalcType.BestHoursBlockLTF:
+						//this.executeCalculatorBestHoursBlockLTF(parseInt(channel));
+						//ToDo
+						break;
 					default:
 						this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
 				}
@@ -156,14 +314,23 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async executeCalculatorBestCost(channel: number): Promise<void> {
+	async executeCalculatorBestCost(channel: number, modeLTF?: boolean): Promise<void> {
+		if (modeLTF === undefined) modeLTF = false;
 		try {
 			let valueToSet: string = "";
-			// not chActive -> choose chValueOff
+			const now = new Date();
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
+				// not active
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+			} else if (modeLTF && now < this.adapter.config.CalculatorList[channel].chStartTime) {
+				// chActive but before LTF
+				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
+				// chActive but after LTF
+				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
-				// chActive -> choose desired value
+				// chActive and inside LTF -> choose desired value
 				const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
 				if (this.adapter.config.CalculatorList[channel].chTriggerPrice > currentPrice) {
 					valueToSet = this.adapter.config.CalculatorList[channel].chValueOn;
@@ -180,12 +347,21 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async executeCalculatorBestSingleHours(channel: number): Promise<void> {
+	async executeCalculatorBestSingleHours(channel: number, modeLTF?: boolean): Promise<void> {
+		if (modeLTF === undefined) modeLTF = false;
 		try {
 			let valueToSet: string = "";
-			// not chActive -> choose chValueOff
+			const now = new Date();
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
+				// not active -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+			} else if (modeLTF && now < this.adapter.config.CalculatorList[channel].chStartTime) {
+				// chActive but before LTF
+				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
+				// chActive but after LTF
+				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
 				// chActive -> choose desired value
 				const jsonPrices: IPrice[] = JSON.parse(
@@ -211,12 +387,21 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async executeCalculatorBestHoursBlock(channel: number): Promise<void> {
+	async executeCalculatorBestHoursBlock(channel: number, modeLTF?: boolean): Promise<void> {
+		if (modeLTF === undefined) modeLTF = false;
 		try {
 			let valueToSet: string = "";
-			// not chActive -> choose chValueOff
+			const now = new Date();
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
+				// not active -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+			} else if (modeLTF && now < this.adapter.config.CalculatorList[channel].chStartTime) {
+				// chActive but before LTF
+				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
+				// chActive but after LTF
+				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
 				//const currentDateTime = new Date();
 				const jsonPrices: IPrice[] = JSON.parse(
@@ -237,12 +422,6 @@ export class TibberCalculator extends TibberHelper {
 					}
 				}
 				const minSumEntries: boolean[] = jsonPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
-
-				// function to check for equal hour values
-				//function checkHourMatch(entry: IPrice): boolean {
-				//const startDateTime = new Date(entry.startsAt);
-				//return currentDateTime.getHours() === startDateTime.getHours();
-				//}
 
 				// identify if any element is true
 				if (minSumEntries.some((value) => value)) {

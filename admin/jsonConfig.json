@@ -514,6 +514,24 @@
 										"zh-cn": "最佳小时块"
 									},
 									"value": 3
+								},
+								{
+									"label": {
+										"en": "best cost LTF"
+									},
+									"value": 4
+								},
+								{
+									"label": {
+										"en": "best single hours LTF"
+									},
+									"value": 5
+								},
+								{
+									"label": {
+										"en": "best hours block LTF"
+									},
+									"value": 6
 								}
 							],
 							"filter": false,

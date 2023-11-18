@@ -6,7 +6,11 @@ var enCalcType;
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
     enCalcType[enCalcType["BestSingleHours"] = 2] = "BestSingleHours";
     enCalcType[enCalcType["BestHoursBlock"] = 3] = "BestHoursBlock";
-    //BestCostMaxHours = 4,
+    enCalcType[enCalcType["BestCostLTF"] = 4] = "BestCostLTF";
+    enCalcType[enCalcType["BestSingleHoursLTF"] = 5] = "BestSingleHoursLTF";
+    enCalcType[enCalcType["BestHoursBlockLTF"] = 6] = "BestHoursBlockLTF";
+    //BestCostMaxHours = 7,
+    //SmartBatteryBuffer = 8,
 })(enCalcType || (exports.enCalcType = enCalcType = {}));
 class TibberHelper {
     constructor(adapter) {

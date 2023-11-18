@@ -4,7 +4,11 @@ export enum enCalcType {
 	BestCost = 1,
 	BestSingleHours = 2,
 	BestHoursBlock = 3,
-	//BestCostMaxHours = 4,
+	BestCostLTF = 4,
+	BestSingleHoursLTF = 5,
+	BestHoursBlockLTF = 6,
+	//BestCostMaxHours = 7,
+	//SmartBatteryBuffer = 8,
 }
 
 export interface IHomeInfo {

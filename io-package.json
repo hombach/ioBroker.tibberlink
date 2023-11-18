@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.5.0",
+		"version": "1.5.1",
 		"news": {
+			"1.5.1": {
+				"en": "WORK in PROGRESS"
+			},
 			"1.5.0": {
 				"en": "Implement calculator object names (#186)",
 				"de": "Implementiere Objektnamen des Taschenrechners (#186)",
@@ -249,19 +252,6 @@
 				"pl": "BREAKING: change (ang.). Pulse wykorzystuje się jako konfigurowalne dla wszystkich domów podzielnie (#41) i złagodził stan długości stanów JSON (#68)",
 				"uk": "БРЕАКІНГ: зміна Імпульсне використання, щоб бути налаштованим для всіх будинків, захоплених (#41) & пом'якшення встановити стан частим часу для довгих JSON станів (#68)",
 				"zh-cn": "挑战:变革 在所有住房中,可对各种住房使用加以严格限制,第(#41)和减轻长期合作行动联盟国家时间表"
-			},
-			"0.2.7": {
-				"en": "reducing polls at Tibber server by precheck of current price data",
-				"de": "Reduktion von Anfragen an den Tibber-Server durch Vorabkontrolle der bekannten Preisdaten",
-				"ru": "сокращение опросов на сервере Tibber путем предварительной проверки текущих ценовых данных",
-				"pt": "reduzindo pesquisas no servidor Tibber por pré-verificação de dados de preços atuais",
-				"nl": "verminderen van polls bij Tibberserver door de huidige prijsgegevens",
-				"fr": "réduction des sondages sur le serveur Tibber en prévérant les données de prix actuelles",
-				"it": "ridurre i sondaggi al server Tibber precheck dei dati attuali dei prezzi",
-				"es": "reducir las encuestas en el servidor de Tibber prever los datos de precios actuales",
-				"pl": "zmniejszanie zanieczyszczeń w serwerze Tibber poprzez przeprowadzenie bieżących danych cenowych",
-				"uk": "знижувати опитування на сервері Tibber за допомогою попереднього з'єднання даних поточної ціни",
-				"zh-cn": "通过预先检查目前价格数据减少Tibber服务器的污染"
 			}
 		},
 		"messages": [
