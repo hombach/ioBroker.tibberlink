@@ -53,13 +53,13 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 -   Each channel populates an external state as output, which has to be selected in the settings tab. For instance, this state might be "0_userdata.0.example_state" or any other writable external state.
 -   The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states or a number or text to be written.
 -   Outputs:
-    -   "Best cost": Utilizes the "TriggerPrice" state as input, and the output is "YES" every hour when the current Tibber energy cost is below the trigger price.
-    -   "Best single hours": The output is "YES" during the cheapest number of hours, with the number defined in the "AmountHours" state.
-    -   "Best hours block": The output is "YES" during the best block of hours, with the number of hours defined in the "AmountHours" state.
-    -   "Best cost LTF": Not implemented yet - "Best cost" in a Limited Time Frame (LTF)
-    -   "Best single hours LTF": Not implemented yet - "Best single hours" in a Limited Time Frame (LTF)
-    -   "Best hours block LTF": Not implemented yet - "Best hours block" in a Limited Time Frame (LTF)
--   LTF channels: Same usage than standard channels but only working in a time frame between the hours defined in state objects "StartTime" and "StopTime". After "StopTime" the channel will deactivate itself. "StartTime" and "StopTime" might span over several days. The states have to be filled by a date-time-string in ISO-8601 format with a timezone offset, like: "2023-11-17T21:00:00.000+01:00"
+    -   "Best cost": Utilizes the "TriggerPrice" state as input, producing a "YES" output every hour when the current Tibber energy cost is below the trigger price.
+    -   "Best single hours": Generates a "YES" output during the least expensive hours, with the number defined in the "AmountHours" state.
+    -   "Best hours block": Outputs "YES" during the most cost-effective block of hours, with the number of hours specified in the "AmountHours" state.
+    -   "Best cost LTF": Feature not yet implemented - "Best cost" within a Limited Time Frame (LTF).
+    -   "Best single hours LTF": Feature not yet implemented - "Best single hours" within a Limited Time Frame (LTF).
+    -   "Best hours block LTF": Feature not yet implemented - "Best hours block" within a Limited Time Frame (LTF).
+-   LTF channels: Function similarly to standard channels but only operate within a time frame defined by the "StartTime" and "StopTime" state objects. After "StopTime," the channel deactivates itself. "StartTime" and "StopTime" may span over several days. The states must be filled with a date-time string in ISO-8601 format with a timezone offset, such as: "2023-11-17T21:00:00.000+01:00".
 
 ## Notes
 
@@ -69,7 +69,9 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.x.x (2023-11-xx) WORK in PROGRESS
+### 1.6.0 (2023-11-xx) WORK in PROGRESS
+
+-   (HombachC) implement limit calculations to a time frame (#153)
 
 ### 1.5.0 (2023-11-13)
 

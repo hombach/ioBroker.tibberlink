@@ -1,10 +1,20 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.5.1",
+		"version": "1.6.0",
 		"news": {
-			"1.5.1": {
-				"en": "WORK in PROGRESS"
+			"1.6.0": {
+				"en": "Implement limit calculations to a time frame (#153)",
+				"de": "Implementiere Grenzberechnungen in einen Zeitrahmen (#153)",
+				"ru": "Реализовать расчеты ограничений в определенный временной интервал (#153)",
+				"pt": "Implementar cálculos de limite em um intervalo de tempo (#153)",
+				"nl": "Implementeer limietberekeningen binnen een tijdsbestek (#153)",
+				"fr": "Mettre en œuvre des calculs de limite dans une période définie (#153)",
+				"it": "Implementare calcoli di limite in un periodo di tempo (#153)",
+				"es": "Implementar cálculos de límite en un marco de tiempo (#153)",
+				"pl": "Wprowadź obliczenia limitów w ramach czasowych (#153)",
+				"uk": "Впровадження обчислень обмежень в часовий рамках (#153)",
+				"zh-cn": "在时间范围内实现限制计算 (#153)"
 			},
 			"1.5.0": {
 				"en": "Implement calculator object names (#186)",

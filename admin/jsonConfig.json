@@ -738,17 +738,17 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "   'Best cost': Uses the 'TriggerPrice' state as input - output is 'YES' every hour the current Tibber energy cost is below the trigger price.",
-						"de": "   'Beste Kosten': Verwendet den 'TriggerPrice'-State als Eingabe - die Ausgabe ist 'JA', wenn der aktuelle Tibber-Energiepreis stündlich unter dem Auslösepreis liegt.",
-						"ru": "   'Лучшие затраты': Использует состояние 'TriggerPrice' в качестве входа - выход - 'ДА' каждый час, когда текущая стоимость энергии Tibber ниже уровня срабатывания.",
-						"pt": "   'Melhor custo': Usa o estado 'TriggerPrice' como entrada - a saída é 'SIM' a cada hora em que o custo de energia atual do Tibber estiver abaixo do preço de gatilho.",
-						"nl": "   'Beste kosten': Gebruikt de 'TriggerPrijs'-staat als invoer - de uitvoer is 'JA' elk uur dat de huidige Tibber energiekosten lager zijn dan de triggerprijs.",
-						"fr": "   'Meilleur coût': Utilise l'état 'TriggerPrice' en tant qu'entrée - la sortie est 'OUI' chaque heure où le coût actuel de l'énergie Tibber est inférieur au prix déclencheur.",
-						"it": "   'Miglior costo': Utilizza lo stato 'TriggerPrice' come ingresso - l'uscita è 'SÌ' ogni ora in cui il costo dell'energia Tibber attuale è inferiore al prezzo di scatto.",
-						"es": "   'Mejor costo': Utiliza el estado 'PrecioGatillo' como entrada; la salida es 'SÍ' cada hora en que el costo actual de la energía Tibber esté por debajo del precio de gatillo.",
-						"pl": "   'Najlepszy koszt': Korzysta ze stanu 'CenaSpustowa' jako wejścia - wyjście to 'TAK' za każdą godzinę, gdy aktualny koszt energii Tibber jest poniżej ceny spustowej.",
-						"uk": "   'Найкращі витрати': Використовує стан 'Ціна-спуск' в якості входу - вихід - 'ТАК' кожну годину, коли поточна вартість енергії Tibber нижча за ціною спуску.",
-						"zh-cn": "   “最佳成本”：使用“触发价格”状态作为输入 - 每小时输出为“是”，当前的Tibber能源成本低于触发价格。"
+						"en": "   'Best cost': Utilizes the 'TriggerPrice' object as input, producing a 'YES' output every hour when the current Tibber energy cost is below the trigger price",
+						"de": "   'Beste Kosten': Verwendet das Objekt 'TriggerPrice' als Eingabe und erzeugt jede Stunde eine 'YES'-Ausgabe, wenn die aktuellen Tibber-Energiekosten unter dem Auslösepreis liegen",
+						"ru": "   'Лучшие затраты': Использует объект 'TriggerPrice' в качестве входных данных, выдающее 'YES' каждый час, когда текущая стоимость энергии Tibber ниже цены триггера",
+						"pt": "   'Melhor custo': Utiliza o objeto 'TriggerPrice' como entrada, produzindo uma saída 'YES' a cada hora quando o custo de energia atual da Tibber estiver abaixo do preço de gatilho",
+						"nl": "   'Beste kost': Gebruikt het object 'TriggerPrice' als invoer, geeft elke uur een 'JA'-uitvoer wanneer de huidige Tibber energiekosten onder de drempelprijs liggen",
+						"fr": "   'Meilleur coût': Utilise l'objet 'TriggerPrice' comme entrée, produisant une sortie 'YES' chaque heure lorsque le coût actuel de l'énergie Tibber est inférieur au prix déclencheur",
+						"it": "   'Miglior costo': Utilizza l'oggetto 'TriggerPrice' come input, producendo un output 'YES' ogni ora quando il costo energetico corrente di Tibber è inferiore al prezzo di trigger",
+						"es": "   'Mejor costo': Utiliza el objeto 'TriggerPrice' como entrada, produciendo una salida 'YES' cada hora cuando el costo actual de la energía Tibber está por debajo del precio de activación",
+						"pl": "   'Najlepszy koszt': Wykorzystuje obiekt 'TriggerPrice' jako wejście, generując wyjście 'YES' co godzinę, gdy aktualny koszt energii Tibber jest poniżej ceny wyzwalacza",
+						"uk": "   'Best cost': Використовує об'єкт 'TriggerPrice' як вхідні дані, видає 'YES' кожну годину, коли поточна вартість енергії Tibber нижче тригер-ціни",
+						"zh-cn": "   '最佳成本'：使用'TriggerPrice'对象作为输入，当当前Tibber能源成本低于触发价格时，每小时产生'YES'输出"
 					},
 					"newLine": true
 				},
@@ -756,17 +756,17 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "   'Best single hours' - output is 'YES' in the cheapest number of hours. Number is defined in state 'AmountHours'.",
-						"de": "   'Beste Einzelstunden' - Ausgabe ist 'JA' in der günstigsten Anzahl von Stunden. Die Anzahl wird im 'AmountHours'-State definiert.",
-						"ru": "   'Лучшие часы' - вывод 'ДА' в самое дешевое количество часов. Количество определяется в состоянии 'AmountHours'.",
-						"pt": "   'Melhores horas únicas' - a saída é 'SIM' na quantidade mais barata de horas. O número é definido no estado 'AmountHours'.",
-						"nl": "   'Beste enkele uren' - uitvoer is 'JA' in het goedkoopste aantal uren. Het aantal wordt gedefinieerd in de staat 'AmountHours'.",
-						"fr": "   'Meilleures heures individuelles' - la sortie est 'OUI' dans le nombre d'heures le moins cher. Le nombre est défini dans l'état 'AmountHours'.",
-						"it": "   'Migliori ore singole' - l'uscita è 'SÌ' nel minor numero di ore più economico. Il numero è definito nello stato 'AmountHours'.",
-						"es": "   'Mejores horas individuales' - la salida es 'SÍ' en la cantidad más barata de horas. El número está definido en el estado 'AmountHours'.",
-						"pl": "   'Najlepsze pojedyncze godziny' - wyjście jest 'TAK' w najtańszej liczbie godzin. Liczba jest określona w stanie 'AmountHours'.",
-						"uk": "   'Найкращі години' - вихід 'ТАК' в найбільш вигідну кількість годин. Кількість визначається у стані 'AmountHours'.",
-						"zh-cn": "   “最佳单个小时” - 输出在最便宜的小时数中是“是”。 数量在状态“AmountHours”中定义。"
+						"en": "   'Best single hours': Generates a 'YES' output during the least expensive hours, with the number defined in the 'AmountHours' object",
+						"de": "   'Beste Einzelstunden': Erzeugt eine 'YES'-Ausgabe während der kostengünstigsten Stunden, mit der im Objekt 'AmountHours' definierten Anzahl",
+						"ru": "   'Лучшие одиночные часы': Генерирует выход 'YES' во время наименее дорогих часов, с количеством, определенным в объекте 'AmountHours'",
+						"pt": "   'Melhores horas únicas': Gera uma saída 'YES' durante as horas menos caras, com o número definido no objeto 'AmountHours'",
+						"nl": "   'Beste enkele uren': Genereert een 'JA'-uitvoer tijdens de goedkoopste uren, met het aantal gedefinieerd in het object 'AmountHours'",
+						"fr": "   'Meilleures heures uniques': Génère une sortie 'YES' pendant les heures les moins chères, avec le nombre défini dans l'objet 'AmountHours'",
+						"it": "   'Migliori ore singole': Genera un'uscita 'YES' durante le ore meno costose, con il numero definito nell'oggetto 'AmountHours'",
+						"es": "   'Mejores horas individuales': Genera una salida 'YES' durante las horas menos costosas, con el número definido en el objeto 'AmountHours'",
+						"pl": "   'Najlepsze pojedyncze godziny': Generuje wyjście 'YES' w trakcie najtańszych godzin, z liczbą określoną w obiekcie 'AmountHours'",
+						"uk": "   'Найкращі одиночні години': Генерує вихід 'YES' протягом найменш дорогих годин, з числом, визначеним у об'єкті 'AmountHours'",
+						"zh-cn": "   '最佳单小时': 在最便宜的小时内生成'YES'输出，其数量在'AmountHours'对象中定义"
 					},
 					"newLine": true
 				},
@@ -774,17 +774,89 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "   'Best hours block' - output is 'YES' in the best block of consecutive hours. Number of hours is defined in state 'AmountHours'.",
-						"de": "   'Bester Stundenblock' - Ausgabe ist 'JA' im besten Block aufeinanderfolgender Stunden. Die Anzahl der Stunden ist im Zustand 'AmountHours' definiert.",
-						"ru": "   'Лучший часовой блок' - вывод 'ДА' в лучшем блоке последовательных часов. Количество часов определено в состоянии 'AmountHours'.",
-						"pt": "   'Melhor bloco de horas' - a saída é 'SIM' no melhor bloco de horas consecutivas. O número de horas é definido no estado 'AmountHours'.",
-						"nl": "   'Beste uren blok' - uitvoer is 'JA' in het beste blok opeenvolgende uren. Het aantal uren is gedefinieerd in de staat 'AmountHours'.",
-						"fr": "   'Meilleur bloc d'heures' - la sortie est 'OUI' dans le meilleur bloc d'heures consécutives. Le nombre d'heures est défini dans l'état 'AmountHours'.",
-						"it": "   'Miglior blocco di ore' - l'uscita è 'SÌ' nel miglior blocco di ore consecutive. Il numero di ore è definito nello stato 'AmountHours'.",
-						"es": "   'Mejor bloque de horas' - la salida es 'SÍ' en el mejor bloque de horas consecutivas. El número de horas está definido en el estado 'AmountHours'.",
-						"pl": "   'Najlepszy blok godzin' - wyjście to 'TAK' w najlepszym bloku kolejnych godzin. Liczba godzin jest określona w stanie 'AmountHours'.",
-						"uk": "   'Кращий годинний блок' - вивід 'ТАК' в найкращому блоку послідовних годин. Кількість годин визначено в стані 'AmountHours'.",
-						"zh-cn": "   “最佳小时块” - 输出在最佳连续小时块中为 '是'。 小时数在状态 'AmountHours' 中定义。"
+						"en": "   'Best hours block': Outputs 'YES' during the most cost-effective block of hours, with the number of hours specified in the 'AmountHours' object",
+						"de": "   'Bester Stundenblock': Gibt 'YES' während des kostengünstigsten Stundenblocks aus, mit der im Objekt 'AmountHours' festgelegten Anzahl von Stunden",
+						"ru": "   'Лучший блок часов': Выводит 'YES' во время наиболее эффективного по стоимости блока часов, с указанием количества часов в объекте 'AmountHours'",
+						"pt": "   'Melhor bloco de horas': Gera 'YES' durante o bloco de horas mais econômico, com o número de horas especificado no objeto 'AmountHours'",
+						"nl": "   'Beste uren blok': Geeft 'JA' uit tijdens het meest kosteneffectieve blok van uren, met het aantal uur gespecificeerd in het object 'AmountHours'",
+						"fr": "   'Meilleur bloc d'heures': Produit 'YES' pendant le bloc d'heures le plus rentable, avec le nombre d'heures spécifié dans l'objet 'AmountHours'",
+						"it": "   'Miglior blocco di ore': Emette un'uscita 'YES' durante il blocco di ore più conveniente, con il numero di ore specificato nell'oggetto 'AmountHours'",
+						"es": "   'Mejor bloque de horas': Genera 'YES' durante el bloque de horas más rentable, con el número de horas especificado en el objeto 'AmountHours'",
+						"pl": "   'Najlepszy blok godzin': Generuje 'YES' podczas najbardziej opłacalnego bloku godzin, z liczbą godzin określoną w obiekcie 'AmountHours'",
+						"uk": "   'Кращий блок годин': Виводить 'YES' під час найбільш вигідного блоку годин, із зазначенням кількості годин у об'єкті 'AmountHours'",
+						"zh-cn": "   '最佳时段': 在最经济的小时内输出'YES'，在'AmountHours'对象中指定的小时数"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp10": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "   'Best cost LTF': Feature not yet implemented - 'Best cost' within a Limited Time Frame (LTF)",
+						"de": "   'Beste Kosten LTF': Funktion noch nicht implementiert - 'Beste Kosten' innerhalb eines begrenzten Zeitrahmens (LTF)",
+						"ru": "   'Лучшие затраты LTF': Функция еще не реализована - 'Лучшие затраты' в пределах ограниченного временного интервала (LTF)",
+						"pt": "   'Melhor custo LTF': Recurso ainda não implementado - 'Melhor custo' dentro de um quadro de tempo limitado (LTF)",
+						"nl": "   'Beste kosten LTF': Functie nog niet geïmplementeerd - 'Beste kosten' binnen een beperkt tijdsbestek (LTF)",
+						"fr": "   'Meilleur coût LTF': Fonction pas encore implémentée - 'Meilleur coût' dans un cadre temporel limité (LTF)",
+						"it": "   'Miglior costo LTF': Funzione non ancora implementata - 'Miglior costo' all'interno di un periodo di tempo limitato (LTF)",
+						"es": "   'Mejor costo LTF': Función aún no implementada - 'Mejor costo' dentro de un Marco de Tiempo Limitado (LTF)",
+						"pl": "   'Najlepsze koszty LTF': Funkcja jeszcze nie zaimplementowana - 'Najlepsze koszty' w ramach ograniczonego okresu czasu (LTF)",
+						"uk": "   'Найкращі витрати LTF': Функція ще не реалізована - 'Найкращі витрати' в межах обмеженого часового проміжку (LTF)",
+						"zh-cn": "   '最佳成本 LTF': 功能尚未实现 - 在有限时间范围内的'最佳成本' (LTF)"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp11": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "   'Best single hours LTF': Feature not yet implemented - 'Best single hours' within a Limited Time Frame (LTF)",
+						"de": "   'Beste Einzelstunden LTF': Funktion noch nicht implementiert - 'Beste Einzelstunden' innerhalb eines begrenzten Zeitrahmens (LTF)",
+						"ru": "   'Лучшие одиночные часы LTF': Функция еще не реализована - 'Лучшие одиночные часы' в пределах ограниченного временного интервала (LTF)",
+						"pt": "   'Melhores horas únicas LTF': Recurso ainda não implementado - 'Melhores horas únicas' dentro de um quadro de tempo limitado (LTF)",
+						"nl": "   'Beste enkele uren LTF': Functie nog niet geïmplementeerd - 'Beste enkele uren' binnen een beperkt tijdsbestek (LTF)",
+						"fr": "   'Meilleures heures uniques LTF': Fonction pas encore implémentée - 'Meilleures heures uniques' dans un cadre temporel limité (LTF)",
+						"it": "   'Miglior ore singole LTF': Funzione non ancora implementata - 'Miglior ore singole' all'interno di un periodo di tempo limitato (LTF)",
+						"es": "   'Mejor horas individuales LTF': Función aún no implementada - 'Mejor horas individuales' dentro de un Marco de Tiempo Limitado (LTF)",
+						"pl": "   'Najlepsze pojedyncze godziny LTF': Funkcja jeszcze nie zaimplementowana - 'Najlepsze pojedyncze godziny' w ramach ograniczonego okresu czasu (LTF)",
+						"uk": "   'Найкращі одиночні години LTF': Функція ще не реалізована - 'Найкращі одиночні години' в межах обмеженого часового проміжку (LTF)",
+						"zh-cn": "   '最佳单小时 LTF': 功能尚未实现 - 在有限时间范围内的'最佳单小时' (LTF)"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp12": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "   'Best hours block LTF': Feature not yet implemented - 'Best hours block' within a Limited Time Frame (LTF)",
+						"de": "   'Bester Stundenblock LTF': Funktion noch nicht implementiert - 'Bester Stundenblock' innerhalb eines begrenzten Zeitrahmens (LTF)",
+						"ru": "   'Лучший блок часов LTF': Функция еще не реализована - 'Лучший блок часов' в пределах ограниченного временного интервала (LTF)",
+						"pt": "   'Melhor bloco de horas LTF': Recurso ainda não implementado - 'Melhor bloco de horas' dentro de um quadro de tempo limitado (LTF)",
+						"nl": "   'Beste uren blok LTF': Functie nog niet geïmplementeerd - 'Beste uren blok' binnen een beperkt tijdsbestek (LTF)",
+						"fr": "   'Meilleur bloc d'heures LTF': Fonction pas encore implémentée - 'Meilleur bloc d'heures' dans un cadre temporel limité (LTF)",
+						"it": "   'Miglior blocco di ore LTF': Funzione non ancora implementata - 'Miglior blocco di ore' all'interno di un periodo di tempo limitato (LTF)",
+						"es": "   'Mejor bloque de horas LTF': Función aún no implementada - 'Mejor bloque de horas' dentro de un Marco de Tiempo Limitado (LTF)",
+						"pl": "   'Najlepszy blok godzin LTF': Funkcja jeszcze nie zaimplementowana - 'Najlepszy blok godzin' w ramach ograniczonego okresu czasu (LTF)",
+						"uk": "   'Найкращий блок годин LTF': Функція ще не реалізована - 'Найкращий блок годин' в межах обмеженого часового проміжку (LTF)",
+						"zh-cn": "   '最佳时段 LTF': 功能尚未实现 - 在有限时间范围内的'最佳时段' (LTF)"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp13": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "LTF channels: Function similarly to standard channels but only operate within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel deactivates itself. 'StartTime' and 'StopTime' may span over several days. The states must be filled with a date-time string in ISO-8601 format with a timezone offset, such as: '2023-11-17T21:00:00.000+01:00'",
+						"de": "LTF-Kanäle: Funktionieren ähnlich wie Standardkanäle, arbeiten jedoch nur innerhalb eines durch die Statusobjekte 'StartTime' und 'StopTime' definierten Zeitrahmens. Nach 'StopTime' deaktiviert sich der Kanal selbst. 'StartTime' und 'StopTime' können sich über mehrere Tage erstrecken. Die Zustände müssen mit einem Datum-Zeit-String im ISO-8601-Format mit einem Zeitzonenoffset gefüllt sein, z. B .: '2023-11-17T21:00:00.000+01:00'",
+						"ru": "LTF-каналы: Функционируют аналогично стандартным каналам, но работают только в пределах временного интервала, определенного объектами состояний 'StartTime' и 'StopTime'. После 'StopTime' канал деактивируется сам. 'StartTime' и 'StopTime' могут охватывать несколько дней. Состояния должны быть заполнены строкой даты-времени в формате ISO-8601 с смещением часового пояса, например: '2023-11-17T21:00:00.000+01:00'",
+						"pt": "Canais LTF: Funcionam de maneira semelhante aos canais padrão, mas operam apenas dentro de um intervalo de tempo definido pelos objetos de estado 'StartTime' e 'StopTime'. Após 'StopTime', o canal se desativa. 'StartTime' e 'StopTime' podem abranger vários dias. Os estados devem ser preenchidos com uma string de data e hora no formato ISO-8601 com um deslocamento de fuso horário, como: '2023-11-17T21:00:00.000+01:00'",
+						"nl": "LTF-kanalen: Functioneren op dezelfde manier als standaardkanalen, maar werken alleen binnen een tijdsbestek dat wordt gedefinieerd door de toestelobjecten 'StartTime' en 'StopTime'. Na 'StopTime' deactiveert het kanaal zichzelf. 'StartTime' en 'StopTime' kunnen zich over meerdere dagen uitstrekken. De staten moeten worden gevuld met een datum-tijdreeks in ISO-8601-indeling met een tijdzoneverschil, zoals: '2023-11-17T21:00:00.000+01:00'",
+						"fr": "Canaux LTF : Fonctionnent de manière similaire aux canaux standard mais n'opèrent que dans une plage horaire définie par les objets d'état 'StartTime' et 'StopTime'. Après 'StopTime', le canal se désactive. 'StartTime' et 'StopTime' peuvent s'étendre sur plusieurs jours. Les états doivent être remplis avec une chaîne de date-heure au format ISO-8601 avec un décalage de fuseau horaire, par exemple : '2023-11-17T21:00:00.000+01:00'",
+						"it": "Canali LTF: Funzionano in modo simile ai canali standard ma operano solo all'interno di un periodo definito dagli oggetti di stato 'StartTime' e 'StopTime'. Dopo 'StopTime', il canale si disattiva. 'StartTime' e 'StopTime' possono estendersi su più giorni. Gli stati devono essere compilati con una stringa di data e ora nel formato ISO-8601 con un offset di fuso orario, ad esempio: '2023-11-17T21:00:00.000+01:00'",
+						"es": "Canales LTF: Funcionan de manera similar a los canales estándar, pero solo operan dentro de un marco de tiempo definido por los objetos de estado 'StartTime' y 'StopTime'. Después de 'StopTime', el canal se desactiva. 'StartTime' y 'StopTime' pueden abarcar varios días. Los estados deben llenarse con una cadena de fecha y hora en formato ISO-8601 con un desplazamiento de zona horaria, como: '2023-11-17T21:00:00.000+01:00'",
+						"pl": "Kanały LTF: Działają podobnie jak standardowe kanały, ale działają tylko w oknie czasowym określonym przez obiekty stanu 'StartTime' i 'StopTime'. Po 'StopTime' kanał dezaktywuje się. 'StartTime' i 'StopTime' mogą obejmować kilka dni. Stany muszą być wypełnione ciągiem daty i godziny w formacie ISO-8601 z przesunięciem strefy czasowej, na przykład: '2023-11-17T21:00:00.000+01:00'",
+						"uk": "LTF-канали: Функціонують аналогічно стандартним каналам, але працюють лише в межах часового інтервалу, визначеного об'єктами стану 'StartTime' та 'StopTime'. Після 'StopTime' канал деактивується. 'StartTime' та 'StopTime' можуть охоплювати кілька днів. Стани повинні бути заповнені рядком дати та часу в форматі ISO-8601 з часовим поясом, наприклад: '2023-11-17T21:00:00.000+01:00'",
+						"zh-cn": "LTF通道：与标准通道类似，但仅在由'StartTime'和'StopTime'状态对象定义的时间范围内运行。在'StopTime'后，通道将自动停用。 'StartTime'和'StopTime'可能跨越多天。状态必须填写ISO-8601格式的带有时区偏移的日期时间字符串，例如：'2023-11-17T21:00:00.000+01:00'"
 					},
 					"newLine": true
 				}
