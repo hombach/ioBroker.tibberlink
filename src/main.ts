@@ -1,6 +1,7 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
+import { format } from "date-fns";
 import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberCalculator } from "./lib/tibberCalculator";
@@ -378,9 +379,12 @@ class Tibberlink extends utils.Adapter {
 												dateWithTimeZone.setMinutes(0, 0, 0);
 												this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
 												this.log.debug(
-													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${dateWithTimeZone.toISOString()}`,
+													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${format(
+														dateWithTimeZone,
+														"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+													)}`,
 												);
-												this.setStateAsync(id, dateWithTimeZone.toISOString(), true);
+												this.setStateAsync(id, format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
 											} else {
 												this.log.warn(
 													`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStartTime: ${state.val}`,
@@ -402,9 +406,12 @@ class Tibberlink extends utils.Adapter {
 												dateWithTimeZone.setMinutes(0, 0, 0);
 												this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
 												this.log.debug(
-													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${dateWithTimeZone.toISOString()}`,
+													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${format(
+														dateWithTimeZone,
+														"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+													)}`,
 												);
-												this.setStateAsync(id, dateWithTimeZone.toISOString(), true);
+												this.setStateAsync(id, format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
 											} else {
 												this.log.warn(
 													`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStopTime: ${state.val}`,
