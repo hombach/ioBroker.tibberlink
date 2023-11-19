@@ -393,20 +393,6 @@ class Tibberlink extends utils.Adapter {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chAmountHours: ${state.val}`);
                                         }
                                         break;
-                                    /*
-                                    case "StartTime":
-                                        // Update .chStartTime based on state.val if it's a datetime
-                                        if (typeof state.val === "string") {
-                                            this.config.CalculatorList[calcChannel].chStartTime = new Date(state.val);
-                                            this.log.debug(
-                                                `calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${this.config.CalculatorList[calcChannel].chStartTime}`,
-                                            );
-                                            this.setStateAsync(id, state.val, true);
-                                        } else {
-                                            this.log.warn(`Wrong type for channel: ${calcChannel} - chStartTime: ${state.val}`);
-                                        }
-                                        break;
-                                    */
                                     case "StartTime":
                                         // Update .chStartTime based on state.val if it's a datetime
                                         if (typeof state.val === "string") {
@@ -451,20 +437,6 @@ class Tibberlink extends utils.Adapter {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chStopTime: ${state.val}`);
                                         }
                                         break;
-                                    /*
-                                    case "StopTime":
-                                        // Update .chStopTime based on state.val if it's a datetime
-                                        if (typeof state.val === "string") {
-                                            this.config.CalculatorList[calcChannel].chStopTime = new Date(state.val);
-                                            this.log.debug(
-                                                `calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${this.config.CalculatorList[calcChannel].chStopTime}`,
-                                            );
-                                            this.setStateAsync(id, state.val, true);
-                                        } else {
-                                            this.log.warn(`Wrong type for channel: ${calcChannel} - chStopTime: ${state.val}`);
-                                        }
-                                        break;
-                                    */
                                     default:
                                         this.log.debug(`unknown value for setting type: ${settingType}`);
                                 }
