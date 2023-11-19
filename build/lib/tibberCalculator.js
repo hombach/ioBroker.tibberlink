@@ -262,7 +262,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
             }
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel}-best price ${modeLTF ? "LTF " : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            this.adapter.log.debug(`calculator channel: ${channel}-best price ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price  ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -320,7 +320,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 }
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-                this.adapter.log.debug(`calculator channel: ${channel}-best single hours ${modeLTF ? "LTF " : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+                this.adapter.log.debug(`calculator channel: ${channel}-best single hours ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
             }
         }
         catch (error) {
@@ -381,7 +381,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
             }
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel}-best hours block ${modeLTF ? "LTF " : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            this.adapter.log.debug(`calculator channel: ${channel}-best hours block ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));

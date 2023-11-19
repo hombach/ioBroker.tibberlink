@@ -298,7 +298,7 @@ export class TibberCalculator extends TibberHelper {
 			}
 			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 			this.adapter.log.debug(
-				`calculator channel: ${channel}-best price ${modeLTF ? "LTF " : ""}; setting state: ${
+				`calculator channel: ${channel}-best price ${modeLTF ? "LTF" : ""}; setting state: ${
 					this.adapter.config.CalculatorList[channel].chTargetState
 				} to ${valueToSet}`,
 			);
@@ -362,7 +362,7 @@ export class TibberCalculator extends TibberHelper {
 				}
 				this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 				this.adapter.log.debug(
-					`calculator channel: ${channel}-best single hours ${modeLTF ? "LTF " : ""}; setting state: ${
+					`calculator channel: ${channel}-best single hours ${modeLTF ? "LTF" : ""}; setting state: ${
 						this.adapter.config.CalculatorList[channel].chTargetState
 					} to ${valueToSet}`,
 				);
@@ -429,7 +429,7 @@ export class TibberCalculator extends TibberHelper {
 			}
 			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 			this.adapter.log.debug(
-				`calculator channel: ${channel}-best hours block ${modeLTF ? "LTF " : ""}; setting state: ${
+				`calculator channel: ${channel}-best hours block ${modeLTF ? "LTF" : ""}; setting state: ${
 					this.adapter.config.CalculatorList[channel].chTargetState
 				} to ${valueToSet}`,
 			);
