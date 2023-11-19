@@ -553,7 +553,7 @@
 								"uk": "Назва каналу",
 								"zh-cn": "通道名称"
 							},
-							"maxLength": 20,
+							"maxLength": 25,
 							"attr": "chName",
 							"filter": false,
 							"sort": false,
