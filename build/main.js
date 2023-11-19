@@ -393,12 +393,37 @@ class Tibberlink extends utils.Adapter {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chAmountHours: ${state.val}`);
                                         }
                                         break;
+                                    /*
                                     case "StartTime":
                                         // Update .chStartTime based on state.val if it's a datetime
                                         if (typeof state.val === "string") {
                                             this.config.CalculatorList[calcChannel].chStartTime = new Date(state.val);
-                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${this.config.CalculatorList[calcChannel].chStartTime}`);
+                                            this.log.debug(
+                                                `calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${this.config.CalculatorList[calcChannel].chStartTime}`,
+                                            );
                                             this.setStateAsync(id, state.val, true);
+                                        } else {
+                                            this.log.warn(`Wrong type for channel: ${calcChannel} - chStartTime: ${state.val}`);
+                                        }
+                                        break;
+                                    */
+                                    case "StartTime":
+                                        // Update .chStartTime based on state.val if it's a datetime
+                                        if (typeof state.val === "string") {
+                                            // Check if the string is in ISO-8601 format with a timezone offset
+                                            // like: "2023-11-17T21:00:00.000+01:00"
+                                            const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
+                                            if (iso8601RegEx.test(state.val)) {
+                                                const dateWithTimeZone = new Date(state.val);
+                                                // floor to hour
+                                                dateWithTimeZone.setMinutes(0, 0, 0);
+                                                this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
+                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${dateWithTimeZone.toISOString()}`);
+                                                this.setStateAsync(id, dateWithTimeZone.toISOString(), true);
+                                            }
+                                            else {
+                                                this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStartTime: ${state.val}`);
+                                            }
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chStartTime: ${state.val}`);
@@ -407,14 +432,39 @@ class Tibberlink extends utils.Adapter {
                                     case "StopTime":
                                         // Update .chStopTime based on state.val if it's a datetime
                                         if (typeof state.val === "string") {
-                                            this.config.CalculatorList[calcChannel].chStopTime = new Date(state.val);
-                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${this.config.CalculatorList[calcChannel].chStopTime}`);
-                                            this.setStateAsync(id, state.val, true);
+                                            // Check if the string is in ISO-8601 format with a timezone offset
+                                            // like: "2023-11-17T21:00:00.000+01:00"
+                                            const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
+                                            if (iso8601RegEx.test(state.val)) {
+                                                const dateWithTimeZone = new Date(state.val);
+                                                // floor to hour
+                                                dateWithTimeZone.setMinutes(0, 0, 0);
+                                                this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
+                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${dateWithTimeZone.toISOString()}`);
+                                                this.setStateAsync(id, dateWithTimeZone.toISOString(), true);
+                                            }
+                                            else {
+                                                this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStopTime: ${state.val}`);
+                                            }
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chStopTime: ${state.val}`);
                                         }
                                         break;
+                                    /*
+                                    case "StopTime":
+                                        // Update .chStopTime based on state.val if it's a datetime
+                                        if (typeof state.val === "string") {
+                                            this.config.CalculatorList[calcChannel].chStopTime = new Date(state.val);
+                                            this.log.debug(
+                                                `calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${this.config.CalculatorList[calcChannel].chStopTime}`,
+                                            );
+                                            this.setStateAsync(id, state.val, true);
+                                        } else {
+                                            this.log.warn(`Wrong type for channel: ${calcChannel} - chStopTime: ${state.val}`);
+                                        }
+                                        break;
+                                    */
                                     default:
                                         this.log.debug(`unknown value for setting type: ${settingType}`);
                                 }
