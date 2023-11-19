@@ -298,10 +298,12 @@ export class TibberCalculator extends TibberHelper {
 			}
 			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 			this.adapter.log.debug(
-				`calculator channel: ${channel}-best price; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
+				`calculator channel: ${channel}-best price ${modeLTF ? "LTF " : ""}; setting state: ${
+					this.adapter.config.CalculatorList[channel].chTargetState
+				} to ${valueToSet}`,
 			);
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price in channel ${channel}`));
+			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price  ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
 	}
 
@@ -322,12 +324,35 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
 				// chActive -> choose desired value
-				const jsonPrices: IPrice[] = JSON.parse(
+				const pricesToday: IPrice[] = JSON.parse(
 					await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`),
 				);
+
+				// NEW
+				let mergedPrices: IPrice[] = pricesToday;
+				let filteredPrices: IPrice[] = pricesToday;
+				if (modeLTF) {
+					const pricesTomorrow: IPrice[] = JSON.parse(
+						await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
+					);
+					// Merge prices if pricesTomorrow is not empty
+					if (pricesTomorrow.length !== 0) {
+						mergedPrices = [...pricesToday, ...pricesTomorrow];
+					}
+					const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
+					const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
+					// filter objects to time frame
+					filteredPrices = mergedPrices.filter((price) => {
+						const priceDate = new Date(price.startsAt);
+						return priceDate >= startTime && priceDate < stopTime;
+					});
+				}
+				// END NEW
+
 				// get first n entries und test for matching hour
 				const n = this.adapter.config.CalculatorList[channel].chAmountHours;
-				const result: boolean[] = jsonPrices.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
+				//const result: boolean[] = pricesToday.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
+				const result: boolean[] = filteredPrices.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
 
 				// identify if any element is true
 				if (result.some((value) => value)) {
@@ -337,11 +362,13 @@ export class TibberCalculator extends TibberHelper {
 				}
 				this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 				this.adapter.log.debug(
-					`calculator channel: ${channel}-best single hours; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
+					`calculator channel: ${channel}-best single hours ${modeLTF ? "LTF " : ""}; setting state: ${
+						this.adapter.config.CalculatorList[channel].chTargetState
+					} to ${valueToSet}`,
 				);
 			}
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours in channel ${channel}`));
+			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
 	}
 
@@ -362,24 +389,36 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
 				//const currentDateTime = new Date();
-				const jsonPrices: IPrice[] = JSON.parse(
+				const pricesToday: IPrice[] = JSON.parse(
 					await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),
 				);
+
+				// NEW
+				const pricesTomorrow: IPrice[] = JSON.parse(
+					await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
+				);
+				if (modeLTF && pricesTomorrow.length !== 0) {
+					//const mergedPrice: IPrice = { ...pricesToday, ...pricesTomorrow };
+				} else {
+					//const mergedPrice: IPrice = pricesToday;
+				}
+				// END NEW
+
 				let minSum = Number.MAX_VALUE;
 				let startIndex = 0;
 				const n = this.adapter.config.CalculatorList[channel].chAmountHours;
 
-				for (let i = 0; i < jsonPrices.length - n + 1; i++) {
+				for (let i = 0; i < pricesToday.length - n + 1; i++) {
 					let sum = 0;
 					for (let j = i; j < i + n; j++) {
-						sum += jsonPrices[j].total;
+						sum += pricesToday[j].total;
 					}
 					if (sum < minSum) {
 						minSum = sum;
 						startIndex = i;
 					}
 				}
-				const minSumEntries: boolean[] = jsonPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+				const minSumEntries: boolean[] = pricesToday.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
 
 				// identify if any element is true
 				if (minSumEntries.some((value) => value)) {
@@ -390,10 +429,12 @@ export class TibberCalculator extends TibberHelper {
 			}
 			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 			this.adapter.log.debug(
-				`calculator channel: ${channel}-best hours block; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
+				`calculator channel: ${channel}-best hours block ${modeLTF ? "LTF " : ""}; setting state: ${
+					this.adapter.config.CalculatorList[channel].chTargetState
+				} to ${valueToSet}`,
 			);
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block in channel ${channel}`));
+			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
 	}
 }
