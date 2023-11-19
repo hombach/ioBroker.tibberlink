@@ -72,6 +72,8 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 ### 1.6.0 (2023-11-xx) WORK in PROGRESS
 
 -   (HombachC) implement limit calculations to a time frame (#153)
+-   (HombachC) fixed possible type error, notified by Sentry
+-   (HombachC) optimize translation handling
 
 ### 1.5.0 (2023-11-13)
 
