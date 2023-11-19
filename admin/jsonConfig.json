@@ -529,19 +529,49 @@
 								},
 								{
 									"label": {
-										"en": "best cost LTF"
+										"en": "best cost LTF",
+										"de": "beste Kosten LTF",
+										"ru": "лучшие затраты LTF",
+										"pt": "melhor custo LTF",
+										"nl": "beste kosten LTF",
+										"fr": "meilleur coût LTF",
+										"it": "miglior costo LTF",
+										"es": "mejor costo LTF",
+										"pl": "najlepsze koszty LTF",
+										"uk": "Найкращі витрати LTF",
+										"zh-cn": "最佳成本 LTF"
 									},
 									"value": 4
 								},
 								{
 									"label": {
-										"en": "best single hours LTF"
+										"en": "best single hours LTF",
+										"de": "beste Einzelstunden LTF",
+										"ru": "лучшие одиночные часы LTF",
+										"pt": "melhores horas únicas LTF",
+										"nl": "beste enkele uren LTF",
+										"fr": "meilleures heures uniques LTF",
+										"it": "migliori ore singole LTF",
+										"es": "mejores horas individuales LTF",
+										"pl": "najlepsze pojedyncze godziny LTF",
+										"uk": "кращі одиничні години LTF",
+										"zh-cn": "最佳单个小时 LTF"
 									},
 									"value": 5
 								},
 								{
 									"label": {
-										"en": "best hours block LTF"
+										"en": "best hours block LTF",
+										"de": "beste Stundenblock LTF",
+										"ru": "лучший часовой блок LTF",
+										"pt": "melhor bloco de horas LTF",
+										"nl": "beste uren blok LTF",
+										"fr": "meilleur bloc d'heures LTF",
+										"it": "miglior blocco di ore LTF",
+										"es": "mejor bloque de horas LTF",
+										"pl": "najlepszy blok godzin LTF",
+										"uk": "кращий годинний блок LTF",
+										"zh-cn": "最佳小时块 LTF"
 									},
 									"value": 6
 								}
