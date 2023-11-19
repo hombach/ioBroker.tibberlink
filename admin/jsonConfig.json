@@ -81,7 +81,19 @@
 					"items": [
 						{
 							"type": "selectSendTo",
-							"title": "s_Home",
+							"title": {
+								"en": "Tibber Home",
+								"de": "Tibber Zuhause",
+								"ru": "Дом Tibber",
+								"pt": "Casa Tibber",
+								"nl": "Tibber Thuis",
+								"fr": "Maison Tibber",
+								"it": "Casa Tibber",
+								"es": "Casa Tibber",
+								"pl": "Dom Tibber",
+								"uk": "Tibber Дім",
+								"zh-cn": "Tibber家"
+							},
 							"command": "HomesForConfig",
 							"attr": "homeID",
 							"filter": false,
