@@ -56,7 +56,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
     -   "Best cost": Utilizes the "TriggerPrice" state as input, producing a "YES" output every hour when the current Tibber energy cost is below the trigger price.
     -   "Best single hours": Generates a "YES" output during the least expensive hours, with the number defined in the "AmountHours" state.
     -   "Best hours block": Outputs "YES" during the most cost-effective block of hours, with the number of hours specified in the "AmountHours" state.
-    -   "Best cost LTF": Feature not yet implemented - "Best cost" within a Limited Time Frame (LTF).
+    -   "Best cost LTF": "Best cost" within a Limited Time Frame (LTF).
     -   "Best single hours LTF": Feature not yet implemented - "Best single hours" within a Limited Time Frame (LTF).
     -   "Best hours block LTF": Feature not yet implemented - "Best hours block" within a Limited Time Frame (LTF).
 -   LTF channels: Function similarly to standard channels but only operate within a time frame defined by the "StartTime" and "StopTime" state objects. After "StopTime," the channel deactivates itself. "StartTime" and "StopTime" may span over several days. The states must be filled with a date-time string in ISO-8601 format with a timezone offset, such as: "2023-11-17T21:00:00.000+01:00".

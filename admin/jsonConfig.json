@@ -834,17 +834,17 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "   'Best cost LTF': Feature not yet implemented - 'Best cost' within a Limited Time Frame (LTF)",
-						"de": "   'Beste Kosten LTF': Funktion noch nicht implementiert - 'Beste Kosten' innerhalb eines begrenzten Zeitrahmens (LTF)",
-						"ru": "   'Лучшие затраты LTF': Функция еще не реализована - 'Лучшие затраты' в пределах ограниченного временного интервала (LTF)",
-						"pt": "   'Melhor custo LTF': Recurso ainda não implementado - 'Melhor custo' dentro de um quadro de tempo limitado (LTF)",
-						"nl": "   'Beste kosten LTF': Functie nog niet geïmplementeerd - 'Beste kosten' binnen een beperkt tijdsbestek (LTF)",
-						"fr": "   'Meilleur coût LTF': Fonction pas encore implémentée - 'Meilleur coût' dans un cadre temporel limité (LTF)",
-						"it": "   'Miglior costo LTF': Funzione non ancora implementata - 'Miglior costo' all'interno di un periodo di tempo limitato (LTF)",
-						"es": "   'Mejor costo LTF': Función aún no implementada - 'Mejor costo' dentro de un Marco de Tiempo Limitado (LTF)",
-						"pl": "   'Najlepsze koszty LTF': Funkcja jeszcze nie zaimplementowana - 'Najlepsze koszty' w ramach ograniczonego okresu czasu (LTF)",
-						"uk": "   'Найкращі витрати LTF': Функція ще не реалізована - 'Найкращі витрати' в межах обмеженого часового проміжку (LTF)",
-						"zh-cn": "   '最佳成本 LTF': 功能尚未实现 - 在有限时间范围内的'最佳成本' (LTF)"
+						"en": "   'Best cost LTF': 'Best cost' within a Limited Time Frame (LTF)",
+						"de": "   'Beste Kosten LTF': 'Beste Kosten' innerhalb eines begrenzten Zeitrahmens (LTF)",
+						"ru": "   'Лучшие затраты LTF': 'Лучшие затраты' в пределах ограниченного временного интервала (LTF)",
+						"pt": "   'Melhor custo LTF': 'Melhor custo' dentro de um quadro de tempo limitado (LTF)",
+						"nl": "   'Beste kosten LTF': 'Beste kosten' binnen een beperkt tijdsbestek (LTF)",
+						"fr": "   'Meilleur coût LTF': 'Meilleur coût' dans un cadre temporel limité (LTF)",
+						"it": "   'Miglior costo LTF': 'Miglior costo' all'interno di un periodo di tempo limitato (LTF)",
+						"es": "   'Mejor costo LTF': 'Mejor costo' dentro de un Marco de Tiempo Limitado (LTF)",
+						"pl": "   'Najlepsze koszty LTF': 'Najlepsze koszty' w ramach ograniczonego okresu czasu (LTF)",
+						"uk": "   'Найкращі витрати LTF': 'Найкращі витрати' в межах обмеженого часового проміжку (LTF)",
+						"zh-cn": "   '最佳成本 LTF': 在有限时间范围内的'最佳成本' (LTF)"
 					},
 					"newLine": true
 				},
