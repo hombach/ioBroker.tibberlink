@@ -762,8 +762,8 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "Outputs:",
-						"de": "Ausgaben:",
+						"en": "<b>Outputs:</b>",
+						"de": "<b>Ausgaben:</b>",
 						"ru": "Вывод:",
 						"pt": "Saídas:",
 						"nl": "Uitvoer:",
