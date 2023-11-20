@@ -764,15 +764,15 @@
 					"label": {
 						"en": "<b>Outputs:</b>",
 						"de": "<b>Ausgaben:</b>",
-						"ru": "Вывод:",
-						"pt": "Saídas:",
-						"nl": "Uitvoer:",
-						"fr": "Sorties :",
-						"it": "Uscite:",
-						"es": "Salidas:",
-						"pl": "Wyniki:",
-						"uk": "Виводи:",
-						"zh-cn": "输出："
+						"ru": "<b>Вывод:</b>",
+						"pt": "<b>Saídas:</b>",
+						"nl": "<b>Uitvoer:</b>",
+						"fr": "<b>Sorties:</b>",
+						"it": "<b>Uscite:</b>",
+						"es": "<b>Salidas:</b>",
+						"pl": "<b>Wyniki:</b>",
+						"uk": "<b>Виводи:</b>",
+						"zh-cn": "<b>输出：</b>"
 					},
 					"newLine": true
 				},

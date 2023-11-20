@@ -160,7 +160,7 @@ class Tibberlink extends utils.Adapter {
 						do {
 							await this.delay(3 * 60 * 1000);
 							okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
-							this.log.debug(`Cron jobCurrentPrice - okPrice: ${okPrice}`);
+							this.log.debug(`Cron job CurrentPrice - okPrice: ${okPrice}`);
 						} while (!okPrice);
 						tibberCalculator.startCalculatorTasks();
 					},
@@ -177,7 +177,7 @@ class Tibberlink extends utils.Adapter {
 						do {
 							await this.delay(5 * 60 * 1000);
 							okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
-							this.log.debug(`Cron jobPricesToday - okPrice: ${okPrice}`);
+							this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
 						} while (!okPrice);
 						await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
 						tibberCalculator.startCalculatorTasks();
@@ -195,7 +195,7 @@ class Tibberlink extends utils.Adapter {
 						do {
 							await this.delay(5 * 60 * 1000);
 							okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
-							this.log.debug(`Cron jobPricesTomorrow - okPrice: ${okPrice}`);
+							this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
 						} while (!okPrice);
 						tibberCalculator.startCalculatorTasks();
 					},
