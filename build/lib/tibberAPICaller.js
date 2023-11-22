@@ -50,16 +50,30 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             return [];
         }
     }
+    /**
+     * updates current prices of all homes
+     *
+     * @param homeInfoList - homeInfo list object
+     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @returns okprice - got correct data
+     */
     async updateCurrentPriceAllHomes(homeInfoList, forceUpdate) {
-        let newPrice = false;
+        let okprice = true;
         for (const index in homeInfoList) {
-            // potential problems with multihome??
-            if (await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate))
-                newPrice = true;
+            if (!(await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate)))
+                okprice = false;
         }
-        return newPrice;
+        return okprice;
     }
+    /**
+     * updates current price of one home
+     *
+     * @param homeId - homeId string
+     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @returns newPrice - got new data
+     */
     async updateCurrentPrice(homeId, forceUpdate) {
+        //CHANGE!!
         try {
             if (homeId) {
                 let exDate = null;
@@ -91,14 +105,28 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             return false;
         }
     }
+    /**
+     * updates lists of todays prices of all homes
+     *
+     * @param homeInfoList - homeInfo list object
+     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @returns okprice - got correct data
+     */
     async updatePricesTodayAllHomes(homeInfoList, forceUpdate) {
-        let newPrice = false;
+        let okprice = true;
         for (const index in homeInfoList) {
-            if (await this.updatePricesToday(homeInfoList[index].ID, forceUpdate))
-                newPrice = true;
+            if (!(await this.updatePricesToday(homeInfoList[index].ID, forceUpdate)))
+                okprice = false;
         }
-        return newPrice;
+        return okprice;
     }
+    /**
+     * updates list of todays prices of one home
+     *
+     * @param homeId - homeId string
+     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @returns okprice - got correct data
+     */
     async updatePricesToday(homeId, forceUpdate) {
         try {
             let exDate = null;
@@ -112,28 +140,30 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             if (!exDate || exDate <= today || forceUpdate) {
                 const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
                 this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
-                this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
-                this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday.sort((a, b) => a.total - b.total));
-                this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday.sort((a, b) => a.total - b.total));
-                for (const i in pricesToday) {
-                    const price = pricesToday[i];
-                    const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-                    await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
-                }
-                if (Array.isArray(pricesToday)) {
-                    // Sort the array if it is an array - possible type error discovered by sentry
+                if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
+                    exDate = new Date(pricesToday[2].startsAt);
+                    this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
+                    this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
+                    this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday.sort((a, b) => a.total - b.total));
+                    this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday.sort((a, b) => a.total - b.total));
+                    for (const i in pricesToday) {
+                        const price = pricesToday[i];
+                        const hour = new Date(price.startsAt.substr(0, 19)).getHours();
+                        await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
+                    }
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+                    if (exDate && exDate >= today) {
+                        return true;
+                    }
                 }
                 else {
                     // Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday), "prices sorted by cost ascending as json");
                 }
-                return true;
             }
             else {
                 this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
-                return false;
+                return true;
             }
         }
         catch (error) {
@@ -141,19 +171,34 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.adapter.log.error(this.generateErrorMessage(error, `pull of prices today`));
             else
                 this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
-            return false;
         }
+        return false;
     }
+    /**
+     * updates lists of tomorrows prices of all homes
+     *
+     * @param homeInfoList - homeInfo list object
+     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @returns okprice - got correct data
+     */
     async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate) {
-        let newPrice = false;
+        let okprice = true;
         for (const index in homeInfoList) {
             // potential problems with multihome??
-            if (await this.updatePricesTomorrow(homeInfoList[index].ID, forceUpdate))
-                newPrice = true;
+            if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, forceUpdate)))
+                okprice = false;
         }
-        return newPrice;
+        return okprice;
     }
+    /**
+     * updates list of tomorrows prices of one home
+     *
+     * @param homeId - homeId string
+     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @returns newPrice - got new data
+     */
     async updatePricesTomorrow(homeId, forceUpdate) {
+        //CHANGE!!
         try {
             let exDate = null;
             const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
@@ -211,7 +256,12 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             return false;
         }
     }
-    // yet not used in public revisions
+    /**
+     * yet not used in public revisions
+     *
+     * @param homeId - homeId string
+     * @returns void
+     */
     async getConsumption(homeId) {
         try {
             if (homeId) {

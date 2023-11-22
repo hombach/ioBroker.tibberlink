@@ -155,8 +155,10 @@ class Tibberlink extends utils.Adapter {
                     }
                 }
                 // (force) get current prices for the first time and start calculator tasks once
-                await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
-                await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
+                if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
+                }
+                if (!(await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true))) {
+                }
                 await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
                 tibberCalculator.startCalculatorTasks();
                 //for (const index in this.homeInfoList) {
@@ -194,8 +196,9 @@ class Tibberlink extends utils.Adapter {
                     },
                     start: true,
                     timeZone: "system",
-                    runOnInit: false,
+                    runOnInit: true,
                 });
+                // runoninit: false
                 if (jobPricesToday)
                     this.cronList.push(jobPricesToday);
                 const jobPricesTomorrow = cron_1.CronJob.from({
