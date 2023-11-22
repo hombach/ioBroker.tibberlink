@@ -82,7 +82,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 if (!exDate || now.getHours() !== exDate.getHours() || forceUpdate) {
                     const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
                     await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
-                    this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)}`);
+                    this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)} Force: ${forceUpdate}`);
                     return true;
                 }
                 else if (now.getHours() !== exDate.getHours()) {
@@ -139,19 +139,19 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             today.setHours(0, 0, 0, 0); // sets clock to 0:00
             if (!exDate || exDate <= today || forceUpdate) {
                 const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
-                this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)}`);
+                this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
+                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json"); // write also it might be empty
+                this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
+                this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday.sort((a, b) => a.total - b.total));
+                this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday.sort((a, b) => a.total - b.total));
+                for (const i in pricesToday) {
+                    const price = pricesToday[i];
+                    const hour = new Date(price.startsAt.substr(0, 19)).getHours();
+                    await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
+                }
                 if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
-                    exDate = new Date(pricesToday[2].startsAt);
-                    this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json");
-                    this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
-                    this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday.sort((a, b) => a.total - b.total));
-                    this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday.sort((a, b) => a.total - b.total));
-                    for (const i in pricesToday) {
-                        const price = pricesToday[i];
-                        const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-                        await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
-                    }
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
+                    exDate = new Date(pricesToday[2].startsAt);
                     if (exDate && exDate >= today) {
                         return true;
                     }
@@ -211,7 +211,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
             if (!exDate || exDate <= morgen || forceUpdate) {
                 const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
-                this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)}`);
+                this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); //write, also JSON is empty
                 if (pricesTomorrow.length === 0) {
                     // pricing not known, before about 13:00 - delete the states
@@ -323,7 +323,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), price.level, "Price level compared to recent price values");
     }
     fetchPriceAverage(homeId, objectDestination, price) {
-        //const totalSum = price.reduce((sum, item) => sum + item.total, 0); // Verify 1.4.2 - Sentry error
         const totalSum = price.reduce((sum, item) => {
             if (item && typeof item.total === "number") {
                 return sum + item.total;
