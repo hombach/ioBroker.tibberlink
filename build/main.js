@@ -308,7 +308,7 @@ class Tibberlink extends utils.Adapter {
     async jobPricesTodayLOOP(tibberAPICaller) {
         let okPrice = false;
         do {
-            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
+            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
             this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
             await this.delay(5 * 60 * 1000);
         } while (!okPrice);
@@ -319,7 +319,7 @@ class Tibberlink extends utils.Adapter {
     async jobPricesTomorrowLOOP(tibberAPICaller) {
         let okPrice = false;
         do {
-            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
+            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
             this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
             await this.delay(5 * 60 * 1000);
         } while (!okPrice);
