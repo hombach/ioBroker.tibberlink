@@ -66,6 +66,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 Inverse Usage: To obtain, for example, peak hours instead of optimal hours, simply invert the usage and parameters:
 ![Calculator States Inverse](docu/calculatorStatesInverse.png)
 By swapping true <-> false, you will receive a true at a low cost in the first line and a true at a high cost in the second line (Channel names are not triggers and are still free to choose).
+
 Attention: For peak single hours, such as in the example, you also need to adjust the number of hours. Original: 5 -> Inverse (24-5) = 19 -> You will obtain a true result during the 5 peak hours.
 
 ## Notes
