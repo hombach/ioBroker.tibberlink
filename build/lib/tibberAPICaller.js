@@ -70,7 +70,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      *
      * @param homeId - homeId string
      * @param forceUpdate - force mode, without verification if existing data is fitting to current date
-     * @returns newPrice - got new data
+     * @returns okprice - got new data
      */
     async updateCurrentPrice(homeId, forceUpdate) {
         //CHANGE!!
@@ -83,7 +83,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
                     await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
                     this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)} Force: ${forceUpdate}`);
-                    return true;
+                    exDate = new Date(currentPrice.startsAt);
+                    if (exDate && now.getHours() === exDate.getHours()) {
+                        return true;
+                    }
                 }
                 else if (now.getHours() !== exDate.getHours()) {
                     this.adapter.log.debug(`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`);
@@ -104,6 +107,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.adapter.log.warn(this.generateErrorMessage(error, `pull of current price`));
             return false;
         }
+        return false;
     }
     /**
      * updates lists of todays prices of all homes
@@ -159,6 +163,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 else {
                     // Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "jsonBYpriceASC"), JSON.stringify(pricesToday), "prices sorted by cost ascending as json");
+                    return false;
                 }
             }
             else {
@@ -171,6 +176,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.adapter.log.error(this.generateErrorMessage(error, `pull of prices today`));
             else
                 this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
+            return false;
         }
         return false;
     }
@@ -195,10 +201,9 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      *
      * @param homeId - homeId string
      * @param forceUpdate - force mode, without verification if existing data is fitting to current date
-     * @returns newPrice - got new data
+     * @returns okprice - got new data
      */
     async updatePricesTomorrow(homeId, forceUpdate) {
-        //CHANGE!!
         try {
             let exDate = null;
             const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
@@ -212,9 +217,9 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             if (!exDate || exDate <= morgen || forceUpdate) {
                 const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
                 this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); //write, also JSON is empty
+                this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); // write also it might be empty
                 if (pricesTomorrow.length === 0) {
-                    // pricing not known, before about 13:00 - delete the states
+                    // pricing not known, before about 13:00 - delete all the states
                     this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
                     for (let hour = 0; hour < 24; hour++) {
                         this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
@@ -236,7 +241,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow.sort((a, b) => a.total - b.total));
                     this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow.sort((a, b) => a.total - b.total));
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
-                    return true;
+                    exDate = new Date(pricesTomorrow[2].startsAt);
+                    if (exDate && exDate >= morgen) {
+                        return true;
+                    }
                 }
             }
             else if (exDate == morgen) {

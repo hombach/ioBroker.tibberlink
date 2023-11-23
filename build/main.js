@@ -157,10 +157,12 @@ class Tibberlink extends utils.Adapter {
                 // (force) get current prices for the first time and start calculator tasks once
                 if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
                 }
-                if (!(await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true))) {
-                }
-                if (!(await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true))) {
-                }
+                this.jobPricesTodayLOOP(tibberAPICaller);
+                //if (!(await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true))) {
+                //}
+                this.jobPricesTomorrowLOOP(tibberAPICaller);
+                //if (!(await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true))) {
+                //}
                 tibberCalculator.startCalculatorTasks();
                 //for (const index in this.homeInfoList) {
                 // Get consumption data for the first time
@@ -199,7 +201,6 @@ class Tibberlink extends utils.Adapter {
                     timeZone: "system",
                     runOnInit: true,
                 });
-                // runoninit: false
                 if (jobPricesToday)
                     this.cronList.push(jobPricesToday);
                 const jobPricesTomorrow = cron_1.CronJob.from({
@@ -215,7 +216,7 @@ class Tibberlink extends utils.Adapter {
                     },
                     start: true,
                     timeZone: "system",
-                    runOnInit: false,
+                    runOnInit: true,
                 });
                 if (jobPricesTomorrow)
                     this.cronList.push(jobPricesTomorrow);
@@ -300,6 +301,28 @@ class Tibberlink extends utils.Adapter {
                 }
             }
         }
+    }
+    /**
+     * subfunction to loop till prices today for all homes are got from server - startup-phase
+     */
+    async jobPricesTodayLOOP(tibberAPICaller) {
+        let okPrice = false;
+        do {
+            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
+            this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
+            await this.delay(5 * 60 * 1000);
+        } while (!okPrice);
+    }
+    /**
+     * subfunction to loop till prices tomorrow for all homes are got from server - startup-phase
+     */
+    async jobPricesTomorrowLOOP(tibberAPICaller) {
+        let okPrice = false;
+        do {
+            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
+            this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
+            await this.delay(5 * 60 * 1000);
+        } while (!okPrice);
     }
     /**
      * Is called from adapter config screen

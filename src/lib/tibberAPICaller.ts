@@ -97,7 +97,7 @@ export class TibberAPICaller extends TibberHelper {
 	 *
 	 * @param homeId - homeId string
 	 * @param forceUpdate - force mode, without verification if existing data is fitting to current date
-	 * @returns newPrice - got new data
+	 * @returns okprice - got new data
 	 */
 	async updateCurrentPrice(homeId: string, forceUpdate?: boolean): Promise<boolean> {
 		//CHANGE!!
@@ -110,7 +110,10 @@ export class TibberAPICaller extends TibberHelper {
 					const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
 					await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
 					this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)} Force: ${forceUpdate}`);
-					return true;
+					exDate = new Date(currentPrice.startsAt);
+					if (exDate && now.getHours() === exDate.getHours()) {
+						return true;
+					}
 				} else if (now.getHours() !== exDate.getHours()) {
 					this.adapter.log.debug(
 						`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`,
@@ -127,6 +130,7 @@ export class TibberAPICaller extends TibberHelper {
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of current price`));
 			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -197,6 +201,7 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(pricesToday),
 						"prices sorted by cost ascending as json",
 					);
+					return false;
 				}
 			} else {
 				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
@@ -205,6 +210,7 @@ export class TibberAPICaller extends TibberHelper {
 		} catch (error: any) {
 			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of prices today`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
+			return false;
 		}
 		return false;
 	}
@@ -229,10 +235,9 @@ export class TibberAPICaller extends TibberHelper {
 	 *
 	 * @param homeId - homeId string
 	 * @param forceUpdate - force mode, without verification if existing data is fitting to current date
-	 * @returns newPrice - got new data
+	 * @returns okprice - got new data
 	 */
 	async updatePricesTomorrow(homeId: string, forceUpdate?: boolean): Promise<boolean> {
-		//CHANGE!!
 		try {
 			let exDate: Date | null = null;
 			const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
@@ -246,9 +251,9 @@ export class TibberAPICaller extends TibberHelper {
 			if (!exDate || exDate <= morgen || forceUpdate) {
 				const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 				this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
-				this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); //write, also JSON is empty
+				this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); // write also it might be empty
 				if (pricesTomorrow.length === 0) {
-					// pricing not known, before about 13:00 - delete the states
+					// pricing not known, before about 13:00 - delete all the states
 					this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
 					for (let hour = 0; hour < 24; hour++) {
 						this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
@@ -285,7 +290,10 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
 						"prices sorted by cost ascending as json",
 					);
-					return true;
+					exDate = new Date(pricesTomorrow[2].startsAt);
+					if (exDate && exDate >= morgen) {
+						return true;
+					}
 				}
 			} else if (exDate == morgen) {
 				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
