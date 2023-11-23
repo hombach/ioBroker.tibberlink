@@ -61,6 +61,13 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
     -   "Best hours block LTF": Feature not yet implemented - "Best hours block" within a Limited Time Frame (LTF).
 -   LTF channels: Function similarly to standard channels but only operate within a time frame defined by the "StartTime" and "StopTime" state objects. After "StopTime," the channel deactivates itself. "StartTime" and "StopTime" may span over several days. The states must be filled with a date-time string in ISO-8601 format with a timezone offset, such as: "2023-11-17T21:00:00.000+01:00".
 
+### Hint
+
+Inverse Usage: To obtain, for example, peak hours instead of optimal hours, simply invert the usage and parameters:
+![Calculator States Inverse](docu/calculatorStatesInverse.png)
+By swapping true <-> false, you will receive a true at a low cost in the first line and a true at a high cost in the second line (Channel names are not triggers and are still free to choose).
+Attention: For peak single hours, such as in the example, you also need to adjust the number of hours. Original: 5 -> Inverse (24-5) = 19 -> You will obtain a true result during the 5 peak hours.
+
 ## Notes
 
 This adapter employs Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable error reporting, please consult the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is initiated starting with js-controller 3.0.
@@ -80,6 +87,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) WiP: fix error of missing price data upon not working tibber server connect at adapter start (#204)
 -   (HombachC) fixed possible error with wrong price date in multi home systems
 -   (HombachC) fixed possible type error, notified by Sentry
+-   (HombachC) added some documentation for inverseuse of channekls (#202)
 -   (HombachC) optimize translation handling
 
 ### 1.5.0 (2023-11-13)
