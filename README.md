@@ -89,6 +89,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) fixed possible error with wrong price date in multi home systems
 -   (HombachC) fixed possible type error, notified by Sentry
 -   (HombachC) added some documentation for inverse use of channels (#202)
+-   (HombachC) added Sentry statistics
 -   (HombachC) optimize translation handling
 
 ### 1.5.0 (2023-11-13)

@@ -3,8 +3,52 @@ import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { TibberHelper, enCalcType } from "./tibberHelper";
 
 export class TibberCalculator extends TibberHelper {
+	numBestCost: number;
+	numBestSingleHours: number;
+	numBestHoursBlock: number;
+	numBestCostLTF: number;
+	numBestSingleHoursLTF: number;
+	numBestHoursBlockLTF: number;
+
 	constructor(adapter: utils.AdapterInstance) {
 		super(adapter);
+		this.numBestCost = 0;
+		this.numBestSingleHours = 0;
+		this.numBestHoursBlock = 0;
+		this.numBestCostLTF = 0;
+		this.numBestSingleHoursLTF = 0;
+		this.numBestHoursBlockLTF = 0;
+	}
+
+	initStats(): void {
+		this.numBestCost = 0;
+		this.numBestSingleHours = 0;
+		this.numBestHoursBlock = 0;
+		this.numBestCostLTF = 0;
+		this.numBestSingleHoursLTF = 0;
+		this.numBestHoursBlockLTF = 0;
+	}
+
+	private increaseStatsValueByOne(type: enCalcType): void {
+		switch (type) {
+			case enCalcType.BestCost:
+				this.numBestCost++;
+				break;
+			case enCalcType.BestSingleHours:
+				this.numBestSingleHours++;
+				break;
+			case enCalcType.BestHoursBlock:
+				this.numBestHoursBlock++;
+				break;
+			case enCalcType.BestCostLTF:
+				this.numBestCostLTF++;
+				break;
+			case enCalcType.BestSingleHoursLTF:
+				this.numBestSingleHoursLTF++;
+				break;
+			case enCalcType.BestHoursBlockLTF:
+				this.numBestHoursBlockLTF++;
+		}
 	}
 
 	async setupCalculatorStates(homeId: string, channel: number): Promise<void> {
@@ -253,21 +297,30 @@ export class TibberCalculator extends TibberHelper {
 						break;
 					case enCalcType.BestCostLTF:
 						this.executeCalculatorBestCost(parseInt(channel), true);
-						//ToDo
 						break;
 					case enCalcType.BestSingleHoursLTF:
 						this.executeCalculatorBestSingleHours(parseInt(channel), true);
-						//ToDo
 						break;
 					case enCalcType.BestHoursBlockLTF:
 						this.executeCalculatorBestHoursBlock(parseInt(channel), true);
-						//ToDo
 						break;
 					default:
 						this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
 				}
 			} catch (error: any) {
 				this.adapter.log.warn(`unhandled error execute calculator channel ${channel}`);
+			}
+		}
+	}
+
+	async updateCalculatorUsageStats(): Promise<void> {
+		if (!this.adapter.config.UseCalculator) return;
+		this.initStats;
+		for (const channel in this.adapter.config.CalculatorList) {
+			try {
+				this.increaseStatsValueByOne(this.adapter.config.CalculatorList[channel].chType);
+			} catch (error: any) {
+				this.adapter.log.debug(`unhandled error in calculator channel ${channel} scan`);
 			}
 		}
 	}

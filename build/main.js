@@ -118,6 +118,9 @@ class Tibberlink extends utils.Adapter {
                 const today = new Date();
                 const last = await this.getStateAsync("info.LastSentryLogDay");
                 if (last?.val != (await today.getDate())) {
+                    // NEW
+                    await this.tibberCalculator.updateCalculatorUsageStats();
+                    // END NEW
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
                         Sentry &&
@@ -125,6 +128,14 @@ class Tibberlink extends utils.Adapter {
                                 scope.setLevel("info");
                                 scope.setTag("SentryDay", today.getDate());
                                 scope.setTag("HomeIDs", this.homeInfoList.length);
+                                // NEW
+                                scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
+                                scope.setTag("numBestCostLTF", this.tibberCalculator.numBestCostLTF);
+                                scope.setTag("numBestHoursBlock", this.tibberCalculator.numBestHoursBlock);
+                                scope.setTag("numBestHoursBlockLTF", this.tibberCalculator.numBestHoursBlockLTF);
+                                scope.setTag("numBestSingleHours", this.tibberCalculator.numBestSingleHours);
+                                scope.setTag("numBestSingleHoursLTF", this.tibberCalculator.numBestSingleHoursLTF);
+                                // END NEW
                                 Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
                             });
                     }

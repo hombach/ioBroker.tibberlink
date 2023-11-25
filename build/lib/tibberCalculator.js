@@ -5,6 +5,41 @@ const tibberHelper_1 = require("./tibberHelper");
 class TibberCalculator extends tibberHelper_1.TibberHelper {
     constructor(adapter) {
         super(adapter);
+        this.numBestCost = 0;
+        this.numBestSingleHours = 0;
+        this.numBestHoursBlock = 0;
+        this.numBestCostLTF = 0;
+        this.numBestSingleHoursLTF = 0;
+        this.numBestHoursBlockLTF = 0;
+    }
+    initStats() {
+        this.numBestCost = 0;
+        this.numBestSingleHours = 0;
+        this.numBestHoursBlock = 0;
+        this.numBestCostLTF = 0;
+        this.numBestSingleHoursLTF = 0;
+        this.numBestHoursBlockLTF = 0;
+    }
+    increaseStatsValueByOne(type) {
+        switch (type) {
+            case tibberHelper_1.enCalcType.BestCost:
+                this.numBestCost++;
+                break;
+            case tibberHelper_1.enCalcType.BestSingleHours:
+                this.numBestSingleHours++;
+                break;
+            case tibberHelper_1.enCalcType.BestHoursBlock:
+                this.numBestHoursBlock++;
+                break;
+            case tibberHelper_1.enCalcType.BestCostLTF:
+                this.numBestCostLTF++;
+                break;
+            case tibberHelper_1.enCalcType.BestSingleHoursLTF:
+                this.numBestSingleHoursLTF++;
+                break;
+            case tibberHelper_1.enCalcType.BestHoursBlockLTF:
+                this.numBestHoursBlockLTF++;
+        }
     }
     async setupCalculatorStates(homeId, channel) {
         try {
@@ -213,15 +248,12 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         break;
                     case tibberHelper_1.enCalcType.BestCostLTF:
                         this.executeCalculatorBestCost(parseInt(channel), true);
-                        //ToDo
                         break;
                     case tibberHelper_1.enCalcType.BestSingleHoursLTF:
                         this.executeCalculatorBestSingleHours(parseInt(channel), true);
-                        //ToDo
                         break;
                     case tibberHelper_1.enCalcType.BestHoursBlockLTF:
                         this.executeCalculatorBestHoursBlock(parseInt(channel), true);
-                        //ToDo
                         break;
                     default:
                         this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
@@ -229,6 +261,19 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             catch (error) {
                 this.adapter.log.warn(`unhandled error execute calculator channel ${channel}`);
+            }
+        }
+    }
+    async updateCalculatorUsageStats() {
+        if (!this.adapter.config.UseCalculator)
+            return;
+        this.initStats;
+        for (const channel in this.adapter.config.CalculatorList) {
+            try {
+                this.increaseStatsValueByOne(this.adapter.config.CalculatorList[channel].chType);
+            }
+            catch (error) {
+                this.adapter.log.debug(`unhandled error in calculator channel ${channel} scan`);
             }
         }
     }
