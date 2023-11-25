@@ -147,11 +147,7 @@ class Tibberlink extends utils.Adapter {
 				if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
 				}
 				this.jobPricesTodayLOOP(tibberAPICaller);
-				//if (!(await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true))) {
-				//}
 				this.jobPricesTomorrowLOOP(tibberAPICaller);
-				//if (!(await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true))) {
-				//}
 				tibberCalculator.startCalculatorTasks();
 				//for (const index in this.homeInfoList) {
 				// Get consumption data for the first time

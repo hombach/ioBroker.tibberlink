@@ -57,8 +57,8 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
     -   "Best single hours": Generates a "YES" output during the least expensive hours, with the number defined in the "AmountHours" state.
     -   "Best hours block": Outputs "YES" during the most cost-effective block of hours, with the number of hours specified in the "AmountHours" state.
     -   "Best cost LTF": "Best cost" within a Limited Time Frame (LTF).
-    -   "Best single hours LTF": Feature not yet implemented - "Best single hours" within a Limited Time Frame (LTF).
-    -   "Best hours block LTF": Feature not yet implemented - "Best hours block" within a Limited Time Frame (LTF).
+    -   "Best single hours LTF": "Best single hours" within a Limited Time Frame (LTF).
+    -   "Best hours block LTF": "Best hours block" within a Limited Time Frame (LTF).
 -   LTF channels: Function similarly to standard channels but only operate within a time frame defined by the "StartTime" and "StopTime" state objects. After "StopTime," the channel deactivates itself. "StartTime" and "StopTime" may span over several days. The states must be filled with a date-time string in ISO-8601 format with a timezone offset, such as: "2023-11-17T21:00:00.000+01:00".
 
 ### Hint
@@ -85,10 +85,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 1.6.0 (2023-11-2x) WORK in PROGRESS
 
 -   (HombachC) WiP: implement limit calculations to a time frame (#153)
--   (HombachC) WiP: fix error of missing price data upon not working tibber server connect at adapter start (#204)
+-   (HombachC) fix error of missing price data upon not working tibber server connect at adapter start (#204)
 -   (HombachC) fixed possible error with wrong price date in multi home systems
 -   (HombachC) fixed possible type error, notified by Sentry
--   (HombachC) added some documentation for inverseuse of channekls (#202)
+-   (HombachC) added some documentation for inverse use of channels (#202)
 -   (HombachC) optimize translation handling
 
 ### 1.5.0 (2023-11-13)

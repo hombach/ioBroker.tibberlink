@@ -316,10 +316,10 @@ export class TibberCalculator extends TibberHelper {
 				// not active -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now < this.adapter.config.CalculatorList[channel].chStartTime) {
-				// chActive but before LTF
+				// chActive but before LTF -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
-				// chActive but after LTF
+				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
@@ -329,18 +329,21 @@ export class TibberCalculator extends TibberHelper {
 				);
 
 				// NEW
-				let mergedPrices: IPrice[] = pricesToday;
 				let filteredPrices: IPrice[] = pricesToday;
 				if (modeLTF) {
+					// Limited Time Frame mode
 					const pricesTomorrow: IPrice[] = JSON.parse(
 						await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
 					);
+					const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
+					const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
+
 					// Merge prices if pricesTomorrow is not empty
+					let mergedPrices: IPrice[] = pricesToday;
 					if (pricesTomorrow.length !== 0) {
 						mergedPrices = [...pricesToday, ...pricesTomorrow];
 					}
-					const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
-					const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
+
 					// filter objects to time frame
 					filteredPrices = mergedPrices.filter((price) => {
 						const priceDate = new Date(price.startsAt);
@@ -360,13 +363,14 @@ export class TibberCalculator extends TibberHelper {
 				} else {
 					valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				}
-				this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-				this.adapter.log.debug(
-					`calculator channel: ${channel}-best single hours ${modeLTF ? "LTF" : ""}; setting state: ${
-						this.adapter.config.CalculatorList[channel].chTargetState
-					} to ${valueToSet}`,
-				);
 			}
+			//set value to foreign state
+			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+			this.adapter.log.debug(
+				`calculator channel: ${channel}-best single hours ${modeLTF ? "LTF" : ""}; setting state: ${
+					this.adapter.config.CalculatorList[channel].chTargetState
+				} to ${valueToSet}`,
+			);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
@@ -381,10 +385,10 @@ export class TibberCalculator extends TibberHelper {
 				// not active -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now < this.adapter.config.CalculatorList[channel].chStartTime) {
-				// chActive but before LTF
+				// chActive but before LTF -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
-				// chActive but after LTF
+				// chActive but after LTF -> choose chValueOff and disable channel
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
@@ -394,13 +398,26 @@ export class TibberCalculator extends TibberHelper {
 				);
 
 				// NEW
-				const pricesTomorrow: IPrice[] = JSON.parse(
-					await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
-				);
-				if (modeLTF && pricesTomorrow.length !== 0) {
-					//const mergedPrice: IPrice = { ...pricesToday, ...pricesTomorrow };
-				} else {
-					//const mergedPrice: IPrice = pricesToday;
+				let filteredPrices: IPrice[] = pricesToday;
+				if (modeLTF) {
+					// Limited Time Frame mode
+					const pricesTomorrow: IPrice[] = JSON.parse(
+						await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
+					);
+					const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
+					const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
+
+					// Merge prices if pricesTomorrow is not empty
+					let mergedPrices: IPrice[] = pricesToday;
+					if (pricesTomorrow.length !== 0) {
+						mergedPrices = [...pricesToday, ...pricesTomorrow];
+					}
+
+					// filter objects to time frame
+					filteredPrices = mergedPrices.filter((price) => {
+						const priceDate = new Date(price.startsAt);
+						return priceDate >= startTime && priceDate < stopTime;
+					});
 				}
 				// END NEW
 
@@ -408,17 +425,17 @@ export class TibberCalculator extends TibberHelper {
 				let startIndex = 0;
 				const n = this.adapter.config.CalculatorList[channel].chAmountHours;
 
-				for (let i = 0; i < pricesToday.length - n + 1; i++) {
+				for (let i = 0; i < filteredPrices.length - n + 1; i++) {
 					let sum = 0;
 					for (let j = i; j < i + n; j++) {
-						sum += pricesToday[j].total;
+						sum += filteredPrices[j].total;
 					}
 					if (sum < minSum) {
 						minSum = sum;
 						startIndex = i;
 					}
 				}
-				const minSumEntries: boolean[] = pricesToday.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+				const minSumEntries: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
 
 				// identify if any element is true
 				if (minSumEntries.some((value) => value)) {
@@ -427,6 +444,7 @@ export class TibberCalculator extends TibberHelper {
 					valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				}
 			}
+			//set value to foreign state
 			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 			this.adapter.log.debug(
 				`calculator channel: ${channel}-best hours block ${modeLTF ? "LTF" : ""}; setting state: ${
