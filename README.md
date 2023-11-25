@@ -91,6 +91,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) added some documentation for inverse use of channels (#202)
 -   (HombachC) added Sentry statistics
 -   (HombachC) optimize translation handling
+-   (HombachC) bump dependencies
 
 ### 1.5.0 (2023-11-13)
 
