@@ -84,7 +84,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 1.6.0 (2023-11-2x) WORK in PROGRESS
 
--   (HombachC) WiP: implement limit calculations to a time frame (#153)
+-   (HombachC) fixed major bug in 1.5.0, not working calculator channels (#212)
+-   (HombachC) implement limit calculations to a time frame (#153)
 -   (HombachC) fix error of missing price data upon not working tibber server connect at adapter start (#204)
 -   (HombachC) fixed possible error with wrong price date in multi home systems
 -   (HombachC) fixed possible type error, notified by Sentry
