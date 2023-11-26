@@ -315,9 +315,10 @@ export class TibberAPICaller extends TibberHelper {
 	 */
 	async updateConsumptionAllHomes(): Promise<void> {
 		try {
+			// OLD
+			/*
 			for (const index in this.adapter.config.HomesList) {
-				if (!this.adapter.config.HomesList[index].statsActive) continue;
-				if (!this.adapter.config.HomesList[index].homeID) continue;
+				if (!this.adapter.config.HomesList[index].statsActive || !this.adapter.config.HomesList[index].homeID) continue;
 				const homeID = this.adapter.config.HomesList[index].homeID;
 
 				if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
@@ -385,6 +386,36 @@ export class TibberAPICaller extends TibberHelper {
 					);
 				} else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonAnnual"), "[]");
 			}
+			*/
+			// END OLD
+
+			// NEW
+			for (const home of this.adapter.config.HomesList) {
+				if (!home.statsActive || !home.homeID) continue;
+
+				const homeID = home.homeID;
+				const resolutions = [
+					{ type: EnergyResolution.HOURLY, prop: "jsonHourly", numCons: home.numberConsHourly },
+					{ type: EnergyResolution.DAILY, prop: "jsonDaily", numCons: home.numberConsDaily },
+					{ type: EnergyResolution.WEEKLY, prop: "jsonWeekly", numCons: home.numberConsWeekly },
+					{ type: EnergyResolution.MONTHLY, prop: "jsonMonthly", numCons: home.numberConsMonthly },
+					{ type: EnergyResolution.ANNUAL, prop: "jsonAnnual", numCons: home.numberConsAnnual },
+				];
+
+				for (const { type, prop, numCons } of resolutions) {
+					if (numCons && numCons > 0) {
+						const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+						this.checkAndSetValue(
+							this.getStatePrefix(homeID, "Consumption", prop),
+							JSON.stringify(consumption),
+							`Historical consumption last ${type.toLowerCase()}s as json`,
+						);
+					} else {
+						this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", prop), "[]");
+					}
+				}
+			}
+			// END NEW
 		} catch (error: any) {
 			this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
 		}
