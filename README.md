@@ -75,7 +75,7 @@ Attention: For peak single hours, such as in the example, you also need to adjus
 
 The calculation is performed for "multiday" data. As we only have information for "today" and "tomorrow" (available after approximately 13:00), the time scope is effectively limited to a maximum of 35 hours. However, it's crucial to be mindful of this behavior because the calculated result may/will change around 13:00 when new data for tomorrow's prices becomes available.
 
-To observe this dynamic change in the time scope for a standard channel, you may opt for a Long-Term Forecast (LTF) spanning several years. This is particularly useful for the "Best Single Hours LTF" scenario.
+To observe this dynamic change in the time scope for a standard channel, you may opt for a Limited Time Frame (LTF) spanning several years. This is particularly useful for the "Best Single Hours LTF" scenario.
 
 ## Notes
 
