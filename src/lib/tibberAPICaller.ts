@@ -331,9 +331,9 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(hourlyConsumption),
 						"Historical consumption last hours as json",
 					);
-				}
+				} else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonHourly"), "[]");
 
-				if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+				if (this.adapter.config.HomesList[index].numberConsDaily && this.adapter.config.HomesList[index].numberConsDaily > 0) {
 					const dailyConsumption = await this.tibberQuery.getConsumption(
 						EnergyResolution.DAILY,
 						this.adapter.config.HomesList[index].numberConsDaily,
@@ -344,9 +344,9 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(dailyConsumption),
 						"Historical consumption last days as json",
 					);
-				}
+				} else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonDaily"), "[]");
 
-				if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+				if (this.adapter.config.HomesList[index].numberConsWeekly && this.adapter.config.HomesList[index].numberConsWeekly > 0) {
 					const weeklyConsumption = await this.tibberQuery.getConsumption(
 						EnergyResolution.WEEKLY,
 						this.adapter.config.HomesList[index].numberConsWeekly,
@@ -357,9 +357,9 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(weeklyConsumption),
 						"Historical consumption last weeks as json",
 					);
-				}
+				} else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonWeekly"), "[]");
 
-				if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+				if (this.adapter.config.HomesList[index].numberConsMonthly && this.adapter.config.HomesList[index].numberConsMonthly > 0) {
 					const monthlyConsumption = await this.tibberQuery.getConsumption(
 						EnergyResolution.MONTHLY,
 						this.adapter.config.HomesList[index].numberConsMonthly,
@@ -370,9 +370,9 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(monthlyConsumption),
 						"Historical consumption last months as json",
 					);
-				}
+				} else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonMonthly"), "[]");
 
-				if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+				if (this.adapter.config.HomesList[index].numberConsAnnual && this.adapter.config.HomesList[index].numberConsAnnual > 0) {
 					const annualConsumption = await this.tibberQuery.getConsumption(
 						EnergyResolution.ANNUAL,
 						this.adapter.config.HomesList[index].numberConsAnnual,
@@ -383,7 +383,7 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(annualConsumption),
 						"Historical consumption last years as json",
 					);
-				}
+				} else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonAnnual"), "[]");
 			}
 		} catch (error: any) {
 			this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
