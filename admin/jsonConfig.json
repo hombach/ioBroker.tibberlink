@@ -98,7 +98,7 @@
 							"attr": "homeID",
 							"filter": false,
 							"sort": false,
-							"width": "50%",
+							"width": "40%",
 							"default": "No Home selected"
 						},
 						{
@@ -119,7 +119,7 @@
 							"attr": "feedActive",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "15%",
 							"default": false
 						},
 						{
@@ -140,7 +140,7 @@
 							"attr": "statsActive",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "15%",
 							"default": false
 						},
 						{
