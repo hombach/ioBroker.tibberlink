@@ -10,7 +10,7 @@ declare global {
 				{
 					feedActive: boolean;
 					homeID: string;
-					statsAcrive: boolean;
+					statsActive: boolean;
 					numberConsHourly: number;
 					numberConsDaily: number;
 					numberConsWeekly: number;

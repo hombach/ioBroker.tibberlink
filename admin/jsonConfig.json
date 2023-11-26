@@ -136,64 +136,67 @@
 						{
 							"type": "number",
 							"title": {
-								"en": "hourly"
+								"en": "hours"
 							},
 							"attr": "numberConsHourly",
-							"hidden": "!data.statsActive",
-							"min": 1,
+							"disabled": "!data.statsActive",
+							"min": 0,
 							"max": 400,
 							"step": 1,
-							"width": "10%",
+							"width": "6%",
 							"default": 24
 						},
 						{
 							"type": "number",
 							"title": {
-								"en": "daily"
+								"en": "days"
 							},
 							"attr": "numberConsDaily",
 							"disabled": "!data.statsActive",
-							"min": 1,
+							"min": 0,
 							"max": 30,
 							"step": 1,
-							"width": "10%",
+							"width": "6%",
 							"default": 7
 						},
 						{
 							"type": "number",
 							"title": {
-								"en": "weekly"
+								"en": "weeks"
 							},
 							"attr": "numberConsWeekly",
-							"min": 1,
+							"disabled": "!data.statsActive",
+							"min": 0,
 							"max": 10,
 							"step": 1,
-							"width": "10%",
-							"default": 7
+							"width": "6%",
+							"default": 4
 						},
 						{
 							"type": "number",
 							"title": {
-								"en": "monthly"
+								"en": "month"
 							},
 							"attr": "numberConsMonthly",
-							"min": 1,
+							"disabled": "!data.statsActive",
+							"min": 0,
 							"max": 10,
 							"step": 1,
-							"width": "10%",
-							"default": 7
+							"width": "6%",
+							"default": 4
 						},
 						{
 							"type": "number",
 							"title": {
-								"en": "annual"
+								"en": "years"
 							},
 							"attr": "numberConsAnnual",
-							"min": 1,
+							"disabled": "!data.statsActive",
+							"min": 0,
 							"max": 10,
 							"step": 1,
-							"width": "10%",
-							"default": 7
+							"width": "6%",
+							"default": 2
 						}
 					]
 				},

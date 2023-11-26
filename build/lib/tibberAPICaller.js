@@ -264,36 +264,38 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         }
     }
     /**
-     * updates lists of tomorrows prices of all homes
+     * updates lists historical consumption data of all homes
      *
-     * @param homeInfoList - homeInfo list object
      * @returns void - data will be written to ioBroker objects as JSON
      */
-    async updateConsumptionAllHomes(homeInfoList) {
-        for (const index in homeInfoList) {
-            await this.updateConsumption(homeInfoList[index].ID);
-        }
-    }
-    /**
-     * gets statistical consumption data for one home
-     *
-     * @param homeId - homeId string
-     * @returns void - data will be written to ioBroker objects as JSON
-     */
-    async updateConsumption(homeId) {
+    async updateConsumptionAllHomes() {
         try {
-            if (homeId) {
-                const hourlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.HOURLY, 24, homeId);
-                //					this.adapter.config.HomesList[homeId].numberConsHourly,
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonHourly"), JSON.stringify(hourlyConsumption), "Historical consumption last hours as json");
-                const dailyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.DAILY, 7, homeId);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonDaily"), JSON.stringify(dailyConsumption), "Historical consumption last days as json");
-                const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.WEEKLY, 4, homeId);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonWeekly"), JSON.stringify(weeklyConsumption), "Historical consumption last weeks as json");
-                const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.MONTHLY, 4, homeId);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonMonthly"), JSON.stringify(monthlyConsumption), "Historical consumption last months as json");
-                const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.ANNUAL, 2, homeId);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonAnnual"), JSON.stringify(annualConsumption), "Historical consumption last years as json");
+            for (const index in this.adapter.config.HomesList) {
+                if (!this.adapter.config.HomesList[index].statsActive)
+                    continue;
+                if (!this.adapter.config.HomesList[index].homeID)
+                    continue;
+                const homeID = this.adapter.config.HomesList[index].homeID;
+                if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+                    const hourlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.HOURLY, this.adapter.config.HomesList[index].numberConsHourly, homeID);
+                    this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonHourly"), JSON.stringify(hourlyConsumption), "Historical consumption last hours as json");
+                }
+                if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+                    const dailyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.DAILY, this.adapter.config.HomesList[index].numberConsDaily, homeID);
+                    this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonDaily"), JSON.stringify(dailyConsumption), "Historical consumption last days as json");
+                }
+                if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+                    const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.WEEKLY, this.adapter.config.HomesList[index].numberConsWeekly, homeID);
+                    this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonWeekly"), JSON.stringify(weeklyConsumption), "Historical consumption last weeks as json");
+                }
+                if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+                    const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.MONTHLY, this.adapter.config.HomesList[index].numberConsMonthly, homeID);
+                    this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonMonthly"), JSON.stringify(monthlyConsumption), "Historical consumption last months as json");
+                }
+                if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
+                    const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.ANNUAL, this.adapter.config.HomesList[index].numberConsAnnual, homeID);
+                    this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonAnnual"), JSON.stringify(annualConsumption), "Historical consumption last years as json");
+                }
                 /*DEMO results
                 annualConsumption [
                     {"from":"2021-01-01T00:00:00.000+01:00","to":"2022-01-01T00:00:00.000+01:00","cost":18724.9354599375,"unitPrice":0.957861,"unitPriceVAT":0.191572,"consumption":19548.706,"consumptionUnit":"kWh","currency":"SEK"},
