@@ -171,10 +171,8 @@ class Tibberlink extends utils.Adapter {
                 this.jobPricesTodayLOOP(tibberAPICaller);
                 this.jobPricesTomorrowLOOP(tibberAPICaller);
                 tibberCalculator.startCalculatorTasks();
-                //for (const index in this.homeInfoList) {
                 // Get consumption data for the first time
-                // await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
-                //}
+                await tibberAPICaller.updateConsumptionAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
                     cronTime: "20 57 * * * *",
                     onTick: async () => {

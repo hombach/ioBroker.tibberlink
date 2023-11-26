@@ -190,7 +190,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate) {
         let okprice = true;
         for (const index in homeInfoList) {
-            // potential problems with multihome??
             if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, forceUpdate)))
                 okprice = false;
         }
@@ -265,30 +264,35 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         }
     }
     /**
+     * updates lists of tomorrows prices of all homes
+     *
+     * @param homeInfoList - homeInfo list object
+     * @returns void - data will be written to ioBroker objects as JSON
+     */
+    async updateConsumptionAllHomes(homeInfoList) {
+        for (const index in homeInfoList) {
+            await this.updateConsumption(homeInfoList[index].ID);
+        }
+    }
+    /**
      * gets statistical consumption data for one home
      *
      * @param homeId - homeId string
      * @returns void - data will be written to ioBroker objects as JSON
      */
-    async getConsumption(homeId) {
+    async updateConsumption(homeId) {
         try {
             if (homeId) {
+                const hourlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.HOURLY, 24, homeId);
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_hourly"), JSON.stringify(hourlyConsumption), "Historical consumption last hours as json");
                 const dailyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.DAILY, 7, homeId);
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_daily"), JSON.stringify(dailyConsumption), "Historical consumption last days as json");
                 const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.WEEKLY, 4, homeId);
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_weekly"), JSON.stringify(weeklyConsumption), "Historical consumption last weeks as json");
                 const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.MONTHLY, 4, homeId);
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_monthly"), JSON.stringify(monthlyConsumption), "Historical consumption last months as json");
                 const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.ANNUAL, 2, homeId);
-                this.adapter.log.debug(`dailyConsumption ${JSON.stringify(dailyConsumption)}`);
-                this.adapter.log.debug(`weeklyConsumption ${JSON.stringify(weeklyConsumption)}`);
-                this.adapter.log.debug(`monthlyConsumption ${JSON.stringify(monthlyConsumption)}`);
-                this.adapter.log.debug(`annualConsumption ${JSON.stringify(annualConsumption)}`);
-                this.adapter.log.debug(`dailyConsumption ${dailyConsumption[0].consumption}`);
-                this.adapter.log.debug(`weeklyConsumption ${weeklyConsumption[0].consumption}`);
-                this.adapter.log.debug(`monthlyConsumption ${monthlyConsumption[0].consumption}`);
-                this.adapter.log.debug(`annualConsumption ${annualConsumption[0].consumption}`);
-                this.adapter.log.debug(`dailyConsumption cost ${dailyConsumption[0].cost}`);
-                this.adapter.log.debug(`weeklyConsumption cost ${weeklyConsumption[0].cost}`);
-                this.adapter.log.debug(`monthlyConsumption cost ${monthlyConsumption[0].cost}`);
-                this.adapter.log.debug(`annualConsumption cost ${annualConsumption[0].cost}`);
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_annual"), JSON.stringify(annualConsumption), "Historical consumption last years as json");
                 /*DEMO results
                 annualConsumption [
                     {"from":"2021-01-01T00:00:00.000+01:00","to":"2022-01-01T00:00:00.000+01:00","cost":18724.9354599375,"unitPrice":0.957861,"unitPriceVAT":0.191572,"consumption":19548.706,"consumptionUnit":"kWh","currency":"SEK"},
