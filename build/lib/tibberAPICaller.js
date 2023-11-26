@@ -290,7 +290,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                         this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), `[]`);
                     }
                 }
-                this.adapter.log.debug(`Got consumption data from tibber api, home: ${homeID}`);
+                this.adapter.log.debug(`Got consumption data from Tibber Server for home: ${homeID}`);
             }
         }
         catch (error) {
