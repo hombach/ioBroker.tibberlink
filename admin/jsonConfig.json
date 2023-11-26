@@ -98,7 +98,7 @@
 							"attr": "homeID",
 							"filter": false,
 							"sort": false,
-							"width": "70%",
+							"width": "60%",
 							"default": "No Home selected"
 						},
 						{
@@ -119,8 +119,41 @@
 							"attr": "feedActive",
 							"filter": false,
 							"sort": false,
-							"width": "30%",
+							"width": "10%",
 							"default": false
+						},
+						{
+							"type": "checkbox",
+							"title": {
+								"en": "use stats for this home"
+							},
+							"attr": "statsActive",
+							"filter": false,
+							"sort": false,
+							"width": "10%",
+							"default": false
+						},
+						{
+							"type": "number",
+							"title": {
+								"en": "hourly"
+							},
+							"attr": "numberConsHourly",
+							"min": 1,
+							"max": 400,
+							"width": "10%",
+							"default": 24
+						},
+						{
+							"type": "number",
+							"title": {
+								"en": "daily"
+							},
+							"attr": "numberConsDaily",
+							"min": 1,
+							"max": 30,
+							"width": "10%",
+							"default": 7
 						}
 					]
 				},

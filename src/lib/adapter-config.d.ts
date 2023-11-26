@@ -10,6 +10,12 @@ declare global {
 				{
 					feedActive: boolean;
 					homeID: string;
+					statsAcrive: boolean;
+					numberConsHourly: number;
+					numberConsDaily: number;
+					numberConsWeekly: number;
+					numberConsMonthly: number;
+					numberConsAnnual: number;
 				},
 			];
 			FeedConfigLastMeterConsumption: boolean;

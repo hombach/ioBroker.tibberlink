@@ -330,6 +330,8 @@ export class TibberAPICaller extends TibberHelper {
 		try {
 			if (homeId) {
 				const hourlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution.HOURLY, 24, homeId);
+				//					this.adapter.config.HomesList[homeId].numberConsHourly,
+
 				this.checkAndSetValue(
 					this.getStatePrefix(homeId, "Consumption", "json_hourly"),
 					JSON.stringify(hourlyConsumption),

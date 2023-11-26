@@ -356,7 +356,13 @@
 		"HomesList": [
 			{
 				"feedActive": "false",
-				"homeID": "None available - restart adapter after entering token"
+				"homeID": "None available - restart adapter after entering token",
+				"statsActive": "false",
+				"numberConsHourly": 24,
+				"numberConsDaily": 7,
+				"numberConsWeekly": 4,
+				"numberConsMonthly": 4,
+				"numberConsAnnual": 2
 			}
 		],
 		"CalculatorList": [

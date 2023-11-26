@@ -284,6 +284,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         try {
             if (homeId) {
                 const hourlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.HOURLY, 24, homeId);
+                //					this.adapter.config.HomesList[homeId].numberConsHourly,
                 this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_hourly"), JSON.stringify(hourlyConsumption), "Historical consumption last hours as json");
                 const dailyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.DAILY, 7, homeId);
                 this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_daily"), JSON.stringify(dailyConsumption), "Historical consumption last days as json");
