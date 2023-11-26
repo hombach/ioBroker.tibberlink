@@ -270,102 +270,28 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      */
     async updateConsumptionAllHomes() {
         try {
-            // OLD
-            /*
-            for (const index in this.adapter.config.HomesList) {
-                if (!this.adapter.config.HomesList[index].statsActive || !this.adapter.config.HomesList[index].homeID) continue;
-                const homeID = this.adapter.config.HomesList[index].homeID;
-
-                if (this.adapter.config.HomesList[index].numberConsHourly && this.adapter.config.HomesList[index].numberConsHourly > 0) {
-                    const hourlyConsumption = await this.tibberQuery.getConsumption(
-                        EnergyResolution.HOURLY,
-                        this.adapter.config.HomesList[index].numberConsHourly,
-                        homeID,
-                    );
-                    this.checkAndSetValue(
-                        this.getStatePrefix(homeID, "Consumption", "jsonHourly"),
-                        JSON.stringify(hourlyConsumption),
-                        "Historical consumption last hours as json",
-                    );
-                } else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonHourly"), "[]");
-
-                if (this.adapter.config.HomesList[index].numberConsDaily && this.adapter.config.HomesList[index].numberConsDaily > 0) {
-                    const dailyConsumption = await this.tibberQuery.getConsumption(
-                        EnergyResolution.DAILY,
-                        this.adapter.config.HomesList[index].numberConsDaily,
-                        homeID,
-                    );
-                    this.checkAndSetValue(
-                        this.getStatePrefix(homeID, "Consumption", "jsonDaily"),
-                        JSON.stringify(dailyConsumption),
-                        "Historical consumption last days as json",
-                    );
-                } else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonDaily"), "[]");
-
-                if (this.adapter.config.HomesList[index].numberConsWeekly && this.adapter.config.HomesList[index].numberConsWeekly > 0) {
-                    const weeklyConsumption = await this.tibberQuery.getConsumption(
-                        EnergyResolution.WEEKLY,
-                        this.adapter.config.HomesList[index].numberConsWeekly,
-                        homeID,
-                    );
-                    this.checkAndSetValue(
-                        this.getStatePrefix(homeID, "Consumption", "jsonWeekly"),
-                        JSON.stringify(weeklyConsumption),
-                        "Historical consumption last weeks as json",
-                    );
-                } else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonWeekly"), "[]");
-
-                if (this.adapter.config.HomesList[index].numberConsMonthly && this.adapter.config.HomesList[index].numberConsMonthly > 0) {
-                    const monthlyConsumption = await this.tibberQuery.getConsumption(
-                        EnergyResolution.MONTHLY,
-                        this.adapter.config.HomesList[index].numberConsMonthly,
-                        homeID,
-                    );
-                    this.checkAndSetValue(
-                        this.getStatePrefix(homeID, "Consumption", "jsonMonthly"),
-                        JSON.stringify(monthlyConsumption),
-                        "Historical consumption last months as json",
-                    );
-                } else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonMonthly"), "[]");
-
-                if (this.adapter.config.HomesList[index].numberConsAnnual && this.adapter.config.HomesList[index].numberConsAnnual > 0) {
-                    const annualConsumption = await this.tibberQuery.getConsumption(
-                        EnergyResolution.ANNUAL,
-                        this.adapter.config.HomesList[index].numberConsAnnual,
-                        homeID,
-                    );
-                    this.checkAndSetValue(
-                        this.getStatePrefix(homeID, "Consumption", "jsonAnnual"),
-                        JSON.stringify(annualConsumption),
-                        "Historical consumption last years as json",
-                    );
-                } else this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", "jsonAnnual"), "[]");
-            }
-            */
-            // END OLD
-            // NEW
             for (const home of this.adapter.config.HomesList) {
                 if (!home.statsActive || !home.homeID)
                     continue;
                 const homeID = home.homeID;
                 const resolutions = [
-                    { type: EnergyResolution_1.EnergyResolution.HOURLY, prop: "jsonHourly", numCons: home.numberConsHourly },
-                    { type: EnergyResolution_1.EnergyResolution.DAILY, prop: "jsonDaily", numCons: home.numberConsDaily },
-                    { type: EnergyResolution_1.EnergyResolution.WEEKLY, prop: "jsonWeekly", numCons: home.numberConsWeekly },
-                    { type: EnergyResolution_1.EnergyResolution.MONTHLY, prop: "jsonMonthly", numCons: home.numberConsMonthly },
-                    { type: EnergyResolution_1.EnergyResolution.ANNUAL, prop: "jsonAnnual", numCons: home.numberConsAnnual },
+                    { type: EnergyResolution_1.EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
+                    { type: EnergyResolution_1.EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
+                    { type: EnergyResolution_1.EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
+                    { type: EnergyResolution_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
+                    { type: EnergyResolution_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
                 ];
-                for (const { type, prop, numCons } of resolutions) {
+                for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
-                        this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", prop), JSON.stringify(consumption), `Historical consumption last ${type.toLowerCase()}s as json`);
+                        this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), JSON.stringify(consumption), `Historical consumption last ${description}s as json`);
                     }
                     else {
-                        this.checkAndSetValue(this.getStatePrefix(homeID, "Consumption", prop), "[]");
+                        this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), `[]`);
                     }
                 }
+                this.adapter.log.debug(`Got consumption data from tibber api, home: ${homeID}`);
             }
-            // END NEW
         }
         catch (error) {
             this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
@@ -435,16 +361,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), "Not known now", "Start time of the price minimum");
     }
-    fetchAddress(homeId, objectDestination, address) {
-        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address1"), address.address1);
-        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address2"), address.address2);
-        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address3"), address.address3);
-        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "City"), address.city);
-        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "PostalCode"), address.postalCode);
-        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Country"), address.country);
-        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Latitude"), address.latitude);
-        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Longitude"), address.longitude);
-    }
     fetchLegalEntity(homeId, objectDestination, legalEntity) {
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Id"), legalEntity.id);
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "FirstName"), legalEntity.firstName);
@@ -464,6 +380,16 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     fetchContactInfo(homeId, objectDestination, contactInfo) {
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Email"), contactInfo.email);
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Mobile"), contactInfo.mobile);
+    }
+    fetchAddress(homeId, objectDestination, address) {
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address1"), address.address1);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address2"), address.address2);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address3"), address.address3);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "City"), address.city);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "PostalCode"), address.postalCode);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Country"), address.country);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Latitude"), address.latitude);
+        this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Longitude"), address.longitude);
     }
 }
 exports.TibberAPICaller = TibberAPICaller;
