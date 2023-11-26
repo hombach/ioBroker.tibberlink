@@ -180,7 +180,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) Increase to the first major release, as now a stable level is reached
 -   (HombachC) Code cleanup
 
-### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD)
+### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
 ## License
 
