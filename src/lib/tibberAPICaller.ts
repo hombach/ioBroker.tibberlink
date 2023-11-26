@@ -266,7 +266,7 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(pricesTomorrow),
 						"prices sorted by cost ascending as json",
 					);
-					return false;
+					return true;
 				} else if (Array.isArray(pricesTomorrow)) {
 					// pricing known, after about 13:00 - write the states
 					for (const i in pricesTomorrow) {

@@ -228,7 +228,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
                     this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
-                    return false;
+                    return true;
                 }
                 else if (Array.isArray(pricesTomorrow)) {
                     // pricing known, after about 13:00 - write the states

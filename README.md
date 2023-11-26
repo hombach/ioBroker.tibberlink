@@ -82,7 +82,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.6.0 (2023-11-2x) WORK in PROGRESS
+### 1.6.0 (2023-11-26)
 
 -   (HombachC) fixed major bug in 1.5.0, not working calculator channels (#212)
 -   (HombachC) implement limit calculations to a time frame (#153)
