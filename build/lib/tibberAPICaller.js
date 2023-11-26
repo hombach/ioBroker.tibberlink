@@ -285,15 +285,15 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             if (homeId) {
                 const hourlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.HOURLY, 24, homeId);
                 //					this.adapter.config.HomesList[homeId].numberConsHourly,
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_hourly"), JSON.stringify(hourlyConsumption), "Historical consumption last hours as json");
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonHourly"), JSON.stringify(hourlyConsumption), "Historical consumption last hours as json");
                 const dailyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.DAILY, 7, homeId);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_daily"), JSON.stringify(dailyConsumption), "Historical consumption last days as json");
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonDaily"), JSON.stringify(dailyConsumption), "Historical consumption last days as json");
                 const weeklyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.WEEKLY, 4, homeId);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_weekly"), JSON.stringify(weeklyConsumption), "Historical consumption last weeks as json");
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonWeekly"), JSON.stringify(weeklyConsumption), "Historical consumption last weeks as json");
                 const monthlyConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.MONTHLY, 4, homeId);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_monthly"), JSON.stringify(monthlyConsumption), "Historical consumption last months as json");
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonMonthly"), JSON.stringify(monthlyConsumption), "Historical consumption last months as json");
                 const annualConsumption = await this.tibberQuery.getConsumption(EnergyResolution_1.EnergyResolution.ANNUAL, 2, homeId);
-                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "json_annual"), JSON.stringify(annualConsumption), "Historical consumption last years as json");
+                this.checkAndSetValue(this.getStatePrefix(homeId, "Consumption", "jsonAnnual"), JSON.stringify(annualConsumption), "Historical consumption last years as json");
                 /*DEMO results
                 annualConsumption [
                     {"from":"2021-01-01T00:00:00.000+01:00","to":"2022-01-01T00:00:00.000+01:00","cost":18724.9354599375,"unitPrice":0.957861,"unitPriceVAT":0.191572,"consumption":19548.706,"consumptionUnit":"kWh","currency":"SEK"},
