@@ -310,10 +310,10 @@ export class TibberAPICaller extends TibberHelper {
 	}
 
 	/**
-	 * yet not used in public revisions
+	 * gets statistical consumption data for one home
 	 *
 	 * @param homeId - homeId string
-	 * @returns void
+	 * @returns void - data will be written to ioBroker objects as JSON
 	 */
 	async getConsumption(homeId: string): Promise<void> {
 		try {
