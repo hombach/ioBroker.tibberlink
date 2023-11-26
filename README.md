@@ -90,7 +90,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.6.1 (2023-11-xx)
+### 1.6.1 (2023-11-26)
 
 -   (HombachC) cleanup in documentation and translation handling
 
