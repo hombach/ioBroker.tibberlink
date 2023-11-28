@@ -160,10 +160,8 @@ class Tibberlink extends utils.Adapter {
 				this.jobPricesTodayLOOP(tibberAPICaller);
 				this.jobPricesTomorrowLOOP(tibberAPICaller);
 				tibberCalculator.startCalculatorTasks();
-				//for (const index in this.homeInfoList) {
 				// Get consumption data for the first time
-				// await tibberAPICaller.getConsumption(this.homeInfoList[index].ID);
-				//}
+				tibberAPICaller.updateConsumptionAllHomes();
 
 				const jobCurrentPrice = CronJob.from({
 					cronTime: "20 57 * * * *", //"20 57 * * * *" = 3 minuten vor 00:00:20 jede Stunde
@@ -175,6 +173,7 @@ class Tibberlink extends utils.Adapter {
 							this.log.debug(`Cron job CurrentPrice - okPrice: ${okPrice}`);
 						} while (!okPrice);
 						tibberCalculator.startCalculatorTasks();
+						tibberAPICaller.updateConsumptionAllHomes();
 					},
 					start: true,
 					timeZone: "system",
@@ -232,42 +231,42 @@ class Tibberlink extends utils.Adapter {
 					});
 					const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 					for (const index in this.homeInfoList) {
-						if (this.homeInfoList[index].FeedActive && this.homeInfoList[index].RealTime) {
-							this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
-							try {
-								// define the fields for datafeed
-								tibberFeedConfigs[index].homeId = this.homeInfoList[index].ID;
-								tibberFeedConfigs[index].power = true;
-								if (this.config.FeedConfigLastMeterConsumption) tibberFeedConfigs[index].lastMeterConsumption = true;
-								if (this.config.FeedConfigAccumulatedConsumption) tibberFeedConfigs[index].accumulatedConsumption = true;
-								if (this.config.FeedConfigAccumulatedProduction) tibberFeedConfigs[index].accumulatedProduction = true;
-								if (this.config.FeedConfigAccumulatedConsumptionLastHour) tibberFeedConfigs[index].accumulatedConsumptionLastHour = true;
-								if (this.config.FeedConfigAccumulatedProductionLastHour) tibberFeedConfigs[index].accumulatedProductionLastHour = true;
-								if (this.config.FeedConfigAccumulatedCost) tibberFeedConfigs[index].accumulatedCost = true;
-								if (this.config.FeedConfigAccumulatedCost) tibberFeedConfigs[index].accumulatedReward = true;
-								if (this.config.FeedConfigCurrency) tibberFeedConfigs[index].currency = true;
-								if (this.config.FeedConfigMinPower) tibberFeedConfigs[index].minPower = true;
-								if (this.config.FeedConfigAveragePower) tibberFeedConfigs[index].averagePower = true;
-								if (this.config.FeedConfigMaxPower) tibberFeedConfigs[index].maxPower = true;
-								if (this.config.FeedConfigPowerProduction) tibberFeedConfigs[index].powerProduction = true;
-								if (this.config.FeedConfigMinPowerProduction) tibberFeedConfigs[index].minPowerProduction = true;
-								if (this.config.FeedConfigMaxPowerProduction) tibberFeedConfigs[index].maxPowerProduction = true;
-								if (this.config.FeedConfigLastMeterProduction) tibberFeedConfigs[index].lastMeterProduction = true;
-								if (this.config.FeedConfigPowerFactor) tibberFeedConfigs[index].powerFactor = true;
-								if (this.config.FeedConfigVoltagePhase1) tibberFeedConfigs[index].voltagePhase1 = true;
-								if (this.config.FeedConfigVoltagePhase2) tibberFeedConfigs[index].voltagePhase2 = true;
-								if (this.config.FeedConfigVoltagePhase3) tibberFeedConfigs[index].voltagePhase3 = true;
-								if (this.config.FeedConfigCurrentL1) tibberFeedConfigs[index].currentL1 = true;
-								if (this.config.FeedConfigCurrentL2) tibberFeedConfigs[index].currentL2 = true;
-								if (this.config.FeedConfigCurrentL3) tibberFeedConfigs[index].currentL3 = true;
-								if (this.config.FeedConfigSignalStrength) tibberFeedConfigs[index].signalStrength = true;
-								tibberPulseInstances[index] = new TibberPulse(tibberFeedConfigs[index], this); // add instance to array
-								tibberPulseInstances[index].ConnectPulseStream();
-							} catch (e) {
-								this.log.warn((e as Error).message);
-							}
-						} else {
+						if (!this.homeInfoList[index].FeedActive || !this.homeInfoList[index].RealTime) {
 							this.log.warn("skipping feed of live data - no Pulse configured for this home according to Tibber server");
+							continue;
+						}
+						this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
+						try {
+							// define the fields for datafeed
+							tibberFeedConfigs[index].homeId = this.homeInfoList[index].ID;
+							tibberFeedConfigs[index].power = true;
+							if (this.config.FeedConfigLastMeterConsumption) tibberFeedConfigs[index].lastMeterConsumption = true;
+							if (this.config.FeedConfigAccumulatedConsumption) tibberFeedConfigs[index].accumulatedConsumption = true;
+							if (this.config.FeedConfigAccumulatedProduction) tibberFeedConfigs[index].accumulatedProduction = true;
+							if (this.config.FeedConfigAccumulatedConsumptionLastHour) tibberFeedConfigs[index].accumulatedConsumptionLastHour = true;
+							if (this.config.FeedConfigAccumulatedProductionLastHour) tibberFeedConfigs[index].accumulatedProductionLastHour = true;
+							if (this.config.FeedConfigAccumulatedCost) tibberFeedConfigs[index].accumulatedCost = true;
+							if (this.config.FeedConfigAccumulatedCost) tibberFeedConfigs[index].accumulatedReward = true;
+							if (this.config.FeedConfigCurrency) tibberFeedConfigs[index].currency = true;
+							if (this.config.FeedConfigMinPower) tibberFeedConfigs[index].minPower = true;
+							if (this.config.FeedConfigAveragePower) tibberFeedConfigs[index].averagePower = true;
+							if (this.config.FeedConfigMaxPower) tibberFeedConfigs[index].maxPower = true;
+							if (this.config.FeedConfigPowerProduction) tibberFeedConfigs[index].powerProduction = true;
+							if (this.config.FeedConfigMinPowerProduction) tibberFeedConfigs[index].minPowerProduction = true;
+							if (this.config.FeedConfigMaxPowerProduction) tibberFeedConfigs[index].maxPowerProduction = true;
+							if (this.config.FeedConfigLastMeterProduction) tibberFeedConfigs[index].lastMeterProduction = true;
+							if (this.config.FeedConfigPowerFactor) tibberFeedConfigs[index].powerFactor = true;
+							if (this.config.FeedConfigVoltagePhase1) tibberFeedConfigs[index].voltagePhase1 = true;
+							if (this.config.FeedConfigVoltagePhase2) tibberFeedConfigs[index].voltagePhase2 = true;
+							if (this.config.FeedConfigVoltagePhase3) tibberFeedConfigs[index].voltagePhase3 = true;
+							if (this.config.FeedConfigCurrentL1) tibberFeedConfigs[index].currentL1 = true;
+							if (this.config.FeedConfigCurrentL2) tibberFeedConfigs[index].currentL2 = true;
+							if (this.config.FeedConfigCurrentL3) tibberFeedConfigs[index].currentL3 = true;
+							if (this.config.FeedConfigSignalStrength) tibberFeedConfigs[index].signalStrength = true;
+							tibberPulseInstances[index] = new TibberPulse(tibberFeedConfigs[index], this); // add instance to array
+							tibberPulseInstances[index].ConnectPulseStream();
+						} catch (e) {
+							this.log.warn((e as Error).message);
 						}
 					}
 				}
@@ -337,8 +336,8 @@ class Tibberlink extends utils.Adapter {
 	private onUnload(callback: () => void): void {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
-			for (const index in this.cronList) {
-				this.cronList[index].stop;
+			for (const cronJob of this.cronList) {
+				cronJob.stop();
 			}
 			// clearTimeout(timeout);
 			// info.connect to false, if adapter is closed

@@ -39,6 +39,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 -   Enter your Tibber API token in the standard settings and configure at least one line for live feed settings (select "None available").
 -   Save the settings and exit the configuration to restart the adapter; this step allows your home(s) to be queried from the Tibber server.
 -   Return to the configuration screen and select the homes from which you wish to fetch real-time data using your Tibber Pulse. You can also select homes and disable the feed (Note: This works only if the hardware is installed and the Tibber server has verified the connection to Pulse).
+-   Optionally, you can enable the retrieval of historical consumption data. Please specify the number of datasets for hours, days, weeks, months, and years. You can use "0" to disable one or more of these intervals.
 -   Save the settings.
 
 ## Calculator Configuration
@@ -89,6 +90,12 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ## Changelog
 
 ! Note that missing version entries are typically dependency updates for improved security.
+
+### 1.7.0 (2023-11-xx) WORK in PROGRESS
+
+-   (HombachC) implement getting historical consumption data from Tibber Server (#163)
+-   (HombachC) fix error in adapter unload
+-   (HombachC) some code optimisations
 
 ### 1.6.1 (2023-11-26)
 

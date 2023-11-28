@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.6.1",
+		"version": "1.7.0",
 		"news": {
+			"1.7.0": {
+				"en": "Implement getting historical consumption data from Tibber Server (#163)",
+				"de": "Implementierung des Abrufs historischer Verbrauchsdaten vom Tibber Server (#163)",
+				"ru": "Реализация получения исторических данных о потреблении от сервера Tibber (#163)",
+				"pt": "Implementar obtenção de dados históricos de consumo do servidor Tibber (#163)",
+				"nl": "Implementeer het ophalen van historische verbruiksgegevens van Tibber Server (#163)",
+				"fr": "Mise en œuvre de l'obtention des données de consommation historiques depuis le serveur Tibber (#163)",
+				"it": "Implementare l'ottenimento dei dati di consumo storici dal server Tibber (#163)",
+				"es": "Implementar la obtención de datos de consumo históricos del servidor Tibber (#163)",
+				"pl": "Wdrożenie pobierania historycznych danych o zużyciu z serwera Tibber (#163)",
+				"uk": "Впровадження отримання історичних даних про споживання від сервера Tibber (#163)",
+				"zh-cn": "实现从 Tibber 服务器获取历史耗电数据 (#163)"
+			},
 			"1.6.1": {
 				"en": "Cleanup in documentation and translation handling",
 				"de": "Aufräumen in der Dokumentation und Übersetzungsverarbeitung",
@@ -343,7 +356,13 @@
 		"HomesList": [
 			{
 				"feedActive": "false",
-				"homeID": "None available - restart adapter after entering token"
+				"homeID": "None available - restart adapter after entering token",
+				"statsActive": "false",
+				"numberConsHourly": 24,
+				"numberConsDaily": 7,
+				"numberConsWeekly": 4,
+				"numberConsMonthly": 4,
+				"numberConsAnnual": 2
 			}
 		],
 		"CalculatorList": [
