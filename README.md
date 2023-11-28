@@ -93,7 +93,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 1.7.0 (2023-11-xx) WORK in PROGRESS
 
--   (HombachC) WiP - implement getting historical consumption data from Tibber Server (#163)
+-   (HombachC) implement getting historical consumption data from Tibber Server (#163)
 -   (HombachC) fix error in adapter unload
 -   (HombachC) some code optimisations
 
