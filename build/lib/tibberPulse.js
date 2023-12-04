@@ -18,7 +18,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.tibberFeed.connect();
         }
         catch (error) {
-            this.adapter.log.warn(`Error on connect Feed: ${error.message}`);
+            this.adapter.log.warn(`Error on feed connect: ${error.message}`);
         }
     }
     DisconnectPulseStream() {
@@ -26,7 +26,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.tibberFeed.close();
         }
         catch (error) {
-            this.adapter.log.warn(`Error on Feed closed: ${error.message}`);
+            this.adapter.log.warn(`Error on feed close: ${error.message}`);
         }
         // Reinitialize TibberFeed
         this.tibberFeed = new tibber_api_1.TibberFeed(new tibber_api_1.TibberQuery(this.tibberConfig));
@@ -34,7 +34,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
     addEventHandlerOnFeed(currentFeed) {
         // Set info.connection state for event "connected"
         currentFeed.on("connected", (data) => {
-            this.adapter.log.debug(`Tibber Feed: ${data.toString()}`);
+            this.adapter.log.debug(`Tibber feed connected: ${data.toString()}`);
             this.adapter.setState("info.connection", true, true);
         });
         // Set info.connection state for event "disconnected"
@@ -46,13 +46,27 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
                 this.reconnect();
             }
         });
-        // Add Error Handler on connection
-        currentFeed.on("error", (e) => {
-            if (e.message) {
-                this.adapter.log.warn(`ERROR on Tibber-Feed: ${e.message}`);
+        /* OLD 1.7.1
+        // Add error handler on connection
+        currentFeed.on("error", (error) => {
+            if (error.message) {
+                this.adapter.log.warn(`ERROR on Tibber feed: ${error.message}`);
+            } else {
+                this.adapter.log.warn(`ERROR on Tibber feed: ${error.toString()}`);
+            }
+        });
+        */
+        // Add error handler on connection
+        currentFeed.on("error", (error) => {
+            const errorObj = error instanceof Error ? error : new Error(error);
+            if (errorObj.message) {
+                this.adapter.log.warn(`ERROR on Tibber feed: ${errorObj.message}`);
+            }
+            else if (errorObj.name) {
+                this.adapter.log.warn(`ERROR on Tibber feed: ${errorObj.name}`);
             }
             else {
-                this.adapter.log.warn(`ERROR on Tibber-Feed: ${e.toString()}`);
+                this.adapter.log.warn(`unspecified ERROR on Tibber feed: ${errorObj.toString()}`);
             }
         });
         // Add data receiver
