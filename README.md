@@ -92,7 +92,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.7.1 (2023-12-0?) WORK IN PROGRESS
+### 1.7.1 (2023-12-04)
 
 -   (HombachC) added hint for consumption data in documentation (#223)
 -   (HombachC) mitigate error handling (#217)
