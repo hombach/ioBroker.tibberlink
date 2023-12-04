@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.7.0",
+		"version": "1.7.1",
 		"news": {
+			"1.7.1": {
+				"en": "Added hint for consumption data in documentation",
+				"de": "Hinweis für Verbrauchsdaten in der Dokumentation hinzugefügt",
+				"ru": "Добавлено подсказку для данных о потреблении в документации",
+				"pt": "Adicionada dica para dados de consumo na documentação",
+				"nl": "Hint toegevoegd voor verbruiksgegevens in documentatie",
+				"fr": "Ajout d'un indice pour les données de consommation dans la documentation",
+				"it": "Aggiunto suggerimento per i dati di consumo nella documentazione",
+				"es": "Añadida pista para datos de consumo en la documentación",
+				"pl": "Dodano wskazówkę dotyczącą danych o zużyciu w dokumentacji",
+				"uk": "Додано підказку для даних щодо споживання в документації",
+				"zh-cn": "在文档中添加了关于消耗数据的提示"
+			},
 			"1.7.0": {
 				"en": "Implement getting historical consumption data from Tibber Server (#163)",
 				"de": "Implementierung des Abrufs historischer Verbrauchsdaten vom Tibber Server (#163)",
