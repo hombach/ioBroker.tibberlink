@@ -95,7 +95,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 1.7.1 (2023-12-0?) WORK IN PROGRESS
 
 -   (HombachC) added hint for consumption data in documentation (#223)
--   (HombachC) mitigate error handling (#217) 
+-   (HombachC) mitigate error handling (#217)
+-   (HombachC) added description to object Features/RealTimeConsumptionEnabled (#224)
 -   (HombachC) bump dependencies
 
 ### 1.7.0 (2023-11-30)

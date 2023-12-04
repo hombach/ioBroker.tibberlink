@@ -41,7 +41,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.checkAndSetValueBoolean(this.getStatePrefix(currentHome.id, "General", "HasVentilationSystem"), currentHome.hasVentilationSystem, "Whether the home has a ventilation system");
                 this.fetchAddress(currentHome.id, "Address", currentHome.address);
                 this.fetchLegalEntity(currentHome.id, "Owner", currentHome.owner);
-                this.checkAndSetValueBoolean(this.getStatePrefix(currentHome.id, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled);
+                this.checkAndSetValueBoolean(this.getStatePrefix(currentHome.id, "Features", "RealTimeConsumptionEnabled"), currentHome.features.realTimeConsumptionEnabled, "Whether Tibber server will send consumption data by API");
             }
             return homeInfoList;
         }

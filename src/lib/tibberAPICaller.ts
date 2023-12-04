@@ -69,6 +69,7 @@ export class TibberAPICaller extends TibberHelper {
 				this.checkAndSetValueBoolean(
 					this.getStatePrefix(currentHome.id, "Features", "RealTimeConsumptionEnabled"),
 					currentHome.features.realTimeConsumptionEnabled,
+					"Whether Tibber server will send consumption data by API",
 				);
 			}
 			return homeInfoList;
