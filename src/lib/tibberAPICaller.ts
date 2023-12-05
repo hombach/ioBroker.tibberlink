@@ -209,7 +209,7 @@ export class TibberAPICaller extends TibberHelper {
 				return true;
 			}
 		} catch (error: any) {
-			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of prices today`));
+			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `force pull of prices today`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
 			return false;
 		}
@@ -303,7 +303,7 @@ export class TibberAPICaller extends TibberHelper {
 			}
 			return false;
 		} catch (error: any) {
-			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of prices tomorrow`));
+			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `force pull of prices tomorrow`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));
 			return false;
 		}
