@@ -1024,6 +1024,24 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
+						"en": "   'Smart Battery Buffer': Not implemented yet",
+						"de": "   'Smart Battery Buffer': Not implemented yet",
+						"ru": "   'Smart Battery Buffer': Not implemented yet",
+						"pt": "   'Smart Battery Buffer': Not implemented yet",
+						"nl": "   'Smart Battery Buffer': Not implemented yet",
+						"fr": "   'Smart Battery Buffer': Not implemented yet",
+						"it": "   'Smart Battery Buffer': Not implemented yet",
+						"es": "   'Smart Battery Buffer': Not implemented yet",
+						"pl": "   'Smart Battery Buffer': Not implemented yet",
+						"uk": "   'Smart Battery Buffer': Not implemented yet",
+						"zh-cn": "   'Smart Battery Buffer': Not implemented yet"
+					},
+					"newLine": true
+				},
+				"_calculatorhelp14": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
 						"en": "LTF channels: Function similarly to standard channels but only operate within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel deactivates itself. 'StartTime' and 'StopTime' may span over several days. The states must be filled with a date-time string in ISO-8601 format with a timezone offset, such as: '2023-11-17T21:00:00.000+01:00'",
 						"de": "LTF-Kanäle: Funktionieren ähnlich wie Standardkanäle, arbeiten jedoch nur innerhalb eines durch die Statusobjekte 'StartTime' und 'StopTime' definierten Zeitrahmens. Nach 'StopTime' deaktiviert sich der Kanal selbst. 'StartTime' und 'StopTime' können sich über mehrere Tage erstrecken. Die Zustände müssen mit einem Datum-Zeit-String im ISO-8601-Format mit einem Zeitzonenoffset gefüllt sein, z. B .: '2023-11-17T21:00:00.000+01:00'",
 						"ru": "LTF-каналы: Функционируют аналогично стандартным каналам, но работают только в пределах временного интервала, определенного объектами состояний 'StartTime' и 'StopTime'. После 'StopTime' канал деактивируется сам. 'StartTime' и 'StopTime' могут охватывать несколько дней. Состояния должны быть заполнены строкой даты-времени в формате ISO-8601 с смещением часового пояса, например: '2023-11-17T21:00:00.000+01:00'",
