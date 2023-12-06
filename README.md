@@ -97,6 +97,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) implemented dynamic raise of feed reconnect (#225)
 -   (HombachC) small bugfix in pricecalls
 -   (HombachC) first implementations for "smart battery buffer" (#193)
+-   (HombachC) update typescript to 5.3.3
 
 ### 1.7.1 (2023-12-04)
 

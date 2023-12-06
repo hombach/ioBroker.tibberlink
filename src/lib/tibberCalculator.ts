@@ -559,7 +559,18 @@ export class TibberCalculator extends TibberHelper {
 
 	async executeCalculatorSmartBatteryBuffer(channel: number): Promise<void> {
 		try {
-			//WiP #193
+			let valueToSet: string = "";
+			if (!this.adapter.config.CalculatorList[channel].chActive) {
+				// not active
+				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+			} else {
+				// chActive -> choose desired values
+				//WiP #193
+			}
+			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+			this.adapter.log.debug(
+				`calculator channel: ${channel}-smart battery buffer; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
+			);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
 		}
