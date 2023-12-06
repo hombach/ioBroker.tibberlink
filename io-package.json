@@ -252,19 +252,6 @@
 				"pl": "Dodano codzienne średnie wartości cenowe (#89)",
 				"uk": "Додані середні щоденні значення цін (#89)",
 				"zh-cn": "添加每日平均价格值 (#89)"
-			},
-			"0.3.3": {
-				"en": "Fixed a false positive connection message (#87); Updated translations with ChatGPT",
-				"de": "Behobene falsch positive Verbindungsmeldung (#87); Aktualisierte Übersetzungen mit ChatGPT",
-				"ru": "Исправлено ложное положительное сообщение о подключении (#87); Обновлены переводы с помощью ChatGPT",
-				"pt": "Corrigida uma mensagem de conexão falsa positiva (#87); Atualizadas as traduções com o ChatGPT",
-				"nl": "Oplossing voor een vals positief verbindingsbericht (#87); Bijgewerkte vertalingen met ChatGPT",
-				"fr": "Correction d'un message de connexion faussement positif (#87); Mises à jour des traductions avec ChatGPT",
-				"it": "Risolto un falso messaggio di connessione positiva (#87); Traduzioni aggiornate con ChatGPT",
-				"es": "Se corrigió un mensaje de conexión falsamente positivo (#87); Se actualizaron las traducciones con ChatGPT",
-				"pl": "Naprawione fałszywe pozytywne wiadomości o połączeniu (#87); Zaktualizowane tłumaczenia za pomocą ChatGPT",
-				"uk": "Виправлено помилкове повідомлення про позитивне підключення (#87); Оновлено переклади за допомогою ChatGPT",
-				"zh-cn": "修复了虚假的正面连接消息 (#87); 使用 ChatGPT 更新的翻译"
 			}
 		},
 		"messages": [
