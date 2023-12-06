@@ -804,9 +804,8 @@
 						},
 
 						{
-							"type": "staticText",
-							"hidden": "!data.UseCalculator",
-							"label": {
+							"type": "text",
+							"title": {
 								"en": "NEWLINE",
 								"de": "NEWLINE",
 								"ru": "NEWLINE",
@@ -819,6 +818,12 @@
 								"uk": "NEWLINE",
 								"zh-cn": "NEWLINE"
 							},
+							"maxLength": 20,
+							"attr": "_chValueOff",
+							"filter": false,
+							"sort": false,
+							"width": "10%",
+							"default": "",
 							"newLine": true
 						}
 					]
