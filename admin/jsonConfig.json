@@ -801,6 +801,25 @@
 							"sort": false,
 							"width": "10%",
 							"default": ""
+						},
+
+						{
+							"type": "staticText",
+							"hidden": "!data.UseCalculator",
+							"label": {
+								"en": "NEWLINE",
+								"de": "NEWLINE",
+								"ru": "NEWLINE",
+								"pt": "NEWLINE",
+								"nl": "NEWLINE",
+								"fr": "NEWLINE",
+								"it": "NEWLINE",
+								"es": "NEWLINE",
+								"pl": "NEWLINE",
+								"uk": "NEWLINE",
+								"zh-cn": "NEWLINE"
+							},
+							"newLine": true
 						}
 					]
 				},
