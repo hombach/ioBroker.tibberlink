@@ -92,6 +92,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 1.7.2 (2023-12-XX) WORK in PROGRESS
+
+-   (HombachC) implemented dynamic raise of feed reconnect (#225)
+-   (HombachC) start implementation of "smart battery buffer" (#193)
+
 ### 1.7.1 (2023-12-04)
 
 -   (HombachC) added hint for consumption data in documentation (#223)

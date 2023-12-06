@@ -299,8 +299,8 @@ class Tibberlink extends utils.Adapter {
                             tibberPulseInstances[index] = new tibberPulse_1.TibberPulse(tibberFeedConfigs[index], this); // add instance to array
                             tibberPulseInstances[index].ConnectPulseStream();
                         }
-                        catch (e) {
-                            this.log.warn(e.message);
+                        catch (error) {
+                            this.log.warn(error.message);
                         }
                     }
                 }

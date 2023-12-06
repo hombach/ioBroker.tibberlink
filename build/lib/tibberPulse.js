@@ -46,16 +46,6 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
                 this.reconnect();
             }
         });
-        /* OLD 1.7.1
-        // Add error handler on connection
-        currentFeed.on("error", (error) => {
-            if (error.message) {
-                this.adapter.log.warn(`ERROR on Tibber feed: ${error.message}`);
-            } else {
-                this.adapter.log.warn(`ERROR on Tibber feed: ${error.toString()}`);
-            }
-        });
-        */
         // Add error handler on connection
         currentFeed.on("error", (error) => {
             const errorObj = error instanceof Error ? error : new Error(error);
@@ -117,6 +107,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
     reconnect() {
         const reconnectionInterval = this.adapter.setInterval(() => {
             if (!this.tibberFeed.connected) {
+                this.reconnectTime = this.reconnectTime + 1000;
                 this.adapter.log.debug(`No TibberFeed connected try reconnecting now in ${this.reconnectTime / 1000}sec interval!`);
                 this.ConnectPulseStream();
             }

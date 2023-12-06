@@ -7,8 +7,8 @@ export enum enCalcType {
 	BestCostLTF = 4,
 	BestSingleHoursLTF = 5,
 	BestHoursBlockLTF = 6,
-	//BestCostMaxHours = 7,
-	//SmartBatteryBuffer = 8,
+	SmartBatteryBuffer = 7,
+	//BestCostMaxHours = 8,
 }
 
 export interface IHomeInfo {

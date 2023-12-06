@@ -9,6 +9,7 @@ export class TibberPulse extends TibberHelper {
 	tibberFeed: TibberFeed;
 	httpQueryUrl: string;
 	reconnectTime: number = 6000;
+	maxReconnectTime: number = 6000;
 
 	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
 		super(adapter);
@@ -53,17 +54,6 @@ export class TibberPulse extends TibberHelper {
 				this.reconnect();
 			}
 		});
-
-		/* OLD 1.7.1
-		// Add error handler on connection
-		currentFeed.on("error", (error) => {
-			if (error.message) {
-				this.adapter.log.warn(`ERROR on Tibber feed: ${error.message}`);
-			} else {
-				this.adapter.log.warn(`ERROR on Tibber feed: ${error.toString()}`);
-			}
-		});
-		*/
 
 		// Add error handler on connection
 		currentFeed.on("error", (error) => {
@@ -250,6 +240,7 @@ export class TibberPulse extends TibberHelper {
 	private reconnect(): void {
 		const reconnectionInterval: any = this.adapter.setInterval(() => {
 			if (!this.tibberFeed.connected) {
+				this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
 				this.adapter.log.debug(`No TibberFeed connected try reconnecting now in ${this.reconnectTime / 1000}sec interval!`);
 				this.ConnectPulseStream();
 			} else {

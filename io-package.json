@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.7.1",
+		"version": "1.7.2",
 		"news": {
+			"1.7.2": {
+				"en": "Work in Progress"
+			},
 			"1.7.1": {
 				"en": "Added hint for consumption data in documentation",
 				"de": "Hinweis für Verbrauchsdaten in der Dokumentation hinzugefügt",

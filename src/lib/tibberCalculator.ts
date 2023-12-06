@@ -9,6 +9,7 @@ export class TibberCalculator extends TibberHelper {
 	numBestCostLTF: number;
 	numBestSingleHoursLTF: number;
 	numBestHoursBlockLTF: number;
+	numSmartBatteryBuffer: number;
 
 	constructor(adapter: utils.AdapterInstance) {
 		super(adapter);
@@ -18,6 +19,7 @@ export class TibberCalculator extends TibberHelper {
 		this.numBestCostLTF = 0;
 		this.numBestSingleHoursLTF = 0;
 		this.numBestHoursBlockLTF = 0;
+		this.numSmartBatteryBuffer = 0;
 	}
 
 	initStats(): void {
@@ -27,6 +29,7 @@ export class TibberCalculator extends TibberHelper {
 		this.numBestCostLTF = 0;
 		this.numBestSingleHoursLTF = 0;
 		this.numBestHoursBlockLTF = 0;
+		this.numSmartBatteryBuffer = 0;
 	}
 
 	private increaseStatsValueByOne(type: enCalcType): void {
@@ -48,6 +51,9 @@ export class TibberCalculator extends TibberHelper {
 				break;
 			case enCalcType.BestHoursBlockLTF:
 				this.numBestHoursBlockLTF++;
+				break;
+			case enCalcType.SmartBatteryBuffer:
+				this.numSmartBatteryBuffer++;
 		}
 	}
 
@@ -78,6 +84,9 @@ export class TibberCalculator extends TibberHelper {
 					break;
 				case enCalcType.BestHoursBlockLTF:
 					typeDesc = "type: best hours block, limited time frame";
+					break;
+				case enCalcType.SmartBatteryBuffer:
+					typeDesc = "type: smart battery buffer";
 					break;
 				default:
 					typeDesc = "---";
