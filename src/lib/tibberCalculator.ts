@@ -123,12 +123,14 @@ export class TibberCalculator extends TibberHelper {
 			}
 			//#endregion
 
-			//"Best cost": Defined by the "TriggerPrice" state as input.
-			//"Best single hours": Defined by the "AmountHours" state as input.
-			//"Best hours block": Defined by the "AmountHours" state as input.
-			//"Best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime" states as input.
-			//"Best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
-			//"Best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
+			//"best cost": Defined by the "TriggerPrice" state as input.
+			//"best single hours": Defined by the "AmountHours" state as input.
+			//"best hours block": Defined by the "AmountHours" state as input.
+			//"best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime" states as input.
+			//"best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
+			//"best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
+			//"smart battery buffer": WIP
+
 			switch (this.adapter.config.CalculatorList[channel].chType) {
 				case enCalcType.BestCost:
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value);

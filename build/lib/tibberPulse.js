@@ -7,6 +7,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.reconnectTime = 6000;
+        this.maxReconnectTime = 900000;
         this.tibberConfig = tibberConfig;
         this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig);
         this.tibberFeed = new tibber_api_1.TibberFeed(this.tibberQuery);
@@ -107,7 +108,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
     reconnect() {
         const reconnectionInterval = this.adapter.setInterval(() => {
             if (!this.tibberFeed.connected) {
-                this.reconnectTime = this.reconnectTime + 1000;
+                this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
                 this.adapter.log.debug(`No TibberFeed connected try reconnecting now in ${this.reconnectTime / 1000}sec interval!`);
                 this.ConnectPulseStream();
             }

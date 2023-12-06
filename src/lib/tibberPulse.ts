@@ -9,7 +9,7 @@ export class TibberPulse extends TibberHelper {
 	tibberFeed: TibberFeed;
 	httpQueryUrl: string;
 	reconnectTime: number = 6000;
-	maxReconnectTime: number = 6000;
+	maxReconnectTime: number = 900000;
 
 	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
 		super(adapter);

@@ -13,7 +13,8 @@
     "energy",
     "energy supplier",
     "grid",
-    "Tibber"
+    "Tibber",
+    "ESS"
   ],
   "repository": {
     "type": "git",

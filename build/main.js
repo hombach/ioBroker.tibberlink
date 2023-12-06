@@ -296,7 +296,7 @@ class Tibberlink extends utils.Adapter {
                                 tibberFeedConfigs[index].currentL3 = true;
                             if (this.config.FeedConfigSignalStrength)
                                 tibberFeedConfigs[index].signalStrength = true;
-                            tibberPulseInstances[index] = new tibberPulse_1.TibberPulse(tibberFeedConfigs[index], this); // add instance to array
+                            tibberPulseInstances[index] = new tibberPulse_1.TibberPulse(tibberFeedConfigs[index], this); // add new instance to array
                             tibberPulseInstances[index].ConnectPulseStream();
                         }
                         catch (error) {

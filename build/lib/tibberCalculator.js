@@ -11,6 +11,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         this.numBestCostLTF = 0;
         this.numBestSingleHoursLTF = 0;
         this.numBestHoursBlockLTF = 0;
+        this.numSmartBatteryBuffer = 0;
     }
     initStats() {
         this.numBestCost = 0;
@@ -19,6 +20,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         this.numBestCostLTF = 0;
         this.numBestSingleHoursLTF = 0;
         this.numBestHoursBlockLTF = 0;
+        this.numSmartBatteryBuffer = 0;
     }
     increaseStatsValueByOne(type) {
         switch (type) {
@@ -39,6 +41,9 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 break;
             case tibberHelper_1.enCalcType.BestHoursBlockLTF:
                 this.numBestHoursBlockLTF++;
+                break;
+            case tibberHelper_1.enCalcType.SmartBatteryBuffer:
+                this.numSmartBatteryBuffer++;
         }
     }
     async setupCalculatorStates(homeId, channel) {
@@ -68,6 +73,9 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 case tibberHelper_1.enCalcType.BestHoursBlockLTF:
                     typeDesc = "type: best hours block, limited time frame";
                     break;
+                case tibberHelper_1.enCalcType.SmartBatteryBuffer:
+                    typeDesc = "type: smart battery buffer";
+                    break;
                 default:
                     typeDesc = "---";
             }
@@ -94,12 +102,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
             }
             //#endregion
-            //"Best cost": Defined by the "TriggerPrice" state as input.
-            //"Best single hours": Defined by the "AmountHours" state as input.
-            //"Best hours block": Defined by the "AmountHours" state as input.
-            //"Best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime" states as input.
-            //"Best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
-            //"Best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
+            //"best cost": Defined by the "TriggerPrice" state as input.
+            //"best single hours": Defined by the "AmountHours" state as input.
+            //"best hours block": Defined by the "AmountHours" state as input.
+            //"best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime" states as input.
+            //"best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
+            //"best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
+            //"smart battery buffer": WIP
             switch (this.adapter.config.CalculatorList[channel].chType) {
                 case tibberHelper_1.enCalcType.BestCost:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value);

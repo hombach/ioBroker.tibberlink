@@ -36,7 +36,7 @@ export class TibberHelper {
 	protected async getStateValue(stateName: string): Promise<any | null> {
 		try {
 			const stateObject = await this.getState(stateName);
-			return stateObject?.val ?? null; // Errors have already been handled in getState()
+			return stateObject?.val ?? null; // errors have already been handled in getState()
 		} catch (error) {
 			this.adapter.log.error(`[getStateValue](${stateName}): ${error}`);
 			return null;

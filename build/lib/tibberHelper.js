@@ -9,8 +9,8 @@ var enCalcType;
     enCalcType[enCalcType["BestCostLTF"] = 4] = "BestCostLTF";
     enCalcType[enCalcType["BestSingleHoursLTF"] = 5] = "BestSingleHoursLTF";
     enCalcType[enCalcType["BestHoursBlockLTF"] = 6] = "BestHoursBlockLTF";
-    //BestCostMaxHours = 7,
-    //SmartBatteryBuffer = 8,
+    enCalcType[enCalcType["SmartBatteryBuffer"] = 7] = "SmartBatteryBuffer";
+    //BestCostMaxHours = 8,
 })(enCalcType || (exports.enCalcType = enCalcType = {}));
 class TibberHelper {
     constructor(adapter) {
@@ -26,7 +26,7 @@ class TibberHelper {
     async getStateValue(stateName) {
         try {
             const stateObject = await this.getState(stateName);
-            return stateObject?.val ?? null; // Errors have already been handled in getState()
+            return stateObject?.val ?? null; // errors have already been handled in getState()
         }
         catch (error) {
             this.adapter.log.error(`[getStateValue](${stateName}): ${error}`);
