@@ -108,12 +108,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             //"best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime" states as input.
             //"best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
             //"best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
-            //"smart battery buffer": WIP
+            //"smart battery buffer": Defined by the "AmountHours", "EfficiencyLoss" states as input.
             switch (this.adapter.config.CalculatorList[channel].chType) {
                 case tibberHelper_1.enCalcType.BestCost:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
+                    this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
                     await this.setup_chTriggerPrice(homeId, channel);
                     break;
                 case tibberHelper_1.enCalcType.BestSingleHours:
@@ -121,10 +122,12 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
+                    this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
                     await this.setup_chAmountHours(homeId, channel);
                     break;
                 case tibberHelper_1.enCalcType.BestCostLTF:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value);
+                    this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
                     await this.setup_chTriggerPrice(homeId, channel);
                     await this.setup_chStartTime(homeId, channel);
                     await this.setup_chStopTime(homeId, channel);
@@ -132,9 +135,17 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 case tibberHelper_1.enCalcType.BestSingleHoursLTF:
                 case tibberHelper_1.enCalcType.BestHoursBlockLTF:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value);
+                    this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
                     await this.setup_chAmountHours(homeId, channel);
                     await this.setup_chStartTime(homeId, channel);
                     await this.setup_chStopTime(homeId, channel);
+                    break;
+                case tibberHelper_1.enCalcType.SmartBatteryBuffer:
+                    this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value);
+                    this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
+                    this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
+                    await this.setup_chAmountHours(homeId, channel);
+                    await this.setup_chEfficiencyLoss(homeId, channel);
                     break;
                 default:
                     this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
@@ -234,6 +245,27 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `setup of state StopTime for calculator`));
         }
     }
+    async setup_chEfficiencyLoss(homeId, channel) {
+        try {
+            const channelName = this.adapter.config.CalculatorList[channel].chName;
+            //***  chEfficiencyLoss  ***
+            if (this.adapter.config.CalculatorList[channel].chEfficiencyLoss === undefined) {
+                this.adapter.config.CalculatorList[channel].chEfficiencyLoss = 0;
+            }
+            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`), this.adapter.config.CalculatorList[channel].chEfficiencyLoss, `efficiency loss between charge and discharge of battery system`, true, true);
+            const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+            if (typeof valueEfficiencyLoss === "number") {
+                this.adapter.config.CalculatorList[channel].chAmountHours = valueEfficiencyLoss;
+                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to EfficiencyLoss: ${this.adapter.config.CalculatorList[channel].chEfficiencyLoss}`);
+            }
+            else {
+                this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueEfficiencyLoss}`);
+            }
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `setup of state EfficiencyLoss for calculator`));
+        }
+    }
     async startCalculatorTasks() {
         if (!this.adapter.config.UseCalculator)
             return;
@@ -263,6 +295,9 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         break;
                     case tibberHelper_1.enCalcType.BestHoursBlockLTF:
                         this.executeCalculatorBestHoursBlock(parseInt(channel), true);
+                        break;
+                    case tibberHelper_1.enCalcType.SmartBatteryBuffer:
+                        this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
                         break;
                     default:
                         this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
@@ -319,7 +354,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.debug(`calculator channel: ${channel}-best price ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price  ${modeLTF ? "LTF " : ""}in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
     async executeCalculatorBestSingleHours(channel, modeLTF) {
@@ -403,9 +438,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
             }
             else {
-                //const currentDateTime = new Date();
                 const pricesToday = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
-                // NEW
                 let filteredPrices = pricesToday;
                 if (modeLTF) {
                     // Limited Time Frame mode
@@ -423,7 +456,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         return priceDate >= startTime && priceDate < stopTime;
                     });
                 }
-                // END NEW
                 let minSum = Number.MAX_VALUE;
                 let startIndex = 0;
                 const n = this.adapter.config.CalculatorList[channel].chAmountHours;
@@ -452,6 +484,14 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
+        }
+    }
+    async executeCalculatorSmartBatteryBuffer(channel) {
+        try {
+            //WiP #193
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
         }
     }
 }

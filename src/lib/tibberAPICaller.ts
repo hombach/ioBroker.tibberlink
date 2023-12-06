@@ -143,8 +143,9 @@ export class TibberAPICaller extends TibberHelper {
 	 */
 	async updatePricesTodayAllHomes(homeInfoList: IHomeInfo[], forceUpdate?: boolean): Promise<boolean> {
 		let okprice = true;
+		const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
 		for (const index in homeInfoList) {
-			if (!(await this.updatePricesToday(homeInfoList[index].ID, forceUpdate))) okprice = false;
+			if (!(await this.updatePricesToday(homeInfoList[index].ID, currentForceUpdate))) okprice = false;
 		}
 		return okprice;
 	}
@@ -155,7 +156,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - force mode, without verification if existing data is fitting to current date
 	 * @returns okprice - got correct data
 	 */
-	async updatePricesToday(homeId: string, forceUpdate?: boolean): Promise<boolean> {
+	async updatePricesToday(homeId: string, forceUpdate: boolean): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
@@ -225,8 +226,9 @@ export class TibberAPICaller extends TibberHelper {
 	 */
 	async updatePricesTomorrowAllHomes(homeInfoList: IHomeInfo[], forceUpdate?: boolean): Promise<boolean> {
 		let okprice = true;
+		const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
 		for (const index in homeInfoList) {
-			if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, forceUpdate))) okprice = false;
+			if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, currentForceUpdate))) okprice = false;
 		}
 		return okprice;
 	}
@@ -237,7 +239,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - force mode, without verification if existing data is fitting to current date
 	 * @returns okprice - got new data
 	 */
-	async updatePricesTomorrow(homeId: string, forceUpdate?: boolean): Promise<boolean> {
+	async updatePricesTomorrow(homeId: string, forceUpdate: boolean): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);

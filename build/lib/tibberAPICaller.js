@@ -118,8 +118,9 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      */
     async updatePricesTodayAllHomes(homeInfoList, forceUpdate) {
         let okprice = true;
+        const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
         for (const index in homeInfoList) {
-            if (!(await this.updatePricesToday(homeInfoList[index].ID, forceUpdate)))
+            if (!(await this.updatePricesToday(homeInfoList[index].ID, currentForceUpdate)))
                 okprice = false;
         }
         return okprice;
@@ -189,8 +190,9 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      */
     async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate) {
         let okprice = true;
+        const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
         for (const index in homeInfoList) {
-            if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, forceUpdate)))
+            if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, currentForceUpdate)))
                 okprice = false;
         }
         return okprice;

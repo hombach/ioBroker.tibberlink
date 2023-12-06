@@ -55,6 +55,7 @@ declare global {
 					chAmountHours: number;
 					chStartTime: Date;
 					chStopTime: Date;
+					chEfficiencyLoss: number;
 				},
 			];
 		}
