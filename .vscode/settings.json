@@ -6,7 +6,7 @@
 	"files.eol": "\n",
 	"[typescript]": {
 		"editor.codeActionsOnSave": {
-			"source.organizeImports": true
+			"source.organizeImports": "explicit"
 		}
 	},
 	"json.schemas": [

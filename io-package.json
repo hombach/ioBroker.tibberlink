@@ -4,7 +4,17 @@
 		"version": "1.7.2",
 		"news": {
 			"1.7.2": {
-				"en": "WORK in PROGRESS"
+				"en": "Implemented dynamic raise of feed reconnect (#225); small bugfix in price calls",
+				"de": "Dynamische Erhöhung der Feed-Reconnect implementiert (#225); kleiner Fehlerbehebung in Preisaufrufen",
+				"ru": "Реализована динамическая повторная подключение к фиду (#225); небольшие исправления ошибок в вызовах цен",
+				"pt": "Implementado aumento dinâmico de reconexão do feed (#225); pequena correção de bug nas chamadas de preço",
+				"nl": "Geïmplementeerde dynamische verhoging van feed herverbinding (#225); kleine bugfix in prijsoproepen",
+				"fr": "Mise en œuvre de l'augmentation dynamique de la reconnexion au flux (#225); petite correction de bogue dans les appels de prix",
+				"it": "Implementato l'aumento dinamico della riconnessione al feed (#225); piccola correzione di bug nelle chiamate dei prezzi",
+				"es": "Implementada la reconexión dinámica del feed (#225); pequeña corrección de errores en las llamadas de precios",
+				"pl": "Zaimplementowano dynamiczne podniesienie ponownego podłączenia do kanału (#225); mała poprawka błędu w wywołaniach cen",
+				"uk": "Реалізовано динамічне підняття повторного підключення до каналу (#225); невелике виправлення помилки в викликах цін",
+				"zh-cn": "实现了对Feed重新连接的动态提升 (#225); 在价格调用中进行了小的错误修复"
 			},
 			"1.7.1": {
 				"en": "Added hint for consumption data in documentation",

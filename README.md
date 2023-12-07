@@ -93,7 +93,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.7.2 (2023-12-XX) WORK in PROGRESS
+### 1.7.2 (2023-12-07)
 
 -   (HombachC) implemented dynamic raise of feed reconnect (#225)
 -   (HombachC) small bugfix in pricecalls
