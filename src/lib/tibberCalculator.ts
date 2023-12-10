@@ -572,18 +572,52 @@ export class TibberCalculator extends TibberHelper {
 	}
 
 	async executeCalculatorSmartBatteryBuffer(channel: number): Promise<void> {
+		/*
+		Summary:
+			Develop a channel that categorizes hourly energy prices into three groups—cheap, normal, and expensive.
+			The categorization is based on the total price of each hour, considering a efficiency loss of a battery system.
+
+		Detailed Description:
+			The system has an algorithm to organize hourly energy prices, providing users with a clear understanding of price
+			dynamics. The algorithm follows these steps:
+			- Sort by Total Price: Sort hourly rates in ascending order based on the total price.
+			- Identify Cheap Hours: Starting with the cheapest hour, include hours in the cheap category if the total price is
+			lower than the total price of the most expensive hour minus a minimum distance (MinDelta). Hereby calculate MinDelta
+			based on the average total price of the cheap hours and a user-defined efficiency loss of a battery system. Collect
+			cheap hours up to a maximum number of maxCheapCount
+			- Determine the Most Expensive Hour Among the Cheap: Identify the hour with the highest total price among the cheap hours.
+			- Classify Normal and Expensive Hours: Hours not classified as cheap are further categorized as follows:
+				Normal Hours: Total price is lower than MinDelta plus the highest total price among the cheap hours.
+				Expensive Hours: Total price is higher than MinDelta plus the highest total price among the cheap hours.
+
+		User Customization:
+			Allow users to specify the maximum number of cheap hours they want to identify (maxCheapCount) and
+			define the efficiency loss (efficiencyLoss).
+
+		Output:
+			- Not Active - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2)
+			- Cheap Hours - enable battery charging (ON-1) and disable feed into home energy system (OFF-2)
+			- Normal Hours - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2)
+			- Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
+		*/
 		try {
 			let valueToSet: string = "";
+			let valueToSet2: string = "";
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
 				// not active
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+				valueToSet2 = this.adapter.config.CalculatorList[channel].chValueOff2;
 			} else {
 				// chActive -> choose desired values
 				//WiP #193
 			}
 			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 			this.adapter.log.debug(
-				`calculator channel: ${channel}-smart battery buffer; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
+				`calculator channel: ${channel}-smart battery buffer; setting first state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
+			);
+			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState2, convertValue(valueToSet2));
+			this.adapter.log.debug(
+				`calculator channel: ${channel}-smart battery buffer; setting second state: ${this.adapter.config.CalculatorList[channel].chTargetState2} to ${valueToSet2}`,
 			);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
