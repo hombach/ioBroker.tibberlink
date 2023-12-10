@@ -470,6 +470,17 @@ class Tibberlink extends utils.Adapter {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chStopTime: ${state.val}`);
                                         }
                                         break;
+                                    case "EfficiencyLoss":
+                                        // Update .chEfficiencyLoss based on state.val if it's a number
+                                        if (typeof state.val === "number") {
+                                            this.config.CalculatorList[calcChannel].chEfficiencyLoss = state.val;
+                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to EfficiencyLoss: ${this.config.CalculatorList[calcChannel].chEfficiencyLoss}`);
+                                            this.setStateAsync(id, state.val, true);
+                                        }
+                                        else {
+                                            this.log.warn(`Wrong type for channel: ${calcChannel} - chEfficiencyLoss: ${state.val}`);
+                                        }
+                                        break;
                                     default:
                                         this.log.debug(`unknown value for setting type: ${settingType}`);
                                 }
