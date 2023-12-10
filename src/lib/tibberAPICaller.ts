@@ -29,6 +29,7 @@ export class TibberAPICaller extends TibberHelper {
 					NameInApp: currentHome.appNickname,
 					RealTime: currentHome.features.realTimeConsumptionEnabled,
 					FeedActive: false,
+					PriceDataPollActive: true,
 				});
 				// Set HomeId in tibberConfig for further API Calls
 				this.tibberConfig.homeId = currentHome.id;
@@ -145,6 +146,7 @@ export class TibberAPICaller extends TibberHelper {
 		let okprice = true;
 		const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
 		for (const index in homeInfoList) {
+			if (!homeInfoList[index].PriceDataPollActive) continue;
 			if (!(await this.updatePricesToday(homeInfoList[index].ID, currentForceUpdate))) okprice = false;
 		}
 		return okprice;
@@ -228,6 +230,7 @@ export class TibberAPICaller extends TibberHelper {
 		let okprice = true;
 		const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
 		for (const index in homeInfoList) {
+			if (!homeInfoList[index].PriceDataPollActive) continue;
 			if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, currentForceUpdate))) okprice = false;
 		}
 		return okprice;

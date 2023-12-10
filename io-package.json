@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.7.2",
+		"version": "1.8.0",
 		"news": {
+			"1.8.0": {
+				"en": "Implemented optional disable of price pull (#232)",
+				"de": "Optionale Deaktivierung des Preisabrufs implementiert (#232)",
+				"ru": "Реализовано опциональное отключение запроса цен (#232)",
+				"pt": "Implementada desativação opcional da recuperação de preços (#232)",
+				"nl": "Geïmplementeerde optionele uitschakeling van prijsopvraag (#232)",
+				"fr": "Mise en œuvre de la désactivation optionnelle de la récupération des prix (#232)",
+				"it": "Implementata disabilitazione opzionale del recupero dei prezzi (#232)",
+				"es": "Implementada la desactivación opcional de la obtención de precios (#232)",
+				"pl": "Zaimplementowane opcjonalne wyłączenie pobierania cen (#232)",
+				"uk": "Реалізовано опціональне вимкнення запиту цін (#232)",
+				"zh-cn": "实现了可选的价格拉取禁用 (#232)"
+			},
 			"1.7.2": {
 				"en": "Implemented dynamic raise of feed reconnect (#225); small bugfix in price calls",
 				"de": "Dynamische Erhöhung der Feed-Reconnect implementiert (#225); kleiner Fehlerbehebung in Preisaufrufen",
@@ -237,19 +250,6 @@
 				"uk": "Виправлено помилку при опитуванні даних в реальному часі для декількох будинків (#108)",
 				"zh-cn": "修复了多个家庭实时数据轮询错误 (#108)"
 			},
-			"0.4.1": {
-				"en": "Hardened 2 typeerrors recognitioned by Sentry; fix error of not deleted averages of tomorrow pricing (#95)",
-				"de": "Verstärkte 2 Typfehler erkannt von Sentry; Fehler behoben, nicht gelöschte Durchschnittswerte der morgigen Preisgestaltung (#95)",
-				"ru": "Усилено 2 типовых ошибки, распознанных Sentry; исправлена ошибка с неудаленными средними значениями цен на завтра (#95)",
-				"pt": "Reforçado o reconhecimento de 2 erros de tipo pelo Sentry; erro corrigido de médias de preços de amanhã não deletadas (#95)",
-				"nl": "Versterkte 2 typenfouten herkend door Sentry; fout met niet verwijderde gemiddelden van prijsstelling voor morgen opgelost (#95)",
-				"fr": "Renforcement de 2 erreurs de type reconnues par Sentry ; correction de l'erreur avec les moyennes de tarification de demain non supprimées (#95)",
-				"it": "Rafforzati 2 errori di tipo riconosciuti da Sentry; corretto l'errore di non eliminazione delle medie delle tariffe di domani (#95)",
-				"es": "Refuerzo de 2 errores de tipo reconocidos por Sentry; corrección del error de promedios de precios de mañana no eliminados (#95)",
-				"pl": "Usztywnione 2 błędy typów rozpoznawane przez Sentry; naprawa błędu z nieusuniętymi średnimi cenami na jutro (#95)",
-				"uk": "Підсилено 2 типові помилки, визнані Sentry; виправлено помилку з не вилученими середніми цінами на завтра (#95)",
-				"zh-cn": "通过Sentry识别加固了2种类型错误；修复了明天定价的平均值未删除的错误 (#95)"
-			},
 			"0.4.0": {
 				"en": "Added daily average price values (#89)",
 				"de": "Tägliche Durchschnittspreise hinzugefügt (#89)",
@@ -369,6 +369,7 @@
 		"HomesList": [
 			{
 				"feedActive": "false",
+				"priceDataPollActive": "true",
 				"homeID": "None available - restart adapter after entering token",
 				"statsActive": "false",
 				"numberConsHourly": 24,

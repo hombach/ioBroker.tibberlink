@@ -93,11 +93,15 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 1.8.0 (2023-12-xx) WORK IN PROGRESS
+
+-   (HombachC) implement optional disable of price pull (#232)
+
 ### 1.7.2 (2023-12-07)
 
 -   (HombachC) implemented dynamic raise of feed reconnect (#225)
 -   (HombachC) small bugfix in pricecalls
--   (HombachC) first implementations for "smart battery buffer" (#193)
+-   (HombachC) first changes for "smart battery buffer" (#193)
 -   (HombachC) update typescript to 5.3.3
 
 ### 1.7.1 (2023-12-04)

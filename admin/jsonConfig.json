@@ -104,6 +104,27 @@
 						{
 							"type": "checkbox",
 							"title": {
+								"en": "Use Tibber price data poll",
+								"de": "Verwende die Tibber Preisdatenabfrage",
+								"ru": "Использовать опрос данных о ценах от Tibber",
+								"pt": "Usar pesquisa de dados de preço da Tibber",
+								"nl": "Gebruik de prijsgegevenspoll van Tibber",
+								"fr": "Utiliser l'interrogation des données de prix Tibber",
+								"it": "Utilizza l'interrogazione dei dati sui prezzi di Tibber",
+								"es": "Utilizar la consulta de datos de precios de Tibber",
+								"pl": "Użyj ankiety cenowej danych Tibber",
+								"uk": "Використовуйте опитування даних про ціни від Tibber",
+								"zh-cn": "使用 Tibber 价格数据轮询"
+							},
+							"attr": "priceDataPollActive",
+							"filter": false,
+							"sort": false,
+							"width": "10%",
+							"default": true
+						},
+						{
+							"type": "checkbox",
+							"title": {
 								"en": "Use Tibber Pulse feed",
 								"de": "Verwende Tibber Pulse-Feed",
 								"ru": "Используйте ленту Tibber Pulse",
@@ -119,7 +140,7 @@
 							"attr": "feedActive",
 							"filter": false,
 							"sort": false,
-							"width": "15%",
+							"width": "10%",
 							"default": false
 						},
 						{
@@ -140,7 +161,7 @@
 							"attr": "statsActive",
 							"filter": false,
 							"sort": false,
-							"width": "15%",
+							"width": "10%",
 							"default": false
 						},
 						{
@@ -264,17 +285,17 @@
 				"_feedDataDetail": {
 					"type": "header",
 					"text": {
-						"en": "Select all fields you want to load in feed data (power and timestamp are on by default):",
-						"de": "Wählen Sie alle Felder aus, die Sie in den Feed-Daten laden möchten (Leistung und Zeitstempel sind standardmäßig aktiviert):",
-						"ru": "Выберите все поля, которые вы хотите загрузить в данные ленты (мощность и временная метка включены по умолчанию):",
-						"pt": "Selecione todos os campos que deseja carregar nos dados do feed (a potência e o carimbo de hora estão ativados por padrão):",
-						"nl": "Selecteer alle velden die u wilt laden in de feedgegevens (vermogen en tijdstempel zijn standaard ingeschakeld):",
-						"fr": "Sélectionnez tous les champs que vous souhaitez charger dans les données du flux (la puissance et l'horodatage sont activés par défaut) :",
-						"it": "Seleziona tutti i campi che desideri caricare nei dati del feed (potenza e timestamp sono attivi per impostazione predefinita):",
-						"es": "Seleccione todos los campos que desea cargar en los datos del feed (la potencia y la marca de tiempo están habilitados por defecto):",
-						"pl": "Wybierz wszystkie pola, które chcesz załadować do danych kanału (moc i znacznik czasu są domyślnie włączone):",
-						"uk": "Виберіть всі поля, які ви хочете завантажити в дані каналу (потужність та відмітка часу активовані за замовчуванням):",
-						"zh-cn": "选择要加载到数据中的所有字段（功率和时间戳默认处于启用状态）："
+						"en": "Select all fields you want to load in live-feed data (power and timestamp are on by default):",
+						"de": "Wählen Sie alle Felder aus, die Sie in den Live-Feed-Daten laden möchten (Leistung und Zeitstempel sind standardmäßig aktiviert):",
+						"ru": "Выберите все поля, которые вы хотите загрузить в данные с живой подачей (мощность и временная метка включены по умолчанию):",
+						"pt": "Selecione todos os campos que deseja carregar nos dados de feed ao vivo (potência e carimbo de data/hora estão ativados por padrão):",
+						"nl": "Selecteer alle velden die u wilt laden in live-feed gegevens (vermogen en tijdstempel zijn standaard ingeschakeld):",
+						"fr": "Sélectionnez tous les champs que vous souhaitez charger dans les données en direct (puissance et horodatage sont activés par défaut):",
+						"it": "Seleziona tutti i campi che desideri caricare nei dati in tempo reale (potenza e timestamp sono attivi per impostazione predefinita):",
+						"es": "Seleccione todos los campos que desea cargar en los datos de transmisión en vivo (potencia y marca de tiempo están activados por defecto):",
+						"pl": "Wybierz wszystkie pola, które chcesz załadować do danych na żywo (moc i znacznik czasu są domyślnie włączone):",
+						"uk": "Виберіть всі поля, які ви хочете завантажити в живі дані (потужність та відмітка часу включені за замовчуванням):",
+						"zh-cn": "选择要在实时数据中加载的所有字段 (功率和时间戳默认开启):"
 					},
 					"hidden": "!data.TibberAPIToken",
 					"size": 3

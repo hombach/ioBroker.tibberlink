@@ -9,6 +9,7 @@ declare global {
 			HomesList: [
 				{
 					feedActive: boolean;
+					priceDataPollActive: boolean;
 					homeID: string;
 					statsActive: boolean;
 					numberConsHourly: number;

@@ -71,11 +71,15 @@ class Tibberlink extends utils.Adapter {
 								continue;
 							}
 							matchingHomeInfo.FeedActive = home.feedActive;
+							matchingHomeInfo.PriceDataPollActive = home.priceDataPollActive;
 							result.push(matchingHomeInfo);
 						}
 						for (const index in this.homeInfoList) {
 							this.log.debug(
-								`FeedConfig for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`,
+								`Feed Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`,
+							);
+							this.log.debug(
+								`Price Poll Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - poll configured as active: ${this.homeInfoList[index].PriceDataPollActive}`,
 							);
 						}
 					}
@@ -115,18 +119,16 @@ class Tibberlink extends utils.Adapter {
 								scope.setLevel("info");
 								scope.setTag("SentryDay", today.getDate());
 								scope.setTag("HomeIDs", this.homeInfoList.length);
-								// NEW
 								scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
 								scope.setTag("numBestCostLTF", this.tibberCalculator.numBestCostLTF);
 								scope.setTag("numBestHoursBlock", this.tibberCalculator.numBestHoursBlock);
 								scope.setTag("numBestHoursBlockLTF", this.tibberCalculator.numBestHoursBlockLTF);
 								scope.setTag("numBestSingleHours", this.tibberCalculator.numBestSingleHours);
 								scope.setTag("numBestSingleHoursLTF", this.tibberCalculator.numBestSingleHoursLTF);
-								// END NEW
+								scope.setTag("numSmartBatteryBuffer", this.tibberCalculator.numSmartBatteryBuffer);
 								Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
 							});
 					}
-					// this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
 					this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
 				}
 			}
@@ -154,7 +156,7 @@ class Tibberlink extends utils.Adapter {
 					}
 				}
 
-				// (force) get current prices for the first time and start calculator tasks once
+				// (force) get current prices for the FIRST time and start calculator tasks once
 				if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
 				}
 				this.jobPricesTodayLOOP(tibberAPICaller);
