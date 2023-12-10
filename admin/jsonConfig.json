@@ -880,7 +880,7 @@
 							"attr": "chValueOn2",
 							"filter": false,
 							"sort": false,
-							"width": 200,
+							"width": 400,
 							"default": "",
 							"hidden": "data.chType !== 7"
 						},
@@ -903,7 +903,7 @@
 							"attr": "chValueOff2",
 							"filter": false,
 							"sort": false,
-							"width": "200px",
+							"width": "400px ",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						}
