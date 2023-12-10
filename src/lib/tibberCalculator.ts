@@ -332,6 +332,20 @@ export class TibberCalculator extends TibberHelper {
 				);
 				continue;
 			}
+
+			if (this.adapter.config.CalculatorList[channel].chType === enCalcType.SmartBatteryBuffer) {
+				if (
+					!this.adapter.config.CalculatorList[channel] ||
+					!this.adapter.config.CalculatorList[channel].chTargetState2 ||
+					!this.adapter.config.CalculatorList[channel].chTargetState2.trim()
+				) {
+					this.adapter.log.warn(
+						`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - execution of channel skipped`,
+					);
+					continue;
+				}
+			}
+
 			try {
 				switch (this.adapter.config.CalculatorList[channel].chType) {
 					case enCalcType.BestCost:

@@ -52,6 +52,9 @@ declare global {
 					chTargetState: string;
 					chValueOn: string;
 					chValueOff: string;
+					chTargetState2: string;
+					chValueOn2: string;
+					chValueOff2: string;
 					chTriggerPrice: number;
 					chAmountHours: number;
 					chStartTime: Date;

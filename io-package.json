@@ -387,7 +387,10 @@
 				"chActive": "false",
 				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
 				"chValueOn": "true",
-				"chValueOff": "false"
+				"chValueOff": "false",
+				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
+				"chValueOn2": "true",
+				"chValueOff2": "false"
 			}
 		]
 	},

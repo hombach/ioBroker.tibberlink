@@ -276,6 +276,14 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.log.warn(`Empty destination state in calculator channel ${channel} defined - provide correct external state - execution of channel skipped`);
                 continue;
             }
+            if (this.adapter.config.CalculatorList[channel].chType === tibberHelper_1.enCalcType.SmartBatteryBuffer) {
+                if (!this.adapter.config.CalculatorList[channel] ||
+                    !this.adapter.config.CalculatorList[channel].chTargetState2 ||
+                    !this.adapter.config.CalculatorList[channel].chTargetState2.trim()) {
+                    this.adapter.log.warn(`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - execution of channel skipped`);
+                    continue;
+                }
+            }
             try {
                 switch (this.adapter.config.CalculatorList[channel].chType) {
                     case tibberHelper_1.enCalcType.BestCost:

@@ -843,9 +843,19 @@
 						{
 							"type": "objectId",
 							"title": {
-								"en": "Target State 2"
+								"en": "Target State 2",
+								"de": "Zielzustand 2",
+								"ru": "Целевое состояние 2",
+								"pt": "Estado alvo 2",
+								"nl": "Doelstaat 2",
+								"fr": "État cible 2",
+								"it": "Stato di destinazione 2",
+								"es": "Estado objetivo 2",
+								"pl": "Stan docelowy 2",
+								"uk": "Цільовий стан 2",
+								"zh-cn": "目标状态 2"
 							},
-							"attr": "_chTargetState2",
+							"attr": "chTargetState2",
 							"filter": false,
 							"sort": false,
 							"width": "15%",
@@ -854,26 +864,46 @@
 						{
 							"type": "text",
 							"title": {
-								"en": "Value YES 2"
+								"en": "Value YES 2",
+								"de": "Wert JA 2",
+								"ru": "Значение ДА 2",
+								"pt": "Valor SIM 2",
+								"nl": "Waarde JA 2",
+								"fr": "Valeur OUI 2",
+								"it": "Valore SÌ 2",
+								"es": "Valor SÍ 2",
+								"pl": "Wartość TAK 2",
+								"uk": "Значення ТАК 2",
+								"zh-cn": "值 是 2"
 							},
 							"maxLength": 20,
-							"attr": "_chValueOn2",
+							"attr": "chValueOn2",
 							"filter": false,
 							"sort": false,
-							"width": "7.5%",
+							"width": "50px",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						},
 						{
 							"type": "text",
 							"title": {
-								"en": "Value NO 2"
+								"en": "Value NO 2",
+								"de": "Wert NEIN 2",
+								"ru": "Значение НЕТ 2",
+								"pt": "Valor NÃO 2",
+								"nl": "Waarde NEE 2",
+								"fr": "Valeur NON 2",
+								"it": "Valore NO 2",
+								"es": "Valor NO 2",
+								"pl": "Wartość NIE 2",
+								"uk": "Значення НІ 2",
+								"zh-cn": "值 否 2"
 							},
 							"maxLength": 20,
-							"attr": "_chValueOff2",
+							"attr": "chValueOff2",
 							"filter": false,
 							"sort": false,
-							"width": "7.5%",
+							"width": "100px",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						}
