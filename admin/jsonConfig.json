@@ -772,7 +772,7 @@
 							"attr": "chName",
 							"filter": false,
 							"sort": false,
-							"width": "25%",
+							"width": "15%",
 							"default": "Channel Name"
 						},
 						{
@@ -793,7 +793,7 @@
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "30%"
+							"width": "15%"
 						},
 						{
 							"type": "text",
@@ -814,7 +814,7 @@
 							"attr": "chValueOn",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "7.5%",
 							"default": ""
 						},
 						{
@@ -836,7 +836,7 @@
 							"attr": "chValueOff",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "7.5%",
 							"default": ""
 						},
 
@@ -848,8 +848,8 @@
 							"attr": "_chTargetState2",
 							"filter": false,
 							"sort": false,
-							"width": "30%",
-							"disabled": "data.chType !== 7"
+							"width": "15%",
+							"hidden": "data.chType !== 7"
 						},
 						{
 							"type": "text",
@@ -860,7 +860,7 @@
 							"attr": "_chValueOn2",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "7.5%",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						},
@@ -873,9 +873,9 @@
 							"attr": "_chValueOff2",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "7.5%",
 							"default": "",
-							"disabled": "data.chType === 7"
+							"hidden": "data.chType !== 7"
 						}
 					]
 				},
