@@ -849,7 +849,7 @@
 							"filter": false,
 							"sort": false,
 							"width": "30%",
-							"disabled": "!data.chType = 7"
+							"disabled": "data.chType !== 7"
 						},
 						{
 							"type": "text",
@@ -862,7 +862,7 @@
 							"sort": false,
 							"width": "10%",
 							"default": "",
-							"disabled": "!data.chType = 7"
+							"hidden": "data.chType !== 7"
 						},
 						{
 							"type": "text",
@@ -875,7 +875,7 @@
 							"sort": false,
 							"width": "10%",
 							"default": "",
-							"disabled": "!data.chType = 7"
+							"disabled": "data.chType === 7"
 						}
 					]
 				},
