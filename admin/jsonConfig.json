@@ -60,16 +60,6 @@
 					"icon": "info",
 					"newLine": true
 				},
-
-				"staticLink2h": {
-					"type": "staticLink",
-					"text": "optional text possible",
-					"href": "https://github.com/ioBroker/ioBroker.admin/blob/master/src/src/components/JsonConfigComponent/SCHEMA.md",
-					"button": true,
-					"icon": "info",
-					"newLine": true
-				},
-
 				"HomesList": {
 					"type": "table",
 					"sm": 12,
@@ -914,7 +904,7 @@
 							"attr": "chValueOff2",
 							"filter": false,
 							"sort": false,
-							"width": "400px ",
+							"width": "90% ",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						}

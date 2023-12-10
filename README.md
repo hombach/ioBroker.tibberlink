@@ -98,6 +98,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) implement optional disable of price pull (#232)
 -   (HombachC) WiP!!! implement (#193)
+-   (HombachC) changed Tibber link in config
 
 ### 1.7.2 (2023-12-07)
 
