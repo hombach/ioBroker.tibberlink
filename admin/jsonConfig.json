@@ -56,6 +56,17 @@
 						"zh-cn": "如果您目前不是Tibber的用户，如果您能使用我的推荐链接，我将非常感激"
 					},
 					"href": "https://invite.tibber.com/mu8c82n5",
+					"button": true,
+					"icon": "info",
+					"newLine": true
+				},
+
+				"staticLink2h": {
+					"type": "staticLink",
+					"text": "optional text possible",
+					"href": "https://github.com/ioBroker/ioBroker.admin/blob/master/src/src/components/JsonConfigComponent/SCHEMA.md",
+					"button": true,
+					"icon": "info",
 					"newLine": true
 				},
 
