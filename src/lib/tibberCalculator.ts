@@ -660,12 +660,9 @@ export class TibberCalculator extends TibberHelper {
 					}
 				}
 
-				this.adapter.log.debug(`Günstige Stunden:`);
-				this.adapter.log.debug(`${cheapHours.map((hour) => hour.total)}`);
-				this.adapter.log.debug(`Normale Stunden:`);
-				this.adapter.log.debug(`${normalHours.map((hour) => hour.total)}`);
-				this.adapter.log.debug(`Teure Stunden:`);
-				this.adapter.log.debug(`${expensiveHours.map((hour) => hour.total)}`);
+				this.adapter.log.debug(`Günstige Stunden: ${cheapHours.map((hour) => hour.total)}`);
+				this.adapter.log.debug(`Normale Stunden: ${normalHours.map((hour) => hour.total)}`);
+				this.adapter.log.debug(`Teure Stunden: ${expensiveHours.map((hour) => hour.total)}`);
 
 				function calculateMinDelta(cheapHours: IPrice[], efficiencyLoss: number): number {
 					const cheapTotalSum = cheapHours.reduce((sum, hour) => sum + hour.total, 0);
