@@ -617,7 +617,7 @@
 							"default": "No Home selected",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "10% ",
 							"command": "HomesForConfig"
 						},
 						{
@@ -752,7 +752,7 @@
 							],
 							"filter": false,
 							"sort": false,
-							"width": "15%"
+							"width": "15% "
 						},
 						{
 							"type": "text",
@@ -773,7 +773,7 @@
 							"attr": "chName",
 							"filter": false,
 							"sort": false,
-							"width": "15%",
+							"width": "15% ",
 							"default": "Channel Name"
 						},
 						{
@@ -794,7 +794,7 @@
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "15%"
+							"width": "15% "
 						},
 						{
 							"type": "text",
@@ -815,7 +815,7 @@
 							"attr": "chValueOn",
 							"filter": false,
 							"sort": false,
-							"width": "7.5%",
+							"width": "7.5% ",
 							"default": ""
 						},
 						{
@@ -837,7 +837,7 @@
 							"attr": "chValueOff",
 							"filter": false,
 							"sort": false,
-							"width": "7.5%",
+							"width": "7.5% ",
 							"default": ""
 						},
 
@@ -859,10 +859,7 @@
 							"attr": "chTargetState2",
 							"filter": false,
 							"sort": false,
-							"width": "400",
-							"sm": 3,
-							"md": 3,
-							"lg": 3,
+							"width": "15% ",
 							"hidden": "data.chType !== 7"
 						},
 						{
@@ -884,7 +881,7 @@
 							"attr": "chValueOn2",
 							"filter": false,
 							"sort": false,
-							"width": 400,
+							"width": "7.5% ",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						},
@@ -907,7 +904,7 @@
 							"attr": "chValueOff2",
 							"filter": false,
 							"sort": false,
-							"width": "90% ",
+							"width": "7.5% ",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						}

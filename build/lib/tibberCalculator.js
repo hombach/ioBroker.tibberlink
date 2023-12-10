@@ -533,6 +533,57 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             else {
                 // chActive -> choose desired values
+                const pricesToday = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
+                //WiP #193
+                //WiP #193
+                //WiP #193
+                //WiP #193
+                //function sortAndFilterHours(pricesToday_hourlyRates: IPrice[], maxCheapCount: number): void {
+                const maxCheapCount = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.AmountHours`);
+                const efficiencyLoss = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.EfficiencyLoss`);
+                // Sortiere nach dem Gesamtpreis
+                pricesToday.sort((a, b) => a.total - b.total);
+                const cheapHours = [];
+                const normalHours = [];
+                const expensiveHours = [];
+                let cheapIndex = 0;
+                let minDelta = 0;
+                while (cheapIndex < pricesToday.length && cheapHours.length < maxCheapCount) {
+                    const currentHour = pricesToday[cheapIndex];
+                    if (currentHour.total < pricesToday[pricesToday.length - 1].total - minDelta) {
+                        cheapHours.push(currentHour);
+                        minDelta = calculateMinDelta(cheapHours, efficiencyLoss);
+                    }
+                    else {
+                        break;
+                    }
+                    cheapIndex++;
+                }
+                const maxCheapTotal = Math.max(...cheapHours.map((hour) => hour.total));
+                for (const hour of pricesToday) {
+                    if (!cheapHours.includes(hour)) {
+                        if (hour.total > minDelta + maxCheapTotal) {
+                            expensiveHours.push(hour);
+                        }
+                        else {
+                            normalHours.push(hour);
+                        }
+                    }
+                }
+                this.adapter.log.debug(`Günstige Stunden:`);
+                this.adapter.log.debug(`${cheapHours.map((hour) => hour.total)}`);
+                this.adapter.log.debug(`Normale Stunden:`);
+                this.adapter.log.debug(`${normalHours.map((hour) => hour.total)}`);
+                this.adapter.log.debug(`Teure Stunden:`);
+                this.adapter.log.debug(`${expensiveHours.map((hour) => hour.total)}`);
+                function calculateMinDelta(cheapHours, efficiencyLoss) {
+                    const cheapTotalSum = cheapHours.reduce((sum, hour) => sum + hour.total, 0);
+                    const cheapAverage = cheapTotalSum / cheapHours.length;
+                    return cheapAverage * efficiencyLoss;
+                }
+                //WiP #193
+                //WiP #193
+                //WiP #193
                 //WiP #193
             }
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
