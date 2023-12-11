@@ -533,14 +533,9 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else {
                 // chActive -> choose desired values
                 const pricesToday = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
-                //WiP #193
-                //WiP #193
-                //WiP #193
-                //WiP #193
-                //function sortAndFilterHours(pricesToday_hourlyRates: IPrice[], maxCheapCount: number): void {
                 const maxCheapCount = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.AmountHours`);
                 const efficiencyLoss = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.EfficiencyLoss`);
-                // Sortiere nach dem Gesamtpreis
+                // sort by total price
                 pricesToday.sort((a, b) => a.total - b.total);
                 const cheapHours = [];
                 const normalHours = [];
@@ -569,15 +564,15 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         }
                     }
                 }
-                this.adapter.log.debug(`Calculator SBB result - cheap hours: ${cheapHours.map((hour) => hour.total)}`);
-                this.adapter.log.debug(`Calculator SBB result - normal hours: ${normalHours.map((hour) => hour.total)}`);
-                this.adapter.log.debug(`Calculator SBB result - expensive hours: ${expensiveHours.map((hour) => hour.total)}`);
+                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - cheap hours: ${cheapHours.map((hour) => hour.total)}`);
+                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - normal hours: ${normalHours.map((hour) => hour.total)}`);
+                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map((hour) => hour.total)}`);
                 //WiP #193
                 //WiP #193
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultNormal = normalHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
-                // identify if an element is true
+                // identify if an element is true and generate output
                 if (resultCheap.some((value) => value)) {
                     // Cheap Hours - enable battery charging (ON-1) and disable feed into home energy system (OFF-2)
                     valueToSet = this.adapter.config.CalculatorList[channel].chValueOn;
