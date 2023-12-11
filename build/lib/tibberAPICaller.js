@@ -221,6 +221,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             morgen.setDate(morgen.getDate() + 1);
             morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
             if (!exDate || exDate <= morgen || forceUpdate) {
+                // -> try getting new data from Tibber server
                 const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
                 this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); // write also it might be empty
@@ -234,7 +235,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
                     this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
-                    return true;
+                    //return true; // potentially wrong fix in 1.8.0 -> VALIDATE
+                    return false;
                 }
                 else if (Array.isArray(pricesTomorrow)) {
                     // pricing known, after about 13:00 - write the states
@@ -253,7 +255,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     }
                 }
             }
-            else if (exDate == morgen) {
+            else if (exDate && exDate == morgen) {
                 this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
                 return true;
             }
