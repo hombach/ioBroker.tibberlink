@@ -408,7 +408,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 // END NEW
                 // get first n entries und test for matching hour
                 const n = this.adapter.config.CalculatorList[channel].chAmountHours;
-                //const result: boolean[] = pricesToday.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
                 const result = filteredPrices.slice(0, n).map((entry) => checkHourMatch(entry));
                 // identify if any element is true
                 if (result.some((value) => value)) {
@@ -527,7 +526,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             let valueToSet = "";
             let valueToSet2 = "";
             if (!this.adapter.config.CalculatorList[channel].chActive) {
-                // not active
+                // Not Active - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2)
                 valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 valueToSet2 = this.adapter.config.CalculatorList[channel].chValueOff2;
             }
@@ -570,18 +569,40 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         }
                     }
                 }
-                this.adapter.log.debug(`Günstige Stunden: ${cheapHours.map((hour) => hour.total)}`);
-                this.adapter.log.debug(`Normale Stunden: ${normalHours.map((hour) => hour.total)}`);
-                this.adapter.log.debug(`Teure Stunden: ${expensiveHours.map((hour) => hour.total)}`);
+                this.adapter.log.debug(`Calculator SBB result - cheap hours: ${cheapHours.map((hour) => hour.total)}`);
+                this.adapter.log.debug(`Calculator SBB result - normal hours: ${normalHours.map((hour) => hour.total)}`);
+                this.adapter.log.debug(`Calculator SBB result - expensive hours: ${expensiveHours.map((hour) => hour.total)}`);
+                //WiP #193
+                //WiP #193
+                const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
+                const resultNormal = normalHours.map((entry) => checkHourMatch(entry));
+                const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
+                // identify if an element is true
+                if (resultCheap.some((value) => value)) {
+                    // Cheap Hours - enable battery charging (ON-1) and disable feed into home energy system (OFF-2)
+                    valueToSet = this.adapter.config.CalculatorList[channel].chValueOn;
+                    valueToSet2 = this.adapter.config.CalculatorList[channel].chValueOff2;
+                }
+                else if (resultNormal.some((value) => value)) {
+                    // Normal Hours - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2)
+                    valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+                    valueToSet2 = this.adapter.config.CalculatorList[channel].chValueOff2;
+                }
+                else if (resultExpensive.some((value) => value)) {
+                    // Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
+                    valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+                    valueToSet2 = this.adapter.config.CalculatorList[channel].chValueOn2;
+                }
+                else {
+                    this.adapter.log.warn(this.generateErrorMessage(`no result found for SBB`, `execute calculator for smart battery buffer in channel ${channel}`));
+                }
+                //WiP #193
+                //WiP #193
                 function calculateMinDelta(cheapHours, efficiencyLoss) {
                     const cheapTotalSum = cheapHours.reduce((sum, hour) => sum + hour.total, 0);
                     const cheapAverage = cheapTotalSum / cheapHours.length;
                     return cheapAverage * efficiencyLoss;
                 }
-                //WiP #193
-                //WiP #193
-                //WiP #193
-                //WiP #193
             }
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
             this.adapter.log.debug(`calculator channel: ${channel}-smart battery buffer; setting first state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);

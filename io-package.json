@@ -4,17 +4,17 @@
 		"version": "1.8.0",
 		"news": {
 			"1.8.0": {
-				"en": "Implemented optional disable of price pull (#232)",
-				"de": "Optionale Deaktivierung des Preisabrufs implementiert (#232)",
-				"ru": "Реализовано опциональное отключение запроса цен (#232)",
-				"pt": "Implementada desativação opcional da recuperação de preços (#232)",
-				"nl": "Geïmplementeerde optionele uitschakeling van prijsopvraag (#232)",
-				"fr": "Mise en œuvre de la désactivation optionnelle de la récupération des prix (#232)",
-				"it": "Implementata disabilitazione opzionale del recupero dei prezzi (#232)",
-				"es": "Implementada la desactivación opcional de la obtención de precios (#232)",
-				"pl": "Zaimplementowane opcjonalne wyłączenie pobierania cen (#232)",
-				"uk": "Реалізовано опціональне вимкнення запиту цін (#232)",
-				"zh-cn": "实现了可选的价格拉取禁用 (#232)"
+				"en": "implement optional disable of price pull (#232); implement price categorization algorithm for battery buffer applications (#193); fix error in pull of prices tomorrow (#235, #232)",
+				"de": "Implementieren Sie die optionale Deaktivierung des Preisabrufs (#232); Implementieren Sie den Preis-Kategorisierungsalgorithmus für Batteriepufferanwendungen (#193); Beheben Sie den Fehler beim Abruf von Preisen für morgen (#235, #232)",
+				"ru": "реализовать необязательное отключение опроса цен (#232); реализовать алгоритм категоризации цен для приложений батарейного буфера (#193); исправить ошибку при опросе цен на завтра (#235, #232)",
+				"pt": "implementar desativação opcional da busca de preços (#232); implementar algoritmo de categorização de preços para aplicações de bateria tamponada (#193); corrigir erro na busca de preços para amanhã (#235, #232)",
+				"nl": "implementeer optionele uitschakeling van prijzen ophalen (#232); implementeer prijscategoriseringsalgoritme voor toepassingen van batterijbuffers (#193); los fout op bij het ophalen van prijzen voor morgen (#235, #232)",
+				"fr": "mettez en œuvre la désactivation optionnelle de la récupération des prix (#232); mettez en œuvre l'algorithme de catégorisation des prix pour les applications de tampon de batterie (#193); corrigez l'erreur dans la récupération des prix pour demain (#235, #232)",
+				"it": "implementare la disabilitazione opzionale del recupero dei prezzi (#232); implementare l'algoritmo di categorizzazione dei prezzi per le applicazioni di buffer di batteria (#193); correggere l'errore nel recupero dei prezzi per domani (#235, #232)",
+				"es": "implementar la desactivación opcional de la obtención de precios (#232); implementar algoritmo de categorización de precios para aplicaciones de búfer de batería (#193); corregir error en la obtención de precios para mañana (#235, #232)",
+				"pl": "zaimplementować opcjonalne wyłączenie pobierania cen (#232); zaimplementować algorytm kategoryzacji cen dla aplikacji bufora baterii (#193); naprawić błąd w pobieraniu cen na jutro (#235, #232)",
+				"uk": "реалізувати необов'язкове вимкнення запиту цін (#232); реалізувати алгоритм категоризації цін для застосувань буфера батареї (#193); виправити помилку у запиті цін на завтра (#235, #232)",
+				"zh-cn": "实施可选择禁用价格拉取 (#232); 为电池缓冲应用实施价格分类算法 (#193); 修复明天价格拉取中的错误 (#235, #232)"
 			},
 			"1.7.2": {
 				"en": "Implemented dynamic raise of feed reconnect (#225); small bugfix in price calls",
