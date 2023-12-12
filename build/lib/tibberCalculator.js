@@ -387,7 +387,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else {
                 // chActive -> choose desired value
                 const pricesToday = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`));
-                // NEW
                 let filteredPrices = pricesToday;
                 if (modeLTF) {
                     // Limited Time Frame mode
@@ -405,7 +404,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         return priceDate >= startTime && priceDate < stopTime;
                     });
                 }
-                // END NEW
                 // get first n entries und test for matching hour
                 const n = this.adapter.config.CalculatorList[channel].chAmountHours;
                 const result = filteredPrices.slice(0, n).map((entry) => checkHourMatch(entry));
@@ -567,8 +565,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.log.debug(`calculator channel ${channel} SBB-type result - cheap hours: ${cheapHours.map((hour) => hour.total)}`);
                 this.adapter.log.debug(`calculator channel ${channel} SBB-type result - normal hours: ${normalHours.map((hour) => hour.total)}`);
                 this.adapter.log.debug(`calculator channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map((hour) => hour.total)}`);
-                //WiP #193
-                //WiP #193
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultNormal = normalHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
@@ -591,8 +587,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 else {
                     this.adapter.log.warn(this.generateErrorMessage(`no result found for SBB`, `execute calculator for smart battery buffer in channel ${channel}`));
                 }
-                //WiP #193
-                //WiP #193
                 function calculateMinDelta(cheapHours, efficiencyLoss) {
                     const cheapTotalSum = cheapHours.reduce((sum, hour) => sum + hour.total, 0);
                     const cheapAverage = cheapTotalSum / cheapHours.length;

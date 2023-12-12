@@ -446,7 +446,6 @@ export class TibberCalculator extends TibberHelper {
 					await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.jsonBYpriceASC`),
 				);
 
-				// NEW
 				let filteredPrices: IPrice[] = pricesToday;
 				if (modeLTF) {
 					// Limited Time Frame mode
@@ -468,7 +467,6 @@ export class TibberCalculator extends TibberHelper {
 						return priceDate >= startTime && priceDate < stopTime;
 					});
 				}
-				// END NEW
 
 				// get first n entries und test for matching hour
 				const n = this.adapter.config.CalculatorList[channel].chAmountHours;
@@ -652,8 +650,6 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.log.debug(`calculator channel ${channel} SBB-type result - cheap hours: ${cheapHours.map((hour) => hour.total)}`);
 				this.adapter.log.debug(`calculator channel ${channel} SBB-type result - normal hours: ${normalHours.map((hour) => hour.total)}`);
 				this.adapter.log.debug(`calculator channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map((hour) => hour.total)}`);
-				//WiP #193
-				//WiP #193
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
 				const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
 				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
@@ -676,8 +672,6 @@ export class TibberCalculator extends TibberHelper {
 						this.generateErrorMessage(`no result found for SBB`, `execute calculator for smart battery buffer in channel ${channel}`),
 					);
 				}
-				//WiP #193
-				//WiP #193
 
 				function calculateMinDelta(cheapHours: IPrice[], efficiencyLoss: number): number {
 					const cheapTotalSum = cheapHours.reduce((sum, hour) => sum + hour.total, 0);
