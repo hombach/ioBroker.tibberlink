@@ -98,7 +98,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) Validation in Progress!!! implement optional disable of price pull (#232)
 -   (HombachC) Validation in Progress!!! implement price categorization algorithm for battery buffer applications (#193)
--   (HombachC) Validation in Progress!!! Fix error in pull of prices tomorrow (#235, #232)
+-   (HombachC) Fix error in pull of prices tomorrow (#235, #232)
 -   (HombachC) changed Tibber link in config
 
 ### 1.7.2 (2023-12-07)
