@@ -220,7 +220,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             const morgen = new Date();
             morgen.setDate(morgen.getDate() + 1);
             morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
-            if (!exDate || exDate <= morgen || forceUpdate) {
+            if (!exDate || exDate < morgen || forceUpdate) {
+                //if (!exDate || exDate <= morgen || forceUpdate) {  FIX in 1.8.0
                 // -> try getting new data from Tibber server
                 const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
                 this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
@@ -235,8 +236,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
                     this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
                     this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "jsonBYpriceASC"), JSON.stringify(pricesTomorrow), "prices sorted by cost ascending as json");
-                    //return true; // potentially wrong fix in 1.8.0 -> VALIDATE
-                    return false;
+                    return false; // fix in 1.8.0 -> VALIDATED
                 }
                 else if (Array.isArray(pricesTomorrow)) {
                     // pricing known, after about 13:00 - write the states
@@ -253,14 +253,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     if (exDate && exDate >= morgen) {
                         return true;
                     }
+                    else {
+                        return false;
+                    }
                 }
             }
-            else if (exDate && exDate == morgen) {
+            else if (exDate && exDate >= morgen) {
                 this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
                 return true;
-            }
-            else {
-                return false;
             }
             return false;
         }

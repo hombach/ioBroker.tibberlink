@@ -308,24 +308,24 @@ class Tibberlink extends utils.Adapter {
         }
     }
     /**
-     * subfunction to loop till prices today for all homes are got from server - startup-phase
+     * subfunction to loop till prices today for all homes are got from server - adapter startup-phase
      */
     async jobPricesTodayLOOP(tibberAPICaller) {
         let okPrice = false;
         do {
             okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
-            this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
+            this.log.debug(`Loop job PricesToday - okPrice: ${okPrice}`);
             await this.delay(5 * 60 * 1000);
         } while (!okPrice);
     }
     /**
-     * subfunction to loop till prices tomorrow for all homes are got from server - startup-phase
+     * subfunction to loop till prices tomorrow for all homes are got from server - adapter startup-phase
      */
     async jobPricesTomorrowLOOP(tibberAPICaller) {
         let okPrice = false;
         do {
             okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
-            this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
+            this.log.debug(`Loop job PricesTomorrow - okPrice: ${okPrice}`);
             await this.delay(5 * 60 * 1000);
         } while (!okPrice);
     }
