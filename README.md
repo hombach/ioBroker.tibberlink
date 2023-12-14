@@ -94,10 +94,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 1.8.0 (2023-12-xx) WORK IN PROGRESS
+### 1.8.0 (2023-12-14)
 
 -   (HombachC) implement optional disable of price pull (#232)
--   (HombachC) Validation in Progress!!! implement price categorization algorithm for battery buffer applications (#193)
+-   (HombachC) implement price categorization algorithm for battery buffer applications (#193)
 -   (HombachC) Fix 2 errors in pull of prices tomorrow (#235, #232)
 -   (HombachC) changed Tibber link in config
 
