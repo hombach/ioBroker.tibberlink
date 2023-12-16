@@ -1,8 +1,20 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.8.0",
+		"version": "1.8.1",
 		"news": {
+			"1.8.1": {
+				"en": "Added notice about changes in configuration",
+				"de": "Hinweis zu Änderungen in der Konfiguration hinzugefügt",
+				"ru": "Добавлено уведомление об изменениях в конфигурации",
+				"pt": "Adicionado aviso sobre mudanças na configuração",
+				"nl": "Melding toegevoegd over wijzigingen in de configuratie",
+				"fr": "Avis ajouté concernant les changements de configuration",
+				"it": "Aggiunto avviso sulle modifiche alla configurazione",
+				"es": "Añadido aviso sobre cambios en la configuración",
+				"pl": "Dodano powiadomienie o zmianach w konfiguracji",
+				"uk": "Додано повідомлення про зміни в конфігурації"
+			},
 			"1.8.0": {
 				"en": "implement optional disable of price pull (#232); implement price categorization algorithm for battery buffer applications (#193); fix error in pull of prices tomorrow (#235, #232)",
 				"de": "Implementieren Sie die optionale Deaktivierung des Preisabrufs (#232); Implementieren Sie den Preis-Kategorisierungsalgorithmus für Batteriepufferanwendungen (#193); Beheben Sie den Fehler beim Abruf von Preisen für morgen (#235, #232)",
@@ -249,25 +261,13 @@
 				"pl": "Naprawiono błąd podczas zbierania danych na żywo z wielu domów (#108)",
 				"uk": "Виправлено помилку при опитуванні даних в реальному часі для декількох будинків (#108)",
 				"zh-cn": "修复了多个家庭实时数据轮询错误 (#108)"
-			},
-			"0.4.0": {
-				"en": "Added daily average price values (#89)",
-				"de": "Tägliche Durchschnittspreise hinzugefügt (#89)",
-				"ru": "Добавлены средние дневные цены (#89)",
-				"pt": "Adicionados valores médios diários de preços (#89)",
-				"nl": "Dagelijkse gemiddelde prijswaarden toegevoegd (#89)",
-				"fr": "Ajout des valeurs moyennes quotidiennes des prix (#89)",
-				"it": "Aggiunti valori medi giornalieri dei prezzi (#89)",
-				"es": "Añadidos valores promedio diarios de precios (#89)",
-				"pl": "Dodano codzienne średnie wartości cenowe (#89)",
-				"uk": "Додані середні щоденні значення цін (#89)",
-				"zh-cn": "添加每日平均价格值 (#89)"
 			}
 		},
 		"messages": [
 			{
 				"condition": {
-					"rules": ["oldVersion <= 0.3.0"]
+					"operand": "and",
+					"rules": ["oldVersion<0.3.0", "newVersion>=0.3.0"]
 				},
 				"title": {
 					"en": "Important notice!",
@@ -296,7 +296,40 @@
 					"zh-cn": "皮尔西人生活数据集成已改变! 你们必须把它重新纳入组合! 现在,你可以为每一个家庭提供或可分割的东西。."
 				},
 				"level": "warn",
-				"buttons": ["ok"]
+				"buttons": ["agree", "cancel"]
+			},
+			{
+				"condition": {
+					"operand": "and",
+					"rules": ["oldVersion<1.8.0", "newVersion>=1.8.0"]
+				},
+				"title": {
+					"en": "Important notice!",
+					"de": "Wichtiger Hinweis!",
+					"ru": "Важное замечание!",
+					"pt": "Notícia importante!",
+					"nl": "Belangrijke mededeling!",
+					"fr": "Avis important!",
+					"it": "Avviso IMPORTANTE!",
+					"es": "Noticia importante!",
+					"pl": "Ważna uwaga!",
+					"uk": "Погода!",
+					"zh-cn": "重要通知!"
+				},
+				"text": {
+					"en": "Configuration of adapter has changed!! Please verify your settings for Tibber price data poll. And save the settings!!",
+					"de": "Die Konfiguration des Adapters wurde geändert!! Überprüfen Sie bitte Ihre Einstellungen für die Tibber-Preisdatenabfrage. Und speichern Sie die Einstellungen!!",
+					"ru": "Конфигурация адаптера была изменена!! Пожалуйста, проверьте ваши настройки для опроса ценовых данных Tibber. И сохраните настройки!!",
+					"pt": "A configuração do adaptador foi alterada!! Por favor, verifique suas configurações para a pesquisa de dados de preços do Tibber. E salve as configurações!!",
+					"nl": "De configuratie van de adapter is gewijzigd!! Controleer alstublieft uw instellingen voor de Tibber-prijsgegevens poll. En sla de instellingen op!!",
+					"fr": "La configuration de l'adaptateur a été modifiée!! Veuillez vérifier vos paramètres pour l'interrogation des données de prix Tibber. Et sauvegardez les paramètres!!",
+					"it": "La configurazione dell'adattatore è stata modificata!! Verifica le tue impostazioni per l'interrogazione dei dati sui prezzi di Tibber. E salva le impostazioni!!",
+					"es": "¡¡La configuración del adaptador ha cambiado!! Por favor, verifique sus ajustes para la consulta de datos de precios de Tibber. ¡Y guarde la configuración!!",
+					"pl": "Konfiguracja adaptera została zmieniona!! Proszę sprawdzić ustawienia dla sondowania danych cenowych Tibber. I zapisać ustawienia!!",
+					"uk": "Конфігурація адаптера була змінена!! Будь ласка, перевірте ваші налаштування для опитування цінових даних Tibber. І збережіть налаштування!!"
+				},
+				"level": "warn",
+				"buttons": ["agree", "cancel"]
 			}
 		],
 		"titleLang": {

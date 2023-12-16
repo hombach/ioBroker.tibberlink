@@ -94,6 +94,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 1.8.1 (2023-12-16)
+
+-   (HombachC) add notice about changes in configuration
+
 ### 1.8.0 (2023-12-14)
 
 -   (HombachC) implement optional disable of price pull (#232)
