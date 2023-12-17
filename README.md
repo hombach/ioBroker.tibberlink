@@ -37,8 +37,9 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 -   Begin by creating a new instance of the adapter.
 -   You'll also require an API token from Tibber, which you can obtain here: [Tibber Developer API](https://developer.tibber.com).
 -   Enter your Tibber API token in the standard settings and configure at least one line for live feed settings (select "None available").
--   Save the settings and exit the configuration to restart the adapter; this step allows your home(s) to be queried from the Tibber server.
+-   Save the settings and exit the configuration to restart the adapter; this step allows your home(s) to be queried the first time from the Tibber server.
 -   Return to the configuration screen and select the homes from which you wish to fetch real-time data using your Tibber Pulse. You can also select homes and disable the feed (Note: This works only if the hardware is installed and the Tibber server has verified the connection to Pulse).
+-   You have the option to deactivate the retrieval of price data for today and tomorrow, for instance, if you only intend to utilize Pulse live feeds
 -   Optionally, you can enable the retrieval of historical consumption data. Please specify the number of datasets for hours, days, weeks, months, and years. You can use "0" to disable one or more of these intervals based on your preferences.
 -   Note: It's essential to be mindful of the dataset size, as excessively large requests may result in a lack of response from the Tibber Server. We recommend experimenting with the dataset size to ensure optimal functionality. Adjusting the intervals and dataset numbers can help strike the right balance between obtaining insightful data and maintaining server responsiveness. E.g. 48 is a quite good amount for hours.
 -   Save the settings.
@@ -61,7 +62,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
     -   "Best cost LTF": "Best cost" within a Limited Time Frame (LTF).
     -   "Best single hours LTF": "Best single hours" within a Limited Time Frame (LTF).
     -   "Best hours block LTF": "Best hours block" within a Limited Time Frame (LTF).
-    -   "Smart Battery Buffer": Not implemented yet
+    -   "Smart Battery Buffer": Utilize the "EfficiencyLoss" parameter to specify the efficiency loss of the battery system. Use the "AmountHours" parameter to input the desired number of hours for battery charging. The calculator will activate battery charging ("value YES") and deactivate battery feed ("value 2 NO") during the specified "AmountHours" cheapest hours. Conversely, it will deactivate battery charging ("value NO") and activate battery feed ("value 2 YES") during hours with the highest cost, provided the cost is higher than the highest total price among the cheap hours. In the remaining normal hours where energy buffering by the battery is not economically viable, both outputs will be switched off.
 -   LTF channels: Function similarly to standard channels but only operate within a time frame defined by the "StartTime" and "StopTime" state objects. After "StopTime," the channel deactivates itself. "StartTime" and "StopTime" may span over several days. The states must be filled with a date-time string in ISO-8601 format with a timezone offset, such as: "2023-11-17T21:00:00.000+01:00".
 
 ### Hints
@@ -93,11 +94,22 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 1.8.1 (2023-12-16)
+
+-   (HombachC) add notice about changes in configuration
+
+### 1.8.0 (2023-12-14)
+
+-   (HombachC) implement optional disable of price pull (#232)
+-   (HombachC) implement price categorization algorithm for battery buffer applications (#193)
+-   (HombachC) Fix 2 errors in pull of prices tomorrow (#235, #232)
+-   (HombachC) changed Tibber link in config
+
 ### 1.7.2 (2023-12-07)
 
 -   (HombachC) implemented dynamic raise of feed reconnect (#225)
 -   (HombachC) small bugfix in pricecalls
--   (HombachC) first implementations for "smart battery buffer" (#193)
+-   (HombachC) first changes for "smart battery buffer" (#193)
 -   (HombachC) update typescript to 5.3.3
 
 ### 1.7.1 (2023-12-04)

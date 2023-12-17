@@ -1,8 +1,33 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "1.7.2",
+		"version": "1.8.1",
 		"news": {
+			"1.8.1": {
+				"en": "Added notice about changes in configuration",
+				"de": "Hinweis zu Änderungen in der Konfiguration hinzugefügt",
+				"ru": "Добавлено уведомление об изменениях в конфигурации",
+				"pt": "Adicionado aviso sobre mudanças na configuração",
+				"nl": "Melding toegevoegd over wijzigingen in de configuratie",
+				"fr": "Avis ajouté concernant les changements de configuration",
+				"it": "Aggiunto avviso sulle modifiche alla configurazione",
+				"es": "Añadido aviso sobre cambios en la configuración",
+				"pl": "Dodano powiadomienie o zmianach w konfiguracji",
+				"uk": "Додано повідомлення про зміни в конфігурації"
+			},
+			"1.8.0": {
+				"en": "implement optional disable of price pull (#232); implement price categorization algorithm for battery buffer applications (#193); fix error in pull of prices tomorrow (#235, #232)",
+				"de": "Implementieren Sie die optionale Deaktivierung des Preisabrufs (#232); Implementieren Sie den Preis-Kategorisierungsalgorithmus für Batteriepufferanwendungen (#193); Beheben Sie den Fehler beim Abruf von Preisen für morgen (#235, #232)",
+				"ru": "реализовать необязательное отключение опроса цен (#232); реализовать алгоритм категоризации цен для приложений батарейного буфера (#193); исправить ошибку при опросе цен на завтра (#235, #232)",
+				"pt": "implementar desativação opcional da busca de preços (#232); implementar algoritmo de categorização de preços para aplicações de bateria tamponada (#193); corrigir erro na busca de preços para amanhã (#235, #232)",
+				"nl": "implementeer optionele uitschakeling van prijzen ophalen (#232); implementeer prijscategoriseringsalgoritme voor toepassingen van batterijbuffers (#193); los fout op bij het ophalen van prijzen voor morgen (#235, #232)",
+				"fr": "mettez en œuvre la désactivation optionnelle de la récupération des prix (#232); mettez en œuvre l'algorithme de catégorisation des prix pour les applications de tampon de batterie (#193); corrigez l'erreur dans la récupération des prix pour demain (#235, #232)",
+				"it": "implementare la disabilitazione opzionale del recupero dei prezzi (#232); implementare l'algoritmo di categorizzazione dei prezzi per le applicazioni di buffer di batteria (#193); correggere l'errore nel recupero dei prezzi per domani (#235, #232)",
+				"es": "implementar la desactivación opcional de la obtención de precios (#232); implementar algoritmo de categorización de precios para aplicaciones de búfer de batería (#193); corregir error en la obtención de precios para mañana (#235, #232)",
+				"pl": "zaimplementować opcjonalne wyłączenie pobierania cen (#232); zaimplementować algorytm kategoryzacji cen dla aplikacji bufora baterii (#193); naprawić błąd w pobieraniu cen na jutro (#235, #232)",
+				"uk": "реалізувати необов'язкове вимкнення запиту цін (#232); реалізувати алгоритм категоризації цін для застосувань буфера батареї (#193); виправити помилку у запиті цін на завтра (#235, #232)",
+				"zh-cn": "实施可选择禁用价格拉取 (#232); 为电池缓冲应用实施价格分类算法 (#193); 修复明天价格拉取中的错误 (#235, #232)"
+			},
 			"1.7.2": {
 				"en": "Implemented dynamic raise of feed reconnect (#225); small bugfix in price calls",
 				"de": "Dynamische Erhöhung der Feed-Reconnect implementiert (#225); kleiner Fehlerbehebung in Preisaufrufen",
@@ -236,38 +261,13 @@
 				"pl": "Naprawiono błąd podczas zbierania danych na żywo z wielu domów (#108)",
 				"uk": "Виправлено помилку при опитуванні даних в реальному часі для декількох будинків (#108)",
 				"zh-cn": "修复了多个家庭实时数据轮询错误 (#108)"
-			},
-			"0.4.1": {
-				"en": "Hardened 2 typeerrors recognitioned by Sentry; fix error of not deleted averages of tomorrow pricing (#95)",
-				"de": "Verstärkte 2 Typfehler erkannt von Sentry; Fehler behoben, nicht gelöschte Durchschnittswerte der morgigen Preisgestaltung (#95)",
-				"ru": "Усилено 2 типовых ошибки, распознанных Sentry; исправлена ошибка с неудаленными средними значениями цен на завтра (#95)",
-				"pt": "Reforçado o reconhecimento de 2 erros de tipo pelo Sentry; erro corrigido de médias de preços de amanhã não deletadas (#95)",
-				"nl": "Versterkte 2 typenfouten herkend door Sentry; fout met niet verwijderde gemiddelden van prijsstelling voor morgen opgelost (#95)",
-				"fr": "Renforcement de 2 erreurs de type reconnues par Sentry ; correction de l'erreur avec les moyennes de tarification de demain non supprimées (#95)",
-				"it": "Rafforzati 2 errori di tipo riconosciuti da Sentry; corretto l'errore di non eliminazione delle medie delle tariffe di domani (#95)",
-				"es": "Refuerzo de 2 errores de tipo reconocidos por Sentry; corrección del error de promedios de precios de mañana no eliminados (#95)",
-				"pl": "Usztywnione 2 błędy typów rozpoznawane przez Sentry; naprawa błędu z nieusuniętymi średnimi cenami na jutro (#95)",
-				"uk": "Підсилено 2 типові помилки, визнані Sentry; виправлено помилку з не вилученими середніми цінами на завтра (#95)",
-				"zh-cn": "通过Sentry识别加固了2种类型错误；修复了明天定价的平均值未删除的错误 (#95)"
-			},
-			"0.4.0": {
-				"en": "Added daily average price values (#89)",
-				"de": "Tägliche Durchschnittspreise hinzugefügt (#89)",
-				"ru": "Добавлены средние дневные цены (#89)",
-				"pt": "Adicionados valores médios diários de preços (#89)",
-				"nl": "Dagelijkse gemiddelde prijswaarden toegevoegd (#89)",
-				"fr": "Ajout des valeurs moyennes quotidiennes des prix (#89)",
-				"it": "Aggiunti valori medi giornalieri dei prezzi (#89)",
-				"es": "Añadidos valores promedio diarios de precios (#89)",
-				"pl": "Dodano codzienne średnie wartości cenowe (#89)",
-				"uk": "Додані середні щоденні значення цін (#89)",
-				"zh-cn": "添加每日平均价格值 (#89)"
 			}
 		},
 		"messages": [
 			{
 				"condition": {
-					"rules": ["oldVersion <= 0.3.0"]
+					"operand": "and",
+					"rules": ["oldVersion<0.3.0", "newVersion>=0.3.0"]
 				},
 				"title": {
 					"en": "Important notice!",
@@ -296,7 +296,40 @@
 					"zh-cn": "皮尔西人生活数据集成已改变! 你们必须把它重新纳入组合! 现在,你可以为每一个家庭提供或可分割的东西。."
 				},
 				"level": "warn",
-				"buttons": ["ok"]
+				"buttons": ["agree", "cancel"]
+			},
+			{
+				"condition": {
+					"operand": "and",
+					"rules": ["oldVersion<1.8.0", "newVersion>=1.8.0"]
+				},
+				"title": {
+					"en": "Important notice!",
+					"de": "Wichtiger Hinweis!",
+					"ru": "Важное замечание!",
+					"pt": "Notícia importante!",
+					"nl": "Belangrijke mededeling!",
+					"fr": "Avis important!",
+					"it": "Avviso IMPORTANTE!",
+					"es": "Noticia importante!",
+					"pl": "Ważna uwaga!",
+					"uk": "Погода!",
+					"zh-cn": "重要通知!"
+				},
+				"text": {
+					"en": "Configuration of adapter has changed!! Please verify your settings for Tibber price data poll. And save the settings!!",
+					"de": "Die Konfiguration des Adapters wurde geändert!! Überprüfen Sie bitte Ihre Einstellungen für die Tibber-Preisdatenabfrage. Und speichern Sie die Einstellungen!!",
+					"ru": "Конфигурация адаптера была изменена!! Пожалуйста, проверьте ваши настройки для опроса ценовых данных Tibber. И сохраните настройки!!",
+					"pt": "A configuração do adaptador foi alterada!! Por favor, verifique suas configurações para a pesquisa de dados de preços do Tibber. E salve as configurações!!",
+					"nl": "De configuratie van de adapter is gewijzigd!! Controleer alstublieft uw instellingen voor de Tibber-prijsgegevens poll. En sla de instellingen op!!",
+					"fr": "La configuration de l'adaptateur a été modifiée!! Veuillez vérifier vos paramètres pour l'interrogation des données de prix Tibber. Et sauvegardez les paramètres!!",
+					"it": "La configurazione dell'adattatore è stata modificata!! Verifica le tue impostazioni per l'interrogazione dei dati sui prezzi di Tibber. E salva le impostazioni!!",
+					"es": "¡¡La configuración del adaptador ha cambiado!! Por favor, verifique sus ajustes para la consulta de datos de precios de Tibber. ¡Y guarde la configuración!!",
+					"pl": "Konfiguracja adaptera została zmieniona!! Proszę sprawdzić ustawienia dla sondowania danych cenowych Tibber. I zapisać ustawienia!!",
+					"uk": "Конфігурація адаптера була змінена!! Будь ласка, перевірте ваші налаштування для опитування цінових даних Tibber. І збережіть налаштування!!"
+				},
+				"level": "warn",
+				"buttons": ["agree", "cancel"]
 			}
 		],
 		"titleLang": {
@@ -369,6 +402,7 @@
 		"HomesList": [
 			{
 				"feedActive": "false",
+				"priceDataPollActive": "true",
 				"homeID": "None available - restart adapter after entering token",
 				"statsActive": "false",
 				"numberConsHourly": 24,
@@ -386,7 +420,10 @@
 				"chActive": "false",
 				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
 				"chValueOn": "true",
-				"chValueOff": "false"
+				"chValueOff": "false",
+				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
+				"chValueOn2": "true",
+				"chValueOff2": "false"
 			}
 		]
 	},

@@ -16,6 +16,7 @@ export interface IHomeInfo {
 	NameInApp: string;
 	RealTime: boolean;
 	FeedActive: boolean;
+	PriceDataPollActive: boolean;
 }
 
 export class TibberHelper {

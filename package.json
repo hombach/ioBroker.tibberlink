@@ -1,6 +1,6 @@
 {
   "name": "iobroker.tibberlink",
-  "version": "1.7.2",
+  "version": "1.8.1",
   "description": "links tibber API data to be used in ioBroker",
   "author": {
     "name": "Hombach",
@@ -39,8 +39,8 @@
     "@types/proxyquire": "^1.3.31",
     "@types/sinon": "^17.0.2",
     "@types/sinon-chai": "^3.2.12",
-    "@typescript-eslint/eslint-plugin": "^6.13.2",
-    "@typescript-eslint/parser": "^6.13.2",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
     "axios": "^1.6.2",
     "chai": "^4.3.10",
     "chai-as-promised": "^7.1.1",
@@ -48,7 +48,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.0.1",
     "mocha": "^10.2.0",
-    "prettier": "^3.1.0",
+    "prettier": "^3.1.1",
     "proxyquire": "^2.1.3",
     "sinon": "^17.0.1",
     "sinon-chai": "^3.7.0",

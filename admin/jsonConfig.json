@@ -56,9 +56,10 @@
 						"zh-cn": "如果您目前不是Tibber的用户，如果您能使用我的推荐链接，我将非常感激"
 					},
 					"href": "https://invite.tibber.com/mu8c82n5",
+					"button": true,
+					"icon": "info",
 					"newLine": true
 				},
-
 				"HomesList": {
 					"type": "table",
 					"sm": 12,
@@ -104,6 +105,27 @@
 						{
 							"type": "checkbox",
 							"title": {
+								"en": "Use Tibber price data poll",
+								"de": "Verwende die Tibber Preisdatenabfrage",
+								"ru": "Использовать опрос данных о ценах от Tibber",
+								"pt": "Usar pesquisa de dados de preço da Tibber",
+								"nl": "Gebruik de prijsgegevenspoll van Tibber",
+								"fr": "Utiliser l'interrogation des données de prix Tibber",
+								"it": "Utilizza l'interrogazione dei dati sui prezzi di Tibber",
+								"es": "Utilizar la consulta de datos de precios de Tibber",
+								"pl": "Użyj ankiety cenowej danych Tibber",
+								"uk": "Використовуйте опитування даних про ціни від Tibber",
+								"zh-cn": "使用 Tibber 价格数据轮询"
+							},
+							"attr": "priceDataPollActive",
+							"filter": false,
+							"sort": false,
+							"width": "10%",
+							"default": true
+						},
+						{
+							"type": "checkbox",
+							"title": {
 								"en": "Use Tibber Pulse feed",
 								"de": "Verwende Tibber Pulse-Feed",
 								"ru": "Используйте ленту Tibber Pulse",
@@ -119,7 +141,7 @@
 							"attr": "feedActive",
 							"filter": false,
 							"sort": false,
-							"width": "15%",
+							"width": "10%",
 							"default": false
 						},
 						{
@@ -140,7 +162,7 @@
 							"attr": "statsActive",
 							"filter": false,
 							"sort": false,
-							"width": "15%",
+							"width": "10%",
 							"default": false
 						},
 						{
@@ -264,17 +286,17 @@
 				"_feedDataDetail": {
 					"type": "header",
 					"text": {
-						"en": "Select all fields you want to load in feed data (power and timestamp are on by default):",
-						"de": "Wählen Sie alle Felder aus, die Sie in den Feed-Daten laden möchten (Leistung und Zeitstempel sind standardmäßig aktiviert):",
-						"ru": "Выберите все поля, которые вы хотите загрузить в данные ленты (мощность и временная метка включены по умолчанию):",
-						"pt": "Selecione todos os campos que deseja carregar nos dados do feed (a potência e o carimbo de hora estão ativados por padrão):",
-						"nl": "Selecteer alle velden die u wilt laden in de feedgegevens (vermogen en tijdstempel zijn standaard ingeschakeld):",
-						"fr": "Sélectionnez tous les champs que vous souhaitez charger dans les données du flux (la puissance et l'horodatage sont activés par défaut) :",
-						"it": "Seleziona tutti i campi che desideri caricare nei dati del feed (potenza e timestamp sono attivi per impostazione predefinita):",
-						"es": "Seleccione todos los campos que desea cargar en los datos del feed (la potencia y la marca de tiempo están habilitados por defecto):",
-						"pl": "Wybierz wszystkie pola, które chcesz załadować do danych kanału (moc i znacznik czasu są domyślnie włączone):",
-						"uk": "Виберіть всі поля, які ви хочете завантажити в дані каналу (потужність та відмітка часу активовані за замовчуванням):",
-						"zh-cn": "选择要加载到数据中的所有字段（功率和时间戳默认处于启用状态）："
+						"en": "Select all fields you want to load in live-feed data (power and timestamp are on by default):",
+						"de": "Wählen Sie alle Felder aus, die Sie in den Live-Feed-Daten laden möchten (Leistung und Zeitstempel sind standardmäßig aktiviert):",
+						"ru": "Выберите все поля, которые вы хотите загрузить в данные с живой подачей (мощность и временная метка включены по умолчанию):",
+						"pt": "Selecione todos os campos que deseja carregar nos dados de feed ao vivo (potência e carimbo de data/hora estão ativados por padrão):",
+						"nl": "Selecteer alle velden die u wilt laden in live-feed gegevens (vermogen en tijdstempel zijn standaard ingeschakeld):",
+						"fr": "Sélectionnez tous les champs que vous souhaitez charger dans les données en direct (puissance et horodatage sont activés par défaut):",
+						"it": "Seleziona tutti i campi che desideri caricare nei dati in tempo reale (potenza e timestamp sono attivi per impostazione predefinita):",
+						"es": "Seleccione todos los campos que desea cargar en los datos de transmisión en vivo (potencia y marca de tiempo están activados por defecto):",
+						"pl": "Wybierz wszystkie pola, które chcesz załadować do danych na żywo (moc i znacznik czasu są domyślnie włączone):",
+						"uk": "Виберіть всі поля, які ви хочете завантажити в живі дані (потужність та відмітка часу включені за замовчуванням):",
+						"zh-cn": "选择要在实时数据中加载的所有字段 (功率和时间戳默认开启):"
 					},
 					"hidden": "!data.TibberAPIToken",
 					"size": 3
@@ -595,7 +617,7 @@
 							"default": "No Home selected",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "10% ",
 							"command": "HomesForConfig"
 						},
 						{
@@ -710,11 +732,27 @@
 										"zh-cn": "最佳小时块 LTF"
 									},
 									"value": 6
+								},
+								{
+									"label": {
+										"en": "smart battery buffer",
+										"de": "intelligenter Batteriepuffer",
+										"ru": "умный буфер батареи",
+										"pt": "buffer de bateria inteligente",
+										"nl": "slimme batterijbuffer",
+										"fr": "tampon de batterie intelligent",
+										"it": "buffer batteria intelligente",
+										"es": "buffer de batería inteligente",
+										"pl": "inteligentny bufor baterii",
+										"uk": "розумний буфер акумулятора",
+										"zh-cn": "智能电池缓冲区"
+									},
+									"value": 7
 								}
 							],
 							"filter": false,
 							"sort": false,
-							"width": "15%"
+							"width": "15% "
 						},
 						{
 							"type": "text",
@@ -735,7 +773,7 @@
 							"attr": "chName",
 							"filter": false,
 							"sort": false,
-							"width": "25%",
+							"width": "15% ",
 							"default": "Channel Name"
 						},
 						{
@@ -756,7 +794,7 @@
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "30%"
+							"width": "15% "
 						},
 						{
 							"type": "text",
@@ -777,7 +815,7 @@
 							"attr": "chValueOn",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "7.5% ",
 							"default": ""
 						},
 						{
@@ -799,8 +837,76 @@
 							"attr": "chValueOff",
 							"filter": false,
 							"sort": false,
-							"width": "10%",
+							"width": "7.5% ",
 							"default": ""
+						},
+
+						{
+							"type": "objectId",
+							"title": {
+								"en": "Target State 2",
+								"de": "Zielzustand 2",
+								"ru": "Целевое состояние 2",
+								"pt": "Estado alvo 2",
+								"nl": "Doelstaat 2",
+								"fr": "État cible 2",
+								"it": "Stato di destinazione 2",
+								"es": "Estado objetivo 2",
+								"pl": "Stan docelowy 2",
+								"uk": "Цільовий стан 2",
+								"zh-cn": "目标状态 2"
+							},
+							"attr": "chTargetState2",
+							"filter": false,
+							"sort": false,
+							"width": "15% ",
+							"hidden": "data.chType !== 7"
+						},
+						{
+							"type": "text",
+							"title": {
+								"en": "Value YES 2",
+								"de": "Wert JA 2",
+								"ru": "Значение ДА 2",
+								"pt": "Valor SIM 2",
+								"nl": "Waarde JA 2",
+								"fr": "Valeur OUI 2",
+								"it": "Valore SÌ 2",
+								"es": "Valor SÍ 2",
+								"pl": "Wartość TAK 2",
+								"uk": "Значення ТАК 2",
+								"zh-cn": "值 是 2"
+							},
+							"maxLength": 20,
+							"attr": "chValueOn2",
+							"filter": false,
+							"sort": false,
+							"width": "7.5% ",
+							"default": "",
+							"hidden": "data.chType !== 7"
+						},
+						{
+							"type": "text",
+							"title": {
+								"en": "Value NO 2",
+								"de": "Wert NEIN 2",
+								"ru": "Значение НЕТ 2",
+								"pt": "Valor NÃO 2",
+								"nl": "Waarde NEE 2",
+								"fr": "Valeur NON 2",
+								"it": "Valore NO 2",
+								"es": "Valor NO 2",
+								"pl": "Wartość NIE 2",
+								"uk": "Значення НІ 2",
+								"zh-cn": "值 否 2"
+							},
+							"maxLength": 20,
+							"attr": "chValueOff2",
+							"filter": false,
+							"sort": false,
+							"width": "7.5% ",
+							"default": "",
+							"hidden": "data.chType !== 7"
 						}
 					]
 				},
@@ -1024,17 +1130,17 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "   'Smart Battery Buffer': Not implemented yet",
-						"de": "   'Smart Battery Buffer': Not implemented yet",
-						"ru": "   'Smart Battery Buffer': Not implemented yet",
-						"pt": "   'Smart Battery Buffer': Not implemented yet",
-						"nl": "   'Smart Battery Buffer': Not implemented yet",
-						"fr": "   'Smart Battery Buffer': Not implemented yet",
-						"it": "   'Smart Battery Buffer': Not implemented yet",
-						"es": "   'Smart Battery Buffer': Not implemented yet",
-						"pl": "   'Smart Battery Buffer': Not implemented yet",
-						"uk": "   'Smart Battery Buffer': Not implemented yet",
-						"zh-cn": "   'Smart Battery Buffer': Not implemented yet"
+						"en": "   'Smart Battery Buffer': Utilize the 'EfficiencyLoss' parameter to specify the efficiency loss of the battery system. Use the 'AmountHours' parameter to input the desired number of hours for battery charging. The calculator will activate battery charging ('value YES') and deactivate battery feed ('value 2 NO') during the specified 'AmountHours' cheapest hours. Conversely, it will deactivate battery charging ('value NO') and activate battery feed ('value 2 YES') during hours with the highest cost, provided the cost is higher than the highest total price among the cheap hours. In the remaining normal hours where energy buffering by the battery is not economically viable, both outputs will be switched off.",
+						"de": "   'Intelligenter Batteriepuffer': Verwenden Sie den Parameter 'EfficiencyLoss', um den Wirkungsgradverlust des Batteriesystems anzugeben. Verwenden Sie den Parameter 'AmountHours', um die gewünschte Anzahl von Stunden für das Laden der Batterie einzugeben. Der Rechner aktiviert das Batterieladen ('Wert YES') und deaktiviert die Batteriezufuhr ('Wert 2 NO') während der angegebenen 'AmountHours' günstigsten Stunden. Umgekehrt deaktiviert er das Batterieladen ('Wert NO') und aktiviert die Batteriezufuhr ('Wert 2 YES') während der Stunden mit den höchsten Kosten, vorausgesetzt, die Kosten sind höher als der höchste Gesamtpreis unter den günstigen Stunden. In den verbleibenden normalen Stunden, in denen eine Energiespeicherung durch die Batterie wirtschaftlich nicht sinnvoll ist, werden beide Ausgänge ausgeschaltet.",
+						"ru": "   'Умный буфер батареи': Используйте параметр 'EfficiencyLoss', чтобы указать потери эффективности батарейной системы. Используйте параметр 'AmountHours', чтобы ввести желаемое количество часов для зарядки батареи. Калькулятор активирует зарядку батареи ('значение YES') и деактивирует подачу батареи ('значение 2 NO') в течение указанных 'AmountHours' самых дешевых часов. Напротив, он деактивирует зарядку батареи ('значение NO') и активирует подачу батареи ('значение 2 YES') в часы с наивысшей стоимостью, при условии, что стоимость выше самой высокой общей цены среди дешевых часов. В оставшиеся обычные часы, когда энергия буферизации батареи экономически нецелесообразна, оба выхода будут отключены.",
+						"pt": "   'Buffer de bateria inteligente': Utilize o parâmetro 'EfficiencyLoss' para especificar a perda de eficiência do sistema de bateria. Use o parâmetro 'AmountHours' para inserir o número desejado de horas para carregar a bateria. A calculadora ativará o carregamento da bateria ('valor YES') e desativará a alimentação da bateria ('valor 2 NO') durante as horas mais baratas especificadas em 'AmountHours'. Ao contrário, desativará o carregamento da bateria ('valor NO') e ativará a alimentação da bateria ('valor 2 YES') durante as horas com o maior custo, desde que o custo seja maior que o preço total mais alto entre as horas mais baratas. Nas horas normais restantes, em que o armazenamento de energia pela bateria não é economicamente viável, ambas as saídas serão desligadas.",
+						"nl": "   'Slimme batterijbuffer': Gebruik de parameter 'EfficiencyLoss' om het rendementsverlies van het batterijsysteem aan te geven. Gebruik de parameter 'AmountHours' om het gewenste aantal uren voor het opladen van de batterij in te voeren. De rekenmachine activeert het opladen van de batterij ('waarde YES') en deactiveert de batterijtoevoer ('waarde 2 NO') tijdens de gespecificeerde 'AmountHours' goedkoopste uren. Omgekeerd zal het het opladen van de batterij deactiveren ('waarde NO') en de batterijtoevoer activeren ('waarde 2 YES') tijdens uren met de hoogste kosten, op voorwaarde dat de kosten hoger zijn dan de hoogste totale prijs onder de goedkope uren. In de overige normale uren waar energiebuffering door de batterij niet economisch haalbaar is, worden beide uitgangen uitgeschakeld.",
+						"fr": "   'Tampon de batterie intelligent': Utilisez le paramètre 'EfficiencyLoss' pour spécifier la perte d'efficacité du système de batterie. Utilisez le paramètre 'AmountHours' pour entrer le nombre d'heures souhaité pour la charge de la batterie. Le calculateur activera la charge de la batterie ('valeur YES') et désactivera l'alimentation de la batterie ('valeur 2 NO') pendant les heures les moins chères spécifiées dans 'AmountHours'. Inversement, il désactivera la charge de la batterie ('valeur NO') et activera l'alimentation de la batterie ('valeur 2 YES') pendant les heures les plus coûteuses, à condition que le coût soit supérieur au prix total le plus élevé parmi les heures bon marché. Pendant les heures normales restantes où le tamponnement d'énergie par la batterie n'est pas économiquement viable, les deux sorties seront désactivées.",
+						"it": "   'Buffer batteria intelligente': Utilizza il parametro 'EfficiencyLoss' per specificare la perdita di efficienza del sistema di batterie. Usa il parametro 'AmountHours' per inserire il numero desiderato di ore per la ricarica della batteria. La calcolatrice attiverà la ricarica della batteria ('valore YES') e disattiverà l'alimentazione della batteria ('valore 2 NO') durante le 'AmountHours' ore più economiche specificate. Al contrario, disattiverà la ricarica della batteria ('valore NO') e attiverà l'alimentazione della batteria ('valore 2 YES') durante le ore con il costo più elevato, a condizione che il costo sia superiore al prezzo totale più alto tra le ore economiche. Nelle restanti ore normali in cui il buffering energetico della batteria non è economicamente vantaggioso, entrambe le uscite verranno disattivate.",
+						"es": "   'Buffer de batería inteligente': Utilice el parámetro 'EfficiencyLoss' para especificar la pérdida de eficiencia del sistema de batería. Utilice el parámetro 'AmountHours' para ingresar la cantidad deseada de horas para la carga de la batería. La calculadora activará la carga de la batería ('valor YES') y desactivará la alimentación de la batería ('valor 2 NO') durante las horas más baratas especificadas en 'AmountHours'. Por el contrario, desactivará la carga de la batería ('valor NO') y activará la alimentación de la batería ('valor 2 YES') durante las horas con el mayor costo, siempre que el costo sea mayor que el precio total más alto entre las horas baratas. En las horas normales restantes en las que el almacenamiento de energía por la batería no es económicamente viable, ambas salidas se apagarán.",
+						"pl": "   'Inteligentny bufor baterii': Użyj parametru 'EfficiencyLoss', aby określić straty wydajności systemu baterii. Użyj parametru 'AmountHours', aby wprowadzić żądaną liczbę godzin na ładowanie baterii. Kalkulator aktywuje ładowanie baterii ('wartość YES') i dezaktywuje podawanie baterii ('wartość 2 NO') podczas określonych 'AmountHours' najtańszych godzin. W przeciwnym razie dezaktywuje ładowanie baterii ('wartość NO') i aktywuje podawanie baterii ('wartość 2 YES') podczas godzin o najwyższym koszcie, pod warunkiem, że koszt jest wyższy niż najwyższa cena całkowita wśród tanich godzin. W pozostałych normalnych godzinach, gdy buforowanie energii przez baterię nie jest ekonomicznie opłacalne, obie wyjścia zostaną wyłączone.",
+						"uk": "   'Розумний буфер акумулятора': Використовуйте параметр 'EfficiencyLoss', щоб вказати втрати ефективності системи акумулятора. Використовуйте параметр 'AmountHours', щоб ввести бажану кількість годин для заряджання акумулятора. Калькулятор активує заряджання акумулятора ('значення YES') та вимкне живлення акумулятора ('значення 2 NO') протягом вказаних 'AmountHours' найдешевших годин. Навпаки, він вимкне заряджання акумулятора ('значення NO') та активує живлення акумулятора ('значення 2 YES') протягом годин з найвищою вартістю, за умови, що вартість вища за найвищу загальну ціну серед дешевих годин. В залишкові нормальні години, коли буферизація енергії акумулятором економічно невигідна, обидві виходи будуть вимкнені.",
+						"zh-cn": "   '智能电池缓冲区': 使用 'EfficiencyLoss' 参数指定电池系统的效率损失。使用 'AmountHours' 参数输入所需的电池充电小时数。计算器将在指定的 'AmountHours' 最便宜的小时内激活电池充电（'value YES'）并停用电池供电（'value 2 NO'）。相反，在成本最高的小时内，前提是成本高于便宜小时中的最高总价，将停用电池充电（'value NO'）并激活电池供电（'value 2 YES'）。在电池缓冲能量在经济上不可行的其余正常小时内，两个输出都将关闭。"
 					},
 					"newLine": true
 				},

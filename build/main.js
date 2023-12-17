@@ -87,10 +87,12 @@ class Tibberlink extends utils.Adapter {
                                 continue;
                             }
                             matchingHomeInfo.FeedActive = home.feedActive;
+                            matchingHomeInfo.PriceDataPollActive = home.priceDataPollActive;
                             result.push(matchingHomeInfo);
                         }
                         for (const index in this.homeInfoList) {
-                            this.log.debug(`FeedConfig for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`);
+                            this.log.debug(`Feed Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`);
+                            this.log.debug(`Price Poll Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - poll configured as active: ${this.homeInfoList[index].PriceDataPollActive}`);
                         }
                     }
                 }
@@ -128,18 +130,16 @@ class Tibberlink extends utils.Adapter {
                                 scope.setLevel("info");
                                 scope.setTag("SentryDay", today.getDate());
                                 scope.setTag("HomeIDs", this.homeInfoList.length);
-                                // NEW
                                 scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
                                 scope.setTag("numBestCostLTF", this.tibberCalculator.numBestCostLTF);
                                 scope.setTag("numBestHoursBlock", this.tibberCalculator.numBestHoursBlock);
                                 scope.setTag("numBestHoursBlockLTF", this.tibberCalculator.numBestHoursBlockLTF);
                                 scope.setTag("numBestSingleHours", this.tibberCalculator.numBestSingleHours);
                                 scope.setTag("numBestSingleHoursLTF", this.tibberCalculator.numBestSingleHoursLTF);
-                                // END NEW
+                                scope.setTag("numSmartBatteryBuffer", this.tibberCalculator.numSmartBatteryBuffer);
                                 Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
                             });
                     }
-                    // this.setStateAsync("LastSentryLoggedError", { val: "unknown", ack: true }); // Clean last error every adapter start
                     this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
                 }
             }
@@ -165,7 +165,7 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
                     }
                 }
-                // (force) get current prices for the first time and start calculator tasks once
+                // (force) get current prices for the FIRST time and start calculator tasks once
                 if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
                 }
                 this.jobPricesTodayLOOP(tibberAPICaller);
@@ -308,24 +308,24 @@ class Tibberlink extends utils.Adapter {
         }
     }
     /**
-     * subfunction to loop till prices today for all homes are got from server - startup-phase
+     * subfunction to loop till prices today for all homes are got from server - adapter startup-phase
      */
     async jobPricesTodayLOOP(tibberAPICaller) {
         let okPrice = false;
         do {
             okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
-            this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
+            this.log.debug(`Loop job PricesToday - okPrice: ${okPrice}`);
             await this.delay(5 * 60 * 1000);
         } while (!okPrice);
     }
     /**
-     * subfunction to loop till prices tomorrow for all homes are got from server - startup-phase
+     * subfunction to loop till prices tomorrow for all homes are got from server - adapter startup-phase
      */
     async jobPricesTomorrowLOOP(tibberAPICaller) {
         let okPrice = false;
         do {
             okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
-            this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
+            this.log.debug(`Loop job PricesTomorrow - okPrice: ${okPrice}`);
             await this.delay(5 * 60 * 1000);
         } while (!okPrice);
     }
@@ -468,6 +468,17 @@ class Tibberlink extends utils.Adapter {
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chStopTime: ${state.val}`);
+                                        }
+                                        break;
+                                    case "EfficiencyLoss":
+                                        // Update .chEfficiencyLoss based on state.val if it's a number
+                                        if (typeof state.val === "number") {
+                                            this.config.CalculatorList[calcChannel].chEfficiencyLoss = state.val;
+                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to EfficiencyLoss: ${this.config.CalculatorList[calcChannel].chEfficiencyLoss}`);
+                                            this.setStateAsync(id, state.val, true);
+                                        }
+                                        else {
+                                            this.log.warn(`Wrong type for channel: ${calcChannel} - chEfficiencyLoss: ${state.val}`);
                                         }
                                         break;
                                     default:

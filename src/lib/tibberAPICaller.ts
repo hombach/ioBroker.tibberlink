@@ -29,6 +29,7 @@ export class TibberAPICaller extends TibberHelper {
 					NameInApp: currentHome.appNickname,
 					RealTime: currentHome.features.realTimeConsumptionEnabled,
 					FeedActive: false,
+					PriceDataPollActive: true,
 				});
 				// Set HomeId in tibberConfig for further API Calls
 				this.tibberConfig.homeId = currentHome.id;
@@ -145,6 +146,7 @@ export class TibberAPICaller extends TibberHelper {
 		let okprice = true;
 		const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
 		for (const index in homeInfoList) {
+			if (!homeInfoList[index].PriceDataPollActive) continue;
 			if (!(await this.updatePricesToday(homeInfoList[index].ID, currentForceUpdate))) okprice = false;
 		}
 		return okprice;
@@ -228,6 +230,7 @@ export class TibberAPICaller extends TibberHelper {
 		let okprice = true;
 		const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
 		for (const index in homeInfoList) {
+			if (!homeInfoList[index].PriceDataPollActive) continue;
 			if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, currentForceUpdate))) okprice = false;
 		}
 		return okprice;
@@ -250,7 +253,9 @@ export class TibberAPICaller extends TibberHelper {
 			const morgen = new Date();
 			morgen.setDate(morgen.getDate() + 1);
 			morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
-			if (!exDate || exDate <= morgen || forceUpdate) {
+			if (!exDate || exDate < morgen || forceUpdate) {
+				//if (!exDate || exDate <= morgen || forceUpdate) {  FIX in 1.8.0
+				// -> try getting new data from Tibber server
 				const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
 				this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
 				this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); // write also it might be empty
@@ -268,7 +273,7 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(pricesTomorrow),
 						"prices sorted by cost ascending as json",
 					);
-					return true;
+					return false; // fix in 1.8.0 -> VALIDATED
 				} else if (Array.isArray(pricesTomorrow)) {
 					// pricing known, after about 13:00 - write the states
 					for (const i in pricesTomorrow) {
@@ -295,13 +300,13 @@ export class TibberAPICaller extends TibberHelper {
 					exDate = new Date(pricesTomorrow[2].startsAt);
 					if (exDate && exDate >= morgen) {
 						return true;
+					} else {
+						return false;
 					}
 				}
-			} else if (exDate == morgen) {
+			} else if (exDate && exDate >= morgen) {
 				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
 				return true;
-			} else {
-				return false;
 			}
 			return false;
 		} catch (error: any) {
