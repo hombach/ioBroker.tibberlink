@@ -96,7 +96,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 2.0.0 (2024-01-0x)
 
--   (HombachC) BREAKING: dropped support for js-controller 3.x
+-   (HombachC) BREAKING: dropped support for js-controller 3.x (#247)
 -   (HombachC) year 2024 changes
 
 ### 1.8.1 (2023-12-16)
