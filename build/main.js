@@ -39,6 +39,19 @@ class Tibberlink extends utils.Adapter {
         this.homeInfoList = [];
         this.queryUrl = "";
         this.tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
+        /**
+         * generates delay time in milliseconds between min minutes and max minutes
+         *
+         * @param minMinutes - minimum minutes of delay as number
+         * @param maxMinutes - maximum minutes of delay as number
+         * @returns delay - milliseconds as integer
+         */
+        this.getRandomDelay = (minMinutes, maxMinutes) => {
+            if (minMinutes >= maxMinutes)
+                throw new Error("minMinutes should be less than maxMinutes");
+            const randomMinutes = Math.random() * (maxMinutes - minMinutes) + minMinutes;
+            return Math.floor(randomMinutes * 60 * 1000);
+        };
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
         // this.on("objectChange", this.onObjectChange.bind(this));
@@ -178,7 +191,7 @@ class Tibberlink extends utils.Adapter {
                     onTick: async () => {
                         let okPrice = false;
                         do {
-                            await this.delay(3 * 60 * 1000);
+                            await this.delay(this.getRandomDelay(3, 5));
                             okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
                             this.log.debug(`Cron job CurrentPrice - okPrice: ${okPrice}`);
                         } while (!okPrice);
@@ -192,11 +205,11 @@ class Tibberlink extends utils.Adapter {
                 if (jobCurrentPrice)
                     this.cronList.push(jobCurrentPrice);
                 const jobPricesToday = cron_1.CronJob.from({
-                    cronTime: "15 56 23 * * *",
+                    cronTime: "20 56 23 * * *",
                     onTick: async () => {
                         let okPrice = false;
                         do {
-                            await this.delay(5 * 60 * 1000);
+                            await this.delay(this.getRandomDelay(4, 6));
                             okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
                             this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
                         } while (!okPrice);
@@ -210,11 +223,11 @@ class Tibberlink extends utils.Adapter {
                 if (jobPricesToday)
                     this.cronList.push(jobPricesToday);
                 const jobPricesTomorrow = cron_1.CronJob.from({
-                    cronTime: "15 56 12 * * *",
+                    cronTime: "20 56 12 * * *",
                     onTick: async () => {
                         let okPrice = false;
                         do {
-                            await this.delay(5 * 60 * 1000);
+                            await this.delay(this.getRandomDelay(4, 6));
                             okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
                             this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
                         } while (!okPrice);
@@ -315,7 +328,7 @@ class Tibberlink extends utils.Adapter {
         do {
             okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
             this.log.debug(`Loop job PricesToday - okPrice: ${okPrice}`);
-            await this.delay(5 * 60 * 1000);
+            await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice);
     }
     /**
@@ -326,7 +339,7 @@ class Tibberlink extends utils.Adapter {
         do {
             okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
             this.log.debug(`Loop job PricesTomorrow - okPrice: ${okPrice}`);
-            await this.delay(5 * 60 * 1000);
+            await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice);
     }
     /**
