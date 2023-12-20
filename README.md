@@ -100,6 +100,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) diversificate Tibber server polls to prevent potential DDoS reactions (#252)
 -   (HombachC) year 2024 changes
 -   (HombachC) fix small error in dynamic feed timing
+-   (HombachC) bump dependencies
 
 ### 1.8.1 (2023-12-16)
 
