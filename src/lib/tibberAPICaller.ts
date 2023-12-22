@@ -90,7 +90,7 @@ export class TibberAPICaller extends TibberHelper {
 	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate?: boolean): Promise<boolean> {
 		let okprice = true;
 		for (const index in homeInfoList) {
-			if (!(await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate))) okprice = false;
+			if (!(await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate))) okprice = false; // single fault sets all false
 		}
 		return okprice;
 	}
@@ -154,10 +154,16 @@ export class TibberAPICaller extends TibberHelper {
 		const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
 		for (const index in homeInfoList) {
 			if (!homeInfoList[index].PriceDataPollActive) continue;
-			if (!(await this.updatePricesToday(homeInfoList[index].ID, currentForceUpdate))) okprice = false;
+			if (!(await this.updatePricesToday(homeInfoList[index].ID, currentForceUpdate))) {
+				okprice = false; // single fault sets all false
+			} else {
+				const now = new Date();
+				this.checkAndSetValue(this.getStatePrefix(homeInfoList[index].ID, "PricesToday", "lastUpdate"), now.toString(), `last update of prices today`);
+			}
 		}
 		return okprice;
 	}
+
 	/**
 	 * updates list of todays prices of one home
 	 *
@@ -241,10 +247,20 @@ export class TibberAPICaller extends TibberHelper {
 		const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
 		for (const index in homeInfoList) {
 			if (!homeInfoList[index].PriceDataPollActive) continue;
-			if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, currentForceUpdate))) okprice = false;
+			if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, currentForceUpdate))) {
+				okprice = false; // single fault sets all false
+			} else {
+				const now = new Date();
+				this.checkAndSetValue(
+					this.getStatePrefix(homeInfoList[index].ID, "PricesTomorrow", "lastUpdate"),
+					now.toString(),
+					`last update of prices tomorrow`,
+				);
+			}
 		}
 		return okprice;
 	}
+
 	/**
 	 * updates list of tomorrows prices of one home
 	 *
@@ -283,7 +299,7 @@ export class TibberAPICaller extends TibberHelper {
 						JSON.stringify(pricesTomorrow),
 						"prices sorted by cost ascending as json",
 					);
-					return false; // fix in 1.8.0 -> VALIDATED
+					return false;
 				} else if (Array.isArray(pricesTomorrow)) {
 					// pricing known, after about 13:00 - write the states
 					for (const i in pricesTomorrow) {

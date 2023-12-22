@@ -99,6 +99,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) BREAKING: dropped support for js-controller 3.x (#247)
 -   (HombachC) diversificate Tibber server polls to prevent potential DDoS reactions (#252)
 -   (HombachC) add data point for averageRemaining of todays prices (#254)
+-   (HombachC) add 2 data points for last successfull update of today and tomorrow prices (#261)
 -   (HombachC) year 2024 changes
 -   (HombachC) fix small error in dynamic feed timing
 -   (HombachC) bump dependencies
