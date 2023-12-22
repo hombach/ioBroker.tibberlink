@@ -150,6 +150,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json"); // write also it might be empty
                 this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
+                this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
                 this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday.sort((a, b) => a.total - b.total));
                 this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday.sort((a, b) => a.total - b.total));
                 for (const i in pricesToday) {
@@ -326,6 +327,26 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), Math.round(1000 * (energySum / price.length)) / 1000, "Todays average spotmarket price");
         const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), Math.round(1000 * (taxSum / price.length)) / 1000, "Todays average tax price");
+    }
+    fetchPriceRemainingAverage(homeId, objectDestination, price) {
+        const now = new Date(); // current time
+        const currentHour = now.getHours();
+        // filter to prices of current and later hours
+        const filteredPrices = price.filter((item) => {
+            const itemHour = new Date(item.startsAt).getHours();
+            return itemHour >= currentHour;
+        });
+        const remainingTotalSum = filteredPrices.reduce((sum, item) => {
+            if (item && typeof item.total === "number") {
+                return sum + item.total;
+            }
+            return sum;
+        }, 0);
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), Math.round(1000 * (remainingTotalSum / filteredPrices.length)) / 1000, "Todays total price remaining average");
+        const remainingEnergySum = filteredPrices.reduce((sum, item) => sum + item.energy, 0);
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), Math.round(1000 * (remainingEnergySum / filteredPrices.length)) / 1000, "Todays remaining average spot market price");
+        const remainingTaxSum = filteredPrices.reduce((sum, item) => sum + item.tax, 0);
+        this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), Math.round(1000 * (remainingTaxSum / filteredPrices.length)) / 1000, "Todays remaining average tax price");
     }
     fetchPriceMaximum(homeId, objectDestination, price) {
         if (!price || typeof price[23].total !== "number") {
