@@ -102,23 +102,30 @@ export class TibberAPICaller extends TibberHelper {
 	 * @returns okprice - got new data
 	 */
 	async updateCurrentPrice(homeId: string, forceUpdate?: boolean): Promise<boolean> {
-		//CHANGE!!
 		try {
 			if (homeId) {
-				let exDate: Date | null = null;
-				exDate = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+				let exDateCurrent: Date | null = null;
+				exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
 				const now = new Date();
-				if (!exDate || now.getHours() !== exDate.getHours() || forceUpdate) {
+
+				// update remaining average
+				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
+				if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
+					const exDateToday: Date = new Date(pricesToday[2].startsAt);
+					if (now.getDate == exDateToday.getDate) this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
+				}
+
+				if (!exDateCurrent || now.getHours() !== exDateCurrent.getHours() || forceUpdate) {
 					const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
 					await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
 					this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)} Force: ${forceUpdate}`);
-					exDate = new Date(currentPrice.startsAt);
-					if (exDate && now.getHours() === exDate.getHours()) {
+					exDateCurrent = new Date(currentPrice.startsAt);
+					if (exDateCurrent && now.getHours() === exDateCurrent.getHours()) {
 						return true;
 					}
-				} else if (now.getHours() !== exDate.getHours()) {
+				} else if (now.getHours() !== exDateCurrent.getHours()) {
 					this.adapter.log.debug(
-						`Hour (${exDate.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`,
+						`Hour (${exDateCurrent.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`,
 					);
 					return true;
 				} else {
@@ -161,6 +168,8 @@ export class TibberAPICaller extends TibberHelper {
 	async updatePricesToday(homeId: string, forceUpdate: boolean): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
+			// POTENTIAL 2.0.0 exJSON not needed?? -> 1 line
+			// const exPricesTodaynew: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
 			const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
 			const exPricesToday: IPrice[] = JSON.parse(exJSON);
 			if (Array.isArray(exPricesToday) && exPricesToday[2] && exPricesToday[2].startsAt) {
