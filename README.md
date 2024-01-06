@@ -67,7 +67,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ### Hints
 
-#### Inverse Usage:
+#### Inverse Usage
 
 To obtain, for example, peak hours instead of optimal hours, simply invert the usage and parameters:
 ![Calculator States Inverse](docu/calculatorStatesInverse.png)
@@ -75,7 +75,7 @@ By swapping true <-> false, you will receive a true at a low cost in the first l
 
 Attention: For peak single hours, such as in the example, you also need to adjust the number of hours. Original: 5 -> Inverse (24-5) = 19 -> You will obtain a true result during the 5 peak hours.
 
-#### LTF channels:
+#### LTF channels
 
 The calculation is performed for "multiday" data. As we only have information for "today" and "tomorrow" (available after approximately 13:00), the time scope is effectively limited to a maximum of 35 hours. However, it's crucial to be mindful of this behavior because the calculated result may/will change around 13:00 when new data for tomorrow's prices becomes available.
 
