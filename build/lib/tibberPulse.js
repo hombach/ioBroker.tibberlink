@@ -19,7 +19,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.tibberFeed.connect();
         }
         catch (error) {
-            this.adapter.log.warn(`Error on feed connect: ${error.message}`);
+            this.adapter.log.warn(`Error in ConnectPulseStream: ${error.message}`);
         }
     }
     DisconnectPulseStream() {

@@ -94,6 +94,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 2.0.1 (2024-01-xx) WORK in PROGRESS
+
+-   (HombachC) WiP
+
 ### 2.0.0 (2023-12-23)
 
 -   (HombachC) BREAKING: dropped support for js-controller 3.x (#247)
