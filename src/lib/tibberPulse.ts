@@ -20,7 +20,8 @@ export class TibberPulse extends TibberHelper {
 		this.addEventHandlerOnFeed(this.tibberFeed);
 	}
 
-	ConnectPulseStream(): void {
+	async ConnectPulseStream(): Promise<void> {
+		// ConnectPulseStream(): void {
 		try {
 			this.tibberFeed.connect();
 		} catch (error) {
@@ -238,14 +239,17 @@ export class TibberPulse extends TibberHelper {
 		}
 	}
 
-	private reconnect(): void {
-		const reconnectionInterval: any = this.adapter.setInterval(() => {
+	private async reconnect(): Promise<void> {
+		// private  reconnect(): void {
+		const reconnectionInterval: any = this.adapter.setInterval(async () => {
+			// const reconnectionInterval: any = this.adapter.setInterval(() => {
 			if (!this.tibberFeed.connected) {
 				this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
 				this.adapter.log.debug(
 					`Attempting to reconnected to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.reconnectTime / 1000}sec)`,
 				);
-				this.ConnectPulseStream();
+				await this.ConnectPulseStream();
+				// this.ConnectPulseStream();
 			} else {
 				this.adapter.log.info(`Reconnection successful! Stopping reconnection interval.`);
 				this.adapter.clearInterval(reconnectionInterval);

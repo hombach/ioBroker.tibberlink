@@ -14,7 +14,8 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
         this.httpQueryUrl = tibberConfig.apiEndpoint.queryUrl;
         this.addEventHandlerOnFeed(this.tibberFeed);
     }
-    ConnectPulseStream() {
+    async ConnectPulseStream() {
+        // ConnectPulseStream(): void {
         try {
             this.tibberFeed.connect();
         }
@@ -106,12 +107,15 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL3"), liveMeasurement.currentL3, "A", "Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
         }
     }
-    reconnect() {
-        const reconnectionInterval = this.adapter.setInterval(() => {
+    async reconnect() {
+        // private  reconnect(): void {
+        const reconnectionInterval = this.adapter.setInterval(async () => {
+            // const reconnectionInterval: any = this.adapter.setInterval(() => {
             if (!this.tibberFeed.connected) {
                 this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
                 this.adapter.log.debug(`Attempting to reconnected to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.reconnectTime / 1000}sec)`);
-                this.ConnectPulseStream();
+                await this.ConnectPulseStream();
+                // this.ConnectPulseStream();
             }
             else {
                 this.adapter.log.info(`Reconnection successful! Stopping reconnection interval.`);
