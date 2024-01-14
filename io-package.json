@@ -227,19 +227,6 @@
 				"uk": "Виправити помилку в розрахунках за часом в калькуляторі",
 				"zh-cn": "修复计算器中的时序错误"
 			},
-			"1.1.1": {
-				"en": "fix error in startup of additional channels",
-				"de": "Fehler beim Starten zusätzlicher Kanäle beheben",
-				"ru": "Исправление ошибки при запуске дополнительных каналов",
-				"pt": "Corrigir erro na inicialização de canais adicionais",
-				"nl": "Fout bij opstarten van extra kanalen herstellen",
-				"fr": "Corriger l'erreur au démarrage des canaux supplémentaires",
-				"it": "Correzione dell'errore all'avvio dei canali aggiuntivi",
-				"es": "Corregir error en el inicio de canales adicionales",
-				"pl": "Napraw błąd przy uruchamianiu dodatkowych kanałów",
-				"uk": "Виправити помилку під час запуску додаткових каналів",
-				"zh-cn": "修复启动附加通道时的错误"
-			},
 			"1.1.0": {
 				"en": "Implement Tibber Calculator Mode 'Best Price' (#16)",
 				"de": "Implementierung des Tibber Calculator Modus 'Bester Preis' (#16)",
