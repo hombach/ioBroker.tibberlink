@@ -96,7 +96,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 2.0.1 (2024-01-xx) WORK in PROGRESS
 
--   (HombachC) WiP
+-   (HombachC) WiP: modify timing in Tibber Pulse feed connect (#271)
+-   (HombachC) bump dependencies
 
 ### 2.0.0 (2023-12-23)
 

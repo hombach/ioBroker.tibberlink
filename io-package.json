@@ -4,7 +4,7 @@
 		"version": "2.0.1",
 		"news": {
 			"2.0.1": {
-				"en": "WiP"
+				"en": "modify timing in Tibber Pulse feed connect (#271)"
 			},
 			"2.0.0": {
 				"en": "BREAKING: dropped support for js-controller 3.x (#247)\ndiversificate Tibber server polls to prevent potential DDoS reactions (#252)\nadd data point for averageRemaining of today's prices (#254)\nadd 2 data points for last successful update of today and tomorrow prices (#261)\nyear 2024 changes\nfix small error in dynamic feed timing",
