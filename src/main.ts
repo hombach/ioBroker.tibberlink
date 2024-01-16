@@ -471,6 +471,18 @@ class Tibberlink extends utils.Adapter {
 											this.log.warn(`Wrong type for channel: ${calcChannel} - chStopTime: ${state.val}`);
 										}
 										break;
+									case "RepeatDays":
+										// Update .chRepeatDays based on state.val if it's a number
+										if (typeof state.val === "number") {
+											this.config.CalculatorList[calcChannel].chRepeatDays = state.val;
+											this.log.debug(
+												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to RepeatDays: ${this.config.CalculatorList[calcChannel].chRepeatDays}`,
+											);
+											this.setStateAsync(id, state.val, true);
+										} else {
+											this.log.warn(`Wrong type for channel: ${calcChannel} - chRepeatDays: ${state.val}`);
+										}
+										break;
 									case "EfficiencyLoss":
 										// Update .chEfficiencyLoss based on state.val if it's a number
 										if (typeof state.val === "number") {

@@ -126,9 +126,9 @@ export class TibberCalculator extends TibberHelper {
 			//"best cost": Defined by the "TriggerPrice" state as input.
 			//"best single hours": Defined by the "AmountHours" state as input.
 			//"best hours block": Defined by the "AmountHours" state as input.
-			//"best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime" states as input.
-			//"best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
-			//"best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime" states as input.
+			//"best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime", "RepeatDays" states as input.
+			//"best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime", "RepeatDays" states as input.
+			//"best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime", "RepeatDays" states as input.
 			//"smart battery buffer": Defined by the "AmountHours", "EfficiencyLoss" states as input.
 			switch (this.adapter.config.CalculatorList[channel].chType) {
 				case enCalcType.BestCost:
@@ -136,6 +136,7 @@ export class TibberCalculator extends TibberHelper {
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`).value);
 					await this.setup_chTriggerPrice(homeId, channel);
 					break;
 				case enCalcType.BestSingleHours:
@@ -144,6 +145,7 @@ export class TibberCalculator extends TibberHelper {
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`).value);
 					await this.setup_chAmountHours(homeId, channel);
 					break;
 				case enCalcType.BestCostLTF:
@@ -152,6 +154,7 @@ export class TibberCalculator extends TibberHelper {
 					await this.setup_chTriggerPrice(homeId, channel);
 					await this.setup_chStartTime(homeId, channel);
 					await this.setup_chStopTime(homeId, channel);
+					await this.setup_chRepeatDays(homeId, channel);
 					break;
 				case enCalcType.BestSingleHoursLTF:
 				case enCalcType.BestHoursBlockLTF:
@@ -160,11 +163,13 @@ export class TibberCalculator extends TibberHelper {
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chStartTime(homeId, channel);
 					await this.setup_chStopTime(homeId, channel);
+					await this.setup_chRepeatDays(homeId, channel);
 					break;
 				case enCalcType.SmartBatteryBuffer:
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
+					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`).value);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chEfficiencyLoss(homeId, channel);
 					break;
@@ -291,6 +296,33 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state StopTime for calculator`));
 		}
 	}
+	async setup_chRepeatDays(homeId: string, channel: number): Promise<void> {
+		try {
+			const channelName = this.adapter.config.CalculatorList[channel].chName;
+			//***  chRepeatDays  ***
+			if (this.adapter.config.CalculatorList[channel].chRepeatDays === undefined) {
+				this.adapter.config.CalculatorList[channel].chRepeatDays = 0;
+			}
+			this.checkAndSetValueNumber(
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`),
+				this.adapter.config.CalculatorList[channel].chRepeatDays,
+				`number of days to shift this LTF channel for repetition`,
+				true,
+				true,
+			);
+			const valueRepeatDays = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
+			if (typeof valueRepeatDays === "number") {
+				this.adapter.config.CalculatorList[channel].chRepeatDays = valueRepeatDays;
+				this.adapter.log.debug(
+					`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to RepeatDays: ${this.adapter.config.CalculatorList[channel].chRepeatDays}`,
+				);
+			} else {
+				this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueRepeatDays}`);
+			}
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state RepeatDays for calculator`));
+		}
+	}
 	async setup_chEfficiencyLoss(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
@@ -403,6 +435,7 @@ export class TibberCalculator extends TibberHelper {
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
 				// chActive but after LTF
+
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
@@ -438,6 +471,7 @@ export class TibberCalculator extends TibberHelper {
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
 				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
+
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
@@ -504,6 +538,7 @@ export class TibberCalculator extends TibberHelper {
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
 				// chActive but after LTF -> choose chValueOff and disable channel
+
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 			} else {
