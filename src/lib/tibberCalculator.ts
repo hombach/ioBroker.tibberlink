@@ -1,4 +1,5 @@
 import * as utils from "@iobroker/adapter-core";
+import { addDays, format } from "date-fns";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { TibberHelper, enCalcType } from "./tibberHelper";
 
@@ -435,9 +436,27 @@ export class TibberCalculator extends TibberHelper {
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
 				// chActive but after LTF
-
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
-				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
+					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+				} else {
+					this.adapter.setStateAsync(
+						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`,
+						format(
+							addDays(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
+							"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+						),
+						true,
+					);
+					this.adapter.setStateAsync(
+						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`,
+						format(
+							addDays(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
+							"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+						),
+						true,
+					);
+				}
 			} else {
 				// chActive and inside LTF -> choose desired value
 				const currentPrice = await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.CurrentPrice.total`);
@@ -471,9 +490,27 @@ export class TibberCalculator extends TibberHelper {
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
 				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
-
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
-				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
+					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+				} else {
+					this.adapter.setStateAsync(
+						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`,
+						format(
+							addDays(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
+							"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+						),
+						true,
+					);
+					this.adapter.setStateAsync(
+						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`,
+						format(
+							addDays(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
+							"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+						),
+						true,
+					);
+				}
 			} else {
 				// chActive -> choose desired value
 				const pricesToday: IPrice[] = JSON.parse(
@@ -538,9 +575,27 @@ export class TibberCalculator extends TibberHelper {
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
 				// chActive but after LTF -> choose chValueOff and disable channel
-
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
-				this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
+					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+				} else {
+					this.adapter.setStateAsync(
+						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`,
+						format(
+							addDays(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
+							"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+						),
+						true,
+					);
+					this.adapter.setStateAsync(
+						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`,
+						format(
+							addDays(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
+							"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+						),
+						true,
+					);
+				}
 			} else {
 				const pricesToday: IPrice[] = JSON.parse(
 					await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`),

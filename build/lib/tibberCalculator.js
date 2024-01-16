@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberCalculator = void 0;
+const date_fns_1 = require("date-fns");
 const tibberHelper_1 = require("./tibberHelper");
 class TibberCalculator extends tibberHelper_1.TibberHelper {
     constructor(adapter) {
@@ -372,7 +373,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
                 // chActive but after LTF
                 valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
-                this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                }
+                else {
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                }
             }
             else {
                 // chActive and inside LTF -> choose desired value
@@ -408,7 +415,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
                 // chActive, modeLTF but after LTF -> choose chValueOff and disable channel
                 valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
-                this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                }
+                else {
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                }
             }
             else {
                 // chActive -> choose desired value
@@ -466,7 +479,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
                 // chActive but after LTF -> choose chValueOff and disable channel
                 valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
-                this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                }
+                else {
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                }
             }
             else {
                 const pricesToday = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
