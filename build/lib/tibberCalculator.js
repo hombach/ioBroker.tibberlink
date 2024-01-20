@@ -374,6 +374,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 // chActive but after LTF
                 valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
+                    // no repeating planned
                     this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
                 }
                 else {
