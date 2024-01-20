@@ -468,56 +468,64 @@
 					}
 				},
 
-				"FeedConfigVoltagePhase1": {
-					"type": "checkbox",
-					"label": "VoltagePhase1",
-					"hidden": "!data.TibberAPIToken",
-					"sm": 12,
-					"md": 6,
-					"lg": 4,
-					"newLine": true
-				},
-				"FeedConfigVoltagePhase2": {
-					"type": "checkbox",
-					"label": "VoltagePhase2",
-					"hidden": "!data.TibberAPIToken",
-					"sm": 12,
-					"md": 6,
-					"lg": 4
-				},
-				"FeedConfigVoltagePhase3": {
-					"type": "checkbox",
-					"label": "VoltagePhase3",
-					"hidden": "!data.TibberAPIToken",
-					"sm": 12,
-					"md": 6,
-					"lg": 4
-				},
+				"_PanelTest": {
+					"type": "panel",
+					"label": "Panel-Test",
+					"color": "secondary",
+					"collapsable": true,
+					"items": {
+						"FeedConfigVoltagePhase1": {
+							"type": "checkbox",
+							"label": "VoltagePhase1",
+							"hidden": "!data.TibberAPIToken",
+							"sm": 12,
+							"md": 6,
+							"lg": 4,
+							"newLine": true
+						},
+						"FeedConfigVoltagePhase2": {
+							"type": "checkbox",
+							"label": "VoltagePhase2",
+							"hidden": "!data.TibberAPIToken",
+							"sm": 12,
+							"md": 6,
+							"lg": 4
+						},
+						"FeedConfigVoltagePhase3": {
+							"type": "checkbox",
+							"label": "VoltagePhase3",
+							"hidden": "!data.TibberAPIToken",
+							"sm": 12,
+							"md": 6,
+							"lg": 4
+						},
 
-				"FeedConfigCurrentL1": {
-					"type": "checkbox",
-					"label": "CurrentL1",
-					"hidden": "!data.TibberAPIToken",
-					"sm": 12,
-					"md": 6,
-					"lg": 4,
-					"newLine": true
-				},
-				"FeedConfigCurrentL2": {
-					"type": "checkbox",
-					"label": "CurrentL2",
-					"hidden": "!data.TibberAPIToken",
-					"sm": 12,
-					"md": 6,
-					"lg": 4
-				},
-				"FeedConfigCurrentL3": {
-					"type": "checkbox",
-					"label": "CurrentL3",
-					"hidden": "!data.TibberAPIToken",
-					"sm": 12,
-					"md": 6,
-					"lg": 4
+						"FeedConfigCurrentL1": {
+							"type": "checkbox",
+							"label": "CurrentL1",
+							"hidden": "!data.TibberAPIToken",
+							"sm": 12,
+							"md": 6,
+							"lg": 4,
+							"newLine": true
+						},
+						"FeedConfigCurrentL2": {
+							"type": "checkbox",
+							"label": "CurrentL2",
+							"hidden": "!data.TibberAPIToken",
+							"sm": 12,
+							"md": 6,
+							"lg": 4
+						},
+						"FeedConfigCurrentL3": {
+							"type": "checkbox",
+							"label": "CurrentL3",
+							"hidden": "!data.TibberAPIToken",
+							"sm": 12,
+							"md": 6,
+							"lg": 4
+						}
+					}
 				}
 			}
 		},
