@@ -468,64 +468,56 @@
 					}
 				},
 
-				"_PanelTest": {
-					"type": "panel",
-					"label": "Panel-Test",
-					"color": "secondary",
-					"collapsable": true,
-					"items": {
-						"FeedConfigVoltagePhase1": {
-							"type": "checkbox",
-							"label": "VoltagePhase1",
-							"hidden": "!data.TibberAPIToken",
-							"sm": 12,
-							"md": 6,
-							"lg": 4,
-							"newLine": true
-						},
-						"FeedConfigVoltagePhase2": {
-							"type": "checkbox",
-							"label": "VoltagePhase2",
-							"hidden": "!data.TibberAPIToken",
-							"sm": 12,
-							"md": 6,
-							"lg": 4
-						},
-						"FeedConfigVoltagePhase3": {
-							"type": "checkbox",
-							"label": "VoltagePhase3",
-							"hidden": "!data.TibberAPIToken",
-							"sm": 12,
-							"md": 6,
-							"lg": 4
-						},
+				"FeedConfigVoltagePhase1": {
+					"type": "checkbox",
+					"label": "VoltagePhase1",
+					"hidden": "!data.TibberAPIToken",
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"newLine": true
+				},
+				"FeedConfigVoltagePhase2": {
+					"type": "checkbox",
+					"label": "VoltagePhase2",
+					"hidden": "!data.TibberAPIToken",
+					"sm": 12,
+					"md": 6,
+					"lg": 4
+				},
+				"FeedConfigVoltagePhase3": {
+					"type": "checkbox",
+					"label": "VoltagePhase3",
+					"hidden": "!data.TibberAPIToken",
+					"sm": 12,
+					"md": 6,
+					"lg": 4
+				},
 
-						"FeedConfigCurrentL1": {
-							"type": "checkbox",
-							"label": "CurrentL1",
-							"hidden": "!data.TibberAPIToken",
-							"sm": 12,
-							"md": 6,
-							"lg": 4,
-							"newLine": true
-						},
-						"FeedConfigCurrentL2": {
-							"type": "checkbox",
-							"label": "CurrentL2",
-							"hidden": "!data.TibberAPIToken",
-							"sm": 12,
-							"md": 6,
-							"lg": 4
-						},
-						"FeedConfigCurrentL3": {
-							"type": "checkbox",
-							"label": "CurrentL3",
-							"hidden": "!data.TibberAPIToken",
-							"sm": 12,
-							"md": 6,
-							"lg": 4
-						}
-					}
+				"FeedConfigCurrentL1": {
+					"type": "checkbox",
+					"label": "CurrentL1",
+					"hidden": "!data.TibberAPIToken",
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"newLine": true
+				},
+				"FeedConfigCurrentL2": {
+					"type": "checkbox",
+					"label": "CurrentL2",
+					"hidden": "!data.TibberAPIToken",
+					"sm": 12,
+					"md": 6,
+					"lg": 4
+				},
+				"FeedConfigCurrentL3": {
+					"type": "checkbox",
+					"label": "CurrentL3",
+					"hidden": "!data.TibberAPIToken",
+					"sm": 12,
+					"md": 6,
+					"lg": 4
 				}
 			}
 		},
@@ -918,6 +910,7 @@
 						}
 					]
 				},
+
 				"_calculatorhelp1": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
@@ -1169,6 +1162,55 @@
 						"zh-cn": "LTF通道：与标准通道类似，但仅在由'StartTime'和'StopTime'状态对象定义的时间范围内运行。在'StopTime'后，通道将自动停用。 'StartTime'和'StopTime'可能跨越多天。状态必须填写ISO-8601格式的带有时区偏移的日期时间字符串，例如：'2023-11-17T21:00:00.000+01:00'"
 					},
 					"newLine": true
+				},
+
+				"_CalculatorTESTList": {
+					"type": "table",
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"label": {
+						"en": "Calculator Channels",
+						"de": "Automatisierungs-Kanäle",
+						"ru": "Каналы автоматизации",
+						"pt": "Canais de automação",
+						"nl": "Automatiseringskanalen",
+						"fr": "Canaux d'automatisation",
+						"it": "Canali di automazione",
+						"es": "Canales de automatización",
+						"pl": "Kanały automatyzacji",
+						"uk": "Канали автоматизації",
+						"zh-cn": "自动化通道"
+					},
+					"hidden": "!data.UseCalculator",
+					"items": [
+						{
+							"type": "panel",
+							"label": "Calculator Channel 1 Settings",
+							"color": "secondary",
+							"collapsable": true,
+							"items": {
+								"_calculatorhelp5": {
+									"type": "staticText",
+									"hidden": "!data.UseCalculator",
+									"label": {
+										"en": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written.",
+										"de": "Die Werte, die in den Ausgabestatus geschrieben werden sollen, können in 'Wert JA' und 'Wert NEIN' definiert werden, z.B. 'true' für boolesche Zustände oder eine Zahl oder Text, der geschrieben werden soll.",
+										"ru": "Значения, которые должны быть записаны в состояние вывода, могут быть определены в 'значение ДА' и 'значение НЕТ', например, 'true' для булевых состояний или число или текст, который должен быть записан.",
+										"pt": "Os valores a serem escritos no estado de saída podem ser definidos em 'valor SIM' e 'valor NÃO', por exemplo, 'true' para estados booleanos, ou um número ou texto a ser escrito.",
+										"nl": "De waarden die moeten worden geschreven naar de uitvoerstatus kunnen worden gedefinieerd in 'waarde JA' en 'waarde NEE', bijvoorbeeld 'true' voor booleaanse toestanden, of een getal of tekst om te schrijven.",
+										"fr": "Les valeurs à écrire dans l'état de sortie peuvent être définies dans 'valeur OUI' et 'valeur NON', par exemple 'true' pour les états booléens, ou un nombre ou un texte à écrire.",
+										"it": "I valori da scrivere nello stato di uscita possono essere definiti in 'valore SÌ' e 'valore NO', ad esempio 'true' per gli stati booleani, o un numero o un testo da scrivere.",
+										"es": "Los valores que se deben escribir en el estado de salida se pueden definir en 'valor SÍ' y 'valor NO', por ejemplo, 'true' para estados booleanos, o un número o texto que se debe escribir.",
+										"pl": "Wartości do zapisania w stanie wyjściowym można zdefiniować w 'wartość TAK' i 'wartość NIE', na przykład 'true' dla stanów logicznych lub liczby lub tekst do zapisania.",
+										"uk": "Значення, які слід записувати в вихідний стан, можуть бути визначені у 'значення ТАК' і 'значення НІ', наприклад, 'true' для булевих станів або число або текст для запису.",
+										"zh-cn": "要写入输出状态的值可以在'值是'和'值否'中定义，例如，对于布尔状态可以使用'true'，或者可以写入数字或文本。"
+									},
+									"newLine": true
+								}
+							}
+						}
+					]
 				}
 			}
 		}
