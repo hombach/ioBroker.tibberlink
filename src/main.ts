@@ -1,6 +1,5 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
-import { GetInstalledInfoReponse } from "@iobroker/adapter-core/build/controllerTools";
 import { CronJob } from "cron";
 import { format } from "date-fns";
 import { IConfig } from "tibber-api";
@@ -104,11 +103,6 @@ class Tibberlink extends utils.Adapter {
 				}
 			}
 
-			// NEW
-			const version: GetInstalledInfoReponse = utils.commonTools.getInstalledInfo("admin");
-			this.log.debug(`TEST: The VERSION of iobroker.admin is ${version.title}.`);
-			// END NEW
-
 			// sentry.io ping
 			if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
 				const sentryInstance = this.getPluginInstance("sentry");
@@ -116,10 +110,6 @@ class Tibberlink extends utils.Adapter {
 				const last = await this.getStateAsync("info.LastSentryLogDay");
 				if (last?.val != (await today.getDate())) {
 					await this.tibberCalculator.updateCalculatorUsageStats();
-					// NEW
-					//const version: GetInstalledInfoReponse = utils.commonTools.getInstalledInfo();
-					//this.log.debug(`The version of iobroker.admin is ${version}.`);
-					// END NEW
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
 						Sentry &&

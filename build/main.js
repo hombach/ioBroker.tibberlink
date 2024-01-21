@@ -127,10 +127,6 @@ class Tibberlink extends utils.Adapter {
                     this.log.debug(`Connection Check: Feed not enabled and I do not get home list from api - bad connection`);
                 }
             }
-            // NEW
-            const version = utils.commonTools.getInstalledInfo("admin");
-            this.log.debug(`TEST: The VERSION of iobroker.admin is ${version.title}.`);
-            // END NEW
             // sentry.io ping
             if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
                 const sentryInstance = this.getPluginInstance("sentry");
@@ -138,10 +134,6 @@ class Tibberlink extends utils.Adapter {
                 const last = await this.getStateAsync("info.LastSentryLogDay");
                 if (last?.val != (await today.getDate())) {
                     await this.tibberCalculator.updateCalculatorUsageStats();
-                    // NEW
-                    //const version: GetInstalledInfoReponse = utils.commonTools.getInstalledInfo();
-                    //this.log.debug(`The version of iobroker.admin is ${version}.`);
-                    // END NEW
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
                         Sentry &&
