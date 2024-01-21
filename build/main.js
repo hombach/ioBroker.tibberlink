@@ -128,8 +128,8 @@ class Tibberlink extends utils.Adapter {
                 }
             }
             // NEW
-            const version = utils.commonTools.getInstalledInfo();
-            this.log.debug(`The version of iobroker.admin is ${version.toString()}.`);
+            const version = utils.commonTools.getInstalledInfo("admin");
+            this.log.debug(`TEST: The VERSION of iobroker.admin is ${version.toString()}.`);
             // END NEW
             // sentry.io ping
             if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
