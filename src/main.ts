@@ -1,5 +1,6 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
+import { GetInstalledInfoReponse } from "@iobroker/adapter-core/build/controllerTools";
 import { CronJob } from "cron";
 import { format } from "date-fns";
 import { IConfig } from "tibber-api";
@@ -103,14 +104,21 @@ class Tibberlink extends utils.Adapter {
 				}
 			}
 
+			// NEW
+			const version: GetInstalledInfoReponse = utils.commonTools.getInstalledInfo();
+			this.log.debug(`The version of iobroker.admin is ${version}.`);
+			// END NEW
+
 			// sentry.io ping
 			if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
 				const sentryInstance = this.getPluginInstance("sentry");
 				const today = new Date();
 				const last = await this.getStateAsync("info.LastSentryLogDay");
 				if (last?.val != (await today.getDate())) {
-					// NEW
 					await this.tibberCalculator.updateCalculatorUsageStats();
+					// NEW
+					//const version: GetInstalledInfoReponse = utils.commonTools.getInstalledInfo();
+					//this.log.debug(`The version of iobroker.admin is ${version}.`);
 					// END NEW
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
@@ -126,6 +134,7 @@ class Tibberlink extends utils.Adapter {
 								scope.setTag("numBestSingleHours", this.tibberCalculator.numBestSingleHours);
 								scope.setTag("numBestSingleHoursLTF", this.tibberCalculator.numBestSingleHoursLTF);
 								scope.setTag("numSmartBatteryBuffer", this.tibberCalculator.numSmartBatteryBuffer);
+								//scope.setTag("usedAdminAdapter", version);
 								Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
 							});
 					}

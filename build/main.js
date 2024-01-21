@@ -127,14 +127,20 @@ class Tibberlink extends utils.Adapter {
                     this.log.debug(`Connection Check: Feed not enabled and I do not get home list from api - bad connection`);
                 }
             }
+            // NEW
+            const version = utils.commonTools.getInstalledInfo();
+            this.log.debug(`The version of iobroker.admin is ${version}.`);
+            // END NEW
             // sentry.io ping
             if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
                 const sentryInstance = this.getPluginInstance("sentry");
                 const today = new Date();
                 const last = await this.getStateAsync("info.LastSentryLogDay");
                 if (last?.val != (await today.getDate())) {
-                    // NEW
                     await this.tibberCalculator.updateCalculatorUsageStats();
+                    // NEW
+                    //const version: GetInstalledInfoReponse = utils.commonTools.getInstalledInfo();
+                    //this.log.debug(`The version of iobroker.admin is ${version}.`);
                     // END NEW
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
@@ -150,6 +156,7 @@ class Tibberlink extends utils.Adapter {
                                 scope.setTag("numBestSingleHours", this.tibberCalculator.numBestSingleHours);
                                 scope.setTag("numBestSingleHoursLTF", this.tibberCalculator.numBestSingleHoursLTF);
                                 scope.setTag("numSmartBatteryBuffer", this.tibberCalculator.numSmartBatteryBuffer);
+                                //scope.setTag("usedAdminAdapter", version);
                                 Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
                             });
                     }
