@@ -107,18 +107,32 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currentL3"), liveMeasurement.currentL3, "A", "Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps");
         }
     }
-    async reconnect() {
+    async reconnectOLD() {
         const reconnectionInterval = this.adapter.setInterval(async () => {
             if (!this.tibberFeed.connected) {
-                this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
-                this.adapter.log.debug(`Attempting to reconnected to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.reconnectTime / 1000}sec)`);
+                this.adapter.log.debug(`Attempting to reconnected to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`);
                 await this.ConnectPulseStream();
+                this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
             }
             else {
                 this.adapter.log.info(`Reconnection successful! Stopping reconnection interval.`);
                 this.adapter.clearInterval(reconnectionInterval);
             }
         }, this.reconnectTime);
+    }
+    async reconnect() {
+        const reconnectAttempt = async () => {
+            if (!this.tibberFeed.connected) {
+                this.adapter.log.debug(`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`);
+                await this.ConnectPulseStream();
+                this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
+                setTimeout(reconnectAttempt, this.reconnectTime);
+            }
+            else {
+                this.adapter.log.info(`Reconnection successful!`);
+            }
+        };
+        reconnectAttempt();
     }
 }
 exports.TibberPulse = TibberPulse;

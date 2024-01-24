@@ -95,6 +95,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 2.1.1 (2024-01-xx) WORK in PROGRESS
+
+-   (HombachC) fix reconnect error for Pulse feed (#300)
+
 ### 2.1.0 (2024-01-21)
 
 -   (HombachC) add repeatablity for LTF channels (#289)

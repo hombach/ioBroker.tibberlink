@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "2.1.0",
+		"version": "2.1.1",
 		"news": {
+			"2.1.1": {
+				"en": "fix reconnect error for Pulse feed (#300)",
+				"de": "Fehler bei der erneuten Verbindung für den Pulse Feed beheben (#300)",
+				"ru": "Исправить ошибку повторного подключения для ленты Pulse (#300)",
+				"pt": "Corrigir erro de reconexão para o feed Pulse (#300)",
+				"nl": "Herstel fout bij opnieuw verbinden voor Pulse-feed (#300)",
+				"fr": "Corriger l'erreur de reconnexion pour le flux Pulse (#300)",
+				"it": "Correggi l'errore di riconnessione per il feed Pulse (#300)",
+				"es": "Corregir error de reconexión para el feed Pulse (#300)",
+				"pl": "Napraw błąd ponownego podłączenia dla strumienia Pulse (#300)",
+				"uk": "Виправити помилку з'єднання для стрічки Pulse (#300)",
+				"zh-cn": "修复 Pulse 订阅的重新连接错误 (#300)"
+			},
 			"2.1.0": {
 				"en": "add repeatability for LTF channels (#289)",
 				"de": "Wiederholbarkeit für LTF-Kanäle hinzufügen (#289)",
@@ -236,19 +249,6 @@
 				"pl": "Wdrożenie trybu kalkulatora Tibber 'najlepsze pojedyncze godziny' (#16)\npoprawione tłumaczenia (#128)\nnaprawiony błąd przy początkowym odczycie stanów kalkulatora (#129)",
 				"uk": "Впровадження режиму калькулятора Tibber 'кращі одиночні години' (#16)\nвиправлені переклади (#128)\nвиправлено помилку при початковому читанні станів калькулятора (#129)",
 				"zh-cn": "实施Tibber计算器模式 '最佳单个小时' (#16)\n修正的翻译 (#128)\n修正了计算器状态初始读取中的错误 (#129)"
-			},
-			"1.1.2": {
-				"en": "fix timing error in calculator",
-				"de": "Behebe Zeitfehler im Rechner",
-				"ru": "Исправьте ошибку в расчетах по времени",
-				"pt": "Corrigir erro de temporização na calculadora",
-				"nl": "Los tijdgerelateerde fout op in de calculator",
-				"fr": "Corriger l'erreur de synchronisation dans le calculateur",
-				"it": "Correggi l'errore di sincronizzazione nel calcolatore",
-				"es": "Corregir error de sincronización en la calculadora",
-				"pl": "Napraw błąd czasowania w kalkulatorze",
-				"uk": "Виправити помилку в розрахунках за часом в калькуляторі",
-				"zh-cn": "修复计算器中的时序错误"
 			},
 			"1.1.0": {
 				"en": "Implement Tibber Calculator Mode 'Best Price' (#16)",

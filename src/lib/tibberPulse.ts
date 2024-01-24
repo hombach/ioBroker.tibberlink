@@ -239,18 +239,34 @@ export class TibberPulse extends TibberHelper {
 		}
 	}
 
-	private async reconnect(): Promise<void> {
+	private async reconnectOLD(): Promise<void> {
 		const reconnectionInterval: any = this.adapter.setInterval(async () => {
 			if (!this.tibberFeed.connected) {
-				this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
 				this.adapter.log.debug(
-					`Attempting to reconnected to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.reconnectTime / 1000}sec)`,
+					`Attempting to reconnected to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`,
 				);
 				await this.ConnectPulseStream();
+				this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
 			} else {
 				this.adapter.log.info(`Reconnection successful! Stopping reconnection interval.`);
 				this.adapter.clearInterval(reconnectionInterval);
 			}
 		}, this.reconnectTime);
+	}
+
+	private async reconnect(): Promise<void> {
+		const reconnectAttempt: any = async () => {
+			if (!this.tibberFeed.connected) {
+				this.adapter.log.debug(
+					`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`,
+				);
+				await this.ConnectPulseStream();
+				this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
+				setTimeout(reconnectAttempt, this.reconnectTime);
+			} else {
+				this.adapter.log.info(`Reconnection successful!`);
+			}
+		};
+		reconnectAttempt();
 	}
 }
