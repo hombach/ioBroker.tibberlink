@@ -217,12 +217,37 @@ export class TibberHelper {
 		}
 	}
 
-	public generateErrorMessage(error: any, context: string): string {
+	public generateErrorMessageOLD(error: any, context: string): string {
 		let errorMessages = "";
 		for (const index in error.errors) {
 			if (errorMessages) errorMessages += ", ";
 			errorMessages += error.errors[index].message;
 		}
 		return `Error (${error.statusMessage}) occured during: -${context}- : ${errorMessages}`;
+	}
+
+	/**
+	 * Generates a formatted error message based on the provided error object and context.
+	 *
+	 * @param error - The error object containing information about the error, such as status and error messages.
+	 * @param context - A string providing context for where the error occurred.
+	 * @returns A string representing the formatted error message.
+	 */
+	public generateErrorMessage(error: any, context: string): string {
+		let errorMessages = "";
+		// Check if error object has an 'errors' property that is an array
+		if (error.errors && Array.isArray(error.errors)) {
+			// Iterate over the array of errors and concatenate their messages
+			for (const err of error.errors) {
+				if (errorMessages) errorMessages += ", ";
+				errorMessages += err.message;
+			}
+		} else if (error.message) {
+			errorMessages = error.message; // If 'errors' array is not present, use the 'message' property of the error object
+		} else {
+			errorMessages = "Unknown error"; // If no 'errors' or 'message' property is found, default to "Unknown error"
+		}
+		// Construct the final error message string with status, context, and error messages
+		return `Error (${error.statusMessage || error.statusText || "Unknown Status"}) occurred during: -${context}- : ${errorMessages}`;
 	}
 }

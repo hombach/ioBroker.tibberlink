@@ -98,6 +98,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 2.1.1 (2024-01-xx) WORK in PROGRESS
 
 -   (HombachC) fix reconnect error for Pulse feed (#300)
+-   (HombachC) new error message handler
 
 ### 2.1.0 (2024-01-21)
 
