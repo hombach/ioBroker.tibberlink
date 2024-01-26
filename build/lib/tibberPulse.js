@@ -166,6 +166,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             await this.ConnectPulseStream();
             this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
         } while (!this.tibberFeed.connected);
+        this.adapter.log.info(`Reconnection successful!`);
     }
 }
 exports.TibberPulse = TibberPulse;
