@@ -174,6 +174,16 @@ export class TibberHelper {
 		}
 	}
 
+	/**
+	 * Checks if a boolean state exists, creates it if necessary, and updates its value.
+	 *
+	 * @param stateName - An object containing the key and value for the state.
+	 * @param value - The boolean value to set for the state.
+	 * @param description - Optional description for the state.
+	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
+	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
+	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
+	 */
 	protected async checkAndSetValueBoolean(
 		stateName: { [key: string]: string },
 		value: boolean,
@@ -181,6 +191,7 @@ export class TibberHelper {
 		writeable?: boolean,
 		dontUpdate?: boolean,
 	): Promise<void> {
+		// Default values for optional parameters
 		if (writeable === undefined) writeable = false;
 		if (dontUpdate === undefined) dontUpdate = false;
 		if (value !== undefined && value !== null) {
@@ -211,19 +222,11 @@ export class TibberHelper {
 					native: {},
 				});
 			}
+			// Update the state value if not in don't update mode or the state does not exist
 			if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
 				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
 			}
 		}
-	}
-
-	public generateErrorMessageOLD(error: any, context: string): string {
-		let errorMessages = "";
-		for (const index in error.errors) {
-			if (errorMessages) errorMessages += ", ";
-			errorMessages += error.errors[index].message;
-		}
-		return `Error (${error.statusMessage}) occured during: -${context}- : ${errorMessages}`;
 	}
 
 	/**

@@ -239,63 +239,12 @@ export class TibberPulse extends TibberHelper {
 		}
 	}
 
-	private async reconnectOLD(): Promise<void> {
-		const reconnectionInterval: any = this.adapter.setInterval(async () => {
-			if (!this.tibberFeed.connected) {
-				this.adapter.log.debug(
-					`Attempting to reconnected to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`,
-				);
-				await this.ConnectPulseStream();
-				this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
-			} else {
-				this.adapter.log.info(`Reconnection successful! Stopping reconnection interval.`);
-				this.adapter.clearInterval(reconnectionInterval);
-			}
-		}, this.reconnectTime);
-	}
-
-	private async reconnectTest(): Promise<void> {
-		const reconnectAttempt: any = async () => {
-			if (!this.tibberFeed.connected) {
-				this.adapter.log.debug(
-					`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`,
-				);
-				await this.ConnectPulseStream();
-				this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
-				setTimeout(reconnectAttempt, this.reconnectTime);
-			} else {
-				this.adapter.log.info(`Reconnection successful!`);
-			}
-		};
-		reconnectAttempt();
-	}
-
-	private reconnectLock: boolean = false;
-	private async reconnect3(): Promise<void> {
-		if (this.reconnectLock) {
-			// Reconnect already in progress, do nothing
-			return;
-		}
-		this.reconnectLock = true;
-		const reconnectAttempt: any = async () => {
-			try {
-				if (!this.tibberFeed.connected) {
-					this.adapter.log.debug(
-						`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`,
-					);
-					await this.ConnectPulseStream();
-					this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
-					setTimeout(reconnectAttempt, this.reconnectTime);
-				} else {
-					this.adapter.log.info(`Reconnection successful!`);
-				}
-			} finally {
-				this.reconnectLock = false;
-			}
-		};
-		reconnectAttempt();
-	}
-
+	/**
+	 * Tries to reconnect to TibberFeed in a loop, with incremental delay between attempts,
+	 * and generates a formatted error message if unsuccessful.
+	 *
+	 * @returns A Promise that resolves when reconnection is successful, or rejects with an error message.
+	 */
 	private async reconnect(): Promise<void> {
 		do {
 			await this.adapter.delay(this.reconnectTime);

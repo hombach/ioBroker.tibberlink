@@ -99,6 +99,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) fix reconnect error for Pulse feed (#300)
 -   (HombachC) new error message handler
+-   (HombachC) internal code docu tweaks
 
 ### 2.1.0 (2024-01-21)
 
