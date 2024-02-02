@@ -575,7 +575,7 @@ export class TibberCalculator extends TibberHelper {
 				// chActive but before LTF -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
-				// chActive but after LTF -> choose chValueOff and disable channel
+				// chActive but after LTF -> choose chValueOff and disable channel or generate new running period
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
 					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
