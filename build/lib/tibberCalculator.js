@@ -492,7 +492,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 const pricesToday = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesToday.json`));
                 let filteredPrices = pricesToday;
                 if (modeLTF) {
-                    // Limited Time Frame mode
+                    // Limited Time Frame mode, modify filteredPrices accordingly
                     const pricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`));
                     const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
                     const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
@@ -521,6 +521,10 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     }
                 }
                 const minSumEntries = filteredPrices.slice(startIndex, startIndex + n).map((entry) => checkHourMatch(entry));
+                // calculate average cost of determined block of hours, write to data point
+                // WORK in PROGRESS
+                // write start and stop time of determined block to data points
+                // WORK in PROGRESS
                 // identify if any element is true
                 if (minSumEntries.some((value) => value)) {
                     valueToSet = this.adapter.config.CalculatorList[channel].chValueOn;

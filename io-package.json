@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "2.1.1",
+		"version": "2.2.0",
 		"news": {
+			"2.2.0": {
+				"en": "add data points for BestHoursBlock results - period and average cost (#240)",
+				"de": "Datenpunkte für BestHoursBlock-Ergebnisse hinzufügen - Zeitraum und Durchschnittskosten (#240)",
+				"ru": "Добавить точки данных для результатов BestHoursBlock - период и средняя стоимость (#240)",
+				"pt": "Adicionar pontos de dados para os resultados do BestHoursBlock - período e custo médio (#240)",
+				"nl": "Gegevenspunten toevoegen voor BestHoursBlock-resultaten - periode en gemiddelde kosten (#240)",
+				"fr": "Ajouter des points de données pour les résultats de BestHoursBlock - période et coût moyen (#240)",
+				"it": "Aggiungere punti dati per i risultati di BestHoursBlock - periodo e costo medio (#240)",
+				"es": "Agregar puntos de datos para los resultados de BestHoursBlock - período y costo promedio (#240)",
+				"pl": "Dodaj punkty danych dla wyników BestHoursBlock - okres i średni koszt (#240)",
+				"uk": "Додати точки даних для результатів BestHoursBlock - період і середня вартість (#240)",
+				"zh-cn": "为 BestHoursBlock 结果添加数据点 - 周期和平均成本 (#240)"
+			},
 			"2.1.1": {
 				"en": "fix reconnect error for Pulse feed (#300)",
 				"de": "Fehler bei der erneuten Verbindung für den Pulse Feed beheben (#300)",
@@ -210,19 +223,6 @@
 				"pl": "Wdrożenie stanów min/max (#131)\nnaprawa błędu z pominiętymi dezaktywacjami kanałów kalkulatora (#143)",
 				"uk": "Реалізовано стани мінімуму/максимуму (#131)\nвиправлено помилку з ігноруванням деактивації калькуляторних каналів (#143)",
 				"zh-cn": "实现最小/最大状态 (#131)\n修复忽略计算器通道停用错误 (#143)"
-			},
-			"1.3.1": {
-				"en": "Changed message 'reconnect successful' to level info (#80)\nfixed initialization of channel states (#141)",
-				"de": "Geänderte Meldung 'Neuverbindung erfolgreich' auf Stufe Info (#80)\nbehob die Initialisierung der Kanalzustände (#141)",
-				"ru": "Изменено сообщение 'повторное подключение успешно' на уровень информации (#80)\nисправлено начальное состояние канала (#141)",
-				"pt": "Alterou a mensagem 'reconexão bem-sucedida' para o nível de informação (#80)\ncorrigiu a inicialização dos estados do canal (#141)",
-				"nl": "Bericht 'herverbinding gelukt' gewijzigd naar infoniveau (#80)\ninitialisatie van kanaalstaten hersteld (#141)",
-				"fr": "Message 'reconnexion réussie' modifié au niveau info (#80)\ninitialisation corrigée des états de canal (#141)",
-				"it": "Messaggio 'riconnessione riuscita' modificato a livello di informazioni (#80)\ncorretta l'inizializzazione degli stati del canale (#141)",
-				"es": "Cambió el mensaje 'reconexión exitosa' al nivel de información (#80)\ncorrigió la inicialización de los estados del canal (#141)",
-				"pl": "Zmieniono komunikat 'ponowne połączenie udane' na poziomie informacji (#80)\nnaprawiono inicjowanie stanów kanału (#141)",
-				"uk": "Змінено повідомлення 'повторне підключення успішне' на рівень інформації (#80)\nвиправлено ініціалізацію станів каналу (#141)",
-				"zh-cn": "将消息 '重新连接成功' 更改为信息级别 (#80)\n修复渠道状态的初始化 (#141)"
 			},
 			"1.3.0": {
 				"en": "Implement Tibber calculator mode 'best hours block' (#16)",

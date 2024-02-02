@@ -604,7 +604,7 @@ export class TibberCalculator extends TibberHelper {
 
 				let filteredPrices: IPrice[] = pricesToday;
 				if (modeLTF) {
-					// Limited Time Frame mode
+					// Limited Time Frame mode, modify filteredPrices accordingly
 					const pricesTomorrow: IPrice[] = JSON.parse(
 						await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
 					);
@@ -639,6 +639,12 @@ export class TibberCalculator extends TibberHelper {
 					}
 				}
 				const minSumEntries: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+
+				// calculate average cost of determined block of hours, write to data point
+				// WORK in PROGRESS
+
+				// write start and stop time of determined block to data points
+				// WORK in PROGRESS
 
 				// identify if any element is true
 				if (minSumEntries.some((value) => value)) {

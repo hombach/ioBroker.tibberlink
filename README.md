@@ -97,7 +97,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 2.2.0 (2024-02-xx) - WORK in PROGRESS
 
--   (HombachC) WiP
+-   (HombachC) add data points for BestHoursBlock results - period and average cost (#240)
 
 ### 2.1.1 (2024-01-27)
 
