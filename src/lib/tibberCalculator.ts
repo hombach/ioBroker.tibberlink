@@ -405,7 +405,13 @@ export class TibberCalculator extends TibberHelper {
 	async setup_chBlockStartTime(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
-			this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`), ``, `start time of determined block`, false, false);
+			this.checkAndSetValue(
+				this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`),
+				`-`,
+				`first hour of determined block`,
+				false,
+				false,
+			);
 			this.adapter.log.debug(`setup calculator output state BlockStartTime in home: ${homeId} - channel: ${channel}-${channelName}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state BlockStartTime for calculator`));
@@ -414,7 +420,7 @@ export class TibberCalculator extends TibberHelper {
 	async setup_chBlockStopTime(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
-			this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`), ``, `end time of determined block`, false, false);
+			this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`), `-`, `last hour of determined block`, false, false);
 			this.adapter.log.debug(`setup calculator output state BlockStopTime in home: ${homeId} - channel: ${channel}-${channelName}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state BlockStopTime for calculator`));

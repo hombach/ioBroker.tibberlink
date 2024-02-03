@@ -100,12 +100,14 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) add data points for BestHoursBlock results - period and average cost (#240)
 -   (HombachC) fixed wrong error message texts
+-   (HombachC) fix some possible edge cases in internal support functions
+-   (HombachC) internal code docu optimization
 
 ### 2.1.1 (2024-01-27)
 
 -   (HombachC) fix reconnect error for Pulse feed (#300)
 -   (HombachC) new error message handler
--   (HombachC) internal code docu tweaks
+-   (HombachC) internal code docu optimization
 
 ### 2.1.0 (2024-01-21)
 

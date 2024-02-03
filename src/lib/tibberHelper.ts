@@ -90,6 +90,16 @@ export class TibberHelper {
 		}
 	}
 
+	/**
+	 * Checks if a string state exists, creates it if necessary, and updates its value.
+	 *
+	 * @param stateName - An object containing the key and value for the name of the state.
+	 * @param value - The string value to set for the state.
+	 * @param description - Optional description for the state.
+	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
+	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
+	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
+	 */
 	protected async checkAndSetValue(
 		stateName: { [key: string]: string },
 		value: string,
@@ -97,6 +107,7 @@ export class TibberHelper {
 		writeable?: boolean,
 		dontUpdate?: boolean,
 	): Promise<void> {
+		if (description === undefined) description = "";
 		if (writeable === undefined) writeable = false;
 		if (dontUpdate === undefined) dontUpdate = false;
 		if (value != undefined) {
@@ -120,6 +131,16 @@ export class TibberHelper {
 		}
 	}
 
+	/**
+	 * Checks if a number state exists, creates it if necessary, and updates its value.
+	 *
+	 * @param stateName - An object containing the key and value for the name of the state.
+	 * @param value - The number value to set for the state.
+	 * @param description - Optional description for the state.
+	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
+	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
+	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
+	 */
 	protected async checkAndSetValueNumber(
 		stateName: { [key: string]: string },
 		value: number,
@@ -127,6 +148,7 @@ export class TibberHelper {
 		writeable?: boolean,
 		dontUpdate?: boolean,
 	): Promise<void> {
+		if (description === undefined) description = "";
 		if (writeable === undefined) writeable = false;
 		if (dontUpdate === undefined) dontUpdate = false;
 		if (value || value === 0) {
@@ -148,13 +170,24 @@ export class TibberHelper {
 		}
 	}
 
+	/**
+	 * Checks if a number state with named unit exists, creates it if necessary, and updates its value.
+	 *
+	 * @param stateName - An object containing the key and value for the name of the state.
+	 * @param value - The number value to set for the state.
+	 * @param unit - The unit string to set for the state.
+	 * @param description - Optional description for the state.
+	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
+	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
+	 */
 	protected async checkAndSetValueNumberUnit(
 		stateName: { [key: string]: string },
 		value: number,
-		unit?: string,
+		unit: string,
 		description?: string,
 		writeable?: boolean,
 	): Promise<void> {
+		if (description === undefined) description = "";
 		if (writeable === undefined) writeable = false;
 		if (value || value === 0) {
 			await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -177,7 +210,7 @@ export class TibberHelper {
 	/**
 	 * Checks if a boolean state exists, creates it if necessary, and updates its value.
 	 *
-	 * @param stateName - An object containing the key and value for the state.
+	 * @param stateName - An object containing the key and value for the name of the state.
 	 * @param value - The boolean value to set for the state.
 	 * @param description - Optional description for the state.
 	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
@@ -192,6 +225,7 @@ export class TibberHelper {
 		dontUpdate?: boolean,
 	): Promise<void> {
 		// Default values for optional parameters
+		if (description === undefined) description = "";
 		if (writeable === undefined) writeable = false;
 		if (dontUpdate === undefined) dontUpdate = false;
 		if (value !== undefined && value !== null) {

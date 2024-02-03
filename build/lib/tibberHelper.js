@@ -80,7 +80,19 @@ class TibberHelper {
             return true;
         }
     }
+    /**
+     * Checks if a string state exists, creates it if necessary, and updates its value.
+     *
+     * @param stateName - An object containing the key and value for the name of the state.
+     * @param value - The string value to set for the state.
+     * @param description - Optional description for the state.
+     * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
+     * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
+     * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
+     */
     async checkAndSetValue(stateName, value, description, writeable, dontUpdate) {
+        if (description === undefined)
+            description = "";
         if (writeable === undefined)
             writeable = false;
         if (dontUpdate === undefined)
@@ -105,7 +117,19 @@ class TibberHelper {
             }
         }
     }
+    /**
+     * Checks if a number state exists, creates it if necessary, and updates its value.
+     *
+     * @param stateName - An object containing the key and value for the name of the state.
+     * @param value - The number value to set for the state.
+     * @param description - Optional description for the state.
+     * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
+     * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
+     * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
+     */
     async checkAndSetValueNumber(stateName, value, description, writeable, dontUpdate) {
+        if (description === undefined)
+            description = "";
         if (writeable === undefined)
             writeable = false;
         if (dontUpdate === undefined)
@@ -128,7 +152,19 @@ class TibberHelper {
             }
         }
     }
+    /**
+     * Checks if a number state with named unit exists, creates it if necessary, and updates its value.
+     *
+     * @param stateName - An object containing the key and value for the name of the state.
+     * @param value - The number value to set for the state.
+     * @param unit - The unit string to set for the state.
+     * @param description - Optional description for the state.
+     * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
+     * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
+     */
     async checkAndSetValueNumberUnit(stateName, value, unit, description, writeable) {
+        if (description === undefined)
+            description = "";
         if (writeable === undefined)
             writeable = false;
         if (value || value === 0) {
@@ -151,7 +187,7 @@ class TibberHelper {
     /**
      * Checks if a boolean state exists, creates it if necessary, and updates its value.
      *
-     * @param stateName - An object containing the key and value for the state.
+     * @param stateName - An object containing the key and value for the name of the state.
      * @param value - The boolean value to set for the state.
      * @param description - Optional description for the state.
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
@@ -160,6 +196,8 @@ class TibberHelper {
      */
     async checkAndSetValueBoolean(stateName, value, description, writeable, dontUpdate) {
         // Default values for optional parameters
+        if (description === undefined)
+            description = "";
         if (writeable === undefined)
             writeable = false;
         if (dontUpdate === undefined)

@@ -342,7 +342,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async setup_chBlockStartTime(homeId, channel) {
         try {
             const channelName = this.adapter.config.CalculatorList[channel].chName;
-            this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`), ``, `start time of determined block`, false, false);
+            this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`), `-`, `first hour of determined block`, false, false);
             this.adapter.log.debug(`setup calculator output state BlockStartTime in home: ${homeId} - channel: ${channel}-${channelName}`);
         }
         catch (error) {
@@ -352,7 +352,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async setup_chBlockStopTime(homeId, channel) {
         try {
             const channelName = this.adapter.config.CalculatorList[channel].chName;
-            this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`), ``, `end time of determined block`, false, false);
+            this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`), `-`, `last hour of determined block`, false, false);
             this.adapter.log.debug(`setup calculator output state BlockStopTime in home: ${homeId} - channel: ${channel}-${channelName}`);
         }
         catch (error) {
