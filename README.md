@@ -59,6 +59,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
     -   "Best cost": Utilizes the "TriggerPrice" state as input, producing a "YES" output every hour when the current Tibber energy cost is below the trigger price.
     -   "Best single hours": Generates a "YES" output during the least expensive hours, with the number defined in the "AmountHours" state.
     -   "Best hours block": Outputs "YES" during the most cost-effective block of hours, with the number of hours specified in the "AmountHours" state.
+        Additionally, the average total cost in the determined block is written to a state "AverageTotalCost" nearby the input states of this channel. Also first and last hour of the block is written to "BlockStartTime" and "BlockEndTime" as a result of the calculation.
     -   "Best cost LTF": "Best cost" within a Limited Time Frame (LTF).
     -   "Best single hours LTF": "Best single hours" within a Limited Time Frame (LTF).
     -   "Best hours block LTF": "Best hours block" within a Limited Time Frame (LTF).
