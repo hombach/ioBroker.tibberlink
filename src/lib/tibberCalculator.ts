@@ -719,7 +719,7 @@ export class TibberCalculator extends TibberHelper {
 				// WORK in PROGRESS
 				this.checkAndSetValueNumber(
 					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `AverageTotalCost`),
-					minSum / n,
+					Math.round(1000 * (minSum / n)) / 1000,
 					`average total cost in determined block`,
 					false,
 					false,

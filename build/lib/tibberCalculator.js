@@ -596,7 +596,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
                 // calculate average cost of determined block of hours, write to data point
                 // WORK in PROGRESS
-                this.checkAndSetValueNumber(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `AverageTotalCost`), minSum / n, `average total cost in determined block`, false, false);
+                this.checkAndSetValueNumber(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `AverageTotalCost`), Math.round(1000 * (minSum / n)) / 1000, `average total cost in determined block`, false, false);
                 // write start and stop time of determined block to data points
                 // WORK in PROGRESS
                 // const startTime = filteredPrices[startIndex].startsAt;
