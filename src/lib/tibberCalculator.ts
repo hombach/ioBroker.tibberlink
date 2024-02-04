@@ -402,7 +402,8 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AverageTotalCost for calculator`));
 		}
 	}
-	async setup_chBlockStartFullHour(homeId: string, channel: number): Promise<void> {
+	async setup_chBlockStartFullHour(homeId: string, channel: number, delMode?: boolean): Promise<void> {
+		if (delMode === undefined) delMode = false;
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 			this.checkAndSetValue(
@@ -412,12 +413,13 @@ export class TibberCalculator extends TibberHelper {
 				false,
 				false,
 			);
-			this.adapter.log.debug(`setup calculator output state BlockStartFullHour in home: ${homeId} - channel: ${channel}-${channelName}`);
+			if (!delMode) this.adapter.log.debug(`setup calculator output state BlockStartFullHour in home: ${homeId} - channel: ${channel}-${channelName}`);
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state BlockStartFullHour for calculator`));
+			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator`));
 		}
 	}
-	async setup_chBlockEndFullHour(homeId: string, channel: number): Promise<void> {
+	async setup_chBlockEndFullHour(homeId: string, channel: number, delMode?: boolean): Promise<void> {
+		if (delMode === undefined) delMode = false;
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 			this.checkAndSetValue(
@@ -427,9 +429,9 @@ export class TibberCalculator extends TibberHelper {
 				false,
 				false,
 			);
-			this.adapter.log.debug(`setup calculator output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelName}`);
+			if (!delMode) this.adapter.log.debug(`setup calculator output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelName}`);
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state BlockEndFullHour for calculator`));
+			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEndFullHour for calculator`));
 		}
 	}
 
@@ -652,12 +654,18 @@ export class TibberCalculator extends TibberHelper {
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
 				// not active -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+				this.setup_chBlockStartFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
+				this.setup_chBlockEndFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
 			} else if (modeLTF && now < this.adapter.config.CalculatorList[channel].chStartTime) {
 				// chActive but before LTF -> choose chValueOff
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+				this.setup_chBlockStartFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
+				this.setup_chBlockEndFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
 			} else if (modeLTF && now > this.adapter.config.CalculatorList[channel].chStopTime) {
 				// chActive but after LTF -> choose chValueOff and disable channel or generate new running period
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
+				this.setup_chBlockStartFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
+				this.setup_chBlockEndFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
 				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
 					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
