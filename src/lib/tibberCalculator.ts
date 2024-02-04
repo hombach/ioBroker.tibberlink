@@ -1,5 +1,5 @@
 import * as utils from "@iobroker/adapter-core";
-import { addDays, format } from "date-fns";
+import { addDays, addHours, format } from "date-fns";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { TibberHelper, enCalcType } from "./tibberHelper";
 
@@ -683,8 +683,8 @@ export class TibberCalculator extends TibberHelper {
 					const pricesTomorrow: IPrice[] = JSON.parse(
 						await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
 					);
-					const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
-					const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
+					const startTime: Date = this.adapter.config.CalculatorList[channel].chStartTime;
+					const stopTime: Date = this.adapter.config.CalculatorList[channel].chStopTime;
 
 					// Merge prices if pricesTomorrow is not empty
 					let mergedPrices: IPrice[] = pricesToday;
@@ -732,7 +732,23 @@ export class TibberCalculator extends TibberHelper {
 				);
 				// write start and stop time of determined block to data points
 				// WORK in PROGRESS
-				// const startTime = filteredPrices[startIndex].startsAt;
+				const beginDate = new Date(filteredPrices[startIndex].startsAt);
+				const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
+				this.checkAndSetValue(
+					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStartTime`),
+					format(beginDate, "HH:mm"),
+					`start time of determined block`,
+					false,
+					false,
+				);
+				this.checkAndSetValue(
+					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStopTime`),
+					format(addHours(endDate, 1), "HH:mm"),
+					`end time of determined block`,
+					false,
+					false,
+				);
+				/*
 				this.checkAndSetValue(
 					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStartTime`),
 					filteredPrices[startIndex].startsAt,
@@ -740,7 +756,6 @@ export class TibberCalculator extends TibberHelper {
 					false,
 					false,
 				);
-				// const endTime = filteredPrices[startIndex + n - 1].startsAt;
 				this.checkAndSetValue(
 					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStopTime`),
 					filteredPrices[startIndex + n - 1].startsAt,
@@ -748,6 +763,7 @@ export class TibberCalculator extends TibberHelper {
 					false,
 					false,
 				);
+				*/
 			}
 			//set value to foreign state
 			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));

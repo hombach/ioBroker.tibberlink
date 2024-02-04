@@ -599,10 +599,26 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.checkAndSetValueNumber(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `AverageTotalCost`), Math.round(1000 * (minSum / n)) / 1000, `average total cost in determined block`, false, false);
                 // write start and stop time of determined block to data points
                 // WORK in PROGRESS
-                // const startTime = filteredPrices[startIndex].startsAt;
-                this.checkAndSetValue(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStartTime`), filteredPrices[startIndex].startsAt, `start time of determined block`, false, false);
-                // const endTime = filteredPrices[startIndex + n - 1].startsAt;
-                this.checkAndSetValue(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStopTime`), filteredPrices[startIndex + n - 1].startsAt, `end time of determined block`, false, false);
+                const beginDate = new Date(filteredPrices[startIndex].startsAt);
+                const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
+                this.checkAndSetValue(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStartTime`), (0, date_fns_1.format)(beginDate, "HH:mm"), `start time of determined block`, false, false);
+                this.checkAndSetValue(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStopTime`), (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "HH:mm"), `end time of determined block`, false, false);
+                /*
+                this.checkAndSetValue(
+                    this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStartTime`),
+                    filteredPrices[startIndex].startsAt,
+                    `start time of determined block`,
+                    false,
+                    false,
+                );
+                this.checkAndSetValue(
+                    this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStopTime`),
+                    filteredPrices[startIndex + n - 1].startsAt,
+                    `end time of determined block`,
+                    false,
+                    false,
+                );
+                */
             }
             //set value to foreign state
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
