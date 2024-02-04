@@ -102,6 +102,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) fixed wrong error message texts
 -   (HombachC) fix some possible edge cases in internal support functions
 -   (HombachC) internal code docu optimization
+-   (HombachC) bump dependencies
 
 ### 2.1.1 (2024-01-27)
 
