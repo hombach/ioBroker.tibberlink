@@ -96,7 +96,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 2.2.1 (2024-02-xx) - WORK in PROGRESS
+### 2.2.1 (2024-02-08)
 
 -   (HombachC) fix edge case problems with defect feed data from Tibber server (#312)
 -   (HombachC) bump dependencies
