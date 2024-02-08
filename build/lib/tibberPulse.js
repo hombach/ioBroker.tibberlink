@@ -70,6 +70,8 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
     }
     fetchLiveMeasurement(objectDestination, liveMeasurement) {
         let power = 0;
+        if (liveMeasurement.powerProduction === undefined || liveMeasurement.powerProduction === null)
+            liveMeasurement.powerProduction = 0; // fix wrong data from Tibber in edge cases
         if (liveMeasurement.power > 0) {
             power = liveMeasurement.power;
         }

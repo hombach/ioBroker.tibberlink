@@ -78,6 +78,7 @@ export class TibberPulse extends TibberHelper {
 
 	private fetchLiveMeasurement(objectDestination: string, liveMeasurement: ILiveMeasurement): void {
 		let power = 0;
+		if (liveMeasurement.powerProduction === undefined || liveMeasurement.powerProduction === null) liveMeasurement.powerProduction = 0; // fix wrong data from Tibber in edge cases
 		if (liveMeasurement.power > 0) {
 			power = liveMeasurement.power;
 		} else if (liveMeasurement.powerProduction > 0) {

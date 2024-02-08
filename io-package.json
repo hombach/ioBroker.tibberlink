@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "2.2.0",
+		"version": "2.2.1",
 		"news": {
+			"2.2.1": {
+				"en": "WIP"
+			},
 			"2.2.0": {
 				"en": "add data points for BestHoursBlock results - period and average cost (#240)",
 				"de": "Datenpunkte für BestHoursBlock-Ergebnisse hinzufügen - Zeitraum und Durchschnittskosten (#240)",
@@ -197,19 +200,6 @@
 				"pl": "Całkowita przebudowa harmonogramu zadań dla dokładniejszego czasu pobierania (#149)",
 				"uk": "Повна переробка планування завдань для більш точного часу витягування (#149)",
 				"zh-cn": "完全重做任务调度以获得更精确的拉取时间 (#149)"
-			},
-			"1.4.1": {
-				"en": "implement forced update of all data after adapter restart (#155)",
-				"de": "Umsetzung erzwungener Aktualisierung aller Daten nach Neustart des Adapters (#155)",
-				"ru": "Реализация принудительного обновления всех данных после перезапуска адаптера (#155)",
-				"pt": "Implementar atualização forçada de todos os dados após reiniciar o adaptador (#155)",
-				"nl": "Implementeer gedwongen update van alle gegevens na herstart van de adapter (#155)",
-				"fr": "Mise en œuvre de la mise à jour forcée de toutes les données après le redémarrage de l'adaptateur (#155)",
-				"it": "Implementare l'aggiornamento forzato di tutti i dati dopo il riavvio dell'adattatore (#155)",
-				"es": "Implementar actualización forzada de todos los datos después de reiniciar el adaptador (#155)",
-				"pl": "Wdrożenie wymuszonej aktualizacji wszystkich danych po ponownym uruchomieniu adaptera (#155)",
-				"uk": "Реалізація примусового оновлення всіх даних після перезапуску адаптера (#155)",
-				"zh-cn": "在适配器重新启动后实施所有数据的强制更新 (#155)"
 			},
 			"1.4.0": {
 				"en": "implement min/max states (#131)\nfix error with ignored calculator channel deactivations (#143)",
