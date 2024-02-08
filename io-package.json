@@ -4,7 +4,17 @@
 		"version": "2.2.1",
 		"news": {
 			"2.2.1": {
-				"en": "WIP"
+				"en": "fix edge case problems with defect feed data from Tibber server (#312)",
+				"de": "Probleme mit Randfällen bei defekten Feed-Daten vom Tibber-Server beheben (#312)",
+				"ru": "Исправить проблемы с крайними случаями с дефектными данными ленты от сервера Tibber (#312)",
+				"pt": "Corrigir problemas de casos extremos com dados de feed defeituosos do servidor Tibber (#312)",
+				"nl": "Randgevalproblemen oplossen met defecte feedgegevens van Tibber-server (#312)",
+				"fr": "Corriger les problèmes de cas particuliers avec les données de flux défectueuses du serveur Tibber (#312)",
+				"it": "Risolvere i problemi dei casi limite con i dati di feed difettosi dal server Tibber (#312)",
+				"es": "Corregir problemas de casos extremos con datos de feed defectuosos del servidor Tibber (#312)",
+				"pl": "Napraw problemy z przypadkami brzegowymi z wadliwymi danymi z serwera Tibber (#312)",
+				"uk": "Виправити проблеми з крайовими випадками з вадливими даними ленти від сервера Tibber (#312)",
+				"zh-cn": "修复 Tibber 服务器的缺陷数据的边缘案例问题 (#312)"
 			},
 			"2.2.0": {
 				"en": "add data points for BestHoursBlock results - period and average cost (#240)",
