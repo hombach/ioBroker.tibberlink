@@ -206,7 +206,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
                 this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
             }
-            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`), this.adapter.config.CalculatorList[channel].chTriggerPrice, `pricelevel to trigger this channel at`, true, true);
+            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`), this.adapter.config.CalculatorList[channel].chTriggerPrice, `pricelevel to trigger this channel at`, undefined, true, true);
             const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             if (typeof valueTriggerPrice === "number") {
                 this.adapter.config.CalculatorList[channel].chTriggerPrice = valueTriggerPrice;
@@ -227,7 +227,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             if (this.adapter.config.CalculatorList[channel].chAmountHours === undefined) {
                 this.adapter.config.CalculatorList[channel].chAmountHours = 0;
             }
-            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`), this.adapter.config.CalculatorList[channel].chAmountHours, `amount of hours to trigger this channel`, true, true);
+            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`), this.adapter.config.CalculatorList[channel].chAmountHours, `amount of hours to trigger this channel`, undefined, true, true);
             const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
             if (typeof valueAmountHours === "number") {
                 this.adapter.config.CalculatorList[channel].chAmountHours = valueAmountHours;
@@ -294,7 +294,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             if (this.adapter.config.CalculatorList[channel].chRepeatDays === undefined) {
                 this.adapter.config.CalculatorList[channel].chRepeatDays = 0;
             }
-            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`), this.adapter.config.CalculatorList[channel].chRepeatDays, `number of days to shift this LTF channel for repetition`, true, true);
+            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`), this.adapter.config.CalculatorList[channel].chRepeatDays, `number of days to shift this LTF channel for repetition`, undefined, true, true);
             const valueRepeatDays = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
             if (typeof valueRepeatDays === "number") {
                 this.adapter.config.CalculatorList[channel].chRepeatDays = valueRepeatDays;
@@ -315,7 +315,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             if (this.adapter.config.CalculatorList[channel].chEfficiencyLoss === undefined) {
                 this.adapter.config.CalculatorList[channel].chEfficiencyLoss = 0;
             }
-            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`), this.adapter.config.CalculatorList[channel].chEfficiencyLoss, `efficiency loss between charge and discharge of battery system`, true, true);
+            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`), this.adapter.config.CalculatorList[channel].chEfficiencyLoss, `efficiency loss between charge and discharge of battery system`, undefined, true, true);
             const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
             if (typeof valueEfficiencyLoss === "number") {
                 this.adapter.config.CalculatorList[channel].chAmountHours = valueEfficiencyLoss;
@@ -332,7 +332,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async setup_chAverageTotalCost(homeId, channel) {
         try {
             const channelName = this.adapter.config.CalculatorList[channel].chName;
-            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`), 0, `average total cost in determined block`, false, false);
+            this.checkAndSetValueNumber(this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`), 0, `average total cost in determined block`, undefined, false, false);
             this.adapter.log.debug(`setup calculator output state AverageTotalCost in home: ${homeId} - channel: ${channel}-${channelName}`);
         }
         catch (error) {
@@ -607,7 +607,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 }
                 // calculate average cost of determined block of hours, write to data point
-                this.checkAndSetValueNumber(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `AverageTotalCost`), Math.round(1000 * (minSum / n)) / 1000, `average total cost in determined block`, false, false);
+                this.checkAndSetValueNumber(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `AverageTotalCost`), Math.round(1000 * (minSum / n)) / 1000, `average total cost in determined block`, undefined, false, false);
                 // write start and stop time of determined block to data points
                 const beginDate = new Date(filteredPrices[startIndex].startsAt);
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);

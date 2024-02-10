@@ -91,11 +91,14 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedCost"), liveMeasurement.accumulatedCost, "Accumulated cost since midnight; requires active Tibber power deal");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "accumulatedReward"), liveMeasurement.accumulatedReward, "Accumulated reward since midnight; requires active Tibber power deal");
             this.checkAndSetValue(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "currency"), liveMeasurement.currency, "Currency of displayed cost; requires active Tibber power deal");
-            this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"), liveMeasurement.minPower, "W", "Min consumption since midnight");
+            this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"), liveMeasurement.minPower, "Min consumption since midnight", "W");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "averagePower"), liveMeasurement.averagePower, "W", "Average consumption since midnight");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPower"), liveMeasurement.maxPower, "W", "Peak consumption since midnight");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerConsumption"), liveMeasurement.power, "W", "Net consumption (A+) at the moment");
-            this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"), liveMeasurement.powerProduction, "W", "Net grid feed-in (A-) at the moment");
+            // WIP
+            if (this.adapter.config.FeedConfigPowerProduction) {
+                this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"), liveMeasurement.powerProduction, "W", "Net grid feed-in (A-) at the moment");
+            }
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPowerProduction"), liveMeasurement.minPowerProduction, "W", "Min net grid feed-in since midnight");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPowerProduction"), liveMeasurement.maxPowerProduction, "W", "Max net grid feed-in since midnight");
             this.checkAndSetValueNumberUnit(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "lastMeterProduction"), Math.round(1000 * liveMeasurement.lastMeterProduction) / 1000, "kWh", "Latest grid feed-in meter state");

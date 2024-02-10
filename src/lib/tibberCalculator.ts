@@ -232,6 +232,7 @@ export class TibberCalculator extends TibberHelper {
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
 				this.adapter.config.CalculatorList[channel].chTriggerPrice,
 				`pricelevel to trigger this channel at`,
+				undefined,
 				true,
 				true,
 			);
@@ -259,6 +260,7 @@ export class TibberCalculator extends TibberHelper {
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`),
 				this.adapter.config.CalculatorList[channel].chAmountHours,
 				`amount of hours to trigger this channel`,
+				undefined,
 				true,
 				true,
 			);
@@ -344,6 +346,7 @@ export class TibberCalculator extends TibberHelper {
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`),
 				this.adapter.config.CalculatorList[channel].chRepeatDays,
 				`number of days to shift this LTF channel for repetition`,
+				undefined,
 				true,
 				true,
 			);
@@ -371,6 +374,7 @@ export class TibberCalculator extends TibberHelper {
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`),
 				this.adapter.config.CalculatorList[channel].chEfficiencyLoss,
 				`efficiency loss between charge and discharge of battery system`,
+				undefined,
 				true,
 				true,
 			);
@@ -394,6 +398,7 @@ export class TibberCalculator extends TibberHelper {
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`),
 				0,
 				`average total cost in determined block`,
+				undefined,
 				false,
 				false,
 			);
@@ -740,6 +745,7 @@ export class TibberCalculator extends TibberHelper {
 					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `AverageTotalCost`),
 					Math.round(1000 * (minSum / n)) / 1000,
 					`average total cost in determined block`,
+					undefined,
 					false,
 					false,
 				);

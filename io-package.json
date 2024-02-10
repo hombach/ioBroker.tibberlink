@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "2.2.1",
+		"version": "2.2.2",
 		"news": {
+			"2.2.2": {
+				"en": "WiP"
+			},
 			"2.2.1": {
 				"en": "fix edge case problems with defect feed data from Tibber server (#312)",
 				"de": "Probleme mit Randfällen bei defekten Feed-Daten vom Tibber-Server beheben (#312)",

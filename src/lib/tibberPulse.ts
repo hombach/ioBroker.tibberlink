@@ -143,11 +143,11 @@ export class TibberPulse extends TibberHelper {
 				liveMeasurement.currency,
 				"Currency of displayed cost; requires active Tibber power deal",
 			);
-			this.checkAndSetValueNumberUnit(
+			this.checkAndSetValueNumber(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPower"),
 				liveMeasurement.minPower,
-				"W",
 				"Min consumption since midnight",
+				"W", //WIP
 			);
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "averagePower"),
@@ -167,12 +167,15 @@ export class TibberPulse extends TibberHelper {
 				"W",
 				"Net consumption (A+) at the moment",
 			);
-			this.checkAndSetValueNumberUnit(
-				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"),
-				liveMeasurement.powerProduction,
-				"W",
-				"Net grid feed-in (A-) at the moment",
-			);
+			// WIP
+			if (this.adapter.config.FeedConfigPowerProduction) {
+				this.checkAndSetValueNumberUnit(
+					this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"),
+					liveMeasurement.powerProduction,
+					"W",
+					"Net grid feed-in (A-) at the moment",
+				);
+			}
 			this.checkAndSetValueNumberUnit(
 				this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "minPowerProduction"),
 				liveMeasurement.minPowerProduction,
