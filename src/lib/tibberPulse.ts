@@ -167,7 +167,6 @@ export class TibberPulse extends TibberHelper {
 				"Net consumption (A+) at the moment",
 				"W",
 			);
-			// WIP
 			if (this.adapter.config.FeedConfigPowerProduction) {
 				this.checkAndSetValueNumber(
 					this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"),

@@ -95,7 +95,6 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "averagePower"), liveMeasurement.averagePower, "Average consumption since midnight", "W");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "maxPower"), liveMeasurement.maxPower, "Peak consumption since midnight", "W");
             this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerConsumption"), liveMeasurement.power, "Net consumption (A+) at the moment", "W");
-            // WIP
             if (this.adapter.config.FeedConfigPowerProduction) {
                 this.checkAndSetValueNumber(this.getStatePrefix(this.tibberConfig.homeId, objectDestination, "powerProduction"), liveMeasurement.powerProduction, "Net grid feed-in (A-) at the moment", "W");
             }

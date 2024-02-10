@@ -146,7 +146,7 @@ export class TibberHelper {
 		stateName: { [key: string]: string },
 		value: number,
 		description?: string,
-		unit?: string, // WiP!!!
+		unit?: string,
 		writeable?: boolean,
 		dontUpdate?: boolean,
 	): Promise<void> {
@@ -172,60 +172,9 @@ export class TibberHelper {
 				native: {},
 			});
 
-			/*
-			await this.adapter.setObjectNotExistsAsync(stateName.value, {
-				type: "state",
-				common: {
-					name: stateName.key,
-					type: "number",
-					role: "value",
-					desc: description,
-					read: true,
-					write: writeable,
-				},
-				native: {},
-			});
-			*/
 			if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
 				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
 			}
-		}
-	}
-
-	/**
-	 * Checks if a number state with named unit exists, creates it if necessary, and updates its value.
-	 *
-	 * @param stateName - An object containing the key and value for the name of the state.
-	 * @param value - The number value to set for the state.
-	 * @param unit - The unit string to set for the state.
-	 * @param description - Optional description for the state (default is "-").
-	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
-	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
-	 */
-	protected async checkAndSetValueNumberUnitOLD(
-		stateName: { [key: string]: string },
-		value: number,
-		unit: string,
-		description?: string,
-		writeable?: boolean,
-	): Promise<void> {
-		if (description === undefined) description = "-"; // Set default value for description
-		if (writeable === undefined) writeable = false;
-		if (value || value === 0) {
-			await this.adapter.setObjectNotExistsAsync(stateName.value, {
-				type: "state",
-				common: {
-					name: stateName.key,
-					type: "number",
-					role: "value",
-					desc: description,
-					unit: unit,
-					read: true,
-					write: writeable,
-				},
-				native: {},
-			});
-			await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
 		}
 	}
 
