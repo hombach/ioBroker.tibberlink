@@ -84,19 +84,6 @@
 				"uk": "ВАЖЛИВО: Підтримка js-controller 3.x припинена (#247)\nдиверсифікація запитів до серверів Tibber для запобігання потенційних реакцій DDoS (#252)\nдодавання точки даних для середньої залишкової частини сьогоднішніх цін (#254)\nдодавання 2 точок даних для останнього успішного оновлення цін на сьогодні і завтра (#261)\nзміни на 2024 рік\nвиправлення маленької помилки в динаміці часу оновлення даних",
 				"zh-cn": "重大变更：不再支持 js-controller 3.x (#247)\n多样化 Tibber 服务器轮询，以防止潜在的 DDoS 反应 (#252)\n添加平均剩余今日价格的数据点 (#254)\n添加两个数据点，用于记录今天和明天价格的最后成功更新 (#261)\n2024 年更改\n修复动态反馈时间的小错误"
 			},
-			"1.8.1": {
-				"en": "Added notice about changes in configuration",
-				"de": "Hinweis zu Änderungen in der Konfiguration hinzugefügt",
-				"ru": "Добавлено уведомление об изменениях в конфигурации",
-				"pt": "Adicionado aviso sobre mudanças na configuração",
-				"nl": "Melding toegevoegd over wijzigingen in de configuratie",
-				"fr": "Avis ajouté concernant les changements de configuration",
-				"it": "Aggiunto avviso sulle modifiche alla configurazione",
-				"es": "Añadido aviso sobre cambios en la configuración",
-				"pl": "Dodano powiadomienie o zmianach w konfiguracji",
-				"uk": "Додано повідомлення про зміни в конфігурації",
-				"zh-cn": "添加关于配置更改的通知"
-			},
 			"1.8.0": {
 				"en": "implement optional disable of price pull (#232)\nimplement price categorization algorithm for battery buffer applications (#193)\nfix error in pull of prices tomorrow (#235, #232)",
 				"de": "Implementieren Sie die optionale Deaktivierung des Preisabrufs (#232)\nImplementieren Sie den Preis-Kategorisierungsalgorithmus für Batteriepufferanwendungen (#193)\nBeheben Sie den Fehler beim Abruf von Preisen für morgen (#235, #232)",
