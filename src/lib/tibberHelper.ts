@@ -202,7 +202,7 @@ export class TibberHelper {
 	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	protected async checkAndSetValueNumberUnit(
+	protected async checkAndSetValueNumberUnitOLD(
 		stateName: { [key: string]: string },
 		value: number,
 		unit: string,

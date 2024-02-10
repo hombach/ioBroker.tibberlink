@@ -183,7 +183,7 @@ class TibberHelper {
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueNumberUnit(stateName, value, unit, description, writeable) {
+    async checkAndSetValueNumberUnitOLD(stateName, value, unit, description, writeable) {
         if (description === undefined)
             description = "-"; // Set default value for description
         if (writeable === undefined)

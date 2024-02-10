@@ -98,7 +98,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 2.2.2 (2024-02-xx) WORK in PROGRESS
 
--   (HombachC) WiP
+-   (HombachC) simplify internal state handling
+-   (HombachC) bump dependencies
 
 ### 2.2.1 (2024-02-08)
 

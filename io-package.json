@@ -4,7 +4,17 @@
 		"version": "2.2.2",
 		"news": {
 			"2.2.2": {
-				"en": "WiP"
+				"en": "simplify internal state handling",
+				"de": "Vereinfachung der internen Zustandsverwaltung",
+				"ru": "упрощение обработки внутреннего состояния",
+				"pt": "simplificar manipulação do estado interno",
+				"nl": "vereenvoudig de interne toestandsafhandeling",
+				"fr": "simplifier la gestion de l'état interne",
+				"it": "semplificare la gestione dello stato interno",
+				"es": "simplificar el manejo del estado interno",
+				"pl": "uproszczenie obsługi stanu wewnętrznego",
+				"uk": "спрощення обробки внутрішнього стану",
+				"zh-cn": "简化内部状态处理"
 			},
 			"2.2.1": {
 				"en": "fix edge case problems with defect feed data from Tibber server (#312)",
