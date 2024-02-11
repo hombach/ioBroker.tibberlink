@@ -4,17 +4,17 @@
 		"version": "2.2.2",
 		"news": {
 			"2.2.2": {
-				"en": "simplify internal state handling",
-				"de": "Vereinfachung der internen Zustandsverwaltung",
-				"ru": "упрощение обработки внутреннего состояния",
-				"pt": "simplificar manipulação do estado interno",
-				"nl": "vereenvoudig de interne toestandsafhandeling",
-				"fr": "simplifier la gestion de l'état interne",
-				"it": "semplificare la gestione dello stato interno",
-				"es": "simplificar el manejo del estado interno",
-				"pl": "uproszczenie obsługi stanu wewnętrznego",
-				"uk": "спрощення обробки внутрішнього стану",
-				"zh-cn": "简化内部状态处理"
+				"en": "simplify internal state handling\nshorten home string in Calculator screen (#317)",
+				"de": "Vereinfachung der internen Zustandsverwaltung\nKürzen des Startbildschirms im Taschenrechner (#317)",
+				"ru": "упрощение обработки внутреннего состояния\nсократить строку домашнего экрана на экране калькулятора (#317)",
+				"pt": "simplificar manipulação do estado interno\nencurtar a string 'home' na tela da Calculadora (#317)",
+				"nl": "vereenvoudig de interne toestandsafhandeling\nverkort de thuisstring op het rekenmachine scherm (#317)",
+				"fr": "simplifier la gestion de l'état interne\nraccourcir la chaîne d'accueil à l'écran de la calculatrice (#317)",
+				"it": "semplificare la gestione dello stato interno\naccorciare la stringa home nella schermata della calcolatrice (#317)",
+				"es": "simplificar el manejo del estado interno\nacortar cadena de inicio en pantalla de Calculadora (#317)",
+				"pl": "uproszczenie obsługi stanu wewnętrznego\nskróć ciąg domowy na ekranie kalkulatora (#317)",
+				"uk": "спрощення обробки внутрішнього стану\nскоротити рядок 'home' на екрані калькулятора (#317)",
+				"zh-cn": "简化内部状态处理\n在计算器屏幕上缩短主屏幕字符串 (#317)"
 			},
 			"2.2.1": {
 				"en": "fix edge case problems with defect feed data from Tibber server (#312)",

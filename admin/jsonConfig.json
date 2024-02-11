@@ -618,7 +618,7 @@
 							"filter": false,
 							"sort": false,
 							"width": "10% ",
-							"command": "HomesForConfig"
+							"command": "HomesForCalculator"
 						},
 						{
 							"type": "select",
