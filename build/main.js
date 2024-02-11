@@ -352,7 +352,7 @@ class Tibberlink extends utils.Adapter {
                         try {
                             if (this.homeInfoList.length > 0) {
                                 this.sendTo(obj.from, obj.command, this.homeInfoList.map((item) => ({
-                                    label: `${item.NameInApp} (${item.ID})`,
+                                    label: `${item.NameInApp} (${item.ID.substring(item.ID.lastIndexOf("-") + 1)})`,
                                     value: item.ID,
                                 })), obj.callback);
                             }
@@ -378,7 +378,6 @@ class Tibberlink extends utils.Adapter {
             for (const cronJob of this.cronList) {
                 cronJob.stop();
             }
-            // clearTimeout(timeout);
             // info.connect to false, if adapter is closed
             this.setState("info.connection", false, true);
             callback();
