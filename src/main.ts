@@ -408,7 +408,7 @@ class Tibberlink extends utils.Adapter {
 											this.log.debug(
 												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to Active: ${this.config.CalculatorList[calcChannel].chActive}`,
 											);
-											this.setStateAsync(id, state.val, true);
+											this.setStateAsync(id, state.val, true); // set acknowledge true
 										} else {
 											this.log.warn(`Wrong type for channel: ${calcChannel} - chActive: ${state.val}`);
 										}
