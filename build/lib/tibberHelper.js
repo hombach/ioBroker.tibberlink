@@ -92,7 +92,7 @@ class TibberHelper {
      */
     async checkAndSetValue(stateName, value, description, writeable, dontUpdate) {
         if (description === undefined)
-            description = "";
+            description = "-"; // Set default value for description
         if (writeable === undefined)
             writeable = false;
         if (dontUpdate === undefined)
@@ -171,7 +171,7 @@ class TibberHelper {
     async checkAndSetValueBoolean(stateName, value, description, writeable, dontUpdate) {
         // Default values for optional parameters
         if (description === undefined)
-            description = "";
+            description = "-"; // Set default value for description
         if (writeable === undefined)
             writeable = false;
         if (dontUpdate === undefined)

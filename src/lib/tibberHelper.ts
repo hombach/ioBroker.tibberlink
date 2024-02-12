@@ -107,7 +107,7 @@ export class TibberHelper {
 		writeable?: boolean,
 		dontUpdate?: boolean,
 	): Promise<void> {
-		if (description === undefined) description = "";
+		if (description === undefined) description = "-"; // Set default value for description
 		if (writeable === undefined) writeable = false;
 		if (dontUpdate === undefined) dontUpdate = false;
 		if (value != undefined) {
@@ -196,7 +196,7 @@ export class TibberHelper {
 		dontUpdate?: boolean,
 	): Promise<void> {
 		// Default values for optional parameters
-		if (description === undefined) description = "";
+		if (description === undefined) description = "-"; // Set default value for description
 		if (writeable === undefined) writeable = false;
 		if (dontUpdate === undefined) dontUpdate = false;
 		if (value !== undefined && value !== null) {
