@@ -597,7 +597,7 @@
 						"zh-cn": "自动化通道"
 					},
 					"hidden": "!data.UseCalculator",
-					"showFirstAddOnTop": true,
+					"showFirstAddOnTop": "",
 					"items": [
 						{
 							"type": "checkbox",
