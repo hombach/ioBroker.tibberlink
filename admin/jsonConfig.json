@@ -620,6 +620,29 @@
 							"width": "10% ",
 							"command": "HomesForCalculator"
 						},
+
+						{
+							"type": "checkbox",
+							"title": {
+								"en": "Active",
+								"de": "Aktiv",
+								"ru": "Активный",
+								"pt": "Ativo",
+								"nl": "Actief",
+								"fr": "Actif",
+								"it": "Attivo",
+								"es": "Activo",
+								"pl": "Aktywny",
+								"uk": "Активний",
+								"zh-cn": "活跃"
+							},
+							"attr": "chActive",
+							"filter": false,
+							"sort": false,
+							"width": "5%",
+							"default": false
+						},
+
 						{
 							"type": "select",
 							"title": {
@@ -752,7 +775,7 @@
 							],
 							"filter": false,
 							"sort": false,
-							"width": "15% "
+							"width": "15%"
 						},
 						{
 							"type": "text",
@@ -773,7 +796,7 @@
 							"attr": "chName",
 							"filter": false,
 							"sort": false,
-							"width": "15% ",
+							"width": "15%",
 							"default": "Channel Name"
 						},
 						{
@@ -794,7 +817,7 @@
 							"attr": "chTargetState",
 							"filter": false,
 							"sort": false,
-							"width": "15% "
+							"width": "15%"
 						},
 						{
 							"type": "text",
@@ -815,7 +838,7 @@
 							"attr": "chValueOn",
 							"filter": false,
 							"sort": false,
-							"width": "7.5% ",
+							"width": "7.5%",
 							"default": ""
 						},
 						{
@@ -837,7 +860,7 @@
 							"attr": "chValueOff",
 							"filter": false,
 							"sort": false,
-							"width": "7.5% ",
+							"width": "7.5%",
 							"default": ""
 						},
 
@@ -859,7 +882,7 @@
 							"attr": "chTargetState2",
 							"filter": false,
 							"sort": false,
-							"width": "15% ",
+							"width": "15",
 							"hidden": "data.chType !== 7"
 						},
 						{
@@ -881,7 +904,7 @@
 							"attr": "chValueOn2",
 							"filter": false,
 							"sort": false,
-							"width": "7.5% ",
+							"width": "7.5%",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						},
@@ -904,7 +927,7 @@
 							"attr": "chValueOff2",
 							"filter": false,
 							"sort": false,
-							"width": "7.5% ",
+							"width": "7.5%",
 							"default": "",
 							"hidden": "data.chType !== 7"
 						}
