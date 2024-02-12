@@ -583,6 +583,7 @@
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
+					"showFirstAddOnTop": true,
 					"label": {
 						"en": "Calculator Channels",
 						"de": "Automatisierungs-Kanäle",
@@ -597,7 +598,6 @@
 						"zh-cn": "自动化通道"
 					},
 					"hidden": "!data.UseCalculator",
-					"showFirstAddOnTop": "",
 					"items": [
 						{
 							"type": "checkbox",
