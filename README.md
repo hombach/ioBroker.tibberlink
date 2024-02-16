@@ -100,6 +100,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) simplify internal state handling
 -   (HombachC) shorten home string in Calculator screen (#317)
+-   (HombachC) fix feedback loop trap (#321)
 
 ### 2.2.1 (2024-02-08)
 
