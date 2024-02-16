@@ -4,17 +4,17 @@
 		"version": "2.2.2",
 		"news": {
 			"2.2.2": {
-				"en": "simplify internal state handling\nshorten home string in Calculator screen (#317)",
-				"de": "Vereinfachung der internen Zustandsverwaltung\nKürzen des Startbildschirms im Taschenrechner (#317)",
-				"ru": "упрощение обработки внутреннего состояния\nсократить строку домашнего экрана на экране калькулятора (#317)",
-				"pt": "simplificar manipulação do estado interno\nencurtar a string 'home' na tela da Calculadora (#317)",
-				"nl": "vereenvoudig de interne toestandsafhandeling\nverkort de thuisstring op het rekenmachine scherm (#317)",
-				"fr": "simplifier la gestion de l'état interne\nraccourcir la chaîne d'accueil à l'écran de la calculatrice (#317)",
-				"it": "semplificare la gestione dello stato interno\naccorciare la stringa home nella schermata della calcolatrice (#317)",
-				"es": "simplificar el manejo del estado interno\nacortar cadena de inicio en pantalla de Calculadora (#317)",
-				"pl": "uproszczenie obsługi stanu wewnętrznego\nskróć ciąg domowy na ekranie kalkulatora (#317)",
-				"uk": "спрощення обробки внутрішнього стану\nскоротити рядок 'home' на екрані калькулятора (#317)",
-				"zh-cn": "简化内部状态处理\n在计算器屏幕上缩短主屏幕字符串 (#317)"
+				"en": "simplify internal state handling\nshorten home string in Calculator screen (#317)\nfix feedback loop trap (#321)",
+				"de": "Vereinfachung der internen Zustandsverwaltung\nVerkürzung des Startzeichens im Taschenrechnerbildschirm (#317)\nBehebung der Feedbackschleifenfalle (#321)",
+				"ru": "упростить обработку внутреннего состояния\nсократить строку дома на экране калькулятора (#317)\nисправить ловушку обратной связи (#321)",
+				"pt": "simplificar o tratamento do estado interno\nencurtar a string de início na tela da Calculadora (#317)\ncorrigir a armadilha de loop de feedback (#321)",
+				"nl": "vereenvoudig intern staatbeheer\nverkort home string op Calculator-scherm (#317)\nfix feedback loop val (#321)",
+				"fr": "simplifier la gestion de l'état interne\nraccourcir la chaîne d'accueil dans l'écran de la calculatrice (#317)\ncorriger le piège de la boucle de rétroaction (#321)",
+				"it": "semplificare la gestione dello stato interno\naccorciare la stringa home nello schermo della calcolatrice (#317)\ncorreggere l'inganno del loop di feedback (#321)",
+				"es": "simplificar el manejo del estado interno\nacortar la cadena de inicio en la pantalla de la calculadora (#317)\nreparar la trampa del bucle de retroalimentación (#321)",
+				"pl": "uproszczenie obsługi stanu wewnętrznego\nskrócenie ciągu home na ekranie kalkulatora (#317)\nnaprawa pułapki pętli sprzężenia zwrotnego (#321)",
+				"uk": "спростити обробку внутрішнього стану\nскоротити рядок дома на екрані калькулятора (#317)\nвиправити пастку петлі зворотного зв'язку (#321)",
+				"zh-cn": "简化内部状态处理\n在计算器屏幕上缩短主页字符串（#317）\n修复反馈循环陷阱（#321）"
 			},
 			"2.2.1": {
 				"en": "fix edge case problems with defect feed data from Tibber server (#312)",
