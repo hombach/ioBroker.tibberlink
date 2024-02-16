@@ -416,7 +416,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     this.adapter.log.warn(`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - execution of channel skipped`);
                     continue;
                 }
-                const chTargetState2Components = this.adapter.config.CalculatorList[channel].chTargetState.split(".");
+                const chTargetState2Components = this.adapter.config.CalculatorList[channel].chTargetState2.split(".");
                 let foundAllBadComponents = true;
                 badComponents.forEach((badComponent) => {
                     if (!chTargetState2Components.includes(badComponent))
