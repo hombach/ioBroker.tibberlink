@@ -391,7 +391,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     async startCalculatorTasks() {
         if (!this.adapter.config.UseCalculator)
             return;
-        const badComponents = ["tibberlink", "Homes", "Calculations", "Active"]; // we must not use the Active input as output!!
+        const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
         for (const channel in this.adapter.config.CalculatorList) {
             if (!this.adapter.config.CalculatorList[channel] ||
                 !this.adapter.config.CalculatorList[channel].chTargetState ||
