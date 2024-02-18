@@ -103,29 +103,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
             }
             //#endregion
-            /* WIP - ORIGINAL
-            //#region *** setup chActive state object ***
-            if (this.adapter.config.CalculatorList[channel].chActive === undefined) {
-                this.adapter.config.CalculatorList[channel].chActive = false;
-            }
-            this.checkAndSetValueBoolean(
-                this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, channelName),
-                this.adapter.config.CalculatorList[channel].chActive,
-                `Whether the calculation channel is active`,
-                true,
-                true,
-            );
-            const valueActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
-            if (typeof valueActive === "boolean") {
-                this.adapter.config.CalculatorList[channel].chActive = valueActive;
-                this.adapter.log.debug(
-                    `setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelName} - set to Active: ${this.adapter.config.CalculatorList[channel].chActive}`,
-                );
-            } else {
-                this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
-            }
-            //#endregion
-            */
             //"best cost": Defined by the "TriggerPrice" state as input.
             //"best single hours": Defined by the "AmountHours" state as input.
             //"best hours block": Defined by the "AmountHours" state as input.
