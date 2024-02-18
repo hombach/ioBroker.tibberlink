@@ -102,7 +102,7 @@ export class TibberCalculator extends TibberHelper {
 			});
 			//#endregion
 
-			//#region *** setup chActive state object ***
+			//#region *** setup chActive state object for all channel types ***
 			if (this.adapter.config.CalculatorList[channel].chActive === undefined) {
 				this.adapter.config.CalculatorList[channel].chActive = false;
 			}
@@ -124,14 +124,22 @@ export class TibberCalculator extends TibberHelper {
 			}
 			//#endregion
 
-			//"best cost": Defined by the "TriggerPrice" state as input.
-			//"best single hours": Defined by the "AmountHours" state as input.
-			//"best hours block": Defined by the "AmountHours" state as input.
-			//"best hours block": Writes data to the "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour" states as output.
-			//"best cost LTF": Defined by the "TriggerPrice", "StartTime", "StopTime", "RepeatDays" states as input.
-			//"best single hours LTF": Defined by the "AmountHours", "StartTime", "StopTime", "RepeatDays" states as input.
-			//"best hours block LTF": Defined by the "AmountHours", "StartTime", "StopTime", "RepeatDays" states as input.
-			//"smart battery buffer": Defined by the "AmountHours", "EfficiencyLoss" states as input.
+			/*
+				"best cost"				| Input state: "TriggerPrice"
+										| Output state: "Output"
+				"best single hours" 	| Input state: "AmountHours"
+										| Output state: "Output"
+				"best hours block"		| Input state: "AmountHours"
+										| Output state: "Output", "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour"
+				"best cost LTF"			| Input state: "TriggerPrice", "StartTime", "StopTime", "RepeatDays"
+										| Output state: "Output"
+				"best single hours LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
+										| Output state: "Output"
+				"best hours block LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
+										| Output state: "Output"
+				"smart battery buffer"	| Input state: "AmountHours", "EfficiencyLoss"
+										| Output state: "Output", "Output2"
+			*/
 			switch (this.adapter.config.CalculatorList[channel].chType) {
 				case enCalcType.BestCost:
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value);
