@@ -96,7 +96,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 2.2.2 (2024-02-xx) WORK in PROGRESS
+### 2.2.2 (2024-02-19)
 
 -   (HombachC) simplify internal state handling
 -   (HombachC) shorten home string in Calculator screen (#317)
