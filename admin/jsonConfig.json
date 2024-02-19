@@ -582,19 +582,6 @@
 					"label": {
 						"en": "Use Default 'Active' states after adapter start"
 					},
-					"tooltip": {
-						"en": "Active on adapter start",
-						"de": "Aktiv beim Starten des Adapters",
-						"ru": "Активный при запуске адаптера",
-						"pt": "Ativo na inicialização do adaptador",
-						"nl": "Actief bij starten van de adapter",
-						"fr": "Actif au démarrage de l'adaptateur",
-						"it": "Attivo all'avvio dell'adattatore",
-						"es": "Activo al iniciar el adaptador",
-						"pl": "Aktywny przy uruchamianiu adaptera",
-						"uk": "Активний при запуску адаптера",
-						"zh-cn": "适配器启动时激活"
-					},
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
@@ -707,6 +694,19 @@
 										"pl": "najlepsze koszty",
 										"uk": "кращі витрати",
 										"zh-cn": "最佳成本"
+									},
+									"tooltip": {
+										"en": "'Best cost': Utilizes the 'TriggerPrice' object as input, producing a 'YES' output every hour when the current Tibber energy cost is below the trigger price",
+										"de": "'Beste Kosten': Verwendet das Objekt 'TriggerPrice' als Eingabe und erzeugt jede Stunde eine 'YES'-Ausgabe, wenn die aktuellen Tibber-Energiekosten unter dem Auslösepreis liegen",
+										"ru": "'Лучшие затраты': Использует объект 'TriggerPrice' в качестве входных данных, выдающее 'YES' каждый час, когда текущая стоимость энергии Tibber ниже цены триггера",
+										"pt": "'Melhor custo': Utiliza o objeto 'TriggerPrice' como entrada, produzindo uma saída 'YES' a cada hora quando o custo de energia atual da Tibber estiver abaixo do preço de gatilho",
+										"nl": "'Beste kost': Gebruikt het object 'TriggerPrice' als invoer, geeft elke uur een 'JA'-uitvoer wanneer de huidige Tibber energiekosten onder de drempelprijs liggen",
+										"fr": "'Meilleur coût': Utilise l'objet 'TriggerPrice' comme entrée, produisant une sortie 'YES' chaque heure lorsque le coût actuel de l'énergie Tibber est inférieur au prix déclencheur",
+										"it": "'Miglior costo': Utilizza l'oggetto 'TriggerPrice' come input, producendo un output 'YES' ogni ora quando il costo energetico corrente di Tibber è inferiore al prezzo di trigger",
+										"es": "'Mejor costo': Utiliza el objeto 'TriggerPrice' como entrada, produciendo una salida 'YES' cada hora cuando el costo actual de la energía Tibber está por debajo del precio de activación",
+										"pl": "'Najlepszy koszt': Wykorzystuje obiekt 'TriggerPrice' jako wejście, generując wyjście 'YES' co godzinę, gdy aktualny koszt energii Tibber jest poniżej ceny wyzwalacza",
+										"uk": "'Best cost': Використовує об'єкт 'TriggerPrice' як вхідні дані, видає 'YES' кожну годину, коли поточна вартість енергії Tibber нижче тригер-ціни",
+										"zh-cn": "'最佳成本'：使用'TriggerPrice'对象作为输入，当当前Tibber能源成本低于触发价格时，每小时产生'YES'输出"
 									},
 									"value": 1
 								},
