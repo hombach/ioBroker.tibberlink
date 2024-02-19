@@ -577,16 +577,6 @@
 					"lg": 12,
 					"newLine": true
 				},
-				"_UseDefaultActive": {
-					"type": "checkbox",
-					"label": {
-						"en": "Use Default 'Active' states after adapter start"
-					},
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"newLine": true
-				},
 
 				"CalculatorList": {
 					"type": "table",
@@ -658,17 +648,17 @@
 								"zh-cn": "家庭通道"
 							},
 							"tooltip": {
-								"en": "Channel Home",
-								"de": "Kanal Zuhause",
-								"ru": "Домашний канал",
-								"pt": "Canal Residencial",
-								"nl": "Thuis-kanaal",
-								"fr": "Canal Domicile",
-								"it": "Canale Home",
-								"es": "Canal de Hogar",
-								"pl": "Kanał Domowy",
-								"uk": "Домашній канал",
-								"zh-cn": "家庭通道"
+								"en": "select the home this channel should be attached to",
+								"de": "Wählen Sie das Zuhause aus, an das dieser Kanal angehängt werden soll",
+								"ru": "выберите дом, к которому должен быть присоединен этот канал",
+								"pt": "selecione a casa à qual este canal deve ser anexado",
+								"nl": "selecteer het huis waaraan dit kanaal moet worden gekoppeld",
+								"fr": "sélectionnez la maison à laquelle ce canal doit être attaché",
+								"it": "seleziona la casa a cui questo canale dovrebbe essere collegato",
+								"es": "seleccione el hogar al que este canal debe estar adjunto",
+								"pl": "wybierz dom, do którego ten kanał powinien być podłączony",
+								"uk": "виберіть будинок, до якого має бути приєднаний цей канал",
+								"zh-cn": "选择要连接到的主页"
 							},
 							"attr": "chHomeID",
 							"default": "No Home selected",
@@ -693,17 +683,17 @@
 								"zh-cn": "通道类型"
 							},
 							"tooltip": {
-								"en": "Channel Type",
-								"de": "Kanaltyp",
-								"ru": "Тип канала",
-								"pt": "Tipo de Canal",
-								"nl": "Soort Kanaal",
-								"fr": "Type de Canal",
-								"it": "Tipo di Canale",
-								"es": "Tipo de Canal",
-								"pl": "Typ kanału",
-								"uk": "Тип каналу",
-								"zh-cn": "通道类型"
+								"en": "Channels have to be activated or deactivated in a corresponding state",
+								"de": "Kanäle müssen in einem entsprechenden Zustand aktiviert oder deaktiviert werden",
+								"ru": "Каналы должны быть активированы или деактивированы в соответствующем состоянии",
+								"pt": "Os canais devem ser ativados ou desativados em um estado correspondente",
+								"nl": "Kanalen moeten worden geactiveerd of gedeactiveerd in een overeenkomstige staat",
+								"fr": "Les chaînes doivent être activées ou désactivées dans un état correspondant",
+								"it": "I canali devono essere attivati o disattivati in uno stato corrispondente",
+								"es": "Los canales deben activarse o desactivarse en un estado correspondiente",
+								"pl": "Kanały muszą być aktywowane lub dezaktywowane w odpowiednim stanie",
+								"uk": "Канали повинні бути активовані або деактивовані в відповідному стані",
+								"zh-cn": "通道必须在相应状态下激活或停用"
 							},
 							"attr": "chType",
 							"options": [
@@ -840,17 +830,17 @@
 								"zh-cn": "通道名称"
 							},
 							"tooltip": {
-								"en": "Channel Name",
-								"de": "Kanalname",
-								"ru": "Имя канала",
-								"pt": "Nome do Canal",
-								"nl": "Kanaalnaam",
-								"fr": "Nom du Canal",
-								"it": "Nome del Canale",
-								"es": "Nombre del Canal",
-								"pl": "Nazwa kanału",
-								"uk": "Назва каналу",
-								"zh-cn": "通道名称"
+								"en": "channel name to better identify your states",
+								"de": "Kanalname zur besseren Identifizierung Ihrer Zustände",
+								"ru": "название канала для лучшей идентификации ваших состояний",
+								"pt": "nome do canal para identificar melhor seus estados",
+								"nl": "kanaalnaam om uw toestanden beter te identificeren",
+								"fr": "nom du canal pour mieux identifier vos états",
+								"it": "nome del canale per identificare meglio i tuoi stati",
+								"es": "nombre del canal para identificar mejor tus estados",
+								"pl": "nazwa kanału do lepszego zidentyfikowania twoich stanów",
+								"uk": "назва каналу для кращої ідентифікації ваших станів",
+								"zh-cn": "通道名称以更好地识别您的状态"
 							},
 							"maxLength": 25,
 							"attr": "chName",

@@ -111,7 +111,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chActive,
 				`Whether the calculation channel is active`,
 				true,
-				false,
+				true, // set to false if adapter config from database should be used
 			);
 			const valueActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
 			if (typeof valueActive === "boolean") {
