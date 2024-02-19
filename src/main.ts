@@ -348,7 +348,8 @@ class Tibberlink extends utils.Adapter {
 									obj.from,
 									obj.command,
 									this.homeInfoList.map((item) => ({
-										label: `${item.NameInApp} (${item.ID.substring(item.ID.lastIndexOf("-") + 1)})`,
+										//label: `${item.NameInApp} (${item.ID.substring(item.ID.lastIndexOf("-") + 1)})`,
+										label: `${item.NameInApp} (...${item.ID.slice(-8)})`,
 										value: item.ID,
 									})),
 									obj.callback,

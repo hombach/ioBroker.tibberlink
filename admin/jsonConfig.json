@@ -880,7 +880,7 @@
 							"attr": "chTargetState2",
 							"filter": false,
 							"sort": false,
-							"width": "15",
+							"width": "15%",
 							"hidden": "data.chType !== 7"
 						},
 						{
