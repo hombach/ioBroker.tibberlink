@@ -599,40 +599,6 @@
 					"hidden": "!data.UseCalculator",
 					"items": [
 						{
-							"type": "checkbox",
-							"title": {
-								"en": "Active",
-								"de": "Aktiv",
-								"ru": "Активный",
-								"pt": "Ativo",
-								"nl": "Actief",
-								"fr": "Actif",
-								"it": "Attivo",
-								"es": "Activo",
-								"pl": "Aktywny",
-								"uk": "Активний",
-								"zh-cn": "活跃"
-							},
-							"tooltip": {
-								"en": "Active on adapter start",
-								"de": "Aktiv beim Starten des Adapters",
-								"ru": "Активный при запуске адаптера",
-								"pt": "Ativo na inicialização do adaptador",
-								"nl": "Actief bij starten van de adapter",
-								"fr": "Actif au démarrage de l'adaptateur",
-								"it": "Attivo all'avvio dell'adattatore",
-								"es": "Activo al iniciar el adaptador",
-								"pl": "Aktywny przy uruchamianiu adaptera",
-								"uk": "Активний при запуску адаптера",
-								"zh-cn": "适配器启动时激活"
-							},
-							"attr": "chActive",
-							"filter": false,
-							"sort": false,
-							"width": "2,5%",
-							"default": false
-						},
-						{
 							"type": "selectSendTo",
 							"title": {
 								"en": "Channel Home",
@@ -888,7 +854,7 @@
 							"attr": "chValueOn",
 							"filter": false,
 							"sort": false,
-							"width": "7.5%",
+							"width": "10%",
 							"default": ""
 						},
 						{
