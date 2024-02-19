@@ -582,7 +582,7 @@
 					"label": {
 						"en": "Use Default 'Active' states after adapter start"
 					},
-					"help": {
+					"tooltip": {
 						"en": "Active on adapter start",
 						"de": "Aktiv beim Starten des Adapters",
 						"ru": "Активный при запуске адаптера",
@@ -635,6 +635,19 @@
 								"pl": "Aktywny",
 								"uk": "Активний",
 								"zh-cn": "活跃"
+							},
+							"tooltip": {
+								"en": "Active on adapter start",
+								"de": "Aktiv beim Starten des Adapters",
+								"ru": "Активный при запуске адаптера",
+								"pt": "Ativo na inicialização do adaptador",
+								"nl": "Actief bij starten van de adapter",
+								"fr": "Actif au démarrage de l'adaptateur",
+								"it": "Attivo all'avvio dell'adattatore",
+								"es": "Activo al iniciar el adaptador",
+								"pl": "Aktywny przy uruchamianiu adaptera",
+								"uk": "Активний при запуску адаптера",
+								"zh-cn": "适配器启动时激活"
 							},
 							"attr": "chActive",
 							"filter": false,
