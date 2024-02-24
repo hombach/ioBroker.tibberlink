@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "2.2.2",
+		"version": "2.2.3",
 		"news": {
+			"2.2.3": {
+				"en": "WIP"
+			},
 			"2.2.2": {
 				"en": "simplify internal state handling\nshorten home string in Calculator screen (#317)\nfix feedback loop trap (#321)\nadd some tooltips to config screen (#317)",
 				"de": "Vereinfachung der internen Zustandsverwaltung\nVerkürzung der Startzeichenfolge im Taschenrechnerbildschirm (#317)\nBehebung der Feedbackschleifenfalle (#321)\nEinige Quickinfo zu Konfigurationsbildschirm hinzufügen (#317)",
@@ -249,19 +252,6 @@
 				"pl": "Wdrożenie trybu kalkulatora Tibber 'najlepsze pojedyncze godziny' (#16)\npoprawione tłumaczenia (#128)\nnaprawiony błąd przy początkowym odczycie stanów kalkulatora (#129)",
 				"uk": "Впровадження режиму калькулятора Tibber 'кращі одиночні години' (#16)\nвиправлені переклади (#128)\nвиправлено помилку при початковому читанні станів калькулятора (#129)",
 				"zh-cn": "实施Tibber计算器模式 '最佳单个小时' (#16)\n修正的翻译 (#128)\n修正了计算器状态初始读取中的错误 (#129)"
-			},
-			"1.1.0": {
-				"en": "Implement Tibber Calculator Mode 'Best Price' (#16)",
-				"de": "Implementierung des Tibber Calculator Modus 'Bester Preis' (#16)",
-				"ru": "Реализация режима калькулятора Tibber 'Лучшая цена' (#16)",
-				"pt": "Implementar o Modo Calculadora Tibber 'Melhor Preço' (#16)",
-				"nl": "Implementeer Tibber Calculator Modus 'Beste Prijs' (#16)",
-				"fr": "Implémentation du mode Calculateur Tibber 'Meilleur prix' (#16)",
-				"it": "Implementa la Modalità Calcolatrice Tibber 'Miglior Prezzo' (#16)",
-				"es": "Implementar el Modo Calculadora de Tibber 'Mejor Precio' (#16)",
-				"pl": "Wprowadzenie trybu kalkulatora Tibber 'Najlepsza Cena' (#16)",
-				"uk": "Реалізація режиму калькулятора Tibber 'Найкраща ціна' (#16)",
-				"zh-cn": "实施Tibber计算器模式 '最佳价格' (#16)"
 			}
 		},
 		"messages": [
