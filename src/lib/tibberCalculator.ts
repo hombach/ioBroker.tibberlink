@@ -152,6 +152,7 @@ export class TibberCalculator extends TibberHelper {
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
 					await this.setup_chTriggerPrice(homeId, channel);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
+					// WIP
 					if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
 						this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
 					} else {
@@ -236,6 +237,7 @@ export class TibberCalculator extends TibberHelper {
 			//***  subscribeStates  ***
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 			// all states changes inside the calculator channel settings namespace are subscribed
+			// WiP was passiert mit den Outputs??
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
 		}
@@ -462,7 +464,7 @@ export class TibberCalculator extends TibberHelper {
 	async startCalculatorTasks(): Promise<void> {
 		if (!this.adapter.config.UseCalculator) return;
 		const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
-
+		// WiP einen first Run mode implementieren, das muss nicht bei jedem Lauf durchgegangen werden
 		for (const channel in this.adapter.config.CalculatorList) {
 			if (
 				!this.adapter.config.CalculatorList[channel] ||
@@ -471,6 +473,7 @@ export class TibberCalculator extends TibberHelper {
 			) {
 				this.adapter.log.warn(
 					`Empty destination state in calculator channel ${channel} defined - provide correct external state - execution of channel skipped`,
+					//WIP dann einen default eintragen oder default löschen
 				);
 				continue;
 			}
@@ -480,6 +483,7 @@ export class TibberCalculator extends TibberHelper {
 			badComponents.forEach((badComponent) => {
 				if (!chTargetStateComponents.includes(badComponent)) foundAllBadComponents = false;
 			});
+			// WiP - oder enthält "Output"....
 			if (foundAllBadComponents) {
 				this.adapter.log.error(
 					`Invalid destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`,
@@ -503,9 +507,11 @@ export class TibberCalculator extends TibberHelper {
 				badComponents.forEach((badComponent) => {
 					if (!chTargetState2Components.includes(badComponent)) foundAllBadComponents = false;
 				});
+				// WiP - oder enthält "Output"....
 				if (foundAllBadComponents) {
 					this.adapter.log.error(
 						`Invalid second destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`,
+						//WIP
 					);
 					continue;
 				}

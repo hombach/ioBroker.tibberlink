@@ -1,9 +1,9 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "2.2.3",
+		"version": "2.3.0",
 		"news": {
-			"2.2.3": {
+			"2.3.0": {
 				"en": "WIP"
 			},
 			"2.2.2": {

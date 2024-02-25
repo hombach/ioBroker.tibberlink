@@ -96,7 +96,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 2.2.3 (2024-03-xx) WORK in PROGRESS
+### 2.3.0 (2024-03-xx) WORK in PROGRESS
 
 -   (HombachC) WiP
 
