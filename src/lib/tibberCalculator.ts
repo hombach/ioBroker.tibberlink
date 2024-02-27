@@ -234,10 +234,17 @@ export class TibberCalculator extends TibberHelper {
 					this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
 			}
 
-			//***  subscribeStates  ***
-			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
+			//#region *** subscribe states ***
+			// WiP  -  this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 			// all states changes inside the calculator channel settings namespace are subscribed
-			// WiP was passiert mit den Outputs??
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StartTime`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StopTime`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+			//#endregion
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
 		}
