@@ -616,16 +616,7 @@
 					},
 					hidden: "!data.UseCalculator",
 					items: [
-						/* tibberlink has an invalid jsonConfig:
-[
-	{"instancePath":"/items/_CalculatorTab/items/CalculatorList/items/0/tooltip",
-		"schemaPath":"#/items/properties/tooltip/type",
-		"keyword":"type",
-		"params":{"type":"string"},
-		"message":"must be string"
-	}
-]
-*/ {
+						{
 							type: "selectSendTo",
 							title: {
 								en: "Channel Home",
