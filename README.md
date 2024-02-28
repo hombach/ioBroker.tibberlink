@@ -99,6 +99,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 2.3.0 (2024-03-xx) WORK in PROGRESS
 
 -   (HombachC) WiP (#325)
+-   (HombachC) switch jsonConfig to use json5
 -   (HombachC) bump dependencies
 
 ### 2.2.2 (2024-02-19)
