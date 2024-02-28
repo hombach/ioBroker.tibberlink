@@ -1261,6 +1261,24 @@
 
 
 /* tibberlink has an invalid jsonConfig:
-[{"instancePath":"/items/_CalculatorTab/items/CalculatorList/items/0/tooltip","schemaPath":"#/items/properties/tooltip/type","keyword":"type","params":{"type":"string"},"message":"must be string"},{"instancePath":"/items/_CalculatorTab/items/CalculatorList","schemaPath":"#/patternProperties/%5E.%2B/allOf/23/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"},{"instancePath":"/items/_CalculatorTab","schemaPath":"#/properties/items/patternProperties/%5E.%2B/allOf/8/if","keyword":"if","params":{"failingKeyword":"then"},"message":"must match \"then\" schema"}]
-
+[
+	{"instancePath":"/items/_CalculatorTab/items/CalculatorList/items/0/tooltip",
+		"schemaPath":"#/items/properties/tooltip/type",
+		"keyword":"type",
+		"params":{"type":"string"},
+		"message":"must be string"
+	},
+	{"instancePath":"/items/_CalculatorTab/items/CalculatorList",
+		"schemaPath":"#/patternProperties/%5E.%2B/allOf/23/if",
+		"keyword":"if",
+		"params":{"failingKeyword":"then"},
+		"message":"must match \"then\" schema"
+	},
+	{"instancePath":"/items/_CalculatorTab",
+		"schemaPath":"#/properties/items/patternProperties/%5E.%2B/allOf/8/if",
+		"keyword":"if",
+		"params":{"failingKeyword":"then"},
+		"message":"must match \"then\" schema"
+	}
+]
 */
