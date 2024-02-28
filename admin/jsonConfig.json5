@@ -301,7 +301,7 @@
 					hidden: "!data.TibberAPIToken",
 					size: 3,
 				},
-
+				// Start LINE
 				FeedConfigLastMeterConsumption: {
 					type: "checkbox",
 					label: "LastMeterConsumption",
@@ -327,7 +327,9 @@
 					md: 6,
 					lg: 4,
 				},
+				// End LINE
 
+				// Start LINE
 				FeedConfigLastMeterProduction: {
 					type: "checkbox",
 					label: "LastMeterProduction",
@@ -353,7 +355,9 @@
 					md: 6,
 					lg: 4,
 				},
+				// End LINE
 
+				// Start LINE
 				FeedConfigAccumulatedCost: {
 					type: "checkbox",
 					label: "AccumulatedCost",
@@ -379,7 +383,9 @@
 					md: 6,
 					lg: 4,
 				},
+				// End LINE
 
+				// Start LINE
 				FeedConfigMinPower: {
 					type: "checkbox",
 					label: "MinPower",
@@ -405,7 +411,9 @@
 					md: 6,
 					lg: 4,
 				},
+				// End LINE
 
+				// Start LINE
 				FeedConfigPowerProduction: {
 					type: "checkbox",
 					label: "PowerProduction",
@@ -431,6 +439,9 @@
 					md: 6,
 					lg: 4,
 				},
+				// End LINE
+
+				// Start LINE
 				FeedConfigPowerFactor: {
 					type: "checkbox",
 					label: "PowerFactor",
@@ -440,7 +451,6 @@
 					lg: 4,
 					newLine: true,
 				},
-
 				FeedConfigSignalStrength: {
 					type: "checkbox",
 					label: "SignalStrength",
@@ -449,7 +459,9 @@
 					md: 6,
 					lg: 4,
 				},
+				// End LINE
 
+				// Start LINE
 				_phases: {
 					type: "staticText",
 					hidden: "!data.TibberAPIToken",
@@ -466,8 +478,11 @@
 						uk: "Значення напруги та струму - В разі кількох лічильників ці значення можуть не включати в кадр даних, що може призвести до нульових значень. Інші відхилення також можуть виникнути на основі конкретної прошивки лічильника. Нульові значення не створять стан в ваших об'єктах ioBroker.",
 						"zh-cn": "电压和电流数值 - 在多台仪表的情况下，这些数值可能不包括在数据帧中，可能导致空值。根据电表的具体固件，还可能出现其他偏差。空值不会在您的ioBroker对象中生成状态。",
 					},
+					newLine: true,
 				},
+				// End LINE
 
+				// Start LINE
 				FeedConfigVoltagePhase1: {
 					type: "checkbox",
 					label: "VoltagePhase1",
@@ -493,7 +508,9 @@
 					md: 6,
 					lg: 4,
 				},
+				// End LINE
 
+				// Start LINE
 				FeedConfigCurrentL1: {
 					type: "checkbox",
 					label: "CurrentL1",
@@ -519,6 +536,7 @@
 					md: 6,
 					lg: 4,
 				},
+				// End LINE
 			},
 		},
 
@@ -598,7 +616,16 @@
 					},
 					hidden: "!data.UseCalculator",
 					items: [
-						{
+						/* tibberlink has an invalid jsonConfig:
+[
+	{"instancePath":"/items/_CalculatorTab/items/CalculatorList/items/0/tooltip",
+		"schemaPath":"#/items/properties/tooltip/type",
+		"keyword":"type",
+		"params":{"type":"string"},
+		"message":"must be string"
+	}
+]
+*/ {
 							type: "selectSendTo",
 							title: {
 								en: "Channel Home",
