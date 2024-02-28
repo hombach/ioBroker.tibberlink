@@ -431,6 +431,7 @@
 					"md": 6,
 					"lg": 4
 				},
+
 				"FeedConfigPowerFactor": {
 					"type": "checkbox",
 					"label": "PowerFactor",
@@ -440,7 +441,6 @@
 					"lg": 4,
 					"newLine": true
 				},
-
 				"FeedConfigSignalStrength": {
 					"type": "checkbox",
 					"label": "SignalStrength",
@@ -465,7 +465,8 @@
 						"pl": "Wartości napięcia i prądu - W przypadku kilku liczników te wartości mogą nie być uwzględnione w ramce danych, co może skutkować wartościami zerowymi. Inne odstępstwa mogą również wystąpić na podstawie konkretnej wersji firmware licznika. Wartości zerowe nie wygenerują stanu w twoich obiektach ioBroker.",
 						"uk": "Значення напруги та струму - В разі кількох лічильників ці значення можуть не включати в кадр даних, що може призвести до нульових значень. Інші відхилення також можуть виникнути на основі конкретної прошивки лічильника. Нульові значення не створять стан в ваших об'єктах ioBroker.",
 						"zh-cn": "电压和电流数值 - 在多台仪表的情况下，这些数值可能不包括在数据帧中，可能导致空值。根据电表的具体固件，还可能出现其他偏差。空值不会在您的ioBroker对象中生成状态。"
-					}
+					},
+					"newLine": true
 				},
 
 				"FeedConfigVoltagePhase1": {
