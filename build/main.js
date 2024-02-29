@@ -526,7 +526,7 @@ class Tibberlink extends utils.Adapter {
                                     default:
                                         this.log.debug(`unknown value for setting type: ${settingType}`);
                                 }
-                                this.tibberCalculator.startCalculatorTasks();
+                                this.tibberCalculator.startCalculatorTasks(true);
                             }
                             else {
                                 this.log.debug(`wrong index values in state ID or missing value for settingType`);

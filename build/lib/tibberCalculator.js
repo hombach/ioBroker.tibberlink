@@ -394,7 +394,9 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEndFullHour for calculator`));
         }
     }
-    async startCalculatorTasks() {
+    async startCalculatorTasks(onStateChange) {
+        if (onStateChange === undefined)
+            onStateChange = false;
         if (!this.adapter.config.UseCalculator)
             return;
         const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
@@ -457,7 +459,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         this.executeCalculatorBestHoursBlock(parseInt(channel), true);
                         break;
                     case tibberHelper_1.enCalcType.SmartBatteryBuffer:
-                        this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
+                        if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+                            // If set to Active=false just now - or still active then act  - just produce debug log in the following runs
+                            this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
+                        }
+                        else {
+                            this.adapter.log.debug(`calculator channel: ${channel}-smart battery buffer; execution skipped because channel not set to active in channel states`);
+                        }
                         break;
                     default:
                         this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
