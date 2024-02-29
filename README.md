@@ -98,9 +98,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 2.3.0 (2024-03-xx) WORK in PROGRESS
 
+-   (HombachC) BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)
 -   (HombachC) WiP (#325)
 -   (HombachC) WiP (#329)
--   (HombachC) BREAKING CHANGE: calculator channel type smart battery buffer will switch outputs to off only once, directly after channel deactivation (#332)
 -   (HombachC) bump dependencies
 
 ### 2.2.2 (2024-02-19)
