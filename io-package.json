@@ -4,7 +4,7 @@
 		"version": "2.3.0",
 		"news": {
 			"2.3.0": {
-				"en": "BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)"
+				"en": "BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)\nFixed error in jsonConfig.json (#329)"
 			},
 			"2.2.2": {
 				"en": "simplify internal state handling\nshorten home string in Calculator screen (#317)\nfix feedback loop trap (#321)\nadd some tooltips to config screen (#317)",
