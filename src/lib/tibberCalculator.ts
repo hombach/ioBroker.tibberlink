@@ -547,7 +547,7 @@ export class TibberCalculator extends TibberHelper {
 						break;
 					case enCalcType.SmartBatteryBuffer:
 						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
-							// If set to Active=false just now - or still active then act  - just produce debug log in the following runs
+							// If set to Active=false just now - or still active then act  - else just produce debug log in the following runs
 							this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
 						} else {
 							this.adapter.log.debug(
@@ -845,6 +845,7 @@ export class TibberCalculator extends TibberHelper {
 	}
 
 	async executeCalculatorSmartBatteryBuffer(channel: number): Promise<void> {
+		//#region *** SPECIFICATION ***
 		/*
 		Summary:
 			Develop a channel that categorizes hourly energy prices into three groups—cheap, normal, and expensive.
@@ -873,6 +874,7 @@ export class TibberCalculator extends TibberHelper {
 			- Normal Hours - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2)
 			- Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
 		*/
+		//#endregion
 		try {
 			let valueToSet: string = "";
 			let valueToSet2: string = "";
