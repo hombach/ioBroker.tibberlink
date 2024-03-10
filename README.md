@@ -100,6 +100,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)
 -   (HombachC) Fixed error in jsonConfig.json (#329)
+-   (HombachC) deleted feed disconnect debug-message, cause warn message already exists
 -   (HombachC) bump typescript-eslint to gen 7
 -   (HombachC) bump dependencies
 
