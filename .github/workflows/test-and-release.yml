@@ -37,7 +37,8 @@ jobs:
             - uses: actions/setup-node@v4
               with:
                   node-version: 20
-            - run: npm i
+            # - run: npm install
+            - run: npm install --legacy-peer-deps
             - run: npm run build
 
     # Runs adapter tests on all supported node versions and OSes
