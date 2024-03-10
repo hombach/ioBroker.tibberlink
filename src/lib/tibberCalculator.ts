@@ -124,8 +124,7 @@ export class TibberCalculator extends TibberHelper {
 			}
 			//#endregion
 
-			/*
-				"best cost"				| Input state: "TriggerPrice"
+			/*	"best cost"				| Input state: "TriggerPrice"
 										| Output state: "Output"
 				"best single hours" 	| Input state: "AmountHours"
 										| Output state: "Output"
@@ -233,10 +232,10 @@ export class TibberCalculator extends TibberHelper {
 					break;
 				default:
 					this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
-			}
+			} //end setup and delete channel states according to channel type
 
-			//#region *** subscribe states ***
-			// WiP  -  this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
+			//#region *** subscribe state changes ***
+			// WIP - ORIGINAL:  this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 			// all states changes inside the calculator channel settings namespace are subscribed
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
@@ -309,7 +308,7 @@ export class TibberCalculator extends TibberHelper {
 	async setup_chStartTime(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
-			//***  chAmountHours  ***
+			//***  chStartTime  ***
 			if (this.adapter.config.CalculatorList[channel].chStartTime === undefined) {
 				const today = new Date();
 				today.setHours(0, 0, 0, 0); // sets clock to 0:00
@@ -338,7 +337,7 @@ export class TibberCalculator extends TibberHelper {
 	async setup_chStopTime(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
-			//***  chAmountHours  ***
+			//***  chStopTime  ***
 			if (this.adapter.config.CalculatorList[channel].chStopTime === undefined) {
 				const today = new Date();
 				today.setHours(23, 59, 0, 0); // sets clock to 0:00
@@ -472,7 +471,9 @@ export class TibberCalculator extends TibberHelper {
 	async startCalculatorTasks(onStateChange?: boolean): Promise<void> {
 		if (onStateChange === undefined) onStateChange = false;
 		if (!this.adapter.config.UseCalculator) return;
+
 		const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
+
 		// WIP einen first Run mode implementieren, das muss nicht bei jedem Lauf durchgegangen werden
 		for (const channel in this.adapter.config.CalculatorList) {
 			if (
@@ -546,9 +547,9 @@ export class TibberCalculator extends TibberHelper {
 					case enCalcType.BestHoursBlockLTF:
 						this.executeCalculatorBestHoursBlock(parseInt(channel), true);
 						break;
-					case enCalcType.SmartBatteryBuffer:
+					case enCalcType.SmartBatteryBuffer: // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
+						// WIP #332 - 2.3.0
 						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
-							// If set to Active=false just now - or still active then act  - else just produce debug log in the following runs
 							this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
 						} else {
 							this.adapter.log.debug(

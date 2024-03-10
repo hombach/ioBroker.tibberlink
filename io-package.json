@@ -4,7 +4,17 @@
 		"version": "2.3.0",
 		"news": {
 			"2.3.0": {
-				"en": "BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)\nFixed error in jsonConfig.json (#329)"
+				"en": "BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)\nFixed error in jsonConfig.json (#329)",
+				"de": "WICHTIG: Rechnerkanäle vom Typ 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde (#332)\nBehobener Fehler in jsonConfig.json (#329)",
+				"ru": "ВАЖНО: Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false (#332)\nИсправлена ошибка в jsonConfig.json (#329)",
+				"pt": "IMPORTANTE: Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false (#332)\nErro corrigido em jsonConfig.json (#329)",
+				"nl": "BELANGRIJK: Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false (#332)\nFout in jsonConfig.json opgelost (#329)",
+				"fr": "IMPORTANT : Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false (#332)\nErreur corrigée dans jsonConfig.json (#329)",
+				"it": "IMPORTANTE: I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false (#332)\nErrore corretto in jsonConfig.json (#329)",
+				"es": "IMPORTANTE: Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false (#332)\nError corregido en jsonConfig.json (#329)",
+				"pl": "WAŻNE: Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false (#332)\nNaprawiony błąd w jsonConfig.json (#329)",
+				"uk": "ВАЖЛИВО: Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false (#332)\nВиправлена помилка в jsonConfig.json (#329)",
+				"zh-cn": "重要: '智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭” (#332)\n已修复jsonConfig.json中的错误 (#329)"
 			},
 			"2.2.2": {
 				"en": "simplify internal state handling\nshorten home string in Calculator screen (#317)\nfix feedback loop trap (#321)\nadd some tooltips to config screen (#317)",
