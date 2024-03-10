@@ -15,7 +15,6 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
         this.addEventHandlerOnFeed(this.tibberFeed);
     }
     async ConnectPulseStream() {
-        // ConnectPulseStream(): void {
         try {
             this.tibberFeed.connect();
         }
@@ -45,7 +44,7 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
             this.adapter.setState("info.connection", false, true);
             if (this.adapter.config.HomesList.some((info) => info.feedActive)) {
                 this.reconnectTime = 6000; // reinit
-                this.adapter.log.warn(`A feed was disconnected. I try to reconnect in ${this.reconnectTime / 1000}sec - Tibber-feed error: ${data.toString()}`);
+                this.adapter.log.warn(`A feed was disconnected. I try to reconnect in ${this.reconnectTime / 1000}sec  -  Tibber error text: ${data.toString()}`);
                 //WIP-ORIGINAL: this.adapter.log.warn(`A feed was disconnected. I try to reconnect in ${this.reconnectTime / 1000}sec`);
                 this.reconnect();
             }
