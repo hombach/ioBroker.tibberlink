@@ -9,7 +9,7 @@ clone_folder: 'c:\projects\%APPVEYOR_PROJECT_NAME%'
 install:
     - ps: "Update-NodeJsInstallation (Get-NodeJsLatestBuild $env:nodejs_version) $env:platform"
     - ps: "$NpmVersion = (npm -v).Substring(0,1)"
-    - npm install
+    - npm install --legacy-peer-deps
 test_script:
     - echo %cd%
     - node --version
