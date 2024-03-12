@@ -96,6 +96,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 2.3.2 (2024-03-xx) WORK in PROGRESS
+
+-   (HombachC) code optimizations
+
 ### 2.3.1 (2024-03-10)
 
 -   (HombachC) BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)

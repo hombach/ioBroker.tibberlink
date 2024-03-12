@@ -459,7 +459,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         this.executeCalculatorBestHoursBlock(parseInt(channel), true);
                         break;
                     case tibberHelper_1.enCalcType.SmartBatteryBuffer: // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
-                        // WIP #332 - 2.3.0
+                        // WIP #332 - 2.3.1
                         if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
                         }

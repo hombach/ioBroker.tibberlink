@@ -149,10 +149,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updatePricesToday(homeId, forceUpdate) {
         try {
             let exDate = null;
-            // POTENTIAL 2.0.0 exJSON not needed?? -> 1 line
-            // const exPricesTodaynew: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
-            const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
-            const exPricesToday = JSON.parse(exJSON);
+            // WIP 2.3.2 exJSON not needed -> 1 line
+            const exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
+            //const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
+            //const exPricesToday: IPrice[] = JSON.parse(exJSON);
             if (Array.isArray(exPricesToday) && exPricesToday[2] && exPricesToday[2].startsAt) {
                 exDate = new Date(exPricesToday[2].startsAt);
             }
@@ -160,6 +160,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             today.setHours(0, 0, 0, 0); // sets clock to 0:00
             if (!exDate || exDate <= today || forceUpdate) {
                 const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
+                // POTENTIAL 2.3.1 better error logging
+                if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2] && pricesToday[2].total)) {
+                    throw new Error(`Got invalid data structure from Tibber`);
+                }
+                // WIP
                 this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json"); // write also it might be empty
                 this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
@@ -231,8 +236,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
     async updatePricesTomorrow(homeId, forceUpdate) {
         try {
             let exDate = null;
-            const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
-            const exPricesTomorrow = JSON.parse(exJSON);
+            // WIP 2.3.2 exJSON not needed -> 1 line
+            const exPricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`));
+            // const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
+            // const exPricesTomorrow: IPrice[] = JSON.parse(exJSON);
             if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
                 exDate = new Date(exPricesTomorrow[2].startsAt);
             }
@@ -240,8 +247,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             morgen.setDate(morgen.getDate() + 1);
             morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
             if (!exDate || exDate < morgen || forceUpdate) {
-                //if (!exDate || exDate <= morgen || forceUpdate) {  FIX in 1.8.0
-                // -> try getting new data from Tibber server
                 const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
                 this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
                 this.checkAndSetValue(this.getStatePrefix(homeId, "PricesTomorrow", "json"), JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); // write also it might be empty
@@ -325,6 +330,14 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
         }
     }
+    /**
+     * Updates the list of tomorrow's prices for one home.
+     *
+     * @param homeId - The unique identifier of the home.
+     * @param objectDestination - The destination object for storing price data.
+     * @param price - The price object containing price information.
+     * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
+     */
     async fetchPrice(homeId, objectDestination, price) {
         await this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), price.total, "Total price (energy + taxes)");
         this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), price.energy, "Spotmarket energy price");

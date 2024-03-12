@@ -300,7 +300,7 @@ class Tibberlink extends utils.Adapter {
 	}
 
 	/**
-	 * generates delay time in milliseconds between min minutes and max minutes
+	 * generates random delay time in milliseconds between min minutes and max minutes
 	 *
 	 * @param minMinutes - minimum minutes of delay as number
 	 * @param maxMinutes - maximum minutes of delay as number
@@ -376,7 +376,7 @@ class Tibberlink extends utils.Adapter {
 			for (const cronJob of this.cronList) {
 				cronJob.stop();
 			}
-			// info.connect to false, if adapter is closed
+			// info.connect to false, when adapter is shut down
 			this.setState("info.connection", false, true);
 			callback();
 		} catch (e) {

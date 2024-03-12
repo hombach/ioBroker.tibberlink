@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "2.3.1",
+		"version": "2.3.2",
 		"news": {
+			"2.3.2": {
+				"en": "code optimizations"
+			},
 			"2.3.1": {
 				"en": "BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)\nFixed error in jsonConfig.json (#329)",
 				"de": "WICHTIG: Rechnerkanäle vom Typ 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde (#332)\nBehobener Fehler in jsonConfig.json (#329)",
@@ -158,19 +161,6 @@
 				"pl": "Wdrożenie pobierania historycznych danych o zużyciu z serwera Tibber (#163)",
 				"uk": "Впровадження отримання історичних даних про споживання від сервера Tibber (#163)",
 				"zh-cn": "实现从 Tibber 服务器获取历史耗电数据 (#163)"
-			},
-			"1.6.1": {
-				"en": "Cleanup in documentation and translation handling",
-				"de": "Aufräumen in der Dokumentation und Übersetzungsverarbeitung",
-				"ru": "Очистка в документации и обработке перевода",
-				"pt": "Limpeza na documentação e manipulação de tradução",
-				"nl": "Opschonen in documentatie en vertalingsverwerking",
-				"fr": "Nettoyage de la documentation et de la gestion des traductions",
-				"it": "Pulizia nella documentazione e nella gestione delle traduzioni",
-				"es": "Limpieza en la documentación y manejo de traducciones",
-				"pl": "Oczyszczenie w dokumentacji i obsłudze tłumaczeń",
-				"uk": "Очищення в документації та обробці перекладу",
-				"zh-cn": "清理文档和翻译处理"
 			},
 			"1.6.0": {
 				"en": "Fixed major bug in 1.5.0, not working calculator channels (#212)\nImplemented limit calculations to a time frame (#153)",
