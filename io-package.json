@@ -4,7 +4,7 @@
 		"version": "2.3.2",
 		"news": {
 			"2.3.2": {
-				"en": "code optimizations"
+				"en": "code optimizations\nfix undefined force mode(#349)"
 			},
 			"2.3.1": {
 				"en": "BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)\nFixed error in jsonConfig.json (#329)",

@@ -55,10 +55,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      * updates current prices of all homes
      *
      * @param homeInfoList - homeInfo list object
-     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
      * @returns okprice - got correct data
      */
-    async updateCurrentPriceAllHomes(homeInfoList, forceUpdate) {
+    async updateCurrentPriceAllHomes(homeInfoList, forceUpdate = false) {
         let okprice = true;
         for (const index in homeInfoList) {
             if (!(await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate)))
@@ -70,15 +70,18 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      * updates current price of one home
      *
      * @param homeId - homeId string
-     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
      * @returns okprice - got new data
      */
-    async updateCurrentPrice(homeId, forceUpdate) {
+    async updateCurrentPrice(homeId, forceUpdate = false) {
         try {
             if (homeId) {
                 let exDateCurrent = null;
-                exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
                 const now = new Date();
+                if (!forceUpdate) {
+                    //WiP #348
+                }
+                exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
                 // update remaining average
                 const pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
                 if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
@@ -120,21 +123,20 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      * updates lists of todays prices of all homes
      *
      * @param homeInfoList - homeInfo list object
-     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
      * @returns okprice - got correct data
      */
-    async updatePricesTodayAllHomes(homeInfoList, forceUpdate) {
+    async updatePricesTodayAllHomes(homeInfoList, forceUpdate = false) {
         let okprice = true;
-        const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
-        for (const index in homeInfoList) {
-            if (!homeInfoList[index].PriceDataPollActive)
+        for (const curHomeInfo of homeInfoList) {
+            if (!curHomeInfo.PriceDataPollActive)
                 continue;
-            if (!(await this.updatePricesToday(homeInfoList[index].ID, currentForceUpdate))) {
-                okprice = false; // single fault sets all false
+            if (!(await this.updatePricesToday(curHomeInfo.ID, forceUpdate))) {
+                okprice = false;
             }
             else {
                 const now = new Date();
-                this.checkAndSetValue(this.getStatePrefix(homeInfoList[index].ID, "PricesToday", "lastUpdate"), now.toString(), `last update of prices today`);
+                this.checkAndSetValue(this.getStatePrefix(curHomeInfo.ID, "PricesToday", "lastUpdate"), now.toString(), `last update of prices today`);
             }
         }
         return okprice;
@@ -143,10 +145,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      * updates list of todays prices of one home
      *
      * @param homeId - homeId string
-     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
      * @returns okprice - got correct data
      */
-    async updatePricesToday(homeId, forceUpdate) {
+    async updatePricesToday(homeId, forceUpdate = false) {
         try {
             let exDate = null;
             // WIP 2.3.2 exJSON not needed -> 1 line
@@ -207,21 +209,20 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      * updates lists of tomorrows prices of all homes
      *
      * @param homeInfoList - homeInfo list object
-     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
      * @returns okprice - got correct data
      */
-    async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate) {
+    async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate = false) {
         let okprice = true;
-        const currentForceUpdate = forceUpdate !== undefined ? forceUpdate : false;
-        for (const index in homeInfoList) {
-            if (!homeInfoList[index].PriceDataPollActive)
+        for (const curHomeInfo of homeInfoList) {
+            if (!curHomeInfo.PriceDataPollActive)
                 continue;
-            if (!(await this.updatePricesTomorrow(homeInfoList[index].ID, currentForceUpdate))) {
+            if (!(await this.updatePricesTomorrow(curHomeInfo.ID, forceUpdate))) {
                 okprice = false; // single fault sets all false
             }
             else {
                 const now = new Date();
-                this.checkAndSetValue(this.getStatePrefix(homeInfoList[index].ID, "PricesTomorrow", "lastUpdate"), now.toString(), `last update of prices tomorrow`);
+                this.checkAndSetValue(this.getStatePrefix(curHomeInfo.ID, "PricesTomorrow", "lastUpdate"), now.toString(), `last update of prices tomorrow`);
             }
         }
         return okprice;
@@ -230,10 +231,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      * updates list of tomorrows prices of one home
      *
      * @param homeId - homeId string
-     * @param forceUpdate - force mode, without verification if existing data is fitting to current date
+     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
      * @returns okprice - got new data
      */
-    async updatePricesTomorrow(homeId, forceUpdate) {
+    async updatePricesTomorrow(homeId, forceUpdate = false) {
         try {
             let exDate = null;
             // WIP 2.3.2 exJSON not needed -> 1 line

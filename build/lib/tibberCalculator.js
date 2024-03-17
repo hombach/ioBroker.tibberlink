@@ -214,8 +214,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
             } //end setup and delete channel states according to channel type
             //#region *** subscribe state changes ***
-            // WIP - ORIGINAL:  this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
-            // all states changes inside the calculator channel settings namespace are subscribed
+            // this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
