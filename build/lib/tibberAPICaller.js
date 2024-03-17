@@ -77,13 +77,18 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         try {
             if (homeId) {
                 let exDateCurrent = null;
+                // WiP #348
+                let pricesToday = [];
+                // end
                 const now = new Date();
                 if (!forceUpdate) {
-                    //WiP #348
+                    // WiP #348
+                    exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+                    pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
                 }
-                exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+                // WiP #348 - exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+                // WiP #348 - const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
                 // update remaining average
-                const pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
                 if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
                     const exDateToday = new Date(pricesToday[2].startsAt);
                     if (now.getDate == exDateToday.getDate)

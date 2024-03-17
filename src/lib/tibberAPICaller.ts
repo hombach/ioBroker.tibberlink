@@ -105,14 +105,18 @@ export class TibberAPICaller extends TibberHelper {
 		try {
 			if (homeId) {
 				let exDateCurrent: Date | null = null;
+				// WiP #348
+				let pricesToday: IPrice[] = [];
+				// end
 				const now = new Date();
 				if (!forceUpdate) {
-					//WiP #348
+					// WiP #348
+					exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+					pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
 				}
-				exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
-
+				// WiP #348 - exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
+				// WiP #348 - const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
 				// update remaining average
-				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
 				if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
 					const exDateToday: Date = new Date(pricesToday[2].startsAt);
 					if (now.getDate == exDateToday.getDate) this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
