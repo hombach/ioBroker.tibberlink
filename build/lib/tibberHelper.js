@@ -85,18 +85,12 @@ class TibberHelper {
      *
      * @param stateName - An object containing the key and value for the name of the state.
      * @param value - The string value to set for the state.
-     * @param description - Optional description for the state.
+     * @param description - Optional description for the state (default is "-").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValue(stateName, value, description, writeable, dontUpdate) {
-        if (description === undefined)
-            description = "-"; // Set default value for description
-        if (writeable === undefined)
-            writeable = false;
-        if (dontUpdate === undefined)
-            dontUpdate = false;
+    async checkAndSetValue(stateName, value, description = "-", writeable = false, dontUpdate = false) {
         if (value != undefined) {
             if (value.trim().length > 0) {
                 await this.adapter.setObjectNotExistsAsync(stateName.value, {
@@ -128,13 +122,7 @@ class TibberHelper {
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueNumber(stateName, value, description, unit, writeable, dontUpdate) {
-        if (description === undefined)
-            description = "-"; // Set default value for description
-        if (writeable === undefined)
-            writeable = false;
-        if (dontUpdate === undefined)
-            dontUpdate = false;
+    async checkAndSetValueNumber(stateName, value, description = "-", unit, writeable = false, dontUpdate = false) {
         if (value || value === 0) {
             const commonObj = {
                 name: stateName.key,
@@ -163,19 +151,12 @@ class TibberHelper {
      *
      * @param stateName - An object containing the key and value for the name of the state.
      * @param value - The boolean value to set for the state.
-     * @param description - Optional description for the state.
+     * @param description - Optional description for the state (default is "-").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueBoolean(stateName, value, description, writeable, dontUpdate) {
-        // Default values for optional parameters
-        if (description === undefined)
-            description = "-"; // Set default value for description
-        if (writeable === undefined)
-            writeable = false;
-        if (dontUpdate === undefined)
-            dontUpdate = false;
+    async checkAndSetValueBoolean(stateName, value, description = "-", writeable = false, dontUpdate = false) {
         if (value !== undefined && value !== null) {
             if (stateName.value.split(".").pop() === stateName.key) {
                 await this.adapter.setObjectNotExistsAsync(stateName.value, {
