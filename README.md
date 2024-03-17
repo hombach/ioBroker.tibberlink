@@ -99,7 +99,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 2.3.2 (2024-03-xx) WORK in PROGRESS
 
 -   (HombachC) code optimizations
--   (HombachC) fix undefined force mode(#349)
+-   (HombachC) fix undefined force mode (#349)
+-   (HombachC) fix poll of not existing current price state (#348)
 
 ### 2.3.1 (2024-03-10)
 
