@@ -101,6 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) code optimizations
 -   (HombachC) fix undefined force mode (#349)
 -   (HombachC) fix poll of not existing current price state (#348)
+-   (HombachC) fix current price poll when configured as not to poll (#350)
 
 ### 2.3.1 (2024-03-10)
 

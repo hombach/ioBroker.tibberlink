@@ -89,8 +89,9 @@ export class TibberAPICaller extends TibberHelper {
 	 */
 	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate: boolean = false): Promise<boolean> {
 		let okprice = true;
-		for (const index in homeInfoList) {
-			if (!(await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate))) okprice = false; // single fault sets all false
+		for (const curHomeInfo of homeInfoList) {
+			if (!curHomeInfo.PriceDataPollActive) continue; // WiP #350
+			if (!(await this.updateCurrentPrice(curHomeInfo.ID, forceUpdate))) okprice = false; // single fault sets all false
 		}
 		return okprice;
 	}

@@ -4,7 +4,17 @@
 		"version": "2.3.2",
 		"news": {
 			"2.3.2": {
-				"en": "code optimizations\nfix undefined force mode (#349)\nfix poll of not existing current price state (#348)"
+				"en": "code optimizations\nfix undefined force mode (#349)\nfix poll of not existing current price state (#348)\nfix current price poll when configured as not to poll (#350)",
+				"de": "Code-Optimierungen\nBeheben des undefinierten Zwangmodus (#349)\nBeheben der Abfrage des nicht vorhandenen aktuellen Preisstatus (#348)\nBeheben der Abfrage des aktuellen Preises, wenn sie so konfiguriert ist, dass sie nicht abgefragt wird (#350)",
+				"ru": "Оптимизация кода\nисправление неопределенного режима принуждения (#349)\nисправление опроса несуществующего текущего состояния цены (#348)\nисправление опроса текущей цены, когда она настроена как не опрашиваемая (#350)",
+				"pt": "otimizações de código\ncorrigir o modo de força indefinido (#349)\ncorrigir pesquisa do estado de preço atual inexistente (#348)\ncorrigir a pesquisa do preço atual quando configurado para não pesquisar (#350)",
+				"nl": "code-optimalisaties\nfix undefined force mode (#349)\nfix poll van niet-bestaande huidige prijsstatus (#348)\nfix huidige prijspoll wanneer geconfigureerd als niet te poll (#350)",
+				"fr": "optimisations de code\ncorriger le mode forcé non défini (#349)\ncorriger l'interrogation d'un état de prix actuel inexistant (#348)\ncorriger l'interrogation du prix actuel lorsqu'il est configuré pour ne pas être interrogé (#350)",
+				"it": "ottimizzazioni del codice\ncorrezione della modalità forzata non definita (#349)\ncorrezione del sondaggio dello stato del prezzo corrente non esistente (#348)\ncorrezione del sondaggio del prezzo corrente quando configurato per non essere sondato (#350)",
+				"es": "optimizaciones de código\ncorregir el modo de fuerza indefinido (#349)\ncorregir la encuesta del estado de precio actual no existente (#348)\ncorregir la encuesta del precio actual cuando está configurado para no encuestar (#350)",
+				"pl": "optymalizacje kodu\nnaprawa niezdefiniowanego trybu wymuszenia (#349)\nnaprawa odpytywania nieistniejącego bieżącego stanu ceny (#348)\nnaprawa odpytywania ceny bieżącej, gdy skonfigurowana jest jako nieodpytywalna (#350)",
+				"uk": "оптимізації коду\nвиправлення невизначеного режиму примусу (#349)\nвиправлення опитування неіснуючого поточного стану ціни (#348)\nвиправлення опитування поточної ціни, коли вона налаштована як не опитувальна (#350)",
+				"zh-cn": "代码优化\n修复未定义的强制模式 (#349)\n修复不存在的当前价格状态的轮询 (#348)\n当配置为不轮询时修复当前价格轮询 (#350)"
 			},
 			"2.3.1": {
 				"en": "BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)\nFixed error in jsonConfig.json (#329)",

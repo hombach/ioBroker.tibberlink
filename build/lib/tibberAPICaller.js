@@ -60,8 +60,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      */
     async updateCurrentPriceAllHomes(homeInfoList, forceUpdate = false) {
         let okprice = true;
-        for (const index in homeInfoList) {
-            if (!(await this.updateCurrentPrice(homeInfoList[index].ID, forceUpdate)))
+        for (const curHomeInfo of homeInfoList) {
+            if (!curHomeInfo.PriceDataPollActive)
+                continue; // WiP #350
+            if (!(await this.updateCurrentPrice(curHomeInfo.ID, forceUpdate)))
                 okprice = false; // single fault sets all false
         }
         return okprice;
