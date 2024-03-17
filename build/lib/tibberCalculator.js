@@ -367,9 +367,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AverageTotalCost for calculator`));
         }
     }
-    async setup_chBlockStartFullHour(homeId, channel, delMode) {
-        if (delMode === undefined)
-            delMode = false;
+    async setup_chBlockStartFullHour(homeId, channel, delMode = false) {
         try {
             const channelName = this.adapter.config.CalculatorList[channel].chName;
             this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartFullHour`), `-`, `first hour of determined block`, false, false);
@@ -380,9 +378,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator`));
         }
     }
-    async setup_chBlockEndFullHour(homeId, channel, delMode) {
-        if (delMode === undefined)
-            delMode = false;
+    async setup_chBlockEndFullHour(homeId, channel, delMode = false) {
         try {
             const channelName = this.adapter.config.CalculatorList[channel].chName;
             this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockEndFullHour`), `-`, `end hour of determined block`, false, false);
@@ -393,9 +389,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEndFullHour for calculator`));
         }
     }
-    async startCalculatorTasks(onStateChange) {
-        if (onStateChange === undefined)
-            onStateChange = false;
+    async startCalculatorTasks(onStateChange = false) {
         if (!this.adapter.config.UseCalculator)
             return;
         const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
@@ -488,9 +482,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
         }
     }
-    async executeCalculatorBestCost(channel, modeLTF) {
-        if (modeLTF === undefined)
-            modeLTF = false;
+    async executeCalculatorBestCost(channel, modeLTF = false) {
         try {
             let valueToSet = "";
             const now = new Date();
@@ -531,9 +523,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
-    async executeCalculatorBestSingleHours(channel, modeLTF) {
-        if (modeLTF === undefined)
-            modeLTF = false;
+    async executeCalculatorBestSingleHours(channel, modeLTF = false) {
         try {
             let valueToSet = "";
             const now = new Date();
@@ -595,9 +585,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
-    async executeCalculatorBestHoursBlock(channel, modeLTF) {
-        if (modeLTF === undefined)
-            modeLTF = false;
+    async executeCalculatorBestHoursBlock(channel, modeLTF = false) {
         try {
             let valueToSet = "";
             const now = new Date();

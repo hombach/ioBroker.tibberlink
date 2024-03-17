@@ -434,8 +434,7 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AverageTotalCost for calculator`));
 		}
 	}
-	async setup_chBlockStartFullHour(homeId: string, channel: number, delMode?: boolean): Promise<void> {
-		if (delMode === undefined) delMode = false;
+	async setup_chBlockStartFullHour(homeId: string, channel: number, delMode: boolean = false): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 			this.checkAndSetValue(
@@ -450,8 +449,7 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator`));
 		}
 	}
-	async setup_chBlockEndFullHour(homeId: string, channel: number, delMode?: boolean): Promise<void> {
-		if (delMode === undefined) delMode = false;
+	async setup_chBlockEndFullHour(homeId: string, channel: number, delMode: boolean = false): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 			this.checkAndSetValue(
@@ -467,8 +465,7 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async startCalculatorTasks(onStateChange?: boolean): Promise<void> {
-		if (onStateChange === undefined) onStateChange = false;
+	async startCalculatorTasks(onStateChange: boolean = false): Promise<void> {
 		if (!this.adapter.config.UseCalculator) return;
 
 		const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
@@ -577,8 +574,7 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async executeCalculatorBestCost(channel: number, modeLTF?: boolean): Promise<void> {
-		if (modeLTF === undefined) modeLTF = false;
+	async executeCalculatorBestCost(channel: number, modeLTF: boolean = false): Promise<void> {
 		try {
 			let valueToSet: string = "";
 			const now = new Date();
@@ -632,8 +628,7 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async executeCalculatorBestSingleHours(channel: number, modeLTF?: boolean): Promise<void> {
-		if (modeLTF === undefined) modeLTF = false;
+	async executeCalculatorBestSingleHours(channel: number, modeLTF: boolean = false): Promise<void> {
 		try {
 			let valueToSet: string = "";
 			const now = new Date();
@@ -717,8 +712,7 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async executeCalculatorBestHoursBlock(channel: number, modeLTF?: boolean): Promise<void> {
-		if (modeLTF === undefined) modeLTF = false;
+	async executeCalculatorBestHoursBlock(channel: number, modeLTF: boolean = false): Promise<void> {
 		try {
 			let valueToSet: string = "";
 			const now = new Date();

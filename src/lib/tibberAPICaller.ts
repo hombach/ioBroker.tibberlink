@@ -90,7 +90,7 @@ export class TibberAPICaller extends TibberHelper {
 	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate: boolean = false): Promise<boolean> {
 		let okprice = true;
 		for (const curHomeInfo of homeInfoList) {
-			if (!curHomeInfo.PriceDataPollActive) continue; // WiP #350
+			if (!curHomeInfo.PriceDataPollActive) continue;
 			if (!(await this.updateCurrentPrice(curHomeInfo.ID, forceUpdate))) okprice = false; // single fault sets all false
 		}
 		return okprice;
@@ -106,17 +106,12 @@ export class TibberAPICaller extends TibberHelper {
 		try {
 			if (homeId) {
 				let exDateCurrent: Date | null = null;
-				// WiP #348
 				let pricesToday: IPrice[] = [];
-				// end
 				const now = new Date();
 				if (!forceUpdate) {
-					// WiP #348
 					exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
 					pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
 				}
-				// WiP #348 - exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
-				// WiP #348 - const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
 				// update remaining average
 				if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
 					const exDateToday: Date = new Date(pricesToday[2].startsAt);
@@ -170,7 +165,6 @@ export class TibberAPICaller extends TibberHelper {
 		}
 		return okprice;
 	}
-
 	/**
 	 * updates list of todays prices of one home
 	 *
@@ -181,10 +175,10 @@ export class TibberAPICaller extends TibberHelper {
 	async updatePricesToday(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
-			// WIP 2.3.2 exJSON not needed -> 1 line
-			const exPricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
-			//const exJSON = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
-			//const exPricesToday: IPrice[] = JSON.parse(exJSON);
+			let exPricesToday: IPrice[] = [];
+			if (!forceUpdate) {
+				exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
+			}
 			if (Array.isArray(exPricesToday) && exPricesToday[2] && exPricesToday[2].startsAt) {
 				exDate = new Date(exPricesToday[2].startsAt);
 			}
@@ -267,7 +261,6 @@ export class TibberAPICaller extends TibberHelper {
 		}
 		return okprice;
 	}
-
 	/**
 	 * updates list of tomorrows prices of one home
 	 *
@@ -278,10 +271,10 @@ export class TibberAPICaller extends TibberHelper {
 	async updatePricesTomorrow(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
-			// WIP 2.3.2 exJSON not needed -> 1 line
-			const exPricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`));
-			// const exJSON = await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`);
-			// const exPricesTomorrow: IPrice[] = JSON.parse(exJSON);
+			let exPricesTomorrow: IPrice[] = [];
+			if (!forceUpdate) {
+				exPricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`));
+			}
 			if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
 				exDate = new Date(exPricesTomorrow[2].startsAt);
 			}
