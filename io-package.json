@@ -372,7 +372,11 @@
 		},
 		"authors": ["Hombach <TibberLink@homba.ch>"],
 		"keywords": ["power", "energy", "Tibber"],
-		"license": "GPL-3.0-only",
+		"tier": 2,
+		"licenseInformation": {
+			"license": "GPL-3.0-only",
+			"type": "free"
+		},
 		"platform": "Javascript/Node.js",
 		"main": "build/main.js",
 		"icon": "tibberlink.png",
