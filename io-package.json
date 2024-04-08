@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "2.3.2",
+		"version": "3.0.0",
 		"news": {
+			"3.0.0": {
+				"en": "BREAKING: dropped support for node.js 16 (#368)"
+			},
 			"2.3.2": {
 				"en": "code optimizations\nfix undefined force mode (#349)\nfix poll of not existing current price state (#348)\nfix current price poll when configured as not to poll (#350)",
 				"de": "Code-Optimierungen\nBeheben des undefinierten Zwangmodus (#349)\nBeheben der Abfrage des nicht vorhandenen aktuellen Preisstatus (#348)\nBeheben der Abfrage des aktuellen Preises, wenn sie so konfiguriert ist, dass sie nicht abgefragt wird (#350)",
@@ -171,19 +174,6 @@
 				"pl": "Wdrożenie pobierania historycznych danych o zużyciu z serwera Tibber (#163)",
 				"uk": "Впровадження отримання історичних даних про споживання від сервера Tibber (#163)",
 				"zh-cn": "实现从 Tibber 服务器获取历史耗电数据 (#163)"
-			},
-			"1.6.0": {
-				"en": "Fixed major bug in 1.5.0, not working calculator channels (#212)\nImplemented limit calculations to a time frame (#153)",
-				"de": "Schweren Fehler in 1.5.0 behoben, nicht funktionierende Automatisierungskanäle (#212)\nImplementierte Grenzberechnungen in einen Zeitrahmen (#153)",
-				"ru": "Исправлена серьезная ошибка в версии 1.5.0, не работающие каналы автоматизации (#212)\nРеализованы расчеты ограничений в определенный временной интервал (#153)",
-				"pt": "Corrigido erro importante na versão 1.5.0, canais de automação não funcionando (#212)\nImplementado cálculos de limite em um intervalo de tempo (#153)",
-				"nl": "Belangrijke bug opgelost in versie 1.5.0, niet-werkende automatiseringskanalen (#212)\nImplementeer berekeningen van limieten binnen een tijdsbestek (#153)",
-				"fr": "Bug majeur corrigé dans la version 1.5.0, canaux d'automatisation ne fonctionnant pas (#212)\nImplémentation de calculs de limites dans une période définie (#153)",
-				"it": "Errore importante corretto nella versione 1.5.0, canali di automazione non funzionanti (#212)\nImplementato calcoli di limiti in un periodo di tempo (#153)",
-				"es": "Error importante corregido en la versión 1.5.0, canales de automatización no funcionando (#212)\nImplementado cálculos de límite en un marco de tiempo (#153)",
-				"pl": "Naprawiono poważny błąd w wersji 1.5.0, nie działające kanały automatyzacji (#212)\nWprowadzono obliczenia limitów w ramach czasowych (#153)",
-				"uk": "Виправлено серйозну помилку в версії 1.5.0, несправні канали автоматизації (#212)\nВпроваджено обчислення обмежень в часовий інтервал (#153)",
-				"zh-cn": "修复了1.5.0版本中的严重错误，不起作用的自动化通道（#212）\n在时间范围内实现限制计算（#153）"
 			},
 			"1.5.0": {
 				"en": "Implement calculator object names (#186)",

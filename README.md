@@ -96,8 +96,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 2.3.3 (2024-04-xx)
+### 3.0.0 (2024-04-xx)
 
+-   (HombachC) BREAKING: dropped support for node.js 16 (#368)
 -   (HombachC) update typescript to 5.3.3
 -   (HombachC) update adapter-core to 3.0.6
 
