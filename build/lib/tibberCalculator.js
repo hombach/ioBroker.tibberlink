@@ -301,7 +301,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 today.setHours(23, 59, 0, 0); // sets clock to 0:00
                 this.adapter.config.CalculatorList[channel].chStopTime = today;
             }
-            this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`), this.adapter.config.CalculatorList[channel].chStopTime.toISOString(), `Start time for this channel`, true, true);
+            this.checkAndSetValue(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`), this.adapter.config.CalculatorList[channel].chStopTime.toISOString(), `Stop time for this channel`, true, true);
             const valueStopTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StopTime`);
             if (typeof valueStopTime === "string") {
                 this.adapter.config.CalculatorList[channel].chStopTime.setTime(Date.parse(valueStopTime));

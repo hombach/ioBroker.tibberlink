@@ -345,7 +345,7 @@ export class TibberCalculator extends TibberHelper {
 			this.checkAndSetValue(
 				this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`),
 				this.adapter.config.CalculatorList[channel].chStopTime.toISOString(),
-				`Start time for this channel`,
+				`Stop time for this channel`,
 				true,
 				true,
 			);
