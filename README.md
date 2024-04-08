@@ -99,6 +99,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 3.0.0 (2024-04-xx)
 
 -   (HombachC) BREAKING: dropped support for node.js 16 (#368)
+-   (HombachC) BREAKING: js-controller >= 5 is required
 -   (HombachC) changed to tier 2 as data provider
 -   (HombachC) corrected io-package.json according to new schema (#368)
 -   (HombachC) update typescript to 5.3.3
