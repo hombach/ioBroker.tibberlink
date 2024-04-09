@@ -28,19 +28,19 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
-      steps:
-        - uses: actions/checkout@v4
-        - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v4
-          with:
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
           node-version: ${{ matrix.node-version }}
 
-        - name: NPM version
-          run: npm -v
+      - name: NPM version
+        run: npm -v
 
-        - name: Install Dependencies
-          #run: npm install
-          run: npm install --legacy-peer-deps
+      - name: Install Dependencies
+        #run: npm install
+        run: npm install --legacy-peer-deps
 
   build:
     runs-on: ubuntu-latest
