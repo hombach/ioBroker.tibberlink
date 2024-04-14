@@ -22,9 +22,9 @@ jobs:
   # Performs quick checks before the expensive test runs
   check-and-lint:
     if: contains(github.event.head_commit.message, '[skip ci]') == false
-  
+
     runs-on: ubuntu-latest
-  
+
     steps:
       - uses: ioBroker/testing-action-check@v1
         with:
