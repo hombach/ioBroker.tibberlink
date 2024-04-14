@@ -59,6 +59,33 @@ jobs:
       - name: Run local tests
         run: npm test
 # TODO: To enable automatic npm releases, create a token on npmjs.org
+
+# Runs adapter tests on all supported node versions and OSes
+  adapter-tests-new:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+    needs: [check-and-lint]
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: npm install --force
+        #run: npm install --legacy-peer-deps
+
+      - name: Run local tests
+        run: npm test
+# TODO: To enable automatic npm releases, create a token on npmjs.org
+
 # Enter this token as a GitHub secret (with name NPM_TOKEN) in the repository options
 # Then uncomment the following block:
 
