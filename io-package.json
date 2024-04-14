@@ -4,7 +4,17 @@
 		"version": "3.0.0",
 		"news": {
 			"3.0.0": {
-				"en": "BREAKING: dropped support for node.js 16 (#368)"
+				"en": "BREAKING: dropped support for Node.js 16 (#368)\nBREAKING: js-controller >= 5 is required\nchanged to tier 2 as data provider\ncorrected io-package.json according to the new schema (#368)\nupdate TypeScript to 5.4.5\nupdate adapter-core to 3.0.6",
+				"de": "WICHTIG: Unterstützung für Node.js 16 wurde eingestellt (#368)\nWICHTIG: js-controller >= 5 ist erforderlich\nAls Datenanbieter auf Tier 2 geändert\ncorrected io-package.json entsprechend dem neuen Schema (#368)\nTypeScript auf 5.4.5 aktualisiert\nadapter-core auf 3.0.6 aktualisiert",
+				"ru": "ВАЖНО: прекращена поддержка Node.js 16 (#368)\nВАЖНО: требуется js-controller >= 5\nизменено на уровень 2 как поставщик данных\nисправлен файл io-package.json в соответствии с новой схемой (#368)\nобновление TypeScript до 5.4.5\nобновление adapter-core до 3.0.6",
+				"pt": "IMPORTANTE: suporte para Node.js 16 foi removido (#368)\nIMPORTANTE: js-controller >= 5 é necessário\nalterado para o nível 2 como provedor de dados\ncorrigido io-package.json de acordo com o novo esquema (#368)\natualização do TypeScript para 5.4.5\natualização do adapter-core para 3.0.6",
+				"nl": "BELANGRIJK: ondersteuning voor Node.js 16 is verwijderd (#368)\nBELANGRIJK: js-controller >= 5 is vereist\ngewijzigd naar niveau 2 als gegevensleverancier\ncorrectie van io-package.json volgens het nieuwe schema (#368)\nupdate TypeScript naar 5.4.5\nupdate adapter-core naar 3.0.6",
+				"fr": "IMPORTANT : prise en charge de Node.js 16 abandonnée (#368)\nIMPORTANT : js-controller >= 5 est requis\npassé en tier 2 en tant que fournisseur de données\ncorrigé io-package.json selon le nouveau schéma (#368)\nmise à jour de TypeScript vers 5.4.5\nmise à jour de adapter-core vers 3.0.6",
+				"it": "IMPORTANTE: supporto per Node.js 16 eliminato (#368)\nIMPORTANTE: js-controller >= 5 è richiesto\npassato a tier 2 come fornitore di dati\ncorretto io-package.json secondo il nuovo schema (#368)\naggiornato TypeScript a 5.4.5\naggiornato adapter-core a 3.0.6",
+				"es": "IMPORTANTE: se eliminó el soporte para Node.js 16 (#368)\nIMPORTANTE: se requiere js-controller >= 5\ncambiado a nivel 2 como proveedor de datos\ncorregido io-package.json según el nuevo esquema (#368)\nactualización de TypeScript a 5.4.5\nactualización de adapter-core a 3.0.6",
+				"pl": "WAŻNE: wsparcie dla Node.js 16 zostało usunięte (#368)\nWAŻNE: wymagane jest js-controller >= 5\nzmieniono na poziom 2 jako dostawca danych\npoprawiono plik io-package.json zgodnie z nowym schematem (#368)\naktualizacja TypeScript do wersji 5.4.5\naktualizacja adapter-core do wersji 3.0.6",
+				"uk": "ВАЖЛИВО: підтримка Node.js 16 скасована (#368)\nВАЖЛИВО: потрібен js-controller >= 5\nзмінено на рівень 2 як постачальник даних\nвиправлено файл io-package.json відповідно до нової схеми (#368)\nоновлення TypeScript до 5.4.5\nоновлення adapter-core до 3.0.6",
+				"zh-cn": "重要: 放弃对 Node.js 16 的支持 (#368)\n重要: js-controller >= 5 已必需\n更改为二级作为数据提供者\n根据新模式更正了 io-package.json (#368)\n将 TypeScript 更新到 5.4.5\n将 adapter-core 更新到 3.0.6"
 			},
 			"2.3.2": {
 				"en": "code optimizations\nfix undefined force mode (#349)\nfix poll of not existing current price state (#348)\nfix current price poll when configured as not to poll (#350)",
