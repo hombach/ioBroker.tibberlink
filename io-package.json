@@ -412,7 +412,7 @@
 		],
 		"globalDependencies": [
 			{
-				"admin": ">=5.0.0"
+				"admin": ">=5.1.28"
 			}
 		],
 		"plugins": {
