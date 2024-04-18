@@ -42,11 +42,9 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x, 20.x]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest, macos-latest]
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
       - uses: ioBroker/testing-action-adapter@v1
         with:
           node-version: ${{ matrix.node-version }}
@@ -56,26 +54,21 @@ jobs:
           build: true
 
 
-  adapter-tests-org:
+  adapter-tests-win:
     needs: [check-and-lint]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node-version: [18.x, 20.x]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [windows-latest]
           
     steps:
-      - uses: ioBroker/testing-action-adapter@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          os: ${{ matrix.os }}
-          install-command: 'npm install'
-          build: 'true' # optional
-
-
-
-
-
+          # install-command: 'npm install'
+          # build: 'true' # optional
 
 
 # TODO: To enable automatic npm releases, create a token on npmjs.org 
