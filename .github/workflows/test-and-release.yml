@@ -68,6 +68,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           os: ${{ matrix.os }}
+          install-command: 'npm install'
           # build: 'true' # optional
 
 
