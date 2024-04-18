@@ -37,7 +37,6 @@ jobs:
   # Runs adapter tests on all supported node versions and OSes
   adapter-tests:
     needs: [check-and-lint]
-
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -54,7 +53,7 @@ jobs:
           build: true
 
 
-  adapter-tests-win:
+  adapter-tests-win: # Windows tests not working with ioBroker/testing-action-adapter@v1
     needs: [check-and-lint]
     runs-on: ${{ matrix.os }}
     strategy:
