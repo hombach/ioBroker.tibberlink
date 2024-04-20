@@ -52,24 +52,7 @@ jobs:
           # install-command: 'npm install'
           build: true
 
-
-  adapter-tests-win: # Windows tests not working with ioBroker/testing-action-adapter@v1
-    needs: [check-and-lint]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-        os: [windows-latest]
           
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          # install-command: 'npm install'
-          # build: 'true' # optional
-
-
 # TODO: To enable automatic npm releases, create a token on npmjs.org 
 # Enter this token as a GitHub secret (with name NPM_TOKEN) in the repository options
 # Then uncomment the following block:
