@@ -382,8 +382,8 @@ export class TibberAPICaller extends TibberHelper {
 								currency: string; }
 								*/
 							this.adapter.log.debug(`Got hourly consumption raw data 0: ${consumption[0].consumption}`);
-							this.adapter.log.debug(`Got hourly consumption raw data 0: ${consumption[0].consumption}`);
-							this.adapter.log.debug(`Got hourly consumption raw data 1: ${consumption[1].cost}`);
+							this.adapter.log.debug(`Got hourly consumption raw data 0: ${consumption[0].cost}`);
+							this.adapter.log.debug(`Got hourly consumption raw data 1: ${consumption[1].consumption}`);
 							this.adapter.log.debug(`Got hourly consumption raw data 1: ${consumption[1].cost}`);
 							this.adapter.log.debug(`Got hourly consumption data stringified: ${JSON.stringify(consumption)}`);
 						}
