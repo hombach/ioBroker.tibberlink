@@ -323,7 +323,22 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                         this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), JSON.stringify(consumption), `Historical consumption last ${description}s as json)`);
                         // WiP
                         if (type == EnergyResolution_1.EnergyResolution.HOURLY) {
-                            this.adapter.log.debug(`Got hourly consumption raw data: ${consumption}`);
+                            /*
+                            export interface IConsumption {
+                                homeId?: string;
+                                from: string;
+                                to: string;
+                                unitPrice: number;
+                                unitPriceVAT: number;
+                                consumption: number;
+                                consumptionUnit: string;
+                                cost: number;
+                                currency: string; }
+                                */
+                            this.adapter.log.debug(`Got hourly consumption raw data 0: ${consumption[0].consumption}`);
+                            this.adapter.log.debug(`Got hourly consumption raw data 0: ${consumption[0].consumption}`);
+                            this.adapter.log.debug(`Got hourly consumption raw data 1: ${consumption[1].cost}`);
+                            this.adapter.log.debug(`Got hourly consumption raw data 1: ${consumption[1].cost}`);
                             this.adapter.log.debug(`Got hourly consumption data stringified: ${JSON.stringify(consumption)}`);
                         }
                         // WiP
