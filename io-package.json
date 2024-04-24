@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.0.1",
+		"version": "3.0.2",
 		"news": {
+			"3.0.2": {
+				"en": "WORK in PROGRESS!!"
+			},
 			"3.0.1": {
 				"en": "updated adapter testing\nbumped dependencies",
 				"de": "Adapter-Tests aktualisiert\nAbhängigkeiten aktualisiert",

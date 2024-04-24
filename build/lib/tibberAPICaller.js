@@ -320,13 +320,16 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
-                        this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), JSON.stringify(consumption), `Historical consumption last ${description}s as json`);
+                        this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), JSON.stringify(consumption), `Historical consumption last ${description}s as json)`);
+                        // WiP
+                        this.adapter.log.debug(`Got consumption data: ${JSON.stringify(consumption)}`);
+                        // WiP
                     }
                     else {
                         this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), `[]`);
                     }
                 }
-                this.adapter.log.debug(`Got consumption data from Tibber Server for home: ${homeID}`);
+                this.adapter.log.debug(`Got allconsumption data from Tibber Server for home: ${homeID}`);
             }
         }
         catch (error) {
