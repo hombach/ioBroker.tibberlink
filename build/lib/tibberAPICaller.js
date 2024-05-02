@@ -322,8 +322,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), JSON.stringify(consumption), `Historical consumption last ${description}s as json)`);
                         // WiP
-                        if (type == EnergyResolution_1.EnergyResolution.HOURLY) {
-                            /*
+                        //if (type == EnergyResolution.HOURLY) {
+                        /*
                             export interface IConsumption {
                                 homeId?: string;
                                 from: string;
@@ -335,12 +335,12 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                                 cost: number;
                                 currency: string; }
                                 */
-                            this.adapter.log.info(`Got hourly consumption raw data 0: ${consumption[0].consumption}`);
-                            this.adapter.log.info(`Got hourly consumption raw data 0: ${consumption[0].cost}`);
-                            this.adapter.log.info(`Got hourly consumption raw data 1: ${consumption[1].consumption}`);
-                            this.adapter.log.info(`Got hourly consumption raw data 1: ${consumption[1].cost}`);
-                            this.adapter.log.info(`Got hourly consumption data stringified: ${JSON.stringify(consumption)}`);
-                        }
+                        //	this.adapter.log.info(`Got hourly consumption raw data 0: ${consumption[0].consumption}`);
+                        //	this.adapter.log.info(`Got hourly consumption raw data 0: ${consumption[0].cost}`);
+                        //	this.adapter.log.info(`Got hourly consumption raw data 1: ${consumption[1].consumption}`);
+                        //	this.adapter.log.info(`Got hourly consumption raw data 1: ${consumption[1].cost}`);
+                        //	this.adapter.log.info(`Got hourly consumption data stringified: ${JSON.stringify(consumption)}`);
+                        //}
                         // WiP
                     }
                     else {
