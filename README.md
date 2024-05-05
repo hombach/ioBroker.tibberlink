@@ -98,7 +98,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.0.2 (2024-05-xx) WORK in PROGRESS!!
 
--   (HombachC) WiP (#380)
+-   (HombachC) WiP (#383)
 -   (HombachC) update adapter-core to 3.1.4
 
 ### 3.0.1 (2024-04-20)
