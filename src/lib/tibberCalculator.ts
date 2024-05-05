@@ -675,7 +675,11 @@ export class TibberCalculator extends TibberHelper {
 					const pricesTomorrow: IPrice[] = JSON.parse(
 						await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
 					);
+					// WiP (#383)
 					const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
+					// reduce startTime about 1 second
+					const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
+					// WiP (#383)
 					const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
 
 					// Merge prices if pricesTomorrow is not empty
@@ -687,7 +691,9 @@ export class TibberCalculator extends TibberHelper {
 					// filter objects to time frame
 					filteredPrices = mergedPrices.filter((price) => {
 						const priceDate = new Date(price.startsAt);
-						return priceDate >= startTime && priceDate < stopTime;
+						// return priceDate >= startTime && priceDate < stopTime;
+						// WiP (#383)
+						return priceDate >= startTimeAdjusted && priceDate < stopTime;
 					});
 				}
 
