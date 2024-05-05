@@ -100,6 +100,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) WiP (#383)
 -   (HombachC) update adapter-core to 3.1.4
+-   (HombachC) bump dependencies
 
 ### 3.0.1 (2024-04-20)
 

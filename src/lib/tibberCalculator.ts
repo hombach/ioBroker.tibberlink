@@ -470,8 +470,9 @@ export class TibberCalculator extends TibberHelper {
 
 		const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
 
-		// WIP einen first Run mode implementieren, das muss nicht bei jedem Lauf durchgegangen werden
 		for (const channel in this.adapter.config.CalculatorList) {
+			//#region *** first run checks ***
+			// WiP einen first Run mode implementieren, das muss nicht bei jedem Lauf durchgegangen werden
 			if (
 				!this.adapter.config.CalculatorList[channel] ||
 				!this.adapter.config.CalculatorList[channel].chTargetState ||
@@ -479,7 +480,7 @@ export class TibberCalculator extends TibberHelper {
 			) {
 				this.adapter.log.warn(
 					`Empty destination state in calculator channel ${channel} defined - provide correct external state - execution of channel skipped`,
-					//WIP dann einen default eintragen oder default löschen
+					//WiP dann einen default eintragen oder default löschen
 				);
 				continue;
 			}
@@ -489,7 +490,7 @@ export class TibberCalculator extends TibberHelper {
 			badComponents.forEach((badComponent) => {
 				if (!chTargetStateComponents.includes(badComponent)) foundAllBadComponents = false;
 			});
-			// WIP - oder enthält "Output"....
+			// WiP - oder enthält "Output"....
 			if (foundAllBadComponents) {
 				this.adapter.log.error(
 					`Invalid destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`,
@@ -522,6 +523,7 @@ export class TibberCalculator extends TibberHelper {
 					continue;
 				}
 			}
+			//#endregion first run mode
 
 			try {
 				switch (this.adapter.config.CalculatorList[channel].chType) {
@@ -544,7 +546,6 @@ export class TibberCalculator extends TibberHelper {
 						this.executeCalculatorBestHoursBlock(parseInt(channel), true);
 						break;
 					case enCalcType.SmartBatteryBuffer: // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
-						// WIP #332 - 2.3.1
 						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
 						} else {
@@ -644,6 +645,7 @@ export class TibberCalculator extends TibberHelper {
 				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
 					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
+					// chRepeatDays present, change start and stop time accordingly
 					this.adapter.setStateAsync(
 						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`,
 						format(
