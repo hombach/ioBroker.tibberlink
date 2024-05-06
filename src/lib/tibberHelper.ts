@@ -50,6 +50,12 @@ export class TibberHelper {
 		}
 	}
 
+	/**
+	 * Retrieves the state object by its name.
+	 *
+	 * @param stateName - A string representing the name of the state to retrieve.
+	 * @returns A Promise that resolves with the object of the state if it exists, otherwise resolves with null.
+	 */
 	private async getState(stateName: string): Promise<any> {
 		try {
 			if (await this.verifyStateAvailable(stateName)) {

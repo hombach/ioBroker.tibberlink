@@ -645,17 +645,24 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         return priceDate >= startTime && priceDate < stopTime;
                     });
                 }
+                // WiP (#383)
+                this.adapter.log.debug(`filteredPrices: ${filteredPrices}`); // WiP (#383)
+                // WiP (#383)
                 let minSum = Number.MAX_VALUE;
                 let startIndex = 0;
-                const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+                // WiP (#383)
+                // const n = this.adapter.config.CalculatorList[channel].chAmountHours;
+                // WiP (#383)
+                const n = Math.min(this.adapter.config.CalculatorList[channel].chAmountHours, filteredPrices.length);
+                // WiP (#383)
                 for (let i = 0; i < filteredPrices.length - n + 1; i++) {
                     let sum = 0;
                     for (let j = i; j < i + n; j++) {
                         sum += filteredPrices[j].total;
                     }
                     // WiP (#383)
-                    if (sum < minSum || i === 0) {
-                        // if (sum < minSum) {
+                    // NEW: if (sum < minSum || i === 0) {
+                    if (sum < minSum) {
                         // WiP (#383)
                         minSum = sum;
                         startIndex = i;
