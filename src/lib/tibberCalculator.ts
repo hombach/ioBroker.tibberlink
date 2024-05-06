@@ -151,13 +151,13 @@ export class TibberCalculator extends TibberHelper {
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
 					await this.setup_chTriggerPrice(homeId, channel);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
-					// WIP
+					// WIP #325
 					if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
 						this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
 					} else {
 						// await this.setup_chOutput(homeId, channel);
 					}
-					//WIP
+					//WIP #325
 					break;
 				case enCalcType.BestSingleHours:
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
@@ -527,30 +527,85 @@ export class TibberCalculator extends TibberHelper {
 
 			try {
 				switch (this.adapter.config.CalculatorList[channel].chType) {
+					// If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
 					case enCalcType.BestCost:
-						this.executeCalculatorBestCost(parseInt(channel));
+						// WiP (#334)
+						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							this.executeCalculatorBestCost(parseInt(channel));
+						} else {
+							this.adapter.log.debug(
+								`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`,
+							);
+						}
+						// this.executeCalculatorBestCost(parseInt(channel));
+						// WiP (#334)
 						break;
 					case enCalcType.BestSingleHours:
-						this.executeCalculatorBestSingleHours(parseInt(channel));
+						// WiP (#334)
+						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							this.executeCalculatorBestSingleHours(parseInt(channel));
+						} else {
+							this.adapter.log.debug(
+								`calculator channel: ${channel} - best single hours; execution skipped because channel not set to active in channel states`,
+							);
+						}
+						// this.executeCalculatorBestSingleHours(parseInt(channel));
+						// WiP (#334)
 						break;
 					case enCalcType.BestHoursBlock:
-						this.executeCalculatorBestHoursBlock(parseInt(channel));
+						// WiP (#334)
+						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							this.executeCalculatorBestHoursBlock(parseInt(channel));
+						} else {
+							this.adapter.log.debug(
+								`calculator channel: ${channel} - best hours block; execution skipped because channel not set to active in channel states`,
+							);
+						}
+						// this.executeCalculatorBestHoursBlock(parseInt(channel));
+						// WiP (#334)
 						break;
 					case enCalcType.BestCostLTF:
-						this.executeCalculatorBestCost(parseInt(channel), true);
+						// WiP (#334)
+						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							this.executeCalculatorBestCost(parseInt(channel), true);
+						} else {
+							this.adapter.log.debug(
+								`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`,
+							);
+						}
+						// this.executeCalculatorBestCost(parseInt(channel), true);
+						// WiP (#334)
 						break;
 					case enCalcType.BestSingleHoursLTF:
-						this.executeCalculatorBestSingleHours(parseInt(channel), true);
+						// WiP (#334)
+						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							this.executeCalculatorBestSingleHours(parseInt(channel), true);
+						} else {
+							this.adapter.log.debug(
+								`calculator channel: ${channel} - best single hours LTF; execution skipped because channel not set to active in channel states`,
+							);
+						}
+						// this.executeCalculatorBestSingleHours(parseInt(channel), true);
+						// WiP (#334)
 						break;
 					case enCalcType.BestHoursBlockLTF:
-						this.executeCalculatorBestHoursBlock(parseInt(channel), true);
+						// WiP (#334)
+						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							this.executeCalculatorBestHoursBlock(parseInt(channel), true);
+						} else {
+							this.adapter.log.debug(
+								`calculator channel: ${channel} - best hours block LTF; execution skipped because channel not set to active in channel states`,
+							);
+						}
+						// this.executeCalculatorBestHoursBlock(parseInt(channel), true);
+						// WiP (#334)
 						break;
 					case enCalcType.SmartBatteryBuffer: // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
 						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
 						} else {
 							this.adapter.log.debug(
-								`calculator channel: ${channel}-smart battery buffer; execution skipped because channel not set to active in channel states`,
+								`calculator channel: ${channel} - smart battery buffer; execution skipped because channel not set to active in channel states`,
 							);
 						}
 						break;
@@ -675,11 +730,7 @@ export class TibberCalculator extends TibberHelper {
 					const pricesTomorrow: IPrice[] = JSON.parse(
 						await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
 					);
-					// WiP (#383)
 					const startTime: Date = this.adapter.config.CalculatorList[channel].chStartTime;
-					// reduce startTime about 1 second
-					// const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
-					// WiP (#383)
 					const stopTime: Date = this.adapter.config.CalculatorList[channel].chStopTime;
 
 					// Merge prices if pricesTomorrow is not empty
@@ -691,8 +742,6 @@ export class TibberCalculator extends TibberHelper {
 					// filter objects to time frame
 					filteredPrices = mergedPrices.filter((price) => {
 						const priceDate = new Date(price.startsAt);
-						// return priceDate >= startTime && priceDate < stopTime;
-						// WiP (#383)
 						return priceDate >= startTime && priceDate < stopTime;
 					});
 				}
@@ -770,11 +819,7 @@ export class TibberCalculator extends TibberHelper {
 					const pricesTomorrow: IPrice[] = JSON.parse(
 						await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`),
 					);
-					// WiP (#383)
 					const startTime: Date = this.adapter.config.CalculatorList[channel].chStartTime;
-					// reduce startTime about 1 second
-					// const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
-					// WiP (#383)
 					const stopTime: Date = this.adapter.config.CalculatorList[channel].chStopTime;
 
 					// Merge prices if pricesTomorrow is not empty
@@ -789,26 +834,16 @@ export class TibberCalculator extends TibberHelper {
 						return priceDate >= startTime && priceDate < stopTime;
 					});
 				}
-				// WiP (#383)
-				this.adapter.log.debug(`filteredPrices: ${filteredPrices}`); // WiP (#383)
-				// WiP (#383)
 				let minSum = Number.MAX_VALUE;
 				let startIndex = 0;
-				// WiP (#383)
-				// const n = this.adapter.config.CalculatorList[channel].chAmountHours;
-				// WiP (#383)
 				const n = Math.min(this.adapter.config.CalculatorList[channel].chAmountHours, filteredPrices.length);
-				// WiP (#383)
 
 				for (let i = 0; i < filteredPrices.length - n + 1; i++) {
 					let sum = 0;
 					for (let j = i; j < i + n; j++) {
 						sum += filteredPrices[j].total;
 					}
-					// WiP (#383)
-					// NEW: if (sum < minSum || i === 0) {
 					if (sum < minSum) {
-						// WiP (#383)
 						minSum = sum;
 						startIndex = i;
 					}
