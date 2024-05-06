@@ -558,7 +558,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     // WiP (#383)
                     const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
                     // reduce startTime about 1 second
-                    const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
+                    // const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
                     // WiP (#383)
                     const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
                     // Merge prices if pricesTomorrow is not empty
@@ -571,7 +571,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         const priceDate = new Date(price.startsAt);
                         // return priceDate >= startTime && priceDate < stopTime;
                         // WiP (#383)
-                        return priceDate >= startTimeAdjusted && priceDate < stopTime;
+                        return priceDate >= startTime && priceDate < stopTime;
                     });
                 }
                 // get first n entries und test for matching hour
@@ -631,7 +631,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     // WiP (#383)
                     const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
                     // reduce startTime about 1 second
-                    const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
+                    // const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
                     // WiP (#383)
                     const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
                     // Merge prices if pricesTomorrow is not empty

@@ -678,7 +678,7 @@ export class TibberCalculator extends TibberHelper {
 					// WiP (#383)
 					const startTime: Date = this.adapter.config.CalculatorList[channel].chStartTime;
 					// reduce startTime about 1 second
-					const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
+					// const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
 					// WiP (#383)
 					const stopTime: Date = this.adapter.config.CalculatorList[channel].chStopTime;
 
@@ -693,7 +693,7 @@ export class TibberCalculator extends TibberHelper {
 						const priceDate = new Date(price.startsAt);
 						// return priceDate >= startTime && priceDate < stopTime;
 						// WiP (#383)
-						return priceDate >= startTimeAdjusted && priceDate < stopTime;
+						return priceDate >= startTime && priceDate < stopTime;
 					});
 				}
 
@@ -773,7 +773,7 @@ export class TibberCalculator extends TibberHelper {
 					// WiP (#383)
 					const startTime: Date = this.adapter.config.CalculatorList[channel].chStartTime;
 					// reduce startTime about 1 second
-					const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
+					// const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
 					// WiP (#383)
 					const stopTime: Date = this.adapter.config.CalculatorList[channel].chStopTime;
 
