@@ -54,34 +54,36 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             const channelName = this.adapter.config.CalculatorList[channel].chName;
             //#region *** setup channel folders ***
-            let typeDesc;
+            const typeDesc = (0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType);
+            /*
             switch (this.adapter.config.CalculatorList[channel].chType) {
-                case tibberHelper_1.enCalcType.BestCost:
+                case enCalcType.BestCost:
                     // typeDesc = "best cost"; WIP 3.1.0
-                    typeDesc = tibberHelper_1.calcTypeName[tibberHelper_1.enCalcType.BestCost];
+                    typeDesc = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
                     break;
-                case tibberHelper_1.enCalcType.BestSingleHours:
-                    typeDesc = (0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType);
+                case enCalcType.BestSingleHours:
+                    typeDesc = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
                     // typeDesc = "best single hours"; WIP 3.1.0
                     break;
-                case tibberHelper_1.enCalcType.BestHoursBlock:
+                case enCalcType.BestHoursBlock:
                     typeDesc = "best hours block";
                     break;
-                case tibberHelper_1.enCalcType.BestCostLTF:
+                case enCalcType.BestCostLTF:
                     typeDesc = "best cost, limited time frame";
                     break;
-                case tibberHelper_1.enCalcType.BestSingleHoursLTF:
+                case enCalcType.BestSingleHoursLTF:
                     typeDesc = "best single hours, limited time frame";
                     break;
-                case tibberHelper_1.enCalcType.BestHoursBlockLTF:
+                case enCalcType.BestHoursBlockLTF:
                     typeDesc = "best hours block, limited time frame";
                     break;
-                case tibberHelper_1.enCalcType.SmartBatteryBuffer:
+                case enCalcType.SmartBatteryBuffer:
                     typeDesc = "smart battery buffer";
                     break;
                 default:
                     typeDesc = "---";
             }
+            */
             await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${channel}`, {
                 type: "channel",
                 common: {
@@ -443,7 +445,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                             this.executeCalculatorBestCost(parseInt(channel));
                         }
                         else {
-                            this.adapter.log.debug(`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`);
+                            this.adapter.log.debug(`calculator channel: ${channel} - ${(0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`); // WIP 3.1.0
                         }
                         break;
                     case tibberHelper_1.enCalcType.BestSingleHours:
@@ -451,7 +453,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                             this.executeCalculatorBestSingleHours(parseInt(channel));
                         }
                         else {
-                            this.adapter.log.debug(`calculator channel: ${channel} - best single hours; execution skipped because channel not set to active in channel states`);
+                            this.adapter.log.debug(`calculator channel: ${channel} - ${(0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`); // WIP 3.1.0
                         }
                         break;
                     case tibberHelper_1.enCalcType.BestHoursBlock:

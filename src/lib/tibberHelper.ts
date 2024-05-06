@@ -11,35 +11,24 @@ export enum enCalcType {
 	//BestCostMaxHours = 8,
 }
 
-export const calcTypeName = {
-	[enCalcType.BestCost]: `best cost`,
-	[enCalcType.BestSingleHours]: `best single hours`,
-	[enCalcType.BestHoursBlock]: `best hours block`,
-	[enCalcType.BestCostLTF]: `best cost LTF`,
-	[enCalcType.BestSingleHoursLTF]: `best single hours LTF`,
-	[enCalcType.BestHoursBlockLTF]: `best hours block LTF`,
-	[enCalcType.SmartBatteryBuffer]: `smart battery buffer`,
-	//[enCalcType.BestCostMaxHours]: `best cost max hours`,
-};
-
 export function getCalcTypeDescription(calcType: enCalcType): string {
 	switch (calcType) {
 		case enCalcType.BestCost:
-			return "Best Cost";
+			return `best cost`;
 		case enCalcType.BestSingleHours:
-			return "Best Single Hours";
+			return `best single hours`;
 		case enCalcType.BestHoursBlock:
-			return "Best Hours Block";
+			return `best hours block`;
 		case enCalcType.BestCostLTF:
-			return "Best Cost LTF";
+			return `best cost LTF`;
 		case enCalcType.BestSingleHoursLTF:
-			return "Best Single Hours LTF";
+			return `best single hours LTF`;
 		case enCalcType.BestHoursBlockLTF:
-			return "Best Hours Block LTF";
+			return `best hours block LTF`;
 		case enCalcType.SmartBatteryBuffer:
-			return "Smart Battery Buffer";
+			return `smart battery buffer`;
 		//case enCalcType.BestCostMaxHours:
-		//return "Best Cost Max Hours";
+		//return "best cost max hours";
 		default:
 			return "Unknown";
 	}

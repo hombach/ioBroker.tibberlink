@@ -1,7 +1,7 @@
 import * as utils from "@iobroker/adapter-core";
 import { addDays, addHours, format } from "date-fns";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { TibberHelper, calcTypeName, enCalcType, getCalcTypeDescription } from "./tibberHelper";
+import { TibberHelper, enCalcType, getCalcTypeDescription } from "./tibberHelper";
 
 export class TibberCalculator extends TibberHelper {
 	numBestCost: number;
@@ -66,11 +66,12 @@ export class TibberCalculator extends TibberHelper {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 
 			//#region *** setup channel folders ***
-			let typeDesc: string;
+			const typeDesc: string = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
+			/*
 			switch (this.adapter.config.CalculatorList[channel].chType) {
 				case enCalcType.BestCost:
 					// typeDesc = "best cost"; WIP 3.1.0
-					typeDesc = calcTypeName[enCalcType.BestCost];
+					typeDesc = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
 					break;
 				case enCalcType.BestSingleHours:
 					typeDesc = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
@@ -94,6 +95,7 @@ export class TibberCalculator extends TibberHelper {
 				default:
 					typeDesc = "---";
 			}
+			*/
 			await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${channel}`, {
 				type: "channel",
 				common: {
@@ -535,8 +537,8 @@ export class TibberCalculator extends TibberHelper {
 							this.executeCalculatorBestCost(parseInt(channel));
 						} else {
 							this.adapter.log.debug(
-								`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`,
-							);
+								`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
+							); // WIP 3.1.0
 						}
 						break;
 					case enCalcType.BestSingleHours:
@@ -544,8 +546,8 @@ export class TibberCalculator extends TibberHelper {
 							this.executeCalculatorBestSingleHours(parseInt(channel));
 						} else {
 							this.adapter.log.debug(
-								`calculator channel: ${channel} - best single hours; execution skipped because channel not set to active in channel states`,
-							);
+								`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
+							); // WIP 3.1.0
 						}
 						break;
 					case enCalcType.BestHoursBlock:
