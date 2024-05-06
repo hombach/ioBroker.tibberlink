@@ -530,73 +530,81 @@ export class TibberCalculator extends TibberHelper {
 			//#endregion first run mode
 
 			try {
-				switch (this.adapter.config.CalculatorList[channel].chType) {
-					// If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
-					case enCalcType.BestCost:
-						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+				// WIP 3.1.0
+				if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+					// WIP 3.1.0
+					switch (this.adapter.config.CalculatorList[channel].chType) {
+						// If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
+						case enCalcType.BestCost:
+							//if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorBestCost(parseInt(channel));
-						} else {
-							this.adapter.log.debug(
-								`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
-							); // WIP 3.1.0
-						}
-						break;
-					case enCalcType.BestSingleHours:
-						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							//} else {
+							//	this.adapter.log.debug(
+							//		`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
+							//	); // WIP 3.1.0
+							//}
+							break;
+						case enCalcType.BestSingleHours:
+							//if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorBestSingleHours(parseInt(channel));
-						} else {
-							this.adapter.log.debug(
-								`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
-							); // WIP 3.1.0
-						}
-						break;
-					case enCalcType.BestHoursBlock:
-						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							//} else {
+							//this.adapter.log.debug(
+							//	`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
+							//); // WIP 3.1.0
+							//}
+							break;
+						case enCalcType.BestHoursBlock:
+							//if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorBestHoursBlock(parseInt(channel));
-						} else {
-							this.adapter.log.debug(
-								`calculator channel: ${channel} - best hours block; execution skipped because channel not set to active in channel states`,
-							);
-						}
-						break;
-					case enCalcType.BestCostLTF:
-						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							//} else {
+							//this.adapter.log.debug(
+							//	`calculator channel: ${channel} - best hours block; execution skipped because channel not set to active in channel states`,
+							//);
+							//}
+							break;
+						case enCalcType.BestCostLTF:
+							//if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorBestCost(parseInt(channel), true);
-						} else {
-							this.adapter.log.debug(
-								`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`,
-							);
-						}
-						break;
-					case enCalcType.BestSingleHoursLTF:
-						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							//} else {
+							//this.adapter.log.debug(
+							//	`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`,
+							//);
+							//}
+							break;
+						case enCalcType.BestSingleHoursLTF:
+							//if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorBestSingleHours(parseInt(channel), true);
-						} else {
-							this.adapter.log.debug(
-								`calculator channel: ${channel} - best single hours LTF; execution skipped because channel not set to active in channel states`,
-							);
-						}
-						break;
-					case enCalcType.BestHoursBlockLTF:
-						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							//} else {
+							//this.adapter.log.debug(
+							//	`calculator channel: ${channel} - best single hours LTF; execution skipped because channel not set to active in channel states`,
+							//);
+							//}
+							break;
+						case enCalcType.BestHoursBlockLTF:
+							//if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorBestHoursBlock(parseInt(channel), true);
-						} else {
-							this.adapter.log.debug(
-								`calculator channel: ${channel} - best hours block LTF; execution skipped because channel not set to active in channel states`,
-							);
-						}
-						break;
-					case enCalcType.SmartBatteryBuffer: // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
-						if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+							//} else {
+							//this.adapter.log.debug(
+							//	`calculator channel: ${channel} - best hours block LTF; execution skipped because channel not set to active in channel states`,
+							//);
+							//}
+							break;
+						case enCalcType.SmartBatteryBuffer: // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
+							//if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
 							this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
-						} else {
-							this.adapter.log.debug(
-								`calculator channel: ${channel} - smart battery buffer; execution skipped because channel not set to active in channel states`,
-							);
-						}
-						break;
-					default:
-						this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
+							//} else {
+							//	this.adapter.log.debug(
+							//		`calculator channel: ${channel} - smart battery buffer; execution skipped because channel not set to active in channel states`,
+							//	);
+							//}
+							break;
+						default:
+							this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
+					}
+				} else {
+					this.adapter.log.debug(
+						`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
+					); // WIP 3.1.0
 				}
 			} catch (error: any) {
 				this.adapter.log.warn(`unhandled error execute calculator channel ${channel}`);
