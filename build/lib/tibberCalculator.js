@@ -628,7 +628,11 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 if (modeLTF) {
                     // Limited Time Frame mode, modify filteredPrices accordingly
                     const pricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.PricesTomorrow.json`));
+                    // WiP (#383)
                     const startTime = this.adapter.config.CalculatorList[channel].chStartTime;
+                    // reduce startTime about 1 second
+                    const startTimeAdjusted = new Date(startTime.getTime() - 1000); // [milliseconds]
+                    // WiP (#383)
                     const stopTime = this.adapter.config.CalculatorList[channel].chStopTime;
                     // Merge prices if pricesTomorrow is not empty
                     let mergedPrices = pricesToday;
@@ -649,7 +653,10 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     for (let j = i; j < i + n; j++) {
                         sum += filteredPrices[j].total;
                     }
-                    if (sum < minSum) {
+                    // WiP (#383)
+                    if (sum < minSum || i === 0) {
+                        // if (sum < minSum) {
+                        // WiP (#383)
                         minSum = sum;
                         startIndex = i;
                     }

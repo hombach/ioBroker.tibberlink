@@ -23,6 +23,12 @@ class TibberHelper {
         };
         return statePrefix;
     }
+    /**
+     * Retrieves the value of a given state by its name.
+     *
+     * @param stateName - A string representing the name of the state to retrieve.
+     * @returns A Promise that resolves with the value of the state if it exists, otherwise resolves with null.
+     */
     async getStateValue(stateName) {
         try {
             const stateObject = await this.getState(stateName);
