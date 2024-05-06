@@ -437,70 +437,52 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 switch (this.adapter.config.CalculatorList[channel].chType) {
                     // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
                     case tibberHelper_1.enCalcType.BestCost:
-                        // WiP (#334)
                         if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestCost(parseInt(channel));
                         }
                         else {
                             this.adapter.log.debug(`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`);
                         }
-                        // this.executeCalculatorBestCost(parseInt(channel));
-                        // WiP (#334)
                         break;
                     case tibberHelper_1.enCalcType.BestSingleHours:
-                        // WiP (#334)
                         if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestSingleHours(parseInt(channel));
                         }
                         else {
                             this.adapter.log.debug(`calculator channel: ${channel} - best single hours; execution skipped because channel not set to active in channel states`);
                         }
-                        // this.executeCalculatorBestSingleHours(parseInt(channel));
-                        // WiP (#334)
                         break;
                     case tibberHelper_1.enCalcType.BestHoursBlock:
-                        // WiP (#334)
                         if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestHoursBlock(parseInt(channel));
                         }
                         else {
                             this.adapter.log.debug(`calculator channel: ${channel} - best hours block; execution skipped because channel not set to active in channel states`);
                         }
-                        // this.executeCalculatorBestHoursBlock(parseInt(channel));
-                        // WiP (#334)
                         break;
                     case tibberHelper_1.enCalcType.BestCostLTF:
-                        // WiP (#334)
                         if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestCost(parseInt(channel), true);
                         }
                         else {
                             this.adapter.log.debug(`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`);
                         }
-                        // this.executeCalculatorBestCost(parseInt(channel), true);
-                        // WiP (#334)
                         break;
                     case tibberHelper_1.enCalcType.BestSingleHoursLTF:
-                        // WiP (#334)
                         if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestSingleHours(parseInt(channel), true);
                         }
                         else {
                             this.adapter.log.debug(`calculator channel: ${channel} - best single hours LTF; execution skipped because channel not set to active in channel states`);
                         }
-                        // this.executeCalculatorBestSingleHours(parseInt(channel), true);
-                        // WiP (#334)
                         break;
                     case tibberHelper_1.enCalcType.BestHoursBlockLTF:
-                        // WiP (#334)
                         if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestHoursBlock(parseInt(channel), true);
                         }
                         else {
                             this.adapter.log.debug(`calculator channel: ${channel} - best hours block LTF; execution skipped because channel not set to active in channel states`);
                         }
-                        // this.executeCalculatorBestHoursBlock(parseInt(channel), true);
-                        // WiP (#334)
                         break;
                     case tibberHelper_1.enCalcType.SmartBatteryBuffer: // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
                         if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
@@ -567,7 +549,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
             }
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel}-best price ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            this.adapter.log.debug(`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -630,7 +612,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             //set value to foreign state
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel}-best single hours ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -715,7 +697,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             //set value to foreign state
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel}-best hours block ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -826,9 +808,9 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
             }
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel}-smart battery buffer; setting first state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            this.adapter.log.debug(`calculator channel: ${channel} - smart battery buffer; setting first state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
             this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState2, convertValue(valueToSet2));
-            this.adapter.log.debug(`calculator channel: ${channel}-smart battery buffer; setting second state: ${this.adapter.config.CalculatorList[channel].chTargetState2} to ${valueToSet2}`);
+            this.adapter.log.debug(`calculator channel: ${channel} - smart battery buffer; setting second state: ${this.adapter.config.CalculatorList[channel].chTargetState2} to ${valueToSet2}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
