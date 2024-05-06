@@ -4,7 +4,17 @@
 		"version": "3.1.0",
 		"news": {
 			"3.1.0": {
-				"en": "WORK in PROGRESS!!"
+				"en": "enable manual control of configured outputs when automation is deactivated (#334)\nfix not working LTF Channel when using too short LTF (#383)\ncode optimizations\nupdate adapter-core to 3.1.4\nbump dependencies",
+				"de": "Manuelle Steuerung der konfigurierten Ausgänge aktivieren, wenn die Automatisierung deaktiviert ist (#334)\nFehler beheben, wenn der LTF-Kanal nicht funktioniert, wenn der LTF zu kurz ist (#383)\nCode-Optimierungen\nadapter-core auf 3.1.4 aktualisieren\nAbhängigkeiten aktualisieren",
+				"ru": "включение ручного управления настроенными выходами при отключении автоматизации (#334)\nисправление неработающего канала LTF при использовании слишком короткого LTF (#383)\nоптимизация кода\nобновление adapter-core до версии 3.1.4\nобновление зависимостей",
+				"pt": "ativar controle manual das saídas configuradas quando a automação está desativada (#334)\ncorrigir o canal LTF que não funciona ao usar LTF muito curto (#383)\noptimizações de código\natualizar adapter-core para 3.1.4\natualizar dependências",
+				"nl": "handmatige controle van geconfigureerde uitgangen inschakelen wanneer automatisering is uitgeschakeld (#334)\nprobleem oplossen met niet-werkend LTF-kanaal bij te kort LTF (#383)\ncode-optimalisaties\nadapter-core bijwerken naar 3.1.4\nafhankelijkheden bijwerken",
+				"fr": "activer le contrôle manuel des sorties configurées lorsque l'automatisation est désactivée (#334)\ncorriger le canal LTF qui ne fonctionne pas lorsqu'un LTF trop court est utilisé (#383)\noptimisations de code\nmettre à jour adapter-core vers 3.1.4\nmettre à jour les dépendances",
+				"it": "abilita il controllo manuale delle uscite configurate quando l'automazione è disattivata (#334)\nrisolvi il problema del canale LTF non funzionante quando si utilizza un LTF troppo breve (#383)\nottimizzazioni del codice\naggiorna adapter-core a 3.1.4\naggiorna le dipendenze",
+				"es": "habilitar el control manual de las salidas configuradas cuando la automatización está desactivada (#334)\nresolver el problema del canal LTF que no funciona cuando se utiliza un LTF demasiado corto (#383)\noptimizaciones de código\nactualizar adapter-core a 3.1.4\nactualizar dependencias",
+				"pl": "włącz ręczną kontrolę skonfigurowanych wyjść, gdy automatyzacja jest wyłączona (#334)\nnapraw kanał LTF, który nie działa, gdy używa się zbyt krótkiego LTF (#383)\noptymalizacje kodu\nzaktualizuj adapter-core do wersji 3.1.4\nzaktualizuj zależności",
+				"uk": "увімкнення ручного керування налаштованими виходами при вимкненні автоматизації (#334)\nвиправлення неробочого каналу LTF при використанні занадто короткого LTF (#383)\nоптимізації коду\nоновлення adapter-core до версії 3.1.4\nоновлення залежностей",
+				"zh-cn": "在自动化被停用时启用对已配置输出的手动控制 (#334)\n修复了使用过短 LTF 时无法工作的 LTF 通道 (#383)\n代码优化\n将 adapter-core 更新到 3.1.4\n升级依赖项"
 			},
 			"3.0.1": {
 				"en": "updated adapter testing\nbumped dependencies",
