@@ -53,37 +53,8 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.config.CalculatorList[channel].chName = `Channel Name`;
             }
             const channelName = this.adapter.config.CalculatorList[channel].chName;
-            //#region *** setup channel folders ***
+            //#region *** setup channel folder ***
             const typeDesc = (0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType);
-            /*
-            switch (this.adapter.config.CalculatorList[channel].chType) {
-                case enCalcType.BestCost:
-                    // typeDesc = "best cost"; WIP 3.1.0
-                    typeDesc = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
-                    break;
-                case enCalcType.BestSingleHours:
-                    typeDesc = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
-                    // typeDesc = "best single hours"; WIP 3.1.0
-                    break;
-                case enCalcType.BestHoursBlock:
-                    typeDesc = "best hours block";
-                    break;
-                case enCalcType.BestCostLTF:
-                    typeDesc = "best cost, limited time frame";
-                    break;
-                case enCalcType.BestSingleHoursLTF:
-                    typeDesc = "best single hours, limited time frame";
-                    break;
-                case enCalcType.BestHoursBlockLTF:
-                    typeDesc = "best hours block, limited time frame";
-                    break;
-                case enCalcType.SmartBatteryBuffer:
-                    typeDesc = "smart battery buffer";
-                    break;
-                default:
-                    typeDesc = "---";
-            }
-            */
             await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${channel}`, {
                 type: "channel",
                 common: {
@@ -438,80 +409,36 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             //#endregion first run mode
             try {
-                // WIP 3.1.0
                 if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
-                    // WIP 3.1.0
+                    // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
                     switch (this.adapter.config.CalculatorList[channel].chType) {
-                        // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
                         case tibberHelper_1.enCalcType.BestCost:
-                            //if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestCost(parseInt(channel));
-                            //} else {
-                            //	this.adapter.log.debug(
-                            //		`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
-                            //	); // WIP 3.1.0
-                            //}
                             break;
                         case tibberHelper_1.enCalcType.BestSingleHours:
-                            //if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestSingleHours(parseInt(channel));
-                            //} else {
-                            //this.adapter.log.debug(
-                            //	`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
-                            //); // WIP 3.1.0
-                            //}
                             break;
                         case tibberHelper_1.enCalcType.BestHoursBlock:
-                            //if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestHoursBlock(parseInt(channel));
-                            //} else {
-                            //this.adapter.log.debug(
-                            //	`calculator channel: ${channel} - best hours block; execution skipped because channel not set to active in channel states`,
-                            //);
-                            //}
                             break;
                         case tibberHelper_1.enCalcType.BestCostLTF:
-                            //if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestCost(parseInt(channel), true);
-                            //} else {
-                            //this.adapter.log.debug(
-                            //	`calculator channel: ${channel} - best cost; execution skipped because channel not set to active in channel states`,
-                            //);
-                            //}
                             break;
                         case tibberHelper_1.enCalcType.BestSingleHoursLTF:
-                            //if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestSingleHours(parseInt(channel), true);
-                            //} else {
-                            //this.adapter.log.debug(
-                            //	`calculator channel: ${channel} - best single hours LTF; execution skipped because channel not set to active in channel states`,
-                            //);
-                            //}
                             break;
                         case tibberHelper_1.enCalcType.BestHoursBlockLTF:
-                            //if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                             this.executeCalculatorBestHoursBlock(parseInt(channel), true);
-                            //} else {
-                            //this.adapter.log.debug(
-                            //	`calculator channel: ${channel} - best hours block LTF; execution skipped because channel not set to active in channel states`,
-                            //);
-                            //}
                             break;
-                        case tibberHelper_1.enCalcType.SmartBatteryBuffer: // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
-                            //if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
+                        case tibberHelper_1.enCalcType.SmartBatteryBuffer:
                             this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
-                            //} else {
-                            //	this.adapter.log.debug(
-                            //		`calculator channel: ${channel} - smart battery buffer; execution skipped because channel not set to active in channel states`,
-                            //	);
-                            //}
                             break;
                         default:
                             this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
                     }
                 }
                 else {
-                    this.adapter.log.debug(`calculator channel: ${channel} - ${(0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`); // WIP 3.1.0
+                    this.adapter.log.debug(`calculator channel: ${channel} - ${(0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`);
                 }
             }
             catch (error) {
