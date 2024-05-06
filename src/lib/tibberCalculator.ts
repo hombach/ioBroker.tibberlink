@@ -1,7 +1,7 @@
 import * as utils from "@iobroker/adapter-core";
 import { addDays, addHours, format } from "date-fns";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { TibberHelper, enCalcType } from "./tibberHelper";
+import { TibberHelper, calcTypeName, enCalcType, getCalcTypeDescription } from "./tibberHelper";
 
 export class TibberCalculator extends TibberHelper {
 	numBestCost: number;
@@ -69,10 +69,12 @@ export class TibberCalculator extends TibberHelper {
 			let typeDesc: string;
 			switch (this.adapter.config.CalculatorList[channel].chType) {
 				case enCalcType.BestCost:
-					typeDesc = "best cost";
+					// typeDesc = "best cost"; WIP 3.1.0
+					typeDesc = calcTypeName[enCalcType.BestCost];
 					break;
 				case enCalcType.BestSingleHours:
-					typeDesc = "best single hours";
+					typeDesc = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
+					// typeDesc = "best single hours"; WIP 3.1.0
 					break;
 				case enCalcType.BestHoursBlock:
 					typeDesc = "best hours block";
@@ -155,7 +157,7 @@ export class TibberCalculator extends TibberHelper {
 					if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
 						this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
 					} else {
-						await this.setup_chOutput(homeId, channel);
+						//await this.setup_chOutput(homeId, channel);
 					}
 					//WIP #325
 					break;

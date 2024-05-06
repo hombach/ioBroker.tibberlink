@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TibberHelper = exports.enCalcType = void 0;
+exports.TibberHelper = exports.getCalcTypeDescription = exports.calcTypeName = exports.enCalcType = void 0;
 var enCalcType;
 (function (enCalcType) {
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
@@ -12,6 +12,39 @@ var enCalcType;
     enCalcType[enCalcType["SmartBatteryBuffer"] = 7] = "SmartBatteryBuffer";
     //BestCostMaxHours = 8,
 })(enCalcType || (exports.enCalcType = enCalcType = {}));
+exports.calcTypeName = {
+    [enCalcType.BestCost]: `best cost`,
+    [enCalcType.BestSingleHours]: `best single hours`,
+    [enCalcType.BestHoursBlock]: `best hours block`,
+    [enCalcType.BestCostLTF]: `best cost LTF`,
+    [enCalcType.BestSingleHoursLTF]: `best single hours LTF`,
+    [enCalcType.BestHoursBlockLTF]: `best hours block LTF`,
+    [enCalcType.SmartBatteryBuffer]: `smart battery buffer`,
+    //[enCalcType.BestCostMaxHours]: `best cost max hours`,
+};
+function getCalcTypeDescription(calcType) {
+    switch (calcType) {
+        case enCalcType.BestCost:
+            return "Best Cost";
+        case enCalcType.BestSingleHours:
+            return "Best Single Hours";
+        case enCalcType.BestHoursBlock:
+            return "Best Hours Block";
+        case enCalcType.BestCostLTF:
+            return "Best Cost LTF";
+        case enCalcType.BestSingleHoursLTF:
+            return "Best Single Hours LTF";
+        case enCalcType.BestHoursBlockLTF:
+            return "Best Hours Block LTF";
+        case enCalcType.SmartBatteryBuffer:
+            return "Smart Battery Buffer";
+        //case enCalcType.BestCostMaxHours:
+        //return "Best Cost Max Hours";
+        default:
+            return "Unknown";
+    }
+}
+exports.getCalcTypeDescription = getCalcTypeDescription;
 class TibberHelper {
     constructor(adapter) {
         this.adapter = adapter;

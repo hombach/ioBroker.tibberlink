@@ -101,6 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) WiP Feature Request - default output data points for calculator (#325)
 -   (HombachC) enable manual control of configured outputs when automation is deactivated (#334)
 -   (HombachC) fix not working LTF Channel when using too short LTF (#383)
+-   (HombachC) code optimisations
 -   (HombachC) update adapter-core to 3.1.4
 -   (HombachC) bump dependencies
 

@@ -11,6 +11,40 @@ export enum enCalcType {
 	//BestCostMaxHours = 8,
 }
 
+export const calcTypeName = {
+	[enCalcType.BestCost]: `best cost`,
+	[enCalcType.BestSingleHours]: `best single hours`,
+	[enCalcType.BestHoursBlock]: `best hours block`,
+	[enCalcType.BestCostLTF]: `best cost LTF`,
+	[enCalcType.BestSingleHoursLTF]: `best single hours LTF`,
+	[enCalcType.BestHoursBlockLTF]: `best hours block LTF`,
+	[enCalcType.SmartBatteryBuffer]: `smart battery buffer`,
+	//[enCalcType.BestCostMaxHours]: `best cost max hours`,
+};
+
+export function getCalcTypeDescription(calcType: enCalcType): string {
+	switch (calcType) {
+		case enCalcType.BestCost:
+			return "Best Cost";
+		case enCalcType.BestSingleHours:
+			return "Best Single Hours";
+		case enCalcType.BestHoursBlock:
+			return "Best Hours Block";
+		case enCalcType.BestCostLTF:
+			return "Best Cost LTF";
+		case enCalcType.BestSingleHoursLTF:
+			return "Best Single Hours LTF";
+		case enCalcType.BestHoursBlockLTF:
+			return "Best Hours Block LTF";
+		case enCalcType.SmartBatteryBuffer:
+			return "Smart Battery Buffer";
+		//case enCalcType.BestCostMaxHours:
+		//return "Best Cost Max Hours";
+		default:
+			return "Unknown";
+	}
+}
+
 export interface IHomeInfo {
 	ID: string;
 	NameInApp: string;

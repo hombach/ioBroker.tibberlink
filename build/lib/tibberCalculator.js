@@ -57,25 +57,27 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             let typeDesc;
             switch (this.adapter.config.CalculatorList[channel].chType) {
                 case tibberHelper_1.enCalcType.BestCost:
-                    typeDesc = "type: best cost";
+                    // typeDesc = "best cost"; WIP 3.1.0
+                    typeDesc = tibberHelper_1.calcTypeName[tibberHelper_1.enCalcType.BestCost];
                     break;
                 case tibberHelper_1.enCalcType.BestSingleHours:
-                    typeDesc = "type: best single hours";
+                    typeDesc = (0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType);
+                    // typeDesc = "best single hours"; WIP 3.1.0
                     break;
                 case tibberHelper_1.enCalcType.BestHoursBlock:
-                    typeDesc = "type: best hours block";
+                    typeDesc = "best hours block";
                     break;
                 case tibberHelper_1.enCalcType.BestCostLTF:
-                    typeDesc = "type: best cost, limited time frame";
+                    typeDesc = "best cost, limited time frame";
                     break;
                 case tibberHelper_1.enCalcType.BestSingleHoursLTF:
-                    typeDesc = "type: best single hours, limited time frame";
+                    typeDesc = "best single hours, limited time frame";
                     break;
                 case tibberHelper_1.enCalcType.BestHoursBlockLTF:
-                    typeDesc = "type: best hours block, limited time frame";
+                    typeDesc = "best hours block, limited time frame";
                     break;
                 case tibberHelper_1.enCalcType.SmartBatteryBuffer:
-                    typeDesc = "type: smart battery buffer";
+                    typeDesc = "smart battery buffer";
                     break;
                 default:
                     typeDesc = "---";
@@ -84,7 +86,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 type: "channel",
                 common: {
                     name: channelName,
-                    desc: typeDesc,
+                    desc: `type: ${typeDesc}`,
                 },
                 native: {},
             });
@@ -135,7 +137,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
                     }
                     else {
-                        // await this.setup_chOutput(homeId, channel);
+                        //await this.setup_chOutput(homeId, channel);
                     }
                     //WIP #325
                     break;
