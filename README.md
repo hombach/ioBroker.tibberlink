@@ -96,9 +96,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 3.1.0 (2024-05-xx) WORK in PROGRESS!!
+### 3.1.0 (2024-05-07)
 
--   (HombachC) WiP Feature Request - default output data points for calculator (#325)
 -   (HombachC) enable manual control of configured outputs when automation is deactivated (#334)
 -   (HombachC) fix not working LTF Channel when using too short LTF (#383)
 -   (HombachC) code optimisations
