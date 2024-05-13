@@ -96,6 +96,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.1.1 (2024-05-\*\*)
+
+-   (HombachC) logging optimizations
+
 ### 3.1.0 (2024-05-07)
 
 -   (HombachC) enable manual control of configured outputs when automation is deactivated (#334)

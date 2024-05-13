@@ -60,6 +60,23 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
                 this.adapter.log.warn(`unspecified ERROR on Tibber feed: ${errorObj.toString()}`);
             }
         });
+        // Add error handler on connection
+        currentFeed.on("error", (error) => {
+            let errorMessage = "";
+            if (error instanceof Error) {
+                if (error.message)
+                    errorMessage = error.message;
+                else if (error.name)
+                    errorMessage = error.name;
+                else
+                    errorMessage = "Unspecified error";
+            }
+            else if (typeof error === "string")
+                errorMessage = error;
+            else
+                errorMessage = "Unknown error";
+            this.adapter.log.warn(`Error on Tibber feed: ${errorMessage}`);
+        });
         // Add data receiver
         currentFeed.on("data", (data) => {
             const receivedData = data;

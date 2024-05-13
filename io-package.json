@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.1.0",
+		"version": "3.1.1",
 		"news": {
+			"3.1.1": {
+				"en": "WIP"
+			},
 			"3.1.0": {
 				"en": "enable manual control of configured outputs when automation is deactivated (#334)\nfix not working LTF Channel when using too short LTF (#383)\ncode optimizations\nupdate adapter-core to 3.1.4\nbump dependencies",
 				"de": "Manuelle Steuerung der konfigurierten Ausgänge aktivieren, wenn die Automatisierung deaktiviert ist (#334)\nFehler beheben, wenn der LTF-Kanal nicht funktioniert, wenn der LTF zu kurz ist (#383)\nCode-Optimierungen\nadapter-core auf 3.1.4 aktualisieren\nAbhängigkeiten aktualisieren",
@@ -210,19 +213,6 @@
 				"pl": "Wdrożyć nazwy obiektów kalkulatora (#186)",
 				"uk": "Реалізувати імена об'єктів калькулятора (#186)",
 				"zh-cn": "实施计算器对象名称 (#186)"
-			},
-			"1.4.2": {
-				"en": "Complete rework of task scheduling for more precise pull timing (#149)",
-				"de": "Vollständige Überarbeitung der Aufgabenplanung für genauere Pull-Zeiten (#149)",
-				"ru": "Полная переработка планирования задач для более точного времени запросов (#149)",
-				"pt": "Reformulação completa do agendamento de tarefas para um tempo de busca mais preciso (#149)",
-				"nl": "Volledige herziening van taakplanning voor nauwkeurigere pull-timing (#149)",
-				"fr": "Refonte complète de la planification des tâches pour des horaires de pull plus précis (#149)",
-				"it": "Rielaborazione completa della pianificazione delle attività per una tempistica di pull più precisa (#149)",
-				"es": "Revisión completa de la programación de tareas para una temporización de extracción más precisa (#149)",
-				"pl": "Całkowita przebudowa harmonogramu zadań dla dokładniejszego czasu pobierania (#149)",
-				"uk": "Повна переробка планування завдань для більш точного часу витягування (#149)",
-				"zh-cn": "完全重做任务调度以获得更精确的拉取时间 (#149)"
 			},
 			"1.4.0": {
 				"en": "implement min/max states (#131)\nfix error with ignored calculator channel deactivations (#143)",
