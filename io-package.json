@@ -401,7 +401,6 @@
 			"type": "free"
 		},
 		"platform": "Javascript/Node.js",
-		"main": "build/main.js",
 		"icon": "tibberlink.png",
 		"enabled": true,
 		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/main/admin/tibberlink.png",
