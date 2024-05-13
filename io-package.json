@@ -4,7 +4,17 @@
 		"version": "3.1.1",
 		"news": {
 			"3.1.1": {
-				"en": "WIP"
+				"en": "logging optimizations",
+				"de": "Logging-Optimierungen",
+				"ru": "оптимизация логирования",
+				"pt": "otimizações de registro",
+				"nl": "logoptimalisaties",
+				"fr": "optimisations de journalisation",
+				"it": "ottimizzazioni del logging",
+				"es": "optimizaciones de registro",
+				"pl": "optymalizacje logowania",
+				"uk": "оптимізації логування",
+				"zh-cn": "日志优化"
 			},
 			"3.1.0": {
 				"en": "enable manual control of configured outputs when automation is deactivated (#334)\nfix not working LTF Channel when using too short LTF (#383)\ncode optimizations\nupdate adapter-core to 3.1.4\nbump dependencies",
