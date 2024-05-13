@@ -57,6 +57,8 @@ export class TibberPulse extends TibberHelper {
 			}
 		});
 
+		// WIP
+		/*
 		// Add error handler on connection
 		currentFeed.on("error", (error) => {
 			const errorObj = error instanceof Error ? error : new Error(error);
@@ -68,6 +70,7 @@ export class TibberPulse extends TibberHelper {
 				this.adapter.log.warn(`unspecified ERROR on Tibber feed: ${errorObj.toString()}`);
 			}
 		});
+		*/ //WIP
 
 		// Add error handler on connection
 		currentFeed.on("error", (error) => {

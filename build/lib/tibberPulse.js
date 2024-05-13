@@ -47,19 +47,20 @@ class TibberPulse extends tibberHelper_1.TibberHelper {
                 this.reconnect();
             }
         });
+        // WIP
+        /*
         // Add error handler on connection
         currentFeed.on("error", (error) => {
             const errorObj = error instanceof Error ? error : new Error(error);
             if (errorObj.message) {
                 this.adapter.log.warn(`ERROR on Tibber feed: ${errorObj.message}`);
-            }
-            else if (errorObj.name) {
+            } else if (errorObj.name) {
                 this.adapter.log.warn(`ERROR on Tibber feed: ${errorObj.name}`);
-            }
-            else {
+            } else {
                 this.adapter.log.warn(`unspecified ERROR on Tibber feed: ${errorObj.toString()}`);
             }
         });
+        */ //WIP
         // Add error handler on connection
         currentFeed.on("error", (error) => {
             let errorMessage = "";
