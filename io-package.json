@@ -4,17 +4,17 @@
 		"version": "3.1.1",
 		"news": {
 			"3.1.1": {
-				"en": "logging optimizations",
-				"de": "Logging-Optimierungen",
-				"ru": "оптимизация логирования",
-				"pt": "otimizações de registro",
-				"nl": "logoptimalisaties",
-				"fr": "optimisations de journalisation",
-				"it": "ottimizzazioni del logging",
-				"es": "optimizaciones de registro",
-				"pl": "optymalizacje logowania",
-				"uk": "оптимізації логування",
-				"zh-cn": "日志优化"
+				"en": "throttle down reconnection speed\nlogging optimizations (#396; #217)\nadaptations to newer environment (#394; #395)",
+				"de": "Verbindungswiederherstellungsgeschwindigkeit drosseln\nLogging-Optimierungen (#396; #217)\nAnpassungen an neuere Umgebung (#394; #395)",
+				"ru": "снижение скорости повторного подключения\nоптимизация логирования (#396; #217)\nадаптации к новой среде (#394; #395)",
+				"pt": "diminuir a velocidade de reconexão\notimizações de registro (#396; #217)\nadaptações ao ambiente mais recente (#394; #395)",
+				"nl": "verbindingsherstelsnelheid vertragen\nlogoptimalisaties (#396; #217)\naanpassingen aan nieuwere omgeving (#394; #395)",
+				"fr": "ralentir la vitesse de reconnexion\noptimisations de journalisation (#396; #217)\nadaptations à un environnement plus récent (#394; #395)",
+				"it": "ridurre la velocità di riconnessione\nottimizzazioni del logging (#396; #217)\nadattamenti all'ambiente più recente (#394; #395)",
+				"es": "ralentizar la velocidad de reconexión\noptimizaciones de registro (#396; #217)\nadaptaciones a entorno más reciente (#394; #395)",
+				"pl": "zmniejsz prędkość ponownego łączenia\noptymalizacje logowania (#396; #217)\nadaptacje do nowszego środowiska (#394; #395)",
+				"uk": "зменшення швидкості повторного підключення\nоптимізація логування (#396; #217)\nадаптації до нового середовища (#394; #395)",
+				"zh-cn": "降低重新连接速度\n日志优化 (#396; #217)\n适应新环境 (#394; #395)"
 			},
 			"3.1.0": {
 				"en": "enable manual control of configured outputs when automation is deactivated (#334)\nfix not working LTF Channel when using too short LTF (#383)\ncode optimizations\nupdate adapter-core to 3.1.4\nbump dependencies",

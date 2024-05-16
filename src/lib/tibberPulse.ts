@@ -22,7 +22,7 @@ export class TibberPulse extends TibberHelper {
 
 	async ConnectPulseStream(): Promise<void> {
 		try {
-			this.tibberFeed.connect();
+			await this.tibberFeed.connect();
 		} catch (error) {
 			this.adapter.log.warn(`Error in ConnectPulseStream: ${(error as Error).message}`);
 		}
@@ -49,28 +49,10 @@ export class TibberPulse extends TibberHelper {
 		currentFeed.on("disconnected", (data) => {
 			this.adapter.setState("info.connection", false, true);
 			if (this.adapter.config.HomesList.some((info) => info.feedActive)) {
-				this.reconnectTime = 6000; // reinit
-				this.adapter.log.warn(
-					`A feed was disconnected. I try to reconnect in ${this.reconnectTime / 1000}sec  -  Tibber error text: ${data.toString()}`,
-				);
+				this.adapter.log.warn(`A feed was disconnected. I try to reconnect with incremental delay -  Tibber error text: ${data.toString()}`);
 				this.reconnect();
 			}
 		});
-
-		// WIP
-		/*
-		// Add error handler on connection
-		currentFeed.on("error", (error) => {
-			const errorObj = error instanceof Error ? error : new Error(error);
-			if (errorObj.message) {
-				this.adapter.log.warn(`ERROR on Tibber feed: ${errorObj.message}`);
-			} else if (errorObj.name) {
-				this.adapter.log.warn(`ERROR on Tibber feed: ${errorObj.name}`);
-			} else {
-				this.adapter.log.warn(`unspecified ERROR on Tibber feed: ${errorObj.toString()}`);
-			}
-		});
-		*/ //WIP
 
 		// Add error handler on connection
 		currentFeed.on("error", (error) => {
@@ -264,14 +246,15 @@ export class TibberPulse extends TibberHelper {
 	 * @returns A Promise that resolves when reconnection is successful, or rejects with an error message.
 	 */
 	private async reconnect(): Promise<void> {
+		this.reconnectTime = 6000; // reinit
 		do {
-			await this.adapter.delay(this.reconnectTime);
 			this.adapter.log.debug(
 				`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`,
 			);
+			await this.adapter.delay(this.reconnectTime);
 			await this.ConnectPulseStream();
-			this.reconnectTime = Math.min(this.reconnectTime + 1000, this.maxReconnectTime);
+			this.reconnectTime = Math.min(this.reconnectTime + 2000, this.maxReconnectTime);
 		} while (!this.tibberFeed.connected);
-		this.adapter.log.info(`Reconnection successful!`);
+		this.adapter.log.debug(`Reconnection successful!`);
 	}
 }
