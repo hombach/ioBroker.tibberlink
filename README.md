@@ -98,7 +98,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.1.1 (2024-05-xx)
 
--   (HombachC) logging optimizations
+-   (HombachC) logging optimizations (#217)
 -   (HombachC) adaptations to newer environment (#394; #395)
 
 ### 3.1.0 (2024-05-07)
