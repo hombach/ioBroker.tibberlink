@@ -235,12 +235,13 @@ class Tibberlink extends utils.Adapter {
 					//WIP #393 Delete temporary home "tibberlink.0.Homes.None available..."
 					if (!this.homeInfoList.some((homeInfo) => homeInfo.ID == `None available - restart adapter after entering token`)) {
 						this.deleteChannelAsync(`Homes.None available - restart adapter after entering token`);
+						this.log.debug(`deleting temp home from startup`);
 					}
 					//WIP #393
 
 					for (const index in this.homeInfoList) {
 						if (!this.homeInfoList[index].FeedActive || !this.homeInfoList[index].RealTime) {
-							this.log.warn("skipping feed of live data - no Pulse configured for this home according to Tibber server");
+							this.log.warn(`skipping feed of live data - no Pulse configured for this home according to Tibber server`);
 							continue;
 						}
 						this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
