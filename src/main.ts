@@ -233,18 +233,13 @@ class Tibberlink extends utils.Adapter {
 					const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 
 					if (!this.homeInfoList.some((homeInfo) => homeInfo.ID == `None available - restart adapter after entering token`)) {
-						const stateObject = await this.getObjectAsync(`Homes.None available - restart adapter after entering token`);
-						if (!stateObject) {
-							this.log.debug(`Temp home channel from adapter setup already deleted`);
-						} else {
-							this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true })
-								.then(() => {
-									this.log.debug(`Deleted temp home channel from adapter setup`);
-								})
-								.catch((error) => {
-									this.log.error(`Error deleting temp home channel from adapter setup: ${error}`);
-								});
-						}
+						//const stateObject = await this.getObjectAsync(`Homes.None available - restart adapter after entering token`);
+						//if (!stateObject) {
+						//this.log.debug(`Temp home channel from adapter setup already deleted`);
+						//} else {
+						this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true });
+						//this.log.debug(`Deleted temp home channel from adapter setup`);
+						//}
 					}
 
 					for (const index in this.homeInfoList) {
