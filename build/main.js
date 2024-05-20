@@ -238,7 +238,7 @@ class Tibberlink extends utils.Adapter {
                 });
                 if (jobPricesTomorrow)
                     this.cronList.push(jobPricesTomorrow);
-                // If user uses live feed - start feed connection
+                //#region *** If user uses live feed - start feed connection ***
                 if (this.homeInfoList.some((info) => info.FeedActive)) {
                     // array with configs of feeds, init with base data set
                     const tibberFeedConfigs = Array.from({ length: this.homeInfoList.length }, () => {
@@ -252,6 +252,11 @@ class Tibberlink extends utils.Adapter {
                         };
                     });
                     const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
+                    //WIP #393 Delete temporary home "tibberlink.0.Homes.None available..."
+                    if (!this.homeInfoList.some((homeInfo) => homeInfo.ID == `None available - restart adapter after entering token`)) {
+                        this.deleteChannelAsync(`Homes.None available - restart adapter after entering token`);
+                    }
+                    //WIP #393
                     for (const index in this.homeInfoList) {
                         if (!this.homeInfoList[index].FeedActive || !this.homeInfoList[index].RealTime) {
                             this.log.warn("skipping feed of live data - no Pulse configured for this home according to Tibber server");
@@ -316,6 +321,7 @@ class Tibberlink extends utils.Adapter {
                         }
                     }
                 }
+                //#endregion
             }
         }
     }

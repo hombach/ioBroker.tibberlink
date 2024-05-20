@@ -96,6 +96,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.1.2 (2024-05-2x)
+
+-   (HombachC) WIP (#393)
+
 ### 3.1.1 (2024-05-16)
 
 -   (HombachC) throttle down reconnection speed
