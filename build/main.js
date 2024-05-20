@@ -254,8 +254,9 @@ class Tibberlink extends utils.Adapter {
                     const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
                     //WIP #393 Delete temporary home "tibberlink.0.Homes.None available..."
                     if (!this.homeInfoList.some((homeInfo) => homeInfo.ID == `None available - restart adapter after entering token`)) {
+                        this.log.debug(`Deleting temp home from adapter setup`);
                         this.deleteChannelAsync(`Homes.None available - restart adapter after entering token`);
-                        this.log.debug(`deleting temp home from startup`);
+                        this.deleteChannelAsync(`Homes.Test`);
                     }
                     //WIP #393
                     for (const index in this.homeInfoList) {
