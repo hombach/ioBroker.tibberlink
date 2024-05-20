@@ -234,7 +234,9 @@ class Tibberlink extends utils.Adapter {
 
 					if (!this.homeInfoList.some((homeInfo) => homeInfo.ID == `None available - restart adapter after entering token`)) {
 						const stateObject = await this.getObjectAsync(`Homes.None available - restart adapter after entering token`);
-						if (stateObject) {
+						if (!stateObject) {
+							this.log.debug(`Temp home channel from adapter setup already deleted`);
+						} else {
 							this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true })
 								.then(() => {
 									this.log.debug(`Deleted temp home channel from adapter setup`);
