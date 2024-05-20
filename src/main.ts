@@ -234,7 +234,9 @@ class Tibberlink extends utils.Adapter {
 
 					//WIP #393 Delete temporary home "tibberlink.0.Homes.None available..."
 					if (!this.homeInfoList.some((homeInfo) => homeInfo.ID == `None available - restart adapter after entering token`)) {
-						this.log.debug(`Deleting temp home from adapter setup`);
+						this.log.debug(`Deleting temp home channel from adapter setup`);
+						this.delObjectAsync(`Homes.Test`);
+						this.delObjectAsync(`Homes.None available - restart adapter after entering token`);
 						this.deleteChannelAsync(`Homes.None available - restart adapter after entering token`);
 						this.deleteChannelAsync(`Homes.Test`);
 					}
