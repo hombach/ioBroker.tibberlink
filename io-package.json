@@ -252,19 +252,6 @@
 				"pl": "Wdrożenie trybu kalkulatora Tibber 'najlepszy blok godzin' (#16)",
 				"uk": "Впровадження режиму калькулятора Tibber 'кращий годинний блок' (#16)",
 				"zh-cn": "实施Tibber计算器模式 '最佳小时块' (#16)"
-			},
-			"1.2.0": {
-				"en": "Implement Tibber calculator mode 'best single hours' (#16)\nfixed translations (#128)\nfixed error in initial read of calculator states (#129)",
-				"de": "Implementieren des Tibber-Rechnermodus 'beste Einzelstunden' (#16)\nbehobene Übersetzungen (#128)\nFehler bei der initialen Lesung der Rechnerzustände behoben (#129)",
-				"ru": "Реализация режима калькулятора Tibber 'лучшие одиночные часы' (#16)\nисправлены переводы (#128)\nисправлена ошибка при первоначальном чтении состояний калькулятора (#129)",
-				"pt": "Implementar o modo de calculadora Tibber 'melhores horas únicas' (#16)\ntraduções corrigidas (#128)\nerro corrigido na leitura inicial dos estados do calculadora (#129)",
-				"nl": "Implementeer de Tibber rekenmachine modus 'beste enkele uren' (#16)\ngecorrigeerde vertalingen (#128)\nfout bij de initiële lezing van de rekenmachine staten gecorrigeerd (#129)",
-				"fr": "Implémenter le mode calculatrice Tibber 'meilleures heures uniques' (#16)\ntraductions corrigées (#128)\nerreur corrigée lors de la lecture initiale des états de la calculatrice (#129)",
-				"it": "Implementare la modalità calcolatrice Tibber 'migliori ore singole' (#16)\ntraduzioni corrette (#128)\nerrore corretto nella lettura iniziale degli stati della calcolatrice (#129)",
-				"es": "Implementar el modo calculadora Tibber 'mejores horas individuales' (#16)\ntraducciones corregidas (#128)\nerror corregido en la lectura inicial de los estados del calculadora (#129)",
-				"pl": "Wdrożenie trybu kalkulatora Tibber 'najlepsze pojedyncze godziny' (#16)\npoprawione tłumaczenia (#128)\nnaprawiony błąd przy początkowym odczycie stanów kalkulatora (#129)",
-				"uk": "Впровадження режиму калькулятора Tibber 'кращі одиночні години' (#16)\nвиправлені переклади (#128)\nвиправлено помилку при початковому читанні станів калькулятора (#129)",
-				"zh-cn": "实施Tibber计算器模式 '最佳单个小时' (#16)\n修正的翻译 (#128)\n修正了计算器状态初始读取中的错误 (#129)"
 			}
 		},
 		"messages": [
