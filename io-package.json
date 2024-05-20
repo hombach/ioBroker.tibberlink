@@ -4,7 +4,17 @@
 		"version": "3.1.2",
 		"news": {
 			"3.1.2": {
-				"en": "WIP"
+				"en": "deleting unused temporary home objects after adapter configuration (#393)",
+				"de": "Löschen nicht verwendeter temporärer Home-Objekte nach der Adapterkonfiguration (#393)",
+				"ru": "удаление неиспользуемых временных домашних объектов после конфигурации адаптера (#393)",
+				"pt": "excluindo objetos temporários de casa não utilizados após a configuração do adaptador (#393)",
+				"nl": "verwijderen van ongebruikte tijdelijke home-objecten na adapterconfiguratie (#393)",
+				"fr": "suppression des objets de maison temporaires inutilisés après la configuration de l'adaptateur (#393)",
+				"it": "eliminazione degli oggetti temporanei non utilizzati dopo la configurazione dell'adattatore (#393)",
+				"es": "eliminación de objetos temporales de inicio no utilizados después de la configuración del adaptador (#393)",
+				"pl": "usunięcie nieużywanych tymczasowych obiektów domowych po konfiguracji adaptera (#393)",
+				"uk": "видалення невикористаних тимчасових об'єктів дому після конфігурації адаптера (#393)",
+				"zh-cn": "在适配器配置后删除未使用的临时主页对象 (#393)"
 			},
 			"3.1.1": {
 				"en": "throttle down reconnection speed\nlogging optimizations (#396; #217)\nadaptations to newer environment (#394; #395)",

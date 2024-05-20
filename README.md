@@ -98,7 +98,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.1.2 (2024-05-2x)
 
--   (HombachC) WIP (#393)
+-   (HombachC) deleting unused temp home objects after adapter config (#393)
 
 ### 3.1.1 (2024-05-16)
 
