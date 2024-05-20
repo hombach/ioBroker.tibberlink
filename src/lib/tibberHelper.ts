@@ -96,6 +96,12 @@ export class TibberHelper {
 		}
 	}
 
+	/**
+	 * Verifies the availability of a state by its name.
+	 *
+	 * @param stateName - A string representing the name of the state to verify.
+	 * @returns A Promise that resolves with true if the state exists, otherwise resolves with false.
+	 */
 	private async verifyStateAvailable(stateName: string): Promise<any> {
 		const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
 		if (!stateObject) {
