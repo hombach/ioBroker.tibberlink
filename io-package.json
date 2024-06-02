@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.1.2",
+		"version": "3.1.3",
 		"news": {
+			"3.1.3": {
+				"en": "WIP (#325)"
+			},
 			"3.1.2": {
 				"en": "deleting unused temporary home objects after adapter configuration (#393)",
 				"de": "Löschen nicht verwendeter temporärer Home-Objekte nach der Adapterkonfiguration (#393)",
@@ -197,19 +200,6 @@
 				"pl": "zaimplementować opcjonalne wyłączenie pobierania cen (#232)\nzaimplementować algorytm kategoryzacji cen dla aplikacji bufora baterii (#193)\nnaprawić błąd w pobieraniu cen na jutro (#235, #232)",
 				"uk": "реалізувати необов'язкове вимкнення запиту цін (#232)\nреалізувати алгоритм категоризації цін для застосувань буфера батареї (#193)\nвиправити помилку у запиті цін на завтра (#235, #232)",
 				"zh-cn": "实施可选择禁用价格拉取 (#232)\n为电池缓冲应用实施价格分类算法 (#193)\n修复明天价格拉取中的错误 (#235, #232)"
-			},
-			"1.7.2": {
-				"en": "Implemented dynamic raise of feed reconnect (#225)\nsmall bugfix in price calls",
-				"de": "Dynamische Erhöhung der Feed-Reconnect implementiert (#225)\nkleiner Fehlerbehebung in Preisaufrufen",
-				"ru": "Реализована динамическая повторная подключение к фиду (#225)\nнебольшие исправления ошибок в вызовах цен",
-				"pt": "Implementado aumento dinâmico de reconexão do feed (#225)\npequena correção de bug nas chamadas de preço",
-				"nl": "Geïmplementeerde dynamische verhoging van feed herverbinding (#225)\nkleine bugfix in prijsoproepen",
-				"fr": "Mise en œuvre de l'augmentation dynamique de la reconnexion au flux (#225)\npetite correction de bogue dans les appels de prix",
-				"it": "Implementato l'aumento dinamico della riconnessione al feed (#225)\npiccola correzione di bug nelle chiamate dei prezzi",
-				"es": "Implementada la reconexión dinámica del feed (#225)\npequeña corrección de errores en las llamadas de precios",
-				"pl": "Zaimplementowano dynamiczne podniesienie ponownego podłączenia do kanału (#225)\nmała poprawka błędu w wywołaniach cen",
-				"uk": "Реалізовано динамічне підняття повторного підключення до каналу (#225)\nневелике виправлення помилки в викликах цін",
-				"zh-cn": "实现了对Feed重新连接的动态提升 (#225)\n在价格调用中进行了小的错误修复"
 			},
 			"1.7.0": {
 				"en": "Implement getting historical consumption data from Tibber Server (#163)",

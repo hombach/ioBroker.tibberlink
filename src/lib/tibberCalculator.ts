@@ -65,7 +65,7 @@ export class TibberCalculator extends TibberHelper {
 			}
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 
-			//#region *** setup channel folder ***
+			//#region *** setup calculations channels folder ***
 			const typeDesc: string = getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType);
 			await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${channel}`, {
 				type: "channel",
@@ -99,6 +99,7 @@ export class TibberCalculator extends TibberHelper {
 			}
 			//#endregion
 
+			//#region *** setup and delete channel states according to channel type ***
 			/*	"best cost"				| Input state: "TriggerPrice"
 										| Output state: "Output"
 				"best single hours" 	| Input state: "AmountHours"
@@ -127,12 +128,8 @@ export class TibberCalculator extends TibberHelper {
 					await this.setup_chTriggerPrice(homeId, channel);
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
 					// WIP #325
-					if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
-						this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
-					} else {
-						//await this.setup_chOutput(homeId, channel);
-					}
-					//WIP #325
+					await this.setup_chOutput(homeId, channel);
+					// WIP #325
 					break;
 				case enCalcType.BestSingleHours:
 					this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
@@ -207,7 +204,8 @@ export class TibberCalculator extends TibberHelper {
 					break;
 				default:
 					this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
-			} //end setup and delete channel states according to channel type
+			}
+			//#endregion
 
 			//#region *** subscribe state changes ***
 			// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
@@ -224,7 +222,43 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async setup_chTriggerPrice(homeId: string, channel: number): Promise<void> {
+	// WIP #325
+	private async setup_chOutput(homeId: string, channel: number): Promise<void> {
+		if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
+			this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
+		} else {
+			try {
+				this.checkAndSetValueBoolean(
+					this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`),
+					false,
+					`standard output if no spezial selected in config`,
+					true,
+					true,
+				);
+			} catch (error) {
+				this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator`));
+			}
+		}
+	}
+	private async setup_chOutput2(homeId: string, channel: number): Promise<void> {
+		if (this.adapter.config.CalculatorList[channel].chTargetState2.length > 10) {
+			this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value);
+		} else {
+			try {
+				this.checkAndSetValueBoolean(
+					this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`),
+					false,
+					`standard output if no spezial selected in config`,
+					true,
+					true,
+				);
+			} catch (error) {
+				this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator`));
+			}
+		}
+	}
+	// WIP #325
+	private async setup_chTriggerPrice(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 			if (this.adapter.config.CalculatorList[channel].chTriggerPrice === undefined) {
@@ -594,7 +628,18 @@ export class TibberCalculator extends TibberHelper {
 					valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				}
 			}
-			this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+			// this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+			// WIP #325
+			if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
+				this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+			} else {
+				this.adapter.setStateAsync(
+					`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`,
+					convertValue(valueToSet),
+				);
+			}
+			// WIP #325
+
 			this.adapter.log.debug(
 				`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${
 					this.adapter.config.CalculatorList[channel].chTargetState

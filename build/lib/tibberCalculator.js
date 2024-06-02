@@ -53,7 +53,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.config.CalculatorList[channel].chName = `Channel Name`;
             }
             const channelName = this.adapter.config.CalculatorList[channel].chName;
-            //#region *** setup channel folder ***
+            //#region *** setup calculations channels folder ***
             const typeDesc = (0, tibberHelper_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType);
             await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${channel}`, {
                 type: "channel",
@@ -78,6 +78,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
             }
             //#endregion
+            //#region *** setup and delete channel states according to channel type ***
             /*	"best cost"				| Input state: "TriggerPrice"
                                         | Output state: "Output"
                 "best single hours" 	| Input state: "AmountHours"
@@ -106,13 +107,8 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     await this.setup_chTriggerPrice(homeId, channel);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
                     // WIP #325
-                    if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
-                        this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
-                    }
-                    else {
-                        //await this.setup_chOutput(homeId, channel);
-                    }
-                    //WIP #325
+                    await this.setup_chOutput(homeId, channel);
+                    // WIP #325
                     break;
                 case tibberHelper_1.enCalcType.BestSingleHours:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
@@ -187,7 +183,8 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     break;
                 default:
                     this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
-            } //end setup and delete channel states according to channel type
+            }
+            //#endregion
             //#region *** subscribe state changes ***
             // this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
@@ -203,6 +200,34 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
         }
     }
+    // WIP #325
+    async setup_chOutput(homeId, channel) {
+        if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
+            this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
+        }
+        else {
+            try {
+                this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`), false, `standard output if no spezial selected in config`, true, true);
+            }
+            catch (error) {
+                this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator`));
+            }
+        }
+    }
+    async setup_chOutput2(homeId, channel) {
+        if (this.adapter.config.CalculatorList[channel].chTargetState2.length > 10) {
+            this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value);
+        }
+        else {
+            try {
+                this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`), false, `standard output if no spezial selected in config`, true, true);
+            }
+            catch (error) {
+                this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator`));
+            }
+        }
+    }
+    // WIP #325
     async setup_chTriggerPrice(homeId, channel) {
         try {
             const channelName = this.adapter.config.CalculatorList[channel].chName;
@@ -493,7 +518,15 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 }
             }
-            this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+            // this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+            // WIP #325
+            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
+                this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+            }
+            else {
+                this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`, convertValue(valueToSet));
+            }
+            // WIP #325
             this.adapter.log.debug(`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
         }
         catch (error) {
