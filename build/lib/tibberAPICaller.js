@@ -491,7 +491,9 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
 			}
 		`;
         const variables = { homeId, resolution, lastCount };
+        this.adapter.log.debug(`405-OBS: gqlHomesConsumptionObs: ${gqlHomesConsumptionObs}`);
         const result = await this.tibberQuery.query(gqlHomesConsumptionObs, variables);
+        this.adapter.log.debug(`405-OBS: got result: ${result}`);
         if (result && result.viewer && result.viewer.home) {
             const home = result.viewer.home;
             return Object.assign([], home.consumption ? home.consumption.nodes : []);
