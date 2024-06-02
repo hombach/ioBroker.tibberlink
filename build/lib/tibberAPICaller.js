@@ -499,7 +499,6 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
 								nodes {
 									from
 									to
-									totalCost
 									cost
 									unitPrice
 									unitPriceVAT
