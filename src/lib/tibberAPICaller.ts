@@ -1,7 +1,9 @@
 import * as utils from "@iobroker/adapter-core";
 import { IConfig, TibberQuery } from "tibber-api";
 import { IAddress } from "tibber-api/lib/src/models/IAddress";
+import { IConsumption } from "tibber-api/lib/src/models/IConsumption"; // obsolete data poll for consumption data
 import { IContactInfo } from "tibber-api/lib/src/models/IContactInfo";
+import { IHome } from "tibber-api/lib/src/models/IHome"; // obsolete data poll for consumption data
 import { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
@@ -359,11 +361,11 @@ export class TibberAPICaller extends TibberHelper {
 					{ type: EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
 					{ type: EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
 				];
-				//WiP #405
 				for (const { type, state, numCons, description } of resolutions) {
 					if (numCons && numCons > 0) {
 						//WiP #405 change call to get also obsolete data
-						const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+						//const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+						const consumption = await this.getConsumptionObs(type, numCons, homeID);
 						//WiP #405
 						this.checkAndSetValue(
 							this.getStatePrefix(homeID, `Consumption`, state),
@@ -556,4 +558,48 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Latitude"), address.latitude);
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Longitude"), address.longitude);
 	}
+
+	//#region *** obsolete data poll for consumption data #405 ***
+
+	/**
+	 * Get energy consumption for one or more homes.
+	 * Returns an array of IConsumption
+	 * @param resolution EnergyResolution. Valid values: HOURLY, DAILY, WEEKLY, MONTHLY, ANNUAL
+	 * @param lastCount Return the last number of records
+	 * @param homeId Tibber home ID.
+	 * @return Array of IConsumption
+	 */
+	async getConsumptionObs(resolution: EnergyResolution, lastCount: number, homeId: string): Promise<IConsumption[]> {
+		const gqlHomesConsumptionObs = `
+			query getConsumption($resolution: EnergyResolution! $lastCount:Int!){
+				viewer {
+					homes {
+						id
+							consumption(resolution: $resolution, last: $lastCount) {
+								nodes {
+									from
+									to
+									totalCost
+									cost
+									unitPrice
+									unitPriceVAT
+									consumption
+									consumptionUnit
+									currency
+								}
+							}
+					}
+				}
+			}
+		`;
+		const variables = { homeId, resolution, lastCount };
+
+		const result = await this.tibberQuery.query(gqlHomesConsumptionObs, variables);
+		if (result && result.viewer && result.viewer.home) {
+			const home: IHome = result.viewer.home;
+			return Object.assign([] as IConsumption[], home.consumption ? home.consumption.nodes : []);
+		}
+		return result && result.error ? result : { error: "An error occurred while loading obsolete consumption data." };
+	}
+	//#endregion
 }

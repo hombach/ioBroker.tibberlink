@@ -317,11 +317,11 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     { type: EnergyResolution_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
                     { type: EnergyResolution_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
                 ];
-                //WiP #405
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
                         //WiP #405 change call to get also obsolete data
-                        const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+                        //const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+                        const consumption = await this.getConsumptionObs(type, numCons, homeID);
                         //WiP #405
                         this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), JSON.stringify(consumption), `Historical consumption last ${description}s as json)`);
                     }
@@ -457,6 +457,46 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Country"), address.country);
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Latitude"), address.latitude);
         this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Longitude"), address.longitude);
+    }
+    //#region *** obsolete data poll for consumption data #405 ***
+    /**
+     * Get energy consumption for one or more homes.
+     * Returns an array of IConsumption
+     * @param resolution EnergyResolution. Valid values: HOURLY, DAILY, WEEKLY, MONTHLY, ANNUAL
+     * @param lastCount Return the last number of records
+     * @param homeId Tibber home ID.
+     * @return Array of IConsumption
+     */
+    async getConsumptionObs(resolution, lastCount, homeId) {
+        const gqlHomesConsumptionObs = `
+			query getConsumption($resolution: EnergyResolution! $lastCount:Int!){
+				viewer {
+					homes {
+						id
+							consumption(resolution: $resolution, last: $lastCount) {
+								nodes {
+									from
+									to
+									totalCost
+									cost
+									unitPrice
+									unitPriceVAT
+									consumption
+									consumptionUnit
+									currency
+								}
+							}
+					}
+				}
+			}
+		`;
+        const variables = { homeId, resolution, lastCount };
+        const result = await this.tibberQuery.query(gqlHomesConsumptionObs, variables);
+        if (result && result.viewer && result.viewer.home) {
+            const home = result.viewer.home;
+            return Object.assign([], home.consumption ? home.consumption.nodes : []);
+        }
+        return result && result.error ? result : { error: "An error occurred while loading obsolete consumption data." };
     }
 }
 exports.TibberAPICaller = TibberAPICaller;

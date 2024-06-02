@@ -99,6 +99,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.2.0 (2024-06-0x) - WORK in PROGRESS
 
+-   (HombachC) WIP try obsolete consumption data (#405)
 -   (HombachC) adapter will use internal output states for calculator if none defined in configuration (#325)
 -   (HombachC) implement first run mode in calculator to reduce system load
 -   (HombachC) internal optimisations
