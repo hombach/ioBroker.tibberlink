@@ -98,7 +98,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.1.3 (2024-06-xx) - WORK in PROGRESS
 
--   (HombachC) WIP 325 test
+-   (HombachC) WIP: 325 test
+-   (HombachC) WIP: implement first run mode in calculator to reduce system load
 -   (HombachC) internal optimisations
 -   (HombachC) bump dependencies
 
