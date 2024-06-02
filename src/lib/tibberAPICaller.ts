@@ -602,6 +602,7 @@ export class TibberAPICaller extends TibberHelper {
 								nodes {
 									from
 									to
+									totalCost
 									cost
 									unitPrice
 									unitPriceVAT
