@@ -593,7 +593,7 @@ export class TibberAPICaller extends TibberHelper {
 			}
 		`;*/
 		const gqlHomesConsumptionObs = `
-			query getConsumption($resolution: EnergyResolution! $lastCount:Int!){
+			query getConsumption(){
 				viewer {
 					homes {
 						id
