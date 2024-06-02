@@ -202,7 +202,8 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
     }
     // WIP #325
     async setup_chOutput(homeId, channel) {
-        if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
+        if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+            !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
             this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
         }
         else {
@@ -215,7 +216,8 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         }
     }
     async setup_chOutput2(homeId, channel) {
-        if (this.adapter.config.CalculatorList[channel].chTargetState2.length > 10) {
+        if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+            !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
             this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value);
         }
         else {
@@ -520,7 +522,8 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             // this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
             // WIP #325
-            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
+            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+                !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
                 this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
             }
             else {

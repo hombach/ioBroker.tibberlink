@@ -224,7 +224,10 @@ export class TibberCalculator extends TibberHelper {
 
 	// WIP #325
 	private async setup_chOutput(homeId: string, channel: number): Promise<void> {
-		if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
+		if (
+			this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+			!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
+		) {
 			this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
 		} else {
 			try {
@@ -241,7 +244,10 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 	private async setup_chOutput2(homeId: string, channel: number): Promise<void> {
-		if (this.adapter.config.CalculatorList[channel].chTargetState2.length > 10) {
+		if (
+			this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+			!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
+		) {
 			this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value);
 		} else {
 			try {
@@ -630,7 +636,10 @@ export class TibberCalculator extends TibberHelper {
 			}
 			// this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 			// WIP #325
-			if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10) {
+			if (
+				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+				!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
+			) {
 				this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
 			} else {
 				this.adapter.setStateAsync(
