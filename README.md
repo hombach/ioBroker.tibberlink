@@ -96,9 +96,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 3.1.3 (2024-06-xx) - WORK in PROGRESS
+### 3.2.0 (2024-06-xx) - WORK in PROGRESS
 
--   (HombachC) WIP: 325 test
+-   (HombachC) WIP: adapter will use internal output states for calculator if none defined in configuration (#325)
 -   (HombachC) WIP: implement first run mode in calculator to reduce system load
 -   (HombachC) internal optimisations
 -   (HombachC) bump dependencies

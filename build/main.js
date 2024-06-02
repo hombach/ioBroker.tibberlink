@@ -177,12 +177,12 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
                     }
                 }
-                // (force) get current prices for the FIRST time and start calculator tasks once
+                // (force) get current prices and start calculator tasks once for the FIRST time
                 if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
                 }
                 this.jobPricesTodayLOOP(tibberAPICaller);
                 this.jobPricesTomorrowLOOP(tibberAPICaller);
-                tibberCalculator.startCalculatorTasks();
+                tibberCalculator.startCalculatorTasks(false, true);
                 // Get consumption data for the first time
                 tibberAPICaller.updateConsumptionAllHomes();
                 const jobCurrentPrice = cron_1.CronJob.from({

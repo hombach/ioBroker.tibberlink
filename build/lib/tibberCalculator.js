@@ -106,9 +106,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
                     await this.setup_chTriggerPrice(homeId, channel);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
-                    // WIP #325
                     await this.setup_chOutput(homeId, channel);
-                    // WIP #325
                     break;
                 case tibberHelper_1.enCalcType.BestSingleHours:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
@@ -121,9 +119,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
                     await this.setup_chAmountHours(homeId, channel);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
-                    // WIP #325
                     await this.setup_chOutput(homeId, channel);
-                    // WIP #325
                     break;
                 case tibberHelper_1.enCalcType.BestHoursBlock:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
@@ -136,9 +132,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     await this.setup_chBlockStartFullHour(homeId, channel);
                     await this.setup_chBlockEndFullHour(homeId, channel);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
-                    // WIP #325
                     await this.setup_chOutput(homeId, channel);
-                    // WIP #325
                     break;
                 case tibberHelper_1.enCalcType.BestCostLTF:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value); // INPUTS
@@ -151,9 +145,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     await this.setup_chStopTime(homeId, channel);
                     await this.setup_chRepeatDays(homeId, channel);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
-                    // WIP #325
                     await this.setup_chOutput(homeId, channel);
-                    // WIP #325
                     break;
                 case tibberHelper_1.enCalcType.BestSingleHoursLTF:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
@@ -166,9 +158,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     await this.setup_chStopTime(homeId, channel);
                     await this.setup_chRepeatDays(homeId, channel);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
-                    // WIP #325
                     await this.setup_chOutput(homeId, channel);
-                    // WIP #325
                     break;
                 case tibberHelper_1.enCalcType.BestHoursBlockLTF:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
@@ -181,9 +171,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     await this.setup_chBlockStartFullHour(homeId, channel);
                     await this.setup_chBlockEndFullHour(homeId, channel);
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
-                    // WIP #325
                     await this.setup_chOutput(homeId, channel);
-                    // WIP #325
                     break;
                 case tibberHelper_1.enCalcType.SmartBatteryBuffer:
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
@@ -195,10 +183,8 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
                     await this.setup_chAmountHours(homeId, channel);
                     await this.setup_chEfficiencyLoss(homeId, channel);
-                    // WIP #325
                     await this.setup_chOutput(homeId, channel); // OUTPUTS
                     await this.setup_chOutput2(homeId, channel);
-                    // WIP #325
                     break;
                 default:
                     this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
@@ -219,7 +205,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
         }
     }
-    // WIP #325
     async setup_chOutput(homeId, channel) {
         if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
             !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
@@ -227,7 +212,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         }
         else {
             try {
-                this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`), false, `standard output if no spezial selected in config`, true, true);
+                this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`), false, `standard output if no special one selected in config`, true, true);
             }
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator`));
@@ -241,14 +226,13 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
         }
         else {
             try {
-                this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`), false, `standard output if no spezial selected in config`, true, true);
+                this.checkAndSetValueBoolean(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`), false, `standard output if no special one selected in config`, true, true);
             }
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator`));
             }
         }
     }
-    // WIP #325
     async setup_chTriggerPrice(homeId, channel) {
         try {
             const channelName = this.adapter.config.CalculatorList[channel].chName;
@@ -410,57 +394,44 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEndFullHour for calculator`));
         }
     }
-    async startCalculatorTasks(onStateChange = false) {
+    async startCalculatorTasks(onStateChange = false, firstRun = false) {
         if (!this.adapter.config.UseCalculator)
             return;
         const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
         for (const channel in this.adapter.config.CalculatorList) {
             //#region *** first run checks ***
-            // WiP einen first Run mode implementieren, das muss nicht bei jedem Lauf durchgegangen werden
-            if (!this.adapter.config.CalculatorList[channel] ||
-                !this.adapter.config.CalculatorList[channel].chTargetState ||
-                !this.adapter.config.CalculatorList[channel].chTargetState.trim()) {
-                /* WiP #325
-                this.adapter.log.warn(
-                    `Empty destination state in calculator channel ${channel} defined - provide correct external state - execution of channel skipped`,
-                );
-                continue; */
-                this.adapter.log.warn(`Empty destination state in calculator channel ${channel} defined - provide correct external state - channel will use internal state OUTPUT`);
-            }
-            const chTargetStateComponents = this.adapter.config.CalculatorList[channel].chTargetState.split(".");
-            let foundAllBadComponents = true;
-            badComponents.forEach((badComponent) => {
-                if (!chTargetStateComponents.includes(badComponent))
-                    foundAllBadComponents = false;
-            });
-            // WiP - oder enthält "Output"....
-            // if (chTargetStateComponents.includes("Output")) foundAllBadComponents = false;
-            if (foundAllBadComponents) {
-                this.adapter.log.error(`Invalid destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
-                continue;
-            }
-            if (this.adapter.config.CalculatorList[channel].chType === tibberHelper_1.enCalcType.SmartBatteryBuffer) {
+            if (firstRun) {
                 if (!this.adapter.config.CalculatorList[channel] ||
-                    !this.adapter.config.CalculatorList[channel].chTargetState2 ||
-                    !this.adapter.config.CalculatorList[channel].chTargetState2.trim()) {
-                    /* WiP #325
-                    this.adapter.log.warn(
-                        `Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - execution of channel skipped`,
-                    );
-                    continue; */
-                    this.adapter.log.warn(`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - channel will use internal state OUTPUT2`);
+                    !this.adapter.config.CalculatorList[channel].chTargetState ||
+                    !this.adapter.config.CalculatorList[channel].chTargetState.trim()) {
+                    this.adapter.log.warn(`Empty destination state in calculator channel ${channel} defined - provide correct external state - channel will use internal state OUTPUT`);
                 }
-                const chTargetState2Components = this.adapter.config.CalculatorList[channel].chTargetState2.split(".");
+                const chTargetStateComponents = this.adapter.config.CalculatorList[channel].chTargetState.split(".");
                 let foundAllBadComponents = true;
                 badComponents.forEach((badComponent) => {
-                    if (!chTargetState2Components.includes(badComponent))
+                    if (!chTargetStateComponents.includes(badComponent))
                         foundAllBadComponents = false;
                 });
-                // WIP - oder enthält "Output2"....
-                // if (chTargetStateComponents.includes("Output2")) foundAllBadComponents = false;
                 if (foundAllBadComponents) {
-                    this.adapter.log.error(`Invalid second destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
-                    continue;
+                    this.adapter.log.error(`Invalid destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
+                    continue; //skip channel
+                }
+                if (this.adapter.config.CalculatorList[channel].chType === tibberHelper_1.enCalcType.SmartBatteryBuffer) {
+                    if (!this.adapter.config.CalculatorList[channel] ||
+                        !this.adapter.config.CalculatorList[channel].chTargetState2 ||
+                        !this.adapter.config.CalculatorList[channel].chTargetState2.trim()) {
+                        this.adapter.log.warn(`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - channel will use internal state OUTPUT2`);
+                    }
+                    const chTargetState2Components = this.adapter.config.CalculatorList[channel].chTargetState2.split(".");
+                    let foundAllBadComponents = true;
+                    badComponents.forEach((badComponent) => {
+                        if (!chTargetState2Components.includes(badComponent))
+                            foundAllBadComponents = false;
+                    });
+                    if (foundAllBadComponents) {
+                        this.adapter.log.error(`Invalid second destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
+                        continue; //skip channel
+                    }
                 }
             }
             //#endregion first run mode
@@ -549,6 +520,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 }
             }
+            //set value to foreign state, if defined
             // this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
             // WIP #325
             let sOutState = "";
@@ -630,9 +602,28 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 }
             }
-            //set value to foreign state
-            this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            //set value to foreign state, if defined
+            //this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+            // WIP #325
+            let sOutState = "";
+            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+                !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
+                sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
+                this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
+            }
+            else {
+                sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
+                this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+            }
+            // WIP #325
+            /*
+            this.adapter.log.debug(
+                `calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${
+                    this.adapter.config.CalculatorList[channel].chTargetState
+                } to ${valueToSet}`,
+            );
+            */
+            this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -715,9 +706,28 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.checkAndSetValue(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStartFullHour`), (0, date_fns_1.format)(beginDate, "H"), `first hour of determined block`, false, false);
                 this.checkAndSetValue(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockEndFullHour`), (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, false, false);
             }
-            //set value to foreign state
-            this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
+            //set value to foreign state, if defined
+            //this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+            // WIP #325
+            let sOutState = "";
+            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+                !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
+                sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
+                this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
+            }
+            else {
+                sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
+                this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+            }
+            // WIP #325
+            /*
+            this.adapter.log.debug(
+                `calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${
+                    this.adapter.config.CalculatorList[channel].chTargetState
+                } to ${valueToSet}`,
+            );
+            */
+            this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -827,10 +837,43 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     return cheapAverage * efficiencyLoss;
                 }
             }
-            this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            this.adapter.log.debug(`calculator channel: ${channel} - smart battery buffer; setting first state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`);
-            this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState2, convertValue(valueToSet2));
-            this.adapter.log.debug(`calculator channel: ${channel} - smart battery buffer; setting second state: ${this.adapter.config.CalculatorList[channel].chTargetState2} to ${valueToSet2}`);
+            //set value to foreign states, if defined
+            //this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
+            // WIP #325
+            let sOutState = "";
+            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+                !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
+                sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
+                this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
+            }
+            else {
+                sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
+                this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+            }
+            // WIP #325
+            /*
+            this.adapter.log.debug(
+                `calculator channel: ${channel} - smart battery buffer; setting first state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
+            );
+            */
+            //this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState2, convertValue(valueToSet2));
+            // WIP #325
+            sOutState = "";
+            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+                !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
+                sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
+                this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
+            }
+            else {
+                sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output2`;
+                this.adapter.setStateAsync(sOutState, convertValue(valueToSet2), true);
+            }
+            // WIP #325
+            /*
+            this.adapter.log.debug(
+                `calculator channel: ${channel} - smart battery buffer; setting second state: ${this.adapter.config.CalculatorList[channel].chTargetState2} to ${valueToSet2}`,
+            );
+            */
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
