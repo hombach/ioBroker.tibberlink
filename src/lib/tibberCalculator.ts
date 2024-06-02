@@ -633,9 +633,6 @@ export class TibberCalculator extends TibberHelper {
 				}
 			}
 			//set value to foreign state, if defined
-
-			// this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-			// WIP #325
 			let sOutState: string = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
@@ -647,14 +644,6 @@ export class TibberCalculator extends TibberHelper {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
 				this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
 			}
-			// WIP #325
-			/*
-			this.adapter.log.debug(
-				`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${
-					this.adapter.config.CalculatorList[channel].chTargetState
-				} to ${valueToSet}`,
-			);
-			*/
 			this.adapter.log.debug(`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -735,8 +724,6 @@ export class TibberCalculator extends TibberHelper {
 				}
 			}
 			//set value to foreign state, if defined
-			//this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-			// WIP #325
 			let sOutState: string = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
@@ -748,14 +735,6 @@ export class TibberCalculator extends TibberHelper {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
 				this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
 			}
-			// WIP #325
-			/*
-			this.adapter.log.debug(
-				`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${
-					this.adapter.config.CalculatorList[channel].chTargetState
-				} to ${valueToSet}`,
-			);
-			*/
 			this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -877,8 +856,6 @@ export class TibberCalculator extends TibberHelper {
 				);
 			}
 			//set value to foreign state, if defined
-			//this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-			// WIP #325
 			let sOutState: string = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
@@ -890,14 +867,6 @@ export class TibberCalculator extends TibberHelper {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
 				this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
 			}
-			// WIP #325
-			/*
-			this.adapter.log.debug(
-				`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${
-					this.adapter.config.CalculatorList[channel].chTargetState
-				} to ${valueToSet}`,
-			);
-			*/
 			this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -1018,8 +987,6 @@ export class TibberCalculator extends TibberHelper {
 				}
 			}
 			//set value to foreign states, if defined
-			//this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-			// WIP #325
 			let sOutState: string = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
@@ -1031,15 +998,6 @@ export class TibberCalculator extends TibberHelper {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
 				this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
 			}
-			// WIP #325
-			/*
-			this.adapter.log.debug(
-				`calculator channel: ${channel} - smart battery buffer; setting first state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
-			);
-			*/
-
-			//this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState2, convertValue(valueToSet2));
-			// WIP #325
 			sOutState = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
@@ -1051,12 +1009,6 @@ export class TibberCalculator extends TibberHelper {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output2`;
 				this.adapter.setStateAsync(sOutState, convertValue(valueToSet2), true);
 			}
-			// WIP #325
-			/*
-			this.adapter.log.debug(
-				`calculator channel: ${channel} - smart battery buffer; setting second state: ${this.adapter.config.CalculatorList[channel].chTargetState2} to ${valueToSet2}`,
-			);
-			*/
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
 		}

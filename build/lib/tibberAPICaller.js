@@ -317,9 +317,12 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                     { type: EnergyResolution_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
                     { type: EnergyResolution_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
                 ];
+                //WiP #405
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
+                        //WiP #405 change call to get also obsolete data
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+                        //WiP #405
                         this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), JSON.stringify(consumption), `Historical consumption last ${description}s as json)`);
                     }
                     else {

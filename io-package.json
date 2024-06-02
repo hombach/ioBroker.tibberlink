@@ -4,7 +4,17 @@
 		"version": "3.2.0",
 		"news": {
 			"3.2.0": {
-				"en": "WIP (#325)"
+				"en": "adapter will use internal output states for calculator if none defined in configuration (#325)\nimplement first run mode in calculator to reduce system load\ninternal optimizations\nbump dependencies",
+				"de": "Adapter wird interne Ausgangszustände für den Rechner verwenden, wenn keine in der Konfiguration definiert sind (#325)\nErstlaufmodus im Rechner implementieren, um die Systemlast zu reduzieren\ninterne Optimierungen\nAbhängigkeiten aktualisieren",
+				"ru": "адаптер будет использовать внутренние выходные состояния для калькулятора, если они не определены в конфигурации (#325)\nреализовать режим первого запуска в калькуляторе для уменьшения нагрузки на систему\nвнутренние оптимизации\nобновление зависимостей",
+				"pt": "o adaptador usará estados de saída internos para calculadora se nenhum definido na configuração (#325)\nimplementar o modo de primeira execução na calculadora para reduzir a carga do sistema\notimizações internas\natualização de dependências",
+				"nl": "adapter zal interne uitvoerstatussen gebruiken voor de calculator als er geen zijn gedefinieerd in de configuratie (#325)\neerste run-modus implementeren in calculator om de systeembelasting te verminderen\ninterne optimalisaties\nbijwerken van afhankelijkheden",
+				"fr": "l'adaptateur utilisera des états de sortie internes pour la calculatrice si aucun n'est défini dans la configuration (#325)\nimplémenter le mode premier démarrage dans la calculatrice pour réduire la charge du système\noptimisations internes\nmise à jour des dépendances",
+				"it": "l'adattatore utilizzerà stati di uscita interni per la calcolatrice se nessuno è definito nella configurazione (#325)\nimplementare la modalità di primo avvio nella calcolatrice per ridurre il carico del sistema\nottimizzazioni interne\naggiornamento delle dipendenze",
+				"es": "el adaptador utilizará estados de salida internos para la calculadora si no se define ninguno en la configuración (#325)\nimplementar el modo de primera ejecución en la calculadora para reducir la carga del sistema\noptimizaciones internas\nactualización de dependencias",
+				"pl": "adapter będzie używał wewnętrznych stanów wyjściowych dla kalkulatora, jeśli żaden nie został zdefiniowany w konfiguracji (#325)\nzaimplementować tryb pierwszego uruchomienia w kalkulatorze, aby zmniejszyć obciążenie systemu\noptymalizacje wewnętrzne\naktualizacja zależności",
+				"uk": "адаптер буде використовувати внутрішні вихідні стани для калькулятора, якщо жоден не визначено в конфігурації (#325)\nреалізувати режим першого запуску в калькуляторі для зменшення навантаження на систему\nвнутрішні оптимізації\nоновлення залежностей",
+				"zh-cn": "适配器将使用计算器的内部输出状态，如果配置中没有定义 (#325)\n在计算器中实现首次运行模式以减少系统负载\n内部优化\n升级依赖项"
 			},
 			"3.1.2": {
 				"en": "deleting unused temporary home objects after adapter configuration (#393)",

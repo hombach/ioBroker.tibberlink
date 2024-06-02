@@ -521,8 +521,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
             }
             //set value to foreign state, if defined
-            // this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            // WIP #325
             let sOutState = "";
             if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
@@ -533,14 +531,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
                 this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
             }
-            // WIP #325
-            /*
-            this.adapter.log.debug(
-                `calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${
-                    this.adapter.config.CalculatorList[channel].chTargetState
-                } to ${valueToSet}`,
-            );
-            */
             this.adapter.log.debug(`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         }
         catch (error) {
@@ -603,8 +593,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
             }
             //set value to foreign state, if defined
-            //this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            // WIP #325
             let sOutState = "";
             if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
@@ -615,14 +603,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
                 this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
             }
-            // WIP #325
-            /*
-            this.adapter.log.debug(
-                `calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${
-                    this.adapter.config.CalculatorList[channel].chTargetState
-                } to ${valueToSet}`,
-            );
-            */
             this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         }
         catch (error) {
@@ -707,8 +687,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.checkAndSetValue(this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockEndFullHour`), (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, false, false);
             }
             //set value to foreign state, if defined
-            //this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            // WIP #325
             let sOutState = "";
             if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
@@ -719,14 +697,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
                 this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
             }
-            // WIP #325
-            /*
-            this.adapter.log.debug(
-                `calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${
-                    this.adapter.config.CalculatorList[channel].chTargetState
-                } to ${valueToSet}`,
-            );
-            */
             this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         }
         catch (error) {
@@ -838,8 +808,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
             }
             //set value to foreign states, if defined
-            //this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState, convertValue(valueToSet));
-            // WIP #325
             let sOutState = "";
             if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
@@ -850,14 +818,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
                 this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
             }
-            // WIP #325
-            /*
-            this.adapter.log.debug(
-                `calculator channel: ${channel} - smart battery buffer; setting first state: ${this.adapter.config.CalculatorList[channel].chTargetState} to ${valueToSet}`,
-            );
-            */
-            //this.adapter.setForeignStateAsync(this.adapter.config.CalculatorList[channel].chTargetState2, convertValue(valueToSet2));
-            // WIP #325
             sOutState = "";
             if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
@@ -868,12 +828,6 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output2`;
                 this.adapter.setStateAsync(sOutState, convertValue(valueToSet2), true);
             }
-            // WIP #325
-            /*
-            this.adapter.log.debug(
-                `calculator channel: ${channel} - smart battery buffer; setting second state: ${this.adapter.config.CalculatorList[channel].chTargetState2} to ${valueToSet2}`,
-            );
-            */
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));

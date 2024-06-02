@@ -102,7 +102,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got new data
 	 */
-	async updateCurrentPrice(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
+	private async updateCurrentPrice(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
 		try {
 			if (homeId) {
 				let exDateCurrent: Date | null = null;
@@ -172,7 +172,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	async updatePricesToday(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
+	private async updatePricesToday(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			let exPricesToday: IPrice[] = [];
@@ -268,7 +268,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got new data
 	 */
-	async updatePricesTomorrow(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
+	private async updatePricesTomorrow(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			let exPricesTomorrow: IPrice[] = [];
@@ -359,9 +359,12 @@ export class TibberAPICaller extends TibberHelper {
 					{ type: EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
 					{ type: EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
 				];
+				//WiP #405
 				for (const { type, state, numCons, description } of resolutions) {
 					if (numCons && numCons > 0) {
+						//WiP #405 change call to get also obsolete data
 						const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+						//WiP #405
 						this.checkAndSetValue(
 							this.getStatePrefix(homeID, `Consumption`, state),
 							JSON.stringify(consumption),
@@ -420,7 +423,6 @@ export class TibberAPICaller extends TibberHelper {
 			"Todays average tax price",
 		);
 	}
-
 	private fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
 		const now = new Date(); // current time
 		const currentHour = now.getHours();
@@ -478,7 +480,6 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), price[23].level, "Price level compared to recent price values");
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), price[23].startsAt, "Start time of the price maximum");
 	}
-
 	private fetchPriceMinimum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		this.checkAndSetValueNumber(
 			this.getStatePrefix(homeId, objectDestination, "total"),
@@ -505,13 +506,11 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "Tax part of the price (energy tax, VAT, etc.)");
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
 	}
-
 	private emptyingPriceAverage(homeId: string, objectDestination: string): void {
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "The todays total price average");
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "The todays avarage spotmarket price");
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "tax"), 0, "The todays avarage tax price");
 	}
-
 	private emptyingPriceMaximum(homeId: string, objectDestination: string): void {
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "Todays total price maximum");
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "Todays spotmarket price at total price maximum");
@@ -519,7 +518,6 @@ export class TibberAPICaller extends TibberHelper {
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "level"), "Not known now", "Price level compared to recent price values");
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "startsAt"), "Not known now", "Start time of the price maximum");
 	}
-
 	private emptyingPriceMinimum(homeId: string, objectDestination: string): void {
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "total"), 0, "Todays total price minimum");
 		this.checkAndSetValueNumber(this.getStatePrefix(homeId, objectDestination, "energy"), 0, "Todays spotmarket price at total price minimum");
@@ -544,12 +542,10 @@ export class TibberAPICaller extends TibberHelper {
 			this.fetchAddress(homeId, objectDestination + ".Address", legalEntity.address);
 		}
 	}
-
 	private fetchContactInfo(homeId: string, objectDestination: string, contactInfo: IContactInfo): void {
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Email"), contactInfo.email);
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "Mobile"), contactInfo.mobile);
 	}
-
 	private fetchAddress(homeId: string, objectDestination: string, address: IAddress): void {
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address1"), address.address1);
 		this.checkAndSetValue(this.getStatePrefix(homeId, objectDestination, "address2"), address.address2);
