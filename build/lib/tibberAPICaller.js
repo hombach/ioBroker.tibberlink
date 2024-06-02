@@ -468,12 +468,34 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
      * @return Array of IConsumption
      */
     async getConsumptionObs(resolution, lastCount, homeId) {
+        /*const gqlHomesConsumptionObs = `
+            query getConsumption($resolution: EnergyResolution! $lastCount:Int!){
+                viewer {
+                    homes {
+                        id
+                            consumption(resolution: $resolution, last: $lastCount) {
+                                nodes {
+                                    from
+                                    to
+                                    totalCost
+                                    cost
+                                    unitPrice
+                                    unitPriceVAT
+                                    consumption
+                                    consumptionUnit
+                                    currency
+                                }
+                            }
+                    }
+                }
+            }
+        `;*/
         const gqlHomesConsumptionObs = `
 			query getConsumption($resolution: EnergyResolution! $lastCount:Int!){
 				viewer {
 					homes {
 						id
-							consumption(resolution: $resolution, last: $lastCount) {
+							consumption(resolution: ${resolution}, last: ${lastCount}) {
 								nodes {
 									from
 									to
@@ -490,6 +512,26 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
 				}
 			}
 		`;
+        /*
+        {
+            viewer {
+              homes {
+                consumption(resolution: HOURLY, last: 100) {
+                  nodes {
+                    from
+                    to
+                    totalCost
+                    cost
+                    unitPrice
+                    unitPriceVAT
+                    consumption
+                    consumptionUnit
+                  }
+                }
+              }
+            }
+          }
+        */
         const variables = { homeId, resolution, lastCount };
         this.adapter.log.debug(`405-OBS: gqlHomesConsumptionObs: ${gqlHomesConsumptionObs}`);
         const result = await this.tibberQuery.query(gqlHomesConsumptionObs, variables);

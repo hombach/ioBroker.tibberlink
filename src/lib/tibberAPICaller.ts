@@ -570,7 +570,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @return Array of IConsumption
 	 */
 	async getConsumptionObs(resolution: EnergyResolution, lastCount: number, homeId: string): Promise<IConsumption[]> {
-		const gqlHomesConsumptionObs = `
+		/*const gqlHomesConsumptionObs = `
 			query getConsumption($resolution: EnergyResolution! $lastCount:Int!){
 				viewer {
 					homes {
@@ -591,7 +591,49 @@ export class TibberAPICaller extends TibberHelper {
 					}
 				}
 			}
+		`;*/
+		const gqlHomesConsumptionObs = `
+			query getConsumption($resolution: EnergyResolution! $lastCount:Int!){
+				viewer {
+					homes {
+						id
+							consumption(resolution: ${resolution}, last: ${lastCount}) {
+								nodes {
+									from
+									to
+									totalCost
+									cost
+									unitPrice
+									unitPriceVAT
+									consumption
+									consumptionUnit
+									currency
+								}
+							}
+					}
+				}
+			}
 		`;
+		/*
+		{
+			viewer {
+			  homes {
+				consumption(resolution: HOURLY, last: 100) {
+				  nodes {
+					from
+					to
+					totalCost
+					cost
+					unitPrice
+					unitPriceVAT
+					consumption
+					consumptionUnit
+				  }
+				}
+			  }
+			}
+		  }
+		*/
 
 		const variables = { homeId, resolution, lastCount };
 
