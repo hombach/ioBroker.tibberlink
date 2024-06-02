@@ -491,11 +491,10 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
             }
         `;*/
         const gqlHomesConsumptionObs = `
-			query getConsumption(){
+			query getConsumption($resolution: EnergyResolution! $lastCount:Int!){
 				viewer {
 					homes {
-						id
-							consumption(resolution: ${resolution}, last: ${lastCount}) {
+							consumption(resolution: $resolution, last: $lastCount) {
 								nodes {
 									from
 									to
