@@ -320,8 +320,8 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
                         //WiP #405 change call to get also obsolete data
-                        //const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
-                        const consumption = await this.getConsumptionObs(type, numCons, homeID);
+                        //const consumption = await this.getConsumptionObs(type, numCons, homeID);
+                        const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         //WiP #405
                         this.checkAndSetValue(this.getStatePrefix(homeID, `Consumption`, state), JSON.stringify(consumption), `Historical consumption last ${description}s as json)`);
                     }
