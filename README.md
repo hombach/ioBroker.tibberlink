@@ -97,6 +97,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.2.1 (2024-06-03)
+
+-   (HombachC) added unique endpoint string
+
 ### 3.2.0 (2024-06-03)
 
 -   (HombachC) IMPORTANT: adapter components had been blocked by Tibber - you have to update!

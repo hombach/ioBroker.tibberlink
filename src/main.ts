@@ -40,11 +40,13 @@ class Tibberlink extends utils.Adapter {
 			this.setState(`info.connection`, false, true);
 		} else {
 			// Need 2 configs - API and Feed (feed changed query url)
+			// WIP 3.2.1
 			const tibberConfigAPI: IConfig = {
 				active: true,
 				apiEndpoint: {
 					apiKey: this.config.TibberAPIToken,
 					queryUrl: this.queryUrl,
+					userAgent: `${this.config.TibberAPIToken.slice(5, 20).split("").reverse().join("")}${Date.now}`,
 				},
 			};
 			// Now read homes list from API
@@ -220,12 +222,14 @@ class Tibberlink extends utils.Adapter {
 				//#region *** If user uses live feed - start feed connection ***
 				if (this.homeInfoList.some((info) => info.FeedActive)) {
 					// array with configs of feeds, init with base data set
+					// WIP 3.2.1
 					const tibberFeedConfigs: IConfig[] = Array.from({ length: this.homeInfoList.length }, () => {
 						return {
 							active: true,
 							apiEndpoint: {
 								apiKey: this.config.TibberAPIToken,
 								queryUrl: this.queryUrl,
+								userAgent: `${this.config.TibberAPIToken.slice(5, 20).split("").reverse().join("")}${Date.now}`,
 							},
 							timestamp: true,
 						};

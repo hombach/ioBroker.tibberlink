@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.2.0",
+		"version": "3.2.1",
 		"news": {
+			"3.2.1": {
+				"en": "added unique endpoint string",
+				"de": "eindeutigen Endpunktstring hinzugefügt",
+				"ru": "добавлен уникальный конечный строка",
+				"pt": "adicionado string de endpoint única",
+				"nl": "toegevoegde unieke eindpuntreeks",
+				"fr": "ajouté une chaîne d'extrémité unique",
+				"it": "aggiunta stringa di endpoint univoca",
+				"es": "añadida cadena de endpoint única",
+				"pl": "dodano unikalny ciąg końcowy",
+				"uk": "додано унікальний кінцевий рядок",
+				"zh-cn": "添加唯一的端点字符串"
+			},
 			"3.2.0": {
 				"en": "IMPORTANT: adapter components had been blocked by Tibber - you have to update!\nbump base dependencies\nadapter will use internal output states for calculator if none defined in configuration (#325)\nimplement first run mode in calculator to reduce system load\ninternal optimizations",
 				"de": "WICHTIG: Adapterkomponenten wurden von Tibber blockiert - Sie müssen aktualisieren!\nBasisabhängigkeiten aktualisieren\nAdapter wird interne Ausgangszustände für den Rechner verwenden, wenn keine in der Konfiguration definiert sind (#325)\nErstlaufmodus im Rechner implementieren, um die Systemlast zu reduzieren\ninterne Optimierungen",
@@ -223,19 +236,6 @@
 				"pl": "Wdrożenie pobierania historycznych danych o zużyciu z serwera Tibber (#163)",
 				"uk": "Впровадження отримання історичних даних про споживання від сервера Tibber (#163)",
 				"zh-cn": "实现从 Tibber 服务器获取历史耗电数据 (#163)"
-			},
-			"1.5.0": {
-				"en": "Implement calculator object names (#186)",
-				"de": "Implementiere Objektnamen des Taschenrechners (#186)",
-				"ru": "Реализовать имена объектов калькулятора (#186)",
-				"pt": "Implementar nomes de objetos de calculadora (#186)",
-				"nl": "Implementeer objectnamen van de rekenmachine (#186)",
-				"fr": "Mettre en œuvre les noms d'objet de la calculatrice (#186)",
-				"it": "Implementa i nomi degli oggetti della calcolatrice (#186)",
-				"es": "Implementar nombres de objetos de la calculadora (#186)",
-				"pl": "Wdrożyć nazwy obiektów kalkulatora (#186)",
-				"uk": "Реалізувати імена об'єктів калькулятора (#186)",
-				"zh-cn": "实施计算器对象名称 (#186)"
 			},
 			"1.4.0": {
 				"en": "implement min/max states (#131)\nfix error with ignored calculator channel deactivations (#143)",
