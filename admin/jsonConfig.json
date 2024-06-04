@@ -1334,17 +1334,17 @@
 				"_specialshelp1": {
 					"type": "staticText",
 					"label": {
-						"en": "polls TotalCost values, including special fees in Germany. Please verify with the values you get in your Tibber APP",
-						"de": "befragt TotalCost-Werte, einschließlich spezieller Gebühren in Deutschland. Bitte überprüfen Sie die Werte mit den Werten, die Sie in Ihrer Tibber-App erhalten",
-						"ru": "опрашивает значения TotalCost, включая специальные сборы в Германии. Пожалуйста, проверьте полученные значения с значениями, которые вы получаете в своем приложении Tibber",
-						"pt": "sonda valores de TotalCost, incluindo taxas especiais na Alemanha. Por favor, verifique com os valores que você obtém no seu aplicativo Tibber",
-						"nl": "peilt TotalCost-waarden aan, inclusief speciale kosten in Duitsland. Verifieer alstublieft met de waarden die u krijgt in uw Tibber-app",
-						"fr": "interroge les valeurs de TotalCost, y compris les frais spéciaux en Allemagne. Veuillez vérifier avec les valeurs que vous obtenez dans votre application Tibber",
-						"it": "chiede i valori di TotalCost, inclusi i costi speciali in Germania. Verifica con i valori che ottieni nella tua app Tibber",
-						"es": "sondea los valores de TotalCost, incluidas las tarifas especiales en Alemania. Por favor, verifique con los valores que obtiene en su aplicación Tibber",
-						"pl": "pyta wartości TotalCost, w tym specjalne opłaty w Niemczech. Proszę sprawdzić wartości z wartościami, które otrzymujesz w swojej aplikacji Tibber",
-						"uk": "опитує значення TotalCost, включаючи спеціальні збори в Німеччині. Будь ласка, перевірте отримані значення зі значеннями, які ви отримуєте у своєму додатку Tibber",
-						"zh-cn": "轮询 TotalCost 值，包括德国的特殊费用。请与您在 Tibber APP 中获得的值进行验证"
+						"en": "also retrieves TotalCost values, including special grid fees in Germany. Please verify with the values you get in your Tibber app",
+						"de": "ruft auch TotalCost-Werte ab, einschließlich spezieller Netzgebühren in Deutschland. Bitte überprüfen Sie die Werte mit den Werten, die Sie in Ihrer Tibber-App erhalten",
+						"ru": "также извлекает значения TotalCost, включая специальные сетевые сборы в Германии. Пожалуйста, проверьте полученные значения с значениями, которые вы получаете в своем приложении Tibber",
+						"pt": "também recupera valores de TotalCost, incluindo taxas especiais da rede na Alemanha. Por favor, verifique com os valores que você obtém no seu aplicativo Tibber",
+						"nl": "haalt ook TotalCost-waarden op, inclusief speciale netkosten in Duitsland. Verifieer alstublieft met de waarden die u krijgt in uw Tibber-app",
+						"fr": "récupère également les valeurs de TotalCost, y compris les frais spéciaux du réseau en Allemagne. Veuillez vérifier avec les valeurs que vous obtenez dans votre application Tibber",
+						"it": "recupera anche i valori di TotalCost, inclusi i costi speciali della rete in Germania. Verifica con i valori che ottieni nella tua app Tibber",
+						"es": "también recupera los valores de TotalCost, incluidas las tarifas especiales de la red en Alemania. Por favor, verifique con los valores que obtiene en su aplicación Tibber",
+						"pl": "pobiera również wartości TotalCost, w tym specjalne opłaty za sieć w Niemczech. Proszę sprawdzić wartości z wartościami, które otrzymujesz w swojej aplikacji Tibber",
+						"uk": "також отримує значення TotalCost, включаючи спеціальні мережеві збори в Німеччині. Будь ласка, перевірте отримані значення зі значеннями, які ви отримуєте у своєму додатку Tibber",
+						"zh-cn": "还检索 TotalCost 值，包括德国的特殊电网费用。请与您在 Tibber APP 中获得的值进行验证"
 					},
 					"newLine": true
 				}
