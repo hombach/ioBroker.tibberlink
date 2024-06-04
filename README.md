@@ -99,7 +99,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.3.0 (2024-06-xx) WORK in PROGRESS
 
--   (HombachC) implements obsolete api call for total historical cost, incl. grid fees (#405)
+-   (HombachC) implements optional, obsolete api call for total historical cost, incl. grid fees (#405)
 -   (HombachC) Updates @iobroker/adapter-core from 3.1.6
 -   (HombachC) Updates @iobroker/types from 5.0.19 to 6.0.0
 

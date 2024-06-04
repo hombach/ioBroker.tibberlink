@@ -364,8 +364,12 @@ export class TibberAPICaller extends TibberHelper {
 				for (const { type, state, numCons, description } of resolutions) {
 					if (numCons && numCons > 0) {
 						//WiP #405 change call to get also obsolete data
-						//const consumption = await this.getConsumptionObs(type, numCons, homeID);
-						const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+						let consumption: IConsumption[];
+						if (this.adapter.config.UseObsoleteStats) {
+							consumption = await this.getConsumptionObs(type, numCons, homeID);
+						} else {
+							consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+						}
 						//WiP #405
 						this.checkAndSetValue(
 							this.getStatePrefix(homeID, `Consumption`, state),

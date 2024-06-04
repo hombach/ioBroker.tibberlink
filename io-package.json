@@ -1,10 +1,20 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.2.2",
+		"version": "3.3.0",
 		"news": {
-			"3.2.2": {
-				"en": "WIP"
+			"3.3.0": {
+				"en": "implements optional, obsolete API call for total historical cost, incl. grid fees (#405)\nUpdates @iobroker/adapter-core from 3.1.6\nUpdates @iobroker/types from 5.0.19 to 6.0.0",
+				"de": "implementiert optionale, veraltete API-Aufruf für Gesamtkostenhistorie, inkl. Netzgebühren (#405)\nAktualisiert @iobroker/adapter-core von 3.1.6\nAktualisiert @iobroker/types von 5.0.19 auf 6.0.0",
+				"ru": "реализует опциональный устаревший вызов API для общей истории затрат, включая сетевые сборы (#405)\nОбновления @iobroker/adapter-core с 3.1.6\nОбновления @iobroker/types с 5.0.19 на 6.0.0",
+				"pt": "implementa chamada de API opcional e obsoleta para custo histórico total, incluindo taxas de rede (#405)\nAtualizações @iobroker/adapter-core de 3.1.6\nAtualizações @iobroker/types de 5.0.19 para 6.0.0",
+				"nl": "implementeert optionele, verouderde API-oproep voor totale historische kosten, incl. netkosten (#405)\nUpdates @iobroker/adapter-core van 3.1.6\nUpdates @iobroker/types van 5.0.19 naar 6.0.0",
+				"fr": "met en œuvre l'appel d'API facultatif et obsolète pour le coût historique total, y compris les frais de réseau (#405)\nMises à jour @iobroker/adapter-core de 3.1.6\nMises à jour @iobroker/types de 5.0.19 à 6.0.0",
+				"it": "implementa la chiamata API opzionale e obsoleta per il costo storico totale, incluse le tariffe di rete (#405)\nAggiornamenti @iobroker/adapter-core da 3.1.6\nAggiornamenti @iobroker/types da 5.0.19 a 6.0.0",
+				"es": "implementa la llamada de API opcional y obsoleta para el costo histórico total, incluidas las tarifas de red (#405)\nActualizaciones @iobroker/adapter-core desde 3.1.6\nActualizaciones @iobroker/types desde 5.0.19 hasta 6.0.0",
+				"pl": "implementuje opcjonalne przestarzałe wywołanie interfejsu API dla całkowitych historycznych kosztów, w tym opłat za sieć (#405)\nAktualizacje @iobroker/adapter-core z 3.1.6\nAktualizacje @iobroker/types z 5.0.19 do 6.0.0",
+				"uk": "реалізує необов'язковий застарілий виклик API для загальної історії витрат, включаючи мережеві збори (#405)\nОновлення @iobroker/adapter-core з 3.1.6\nОновлення @iobroker/types з 5.0.19 до 6.0.0",
+				"zh-cn": "实现可选的、过时的 API 调用，用于总历史成本，包括网络费用 (#405)\n从 3.1.6 更新 @iobroker/adapter-core\n从 5.0.19 更新 @iobroker/types 到 6.0.0"
 			},
 			"3.2.1": {
 				"en": "added unique endpoint string",
