@@ -97,6 +97,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.2.2 (2024-06-\*\*) WORK in PROGRESS
+
+-   (HombachC) Updates @iobroker/adapter-core from 3.1.6
+-   (HombachC) Updates @iobroker/types from 5.0.19 to 6.0.0
+
 ### 3.2.1 (2024-06-03)
 
 -   (HombachC) added unique endpoint string

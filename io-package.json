@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.2.1",
+		"version": "3.2.2",
 		"news": {
+			"3.2.2": {
+				"en": "WIP"
+			},
 			"3.2.1": {
 				"en": "added unique endpoint string",
 				"de": "eindeutigen Endpunktstring hinzugefügt",
