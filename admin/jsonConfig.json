@@ -1274,6 +1274,81 @@
 					"newLine": true
 				}
 			}
+		},
+
+		"_SpecialsTab": {
+			"type": "panel",
+			"label": {
+				"en": "Special Settings",
+				"de": "Spezielle Einstellungen",
+				"ru": "Специальные настройки",
+				"pt": "Configurações Especiais",
+				"nl": "Speciale Instellingen",
+				"fr": "Paramètres Spéciaux",
+				"it": "Impostazioni Speciali",
+				"es": "Configuraciones Especiales",
+				"pl": "Specjalne Ustawienia",
+				"uk": "Спеціальні налаштування",
+				"zh-cn": "特殊设置"
+			},
+			"hidden": "!data.TibberAPIToken",
+			"items": {
+				"_SpecialsHeader": {
+					"type": "header",
+					"text": {
+						"en": "Special Settings",
+						"de": "Spezielle Einstellungen",
+						"ru": "Специальные настройки",
+						"pt": "Configurações Especiais",
+						"nl": "Speciale Instellingen",
+						"fr": "Paramètres Spéciaux",
+						"it": "Impostazioni Speciali",
+						"es": "Configuraciones Especiales",
+						"pl": "Specjalne Ustawienia",
+						"uk": "Спеціальні налаштування",
+						"zh-cn": "特殊设置"
+					},
+					"size": 3
+				},
+
+				"UseObsoleteStats": {
+					"type": "checkbox",
+					"label": {
+						"en": "Use obsolete API call for historical consumption data - handle with care!",
+						"de": "Veralteten API-Aufruf für historische Verbrauchsdaten verwenden - mit Vorsicht behandeln!",
+						"ru": "Используйте устаревший вызов API для исторических данных о потреблении - обращайтесь осторожно!",
+						"pt": "Use chamada de API obsoleta para dados de consumo histórico - manuseie com cuidado!",
+						"nl": "Gebruik verouderde API-oproep voor historische verbruiksgegevens - wees voorzichtig!",
+						"fr": "Utilisez l'appel d'API obsolète pour les données de consommation historiques - manipulez avec précaution!",
+						"it": "Utilizzare la chiamata API obsoleta per i dati di consumo storici - gestire con attenzione!",
+						"es": "¡Use la llamada de API obsoleta para los datos de consumo históricos, maneje con cuidado!",
+						"pl": "Użyj przestarzałego wywołania interfejsu API do danych historycznego zużycia - obchodź się ostrożnie!",
+						"uk": "Використовуйте застарілий виклик API для історичних даних споживання - обережно обходьтеся!",
+						"zh-cn": "使用过时的 API 调用获取历史消耗数据 - 谨慎处理！"
+					},
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"newLine": true
+				},
+				"_specialshelp1": {
+					"type": "staticText",
+					"label": {
+						"en": "polls TotalCost values, including special fees in Germany. Please verify with the values you get in your Tibber APP",
+						"de": "befragt TotalCost-Werte, einschließlich spezieller Gebühren in Deutschland. Bitte überprüfen Sie die Werte mit den Werten, die Sie in Ihrer Tibber-App erhalten",
+						"ru": "опрашивает значения TotalCost, включая специальные сборы в Германии. Пожалуйста, проверьте полученные значения с значениями, которые вы получаете в своем приложении Tibber",
+						"pt": "sonda valores de TotalCost, incluindo taxas especiais na Alemanha. Por favor, verifique com os valores que você obtém no seu aplicativo Tibber",
+						"nl": "peilt TotalCost-waarden aan, inclusief speciale kosten in Duitsland. Verifieer alstublieft met de waarden die u krijgt in uw Tibber-app",
+						"fr": "interroge les valeurs de TotalCost, y compris les frais spéciaux en Allemagne. Veuillez vérifier avec les valeurs que vous obtenez dans votre application Tibber",
+						"it": "chiede i valori di TotalCost, inclusi i costi speciali in Germania. Verifica con i valori che ottieni nella tua app Tibber",
+						"es": "sondea los valores de TotalCost, incluidas las tarifas especiales en Alemania. Por favor, verifique con los valores que obtiene en su aplicación Tibber",
+						"pl": "pyta wartości TotalCost, w tym specjalne opłaty w Niemczech. Proszę sprawdzić wartości z wartościami, które otrzymujesz w swojej aplikacji Tibber",
+						"uk": "опитує значення TotalCost, включаючи спеціальні збори в Німеччині. Будь ласка, перевірте отримані значення зі значеннями, які ви отримуєте у своєму додатку Tibber",
+						"zh-cn": "轮询 TotalCost 值，包括德国的特殊费用。请与您在 Tibber APP 中获得的值进行验证"
+					},
+					"newLine": true
+				}
+			}
 		}
 	}
 }

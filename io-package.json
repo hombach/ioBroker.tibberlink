@@ -188,19 +188,6 @@
 				"uk": "Додати повторюваність для каналів LTF (#289)",
 				"zh-cn": "为LTF通道添加可重复性 (#289)"
 			},
-			"2.0.1": {
-				"en": "modified timing in Tibber Pulse feed connect (#271)",
-				"de": "Timing in Tibber Pulse Feed Connect modifiziert (#271)",
-				"ru": "Изменено время в подключении к ленте Tibber Pulse (#271)",
-				"pt": "Tempo modificado na conexão com o feed Tibber Pulse (#271)",
-				"nl": "Timing aangepast in Tibber Pulse feed connect (#271)",
-				"fr": "Timing modifié dans la connexion au flux Tibber Pulse (#271)",
-				"it": "Timing modificato nella connessione al feed Tibber Pulse (#271)",
-				"es": "Tiempo modificado en la conexión al feed Tibber Pulse (#271)",
-				"pl": "Zmodyfikowany czas w połączeniu z feedem Tibber Pulse (#271)",
-				"uk": "Змінено час у підключенні до стрічки Tibber Pulse (#271)",
-				"zh-cn": "修改了 Tibber Pulse 订阅连接的时间 (#271)"
-			},
 			"2.0.0": {
 				"en": "BREAKING: dropped support for js-controller 3.x (#247)\ndiversificate Tibber server polls to prevent potential DDoS reactions (#252)\nadd data point for averageRemaining of today's prices (#254)\nadd 2 data points for last successful update of today and tomorrow prices (#261)\nyear 2024 changes\nfix small error in dynamic feed timing",
 				"de": "WICHTIG: Unterstützung für js-controller 3.x wurde eingestellt (#247)\nDiversifizieren Sie die Tibber-Serverabfragen, um potenzielle DDoS-Reaktionen zu verhindern (#252)\nFügen Sie einen Datenpunkt für den durchschnittlichen Restbetrag der heutigen Preise hinzu (#254)\nFügen Sie 2 Datenpunkte für das letzte erfolgreiche Update der heutigen und morgigen Preise hinzu (#261)\nÄnderungen im Jahr 2024\nBeheben Sie einen kleinen Fehler in der zeitlichen Abstimmung des dynamischen Feeds",
