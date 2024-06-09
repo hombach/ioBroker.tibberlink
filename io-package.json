@@ -4,7 +4,17 @@
 		"version": "3.3.1",
 		"news": {
 			"3.3.1": {
-				"en": "fix small sentry discovered error (#418)"
+				"en": "fix small Sentry-discovered error (#418)",
+				"de": "kleinen von Sentry entdeckten Fehler beheben (#418)",
+				"ru": "исправить небольшую ошибку, обнаруженную Sentry (#418)",
+				"pt": "corrigir pequeno erro descoberto pelo Sentry (#418)",
+				"nl": "kleine door Sentry ontdekte fout oplossen (#418)",
+				"fr": "corriger une petite erreur découverte par Sentry (#418)",
+				"it": "correggere un piccolo errore scoperto da Sentry (#418)",
+				"es": "corregir un pequeño error descubierto por Sentry (#418)",
+				"pl": "naprawić mały błąd wykryty przez Sentry (#418)",
+				"uk": "виправити невелику помилку, виявлену Sentry (#418)",
+				"zh-cn": "修复 Sentry 发现的小错误 (#418)"
 			},
 			"3.3.0": {
 				"en": "implements optional, obsolete API call for total historical cost, incl. grid fees (#405)\nUpdates @iobroker/adapter-core from 3.1.6\nUpdates @iobroker/types from 5.0.19 to 6.0.0",
