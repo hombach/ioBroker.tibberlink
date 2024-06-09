@@ -5,7 +5,7 @@
  * It is advised to test all your modules with accompanying *.test.ts-files
  */
 
-// WiP import { expect } from "chai";
+import { expect } from "chai";
 // import { functionToTest } from "./moduleToTest";
 
 describe("module to test => function to test", () => {
@@ -15,7 +15,7 @@ describe("module to test => function to test", () => {
 	it(`should return ${expected}`, () => {
 		const result = 5;
 		// assign result a value from functionToTest
-		// WiP expect(result).to.equal(expected);
+		expect(result).to.equal(expected);
 		// or using the should() syntax
 		result.should.equal(expected);
 	});
