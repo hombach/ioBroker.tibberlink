@@ -97,6 +97,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.3.1 (2024-06-xx) WORK in PROGRESS
+
+-   (HombachC) fix small sentry discovered error (#418)
+
 ### 3.3.0 (2024-06-05)
 
 -   (HombachC) implements optional, obsolete api call for total historical cost, incl. grid fees (#405)

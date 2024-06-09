@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.3.0",
+		"version": "3.3.1",
 		"news": {
+			"3.3.1": {
+				"en": "fix small sentry discovered error (#418)"
+			},
 			"3.3.0": {
 				"en": "implements optional, obsolete API call for total historical cost, incl. grid fees (#405)\nUpdates @iobroker/adapter-core from 3.1.6\nUpdates @iobroker/types from 5.0.19 to 6.0.0",
 				"de": "implementiert optionale, veraltete API-Aufruf für Gesamtkostenhistorie, inkl. Netzgebühren (#405)\nAktualisiert @iobroker/adapter-core von 3.1.6\nAktualisiert @iobroker/types von 5.0.19 auf 6.0.0",
@@ -249,19 +252,6 @@
 				"pl": "Wdrożenie stanów min/max (#131)\nnaprawa błędu z pominiętymi dezaktywacjami kanałów kalkulatora (#143)",
 				"uk": "Реалізовано стани мінімуму/максимуму (#131)\nвиправлено помилку з ігноруванням деактивації калькуляторних каналів (#143)",
 				"zh-cn": "实现最小/最大状态 (#131)\n修复忽略计算器通道停用错误 (#143)"
-			},
-			"1.3.0": {
-				"en": "Implement Tibber calculator mode 'best hours block' (#16)",
-				"de": "Implementieren des Tibber-Rechnermodus 'beste Stundenblock' (#16)",
-				"ru": "Реализация режима калькулятора Tibber 'лучший часовой блок' (#16)",
-				"pt": "Implementar o modo de calculadora Tibber 'melhor bloco de horas' (#16)",
-				"nl": "Implementeer de Tibber rekenmachine modus 'beste uren blok' (#16)",
-				"fr": "Implémenter le mode calculatrice Tibber 'meilleur bloc d'heures' (#16)",
-				"it": "Implementare la modalità calcolatrice Tibber 'miglior blocco di ore' (#16)",
-				"es": "Implementar el modo calculadora Tibber 'mejor bloque de horas' (#16)",
-				"pl": "Wdrożenie trybu kalkulatora Tibber 'najlepszy blok godzin' (#16)",
-				"uk": "Впровадження режиму калькулятора Tibber 'кращий годинний блок' (#16)",
-				"zh-cn": "实施Tibber计算器模式 '最佳小时块' (#16)"
 			}
 		},
 		"messages": [

@@ -406,15 +406,21 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     !this.adapter.config.CalculatorList[channel].chTargetState.trim()) {
                     this.adapter.log.warn(`Empty destination state in calculator channel ${channel} defined - provide correct external state - channel will use internal state OUTPUT`);
                 }
-                const chTargetStateComponents = this.adapter.config.CalculatorList[channel].chTargetState.split(".");
-                let foundAllBadComponents = true;
-                badComponents.forEach((badComponent) => {
-                    if (!chTargetStateComponents.includes(badComponent))
-                        foundAllBadComponents = false;
-                });
-                if (foundAllBadComponents) {
-                    this.adapter.log.error(`Invalid destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
-                    continue; //skip channel
+                if (this.adapter.config.CalculatorList[channel].chTargetState) {
+                    const chTargetStateComponents = this.adapter.config.CalculatorList[channel].chTargetState.split(".");
+                    let foundAllBadComponents = true;
+                    badComponents.forEach((badComponent) => {
+                        if (!chTargetStateComponents.includes(badComponent))
+                            foundAllBadComponents = false;
+                    });
+                    if (foundAllBadComponents) {
+                        this.adapter.log.error(`Invalid destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
+                        continue; // skip channel
+                    }
+                }
+                else {
+                    this.adapter.log.debug(`chTargetState is null or undefined in calculator channel ${channel}. Skipping channel execution.`);
+                    continue; // skip channel
                 }
                 if (this.adapter.config.CalculatorList[channel].chType === tibberHelper_1.enCalcType.SmartBatteryBuffer) {
                     if (!this.adapter.config.CalculatorList[channel] ||
