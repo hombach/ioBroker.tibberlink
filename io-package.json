@@ -4,17 +4,17 @@
 		"version": "3.3.1",
 		"news": {
 			"3.3.1": {
-				"en": "fix small Sentry-discovered error (#418)",
-				"de": "kleinen von Sentry entdeckten Fehler beheben (#418)",
-				"ru": "исправить небольшую ошибку, обнаруженную Sentry (#418)",
-				"pt": "corrigir pequeno erro descoberto pelo Sentry (#418)",
-				"nl": "kleine door Sentry ontdekte fout oplossen (#418)",
-				"fr": "corriger une petite erreur découverte par Sentry (#418)",
-				"it": "correggere un piccolo errore scoperto da Sentry (#418)",
-				"es": "corregir un pequeño error descubierto por Sentry (#418)",
-				"pl": "naprawić mały błąd wykryty przez Sentry (#418)",
-				"uk": "виправити невелику помилку, виявлену Sentry (#418)",
-				"zh-cn": "修复 Sentry 发现的小错误 (#418)"
+				"en": "fix small Sentry-discovered error (#418)\nadded note for multihomes to documentation (#422)",
+				"de": "kleinen von Sentry entdeckten Fehler beheben (#418)\nHinweis für Mehrfachwohnsitze zur Dokumentation hinzugefügt (#422)",
+				"ru": "исправить небольшую ошибку, обнаруженную Sentry (#418)\nдобавлено примечание для многодомов в документацию (#422)",
+				"pt": "corrigir pequeno erro descoberto pelo Sentry (#418)\nadicionada nota para multicasas à documentação (#422)",
+				"nl": "kleine door Sentry ontdekte fout opgelost (#418)\nopmerking voor multihomes aan documentatie toegevoegd (#422)",
+				"fr": "correction d'une petite erreur découverte par Sentry (#418)\najout d'une note pour les multirésidences à la documentation (#422)",
+				"it": "corretto piccolo errore scoperto da Sentry (#418)\naggiunta nota per le multi-abitazioni alla documentazione (#422)",
+				"es": "corregir un pequeño error descubierto por Sentry (#418)\nagregada nota para multihogares a la documentación (#422)",
+				"pl": "naprawiono mały błąd wykryty przez Sentry (#418)\ndodano notatkę dla wielodomy do dokumentacji (#422)",
+				"uk": "виправити невелику помилку, виявлену Sentry (#418)\nдодано примітку для багатодомів до документації (#422)",
+				"zh-cn": "修复 Sentry 发现的小错误 (#418)\n在文档中添加了关于多家庭的说明 (#422)"
 			},
 			"3.3.0": {
 				"en": "implements optional, obsolete API call for total historical cost, incl. grid fees (#405)\nUpdates @iobroker/adapter-core from 3.1.6\nUpdates @iobroker/types from 5.0.19 to 6.0.0",
