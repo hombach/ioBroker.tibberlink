@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.3.1",
+		"version": "3.3.2",
 		"news": {
+			"3.3.2": {
+				"en": "fix 2 security issues in dependencies"
+			},
 			"3.3.1": {
 				"en": "fix small Sentry-discovered error (#418)\nadded note for multihomes to documentation (#422)",
 				"de": "kleinen von Sentry entdeckten Fehler beheben (#418)\nHinweis für Mehrfachwohnsitze zur Dokumentation hinzugefügt (#422)",
@@ -249,19 +252,6 @@
 				"pl": "Wdrożenie pobierania historycznych danych o zużyciu z serwera Tibber (#163)",
 				"uk": "Впровадження отримання історичних даних про споживання від сервера Tibber (#163)",
 				"zh-cn": "实现从 Tibber 服务器获取历史耗电数据 (#163)"
-			},
-			"1.4.0": {
-				"en": "implement min/max states (#131)\nfix error with ignored calculator channel deactivations (#143)",
-				"de": "Implementiere Min-/Max-Werte (#131)\nBehebung des Fehlers bei ignorierten Deaktivierungen von Taschenrechnerkanälen (#143)",
-				"ru": "Реализованы состояния минимума/максимума (#131)\nисправлена ошибка с игнорированием деактивации калькуляторных каналов (#143)",
-				"pt": "Implementar estados mínimo/máximo (#131)\ncorrigir erro de desativações ignoradas de canais de calculadora (#143)",
-				"nl": "Implementeer min/max-statussen (#131)\nfout opgelost met genegeerde deactiveringen van rekenmachinekanalen (#143)",
-				"fr": "Mise en œuvre des états min/max (#131)\ncorrection de l'erreur d'activation ignorée des canaux de calcul (#143)",
-				"it": "Implementa stati min/max (#131)\nrisoluzione dell'errore con disattivazioni ignorate dei canali del calcolatore (#143)",
-				"es": "Implementar estados mínimo/máximo (#131)\ncorregir error de desactivaciones de canales de calculadora ignoradas (#143)",
-				"pl": "Wdrożenie stanów min/max (#131)\nnaprawa błędu z pominiętymi dezaktywacjami kanałów kalkulatora (#143)",
-				"uk": "Реалізовано стани мінімуму/максимуму (#131)\nвиправлено помилку з ігноруванням деактивації калькуляторних каналів (#143)",
-				"zh-cn": "实现最小/最大状态 (#131)\n修复忽略计算器通道停用错误 (#143)"
 			}
 		},
 		"messages": [
