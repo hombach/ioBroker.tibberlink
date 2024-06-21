@@ -4,7 +4,17 @@
 		"version": "3.3.2",
 		"news": {
 			"3.3.2": {
-				"en": "fix 2 security issues in dependencies"
+				"en": "fix 2 security issues in dependencies\nfix Sentry-notified possible error",
+				"de": "2 Sicherheitsprobleme in Abhängigkeiten behoben\nvon Sentry gemeldeten möglichen Fehler beheben",
+				"ru": "исправить 2 проблемы безопасности в зависимостях\nисправить возможную ошибку, уведомленную Sentry",
+				"pt": "corrigir 2 problemas de segurança em dependências\ncorrigir possível erro notificado pelo Sentry",
+				"nl": "2 beveiligingsproblemen in afhankelijkheden opgelost\nmogelijke fout gemeld door Sentry verholpen",
+				"fr": "corriger 2 problèmes de sécurité dans les dépendances\ncorriger une erreur possible signalée par Sentry",
+				"it": "correggere 2 problemi di sicurezza nelle dipendenze\ncorreggere possibile errore notificato da Sentry",
+				"es": "corregir 2 problemas de seguridad en dependencias\ncorregir posible error notificado por Sentry",
+				"pl": "naprawić 2 problemy bezpieczeństwa w zależnościach\nnaprawić możliwy błąd zgłoszony przez Sentry",
+				"uk": "виправити 2 проблеми безпеки в залежностях\nвиправити можливу помилку, повідомлену Sentry",
+				"zh-cn": "修复依赖项中的 2 个安全问题\n修复 Sentry 通知的可能错误"
 			},
 			"3.3.1": {
 				"en": "fix small Sentry-discovered error (#418)\nadded note for multihomes to documentation (#422)",

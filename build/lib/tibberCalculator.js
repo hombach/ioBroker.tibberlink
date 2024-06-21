@@ -406,7 +406,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     !this.adapter.config.CalculatorList[channel].chTargetState.trim()) {
                     this.adapter.log.warn(`Empty destination state in calculator channel ${channel} defined - provide correct external state - channel will use internal state OUTPUT`);
                 }
-                if (this.adapter.config.CalculatorList[channel].chTargetState) {
+                if (this.adapter.config.CalculatorList[channel].chTargetState != null) {
                     const chTargetStateComponents = this.adapter.config.CalculatorList[channel].chTargetState.split(".");
                     let foundAllBadComponents = true;
                     badComponents.forEach((badComponent) => {

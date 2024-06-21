@@ -101,6 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 3.3.2 (2024-06-21)
 
 -   (HombachC) fix 2 security issues in dependencies
+-   (HombachC) fix sentry notified possible error
 
 ### 3.3.1 (2024-06-13)
 

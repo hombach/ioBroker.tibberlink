@@ -501,7 +501,7 @@ export class TibberCalculator extends TibberHelper {
 					);
 				}
 
-				if (this.adapter.config.CalculatorList[channel].chTargetState) {
+				if (this.adapter.config.CalculatorList[channel].chTargetState != null) {
 					const chTargetStateComponents = this.adapter.config.CalculatorList[channel].chTargetState.split(".");
 					let foundAllBadComponents = true;
 					badComponents.forEach((badComponent) => {
