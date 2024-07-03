@@ -501,7 +501,11 @@ export class TibberCalculator extends TibberHelper {
 					);
 				}
 
-				if (this.adapter.config.CalculatorList[channel].chTargetState != null) {
+				if (
+					this.adapter.config.CalculatorList[channel].chTargetState != null &&
+					typeof this.adapter.config.CalculatorList[channel].chTargetState === "string" &&
+					this.adapter.config.CalculatorList[channel].chTargetState !== ""
+				) {
 					const chTargetStateComponents = this.adapter.config.CalculatorList[channel].chTargetState.split(".");
 					let foundAllBadComponents = true;
 					badComponents.forEach((badComponent) => {
@@ -528,16 +532,26 @@ export class TibberCalculator extends TibberHelper {
 							`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - channel will use internal state OUTPUT2`,
 						);
 					}
-					const chTargetState2Components = this.adapter.config.CalculatorList[channel].chTargetState2.split(".");
-					let foundAllBadComponents = true;
-					badComponents.forEach((badComponent) => {
-						if (!chTargetState2Components.includes(badComponent)) foundAllBadComponents = false;
-					});
-					if (foundAllBadComponents) {
-						this.adapter.log.error(
-							`Invalid second destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`,
-						);
-						continue; //skip channel
+
+					if (
+						this.adapter.config.CalculatorList[channel].chTargetState2 != null &&
+						typeof this.adapter.config.CalculatorList[channel].chTargetState2 === "string" &&
+						this.adapter.config.CalculatorList[channel].chTargetState2 !== ""
+					) {
+						const chTargetState2Components = this.adapter.config.CalculatorList[channel].chTargetState2.split(".");
+						let foundAllBadComponents = true;
+						badComponents.forEach((badComponent) => {
+							if (!chTargetState2Components.includes(badComponent)) foundAllBadComponents = false;
+						});
+						if (foundAllBadComponents) {
+							this.adapter.log.error(
+								`Invalid second destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`,
+							);
+							continue; //skip channel
+						}
+					} else {
+						this.adapter.log.debug(`chTargetState2 is null or undefined in calculator channel ${channel}. Skipping channel execution.`);
+						continue; // skip channel
 					}
 				}
 			}

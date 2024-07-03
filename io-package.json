@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.3.2",
+		"version": "3.3.3",
 		"news": {
+			"3.3.3": {
+				"en": "fix 2 security issues in dependencies\nfix Sentry-notified possible error"
+			},
 			"3.3.2": {
 				"en": "fix 2 security issues in dependencies\nfix Sentry-notified possible error",
 				"de": "2 Sicherheitsprobleme in Abhängigkeiten behoben\nvon Sentry gemeldeten möglichen Fehler beheben",
@@ -249,19 +252,6 @@
 				"pl": "zaimplementować opcjonalne wyłączenie pobierania cen (#232)\nzaimplementować algorytm kategoryzacji cen dla aplikacji bufora baterii (#193)\nnaprawić błąd w pobieraniu cen na jutro (#235, #232)",
 				"uk": "реалізувати необов'язкове вимкнення запиту цін (#232)\nреалізувати алгоритм категоризації цін для застосувань буфера батареї (#193)\nвиправити помилку у запиті цін на завтра (#235, #232)",
 				"zh-cn": "实施可选择禁用价格拉取 (#232)\n为电池缓冲应用实施价格分类算法 (#193)\n修复明天价格拉取中的错误 (#235, #232)"
-			},
-			"1.7.0": {
-				"en": "Implement getting historical consumption data from Tibber Server (#163)",
-				"de": "Implementierung des Abrufs historischer Verbrauchsdaten vom Tibber Server (#163)",
-				"ru": "Реализация получения исторических данных о потреблении от сервера Tibber (#163)",
-				"pt": "Implementar obtenção de dados históricos de consumo do servidor Tibber (#163)",
-				"nl": "Implementeer het ophalen van historische verbruiksgegevens van Tibber Server (#163)",
-				"fr": "Mise en œuvre de l'obtention des données de consommation historiques depuis le serveur Tibber (#163)",
-				"it": "Implementare l'ottenimento dei dati di consumo storici dal server Tibber (#163)",
-				"es": "Implementar la obtención de datos de consumo históricos del servidor Tibber (#163)",
-				"pl": "Wdrożenie pobierania historycznych danych o zużyciu z serwera Tibber (#163)",
-				"uk": "Впровадження отримання історичних даних про споживання від сервера Tibber (#163)",
-				"zh-cn": "实现从 Tibber 服务器获取历史耗电数据 (#163)"
 			}
 		},
 		"messages": [
