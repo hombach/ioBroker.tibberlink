@@ -101,6 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 3.3.3 (2024-07-xx)
 
 -   (HombachC) fix sentry notified possible error
+-   (HombachC) try to fix startup error (#444)
 
 ### 3.3.2 (2024-06-21)
 

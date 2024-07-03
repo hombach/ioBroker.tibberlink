@@ -4,7 +4,17 @@
 		"version": "3.3.3",
 		"news": {
 			"3.3.3": {
-				"en": "fix 2 security issues in dependencies\nfix Sentry-notified possible error"
+				"en": "fix Sentry-notified possible error\ntry to fix startup error (#444)",
+				"de": "möglichen von Sentry gemeldeten Fehler beheben\nStartfehler versuchen zu beheben (#444)",
+				"ru": "исправить возможную ошибку, уведомленную Sentry\nпопробуйте исправить ошибку запуска (#444)",
+				"pt": "corrigir possível erro notificado pelo Sentry\ntentar corrigir erro de inicialização (#444)",
+				"nl": "mogelijke fout gemeld door Sentry oplossen\nproberen opstartfout te verhelpen (#444)",
+				"fr": "corriger une erreur possible signalée par Sentry\nessayer de corriger l'erreur de démarrage (#444)",
+				"it": "correggere possibile errore notificato da Sentry\nprovare a risolvere l'errore di avvio (#444)",
+				"es": "corregir posible error notificado por Sentry\nintentar corregir error de inicio (#444)",
+				"pl": "naprawić możliwy błąd zgłoszony przez Sentry\nspróbować naprawić błąd uruchamiania (#444)",
+				"uk": "виправити можливу помилку, повідомлену Sentry\nспробувати виправити помилку запуску (#444)",
+				"zh-cn": "修复 Sentry 通知的可能错误\n尝试修复启动错误 (#444)"
 			},
 			"3.3.2": {
 				"en": "fix 2 security issues in dependencies\nfix Sentry-notified possible error",
