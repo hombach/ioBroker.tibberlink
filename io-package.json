@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.3.3",
+		"version": "3.4.0",
 		"news": {
+			"3.4.0": {
+				"en": "add mode for local poll of pulse data (#201)"
+			},
 			"3.3.3": {
 				"en": "fix Sentry-notified possible error\ntry to fix startup error (#444)",
 				"de": "möglichen von Sentry gemeldeten Fehler beheben\nStartfehler versuchen zu beheben (#444)",
@@ -249,19 +252,6 @@
 				"pl": "WAŻNE: Zakończono wsparcie dla js-controller 3.x (#247)\ndywersyfikuj zapytania do serwerów Tibber, aby zapobiec potencjalnym reakcjom DDoS (#252)\ndodaj punkt danych dla średniego pozostałego czasu dzisiejszych cen (#254)\ndodaj 2 punkty danych dla ostatniej udanej aktualizacji cen dzisiaj i jutro (#261)\nzmiany na rok 2024\nnapraw mały błąd w czasie dynamicznego zasilania",
 				"uk": "ВАЖЛИВО: Підтримка js-controller 3.x припинена (#247)\nдиверсифікація запитів до серверів Tibber для запобігання потенційних реакцій DDoS (#252)\nдодавання точки даних для середньої залишкової частини сьогоднішніх цін (#254)\nдодавання 2 точок даних для останнього успішного оновлення цін на сьогодні і завтра (#261)\nзміни на 2024 рік\nвиправлення маленької помилки в динаміці часу оновлення даних",
 				"zh-cn": "重大变更：不再支持 js-controller 3.x (#247)\n多样化 Tibber 服务器轮询，以防止潜在的 DDoS 反应 (#252)\n添加平均剩余今日价格的数据点 (#254)\n添加两个数据点，用于记录今天和明天价格的最后成功更新 (#261)\n2024 年更改\n修复动态反馈时间的小错误"
-			},
-			"1.8.0": {
-				"en": "implement optional disable of price pull (#232)\nimplement price categorization algorithm for battery buffer applications (#193)\nfix error in pull of prices tomorrow (#235, #232)",
-				"de": "Implementieren Sie die optionale Deaktivierung des Preisabrufs (#232)\nImplementieren Sie den Preis-Kategorisierungsalgorithmus für Batteriepufferanwendungen (#193)\nBeheben Sie den Fehler beim Abruf von Preisen für morgen (#235, #232)",
-				"ru": "реализовать необязательное отключение опроса цен (#232)\nреализовать алгоритм категоризации цен для приложений батарейного буфера (#193)\nисправить ошибку при опросе цен на завтра (#235, #232)",
-				"pt": "implementar desativação opcional da busca de preços (#232)\nimplementar algoritmo de categorização de preços para aplicações de bateria tamponada (#193)\ncorrigir erro na busca de preços para amanhã (#235, #232)",
-				"nl": "implementeer optionele uitschakeling van prijzen ophalen (#232)\nimplementeer prijscategoriseringsalgoritme voor toepassingen van batterijbuffers (#193)\nlos fout op bij het ophalen van prijzen voor morgen (#235, #232)",
-				"fr": "mettez en œuvre la désactivation optionnelle de la récupération des prix (#232)\nmettez en œuvre l'algorithme de catégorisation des prix pour les applications de tampon de batterie (#193)\ncorrigez l'erreur dans la récupération des prix pour demain (#235, #232)",
-				"it": "implementare la disabilitazione opzionale del recupero dei prezzi (#232)\nimplementare l'algoritmo di categorizzazione dei prezzi per le applicazioni di buffer di batteria (#193)\ncorreggere l'errore nel recupero dei prezzi per domani (#235, #232)",
-				"es": "implementar la desactivación opcional de la obtención de precios (#232)\nimplementar algoritmo de categorización de precios para aplicaciones de búfer de batería (#193)\ncorregir error en la obtención de precios para mañana (#235, #232)",
-				"pl": "zaimplementować opcjonalne wyłączenie pobierania cen (#232)\nzaimplementować algorytm kategoryzacji cen dla aplikacji bufora baterii (#193)\nnaprawić błąd w pobieraniu cen na jutro (#235, #232)",
-				"uk": "реалізувати необов'язкове вимкнення запиту цін (#232)\nреалізувати алгоритм категоризації цін для застосувань буфера батареї (#193)\nвиправити помилку у запиті цін на завтра (#235, #232)",
-				"zh-cn": "实施可选择禁用价格拉取 (#232)\n为电池缓冲应用实施价格分类算法 (#193)\n修复明天价格拉取中的错误 (#235, #232)"
 			}
 		},
 		"messages": [
