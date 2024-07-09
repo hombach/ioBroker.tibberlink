@@ -15,9 +15,11 @@ export class TibberLocal extends TibberHelper {
 		{ code: "0100100700ff", name: "Power" },
 		{ code: "01000f0700ff", name: "Power", checkSign: true },
 		{ code: "0100010800ff", name: "Import_total" },
-		{ code: "0100010801ff", name: "Import_total_Tarif_1" },
-		{ code: "0100010802ff", name: "Import_total_Tarif_2" },
+		{ code: "0100010801ff", name: "Import_total_tarif_1" },
+		{ code: "0100010802ff", name: "Import_total_tarif_2" },
 		{ code: "0100020800ff", name: "Export_total" },
+		{ code: "0100020801ff", name: "Export_total_tarif_1" },
+		{ code: "0100020802ff", name: "Export_total_tarif_2" },
 		{ code: "0100010800ff_in_k", name: "Import_total_(kWh)" },
 		{ code: "0100020800ff_in_k", name: "Export_total_(kWh)" },
 		{ code: "0100240700ff", name: "Power_L1" },
@@ -217,7 +219,7 @@ export class TibberLocal extends TibberHelper {
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
 			output.push(getCurrentTimeFormatted() + " : " + formattedMatch + "\n");
 		}
-		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n${output.join("")}`);
+		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net:\n ${output.join("")}`);
 	}
 
 	private isValidUnixTimestampAndConvert(n: number): false | string {
