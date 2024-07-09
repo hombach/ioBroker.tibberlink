@@ -57,10 +57,10 @@ export class TibberHelper {
 		return statePrefix;
 	}
 
-	protected getStatePrefixLocal(pulseName: string, space: string, id: string, name?: string): { [key: string]: string } {
+	protected getStatePrefixLocal(pulse: number, id: string, name?: string): { [key: string]: string } {
 		const statePrefix = {
 			key: name ? name : id,
-			value: `LocalPulse.${pulseName}.${space}.${id}`,
+			value: `LocalPulse.${pulse}.${id}`,
 		};
 		return statePrefix;
 	}

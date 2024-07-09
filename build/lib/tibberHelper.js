@@ -46,10 +46,10 @@ class TibberHelper {
         };
         return statePrefix;
     }
-    getStatePrefixLocal(pulseName, space, id, name) {
+    getStatePrefixLocal(pulse, id, name) {
         const statePrefix = {
             key: name ? name : id,
-            value: `LocalPulse.${pulseName}.${space}.${id}`,
+            value: `LocalPulse.${pulse}.${id}`,
         };
         return statePrefix;
     }

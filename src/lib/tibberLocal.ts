@@ -51,6 +51,7 @@ export class TibberLocal extends TibberHelper {
 
 			if (!this.TestMode) {
 				const jobBridgeMetrics = setInterval(() => {
+					this.adapter.log.warn(`Calling Bridge metrics data`); // WiP
 					this.getPulseData(pulse)
 						.then((response) => {
 							this.adapter.log.debug(`Got Bridge metrics data: ${response}`);
@@ -68,11 +69,7 @@ export class TibberLocal extends TibberHelper {
 						.then((hexString) => {
 							this.extractAndParseSMLMessages(pulse, hexString);
 							this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
-							this.checkAndSetValue(
-								this.getStatePrefixLocal(this.adapter.config.PulseList[pulse].puName, "preset", "SMLDataHEX"),
-								hexString,
-								"Description",
-							);
+							this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
 						})
 						.catch((e) => {
 							this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${e}`);
@@ -139,7 +136,7 @@ export class TibberLocal extends TibberHelper {
 					const TimeValue = this.isValidUnixTimestampAndConvert(JElements[JElement]);
 					if (TimeValue) JElements[JElement] = TimeValue;
 				}
-				this.checkAndSetValue(this.getStatePrefixLocal(this.adapter.config.PulseList[pulse].puName, preset, id), JElement, "Description");
+				this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElement, this.adapter.config.PulseList[pulse].puName);
 			}
 		}
 	}
@@ -215,12 +212,7 @@ export class TibberLocal extends TibberHelper {
 				this.adapter.log.debug(`RAW: ${transfer}`);
 				continue;
 			}
-			this.checkAndSetValueNumber(
-				this.getStatePrefixLocal(this.adapter.config.PulseList[pulse].puName, "PulseLocalSML", result.name),
-				result.value,
-				"Description",
-				result.unit,
-			);
+			this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit);
 			this.adapter.log.debug(JSON.stringify(result));
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
 			output.push(getCurrentTimeFormatted() + " : " + formattedMatch + "\n");
