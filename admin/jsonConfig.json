@@ -1355,13 +1355,33 @@
 		"_LocalPulseTab": {
 			"type": "panel",
 			"label": {
-				"en": "Local Pulse Poll Settings"
+				"en": "Local Pulse Poll Settings",
+				"de": "Lokale Pulse Abfrage Einstellungen",
+				"ru": "Настройки локального опроса Pulse",
+				"pt": "Configurações de Pesquisa de Pulse Local",
+				"nl": "Instellingen voor lokale Pulse polling",
+				"fr": "Paramètres de sondage de pulsations locales",
+				"it": "Impostazioni di polling degli Pulse locali",
+				"es": "Configuraciones de sondeo de Pulse local",
+				"pl": "Ustawienia lokalnego sondowania impulsów",
+				"uk": "Налаштування локального опитування Pulse",
+				"zh-cn": "本地脉冲轮询设置"
 			},
 			"items": {
 				"_LocalPulseHeader": {
 					"type": "header",
 					"text": {
-						"en": "Local Pulse Poll Settings"
+						"en": "Local Pulse Poll Settings",
+						"de": "Lokale Pulse Abfrage Einstellungen",
+						"ru": "Настройки локального опроса Pulse",
+						"pt": "Configurações de Pesquisa de Pulse Local",
+						"nl": "Instellingen voor lokale Pulse polling",
+						"fr": "Paramètres de sondage de pulsations locales",
+						"it": "Impostazioni di polling degli Pulse locali",
+						"es": "Configuraciones de sondeo de Pulse local",
+						"pl": "Ustawienia lokalnego sondowania impulsów",
+						"uk": "Налаштування локального опитування Pulse",
+						"zh-cn": "本地脉冲轮询设置"
 					},
 					"size": 3
 				},
@@ -1369,7 +1389,17 @@
 				"UseLocalPulseData": {
 					"type": "checkbox",
 					"label": {
-						"en": "Use direct poll of local Tibber Pulse(s) - handle with care!"
+						"en": "Use direct poll of local Tibber Pulse(s) - handle with care!",
+						"de": "Direkte Abfrage von lokalen Tibber Pulse(s) verwenden - mit Vorsicht behandeln!",
+						"ru": "Используйте прямой опрос локальных Tibber Pulse - обращайтесь с осторожностью!",
+						"pt": "Use pesquisa direta de Tibber Pulse(s) local - manuseie com cuidado!",
+						"nl": "Gebruik directe polling van lokale Tibber Pulse(s) - behandel met zorg!",
+						"fr": "Utilisez le sondage direct des Tibber Pulse(s) locaux - manipulez avec précaution!",
+						"it": "Usa il sondaggio diretto dei Tibber Pulse locali - maneggiare con cura!",
+						"es": "Use sondeo directo de Tibber Pulse(s) locales - ¡manéjelo con cuidado!",
+						"pl": "Użyj bezpośredniego sondowania lokalnych Tibber Pulse - używaj ostrożnie!",
+						"uk": "Використовуйте пряме опитування локальних Tibber Pulse - поводьтеся обережно!",
+						"zh-cn": "使用本地 Tibber Pulse 的直接轮询 - 小心处理！"
 					},
 					"sm": 12,
 					"md": 12,

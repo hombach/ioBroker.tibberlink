@@ -4,7 +4,17 @@
 		"version": "3.4.0",
 		"news": {
 			"3.4.0": {
-				"en": "add mode for local poll of pulse data (#201)"
+				"en": "add mode for local poll of Pulse data (#201)",
+				"de": "Modus für lokale Abfrage von Pulse Daten hinzufügen (#201)",
+				"ru": "добавить режим для локального опроса данных Pulse (#201)",
+				"pt": "adicionar modo para sondagem local de dados Pulse (#201)",
+				"nl": "modus toevoegen voor lokale polling van Pulse data (#201)",
+				"fr": "ajouter un mode pour le sondage local des données Pulse (#201)",
+				"it": "aggiungere una modalità per il sondaggio locale dei dati Pulse (#201)",
+				"es": "añadir modo para sondeo local de datos Pulse (#201)",
+				"pl": "dodaj tryb lokalnego sondowania danych Pulse (#201)",
+				"uk": "додати режим для локального опитування даних Pulse (#201)",
+				"zh-cn": "添加本地轮询 Pulse 数据模式 (#201)"
 			},
 			"3.3.3": {
 				"en": "fix Sentry-notified possible error\ntry to fix startup error (#444)",
