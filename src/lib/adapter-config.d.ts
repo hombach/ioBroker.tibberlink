@@ -44,6 +44,7 @@ declare global {
 			FeedConfigSignalStrength: boolean;
 			UseCalculator: boolean;
 			UseObsoleteStats: boolean;
+			UseLocalPulseData: boolean;
 			CalculatorList: [
 				{
 					chHomeID: string;
@@ -62,6 +63,14 @@ declare global {
 					chStopTime: Date;
 					chRepeatDays: number;
 					chEfficiencyLoss: number;
+				},
+			];
+			PulseList: [
+				{
+					puName: string;
+					tibberBridgeUrl: string;
+					tibberBridgePassword: string;
+					tibberPulseLocalNodeId: number;
 				},
 			];
 		}

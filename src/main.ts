@@ -6,6 +6,7 @@ import { IConfig } from "tibber-api";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberCalculator } from "./lib/tibberCalculator";
 import { IHomeInfo } from "./lib/tibberHelper";
+import { TibberLocal } from "./lib/tibberLocal";
 import { TibberPulse } from "./lib/tibberPulse";
 
 class Tibberlink extends utils.Adapter {
@@ -148,7 +149,7 @@ class Tibberlink extends utils.Adapter {
 				// Set up calculation channel states if configured
 				if (this.config.UseCalculator) {
 					try {
-						this.log.debug(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
+						this.log.info(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
 						for (const channel in this.config.CalculatorList) {
 							await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[channel].chHomeID, parseInt(channel));
 						}
@@ -156,6 +157,21 @@ class Tibberlink extends utils.Adapter {
 						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
 					}
 				}
+
+				//WIP Local Bridge Call - move this... could be used without Tibber contract
+				// Set up Pulse local polls if configured
+				const tibberLocal = new TibberLocal(this);
+				if (this.config.UseLocalPulseData) {
+					try {
+						this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse modules`);
+						for (const pulse in this.config.PulseList) {
+							await tibberLocal.setupOnePulseLocal(parseInt(pulse));
+						}
+					} catch (error: any) {
+						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of local Pulse data poll`));
+					}
+				}
+				//WIP Local Bridge Call
 
 				// (force) get current prices and start calculator tasks once for the FIRST time
 				if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {

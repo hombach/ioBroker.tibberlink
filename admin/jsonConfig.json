@@ -1331,6 +1331,7 @@
 					"lg": 12,
 					"newLine": true
 				},
+
 				"_specialshelp1": {
 					"type": "staticText",
 					"label": {
@@ -1347,6 +1348,99 @@
 						"zh-cn": "还检索 TotalCost 值，包括德国的特殊电网费用。请与您在 Tibber APP 中获得的值进行验证"
 					},
 					"newLine": true
+				}
+			}
+		},
+
+		"_LocalPulseTab": {
+			"type": "panel",
+			"label": {
+				"en": "Local Pulse Poll Settings"
+			},
+			"items": {
+				"_LocalPulseHeader": {
+					"type": "header",
+					"text": {
+						"en": "Local Pulse Poll Settings"
+					},
+					"size": 3
+				},
+
+				"UseLocalPulseData": {
+					"type": "checkbox",
+					"label": {
+						"en": "Use direct poll of local Tibber Pulse(s) - handle with care!"
+					},
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"newLine": true
+				},
+
+				"_localpulsehelp1": {
+					"type": "staticText",
+					"label": {
+						"en": "Use your Tibber Bridge(s) to poll data directly local from your Tibber Pulse module(s)"
+					},
+					"newLine": true
+				},
+
+				"PulseList": {
+					"type": "table",
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"label": {
+						"en": "Local Pulse to poll data from"
+					},
+					"hidden": "!data.UseLocalPulseData",
+					"items": [
+						{
+							"type": "text",
+							"title": {
+								"en": "Bridge network address"
+							},
+							"tooltip": {
+								"en": "Name of your Bridge or IP address, defaults to tibber-host"
+							},
+							"maxLength": 30,
+							"attr": "tibberBridgeUrl",
+							"filter": false,
+							"sort": false,
+							"width": "40%",
+							"default": "tibber-host"
+						},
+						{
+							"type": "text",
+							"title": {
+								"en": "Bridge password"
+							},
+							"tooltip": {
+								"en": "The password of your local Tibber Bridge like printed on the hardware."
+							},
+							"maxLength": 20,
+							"attr": "tibberBridgePassword",
+							"filter": false,
+							"sort": false,
+							"width": "40%",
+							"default": "xxxx-xxxx"
+						},
+						{
+							"type": "number",
+							"title": {
+								"en": "years"
+							},
+							"tooltip": {
+								"en": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written."
+							},
+							"attr": "tibberPulseLocalNodeId",
+							"min": 0,
+							"max": 99,
+							"step": 1,
+							"width": "20%",
+							"default": 1
+						}
+					]
 				}
 			}
 		}
