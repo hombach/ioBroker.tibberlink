@@ -1458,10 +1458,10 @@
 						{
 							"type": "number",
 							"title": {
-								"en": "years"
+								"en": "Pulse NodeId"
 							},
 							"tooltip": {
-								"en": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written."
+								"en": "The node ID your Pulse is registered in your Bridge."
 							},
 							"attr": "tibberPulseLocalNodeId",
 							"min": 0,

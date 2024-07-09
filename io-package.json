@@ -432,8 +432,8 @@
 			}
 		}
 	},
-	"encryptedNative": ["TibberAPIToken"],
-	"protectedNative": ["TibberAPIToken"],
+	"encryptedNative": ["TibberAPIToken", "tibberBridgePassword"],
+	"protectedNative": ["TibberAPIToken", "tibberBridgePassword"],
 	"native": {
 		"TibberAPIToken": "",
 		"HomesList": [
@@ -461,6 +461,14 @@
 				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
 				"chValueOn2": "true",
 				"chValueOff2": "false"
+			}
+		],
+		"PulseList": [
+			{
+				"puName": "Pulse Local",
+				"tibberBridgeUrl": "tibber-host",
+				"tibberBridgePassword": "xxxx-xxxx",
+				"tibberPulseLocalNodeId": 1
 			}
 		]
 	},
