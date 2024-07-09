@@ -5,6 +5,7 @@ import { TibberHelper } from "./tibberHelper";
 export class TibberLocal extends TibberHelper {
 	intervalList: NodeJS.Timeout[];
 	TestData: string = "";
+	TestMode: boolean = false;
 	MetricsDataInterval: number = 60000;
 	RawDataInterval: number = 2000;
 	/*    TibberLocaleConfig = {
@@ -48,7 +49,7 @@ export class TibberLocal extends TibberHelper {
 			}
 			//const pulseName = this.adapter.config.PulseList[pulse].puName;
 
-			if (this.TestData.length !== 0) {
+			if (!this.TestMode) {
 				const jobBridgeMetrics = setInterval(() => {
 					this.getPulseData(pulse)
 						.then((response) => {
@@ -80,7 +81,7 @@ export class TibberLocal extends TibberHelper {
 				if (jobPulseLocal) this.intervalList.push(jobPulseLocal);
 			} else {
 				const parsedMessages = this.extractAndParseSMLMessages(99, this.TestData);
-				this.adapter.log.warn(`Parsed messages form test data ${parsedMessages}`);
+				this.adapter.log.warn(`Parsed messages from test data ${parsedMessages}`);
 			}
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of Bridge / Pulse local poll`));

@@ -10,6 +10,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
     constructor(adapter) {
         super(adapter);
         this.TestData = "";
+        this.TestMode = false;
         this.MetricsDataInterval = 60000;
         this.RawDataInterval = 2000;
         /*    TibberLocaleConfig = {
@@ -48,7 +49,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
             }
             //const pulseName = this.adapter.config.PulseList[pulse].puName;
-            if (this.TestData.length !== 0) {
+            if (!this.TestMode) {
                 const jobBridgeMetrics = setInterval(() => {
                     this.getPulseData(pulse)
                         .then((response) => {
@@ -78,7 +79,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             }
             else {
                 const parsedMessages = this.extractAndParseSMLMessages(99, this.TestData);
-                this.adapter.log.warn(`Parsed messages form test data ${parsedMessages}`);
+                this.adapter.log.warn(`Parsed messages from test data ${parsedMessages}`);
             }
         }
         catch (error) {

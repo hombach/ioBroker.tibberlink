@@ -135,6 +135,7 @@ class Tibberlink extends utils.Adapter {
                 const sentryInstance = this.getPluginInstance("sentry");
                 const today = new Date();
                 const last = await this.getStateAsync("info.LastSentryLogDay");
+                const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
                 if (last?.val != (await today.getDate())) {
                     await this.tibberCalculator.updateCalculatorUsageStats();
                     if (sentryInstance) {
@@ -144,6 +145,7 @@ class Tibberlink extends utils.Adapter {
                                 scope.setLevel("info");
                                 scope.setTag("SentryDay", today.getDate());
                                 scope.setTag("HomeIDs", this.homeInfoList.length);
+                                scope.setTag("LocalPulse", pulseLocal);
                                 scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
                                 scope.setTag("numBestCostLTF", this.tibberCalculator.numBestCostLTF);
                                 scope.setTag("numBestHoursBlock", this.tibberCalculator.numBestHoursBlock);
@@ -185,7 +187,7 @@ class Tibberlink extends utils.Adapter {
                 const tibberLocal = new tibberLocal_1.TibberLocal(this);
                 if (this.config.UseLocalPulseData) {
                     try {
-                        this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse modules`);
+                        this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
                         for (const pulse in this.config.PulseList) {
                             await tibberLocal.setupOnePulseLocal(parseInt(pulse));
                         }
