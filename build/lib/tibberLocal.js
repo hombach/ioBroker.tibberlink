@@ -157,7 +157,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 baseURL: `http://${options.hostname}`,
                 headers: options.headers,
             });
-            //this.adapter.log.warn(`Response RAW: ${response}`);
+            this.adapter.log.warn(`Response RAW: ${response.data}`);
             if (response.data) {
                 response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
             }
