@@ -60,7 +60,7 @@ export class TibberLocal extends TibberHelper {
 							this.generateAndSyncSub(pulse, "Data", JSON.parse(response));
 						})
 						.catch((e) => {
-							this.adapter.log.warn(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
+							this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
 						});
 				}, this.MetricsDataInterval);
 				if (jobBridgeMetrics) this.intervalList.push(jobBridgeMetrics);
@@ -159,9 +159,10 @@ export class TibberLocal extends TibberHelper {
 
 		try {
 			const response: AxiosResponse<string> = await axios(options);
+			this.adapter.log.warn(`${response}`);
 			return response.data.replace("$type", "type"); // adapt answear to return
 		} catch (error) {
-			console.error("Ein Fehler beim Abruf der metrics (getPulseData).");
+			console.error(`Ein Fehler beim Abruf der metrics (getPulseData).`);
 			throw error;
 		}
 	}

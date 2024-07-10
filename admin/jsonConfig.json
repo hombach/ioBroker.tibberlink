@@ -1448,10 +1448,30 @@
 						{
 							"type": "text",
 							"title": {
-								"en": "Bridge network address"
+								"en": "Bridge network address",
+								"de": "Bridge-Netzwerkadresse",
+								"ru": "Сетевой адрес моста",
+								"pt": "Endereço de rede da Bridge",
+								"nl": "Brugnetwerkadres",
+								"fr": "Adresse réseau du pont",
+								"it": "Indirizzo di rete del bridge",
+								"es": "Dirección de red del puente",
+								"pl": "Adres sieciowy mostka",
+								"uk": "Мережева адреса мосту",
+								"zh-cn": "桥接网络地址"
 							},
 							"tooltip": {
-								"en": "Name of your Bridge or IP address, defaults to tibber-host"
+								"en": "Name of your Bridge or IP address (defaults to tibber-host)",
+								"de": "Name Ihrer Bridge oder IP-Adresse (Standard ist tibber-host)",
+								"ru": "Имя вашего Bridge или IP-адрес (по умолчанию tibber-host)",
+								"pt": "Nome da sua Bridge ou endereço IP (padrão é tibber-host)",
+								"nl": "Naam van uw Bridge of IP-adres (standaard tibber-host)",
+								"fr": "Nom de votre Bridge ou adresse IP (par défaut tibber-host)",
+								"it": "Nome del tuo Bridge o indirizzo IP (predefinito tibber-host)",
+								"es": "Nombre de su Bridge o dirección IP (por defecto tibber-host)",
+								"pl": "Nazwa twojego Bridge lub adres IP (domyślnie tibber-host)",
+								"uk": "Назва вашого Bridge або IP-адреса (за замовчуванням tibber-host)",
+								"zh-cn": "您的 Bridge 名称或 IP 地址（默认为 tibber-host）"
 							},
 							"maxLength": 30,
 							"attr": "tibberBridgeUrl",
@@ -1463,10 +1483,30 @@
 						{
 							"type": "text",
 							"title": {
-								"en": "Bridge password"
+								"en": "Bridge password",
+								"de": "Bridge-Passwort",
+								"ru": "Пароль моста",
+								"pt": "Senha da Bridge",
+								"nl": "Bridge-wachtwoord",
+								"fr": "Mot de passe du pont",
+								"it": "Password del bridge",
+								"es": "Contraseña del puente",
+								"pl": "Hasło do mostu",
+								"uk": "Пароль моста",
+								"zh-cn": "桥接密码"
 							},
 							"tooltip": {
-								"en": "The password of your local Tibber Bridge like printed on the hardware."
+								"en": "The password for your local Tibber Bridge, as printed on the hardware.",
+								"de": "Das Passwort für Ihre lokale Tibber Bridge, wie auf der Hardware gedruckt.",
+								"ru": "Пароль для вашего локального Tibber Bridge, как указано на аппаратных средствах.",
+								"pt": "A senha para sua Bridge Tibber local, conforme impresso no hardware.",
+								"nl": "Het wachtwoord voor uw lokale Tibber Bridge, zoals afgedrukt op de hardware.",
+								"fr": "Le mot de passe de votre Bridge Tibber local, tel qu'imprimé sur le matériel.",
+								"it": "La password per il tuo Bridge Tibber locale, come stampato sull'hardware.",
+								"es": "La contraseña para su Puente Tibber local, como se imprime en el hardware.",
+								"pl": "Hasło do Twojego lokalnego mostu Tibber, jak wydrukowane na sprzęcie.",
+								"uk": "Пароль для вашого локального мосту Tibber, як вказано на апаратних засобах.",
+								"zh-cn": "本地 Tibber 桥的密码，如印在硬件上。"
 							},
 							"maxLength": 20,
 							"attr": "tibberBridgePassword",
@@ -1478,10 +1518,30 @@
 						{
 							"type": "number",
 							"title": {
-								"en": "Pulse NodeId"
+								"en": "Pulse NodeID",
+								"de": "Pulse NodeID",
+								"ru": "Pulse NodeID",
+								"pt": "Pulse NodeID",
+								"nl": "Pulse NodeID",
+								"fr": "Pulse NodeID",
+								"it": "Pulse NodeID",
+								"es": "Pulse NodeID",
+								"pl": "Pulse NodeID",
+								"uk": "Pulse NodeID",
+								"zh-cn": "Pulse NodeID"
 							},
 							"tooltip": {
-								"en": "The node ID your Pulse is registered in your Bridge."
+								"en": "The node ID where your Pulse is registered on your Bridge.",
+								"de": "Die Knoten-ID, unter der Ihr Pulse auf Ihrer Bridge registriert ist.",
+								"ru": "Идентификатор узла, на котором зарегистрирован ваш Pulse на вашем мосту.",
+								"pt": "O ID do nó onde o seu Pulse está registrado na sua Bridge.",
+								"nl": "Het knooppunt-ID waar uw Pulse is geregistreerd op uw Bridge.",
+								"fr": "L'ID du nœud où votre Pulse est enregistré sur votre pont.",
+								"it": "L'ID del nodo dove il tuo Pulse è registrato sul tuo Bridge.",
+								"es": "El ID del nodo donde su Pulse está registrado en su Puente.",
+								"pl": "Identyfikator węzła, na którym zarejestrowany jest twój Pulse na twoim Bridge.",
+								"uk": "Ідентифікатор вузла, на якому зареєстрований ваш Pulse на вашому мосту.",
+								"zh-cn": "您的 Pulse 在桥上注册的节点 ID。"
 							},
 							"attr": "tibberPulseLocalNodeId",
 							"min": 0,
