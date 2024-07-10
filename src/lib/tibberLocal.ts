@@ -159,7 +159,7 @@ export class TibberLocal extends TibberHelper {
 
 		try {
 			const response: AxiosResponse<string> = await axios(options);
-			this.adapter.log.warn(`${response}`);
+			this.adapter.log.warn(`Response RAW: ${response}`);
 			return response.data.replace("$type", "type"); // adapt answear to return
 		} catch (error) {
 			console.error(`Ein Fehler beim Abruf der metrics (getPulseData).`);
