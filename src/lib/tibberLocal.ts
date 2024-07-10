@@ -98,46 +98,6 @@ export class TibberLocal extends TibberHelper {
 		}
 	}
 
-	private async getPulseDataNEW(password: string): Promise<any> {
-		const auth = Buffer.from(`admin:${password}`).toString("base64");
-		const TibberConfig = {
-			host: "tibber-host",
-			node_id: "your_node_id_here", // Setze hier deine tatsächliche node_id ein
-		};
-
-		const options = {
-			hostname: TibberConfig.host,
-			path: `/metrics.json?node_id=${TibberConfig.node_id}`,
-			method: "GET",
-			headers: {
-				Authorization: `Basic ${auth}`,
-				Host: TibberConfig.host,
-				lang: "de-de",
-				"content-type": "application/json",
-				"user-agent": "okhttp/3.14.9",
-			},
-		};
-
-		try {
-			const response = await axios.request({
-				url: options.path,
-				method: options.method,
-				baseURL: `http://${options.hostname}`,
-				headers: options.headers,
-			});
-
-			// Hier wird das Antwortobjekt verändert, um "$type" in "type" umzuwandeln
-			if (response.data) {
-				response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
-			}
-
-			return response.data;
-		} catch (error) {
-			this.adapter.log.error(`Ein Fehler beim Abruf der metrics (getPulseData). $[error}`);
-			throw error;
-		}
-	}
-
 	private async getPulseData(pulse: number): Promise<string> {
 		const auth = `Basic ${Buffer.from(`admin:${this.adapter.config.PulseList[pulse].tibberBridgePassword}`).toString("base64")}`;
 		const options = {
@@ -153,6 +113,8 @@ export class TibberLocal extends TibberHelper {
 			},
 		};
 
+		this.adapter.log.warn(`Options RAW: ${options}`);
+
 		try {
 			const response = await axios.request({
 				url: options.path,
@@ -166,7 +128,7 @@ export class TibberLocal extends TibberHelper {
 			}
 			return response.data;
 		} catch (error) {
-			this.adapter.log.error(`Ein Fehler beim Abruf der metrics (getPulseData). $[error}`);
+			this.adapter.log.error(`Error while polling metrics (getPulseData). $[error}`);
 			throw error;
 		}
 		/*
