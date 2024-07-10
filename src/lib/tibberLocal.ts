@@ -57,7 +57,7 @@ export class TibberLocal extends TibberHelper {
 							this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
 							//this.generateAndSyncSub(pulse, "Data", JSON.parse(response));
 							//this.generateAndSyncSub(pulse, "PulseInfo", response);
-							this.printKeyValue(response);
+							this.fetchPulseInfo(pulse, response, "PulseInfo");
 						})
 						.catch((e) => {
 							this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
@@ -157,12 +157,21 @@ export class TibberLocal extends TibberHelper {
 		*/
 	}
 
-	private printKeyValue(obj: any, prefix: string = ""): void {
+	private fetchPulseInfo(pulse: number, obj: any, prefix: string = ""): void {
+		if (!obj || typeof obj !== "object") {
+			this.adapter.log.warn(`Got wrong data to fetch Pulse info!: ${obj}`); //
+			return;
+		}
 		for (const key in obj) {
 			if (typeof obj[key] === "object") {
-				this.printKeyValue(obj[key], `${prefix}${key}-`);
+				this.fetchPulseInfo(obj[key], `${prefix}${key}.`);
 			} else {
 				this.adapter.log.error(`${prefix}${key} = ${obj[key]}`);
+				this.checkAndSetValueNumber(
+					this.getStatePrefixLocal(pulse, `PulseInfo`, `${prefix}${key}`),
+					obj[key],
+					this.adapter.config.PulseList[pulse].puName,
+				);
 			}
 		}
 	}
@@ -187,7 +196,7 @@ export class TibberLocal extends TibberHelper {
 					const TimeValue = this.isValidUnixTimestampAndConvert(JElements[JElement]);
 					if (TimeValue) JElements[JElement] = TimeValue;
 				}
-				//this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElements[JElement], this.adapter.config.PulseList[pulse].puName);
+				this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElements[JElement], this.adapter.config.PulseList[pulse].puName);
 				//this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElement, this.adapter.config.PulseList[pulse].puName);
 			}
 		}
