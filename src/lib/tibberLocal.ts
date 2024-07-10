@@ -160,7 +160,7 @@ export class TibberLocal extends TibberHelper {
 	private fetchPulseInfo(pulse: number, obj: any, prefix: string = ""): void {
 		for (const key in obj) {
 			if (typeof obj[key] === "object") {
-				this.fetchPulseInfo(obj[key], `${prefix}${key}.`);
+				this.fetchPulseInfo(pulse, obj[key], `${prefix}${key}.`);
 			} else {
 				this.adapter.log.error(`${prefix}${key} = ${obj[key]}`);
 				this.checkAndSetValueNumber(
