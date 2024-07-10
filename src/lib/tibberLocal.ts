@@ -122,7 +122,7 @@ export class TibberLocal extends TibberHelper {
 				baseURL: `http://${options.hostname}`,
 				headers: options.headers,
 			});
-			this.adapter.log.warn(`Response RAW: ${response.data}`);
+			this.adapter.log.warn(`Response stringified: ${JSON.stringify(response.data)}`);
 			if (response.data) {
 				response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
 			}
