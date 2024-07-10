@@ -161,10 +161,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         */
     }
     fetchPulseInfo(pulse, obj, prefix = "") {
-        if (!obj || typeof obj !== "object") {
-            this.adapter.log.warn(`Got wrong data to fetch Pulse info!: ${obj}`); //
-            return;
-        }
         for (const key in obj) {
             if (typeof obj[key] === "object") {
                 this.fetchPulseInfo(obj[key], `${prefix}${key}.`);
