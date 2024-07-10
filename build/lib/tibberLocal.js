@@ -56,10 +56,12 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     this.getPulseData(pulse)
                         .then((response) => {
                         this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
-                        this.generateAndSyncSub(pulse, "Data", JSON.parse(response));
+                        //this.generateAndSyncSub(pulse, "Data", JSON.parse(response));
+                        this.generateAndSyncSub(pulse, "Data", response);
                     })
                         .catch((e) => {
                         this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
+                        //Error polling and parsing Tibber Bridge metrics data: SyntaxError: Unexpected token o in JSON at position 1
                     });
                 }, this.MetricsDataInterval);
                 if (jobBridgeMetrics)
@@ -120,7 +122,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 baseURL: `http://${options.hostname}`,
                 headers: options.headers,
             });
-            this.adapter.log.warn(`Response stringified: ${JSON.stringify(response.data)}`);
+            //this.adapter.log.warn(`Response stringified: ${JSON.stringify(response.data)}`);
             /*Response stringified:
              {"$type":"node_status",
              "node_status":{"product_id":49344,"bootloader_version":17563650,"meter_mode":3,"node_battery_voltage":2.775,"node_temperature":25.667,"node_avg_rssi":-31.947,"node_avg_lqi":195.764,"radio_tx_power":0,"node_uptime_ms":19872663529,"meter_msg_count_sent":76,"meter_pkg_count_sent":100,"time_in_em0_ms":24972,"time_in_em1_ms":28,"time_in_em2_ms":275151,"acmp_rx_autolevel_300":147,"acmp_rx_autolevel_9600":146},
@@ -130,7 +132,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             if (response.data) {
                 response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
             }
-            this.adapter.log.warn(`Response stringified 2: ${JSON.stringify(response.data)}`);
+            //this.adapter.log.warn(`Response stringified 2: ${JSON.stringify(response.data)}`);
             return response.data;
         }
         catch (error) {
