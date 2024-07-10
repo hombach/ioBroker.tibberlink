@@ -114,7 +114,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 "user-agent": "okhttp/3.14.9",
             },
         };
-        this.adapter.log.warn(`Options RAW: ${options}`);
+        this.adapter.log.warn(`Options stringified: ${JSON.stringify(options)}`);
         try {
             const response = await axios_1.default.request({
                 url: options.path,
@@ -124,7 +124,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             });
             this.adapter.log.warn(`Response RAW: ${response.data}`);
             if (response.data) {
-                //response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
+                response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
             }
             return response.data;
         }

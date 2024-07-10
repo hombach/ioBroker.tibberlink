@@ -113,7 +113,7 @@ export class TibberLocal extends TibberHelper {
 			},
 		};
 
-		this.adapter.log.warn(`Options RAW: ${options}`);
+		this.adapter.log.warn(`Options stringified: ${JSON.stringify(options)}`);
 
 		try {
 			const response = await axios.request({
@@ -124,7 +124,7 @@ export class TibberLocal extends TibberHelper {
 			});
 			this.adapter.log.warn(`Response RAW: ${response.data}`);
 			if (response.data) {
-				//response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
+				response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
 			}
 			return response.data;
 		} catch (error) {
