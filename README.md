@@ -85,6 +85,10 @@ The calculation is performed for "multiday" data. As we only have information fo
 
 To observe this dynamic change in the time scope for a standard channel, you may opt for a Limited Time Frame (LTF) spanning several years. This is particularly useful for the "Best Single Hours LTF" scenario.
 
+## Direct local poll of Pulse data
+
+mode for local poll of pulse data (#201)
+
 ## Sentry
 
 This adapter employs Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable error reporting, please consult the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is initiated starting with js-controller 3.0.

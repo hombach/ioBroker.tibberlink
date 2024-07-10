@@ -13,9 +13,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         this.TestMode = false;
         this.MetricsDataInterval = 60000;
         this.RawDataInterval = 2000;
-        /*    TibberLocaleConfig = {
-            //negSignPattern: "77070100010800ff6301a",
-        };*/
+        //negSignPattern: string = "77070100010800ff6301a";
         this.obisCodesWithNames = [
             { code: "0100100700ff", name: "Power" },
             { code: "01000f0700ff", name: "Power", checkSign: true },
@@ -56,8 +54,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     this.getPulseData(pulse)
                         .then((response) => {
                         this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
-                        //this.generateAndSyncSub(pulse, "Data", JSON.parse(response));
-                        //this.generateAndSyncSub(pulse, "PulseInfo", response);
                         this.fetchPulseInfo(pulse, response);
                     })
                         .catch((e) => {
@@ -170,36 +166,14 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.fetchPulseInfo(pulse, obj[key], `${prefix}${key}.`);
             }
             else {
-                this.adapter.log.error(`${prefix}${key} = ${obj[key]}`);
-                this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
-            }
-        }
-    }
-    //      generateAndSyncSub(pulse, "PulseInfo", response);
-    generateAndSyncSub(pulse, id, JElements, preset = "empty") {
-        if (!JElements || typeof JElements !== "object") {
-            this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${JElements}`); //
-            return;
-        }
-        for (const JElement in JElements) {
-            this.adapter.log.error(`JElement: ${JSON.stringify(JElement)}`);
-            if (typeof JElements[JElement] === "object") {
-                if (id === "") {
-                    this.generateAndSyncSub(pulse, JElement, JElements[JElement], preset);
-                }
-                else {
-                    this.generateAndSyncSub(pulse, `${id}.${JElement}`, JElements[JElement], preset);
-                }
-            }
-            else {
+                //this.adapter.log.error(`${prefix}${key} = ${obj[key]}`);
                 // Check for element name "timestamp"
-                if (JElement === "timestamp") {
-                    const TimeValue = this.isValidUnixTimestampAndConvert(JElements[JElement]);
+                if (key === "timestamp") {
+                    const TimeValue = this.isValidUnixTimestampAndConvert(obj[key]);
                     if (TimeValue)
-                        JElements[JElement] = TimeValue;
+                        obj[key] = TimeValue;
                 }
-                this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElements[JElement], this.adapter.config.PulseList[pulse].puName);
-                //this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElement, this.adapter.config.PulseList[pulse].puName);
+                this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
             }
         }
     }
@@ -286,96 +260,41 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
     }
 }
 exports.TibberLocal = TibberLocal;
-/*
-function swapEndianness(hexStr: string): string {
-    const result = [];
-    for (let i = 0; i < hexStr.length; i += 2) {
-        result.unshift(hexStr.substring(i, i + 2));
-    }
-    return result.join("");
-}
-*/
-/*
-function isState2(strStatePath: string, strict = true): boolean {
-    let mSelector;
-    if (strict) {
-        mSelector = $(strStatePath);
-    } else {
-        mSelector = $(strStatePath + "*");
-    }
-    if (mSelector.length > 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
-*/
 function parseSignedHex(hexStr) {
     let num = BigInt(`0x${hexStr}`);
     const bitLength = hexStr.length * 4;
     if (bitLength <= 4) {
         // Behandlung als 4-Bit-Zahl
-        if (num > 0x7) {
+        if (num > 0x7)
             num = num - 0x1n;
-        }
     }
     else if (bitLength <= 8) {
         // Behandlung als 8-Bit-Zahl
-        if (num > 0x7f) {
+        if (num > 0x7f)
             num = num - 0x100n;
-        }
     }
     else if (bitLength <= 16) {
         // Behandlung als 16-Bit-Zahl
-        if (num > 0x7fff) {
+        if (num > 0x7fff)
             num = num - 0x10000n;
-        }
     }
     else if (bitLength <= 24) {
         // Behandlung als 16-Bit-Zahl
-        if (num > 0x7fffff) {
+        if (num > 0x7fffff)
             num = num - 0x1000000n;
-        }
     }
     else if (bitLength <= 32) {
         // Behandlung als 32-Bit-Zahl
-        if (num > 0x7fffffff) {
+        if (num > 0x7fffffff)
             num = num - 0x100000000n;
-        }
     }
     else {
         // Behandlung als 64-Bit-Zahl
-        if (num > 0x7fffffffffffffffn) {
+        if (num > 0x7fffffffffffffffn)
             num = num - 0x10000000000000000n;
-        }
     }
     return Number(num.toString());
 }
-/*
-function parseSignedHex(hexStr: string): number {
-    let num = BigInt(`0x${hexStr}`);
-    const bitLength = hexStr.length * 4;
-    const thresholds: [number, bigint][] = [
-        [4, 0x8n],
-        [8, 0x80n],
-        [16, 0x8000n],
-        [24, 0x800000n],
-        [32, 0x80000000n],
-        [64, 0x8000000000000000n]
-    ];
-
-    for (const [bits, threshold] of thresholds) {
-        if (bitLength <= bits) {
-            const offset = 1n << BigInt(bits);
-            if (num >= threshold) {
-                num -= offset;
-            }
-            break;
-        }
-    }
-    return Number(num);
-}
-*/
 function getCurrentTimeFormatted() {
     const now = new Date();
     return (now.getHours().toString().padStart(2, "0") +
