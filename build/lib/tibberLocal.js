@@ -113,6 +113,34 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 "User-Agent": "okhttp/3.14.9",
             },
         };
+        /*
+        {
+            "$type": "node_status",
+            "node_status": {
+                "product_id": 49344,
+                "bootloader_version": 17563650,
+                "meter_mode": 3,
+                "node_battery_voltage": 2.779,
+                "node_temperature": 25.168,
+                "node_avg_rssi": -31.75,
+                "node_avg_lqi": 199.009,
+                "radio_tx_power": 0,
+                "node_uptime_ms": 19804222967,
+                "meter_msg_count_sent": 77,
+                "meter_pkg_count_sent": 103,
+                "time_in_em0_ms": 3144,
+                "time_in_em1_ms": 26,
+                "time_in_em2_ms": 296980,
+                "acmp_rx_autolevel_300": 147,
+                "acmp_rx_autolevel_9600": 146
+            },
+            "hub_attachments": {
+                "meter_pkg_count_recv": 103,
+                "meter_reading_count_recv": 77,
+                "node_version": "1007-56bd9fb9"
+            }
+        }
+        */
         try {
             const response = await (0, axios_1.default)(options);
             return response.data.replace("$type", "type"); // adapt answear to return
