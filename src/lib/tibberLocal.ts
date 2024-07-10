@@ -127,6 +127,7 @@ export class TibberLocal extends TibberHelper {
 			if (response.data) {
 				response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
 			}
+			this.adapter.log.warn(`Response stringified 2: ${JSON.stringify(response.data)}`);
 			return response.data;
 		} catch (error) {
 			this.adapter.log.error(`Error while polling metrics (getPulseData). $[error}`);

@@ -130,6 +130,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             if (response.data) {
                 response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
             }
+            this.adapter.log.warn(`Response stringified 2: ${JSON.stringify(response.data)}`);
             return response.data;
         }
         catch (error) {
