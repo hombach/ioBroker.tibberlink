@@ -1410,7 +1410,17 @@
 				"_localpulsehelp1": {
 					"type": "staticText",
 					"label": {
-						"en": "Use your Tibber Bridge(s) to poll data directly local from your Tibber Pulse module(s)"
+						"en": "Use your Tibber Bridge(s) to poll data directly from your Tibber Pulse module(s) locally.",
+						"de": "Verwenden Sie Ihre Tibber Bridge(s), um Daten direkt von Ihrem Tibber Pulse-Modul(en) lokal abzufragen.",
+						"ru": "Используйте ваши Tibber Bridge для локального опроса данных напрямую с ваших Tibber Pulse модулей.",
+						"pt": "Use suas Tibber Bridge(s) para buscar dados diretamente de seus módulos Tibber Pulse localmente.",
+						"nl": "Gebruik uw Tibber Bridge(s) om gegevens lokaal direct van uw Tibber Pulse-module(s) te polleren.",
+						"fr": "Utilisez vos Tibber Bridge(s) pour interroger directement les données de vos modules Tibber Pulse localement.",
+						"it": "Usa i tuoi Tibber Bridge per sondare i dati direttamente dai tuoi moduli Tibber Pulse localmente.",
+						"es": "Use sus Tibber Bridge(s) para sondear datos directamente desde sus módulos Tibber Pulse localmente.",
+						"pl": "Użyj swoich Tibber Bridge, aby bezpośrednio sondować dane z modułów Tibber Pulse lokalnie.",
+						"uk": "Використовуйте ваші Tibber Bridge для локального опитування даних безпосередньо з ваших модулів Tibber Pulse.",
+						"zh-cn": "使用您的 Tibber Bridge 在本地直接从您的 Tibber Pulse 模块中轮询数据。"
 					},
 					"newLine": true
 				},
@@ -1421,7 +1431,17 @@
 					"md": 12,
 					"lg": 12,
 					"label": {
-						"en": "Local Pulse to poll data from"
+						"en": "Local Pulse to poll data from.",
+						"de": "Lokaler Pulse, von dem Daten abgefragt werden sollen.",
+						"ru": "Локальный Pulse для опроса данных.",
+						"pt": "Pulse local para buscar dados de.",
+						"nl": "Lokale Pulse om gegevens van te polleren.",
+						"fr": "Pulse local pour interroger les données.",
+						"it": "Pulse locale da cui sondare i dati.",
+						"es": "Pulse local para sondear datos de.",
+						"pl": "Lokalny Pulse do sondowania danych.",
+						"uk": "Локальний Pulse для опитування даних.",
+						"zh-cn": "用于轮询数据的本地 Pulse。"
 					},
 					"hidden": "!data.UseLocalPulseData",
 					"items": [

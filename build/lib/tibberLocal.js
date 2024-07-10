@@ -109,10 +109,25 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 Authorization: auth,
                 Host: this.adapter.config.PulseList[pulse].tibberBridgeUrl,
                 lang: "de-de",
-                "Content-Type": "application/json",
-                "User-Agent": "okhttp/3.14.9",
+                "content-type": "application/json",
+                "user-agent": "okhttp/3.14.9",
             },
         };
+        /*
+        const auth = Buffer.from(`admin:${password}`).toString('base64');
+        const options = {
+            hostname: TibberConfig.host,
+            path: `/metrics.json?node_id=${TibberConfig.node_id}`,
+            method: 'GET',
+            headers: {
+                'Authorization': `Basic ${auth}`,
+                'Host': 'tibber-host',
+                'lang': 'de-de',
+                'content-type': 'application/json',
+                'user-agent': 'okhttp/3.14.9'
+            }
+        };
+        */
         /*
         {
             "$type": "node_status",
