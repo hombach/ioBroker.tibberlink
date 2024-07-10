@@ -57,6 +57,14 @@ export class TibberHelper {
 		return statePrefix;
 	}
 
+	protected getStatePrefixLocal(pulse: number, id: string, name?: string): { [key: string]: string } {
+		const statePrefix = {
+			key: name ? name : id,
+			value: `LocalPulse.${pulse}.${id}`,
+		};
+		return statePrefix;
+	}
+
 	/**
 	 * Retrieves the value of a given state by its name.
 	 *

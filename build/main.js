@@ -29,6 +29,7 @@ const cron_1 = require("cron");
 const date_fns_1 = require("date-fns");
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
+const tibberLocal_1 = require("./lib/tibberLocal");
 const tibberPulse_1 = require("./lib/tibberPulse");
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
@@ -134,6 +135,7 @@ class Tibberlink extends utils.Adapter {
                 const sentryInstance = this.getPluginInstance("sentry");
                 const today = new Date();
                 const last = await this.getStateAsync("info.LastSentryLogDay");
+                const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
                 if (last?.val != (await today.getDate())) {
                     await this.tibberCalculator.updateCalculatorUsageStats();
                     if (sentryInstance) {
@@ -143,6 +145,7 @@ class Tibberlink extends utils.Adapter {
                                 scope.setLevel("info");
                                 scope.setTag("SentryDay", today.getDate());
                                 scope.setTag("HomeIDs", this.homeInfoList.length);
+                                scope.setTag("LocalPulse", pulseLocal);
                                 scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
                                 scope.setTag("numBestCostLTF", this.tibberCalculator.numBestCostLTF);
                                 scope.setTag("numBestHoursBlock", this.tibberCalculator.numBestHoursBlock);
@@ -170,7 +173,7 @@ class Tibberlink extends utils.Adapter {
                 // Set up calculation channel states if configured
                 if (this.config.UseCalculator) {
                     try {
-                        this.log.debug(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
+                        this.log.info(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
                         for (const channel in this.config.CalculatorList) {
                             await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[channel].chHomeID, parseInt(channel));
                         }
@@ -179,6 +182,21 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
                     }
                 }
+                //WIP Local Bridge Call - move this... could be used without Tibber contract
+                // Set up Pulse local polls if configured
+                const tibberLocal = new tibberLocal_1.TibberLocal(this);
+                if (this.config.UseLocalPulseData) {
+                    try {
+                        this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
+                        for (const pulse in this.config.PulseList) {
+                            await tibberLocal.setupOnePulseLocal(parseInt(pulse));
+                        }
+                    }
+                    catch (error) {
+                        this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of local Pulse data poll`));
+                    }
+                }
+                //WIP Local Bridge Call
                 // (force) get current prices and start calculator tasks once for the FIRST time
                 if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
                 }

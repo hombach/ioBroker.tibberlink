@@ -85,6 +85,14 @@ The calculation is performed for "multiday" data. As we only have information fo
 
 To observe this dynamic change in the time scope for a standard channel, you may opt for a Limited Time Frame (LTF) spanning several years. This is particularly useful for the "Best Single Hours LTF" scenario.
 
+## Direct local poll of Pulse data
+
+To make it work, you just need to keep the web interface of the Bridge permanently enabled. marq24 has described how to do this excellently for his HomeAssistant integration here:
+
+https://github.com/marq24/ha-tibber-pulse-local
+
+If everything works correctly, the meter data will be written to IoBroker states every 2 seconds.
+
 ## Sentry
 
 This adapter employs Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable error reporting, please consult the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is initiated starting with js-controller 3.0.
@@ -97,6 +105,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ## Changelog
 
 ! Note that missing version entries are typically dependency updates for improved security.
+
+### 3.4.0 (2024-07-xx)
+
+-   (HombachC) add mode for local poll of Pulse data (#201)
 
 ### 3.3.3 (2024-07-04)
 

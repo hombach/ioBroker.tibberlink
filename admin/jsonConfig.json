@@ -1331,6 +1331,7 @@
 					"lg": 12,
 					"newLine": true
 				},
+
 				"_specialshelp1": {
 					"type": "staticText",
 					"label": {
@@ -1347,6 +1348,209 @@
 						"zh-cn": "还检索 TotalCost 值，包括德国的特殊电网费用。请与您在 Tibber APP 中获得的值进行验证"
 					},
 					"newLine": true
+				}
+			}
+		},
+
+		"_LocalPulseTab": {
+			"type": "panel",
+			"label": {
+				"en": "Local Pulse Poll Settings",
+				"de": "Lokale Pulse Abfrage Einstellungen",
+				"ru": "Настройки локального опроса Pulse",
+				"pt": "Configurações de Pesquisa de Pulse Local",
+				"nl": "Instellingen voor lokale Pulse polling",
+				"fr": "Paramètres de sondage de pulsations locales",
+				"it": "Impostazioni di polling degli Pulse locali",
+				"es": "Configuraciones de sondeo de Pulse local",
+				"pl": "Ustawienia lokalnego sondowania impulsów",
+				"uk": "Налаштування локального опитування Pulse",
+				"zh-cn": "本地脉冲轮询设置"
+			},
+			"items": {
+				"_LocalPulseHeader": {
+					"type": "header",
+					"text": {
+						"en": "Local Pulse Poll Settings",
+						"de": "Lokale Pulse Abfrage Einstellungen",
+						"ru": "Настройки локального опроса Pulse",
+						"pt": "Configurações de Pesquisa de Pulse Local",
+						"nl": "Instellingen voor lokale Pulse polling",
+						"fr": "Paramètres de sondage de pulsations locales",
+						"it": "Impostazioni di polling degli Pulse locali",
+						"es": "Configuraciones de sondeo de Pulse local",
+						"pl": "Ustawienia lokalnego sondowania impulsów",
+						"uk": "Налаштування локального опитування Pulse",
+						"zh-cn": "本地脉冲轮询设置"
+					},
+					"size": 3
+				},
+
+				"UseLocalPulseData": {
+					"type": "checkbox",
+					"label": {
+						"en": "Use direct poll of local Tibber Pulse(s) - handle with care!",
+						"de": "Direkte Abfrage von lokalen Tibber Pulse(s) verwenden - mit Vorsicht behandeln!",
+						"ru": "Используйте прямой опрос локальных Tibber Pulse - обращайтесь с осторожностью!",
+						"pt": "Use pesquisa direta de Tibber Pulse(s) local - manuseie com cuidado!",
+						"nl": "Gebruik directe polling van lokale Tibber Pulse(s) - behandel met zorg!",
+						"fr": "Utilisez le sondage direct des Tibber Pulse(s) locaux - manipulez avec précaution!",
+						"it": "Usa il sondaggio diretto dei Tibber Pulse locali - maneggiare con cura!",
+						"es": "Use sondeo directo de Tibber Pulse(s) locales - ¡manéjelo con cuidado!",
+						"pl": "Użyj bezpośredniego sondowania lokalnych Tibber Pulse - używaj ostrożnie!",
+						"uk": "Використовуйте пряме опитування локальних Tibber Pulse - поводьтеся обережно!",
+						"zh-cn": "使用本地 Tibber Pulse 的直接轮询 - 小心处理！"
+					},
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"newLine": true
+				},
+
+				"_localpulsehelp1": {
+					"type": "staticText",
+					"label": {
+						"en": "Use your Tibber Bridge(s) to poll data directly from your Tibber Pulse module(s) locally.",
+						"de": "Verwenden Sie Ihre Tibber Bridge(s), um Daten direkt von Ihrem Tibber Pulse-Modul(en) lokal abzufragen.",
+						"ru": "Используйте ваши Tibber Bridge для локального опроса данных напрямую с ваших Tibber Pulse модулей.",
+						"pt": "Use suas Tibber Bridge(s) para buscar dados diretamente de seus módulos Tibber Pulse localmente.",
+						"nl": "Gebruik uw Tibber Bridge(s) om gegevens lokaal direct van uw Tibber Pulse-module(s) te polleren.",
+						"fr": "Utilisez vos Tibber Bridge(s) pour interroger directement les données de vos modules Tibber Pulse localement.",
+						"it": "Usa i tuoi Tibber Bridge per sondare i dati direttamente dai tuoi moduli Tibber Pulse localmente.",
+						"es": "Use sus Tibber Bridge(s) para sondear datos directamente desde sus módulos Tibber Pulse localmente.",
+						"pl": "Użyj swoich Tibber Bridge, aby bezpośrednio sondować dane z modułów Tibber Pulse lokalnie.",
+						"uk": "Використовуйте ваші Tibber Bridge для локального опитування даних безпосередньо з ваших модулів Tibber Pulse.",
+						"zh-cn": "使用您的 Tibber Bridge 在本地直接从您的 Tibber Pulse 模块中轮询数据。"
+					},
+					"newLine": true
+				},
+
+				"PulseList": {
+					"type": "table",
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"label": {
+						"en": "Local Pulse to poll data from.",
+						"de": "Lokaler Pulse, von dem Daten abgefragt werden sollen.",
+						"ru": "Локальный Pulse для опроса данных.",
+						"pt": "Pulse local para buscar dados de.",
+						"nl": "Lokale Pulse om gegevens van te polleren.",
+						"fr": "Pulse local pour interroger les données.",
+						"it": "Pulse locale da cui sondare i dati.",
+						"es": "Pulse local para sondear datos de.",
+						"pl": "Lokalny Pulse do sondowania danych.",
+						"uk": "Локальний Pulse для опитування даних.",
+						"zh-cn": "用于轮询数据的本地 Pulse。"
+					},
+					"hidden": "!data.UseLocalPulseData",
+					"items": [
+						{
+							"type": "text",
+							"title": {
+								"en": "Bridge network address",
+								"de": "Bridge-Netzwerkadresse",
+								"ru": "Сетевой адрес моста",
+								"pt": "Endereço de rede da Bridge",
+								"nl": "Brugnetwerkadres",
+								"fr": "Adresse réseau du pont",
+								"it": "Indirizzo di rete del bridge",
+								"es": "Dirección de red del puente",
+								"pl": "Adres sieciowy mostka",
+								"uk": "Мережева адреса мосту",
+								"zh-cn": "桥接网络地址"
+							},
+							"tooltip": {
+								"en": "Name of your Bridge or IP address (defaults to tibber-host)",
+								"de": "Name Ihrer Bridge oder IP-Adresse (Standard ist tibber-host)",
+								"ru": "Имя вашего Bridge или IP-адрес (по умолчанию tibber-host)",
+								"pt": "Nome da sua Bridge ou endereço IP (padrão é tibber-host)",
+								"nl": "Naam van uw Bridge of IP-adres (standaard tibber-host)",
+								"fr": "Nom de votre Bridge ou adresse IP (par défaut tibber-host)",
+								"it": "Nome del tuo Bridge o indirizzo IP (predefinito tibber-host)",
+								"es": "Nombre de su Bridge o dirección IP (por defecto tibber-host)",
+								"pl": "Nazwa twojego Bridge lub adres IP (domyślnie tibber-host)",
+								"uk": "Назва вашого Bridge або IP-адреса (за замовчуванням tibber-host)",
+								"zh-cn": "您的 Bridge 名称或 IP 地址（默认为 tibber-host）"
+							},
+							"maxLength": 30,
+							"attr": "tibberBridgeUrl",
+							"filter": false,
+							"sort": false,
+							"width": "40%",
+							"default": "tibber-host"
+						},
+						{
+							"type": "text",
+							"title": {
+								"en": "Bridge password",
+								"de": "Bridge-Passwort",
+								"ru": "Пароль моста",
+								"pt": "Senha da Bridge",
+								"nl": "Bridge-wachtwoord",
+								"fr": "Mot de passe du pont",
+								"it": "Password del bridge",
+								"es": "Contraseña del puente",
+								"pl": "Hasło do mostu",
+								"uk": "Пароль моста",
+								"zh-cn": "桥接密码"
+							},
+							"tooltip": {
+								"en": "The password for your local Tibber Bridge, as printed on the hardware.",
+								"de": "Das Passwort für Ihre lokale Tibber Bridge, wie auf der Hardware gedruckt.",
+								"ru": "Пароль для вашего локального Tibber Bridge, как указано на аппаратных средствах.",
+								"pt": "A senha para sua Bridge Tibber local, conforme impresso no hardware.",
+								"nl": "Het wachtwoord voor uw lokale Tibber Bridge, zoals afgedrukt op de hardware.",
+								"fr": "Le mot de passe de votre Bridge Tibber local, tel qu'imprimé sur le matériel.",
+								"it": "La password per il tuo Bridge Tibber locale, come stampato sull'hardware.",
+								"es": "La contraseña para su Puente Tibber local, como se imprime en el hardware.",
+								"pl": "Hasło do Twojego lokalnego mostu Tibber, jak wydrukowane na sprzęcie.",
+								"uk": "Пароль для вашого локального мосту Tibber, як вказано на апаратних засобах.",
+								"zh-cn": "本地 Tibber 桥的密码，如印在硬件上。"
+							},
+							"maxLength": 20,
+							"attr": "tibberBridgePassword",
+							"filter": false,
+							"sort": false,
+							"width": "40%",
+							"default": "xxxx-xxxx"
+						},
+						{
+							"type": "number",
+							"title": {
+								"en": "Pulse NodeID",
+								"de": "Pulse NodeID",
+								"ru": "Pulse NodeID",
+								"pt": "Pulse NodeID",
+								"nl": "Pulse NodeID",
+								"fr": "Pulse NodeID",
+								"it": "Pulse NodeID",
+								"es": "Pulse NodeID",
+								"pl": "Pulse NodeID",
+								"uk": "Pulse NodeID",
+								"zh-cn": "Pulse NodeID"
+							},
+							"tooltip": {
+								"en": "The node ID where your Pulse is registered on your Bridge.",
+								"de": "Die Knoten-ID, unter der Ihr Pulse auf Ihrer Bridge registriert ist.",
+								"ru": "Идентификатор узла, на котором зарегистрирован ваш Pulse на вашем мосту.",
+								"pt": "O ID do nó onde o seu Pulse está registrado na sua Bridge.",
+								"nl": "Het knooppunt-ID waar uw Pulse is geregistreerd op uw Bridge.",
+								"fr": "L'ID du nœud où votre Pulse est enregistré sur votre pont.",
+								"it": "L'ID del nodo dove il tuo Pulse è registrato sul tuo Bridge.",
+								"es": "El ID del nodo donde su Pulse está registrado en su Puente.",
+								"pl": "Identyfikator węzła, na którym zarejestrowany jest twój Pulse na twoim Bridge.",
+								"uk": "Ідентифікатор вузла, на якому зареєстрований ваш Pulse на вашому мосту.",
+								"zh-cn": "您的 Pulse 在桥上注册的节点 ID。"
+							},
+							"attr": "tibberPulseLocalNodeId",
+							"min": 0,
+							"max": 99,
+							"step": 1,
+							"width": "20%",
+							"default": 1
+						}
+					]
 				}
 			}
 		}
