@@ -108,7 +108,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.4.0 (2024-07-xx)
 
--   (HombachC) add mode for local poll of pulse data (#201)
+-   (HombachC) add mode for local poll of Pulse data (#201)
 
 ### 3.3.3 (2024-07-04)
 

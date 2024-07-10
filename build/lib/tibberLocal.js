@@ -166,7 +166,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.fetchPulseInfo(pulse, obj[key], `${prefix}${key}.`);
             }
             else {
-                //this.adapter.log.error(`${prefix}${key} = ${obj[key]}`);
                 // Check for element name "timestamp"
                 if (key === "timestamp") {
                     const TimeValue = this.isValidUnixTimestampAndConvert(obj[key]);
