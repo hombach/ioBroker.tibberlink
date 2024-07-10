@@ -58,7 +58,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
                         //this.generateAndSyncSub(pulse, "Data", JSON.parse(response));
                         //this.generateAndSyncSub(pulse, "PulseInfo", response);
-                        this.fetchPulseInfo(pulse, response, "PulseInfo");
+                        this.fetchPulseInfo(pulse, response);
                     })
                         .catch((e) => {
                         this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
@@ -161,6 +161,10 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         */
     }
     fetchPulseInfo(pulse, obj, prefix = "") {
+        if (!obj || typeof obj !== "object") {
+            this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
+            return;
+        }
         for (const key in obj) {
             if (typeof obj[key] === "object") {
                 this.fetchPulseInfo(pulse, obj[key], `${prefix}${key}.`);
@@ -174,7 +178,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
     //      generateAndSyncSub(pulse, "PulseInfo", response);
     generateAndSyncSub(pulse, id, JElements, preset = "empty") {
         if (!JElements || typeof JElements !== "object") {
-            this.adapter.log.warn(`Ungültige JElements übergeben!: ${JElements}`); //
+            this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${JElements}`); //
             return;
         }
         for (const JElement in JElements) {
