@@ -167,7 +167,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             }
             else {
                 this.adapter.log.error(`${prefix}${key} = ${obj[key]}`);
-                this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo`, `${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
+                this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
             }
         }
     }

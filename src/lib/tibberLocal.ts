@@ -164,7 +164,7 @@ export class TibberLocal extends TibberHelper {
 			} else {
 				this.adapter.log.error(`${prefix}${key} = ${obj[key]}`);
 				this.checkAndSetValueNumber(
-					this.getStatePrefixLocal(pulse, `PulseInfo`, `${prefix}${key}`),
+					this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 					obj[key],
 					this.adapter.config.PulseList[pulse].puName,
 				);
