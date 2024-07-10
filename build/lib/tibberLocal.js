@@ -50,13 +50,12 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             if (this.adapter.config.PulseList[pulse].puName === undefined) {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
             }
-            //const pulseName = this.adapter.config.PulseList[pulse].puName;
             if (!this.TestMode) {
                 const jobBridgeMetrics = setInterval(() => {
                     this.adapter.log.warn(`Calling Bridge metrics data`); // WiP
                     this.getPulseData(pulse)
                         .then((response) => {
-                        this.adapter.log.debug(`Got Bridge metrics data: ${response}`);
+                        this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
                         this.generateAndSyncSub(pulse, "Data", JSON.parse(response));
                     })
                         .catch((e) => {
@@ -114,7 +113,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 "user-agent": "okhttp/3.14.9",
             },
         };
-        this.adapter.log.warn(`Options stringified: ${JSON.stringify(options)}`);
         try {
             const response = await axios_1.default.request({
                 url: options.path,
@@ -123,6 +121,12 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 headers: options.headers,
             });
             this.adapter.log.warn(`Response stringified: ${JSON.stringify(response.data)}`);
+            /*Response stringified:
+             {"$type":"node_status",
+             "node_status":{"product_id":49344,"bootloader_version":17563650,"meter_mode":3,"node_battery_voltage":2.775,"node_temperature":25.667,"node_avg_rssi":-31.947,"node_avg_lqi":195.764,"radio_tx_power":0,"node_uptime_ms":19872663529,"meter_msg_count_sent":76,"meter_pkg_count_sent":100,"time_in_em0_ms":24972,"time_in_em1_ms":28,"time_in_em2_ms":275151,"acmp_rx_autolevel_300":147,"acmp_rx_autolevel_9600":146},
+             "hub_attachments":{"meter_pkg_count_recv":100,"meter_reading_count_recv":76,"node_version":"1007-56bd9fb9"}
+             }
+            */
             if (response.data) {
                 response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
             }
