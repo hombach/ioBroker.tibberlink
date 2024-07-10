@@ -182,7 +182,8 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     if (TimeValue)
                         JElements[JElement] = TimeValue;
                 }
-                this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElement, this.adapter.config.PulseList[pulse].puName);
+                this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElements[JElement], this.adapter.config.PulseList[pulse].puName);
+                //this.checkAndSetValue(this.getStatePrefixLocal(pulse, id), JElement, this.adapter.config.PulseList[pulse].puName);
             }
         }
     }
