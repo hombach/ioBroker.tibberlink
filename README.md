@@ -87,7 +87,11 @@ To observe this dynamic change in the time scope for a standard channel, you may
 
 ## Direct local poll of Pulse data
 
-mode for local poll of pulse data (#201)
+To make it work, you just need to keep the web interface of the Bridge permanently enabled. marq24 has described how to do this excellently for his HomeAssistant integration here:
+
+https://github.com/marq24/ha-tibber-pulse-local
+
+If everything works correctly, the meter data will be written to IoBroker states every 2 seconds.
 
 ## Sentry
 
