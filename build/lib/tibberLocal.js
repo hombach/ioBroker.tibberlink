@@ -60,7 +60,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         this.generateAndSyncSub(pulse, "Data", JSON.parse(response));
                     })
                         .catch((e) => {
-                        this.adapter.log.warn(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
+                        this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
                     });
                 }, this.MetricsDataInterval);
                 if (jobBridgeMetrics)
@@ -100,11 +100,48 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(e.message);
         }
     }
+    async getPulseDataNEW(password) {
+        const auth = Buffer.from(`admin:${password}`).toString("base64");
+        const TibberConfig = {
+            host: "tibber-host",
+            node_id: "your_node_id_here", // Setze hier deine tatsächliche node_id ein
+        };
+        const options = {
+            hostname: TibberConfig.host,
+            path: `/metrics.json?node_id=${TibberConfig.node_id}`,
+            method: "GET",
+            headers: {
+                Authorization: `Basic ${auth}`,
+                Host: TibberConfig.host,
+                lang: "de-de",
+                "content-type": "application/json",
+                "user-agent": "okhttp/3.14.9",
+            },
+        };
+        try {
+            const response = await axios_1.default.request({
+                url: options.path,
+                method: options.method,
+                baseURL: `http://${options.hostname}`,
+                headers: options.headers,
+            });
+            // Hier wird das Antwortobjekt verändert, um "$type" in "type" umzuwandeln
+            if (response.data) {
+                response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
+            }
+            return response.data;
+        }
+        catch (error) {
+            this.adapter.log.error(`Ein Fehler beim Abruf der metrics (getPulseData). $[error}`);
+            throw error;
+        }
+    }
     async getPulseData(pulse) {
         const auth = `Basic ${Buffer.from(`admin:${this.adapter.config.PulseList[pulse].tibberBridgePassword}`).toString("base64")}`;
         const options = {
+            hostname: this.adapter.config.PulseList[pulse].tibberBridgeUrl,
+            path: `/metrics.json?node_id=${this.adapter.config.PulseList[pulse].tibberPulseLocalNodeId}`,
             method: "GET",
-            url: `http://${this.adapter.config.PulseList[pulse].tibberBridgeUrl}/metrics.json?node_id=${this.adapter.config.PulseList[pulse].tibberPulseLocalNodeId}`,
             headers: {
                 Authorization: auth,
                 Host: this.adapter.config.PulseList[pulse].tibberBridgeUrl,
@@ -113,21 +150,23 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 "user-agent": "okhttp/3.14.9",
             },
         };
-        /*
-        const auth = Buffer.from(`admin:${password}`).toString('base64');
-        const options = {
-            hostname: TibberConfig.host,
-            path: `/metrics.json?node_id=${TibberConfig.node_id}`,
-            method: 'GET',
-            headers: {
-                'Authorization': `Basic ${auth}`,
-                'Host': 'tibber-host',
-                'lang': 'de-de',
-                'content-type': 'application/json',
-                'user-agent': 'okhttp/3.14.9'
+        try {
+            const response = await axios_1.default.request({
+                url: options.path,
+                method: options.method,
+                baseURL: `http://${options.hostname}`,
+                headers: options.headers,
+            });
+            //this.adapter.log.warn(`Response RAW: ${response}`);
+            if (response.data) {
+                response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
             }
-        };
-        */
+            return response.data;
+        }
+        catch (error) {
+            this.adapter.log.error(`Ein Fehler beim Abruf der metrics (getPulseData). $[error}`);
+            throw error;
+        }
         /*
         {
             "$type": "node_status",
@@ -156,14 +195,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             }
         }
         */
-        try {
-            const response = await (0, axios_1.default)(options);
-            return response.data.replace("$type", "type"); // adapt answear to return
-        }
-        catch (error) {
-            console.error("Ein Fehler beim Abruf der metrics (getPulseData).");
-            throw error;
-        }
     }
     generateAndSyncSub(pulse, id, JElements, preset = "empty") {
         if (!JElements || typeof JElements !== "object") {
