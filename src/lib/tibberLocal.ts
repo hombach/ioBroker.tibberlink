@@ -152,7 +152,6 @@ export class TibberLocal extends TibberHelper {
 		}
 		*/
 	}
-
 	private fetchPulseInfo(pulse: number, obj: any, prefix: string = ""): void {
 		if (!obj || typeof obj !== "object") {
 			this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
@@ -203,7 +202,6 @@ export class TibberLocal extends TibberHelper {
 			value: number;
 			unit?: string;
 		}
-		//const messages = transfer.matchAll(/7707(0100[0-9a-fA-F].{5}?ff)(?:.{6}|.{14}|.{20}|.{26})([0-9a-fA-F]{2})52([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{4,16})01(?=(7)|(0101)|(\n))/g);
 		const messages = transfer.matchAll(
 			/7707(0100[0-9a-fA-F].{5}?ff).{4,28}62([0-9a-fA-F]{2})52([0-9a-fA-F]{2})([0-9a-fA-F]{2})((?:[0-9a-fA-F]{2}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8}|[0-9a-fA-F]{10}|[0-9a-fA-F]{8}|[0-9a-fA-F]{16}))01(?=(77)|(0101)|(\n))/g,
 		);
@@ -250,7 +248,7 @@ export class TibberLocal extends TibberHelper {
 			this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit);
 			this.adapter.log.debug(JSON.stringify(result));
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
-			output.push(`${getCurrentTimeFormatted()} : ${formattedMatch}\n`);
+			output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
 		}
 		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net:\n ${output.join("")}`);
 	}
@@ -291,21 +289,6 @@ function parseSignedHex(hexStr: string): number {
 	}
 	return Number(num.toString());
 }
-
-/*
-function getCurrentTimeFormatted(): string {
-	const now = new Date();
-	return (
-		now.getHours().toString().padStart(2, "0") +
-		":" +
-		now.getMinutes().toString().padStart(2, "0") +
-		":" +
-		now.getSeconds().toString().padStart(2, "0") +
-		"." +
-		now.getMilliseconds().toString().padStart(3, "0")
-	);
-}
-*/
 
 function getCurrentTimeFormatted(): string {
 	const now = new Date();
@@ -381,7 +364,6 @@ function findDlmsUnitByCode(decimalCode: number): string {
 		{ code: 0x42, unit: "(unitless)", quantity: "no unit, unitless, count", unitName: "", siDefinition: "" },
 		{ code: 0x0, unit: "", quantity: "", unitName: "", siDefinition: "stop condition for iterator" },
 	];
-
 	const found = dlmsUnits.find((item) => item.code === decimalCode);
 	return found ? found.unit : "";
 }
