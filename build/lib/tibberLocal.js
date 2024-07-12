@@ -202,7 +202,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         const output = [];
         for (const match of messages) {
             const result = { name: "", value: 0 };
-            this.adapter.log.debug(`Gesamte Übereinstimmung: ${match[0]}`);
+            this.adapter.log.debug(`overall compliance: ${match[0]}`);
             //console.log(`Gruppe 1: ${match[1]}`); // Der Teil, der dem ersten Klammerausdruck entspricht
             //console.log(`Gruppe 2: ${match[2]}`); // Der Teil, der dem zweiten Klammerausdruck entspricht
             //console.log(`Gruppe 3: $[match[3]}`); // Der Teil, der dem dritten Klammerausdruck entspricht
@@ -234,7 +234,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             if (result.value > 1000000000 || result.value < -1000000000) {
                 this.adapter.log.debug(`Result.value < or > 1.000.000.000 skiped!`);
                 this.adapter.log.debug(JSON.stringify(result));
-                this.adapter.log.debug(`Gesamte Übereinstimmung: ${match[0]}`);
+                this.adapter.log.debug(`overall compliance: ${match[0]}`);
                 this.adapter.log.debug(`RAW: ${transfer}`);
                 continue;
             }
