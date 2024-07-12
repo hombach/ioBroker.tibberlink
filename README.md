@@ -110,7 +110,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 3.4.2 (2024-07-13)
 
 -   (HombachC) fix typos in units
--   (HombachC) code optimisations
+-   (HombachC) fix type mismatch for state objects (#455)
+-   (HombachC) code optimisation
 
 ### 3.4.1 (2024-07-13)
 

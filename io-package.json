@@ -4,17 +4,17 @@
 		"version": "3.4.2",
 		"news": {
 			"3.4.2": {
-				"en": "fix typos in units",
-				"de": "Tippfehler in Einheiten korrigieren",
-				"ru": "исправить опечатки в единицах",
-				"pt": "corrigir erros de digitação nas unidades",
-				"nl": "typfouten in eenheden corrigeren",
-				"fr": "corriger les fautes de frappe dans les unités",
-				"it": "correggere i refusi nelle unità",
-				"es": "corregir errores tipográficos en las unidades",
-				"pl": "poprawić literówki w jednostkach",
-				"uk": "виправити друкарські помилки в одиницях",
-				"zh-cn": "修正单位中的拼写错误"
+				"en": "fix typos in units\nfix type mismatch for state objects (#455)\ncode optimisation",
+				"de": "Tippfehler in Einheiten korrigieren\nTypeninkongruenz für Statusobjekte beheben (#455)\nCode-Optimierung",
+				"ru": "исправить опечатки в единицах\nисправить несоответствие типов для объектов состояния (#455)\nоптимизация кода",
+				"pt": "corrigir erros de digitação nas unidades\ncorrigir incompatibilidade de tipo para objetos de estado (#455)\notimização de código",
+				"nl": "typfouten in eenheden corrigeren\ntype-mismatch voor toestandsobjecten oplossen (#455)\ncode optimalisatie",
+				"fr": "corriger les fautes de frappe dans les unités\ncorriger l'incohérence de type pour les objets d'état (#455)\noptimisation du code",
+				"it": "correggere i refusi nelle unità\ncorreggere l'incongruenza di tipo per gli oggetti di stato (#455)\nottimizzazione del codice",
+				"es": "corregir errores tipográficos en las unidades\ncorregir la incompatibilidad de tipo para objetos de estado (#455)\noptimización del código",
+				"pl": "poprawić literówki w jednostkach\nnaprawić niezgodność typów dla obiektów stanu (#455)\noptymalizacja kodu",
+				"uk": "виправити друкарські помилки в одиницях\nвиправити невідповідність типів для об'єктів стану (#455)\nоптимізація коду",
+				"zh-cn": "修正单位中的拼写错误\n修正状态对象的类型不匹配 (#455)\n代码优化"
 			},
 			"3.4.1": {
 				"en": "fix logging error\nbump dependencies",
