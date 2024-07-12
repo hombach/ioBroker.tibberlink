@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberLocal = void 0;
 const axios_1 = __importDefault(require("axios"));
+const date_fns_1 = require("date-fns");
 const tibberHelper_1 = require("./tibberHelper");
 class TibberLocal extends tibberHelper_1.TibberHelper {
     constructor(adapter) {
@@ -241,7 +242,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit);
             this.adapter.log.debug(JSON.stringify(result));
             const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
-            output.push(getCurrentTimeFormatted() + " : " + formattedMatch + "\n");
+            output.push(`${getCurrentTimeFormatted()} : ${formattedMatch}\n`);
         }
         if (output.length > 0)
             this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net:\n ${output.join("")}`);
@@ -293,15 +294,23 @@ function parseSignedHex(hexStr) {
     }
     return Number(num.toString());
 }
-function getCurrentTimeFormatted() {
+/*
+function getCurrentTimeFormatted(): string {
     const now = new Date();
-    return (now.getHours().toString().padStart(2, "0") +
+    return (
+        now.getHours().toString().padStart(2, "0") +
         ":" +
         now.getMinutes().toString().padStart(2, "0") +
         ":" +
         now.getSeconds().toString().padStart(2, "0") +
         "." +
-        now.getMilliseconds().toString().padStart(3, "0"));
+        now.getMilliseconds().toString().padStart(3, "0")
+    );
+}
+*/
+function getCurrentTimeFormatted() {
+    const now = new Date();
+    return (0, date_fns_1.format)(now, "HH:mm:ss.SSS");
 }
 function findDlmsUnitByCode(decimalCode) {
     /* Static lookup table */

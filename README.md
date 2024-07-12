@@ -110,6 +110,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 3.4.2 (2024-07-13)
 
 -   (HombachC) fix typos in units
+-   (HombachC) code optimisations
 
 ### 3.4.1 (2024-07-13)
 

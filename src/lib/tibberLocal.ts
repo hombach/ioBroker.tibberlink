@@ -1,5 +1,6 @@
 import * as utils from "@iobroker/adapter-core";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import { format } from "date-fns";
 import { TibberHelper } from "./tibberHelper";
 
 export class TibberLocal extends TibberHelper {
@@ -249,7 +250,7 @@ export class TibberLocal extends TibberHelper {
 			this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit);
 			this.adapter.log.debug(JSON.stringify(result));
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
-			output.push(getCurrentTimeFormatted() + " : " + formattedMatch + "\n");
+			output.push(`${getCurrentTimeFormatted()} : ${formattedMatch}\n`);
 		}
 		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net:\n ${output.join("")}`);
 	}
@@ -291,6 +292,7 @@ function parseSignedHex(hexStr: string): number {
 	return Number(num.toString());
 }
 
+/*
 function getCurrentTimeFormatted(): string {
 	const now = new Date();
 	return (
@@ -302,6 +304,12 @@ function getCurrentTimeFormatted(): string {
 		"." +
 		now.getMilliseconds().toString().padStart(3, "0")
 	);
+}
+*/
+
+function getCurrentTimeFormatted(): string {
+	const now = new Date();
+	return format(now, "HH:mm:ss.SSS");
 }
 
 function findDlmsUnitByCode(decimalCode: number): string {
