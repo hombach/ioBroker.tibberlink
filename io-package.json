@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.1",
+		"version": "3.4.2",
 		"news": {
+			"3.4.2": {
+				"en": "fix typos in units",
+				"de": "Tippfehler in Einheiten korrigieren",
+				"ru": "исправить опечатки в единицах",
+				"pt": "corrigir erros de digitação nas unidades",
+				"nl": "typfouten in eenheden corrigeren",
+				"fr": "corriger les fautes de frappe dans les unités",
+				"it": "correggere i refusi nelle unità",
+				"es": "corregir errores tipográficos en las unidades",
+				"pl": "poprawić literówki w jednostkach",
+				"uk": "виправити друкарські помилки в одиницях",
+				"zh-cn": "修正单位中的拼写错误"
+			},
 			"3.4.1": {
 				"en": "fix logging error\nbump dependencies",
 				"de": "Protokollierungsfehler beheben\nAbhängigkeiten aktualisieren",
