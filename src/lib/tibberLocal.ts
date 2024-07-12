@@ -49,7 +49,6 @@ export class TibberLocal extends TibberHelper {
 			}
 			if (!this.TestMode) {
 				const jobBridgeMetrics = setInterval(() => {
-					this.adapter.log.warn(`Calling Bridge metrics data`); // WiP
 					this.getPulseData(pulse)
 						.then((response) => {
 							this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);

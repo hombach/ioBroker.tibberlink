@@ -87,7 +87,8 @@ To observe this dynamic change in the time scope for a standard channel, you may
 
 ## Direct local poll of Pulse data
 
-To make it work, you just need to keep the web interface of the Bridge permanently enabled. marq24 has described how to do this excellently for his HomeAssistant integration here:
+To make it work, you need to modify the web interface of the Bridge to remain permanently enabled.
+marq24 has described how to do this excellently for his HomeAssistant integration here:
 
 https://github.com/marq24/ha-tibber-pulse-local
 
@@ -106,7 +107,12 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 3.4.0 (2024-07-xx)
+### 3.4.1 (2024-07-13)
+
+-   (HombachC) fix logging error
+-   (HombachC) bump dependencies
+
+### 3.4.0 (2024-07-12)
 
 -   (HombachC) add mode for local poll of Pulse data (#201)
 

@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.0",
+		"version": "3.4.1",
 		"news": {
+			"3.4.1": {
+				"en": "fix logging error\nbump dependencies",
+				"de": "Protokollierungsfehler beheben\nAbhängigkeiten aktualisieren",
+				"ru": "исправить ошибку ведения журнала\nобновить зависимости",
+				"pt": "corrigir erro de registro\natualizar dependências",
+				"nl": "logfout oplossen\nafhankelijkheden bijwerken",
+				"fr": "corriger l'erreur de journalisation\nmettre à jour les dépendances",
+				"it": "correggere l'errore di registrazione\naggiornare le dipendenze",
+				"es": "corregir error de registro\nactualizar dependencias",
+				"pl": "naprawić błąd logowania\nzaktualizować zależności",
+				"uk": "виправити помилку журналювання\nоновити залежності",
+				"zh-cn": "修复日志错误\n更新依赖项"
+			},
 			"3.4.0": {
 				"en": "add mode for local poll of Pulse data (#201)",
 				"de": "Modus für lokale Abfrage von Pulse Daten hinzufügen (#201)",
@@ -223,19 +236,6 @@
 				"pl": "Dodaj punkty danych dla wyników BestHoursBlock - okres i średni koszt (#240)",
 				"uk": "Додати точки даних для результатів BestHoursBlock - період і середня вартість (#240)",
 				"zh-cn": "为 BestHoursBlock 结果添加数据点 - 周期和平均成本 (#240)"
-			},
-			"2.1.1": {
-				"en": "fix reconnect error for Pulse feed (#300)",
-				"de": "Fehler bei der erneuten Verbindung für den Pulse Feed beheben (#300)",
-				"ru": "Исправить ошибку повторного подключения для ленты Pulse (#300)",
-				"pt": "Corrigir erro de reconexão para o feed Pulse (#300)",
-				"nl": "Herstel fout bij opnieuw verbinden voor Pulse-feed (#300)",
-				"fr": "Corriger l'erreur de reconnexion pour le flux Pulse (#300)",
-				"it": "Correggi l'errore di riconnessione per il feed Pulse (#300)",
-				"es": "Corregir error de reconexión para el feed Pulse (#300)",
-				"pl": "Napraw błąd ponownego podłączenia dla strumienia Pulse (#300)",
-				"uk": "Виправити помилку з'єднання для стрічки Pulse (#300)",
-				"zh-cn": "修复 Pulse 订阅的重新连接错误 (#300)"
 			},
 			"2.1.0": {
 				"en": "add repeatability for LTF channels (#289)",
