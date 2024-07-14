@@ -52,11 +52,11 @@ export class TibberLocal extends TibberHelper {
 				// run first time
 				this.getPulseData(pulse)
 					.then((response) => {
-						this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
+						this.adapter.log.debug(`Got Bridge metrics data for the first time: ${JSON.stringify(response)}`);
 						this.fetchPulseInfo(pulse, response, "", true);
 					})
 					.catch((e) => {
-						this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
+						this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data for the first time: ${e}`);
 					});
 
 				// setup metrics job
@@ -195,7 +195,7 @@ export class TibberLocal extends TibberHelper {
 								"°C",
 								false,
 								false,
-								true,
+								firstTime,
 							);
 						}
 						break;
@@ -216,6 +216,9 @@ export class TibberLocal extends TibberHelper {
 								Math.round(obj[key] * 100) / 100,
 								`Temperature of this Tibber Pulse unit`,
 								"V",
+								false,
+								false,
+								firstTime,
 							);
 						}
 						break;
@@ -226,6 +229,9 @@ export class TibberLocal extends TibberHelper {
 								obj[key],
 								`Uptime of your Tibber Pulse in ms`,
 								"ms",
+								false,
+								false,
+								firstTime,
 							);
 							//function formatMilliseconds(ms: number): string {
 							//	const duration = intervalToDuration({ start: 0, end: ms });

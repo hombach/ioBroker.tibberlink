@@ -53,11 +53,11 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 // run first time
                 this.getPulseData(pulse)
                     .then((response) => {
-                    this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
+                    this.adapter.log.debug(`Got Bridge metrics data for the first time: ${JSON.stringify(response)}`);
                     this.fetchPulseInfo(pulse, response, "", true);
                 })
                     .catch((e) => {
-                    this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
+                    this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data for the first time: ${e}`);
                 });
                 // setup metrics job
                 const jobBridgeMetrics = setInterval(() => {
@@ -189,7 +189,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         break;
                     case "node_temperature":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C", false, false, true);
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C", false, false, firstTime);
                         }
                         break;
                     case "meter_mode":
@@ -201,12 +201,12 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         break;
                     case "node_battery_voltage":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 100) / 100, `Temperature of this Tibber Pulse unit`, "V");
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 100) / 100, `Temperature of this Tibber Pulse unit`, "V", false, false, firstTime);
                         }
                         break;
                     case "node_uptime_ms":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], `Uptime of your Tibber Pulse in ms`, "ms");
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], `Uptime of your Tibber Pulse in ms`, "ms", false, false, firstTime);
                             //function formatMilliseconds(ms: number): string {
                             //	const duration = intervalToDuration({ start: 0, end: ms });
                             //	return formatDuration(duration);
