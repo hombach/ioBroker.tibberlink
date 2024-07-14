@@ -399,7 +399,7 @@ export class TibberLocal extends TibberHelper {
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
 			output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
 		}
-		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net:\n ${output.join("")}`);
+		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
 	}
 
 	private isValidUnixTimestampAndConvert(n: number): false | string {

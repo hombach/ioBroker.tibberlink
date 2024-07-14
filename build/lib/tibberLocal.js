@@ -313,7 +313,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
         }
         if (output.length > 0)
-            this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net:\n ${output.join("")}`);
+            this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
     }
     isValidUnixTimestampAndConvert(n) {
         // Typüberprüfung und Bereichsüberprüfung (optional)
