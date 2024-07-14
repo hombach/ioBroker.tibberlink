@@ -113,6 +113,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) added unit to Pulse battery voltage and round to 100mV
 -   (HombachC) added unit to Pulse uptime
 -   (HombachC) added state with Pulse uptime as human readable string
+-   (HombachC) reinitialize some TibberLocal states upon adapter startup
+-   (HombachC) code optimisation
+-   (HombachC) bump dependencies
 
 ### 3.4.2 (2024-07-13)
 
