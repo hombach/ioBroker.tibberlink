@@ -49,16 +49,16 @@ export class TibberLocal extends TibberHelper {
 				this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
 			}
 			if (!this.TestMode) {
-				//WIP 3.4.3 Run First time
+				// run first time
+				this.adapter.delState(`LocalPulse.${pulse}.PulseInfo.node_status.node_temperature`);
 				this.getPulseData(pulse)
 					.then((response) => {
 						this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
-						this.fetchPulseInfo(pulse, response, "", true);
+						this.fetchPulseInfo(pulse, response);
 					})
 					.catch((e) => {
 						this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
 					});
-				//WIP 3.4.3
 
 				// setup metrics job
 				const jobBridgeMetrics = setInterval(() => {
@@ -166,7 +166,7 @@ export class TibberLocal extends TibberHelper {
 		}
 		*/
 	}
-	private fetchPulseInfo(pulse: number, obj: any, prefix: string = "", firstRun: boolean = false): void {
+	private fetchPulseInfo(pulse: number, obj: any, prefix: string = ""): void {
 		if (!obj || typeof obj !== "object") {
 			this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
 			return;
@@ -194,8 +194,6 @@ export class TibberLocal extends TibberHelper {
 								Math.round(obj[key] * 10) / 10,
 								`Temperature of this Tibber Pulse unit`,
 								"°C",
-								false,
-								firstRun,
 							);
 						}
 						break;
@@ -216,8 +214,6 @@ export class TibberLocal extends TibberHelper {
 								Math.round(obj[key] * 100) / 100,
 								`Temperature of this Tibber Pulse unit`,
 								"V",
-								false,
-								firstRun,
 							);
 						}
 						break;
@@ -228,14 +224,22 @@ export class TibberLocal extends TibberHelper {
 								obj[key],
 								`Uptime of your Tibber Pulse in ms`,
 								"ms",
-								false,
-								firstRun,
 							);
+							//function formatMilliseconds(ms: number): string {
+							//	const duration = intervalToDuration({ start: 0, end: ms });
+							//	return formatDuration(duration);
+							//}
+
 							function formatMilliseconds(ms: number): string {
 								const duration = intervalToDuration({ start: 0, end: ms });
-								return formatDuration(duration);
+								const formattedDuration = formatDuration(duration, { format: ["months", "days", "hours", "minutes", "seconds"] });
+								// Output: "229 days 3 hours 17 minutes 2 seconds"
+								// view only first 3 blocks
+								const parts = formattedDuration.split(" ");
+								return parts.slice(0, 6).join(" "); // slice(0, 4) um die ersten zwei Blöcke (jeweils Einheit und Wert) zu erhalten
+								// Output: "229 days 3 hours 17 minutes"
 							}
-							// Ausgabe: "229 days 3 hours 17 minutes 2 seconds"
+
 							this.checkAndSetValue(
 								this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}node_uptime_string`),
 								formatMilliseconds(obj[key]),

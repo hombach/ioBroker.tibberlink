@@ -50,16 +50,16 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
             }
             if (!this.TestMode) {
-                //WIP 3.4.3 Run First time
+                // run first time
+                this.adapter.delState(`LocalPulse.${pulse}.PulseInfo.node_status.node_temperature`);
                 this.getPulseData(pulse)
                     .then((response) => {
                     this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
-                    this.fetchPulseInfo(pulse, response, "", true);
+                    this.fetchPulseInfo(pulse, response);
                 })
                     .catch((e) => {
                     this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
                 });
-                //WIP 3.4.3
                 // setup metrics job
                 const jobBridgeMetrics = setInterval(() => {
                     this.getPulseData(pulse)
@@ -170,7 +170,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         }
         */
     }
-    fetchPulseInfo(pulse, obj, prefix = "", firstRun = false) {
+    fetchPulseInfo(pulse, obj, prefix = "") {
         if (!obj || typeof obj !== "object") {
             this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
             return;
@@ -190,7 +190,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         break;
                     case "node_temperature":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C", false, firstRun);
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C");
                         }
                         break;
                     case "meter_mode":
@@ -202,17 +202,25 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         break;
                     case "node_battery_voltage":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 100) / 100, `Temperature of this Tibber Pulse unit`, "V", false, firstRun);
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 100) / 100, `Temperature of this Tibber Pulse unit`, "V");
                         }
                         break;
                     case "node_uptime_ms":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], `Uptime of your Tibber Pulse in ms`, "ms", false, firstRun);
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], `Uptime of your Tibber Pulse in ms`, "ms");
+                            //function formatMilliseconds(ms: number): string {
+                            //	const duration = intervalToDuration({ start: 0, end: ms });
+                            //	return formatDuration(duration);
+                            //}
                             function formatMilliseconds(ms) {
                                 const duration = (0, date_fns_1.intervalToDuration)({ start: 0, end: ms });
-                                return (0, date_fns_1.formatDuration)(duration);
+                                const formattedDuration = (0, date_fns_1.formatDuration)(duration, { format: ["months", "days", "hours", "minutes", "seconds"] });
+                                // Output: "229 days 3 hours 17 minutes 2 seconds"
+                                // view only first 3 blocks
+                                const parts = formattedDuration.split(" ");
+                                return parts.slice(0, 6).join(" "); // slice(0, 4) um die ersten zwei Blöcke (jeweils Einheit und Wert) zu erhalten
+                                // Output: "229 days 3 hours 17 minutes"
                             }
-                            // Ausgabe: "229 days 3 hours 17 minutes 2 seconds"
                             this.checkAndSetValue(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}node_uptime_string`), formatMilliseconds(obj[key]), `Uptime of your Tibber Pulse`);
                         }
                         break;
