@@ -50,6 +50,17 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
             }
             if (!this.TestMode) {
+                //WIP 3.4.3 Run First time
+                this.getPulseData(pulse)
+                    .then((response) => {
+                    this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
+                    this.fetchPulseInfo(pulse, response, "", true);
+                })
+                    .catch((e) => {
+                    this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
+                });
+                //WIP 3.4.3
+                // setup metrics job
                 const jobBridgeMetrics = setInterval(() => {
                     this.getPulseData(pulse)
                         .then((response) => {
@@ -62,6 +73,8 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }, this.MetricsDataInterval);
                 if (jobBridgeMetrics)
                     this.intervalList.push(jobBridgeMetrics);
+                //
+                // setup data job
                 const jobPulseLocal = setInterval(() => {
                     // poll data and log as HEX string
                     this.getDataAsHexString(pulse)
@@ -76,6 +89,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }, this.RawDataInterval);
                 if (jobPulseLocal)
                     this.intervalList.push(jobPulseLocal);
+                //
             }
             else {
                 const parsedMessages = this.extractAndParseSMLMessages(99, this.TestData);
@@ -156,7 +170,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         }
         */
     }
-    fetchPulseInfo(pulse, obj, prefix = "") {
+    fetchPulseInfo(pulse, obj, prefix = "", firstRun = false) {
         if (!obj || typeof obj !== "object") {
             this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
             return;
@@ -176,7 +190,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         break;
                     case "node_temperature":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C");
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C", false, firstRun);
                         }
                         break;
                     case "meter_mode":
@@ -188,12 +202,12 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         break;
                     case "node_battery_voltage":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 100) / 100, `Temperature of this Tibber Pulse unit`, "V");
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 100) / 100, `Temperature of this Tibber Pulse unit`, "V", false, firstRun);
                         }
                         break;
                     case "node_uptime_ms":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], `Uptime of your Tibber Pulse in ms`, "ms");
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], `Uptime of your Tibber Pulse in ms`, "ms", false, firstRun);
                             function formatMilliseconds(ms) {
                                 const duration = (0, date_fns_1.intervalToDuration)({ start: 0, end: ms });
                                 return (0, date_fns_1.formatDuration)(duration);
