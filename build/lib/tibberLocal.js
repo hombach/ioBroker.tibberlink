@@ -166,23 +166,61 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.fetchPulseInfo(pulse, obj[key], `${prefix}${key}.`);
             }
             else {
-                // Check for element name "timestamp"
-                if (key === "timestamp") {
-                    const TimeValue = this.isValidUnixTimestampAndConvert(obj[key]);
-                    if (TimeValue)
-                        obj[key] = TimeValue;
+                switch (key) {
+                    case "timestamp":
+                        const TimeValue = this.isValidUnixTimestampAndConvert(obj[key]);
+                        if (TimeValue) {
+                            obj[key] = TimeValue;
+                            this.checkAndSetValue(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
+                        }
+                        break;
+                    case "node_temperature":
+                        if (typeof obj[key] === "number") {
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C");
+                        }
+                        break;
+                    case "meter_mode":
+                        if (typeof obj[key] === "number") {
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Mode of your Pulse to grid-meter communication`);
+                            if (obj[key] !== 3)
+                                this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
+                        }
+                        break;
+                    case "node_battery_voltage":
+                        if (typeof obj[key] === "number") {
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 100) / 100, `Temperature of this Tibber Pulse unit`, "V");
+                        }
+                        break;
+                    case "node_uptime_ms":
+                        if (typeof obj[key] === "number") {
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], `Uptime of your Tibber Pulse in ms`, "ms");
+                            function formatMilliseconds(ms) {
+                                const duration = (0, date_fns_1.intervalToDuration)({ start: 0, end: ms });
+                                return (0, date_fns_1.formatDuration)(duration);
+                            }
+                            // Ausgabe: "229 days 3 hours 17 minutes 2 seconds"
+                            this.checkAndSetValue(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}node_uptime_string`), formatMilliseconds(obj[key]), `Uptime of your Tibber Pulse`);
+                        }
+                        break;
+                    default:
+                        if (typeof obj[key] === "string") {
+                            this.checkAndSetValue(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
+                        }
+                        else {
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
+                        }
                 }
+                /*
                 if (typeof obj[key] === "string") {
                     this.checkAndSetValue(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
+                } else {
+                    this.checkAndSetValueNumber(
+                        this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
+                        obj[key],
+                        this.adapter.config.PulseList[pulse].puName,
+                    );
                 }
-                else {
-                    this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), obj[key], this.adapter.config.PulseList[pulse].puName);
-                }
-                //this.checkAndSetValueNumber(
-                //this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
-                //obj[key],
-                //this.adapter.config.PulseList[pulse].puName,
-                //);
+                */
             }
         }
     }

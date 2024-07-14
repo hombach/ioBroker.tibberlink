@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.2",
+		"version": "3.4.3",
 		"news": {
+			"3.4.3": {
+				"en": "fix typos in units\nfix type mismatch for state objects (#455)\ncode optimisation"
+			},
 			"3.4.2": {
 				"en": "fix typos in units\nfix type mismatch for state objects (#455)\ncode optimisation",
 				"de": "Tippfehler in Einheiten korrigieren\nTypeninkongruenz für Statusobjekte beheben (#455)\nCode-Optimierung",
@@ -236,19 +239,6 @@
 				"pl": "Dodaj punkty danych dla wyników BestHoursBlock - okres i średni koszt (#240)",
 				"uk": "Додати точки даних для результатів BestHoursBlock - період і середня вартість (#240)",
 				"zh-cn": "为 BestHoursBlock 结果添加数据点 - 周期和平均成本 (#240)"
-			},
-			"2.1.0": {
-				"en": "add repeatability for LTF channels (#289)",
-				"de": "Wiederholbarkeit für LTF-Kanäle hinzufügen (#289)",
-				"ru": "Добавить повторяемость для каналов LTF (#289)",
-				"pt": "Adicionar repetibilidade para canais LTF (#289)",
-				"nl": "Herhaalbaarheid toevoegen voor LTF-kanalen (#289)",
-				"fr": "Ajouter la répétabilité pour les canaux LTF (#289)",
-				"it": "Aggiungere la ripetibilità per i canali LTF (#289)",
-				"es": "Agregar repetibilidad para canales LTF (#289)",
-				"pl": "Dodaj powtarzalność dla kanałów LTF (#289)",
-				"uk": "Додати повторюваність для каналів LTF (#289)",
-				"zh-cn": "为LTF通道添加可重复性 (#289)"
 			},
 			"2.0.0": {
 				"en": "BREAKING: dropped support for js-controller 3.x (#247)\ndiversificate Tibber server polls to prevent potential DDoS reactions (#252)\nadd data point for averageRemaining of today's prices (#254)\nadd 2 data points for last successful update of today and tomorrow prices (#261)\nyear 2024 changes\nfix small error in dynamic feed timing",
