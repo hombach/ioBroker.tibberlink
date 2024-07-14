@@ -136,23 +136,34 @@ class TibberHelper {
      * @param description - Optional description for the state (default is "-").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
+     * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValue(stateName, value, description = "-", writeable = false, dontUpdate = false) {
+    async checkAndSetValue(stateName, value, description = "-", writeable = false, dontUpdate = false, forceMode = false) {
         if (value != undefined) {
             if (value.trim().length > 0) {
-                await this.adapter.setObjectNotExistsAsync(stateName.value, {
-                    type: "state",
-                    common: {
-                        name: stateName.key,
-                        type: "string",
-                        role: "text",
-                        desc: description,
-                        read: true,
-                        write: writeable,
-                    },
-                    native: {},
-                });
+                const commonObj = {
+                    name: stateName.key,
+                    type: "string",
+                    role: "text",
+                    desc: description,
+                    read: true,
+                    write: writeable,
+                };
+                if (!forceMode) {
+                    await this.adapter.setObjectNotExistsAsync(stateName.value, {
+                        type: "state",
+                        common: commonObj,
+                        native: {},
+                    });
+                }
+                else {
+                    await this.adapter.setObjectAsync(stateName.value, {
+                        type: "state",
+                        common: commonObj,
+                        native: {},
+                    });
+                }
                 if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
                     await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
                 }
@@ -185,13 +196,6 @@ class TibberHelper {
             if (unit !== null && unit !== undefined) {
                 commonObj.unit = unit;
             }
-            /*
-            await this.adapter.setObjectNotExistsAsync(stateName.value, {
-                type: "state",
-                common: commonObj,
-                native: {},
-            });
-            */
             if (!forceMode) {
                 await this.adapter.setObjectNotExistsAsync(stateName.value, {
                     type: "state",
@@ -223,31 +227,25 @@ class TibberHelper {
      */
     async checkAndSetValueBoolean(stateName, value, description = "-", writeable = false, dontUpdate = false) {
         if (value !== undefined && value !== null) {
+            const commonObj = {
+                name: stateName.key,
+                type: "boolean",
+                role: "indicator",
+                desc: description,
+                read: true,
+                write: writeable,
+            };
             if (stateName.value.split(".").pop() === stateName.key) {
                 await this.adapter.setObjectNotExistsAsync(stateName.value, {
                     type: "state",
-                    common: {
-                        name: stateName.key,
-                        type: "boolean",
-                        role: "indicator",
-                        desc: description,
-                        read: true,
-                        write: writeable,
-                    },
+                    common: commonObj,
                     native: {},
                 });
             }
             else {
                 await this.adapter.setObjectAsync(stateName.value, {
                     type: "state",
-                    common: {
-                        name: stateName.key,
-                        type: "boolean",
-                        role: "indicator",
-                        desc: description,
-                        read: true,
-                        write: writeable,
-                    },
+                    common: commonObj,
                     native: {},
                 });
             }
