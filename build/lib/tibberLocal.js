@@ -51,11 +51,10 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             }
             if (!this.TestMode) {
                 // run first time
-                this.adapter.delState(`LocalPulse.${pulse}.PulseInfo.node_status.node_temperature`);
                 this.getPulseData(pulse)
                     .then((response) => {
                     this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
-                    this.fetchPulseInfo(pulse, response);
+                    this.fetchPulseInfo(pulse, response, "", true);
                 })
                     .catch((e) => {
                     this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
@@ -170,14 +169,14 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         }
         */
     }
-    fetchPulseInfo(pulse, obj, prefix = "") {
+    fetchPulseInfo(pulse, obj, prefix = "", firstTime = false) {
         if (!obj || typeof obj !== "object") {
             this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
             return;
         }
         for (const key in obj) {
             if (typeof obj[key] === "object") {
-                this.fetchPulseInfo(pulse, obj[key], `${prefix}${key}.`);
+                this.fetchPulseInfo(pulse, obj[key], `${prefix}${key}.`, firstTime);
             }
             else {
                 switch (key) {
@@ -190,7 +189,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         break;
                     case "node_temperature":
                         if (typeof obj[key] === "number") {
-                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C");
+                            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Temperature of this Tibber Pulse unit`, "°C", false, false, true);
                         }
                         break;
                     case "meter_mode":
