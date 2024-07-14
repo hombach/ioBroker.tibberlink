@@ -259,6 +259,45 @@ export class TibberLocal extends TibberHelper {
 							);
 						}
 						break;
+					case "time_in_em0_ms":
+						if (typeof obj[key] === "number") {
+							this.checkAndSetValueNumber(
+								this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
+								obj[key],
+								this.adapter.config.PulseList[pulse].puName,
+								"ms",
+								false,
+								false,
+								firstTime,
+							);
+						}
+						break;
+					case "time_in_em1_ms":
+						if (typeof obj[key] === "number") {
+							this.checkAndSetValueNumber(
+								this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
+								obj[key],
+								this.adapter.config.PulseList[pulse].puName,
+								"ms",
+								false,
+								false,
+								firstTime,
+							);
+						}
+						break;
+					case "time_in_em2_ms":
+						if (typeof obj[key] === "number") {
+							this.checkAndSetValueNumber(
+								this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
+								obj[key],
+								this.adapter.config.PulseList[pulse].puName,
+								"ms",
+								false,
+								false,
+								firstTime,
+							);
+						}
+						break;
 					default:
 						if (typeof obj[key] === "string") {
 							this.checkAndSetValue(
