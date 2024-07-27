@@ -45,21 +45,24 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         this.intervalList = [];
     }
     async setupOnePulseLocal(pulse) {
+        let meterMode = 0;
         try {
             if (this.adapter.config.PulseList[pulse].puName === undefined) {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
             }
             if (!this.TestMode) {
-                // run first time
+                let firstDataRun = true;
+                //#region *** get Tibber Bridge metrics first time
                 this.getPulseData(pulse)
                     .then((response) => {
-                    this.adapter.log.debug(`Got Bridge metrics data for the first time: ${JSON.stringify(response)}`);
-                    this.fetchPulseInfo(pulse, response, "", true);
+                    this.adapter.log.debug(`Polled local Tibber Bridge metrics for the first time: ${JSON.stringify(response)}`);
+                    meterMode = this.fetchPulseInfo(pulse, response, "", true);
                 })
                     .catch((e) => {
                     this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data for the first time: ${e}`);
                 });
-                // setup metrics job
+                //#endregion
+                //#region *** setup Tibber Bridge metrics job
                 const jobBridgeMetrics = setInterval(() => {
                     this.getPulseData(pulse)
                         .then((response) => {
@@ -72,15 +75,24 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }, this.MetricsDataInterval);
                 if (jobBridgeMetrics)
                     this.intervalList.push(jobBridgeMetrics);
-                //
-                // setup data job
+                //#endregion
+                //#region *** setup Tibber Pulse data job
                 const jobPulseLocal = setInterval(() => {
                     // poll data and log as HEX string
                     this.getDataAsHexString(pulse)
                         .then((hexString) => {
-                        this.extractAndParseSMLMessages(pulse, hexString);
                         this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
                         this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
+                        switch (meterMode) {
+                            case 3:
+                                this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
+                                break;
+                            case 4:
+                                break;
+                            default:
+                                this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
+                        }
+                        firstDataRun = false;
                     })
                         .catch((e) => {
                         this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${e}`);
@@ -88,7 +100,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }, this.RawDataInterval);
                 if (jobPulseLocal)
                     this.intervalList.push(jobPulseLocal);
-                //
+                //#endregion
             }
             else {
                 const parsedMessages = this.extractAndParseSMLMessages(99, this.TestData);
@@ -99,6 +111,14 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             this.adapter.log.warn(this.generateErrorMessage(error, `setup of Bridge / Pulse local poll`));
         }
     }
+    /**
+     * Clears all active intervals.
+     *
+     * This method iterates over all interval jobs stored in `this.intervalList` and clears each one.
+     * If an error occurs during this process, it logs a warning message.
+     *
+     * @returns A promise that resolves when all intervals have been cleared.
+     */
     async clearIntervals() {
         try {
             // Here we must clear all intervals that may still be active
@@ -169,10 +189,23 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         }
         */
     }
+    /**
+     * Fetches and processes information from a given Tibber Bridge object.
+     *
+     * This method recursively iterates through the provided `obj`, processes specific keys, and updates the corresponding states.
+     * It handles different data types and formats them appropriately before updating the states.
+     *
+     * @param pulse - A number representing the pulse to fetch information for.
+     * @param obj - An object containing the pulse information to process.
+     * @param prefix - An optional string prefix to prepend to state keys (default is an empty string).
+     * @param firstTime - A boolean indicating if this is the first time fetching the information (default is false).
+     * @returns A number representing the meter mode.
+     */
     fetchPulseInfo(pulse, obj, prefix = "", firstTime = false) {
+        let meterMode = 0;
         if (!obj || typeof obj !== "object") {
             this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
-            return;
+            return meterMode;
         }
         for (const key in obj) {
             if (typeof obj[key] === "object") {
@@ -195,6 +228,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     case "meter_mode":
                         if (typeof obj[key] === "number") {
                             this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Mode of your Pulse to grid-meter communication`, "", false, false, firstTime);
+                            meterMode = obj[key];
                             if (obj[key] !== 3)
                                 this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
                         }
@@ -244,7 +278,15 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }
             }
         }
+        return meterMode;
     }
+    /**
+     * Retrieves data as a hex string from a specified pulse device.
+     *
+     * @param pulse - A number representing the index of the Pulse device in the PulseList configuration.
+     * @returns A Promise that resolves with the data as a hex string if successful.
+     * @throws Will throw an error if the HTTP request fails.
+     */
     async getDataAsHexString(pulse) {
         const auth = `Basic ${Buffer.from(`admin:${this.adapter.config.PulseList[pulse].tibberBridgePassword}`).toString("base64")}`;
         const options = {
@@ -253,7 +295,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             headers: {
                 Authorization: auth,
             },
-            responseType: "arraybuffer", // Wichtig für den Umgang mit Binärdaten
+            responseType: "arraybuffer", // important for handling binary data
         };
         try {
             const response = await (0, axios_1.default)(options);
@@ -266,7 +308,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             throw error;
         }
     }
-    async extractAndParseSMLMessages(pulse, transfer) {
+    async extractAndParseSMLMessages(pulse, transfer, forceMode = false) {
         const messages = transfer.matchAll(/7707(0100[0-9a-fA-F].{5}?ff).{4,28}62([0-9a-fA-F]{2})52([0-9a-fA-F]{2})([0-9a-fA-F]{2})((?:[0-9a-fA-F]{2}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8}|[0-9a-fA-F]{10}|[0-9a-fA-F]{8}|[0-9a-fA-F]{16}))01(?=(77)|(0101)|(\n))/g);
         const output = [];
         for (const match of messages) {
@@ -288,12 +330,12 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 result.value = result.value / 100;
             }
             /*
-            if ("negSignPattern" in TibberConfig && TibberConfig.negSignPattern.length > 2) {
-                const obisCodeOb = obisCodesWithNames.find((item) => item.code === match[1]);
+            if ("negSignPattern" in TibberConfig && this.negSignPattern.length > 2) {
+                const obisCodeOb = this.obisCodesWithNames.find((item) => item.code === match[1]);
                 if (obisCodeOb) {
                     if (obisCodeOb.checkSign) {
-                        if (transfer.includes(TibberConfig.negSignPattern)) {
-                            //log(`Negativ!!!!`)
+                        if (transfer.includes(this.negSignPattern)) {
+                            //this.adapter.log.debug(`negative!!!!`)
                             result.value = result.value * -1;
                         }
                     }
@@ -307,7 +349,11 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.adapter.log.debug(`RAW: ${transfer}`);
                 continue;
             }
-            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit);
+            if (result.unit == "Wh") {
+                result.unit = "kWh";
+                result.value = Math.round(result.value / 100) / 10;
+            }
+            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit, false, false, forceMode);
             this.adapter.log.debug(JSON.stringify(result));
             const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
             output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
@@ -315,6 +361,64 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         if (output.length > 0)
             this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
     }
+    /*
+    private async extractAndParseMode4Messages(pulse: number, transfer: string): Promise<void> {
+        interface Measurement {
+            field: string;
+            value: string;
+            unit: string;
+        }
+
+        function decodeProtocol(protocol: string): Measurement[] {
+            const measurements: Measurement[] = [];
+
+            // Split the protocol by new line
+            const lines = protocol.split('\r\n');
+
+            for (const line of lines) {
+                // Check if the line is not empty
+                if (line.trim() !== '') {
+                    // Convert hex to ASCII
+                    const asciiLine = hexToAscii(line);
+
+                    // Parse the line to extract field, value, and unit
+                    const match = asciiLine.match(/1-0:([^*]+)\*255\(([^*]+)\*(.+)\)/);
+
+                    if (match) {
+                        const field = match[1];
+                        const value = match[2];
+                        const unit = match[3];
+
+                        // Push the parsed measurement into the measurements array
+                        measurements.push({ field, value, unit });
+                    }
+                }
+            }
+
+            return measurements;
+        }
+
+        function hexToAscii(hex: string): string {
+            let str = '';
+            for (let i = 0; i < hex.length; i += 2) {
+                str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+            }
+            return str;
+        }
+
+        // Example usage
+        const protocol = `2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a312d303a39362e312e302a323535283145425a30313031303033313331290d0a312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a312d303a31362e372e302a323535283030303030322e36392a57290d0a312d303a33362e372e302a323535283030303133352e39352a57290d0a312d303a35362e372e302a323535283030303233392e39312a57290d0a312d303a37362e372e302a323535282d3030303337332e31372a57290d0a312d303a33322e372e302a323535283233362e312a56290d0a312d303a35322e372e302a323535283233352e372a56290d0a312d303a37322e372e302a323535283233392e312a56290d0a312d303a39362e352e302a323535283030314334313034290d0a302d303a39362e382e302a323535283036344641453235290d0a210d0a`;
+
+        const decodedMeasurements = decodeProtocol(protocol);
+        console.log(decodedMeasurements);
+    }
+    */
+    /**
+     * Validates a Unix timestamp and converts it to a German date-time string.
+     *
+     * @param n - A number representing the Unix timestamp to validate and convert.
+     * @returns A string representing the date-time in German format if the timestamp is valid, otherwise returns false.
+     */
     isValidUnixTimestampAndConvert(n) {
         // Typüberprüfung und Bereichsüberprüfung (optional)
         const currentTime = Math.floor(Date.now() / 1000);
@@ -323,10 +427,16 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         }
         // Konvertiere zu deutschem Zeitformat
         const date = new Date(n * 1000);
-        return date.toLocaleString("de-DE");
+        return date.toLocaleString("de-DE"); // WiP: use system string instead of always German; use date-fns
     }
 }
 exports.TibberLocal = TibberLocal;
+/**
+ * Parses a signed hexadecimal string and returns the corresponding number.
+ *
+ * @param hexStr - A string representing the hexadecimal value to parse.
+ * @returns A number representing the signed integer value of the hexadecimal input.
+ */
 function parseSignedHex(hexStr) {
     let num = BigInt(`0x${hexStr}`);
     const bitLength = hexStr.length * 4;
@@ -362,10 +472,21 @@ function parseSignedHex(hexStr) {
     }
     return Number(num.toString());
 }
+/**
+ * Retrieves the current time formatted as a string in "HH:mm:ss.SSS" format.
+ *
+ * @returns A string representing the current time in "HH:mm:ss.SSS" format.
+ */
 function getCurrentTimeFormatted() {
     const now = new Date();
     return (0, date_fns_1.format)(now, "HH:mm:ss.SSS");
 }
+/**
+ * Finds the DLMS unit corresponding to a given decimal code.
+ *
+ * @param decimalCode - A number representing the DLMS code to look up.
+ * @returns A string representing the unit associated with the DLMS code, or an empty string if the code is not found.
+ */
 function findDlmsUnitByCode(decimalCode) {
     /* Static lookup table */
     const dlmsUnits = [
@@ -438,8 +559,15 @@ function findDlmsUnitByCode(decimalCode) {
     const found = dlmsUnits.find((item) => item.code === decimalCode);
     return found ? found.unit : "";
 }
+/**
+ * Finds the name corresponding to a given OBIS code.
+ *
+ * @param code - A string representing the OBIS code to look up.
+ * @param obisCodesWithNames - An array of objects where each object contains a `code` and `name` property.
+ * @returns A string representing the name associated with the OBIS code, or "Unknown" if the code is not found.
+ */
 function findObisCodeName(code, obisCodesWithNames) {
     const found = obisCodesWithNames.find((item) => item.code === code);
-    return found ? found.name : "Unbekannt";
+    return found ? found.name : `Unknown`;
 }
 //# sourceMappingURL=tibberLocal.js.map

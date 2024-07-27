@@ -422,6 +422,9 @@ class Tibberlink extends utils.Adapter {
             for (const cronJob of this.cronList) {
                 cronJob.stop();
             }
+            if (this.config.UseLocalPulseData) {
+                //WiP call shutdown in tibberLocale
+            }
             // info.connect to false, when adapter is shut down
             this.setState("info.connection", false, true);
             callback();

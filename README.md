@@ -107,6 +107,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.4.4 (2024-07-28)
+
+-   (HombachC) local poll of data - change units Wh to kWh and round to 0,1kWh (#469)
+
 ### 3.4.3 (2024-07-14)
 
 -   (HombachC) added unit to Pulse temperature and round to 0,1°C
