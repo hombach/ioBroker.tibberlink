@@ -52,7 +52,7 @@ export class TibberLocal extends TibberHelper {
 				// run first time
 				this.getPulseData(pulse)
 					.then((response) => {
-						this.adapter.log.debug(`Got Bridge metrics data for the first time: ${JSON.stringify(response)}`);
+						this.adapter.log.info(`Got Bridge metrics data for the first time: ${JSON.stringify(response)}`);
 						this.fetchPulseInfo(pulse, response, "", true);
 					})
 					.catch((e) => {
