@@ -107,6 +107,15 @@ class TibberHelper {
         }
         return true;
     }
+    /**
+     * Checks if the given input variable is effectively empty.
+     *
+     * This method examines the provided `inputVar` to determine if it contains any meaningful data.
+     * It performs a series of transformations to strip out whitespace and common punctuation, then checks if the result is an empty string.
+     *
+     * @param inputVar - The state variable to check, which can be of type `ioBroker.State`, `null`, or `undefined`.
+     * @returns A boolean indicating whether the input variable is considered empty (`true` if empty, `false` otherwise).
+     */
     isLikeEmpty(inputVar) {
         if (typeof inputVar !== "undefined" && inputVar !== null) {
             let sTemp = JSON.stringify(inputVar);
