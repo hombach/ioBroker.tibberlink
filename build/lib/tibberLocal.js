@@ -51,6 +51,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
             }
             if (!this.TestMode) {
+                let firstDataRun = true;
                 //#region *** get Tibber Bridge metrics first time
                 this.getPulseData(pulse)
                     .then((response) => {
@@ -84,13 +85,14 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
                         switch (meterMode) {
                             case 3:
-                                this.extractAndParseSMLMessages(pulse, hexString);
+                                this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
                                 break;
                             case 4:
                                 break;
                             default:
-                                this.extractAndParseSMLMessages(pulse, hexString);
+                                this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
                         }
+                        firstDataRun = false;
                     })
                         .catch((e) => {
                         this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${e}`);
@@ -306,7 +308,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             throw error;
         }
     }
-    async extractAndParseSMLMessages(pulse, transfer) {
+    async extractAndParseSMLMessages(pulse, transfer, forceMode = false) {
         const messages = transfer.matchAll(/7707(0100[0-9a-fA-F].{5}?ff).{4,28}62([0-9a-fA-F]{2})52([0-9a-fA-F]{2})([0-9a-fA-F]{2})((?:[0-9a-fA-F]{2}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8}|[0-9a-fA-F]{10}|[0-9a-fA-F]{8}|[0-9a-fA-F]{16}))01(?=(77)|(0101)|(\n))/g);
         const output = [];
         for (const match of messages) {
@@ -351,7 +353,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 result.unit = "kWh";
                 result.value = Math.round(result.value / 100) / 10;
             }
-            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit);
+            this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit, false, false, forceMode);
             this.adapter.log.debug(JSON.stringify(result));
             const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
             output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
