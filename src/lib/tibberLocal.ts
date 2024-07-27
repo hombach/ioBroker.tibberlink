@@ -53,7 +53,7 @@ export class TibberLocal extends TibberHelper {
 				//#region *** get Tibber Bridge metrics first time
 				this.getPulseData(pulse)
 					.then((response) => {
-						this.adapter.log.info(`Polled local Tibber Bridge metrics for the first time: ${JSON.stringify(response)}`);
+						this.adapter.log.debug(`Polled local Tibber Bridge metrics for the first time: ${JSON.stringify(response)}`);
 						meterMode = this.fetchPulseInfo(pulse, response, "", true);
 					})
 					.catch((e) => {
