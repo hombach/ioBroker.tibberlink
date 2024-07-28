@@ -85,6 +85,9 @@ export class TibberLocal extends TibberHelper {
 							switch (meterMode) {
 								case 3:
 									this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
+									//WiP 3.4.5
+									this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
+									//WiP 3.4.5
 									break;
 								case 4:
 									this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
@@ -92,9 +95,6 @@ export class TibberLocal extends TibberHelper {
 								default:
 									this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
 							}
-							//WiP 3.4.5
-							this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
-							//WiP 3.4.5
 							firstDataRun = false;
 						})
 						.catch((e) => {
@@ -454,7 +454,7 @@ export class TibberLocal extends TibberHelper {
 				false,
 				forceMode,
 			);
-			this.adapter.log.debug(JSON.stringify(result));
+			this.adapter.log.debug(`SML parse result (mode 3): ${JSON.stringify(result)}`);
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
 			output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
 		}
@@ -502,7 +502,7 @@ export class TibberLocal extends TibberHelper {
 				}
 			}
 		}
-		this.adapter.log.debug(JSON.stringify(mode4Results));
+		this.adapter.log.debug(`Pulse mode 4 parse result: ${JSON.stringify(mode4Results)}`);
 	}
 
 	/**

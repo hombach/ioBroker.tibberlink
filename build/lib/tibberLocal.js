@@ -86,6 +86,9 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         switch (meterMode) {
                             case 3:
                                 this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
+                                //WiP 3.4.5
+                                this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
+                                //WiP 3.4.5
                                 break;
                             case 4:
                                 this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
@@ -93,9 +96,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                             default:
                                 this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
                         }
-                        //WiP 3.4.5
-                        this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
-                        //WiP 3.4.5
                         firstDataRun = false;
                     })
                         .catch((e) => {
@@ -358,7 +358,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 result.value = Math.round(result.value / 100) / 10;
             }
             this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit, false, false, forceMode);
-            this.adapter.log.debug(JSON.stringify(result));
+            this.adapter.log.debug(`SML parse result (mode 3): ${JSON.stringify(result)}`);
             const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
             output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
         }
@@ -388,7 +388,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }
             }
         }
-        this.adapter.log.debug(JSON.stringify(mode4Results));
+        this.adapter.log.debug(`Pulse mode 4 parse result: ${JSON.stringify(mode4Results)}`);
     }
     /**
      * Validates a Unix timestamp and converts it to a German date-time string.
