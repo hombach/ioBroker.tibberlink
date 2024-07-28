@@ -401,11 +401,11 @@ export class TibberLocal extends TibberHelper {
 		for (const match of messages) {
 			const result: SmlResult = { name: "", value: 0 };
 			this.adapter.log.debug(`overall compliance: ${match[0]}`);
-			//console.log(`Gruppe 1: ${match[1]}`); // Der Teil, der dem ersten Klammerausdruck entspricht
-			//console.log(`Gruppe 2: ${match[2]}`); // Der Teil, der dem zweiten Klammerausdruck entspricht
-			//console.log(`Gruppe 3: $[match[3]}`); // Der Teil, der dem dritten Klammerausdruck entspricht
-			//console.log(`Gruppe 4: $[match[4]}`); // Der Teil, der dem dritten Klammerausdruck entspricht
-			//console.log(`Gruppe 5: ${match[5]}`); // Der Teil, der dem vierten Klammerausdruck entspricht
+			//this.adapter.log.debug(`Gruppe 1: ${match[1]}`); // part, der dem ersten Klammerausdruck entspricht
+			//this.adapter.log.debug(`Gruppe 2: ${match[2]}`); // part, der dem zweiten Klammerausdruck entspricht
+			//this.adapter.log.debug(`Gruppe 3: $[match[3]}`); // part, der dem dritten Klammerausdruck entspricht
+			//this.adapter.log.debug(`Gruppe 4: $[match[4]}`); // part, der dem dritten Klammerausdruck entspricht
+			//this.adapter.log.debug(`Gruppe 5: ${match[5]}`); // part, der dem vierten Klammerausdruck entspricht
 
 			result.name = findObisCodeName(match[1], this.obisCodesWithNames);
 			result.value = parseSignedHex(match[5]);
