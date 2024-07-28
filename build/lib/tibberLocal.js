@@ -371,20 +371,14 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         const mode4Results = [];
         // example HEX string
         transfer = `2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a312d303a39362e312e302a323535283145425a30313031303033313331290d0a312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a312d303a31362e372e302a323535283030303030322e36392a57290d0a312d303a33362e372e302a323535283030303133352e39352a57290d0a312d303a35362e372e302a323535283030303233392e39312a57290d0a312d303a37362e372e302a323535282d3030303337332e31372a57290d0a312d303a33322e372e302a323535283233362e312a56290d0a312d303a35322e372e302a323535283233352e372a56290d0a312d303a37322e372e302a323535283233392e312a56290d0a312d303a39362e352e302a323535283030314334313034290d0a302d303a39362e382e302a323535283036344641453235290d0a210d0a`;
-        this.adapter.log.debug(`Pulse mode 4 parsing HEX: ${transfer}`);
-        // Convert hex to ASCII
+        //this.adapter.log.debug(`Pulse mode 4 parsing HEX: ${transfer}`);
         const asciTransfer = hexToAscii(transfer);
-        // Split the transfer by new line
         const lines = asciTransfer.split("\r\n");
         for (const line of lines) {
             // Check if the line is not empty
             if (line.trim() !== "") {
                 // Parse the line to extract name, value, and unit
-                //OLD const match = asciiLine.match(/1-0:([^*]+)\*255\(([^*]+)\*(.+)\)/);
                 const match = line.match(/1-0:([0-9.]+)\*255\(([^*]+)\*([^*]+)\)/);
-                //	1-0:1.8.1*255(0000001.0003*kWh)\r\n
-                //	1-0:1.8.1*255: Unterverbrauchszähler
-                //	(0000001.0003*kWh): Messwert in kWh
                 //	1-0:1.8.2*255(007458.781*kWh)\r\n
                 //	1-0:1.8.2*255: Überverbrauchszähler
                 //	(007458.781*kWh): Messwert in kWh
@@ -397,7 +391,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     const unit = match[3];
                     // Push the parsed measurement into the measurements array
                     mode4Results.push({ name, value, unit });
-                    this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, name), Number(value), this.adapter.config.PulseList[pulse].puName, unit, false, false, forceMode);
+                    this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `meter_${name.replace(".", "_")}`), Number(value), this.adapter.config.PulseList[pulse].puName, unit, false, false, forceMode);
                 }
             }
         }
