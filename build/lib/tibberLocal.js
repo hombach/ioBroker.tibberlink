@@ -340,7 +340,18 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         if (output.length > 0)
             this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
     }
-    //energy meter: eBZ DD3
+    /**
+     * Extracts and parses Mode 4 energy meter messages from a hexadecimal string. e.g. for "eBZ DD3" meters
+     *
+     * This method takes a hexadecimal string representing Mode 4 meter messages, converts it to an ASCII string,
+     * and then parses the string to extract relevant measurement data. The extracted data includes the name,
+     * value, and unit of each measurement, which are then processed and logged.
+     *
+     * @param pulse - An identifier for the pulse.
+     * @param transfer - A string representing the hexadecimal Mode 4 messages to be parsed.
+     * @param forceMode - An optional boolean indicating whether to force the mode (default is false).
+     * @returns A Promise that resolves when the parsing and processing are complete.
+     */
     async extractAndParseMode4Messages(pulse, transfer, forceMode = false) {
         const mode4Results = [];
         // example HEX string
@@ -360,12 +371,10 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 //	(027521.39912794*kWh): Messwert in kWh
                 if (match) {
                     const name = findObisCodeName(match[1]);
-                    //const name: string = match[1];
                     const value = Math.round(Number(match[2]) * 10) / 10;
                     const unit = match[3];
                     // Push the parsed measurement into the measurements array
                     mode4Results.push({ name, value, unit });
-                    //this.getStatePrefixLocal(pulse, `meter_${name.replace(/\./g, "_")}`),
                     this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, name), value, this.adapter.config.PulseList[pulse].puName, unit, false, false, forceMode);
                 }
             }
@@ -542,21 +551,34 @@ function findDlmsUnitByCode(decimalCode) {
 function findObisCodeName(code) {
     const obisCodesWithNames = [
         { code: "0100100700ff", name: "Power" },
+        { code: "16.7.0", name: "Power" },
         { code: "01000f0700ff", name: "Power", checkSign: true },
         { code: "0100010800ff", name: "Import_total" },
+        { code: "1.8.0", name: "Import_total" },
         { code: "0100010801ff", name: "Import_total_tarif_1" },
+        { code: "1.8.1", name: "Import_total_tarif_1" },
         { code: "0100010802ff", name: "Import_total_tarif_2" },
+        { code: "1.8.2", name: "Import_total_tarif_2" },
         { code: "0100020800ff", name: "Export_total" },
+        { code: "2.8.0", name: "Export_total" },
         { code: "0100020801ff", name: "Export_total_tarif_1" },
+        { code: "2.8.1", name: "Export_total_tarif_1" },
         { code: "0100020802ff", name: "Export_total_tarif_2" },
+        { code: "2.8.2", name: "Export_total_tarif_2" },
         { code: "0100010800ff_in_k", name: "Import_total_(kWh)" },
         { code: "0100020800ff_in_k", name: "Export_total_(kWh)" },
         { code: "0100240700ff", name: "Power_L1" },
+        { code: "36.7.0", name: "Power_L1" },
         { code: "0100380700ff", name: "Power_L2" },
+        { code: "56.7.0", name: "Power_L2" },
         { code: "01004c0700ff", name: "Power_L3" },
-        { code: "0100200700ff", name: "Potential_L1" },
-        { code: "0100340700ff", name: "Potential_L2" },
-        { code: "0100480700ff", name: "Potential_L3" },
+        { code: "76.7.0", name: "Power_L3" },
+        { code: "0100200700ff", name: "Voltage_L1" },
+        { code: "32.7.0", name: "Voltage_L1" },
+        { code: "0100340700ff", name: "Voltage_L2" },
+        { code: "52.7.0", name: "Voltage_L2" },
+        { code: "0100480700ff", name: "Voltage_L3" },
+        { code: "72.7.0", name: "Voltage_L3" },
         { code: "01001f0700ff", name: "Current_L1" },
         { code: "0100330700ff", name: "Current_L2" },
         { code: "0100470700ff", name: "Current_L3" },
@@ -566,17 +588,6 @@ function findObisCodeName(code) {
         { code: "0100510704ff", name: "Current/Potential_L1_Phase_deviation" },
         { code: "010051070fff", name: "Current/Potential_L2_Phase_deviation" },
         { code: "010051071aff", name: "Current/Potential_L3_Phase_deviation" },
-        { code: "1.8.0", name: "eBZ_Import_total" },
-        { code: "1.8.1", name: "eBZ_Import_total_tarif_1" },
-        { code: "1.8.2", name: "eBZ_Import_total_tarif_2" },
-        { code: "2.8.0", name: "eBZ_Export_total" },
-        { code: "16.7.0", name: "eBZ_Power" },
-        { code: "36.7.0", name: "eBZ_Power_L1" },
-        { code: "56.7.0", name: "eBZ_Power_L2" },
-        { code: "76.7.0", name: "eBZ_Power_L3" },
-        { code: "32.7.0", name: "eBZ_Voltage_L1" },
-        { code: "52.7.0", name: "eBZ_Voltage_L2" },
-        { code: "72.7.0", name: "eBZ_Voltage_L3" },
     ];
     const found = obisCodesWithNames.find((item) => item.code === code);
     return found ? found.name : `Unknown_${code}`;
