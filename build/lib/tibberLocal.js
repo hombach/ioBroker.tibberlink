@@ -82,13 +82,13 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     this.getDataAsHexString(pulse)
                         .then((hexString) => {
                         this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
+                        //WiP 3.4.5
+                        this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
+                        //WiP 3.4.5
                         this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
                         switch (meterMode) {
                             case 3:
                                 this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
-                                //WiP 3.4.5
-                                this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
-                                //WiP 3.4.5
                                 break;
                             case 4:
                                 this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
