@@ -23,15 +23,19 @@ export class TibberLocal extends TibberHelper {
 				this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
 			}
 			if (!this.TestMode) {
+				let firstMetricsRun: boolean = true;
 				let firstDataRun: boolean = true;
 				//#region *** get Tibber Bridge metrics first time
 				this.getPulseData(pulse)
 					.then((response) => {
-						this.adapter.log.debug(`Polled local Tibber Bridge metrics for the first time: ${JSON.stringify(response)}`);
-						meterMode = this.fetchPulseInfo(pulse, response, "", true);
+						this.adapter.log.debug(
+							`Polled local Tibber Bridge metrics${firstMetricsRun ? " for the first time" : ""}: ${JSON.stringify(response)}`,
+						);
+						meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+						firstMetricsRun = false;
 					})
 					.catch((e) => {
-						this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data for the first time: ${e}`);
+						this.adapter.log.error(`Error while polling and parsing Tibber Bridge metrics: ${e}`);
 					});
 				//#endregion
 
@@ -39,11 +43,12 @@ export class TibberLocal extends TibberHelper {
 				const jobBridgeMetrics = setInterval(() => {
 					this.getPulseData(pulse)
 						.then((response) => {
-							this.adapter.log.debug(`Got Bridge metrics data: ${JSON.stringify(response)}`);
-							this.fetchPulseInfo(pulse, response);
+							this.adapter.log.debug(`Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
+							this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+							firstMetricsRun = false;
 						})
 						.catch((e) => {
-							this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics data: ${e}`);
+							this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics: ${e}`);
 						});
 				}, this.MetricsDataInterval);
 				if (jobBridgeMetrics) this.intervalList.push(jobBridgeMetrics);
@@ -55,7 +60,7 @@ export class TibberLocal extends TibberHelper {
 						.then((hexString) => {
 							this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
 							//WiP 3.4.5
-							this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
+							//this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
 							//WiP 3.4.5
 							this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
 							switch (meterMode) {
@@ -456,7 +461,7 @@ export class TibberLocal extends TibberHelper {
 		}
 		const mode4Results: Mode4Result[] = [];
 		// example HEX string
-		transfer = `2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a312d303a39362e312e302a323535283145425a30313031303033313331290d0a312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a312d303a31362e372e302a323535283030303030322e36392a57290d0a312d303a33362e372e302a323535283030303133352e39352a57290d0a312d303a35362e372e302a323535283030303233392e39312a57290d0a312d303a37362e372e302a323535282d3030303337332e31372a57290d0a312d303a33322e372e302a323535283233362e312a56290d0a312d303a35322e372e302a323535283233352e372a56290d0a312d303a37322e372e302a323535283233392e312a56290d0a312d303a39362e352e302a323535283030314334313034290d0a302d303a39362e382e302a323535283036344641453235290d0a210d0a`;
+		// transfer = `2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a312d303a39362e312e302a323535283145425a30313031303033313331290d0a312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a312d303a31362e372e302a323535283030303030322e36392a57290d0a312d303a33362e372e302a323535283030303133352e39352a57290d0a312d303a35362e372e302a323535283030303233392e39312a57290d0a312d303a37362e372e302a323535282d3030303337332e31372a57290d0a312d303a33322e372e302a323535283233362e312a56290d0a312d303a35322e372e302a323535283233352e372a56290d0a312d303a37322e372e302a323535283233392e312a56290d0a312d303a39362e352e302a323535283030314334313034290d0a302d303a39362e382e302a323535283036344641453235290d0a210d0a`;
 
 		const asciTransfer = hexToAscii(transfer);
 		const lines = asciTransfer.split("\r\n");
