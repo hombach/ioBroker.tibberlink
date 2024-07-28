@@ -8,40 +8,13 @@ const axios_1 = __importDefault(require("axios"));
 const date_fns_1 = require("date-fns");
 const tibberHelper_1 = require("./tibberHelper");
 class TibberLocal extends tibberHelper_1.TibberHelper {
+    //negSignPattern: string = "77070100010800ff6301a";
     constructor(adapter) {
         super(adapter);
         this.TestData = "";
         this.TestMode = false;
         this.MetricsDataInterval = 60000;
         this.RawDataInterval = 2000;
-        //negSignPattern: string = "77070100010800ff6301a";
-        this.obisCodesWithNames = [
-            { code: "0100100700ff", name: "Power" },
-            { code: "01000f0700ff", name: "Power", checkSign: true },
-            { code: "0100010800ff", name: "Import_total" },
-            { code: "0100010801ff", name: "Import_total_tarif_1" },
-            { code: "0100010802ff", name: "Import_total_tarif_2" },
-            { code: "0100020800ff", name: "Export_total" },
-            { code: "0100020801ff", name: "Export_total_tarif_1" },
-            { code: "0100020802ff", name: "Export_total_tarif_2" },
-            { code: "0100010800ff_in_k", name: "Import_total_(kWh)" },
-            { code: "0100020800ff_in_k", name: "Export_total_(kWh)" },
-            { code: "0100240700ff", name: "Power_L1" },
-            { code: "0100380700ff", name: "Power_L2" },
-            { code: "01004c0700ff", name: "Power_L3" },
-            { code: "0100200700ff", name: "Potential_L1" },
-            { code: "0100340700ff", name: "Potential_L2" },
-            { code: "0100480700ff", name: "Potential_L3" },
-            { code: "01001f0700ff", name: "Current_L1" },
-            { code: "0100330700ff", name: "Current_L2" },
-            { code: "0100470700ff", name: "Current_L3" },
-            { code: "01000e0700ff", name: "Net_frequency" },
-            { code: "0100510701ff", name: "Potential_Phase_deviation_L1/L2" },
-            { code: "0100510702ff", name: "Potential_Phase_deviation_L1/L3" },
-            { code: "0100510704ff", name: "Current/Potential_L1_Phase_deviation" },
-            { code: "010051070fff", name: "Current/Potential_L2_Phase_deviation" },
-            { code: "010051071aff", name: "Current/Potential_L3_Phase_deviation" },
-        ];
         this.intervalList = [];
     }
     async setupOnePulseLocal(pulse) {
@@ -323,7 +296,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             //this.adapter.log.debug(`group 3: $[match[3]}`);
             //this.adapter.log.debug(`group 4: $[match[4]}`);
             //this.adapter.log.debug(`group 5: ${match[5]}`);
-            result.name = findObisCodeName(match[1], this.obisCodesWithNames);
+            result.name = findObisCodeName(match[1]);
             result.value = parseSignedHex(match[5]);
             const decimalCode = parseInt(match[2], 16);
             result.unit = findDlmsUnitByCode(decimalCode);
@@ -387,11 +360,11 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 //	(027521.39912794*kWh): Messwert in kWh
                 if (match) {
                     const name = match[1];
-                    const value = match[2];
+                    const value = Math.round(Number(match[2]) * 10) / 10;
                     const unit = match[3];
                     // Push the parsed measurement into the measurements array
                     mode4Results.push({ name, value, unit });
-                    this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `meter_${name.replace(".", "_")}`), Number(value), this.adapter.config.PulseList[pulse].puName, unit, false, false, forceMode);
+                    this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `meter_${name.replace(/\./g, "_")}`), value, this.adapter.config.PulseList[pulse].puName, unit, false, false, forceMode);
                 }
             }
         }
@@ -564,8 +537,36 @@ function findDlmsUnitByCode(decimalCode) {
  * @param obisCodesWithNames - An array of objects where each object contains a `code` and `name` property.
  * @returns A string representing the name associated with the OBIS code, or "Unknown" if the code is not found.
  */
-function findObisCodeName(code, obisCodesWithNames) {
+function findObisCodeName(code) {
+    const obisCodesWithNames = [
+        { code: "0100100700ff", name: "Power" },
+        { code: "01000f0700ff", name: "Power", checkSign: true },
+        { code: "0100010800ff", name: "Import_total" },
+        { code: "0100010801ff", name: "Import_total_tarif_1" },
+        { code: "0100010802ff", name: "Import_total_tarif_2" },
+        { code: "0100020800ff", name: "Export_total" },
+        { code: "0100020801ff", name: "Export_total_tarif_1" },
+        { code: "0100020802ff", name: "Export_total_tarif_2" },
+        { code: "0100010800ff_in_k", name: "Import_total_(kWh)" },
+        { code: "0100020800ff_in_k", name: "Export_total_(kWh)" },
+        { code: "0100240700ff", name: "Power_L1" },
+        { code: "0100380700ff", name: "Power_L2" },
+        { code: "01004c0700ff", name: "Power_L3" },
+        { code: "0100200700ff", name: "Potential_L1" },
+        { code: "0100340700ff", name: "Potential_L2" },
+        { code: "0100480700ff", name: "Potential_L3" },
+        { code: "01001f0700ff", name: "Current_L1" },
+        { code: "0100330700ff", name: "Current_L2" },
+        { code: "0100470700ff", name: "Current_L3" },
+        { code: "01000e0700ff", name: "Net_frequency" },
+        { code: "0100510701ff", name: "Potential_Phase_deviation_L1/L2" },
+        { code: "0100510702ff", name: "Potential_Phase_deviation_L1/L3" },
+        { code: "0100510704ff", name: "Current/Potential_L1_Phase_deviation" },
+        { code: "010051070fff", name: "Current/Potential_L2_Phase_deviation" },
+        { code: "010051071aff", name: "Current/Potential_L3_Phase_deviation" },
+        { code: "1.8.1", name: "OBIS_1_8_1" },
+    ];
     const found = obisCodesWithNames.find((item) => item.code === code);
-    return found ? found.name : `Unknown`;
+    return found ? found.name : `Unknown_${code}`;
 }
 //# sourceMappingURL=tibberLocal.js.map
