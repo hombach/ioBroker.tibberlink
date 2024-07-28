@@ -436,6 +436,7 @@ export class TibberLocal extends TibberHelper {
 		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
 	}
 
+	//energy meter: eBZ DD3
 	private async extractAndParseMode4Messages(pulse: number, transfer: string, forceMode: boolean = false): Promise<void> {
 		interface Mode4Result {
 			name: string;
@@ -446,7 +447,6 @@ export class TibberLocal extends TibberHelper {
 
 		// example HEX string
 		transfer = `2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a312d303a39362e312e302a323535283145425a30313031303033313331290d0a312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a312d303a31362e372e302a323535283030303030322e36392a57290d0a312d303a33362e372e302a323535283030303133352e39352a57290d0a312d303a35362e372e302a323535283030303233392e39312a57290d0a312d303a37362e372e302a323535282d3030303337332e31372a57290d0a312d303a33322e372e302a323535283233362e312a56290d0a312d303a35322e372e302a323535283233352e372a56290d0a312d303a37322e372e302a323535283233392e312a56290d0a312d303a39362e352e302a323535283030314334313034290d0a302d303a39362e382e302a323535283036344641453235290d0a210d0a`;
-		//this.adapter.log.debug(`Pulse mode 4 parsing HEX: ${transfer}`);
 
 		const asciTransfer = hexToAscii(transfer);
 		const lines = asciTransfer.split("\r\n");
@@ -456,7 +456,7 @@ export class TibberLocal extends TibberHelper {
 				// Parse the line to extract name, value, and unit
 				const match = line.match(/1-0:([0-9.]+)\*255\(([^*]+)\*([^*]+)\)/);
 				//	1-0:1.8.2*255(007458.781*kWh)\r\n
-				//	1-0:1.8.2*255: Überverbrauchszähler
+				//	1-0:1.8.2*255: Verbrauchszähler
 				//	(007458.781*kWh): Messwert in kWh
 
 				//	1-0:2.8.0*255(027521.39912794*kWh)\r\n
@@ -464,14 +464,16 @@ export class TibberLocal extends TibberHelper {
 				//	(027521.39912794*kWh): Messwert in kWh
 
 				if (match) {
-					const name: string = match[1];
+					const name: string = findObisCodeName(match[1]);
+					//const name: string = match[1];
 					const value: number = Math.round(Number(match[2]) * 10) / 10;
 					const unit: string = match[3];
 
 					// Push the parsed measurement into the measurements array
 					mode4Results.push({ name, value, unit });
+					//this.getStatePrefixLocal(pulse, `meter_${name.replace(/\./g, "_")}`),
 					this.checkAndSetValueNumber(
-						this.getStatePrefixLocal(pulse, `meter_${name.replace(/\./g, "_")}`),
+						this.getStatePrefixLocal(pulse, name),
 						value,
 						this.adapter.config.PulseList[pulse].puName,
 						unit,
@@ -672,7 +674,17 @@ function findObisCodeName(code: string): string {
 		{ code: "0100510704ff", name: "Current/Potential_L1_Phase_deviation" },
 		{ code: "010051070fff", name: "Current/Potential_L2_Phase_deviation" },
 		{ code: "010051071aff", name: "Current/Potential_L3_Phase_deviation" },
-		{ code: "1.8.1", name: "OBIS_1_8_1" },
+		{ code: "1.8.0", name: "eBZ_Import_total" },
+		{ code: "1.8.1", name: "eBZ_Import_total_tarif_1" },
+		{ code: "1.8.2", name: "eBZ_Import_total_tarif_2" },
+		{ code: "2.8.0", name: "eBZ_Export_total" },
+		{ code: "16.7.0", name: "eBZ_Power" },
+		{ code: "36.7.0", name: "eBZ_Power_L1" },
+		{ code: "56.7.0", name: "eBZ_Power_L2" },
+		{ code: "76.7.0", name: "eBZ_Power_L3" },
+		{ code: "32.7.0", name: "eBZ_Voltage_L1" },
+		{ code: "52.7.0", name: "eBZ_Voltage_L2" },
+		{ code: "72.7.0", name: "eBZ_Voltage_L3" },
 	];
 	const found = obisCodesWithNames.find((item: any) => item.code === code);
 	return found ? found.name : `Unknown_${code}`;
