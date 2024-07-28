@@ -87,10 +87,14 @@ export class TibberLocal extends TibberHelper {
 									this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
 									break;
 								case 4:
+									this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
 									break;
 								default:
 									this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
 							}
+							//WiP 3.4.5
+							this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
+							//WiP 3.4.5
 							firstDataRun = false;
 						})
 						.catch((e) => {
@@ -457,58 +461,49 @@ export class TibberLocal extends TibberHelper {
 		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
 	}
 
-	/*
-	private async extractAndParseMode4Messages(pulse: number, transfer: string): Promise<void> {
-		interface Measurement {
-			field: string;
+	private async extractAndParseMode4Messages(pulse: number, transfer: string, forceMode: boolean = false): Promise<void> {
+		interface Mode4Result {
+			name: string;
 			value: string;
 			unit: string;
 		}
+		const mode4Results: Mode4Result[] = [];
 
-		function decodeProtocol(protocol: string): Measurement[] {
-			const measurements: Measurement[] = [];
+		// example HEX string
+		transfer = `2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a312d303a39362e312e302a323535283145425a30313031303033313331290d0a312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a312d303a31362e372e302a323535283030303030322e36392a57290d0a312d303a33362e372e302a323535283030303133352e39352a57290d0a312d303a35362e372e302a323535283030303233392e39312a57290d0a312d303a37362e372e302a323535282d3030303337332e31372a57290d0a312d303a33322e372e302a323535283233362e312a56290d0a312d303a35322e372e302a323535283233352e372a56290d0a312d303a37322e372e302a323535283233392e312a56290d0a312d303a39362e352e302a323535283030314334313034290d0a302d303a39362e382e302a323535283036344641453235290d0a210d0a`;
 
-			// Split the protocol by new line
-			const lines = protocol.split('\r\n');
+		// Split the transfer by new line
+		const lines = transfer.split("\r\n");
+		for (const line of lines) {
+			// Check if the line is not empty
+			if (line.trim() !== "") {
+				// Convert hex to ASCII
+				const asciiLine = hexToAscii(line);
 
-			for (const line of lines) {
-				// Check if the line is not empty
-				if (line.trim() !== '') {
-					// Convert hex to ASCII
-					const asciiLine = hexToAscii(line);
+				// Parse the line to extract name, value, and unit
+				const match = asciiLine.match(/1-0:([^*]+)\*255\(([^*]+)\*(.+)\)/);
 
-					// Parse the line to extract field, value, and unit
-					const match = asciiLine.match(/1-0:([^*]+)\*255\(([^*]+)\*(.+)\)/);
+				if (match) {
+					const name = match[1];
+					const value = match[2];
+					const unit = match[3];
 
-					if (match) {
-						const field = match[1];
-						const value = match[2];
-						const unit = match[3];
-
-						// Push the parsed measurement into the measurements array
-						measurements.push({ field, value, unit });
-					}
+					// Push the parsed measurement into the measurements array
+					mode4Results.push({ name, value, unit });
+					this.checkAndSetValueNumber(
+						this.getStatePrefixLocal(pulse, name),
+						Number(value),
+						this.adapter.config.PulseList[pulse].puName,
+						unit,
+						false,
+						false,
+						forceMode,
+					);
 				}
 			}
-
-			return measurements;
 		}
-
-		function hexToAscii(hex: string): string {
-			let str = '';
-			for (let i = 0; i < hex.length; i += 2) {
-				str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-			}
-			return str;
-		}
-
-		// Example usage
-		const protocol = `2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a312d303a39362e312e302a323535283145425a30313031303033313331290d0a312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a312d303a31362e372e302a323535283030303030322e36392a57290d0a312d303a33362e372e302a323535283030303133352e39352a57290d0a312d303a35362e372e302a323535283030303233392e39312a57290d0a312d303a37362e372e302a323535282d3030303337332e31372a57290d0a312d303a33322e372e302a323535283233362e312a56290d0a312d303a35322e372e302a323535283233352e372a56290d0a312d303a37322e372e302a323535283233392e312a56290d0a312d303a39362e352e302a323535283030314334313034290d0a302d303a39362e382e302a323535283036344641453235290d0a210d0a`;
-
-		const decodedMeasurements = decodeProtocol(protocol);
-		console.log(decodedMeasurements);
+		this.adapter.log.debug(JSON.stringify(mode4Results));
 	}
-	*/
 
 	/**
 	 * Validates a Unix timestamp and converts it to a German date-time string.
@@ -526,6 +521,21 @@ export class TibberLocal extends TibberHelper {
 		const date = new Date(n * 1000);
 		return date.toLocaleString("de-DE"); // WiP: use system string instead of always German; use date-fns
 	}
+}
+
+/**
+ * Converts a hexadecimal string to its ASCII representation.
+ * This method takes a hexadecimal string as input and converts each pair of hexadecimal digits to their corresponding ASCII character, constructing the resulting ASCII string.
+ *
+ * @param hex - A string representing the hexadecimal values to be converted.
+ * @returns A string containing the ASCII representation of the hexadecimal input.
+ */
+function hexToAscii(hex: string): string {
+	let str = "";
+	for (let i = 0; i < hex.length; i += 2) {
+		str += String.fromCharCode(parseInt(hex.substring(i, i + 2), 16));
+	}
+	return str;
 }
 
 /**

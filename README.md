@@ -107,6 +107,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.4.5 (2024-07-xx)
+
+-   (HombachC) WiP
+
 ### 3.4.4 (2024-07-28)
 
 -   (HombachC) local poll of data - change units Wh to kWh and round to 0,1kWh (#469)
