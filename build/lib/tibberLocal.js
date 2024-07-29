@@ -211,6 +211,9 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                             meterMode = obj[key];
                             if (obj[key] !== 3)
                                 this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
+                            //if (![3, 4].includes(obj[key])) {
+                            //	this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
+                            //}
                         }
                         break;
                     case "node_battery_voltage":
