@@ -479,6 +479,29 @@ export class TibberLocal extends TibberHelper {
 	1-0:1.8.098(00399.1kWh)
 	1-0:1.8.099(08181.8kWh)
 	1-0:1.8.0100(18182.9*kWh)
+
+	[
+  {"field": "1.8.0", "value": "018116.3002", "unit": "kWh"},
+  {"field": "1.8.1", "value": "000000.0000", "unit": "kWh"},
+  {"field": "1.8.2", "value": "018116.3002", "unit": "kWh"},
+  {"field": "2.8.0", "value": "019306.0989", "unit": "kWh"},
+  {"field": "16.7.0", "value": "-003094", "unit": "W"},
+  {"field": "32.7.0", "value": "233.5", "unit": "V"},
+  {"field": "52.7.0", "value": "233.3", "unit": "V"},
+  {"field": "72.7.0", "value": "233.9", "unit": "V"},
+  {"field": "31.7.0", "value": "002.98", "unit": "A"},
+  {"field": "51.7.0", "value": "005.30", "unit": "A"},
+  {"field": "71.7.0", "value": "005.30", "unit": "A"},
+  {"field": "81.7.1", "value": "120", "unit": "deg"},
+  {"field": "81.7.2", "value": "240", "unit": "deg"},
+  {"field": "81.7.4", "value": "194", "unit": "deg"},
+  {"field": "81.7.15", "value": "186", "unit": "deg"},
+  {"field": "81.7.26", "value": "194", "unit": "deg"},
+  {"field": "14.7.0", "value": "50.0", "unit": "Hz"},
+  {"field": "36.7.0", "value": "-000673", "unit": "W"},
+  {"field": "56.7.0", "value": "-001222", "unit": "W"},
+  {"field": "76.7.0", "value": "-001191", "unit": "W"}
+]
 	*/
 
 	/**
