@@ -4,17 +4,17 @@
 		"version": "3.4.5",
 		"news": {
 			"3.4.5": {
-				"en": "Decode also meter mode 4 for local Tibber Pulse poll (#477)\nfixed wrong Pulse local status names (voltage)\ncode cleanup",
-				"de": "Auch Zählermodus 4 für lokale Tibber Pulse-Abfrage dekodieren (#477)\nfalsche lokale Pulse-Statusnamen (Spannung) korrigiert\nCode-Bereinigung",
-				"ru": "Также декодировать режим счетчика 4 для локального опроса Tibber Pulse (#477)\nисправлены неверные локальные названия статусов Pulse (напряжение)\nочистка кода",
-				"pt": "Decodificar também o modo de medidor 4 para pesquisa local do Tibber Pulse (#477)\nnomes de status locais do Pulse incorretos corrigidos (voltagem)\nlimpeza de código",
-				"nl": "Decodeer ook meterstand 4 voor lokale Tibber Pulse-peiling (#477)\nfoutieve lokale Pulstatusnamen (spanning) gecorrigeerd\ncode opschoning",
-				"fr": "Décodez également le mode compteur 4 pour le sondage local Tibber Pulse (#477)\nnoms de statuts locaux de Pulse incorrects corrigés (tension)\nnettoyage du code",
-				"it": "Decodifica anche la modalità del contatore 4 per il sondaggio locale di Tibber Pulse (#477)\nnomi di stato locali errati di Pulse (tensione) corretti\npulizia del codice",
-				"es": "Decodificar también el modo del medidor 4 para la encuesta local de Tibber Pulse (#477)\nnombres de estados locales de Pulse corregidos (voltaje)\nlimpieza de código",
-				"pl": "Również dekoduj tryb licznika 4 dla lokalnej ankiety Tibber Pulse (#477)\nnazwy lokalnych statusów Pulse (napięcie) naprawiono\nczyszczenie kodu",
-				"uk": "Також декодуйте режим лічильника 4 для локального опитування Tibber Pulse (#477)\nвиправлено неправильні локальні назви статусів Pulse (напруга)\nочищення коду",
-				"zh-cn": "还解码本地 Tibber Pulse 轮询的仪表模式 4 (#477)\n修正错误的 Pulse 本地状态名称（电压）\n代码清理"
+				"en": "decode meter mode 4 for local Tibber Pulse poll (#477)\ndecode meter mode 1 for local Tibber Pulse poll (#478)\nfixed wrong Pulse local status names (voltage)",
+				"de": "Dekodiere Zählermodus 4 für lokale Tibber Pulse-Abfrage (#477)\nDekodiere Zählermodus 1 für lokale Tibber Pulse-Abfrage (#478)\nfalsche lokale Pulse-Statusnamen (Spannung) korrigiert",
+				"ru": "декодировать режим счетчика 4 для локального опроса Tibber Pulse (#477)\nдекодировать режим счетчика 1 для локального опроса Tibber Pulse (#478)\nисправлены неверные локальные названия статусов Pulse (напряжение)",
+				"pt": "decodificar modo de medidor 4 para pesquisa local do Tibber Pulse (#477)\ndecodificar modo de medidor 1 para pesquisa local do Tibber Pulse (#478)\nnomes de status locais do Pulse incorretos corrigidos (voltagem)",
+				"nl": "decodeer meterstand 4 voor lokale Tibber Pulse-peiling (#477)\ndecodeer meterstand 1 voor lokale Tibber Pulse-peiling (#478)\nfoutieve lokale Pulstatusnamen (spanning) gecorrigeerd",
+				"fr": "décoder le mode compteur 4 pour le sondage local Tibber Pulse (#477)\ndécoder le mode compteur 1 pour le sondage local Tibber Pulse (#478)\nnoms de statuts locaux de Pulse incorrects corrigés (tension)",
+				"it": "decodificare la modalità del contatore 4 per il sondaggio locale di Tibber Pulse (#477)\ndecodificare la modalità del contatore 1 per il sondaggio locale di Tibber Pulse (#478)\ncorretti nomi di stato locali di Pulse errati (tensione)",
+				"es": "decodificar el modo del medidor 4 para la encuesta local de Tibber Pulse (#477)\ndecodificar el modo del medidor 1 para la encuesta local de Tibber Pulse (#478)\nnombres de estados locales de Pulse corregidos (voltaje)",
+				"pl": "dekodować tryb licznika 4 dla lokalnej ankiety Tibber Pulse (#477)\ndekodować tryb licznika 1 dla lokalnej ankiety Tibber Pulse (#478)\nnazwy lokalnych statusów Pulse (napięcie) naprawiono",
+				"uk": "декодувати режим лічильника 4 для локального опитування Tibber Pulse (#477)\nдекодувати режим лічильника 1 для локального опитування Tibber Pulse (#478)\nвиправлено неправильні локальні назви статусів Pulse (напруга)",
+				"zh-cn": "解码本地 Tibber Pulse 轮询的仪表模式 4 (#477)\n解码本地 Tibber Pulse 轮询的仪表模式 1 (#478)\n修正错误的 Pulse 本地状态名称（电压）"
 			},
 			"3.4.4": {
 				"en": "local poll of data - change units Wh to kWh and round to 0.1kWh (#469)",
