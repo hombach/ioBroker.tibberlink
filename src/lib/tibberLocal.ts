@@ -60,7 +60,7 @@ export class TibberLocal extends TibberHelper {
 						.then((hexString) => {
 							this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
 							//WiP 3.4.5
-							//this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
+							this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
 							//WiP 3.4.5
 							this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
 							switch (meterMode) {
