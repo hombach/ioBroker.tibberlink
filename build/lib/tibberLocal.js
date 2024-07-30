@@ -19,7 +19,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         this.intervalList = [];
     }
     async setupOnePulseLocal(pulse) {
-        //let meterMode: number = 0;
         try {
             if (this.adapter.config.PulseList[pulse].puName === undefined) {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
@@ -32,7 +31,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     .then((response) => {
                     this.adapter.log.debug(`Polled local Tibber Bridge metrics${firstMetricsRun ? " for the first time" : ""}: ${JSON.stringify(response)}`);
                     this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
-                    //this.meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
                     firstMetricsRun = false;
                 })
                     .catch((e) => {
@@ -45,7 +43,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         .then((response) => {
                         this.adapter.log.debug(`Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
                         this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
-                        //this.meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
                         firstMetricsRun = false;
                     })
                         .catch((e) => {
@@ -62,19 +59,19 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         .then((hexString) => {
                         this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
                         //WiP 3.4.5
-                        //this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
+                        //this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
                         //WiP 3.4.5
                         this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
                         this.adapter.log.debug(`trying to parse meter mode ${this.meterMode}`);
                         switch (this.meterMode) {
                             case 1:
-                                this.extractAndParseMode4Messages(pulse, hexString, firstDataRun); //WiP #478
+                                this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun); //WiP #478
                                 break;
                             case 3:
                                 this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
                                 break;
                             case 4:
-                                this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
+                                this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
                                 break;
                             default:
                                 this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
@@ -186,14 +183,10 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
      * @param obj - An object containing the pulse information to process.
      * @param prefix - An optional string prefix to prepend to state keys (default is an empty string).
      * @param firstTime - A boolean indicating if this is the first time fetching the information (default is false).
-     * @returns A number representing the meter mode.
      */
     fetchPulseInfo(pulse, obj, prefix = "", firstTime = false) {
-        //private fetchPulseInfo(pulse: number, obj: any, prefix: string = "", firstTime: boolean = false): number {
-        //let meterMode: number = 0;
         if (!obj || typeof obj !== "object") {
             this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
-            //return meterMode;
         }
         for (const key in obj) {
             if (typeof obj[key] === "object") {
@@ -217,8 +210,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         if (typeof obj[key] === "number") {
                             this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Mode of your Pulse to grid-meter communication`, "", false, false, firstTime);
                             this.meterMode = obj[key];
-                            //if (obj[key] !== 3) this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
-                            //WiP
                             if (![1, 3, 4].includes(obj[key])) {
                                 this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
                             }
@@ -269,7 +260,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }
             }
         }
-        //return meterMode;
     }
     /**
      * Retrieves data as a hex string from a specified pulse device.
@@ -354,25 +344,23 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         if (output.length > 0)
             this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
     }
-    // WIP #478  -  Meter Mode 1
-    // transfer = `2f5a50413547483330352e76322d32302e30302d470d0a0d0a02312d303a432e312e302a32353528315a504130303235313337353738290d0a312d303a312e382e302a323535283031383131362e333030322a6b5768290d0a312d303a312e382e312a323535283030303030302e303030302a6b5768290d0a312d303a312e382e322a323535283031383131362e333030322a6b5768290d0a312d303a322e382e302a323535283031393330362e303938392a6b5768290d0a312d303a31362e372e302a323535282d3030333039342a57290d0a312d303a33322e372e302a323535283233332e352a56290d0a312d303a35322e372e302a323535283233332e332a56290d0a312d303a37322e372e302a323535283233332e392a56290d0a312d303a33312e372e302a323535283030322e39382a41290d0a312d303a35312e372e302a323535283030352e33302a41290d0a312d303a37312e372e302a323535283030352e33302a41290d0a312d303a38312e372e312a323535283132302a646567290d0a312d303a38312e372e322a323535283234302a646567290d0a312d303a38312e372e342a323535283139342a646567290d0a312d303a38312e372e31352a323535283138362a646567290d0a312d303a38312e372e32362a323535283139342a646567290d0a312d303a31342e372e302a3235352835302e302a487a290d0a312d303a302e322e302a323535287665722e32302c44363841393343372c3230323030343039290d0a312d303a432e39302e322a323535284436384139334337290d0a312d303a462e462a32353528303030303030290d0a312d303a432e352e302a323535283030314337393034290d0a312d303a33362e372e302a323535282d3030303637332a57290d0a312d303a35362e372e302a323535282d3030313232322a57290d0a312d303a37362e372e302a323535282d3030313139312a57290d0a312d303a312e382e302a39362830303030392e382a6b5768290d0a312d303a312e382e302a39372830303037362e302a6b5768290d0a312d303a312e382e302a39382830303334372e342a6b5768290d0a312d303a312e382e302a39392830383136392e312a6b5768290d0a312d303a312e382e302a3130302831383131362e332a6b5768290d0a210d0a033c`
     /**
-     * Extracts and parses Mode 4 energy meter messages from a hexadecimal string. e.g. for "eBZ DD3" meters
+     * Extracts and parses Mode 1 and 4 energy meter messages from a hexadecimal string.
      *
-     * This method takes a hexadecimal string representing Mode 4 meter messages, converts it to an ASCII string,
+     * This method takes a hexadecimal string representing Mode 1 or 4 meter messages, converts it to an ASCII string,
      * and then parses the string to extract relevant measurement data. The extracted data includes the name,
      * value, and unit of each measurement, which are then processed and logged.
      *
      * @param pulse - An identifier for the pulse.
-     * @param transfer - A string representing the hexadecimal Mode 4 messages to be parsed.
+     * @param transfer - A string representing the hexadecimal Mode 1 or 4 messages to be parsed.
      * @param forceMode - An optional boolean indicating whether to force the mode (default is false).
      * @returns A Promise that resolves when the parsing and processing are complete.
      */
-    async extractAndParseMode4Messages(pulse, transfer, forceMode = false) {
+    async extractAndParseMode1_4Messages(pulse, transfer, forceMode = false) {
         const mode4Results = [];
-        // example HEX string  -  WiP #478  -  meter mode 1 meter "ZPA GH305"
+        // example HEX string  -  WiP #478  -  meter mode 1 e.g. for "ZPA GH305" meters
         // transfer = `2f5a50413547483330352e76322d32302e30302d470d0a0d0a02312d303a432e312e302a32353528315a504130303235313337353738290d0a312d303a312e382e302a323535283031383131362e333030322a6b5768290d0a312d303a312e382e312a323535283030303030302e303030302a6b5768290d0a312d303a312e382e322a323535283031383131362e333030322a6b5768290d0a312d303a322e382e302a323535283031393330362e303938392a6b5768290d0a312d303a31362e372e302a323535282d3030333039342a57290d0a312d303a33322e372e302a323535283233332e352a56290d0a312d303a35322e372e302a323535283233332e332a56290d0a312d303a37322e372e302a323535283233332e392a56290d0a312d303a33312e372e302a323535283030322e39382a41290d0a312d303a35312e372e302a323535283030352e33302a41290d0a312d303a37312e372e302a323535283030352e33302a41290d0a312d303a38312e372e312a323535283132302a646567290d0a312d303a38312e372e322a323535283234302a646567290d0a312d303a38312e372e342a323535283139342a646567290d0a312d303a38312e372e31352a323535283138362a646567290d0a312d303a38312e372e32362a323535283139342a646567290d0a312d303a31342e372e302a3235352835302e302a487a290d0a312d303a302e322e302a323535287665722e32302c44363841393343372c3230323030343039290d0a312d303a432e39302e322a323535284436384139334337290d0a312d303a462e462a32353528303030303030290d0a312d303a432e352e302a323535283030314337393034290d0a312d303a33362e372e302a323535282d3030303637332a57290d0a312d303a35362e372e302a323535282d3030313232322a57290d0a312d303a37362e372e302a323535282d3030313139312a57290d0a312d303a312e382e302a39362830303030392e382a6b5768290d0a312d303a312e382e302a39372830303037362e302a6b5768290d0a312d303a312e382e302a39382830303334372e342a6b5768290d0a312d303a312e382e302a39392830383136392e312a6b5768290d0a312d303a312e382e302a3130302831383131362e332a6b5768290d0a210d0a033c`;
-        // example HEX string  -  WiP #477  -  meter mode 4
+        // example HEX string  -  WiP #477  -  meter mode 4 e.g. for "eBZ DD3" meters
         // transfer = `2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a312d303a39362e312e302a323535283145425a30313031303033313331290d0a312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a312d303a31362e372e302a323535283030303030322e36392a57290d0a312d303a33362e372e302a323535283030303133352e39352a57290d0a312d303a35362e372e302a323535283030303233392e39312a57290d0a312d303a37362e372e302a323535282d3030303337332e31372a57290d0a312d303a33322e372e302a323535283233362e312a56290d0a312d303a35322e372e302a323535283233352e372a56290d0a312d303a37322e372e302a323535283233392e312a56290d0a312d303a39362e352e302a323535283030314334313034290d0a302d303a39362e382e302a323535283036344641453235290d0a210d0a`;
         const asciTransfer = hexToAscii(transfer);
         const lines = asciTransfer.split("\r\n");
@@ -382,11 +370,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 // Parse the line to extract name, value, and unit
                 const match = line.match(/1-0:([0-9.]+)\*255\(([^*]+)\*([^*]+)\)/);
                 //	1-0:1.8.2*255(007458.781*kWh)\r\n
-                //	1-0:1.8.2*255: Verbrauchszähler
-                //	(007458.781*kWh): Messwert in kWh
                 //	1-0:2.8.0*255(027521.39912794*kWh)\r\n
-                //	1-0:2.8.0*255: Exportierte Energie
-                //	(027521.39912794*kWh): Messwert in kWh
                 if (match) {
                     const name = findObisCodeName(match[1]);
                     const value = Math.round(Number(match[2]) * 10) / 10;
@@ -397,7 +381,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }
             }
         }
-        this.adapter.log.debug(`Pulse mode 4 parse result: ${JSON.stringify(mode4Results)}`);
+        this.adapter.log.debug(`Pulse mode 1 or 4 parse result: ${JSON.stringify(mode4Results)}`);
     }
     /**
      * Validates a Unix timestamp and converts it to a German date-time string.

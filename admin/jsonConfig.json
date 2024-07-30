@@ -1461,12 +1461,12 @@
 				"_localpulsehelp4": {
 					"type": "staticLink",
 					"label": {
-						"en": "Use your Tibber Bridge(s) to poll data directly from your Tibber Pulse module(s) locally."
+						"en": "LINK"
 					},
 					"href": "https://github.com/marq24/ha-tibber-pulse-local",
 					"button": true,
 					"variant": "text",
-					"newLine": true
+					"newLine": false
 				},
 
 				"PulseList": {
