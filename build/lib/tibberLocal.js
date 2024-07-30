@@ -42,7 +42,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     this.getPulseData(pulse)
                         .then((response) => {
                         this.adapter.log.debug(`Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
-                        this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+                        meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
                         firstMetricsRun = false;
                     })
                         .catch((e) => {
@@ -62,6 +62,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         //this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
                         //WiP 3.4.5
                         this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
+                        this.adapter.log.info(`trying to parse meter mode ${meterMode}`);
                         switch (meterMode) {
                             case 1:
                                 this.extractAndParseMode4Messages(pulse, hexString, firstDataRun); //WiP #478
