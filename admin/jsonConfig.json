@@ -1461,10 +1461,10 @@
 				"_localpulsehelp4": {
 					"type": "staticLink",
 					"label": {
-						"en": "LINK"
+						"en": "https://github.com/marq24/ha-tibber-pulse-local"
 					},
 					"href": "https://github.com/marq24/ha-tibber-pulse-local",
-					"button": true,
+					"button": false,
 					"variant": "text",
 					"newLine": false
 				},
