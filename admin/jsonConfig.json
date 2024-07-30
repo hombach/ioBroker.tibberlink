@@ -1424,6 +1424,50 @@
 					},
 					"newLine": true
 				},
+				"_localpulsehelp2": {
+					"type": "staticText",
+					"label": {
+						"en": "To make it work, you need to modify the web interface of the Bridge to remain permanently enabled.",
+						"de": "Damit es funktioniert, müssen Sie die Webschnittstelle der Bridge so modifizieren, dass sie dauerhaft aktiviert bleibt.",
+						"ru": "Чтобы это работало, необходимо изменить веб-интерфейс Bridge, чтобы он оставался постоянно включенным.",
+						"pt": "Para que funcione, você precisa modificar a interface web da Bridge para permanecer permanentemente ativada.",
+						"nl": "Om het te laten werken, moet je de webinterface van de Bridge aanpassen zodat deze permanent ingeschakeld blijft.",
+						"fr": "Pour que cela fonctionne, vous devez modifier l'interface web du Bridge pour qu'elle reste activée en permanence.",
+						"it": "Per farlo funzionare, è necessario modificare l'interfaccia web del Bridge in modo che rimanga sempre abilitata.",
+						"es": "Para que funcione, necesita modificar la interfaz web del Bridge para que permanezca habilitada permanentemente.",
+						"pl": "Aby to działało, należy zmodyfikować interfejs internetowy mostka, aby pozostał na stałe włączony.",
+						"uk": "Щоб це працювало, потрібно змінити веб-інтерфейс мосту, щоб він залишався постійно ввімкненим.",
+						"zh-cn": "要使其正常工作，您需要修改桥的 Web 界面，以使其保持永久启用状态。"
+					},
+					"newLine": true
+				},
+				"_localpulsehelp3": {
+					"type": "staticText",
+					"label": {
+						"en": "marq24 has described how to do this excellently for his HomeAssistant integration here:",
+						"de": "marq24 hat hier hervorragend beschrieben, wie dies für seine HomeAssistant-Integration funktioniert:",
+						"ru": "marq24 отлично описал, как это сделать для своей интеграции с HomeAssistant здесь:",
+						"pt": "marq24 descreveu como fazer isso de maneira excelente para sua integração com HomeAssistant aqui:",
+						"nl": "marq24 heeft hier uitstekend beschreven hoe je dit doet voor zijn HomeAssistant-integratie:",
+						"fr": "marq24 a décrit comment le faire de manière excellente pour son intégration HomeAssistant ici :",
+						"it": "marq24 ha descritto come fare ciò in modo eccellente per la sua integrazione HomeAssistant qui:",
+						"es": "marq24 ha descrito cómo hacer esto de manera excelente para su integración con HomeAssistant aquí:",
+						"pl": "marq24 doskonale opisał, jak to zrobić dla swojej integracji z HomeAssistant tutaj:",
+						"uk": "marq24 чудово описав, як це зробити для своєї інтеграції з HomeAssistant тут:",
+						"zh-cn": "marq24 已经在这里为他的 HomeAssistant 集成做了出色的描述："
+					},
+					"newLine": true
+				},
+				"_localpulsehelp4": {
+					"type": "staticLink",
+					"label": {
+						"en": "Use your Tibber Bridge(s) to poll data directly from your Tibber Pulse module(s) locally."
+					},
+					"href": "https://github.com/marq24/ha-tibber-pulse-local",
+					"button": true,
+					"variant": "text",
+					"newLine": true
+				},
 
 				"PulseList": {
 					"type": "table",

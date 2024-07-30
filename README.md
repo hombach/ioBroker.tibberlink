@@ -112,6 +112,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) decode meter mode 4 for local Tipper Pulse poll (#477)
 -   (HombachC) decode meter mode 1 for local Tipper Pulse poll (#478)
 -   (HombachC) fixed wrong Pulse local status names (voltage)
+-   (HombachC) add docu on local Pulse poll config screen (#479)
 -   (HombachC) code cleanup
 -   (HombachC) bump dependencies
 

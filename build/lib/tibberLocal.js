@@ -15,10 +15,11 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         this.TestMode = false;
         this.MetricsDataInterval = 60000;
         this.RawDataInterval = 2000;
+        this.meterMode = 0;
         this.intervalList = [];
     }
     async setupOnePulseLocal(pulse) {
-        let meterMode = 0;
+        //let meterMode: number = 0;
         try {
             if (this.adapter.config.PulseList[pulse].puName === undefined) {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
@@ -30,7 +31,8 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 this.getPulseData(pulse)
                     .then((response) => {
                     this.adapter.log.debug(`Polled local Tibber Bridge metrics${firstMetricsRun ? " for the first time" : ""}: ${JSON.stringify(response)}`);
-                    meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+                    this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+                    //this.meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
                     firstMetricsRun = false;
                 })
                     .catch((e) => {
@@ -42,7 +44,8 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     this.getPulseData(pulse)
                         .then((response) => {
                         this.adapter.log.debug(`Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
-                        meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+                        this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+                        //this.meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
                         firstMetricsRun = false;
                     })
                         .catch((e) => {
@@ -62,8 +65,8 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         //this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
                         //WiP 3.4.5
                         this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
-                        this.adapter.log.info(`trying to parse meter mode ${meterMode}`);
-                        switch (meterMode) {
+                        this.adapter.log.debug(`trying to parse meter mode ${this.meterMode}`);
+                        switch (this.meterMode) {
                             case 1:
                                 this.extractAndParseMode4Messages(pulse, hexString, firstDataRun); //WiP #478
                                 break;
@@ -186,10 +189,11 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
      * @returns A number representing the meter mode.
      */
     fetchPulseInfo(pulse, obj, prefix = "", firstTime = false) {
-        let meterMode = 0;
+        //private fetchPulseInfo(pulse: number, obj: any, prefix: string = "", firstTime: boolean = false): number {
+        //let meterMode: number = 0;
         if (!obj || typeof obj !== "object") {
             this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
-            return meterMode;
+            //return meterMode;
         }
         for (const key in obj) {
             if (typeof obj[key] === "object") {
@@ -212,7 +216,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     case "meter_mode":
                         if (typeof obj[key] === "number") {
                             this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`), Math.round(obj[key] * 10) / 10, `Mode of your Pulse to grid-meter communication`, "", false, false, firstTime);
-                            meterMode = obj[key];
+                            this.meterMode = obj[key];
                             //if (obj[key] !== 3) this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
                             //WiP
                             if (![1, 3, 4].includes(obj[key])) {
@@ -265,7 +269,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 }
             }
         }
-        return meterMode;
+        //return meterMode;
     }
     /**
      * Retrieves data as a hex string from a specified pulse device.

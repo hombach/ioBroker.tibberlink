@@ -9,6 +9,7 @@ export class TibberLocal extends TibberHelper {
 	TestMode: boolean = false;
 	MetricsDataInterval: number = 60000;
 	RawDataInterval: number = 2000;
+	meterMode: number = 0;
 	//negSignPattern: string = "77070100010800ff6301a";
 
 	constructor(adapter: utils.AdapterInstance) {
@@ -17,7 +18,7 @@ export class TibberLocal extends TibberHelper {
 	}
 
 	async setupOnePulseLocal(pulse: number): Promise<void> {
-		let meterMode: number = 0;
+		//let meterMode: number = 0;
 		try {
 			if (this.adapter.config.PulseList[pulse].puName === undefined) {
 				this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
@@ -31,7 +32,8 @@ export class TibberLocal extends TibberHelper {
 						this.adapter.log.debug(
 							`Polled local Tibber Bridge metrics${firstMetricsRun ? " for the first time" : ""}: ${JSON.stringify(response)}`,
 						);
-						meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+						this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+						//this.meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
 						firstMetricsRun = false;
 					})
 					.catch((e) => {
@@ -44,7 +46,8 @@ export class TibberLocal extends TibberHelper {
 					this.getPulseData(pulse)
 						.then((response) => {
 							this.adapter.log.debug(`Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
-							meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+							this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
+							//this.meterMode = this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
 							firstMetricsRun = false;
 						})
 						.catch((e) => {
@@ -63,8 +66,8 @@ export class TibberLocal extends TibberHelper {
 							//this.extractAndParseMode4Messages(pulse, hexString, firstDataRun);
 							//WiP 3.4.5
 							this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
-							this.adapter.log.info(`trying to parse meter mode ${meterMode}`);
-							switch (meterMode) {
+							this.adapter.log.debug(`trying to parse meter mode ${this.meterMode}`);
+							switch (this.meterMode) {
 								case 1:
 									this.extractAndParseMode4Messages(pulse, hexString, firstDataRun); //WiP #478
 									break;
@@ -184,11 +187,12 @@ export class TibberLocal extends TibberHelper {
 	 * @param firstTime - A boolean indicating if this is the first time fetching the information (default is false).
 	 * @returns A number representing the meter mode.
 	 */
-	private fetchPulseInfo(pulse: number, obj: any, prefix: string = "", firstTime: boolean = false): number {
-		let meterMode: number = 0;
+	private fetchPulseInfo(pulse: number, obj: any, prefix: string = "", firstTime: boolean = false): void {
+		//private fetchPulseInfo(pulse: number, obj: any, prefix: string = "", firstTime: boolean = false): number {
+		//let meterMode: number = 0;
 		if (!obj || typeof obj !== "object") {
 			this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
-			return meterMode;
+			//return meterMode;
 		}
 		for (const key in obj) {
 			if (typeof obj[key] === "object") {
@@ -233,7 +237,7 @@ export class TibberLocal extends TibberHelper {
 								false,
 								firstTime,
 							);
-							meterMode = obj[key];
+							this.meterMode = obj[key];
 							//if (obj[key] !== 3) this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
 							//WiP
 							if (![1, 3, 4].includes(obj[key])) {
@@ -347,7 +351,7 @@ export class TibberLocal extends TibberHelper {
 				}
 			}
 		}
-		return meterMode;
+		//return meterMode;
 	}
 
 	/**
