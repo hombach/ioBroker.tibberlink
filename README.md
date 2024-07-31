@@ -107,6 +107,15 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.4.5 (2024-07-xx)
+
+-   (HombachC) decode meter mode 4 for local Tipper Pulse poll (#477)
+-   (HombachC) decode meter mode 1 for local Tipper Pulse poll (#478)
+-   (HombachC) fixed wrong Pulse local status names (voltage)
+-   (HombachC) add docu on local Pulse poll config screen (#479)
+-   (HombachC) code cleanup
+-   (HombachC) bump dependencies
+
 ### 3.4.4 (2024-07-28)
 
 -   (HombachC) local poll of data - change units Wh to kWh and round to 0,1kWh (#469)
