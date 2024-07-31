@@ -107,7 +107,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
-### 3.4.5 (2024-07-xx)
+### 3.4.5 (2024-07-31)
 
 -   (HombachC) decode meter mode 4 for local Tipper Pulse poll (#477)
 -   (HombachC) decode meter mode 1 for local Tipper Pulse poll (#478)
