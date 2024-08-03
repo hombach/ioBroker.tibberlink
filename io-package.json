@@ -201,19 +201,6 @@
 				"uk": "увімкнення ручного керування налаштованими виходами при вимкненні автоматизації (#334)\nвиправлення неробочого каналу LTF при використанні занадто короткого LTF (#383)\nоптимізації коду\nоновлення adapter-core до версії 3.1.4\nоновлення залежностей",
 				"zh-cn": "在自动化被停用时启用对已配置输出的手动控制 (#334)\n修复了使用过短 LTF 时无法工作的 LTF 通道 (#383)\n代码优化\n将 adapter-core 更新到 3.1.4\n升级依赖项"
 			},
-			"3.0.1": {
-				"en": "updated adapter testing\nbumped dependencies",
-				"de": "Adapter-Tests aktualisiert\nAbhängigkeiten aktualisiert",
-				"ru": "обновлены тесты адаптера\nобновлены зависимости",
-				"pt": "atualização dos testes do adaptador\natualização das dependências",
-				"nl": "adaptertests bijgewerkt\nafhankelijkheden bijgewerkt",
-				"fr": "mise à jour des tests d'adaptateur\nmise à jour des dépendances",
-				"it": "aggiornati i test dell'adattatore\naggiornate le dipendenze",
-				"es": "actualización de las pruebas del adaptador\nactualización de las dependencias",
-				"pl": "zaktualizowano testy adaptera\nzaktualizowano zależności",
-				"uk": "оновлено тести адаптера\nоновлено залежності",
-				"zh-cn": "更新适配器测试\n升级依赖项"
-			},
 			"3.0.0": {
 				"en": "BREAKING: dropped support for Node.js 16 (#368)\nBREAKING: js-controller >= 5 is required\nchanged to tier 2 as data provider\ncorrected io-package.json according to the new schema (#368)\nupdate TypeScript to 5.4.5\nupdate adapter-core to 3.0.6",
 				"de": "WICHTIG: Unterstützung für Node.js 16 wurde eingestellt (#368)\nWICHTIG: js-controller >= 5 ist erforderlich\nAls Datenanbieter auf Tier 2 geändert\ncorrected io-package.json entsprechend dem neuen Schema (#368)\nTypeScript auf 5.4.5 aktualisiert\nadapter-core auf 3.0.6 aktualisiert",
