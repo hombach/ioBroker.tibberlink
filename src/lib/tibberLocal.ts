@@ -392,6 +392,10 @@ export class TibberLocal extends TibberHelper {
 			//this.adapter.log.debug(`group 5: ${match[5]}`);
 
 			result.name = findObisCodeName(match[1]);
+			if (result.name.startsWith(`Found invalid_OBIS_Code:`)) {
+				this.adapter.log.debug(result.name);
+				continue;
+			}
 			result.value = parseSignedHex(match[5]);
 			const decimalCode = parseInt(match[2], 16);
 			result.unit = findDlmsUnitByCode(decimalCode);
@@ -479,6 +483,10 @@ export class TibberLocal extends TibberHelper {
 
 				if (match) {
 					const name: string = findObisCodeName(match[1]);
+					if (name.startsWith(`Found invalid_OBIS_Code:`)) {
+						this.adapter.log.debug(name);
+						continue;
+					}
 					const value: number = Math.round(Number(match[2]) * 10) / 10;
 					const unit: string = match[3];
 
@@ -662,7 +670,7 @@ function findDlmsUnitByCode(decimalCode: number): string {
 function findObisCodeName(code: string): string {
 	// Check if the provided OBIS code is valid
 	if (!isValidObisCode(code)) {
-		return `Invalid_Code_${code}`;
+		return `Found invalid_OBIS_Code: ${code}`;
 	}
 
 	const obisCodesWithNames = [

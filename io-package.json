@@ -4,7 +4,17 @@
 		"version": "3.4.6",
 		"news": {
 			"3.4.6": {
-				"en": "WiP"
+				"en": "Catch wrong OBIS Codes, probably caused by Pulse communication errors",
+				"de": "Fange falsche OBIS-Codes ab, wahrscheinlich verursacht durch Pulse-Kommunikationsfehler",
+				"ru": "Перехват неправильных кодов OBIS, вероятно, вызванных ошибками связи Pulse",
+				"pt": "Capturar códigos OBIS incorretos, provavelmente causados por erros de comunicação Pulse",
+				"nl": "Ongeldige OBIS-codes opvangen, waarschijnlijk veroorzaakt door Pulse-communicatiefouten",
+				"fr": "Intercepter les codes OBIS incorrects, probablement causés par des erreurs de communication Pulse",
+				"it": "Cattura codici OBIS errati, probabilmente causati da errori di comunicazione Pulse",
+				"es": "Capturar códigos OBIS incorrectos, probablemente causados por errores de comunicación de Pulse",
+				"pl": "Przechwyć nieprawidłowe kody OBIS, prawdopodobnie spowodowane błędami komunikacji Pulse",
+				"uk": "Перехоплення неправильних OBIS-кодів, ймовірно, спричинених помилками зв'язку Pulse",
+				"zh-cn": "捕获错误的 OBIS 代码，可能是由于 Pulse 通信错误引起的"
 			},
 			"3.4.5": {
 				"en": "decode meter mode 4 for local Tibber Pulse poll (#477)\ndecode meter mode 1 for local Tibber Pulse poll (#478)\nfixed wrong Pulse local status names (voltage)\nadd docu on local Pulse poll config screen (#479)",

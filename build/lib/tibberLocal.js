@@ -301,6 +301,10 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             //this.adapter.log.debug(`group 4: $[match[4]}`);
             //this.adapter.log.debug(`group 5: ${match[5]}`);
             result.name = findObisCodeName(match[1]);
+            if (result.name.startsWith(`Found invalid_OBIS_Code:`)) {
+                this.adapter.log.debug(result.name);
+                continue;
+            }
             result.value = parseSignedHex(match[5]);
             const decimalCode = parseInt(match[2], 16);
             result.unit = findDlmsUnitByCode(decimalCode);
@@ -373,6 +377,10 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 //	1-0:2.8.0*255(027521.39912794*kWh)\r\n
                 if (match) {
                     const name = findObisCodeName(match[1]);
+                    if (name.startsWith(`Found invalid_OBIS_Code:`)) {
+                        this.adapter.log.debug(name);
+                        continue;
+                    }
                     const value = Math.round(Number(match[2]) * 10) / 10;
                     const unit = match[3];
                     // Push the parsed measurement into the measurements array
@@ -553,7 +561,7 @@ function findDlmsUnitByCode(decimalCode) {
 function findObisCodeName(code) {
     // Check if the provided OBIS code is valid
     if (!isValidObisCode(code)) {
-        return `Invalid_Code_${code}`;
+        return `Found invalid_OBIS_Code: ${code}`;
     }
     const obisCodesWithNames = [
         { code: "0100100700ff", name: "Power" },
