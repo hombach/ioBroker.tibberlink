@@ -289,6 +289,14 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             throw error;
         }
     }
+    /**
+     * Extracts and parses Mode 3 energy meter messages from a hexadecimal string.
+     *
+     * @param pulse - An identifier for the pulse.
+     * @param transfer - A string representing the hexadecimal Mode 3 messages to be parsed.
+     * @param forceMode - An optional boolean indicating whether to force the mode (default is false).
+     * @returns A Promise that resolves when the parsing and processing are complete.
+     */
     async extractAndParseSMLMessages(pulse, transfer, forceMode = false) {
         const messages = transfer.matchAll(/7707(0100[0-9a-fA-F].{5}?ff).{4,28}62([0-9a-fA-F]{2})52([0-9a-fA-F]{2})([0-9a-fA-F]{2})((?:[0-9a-fA-F]{2}|[0-9a-fA-F]{4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8}|[0-9a-fA-F]{10}|[0-9a-fA-F]{8}|[0-9a-fA-F]{16}))01(?=(77)|(0101)|(\n))/g);
         const output = [];
@@ -341,7 +349,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                 result.value = Math.round(result.value / 100) / 10;
             }
             this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, result.name), result.value, this.adapter.config.PulseList[pulse].puName, result.unit, false, false, forceMode);
-            this.adapter.log.debug(`SML parse result (mode 3): ${JSON.stringify(result)}`);
+            this.adapter.log.debug(`Pulse mode 3 parse result: ${JSON.stringify(result)}`);
             const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
             output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
         }
@@ -361,7 +369,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
      * @returns A Promise that resolves when the parsing and processing are complete.
      */
     async extractAndParseMode1_4Messages(pulse, transfer, forceMode = false) {
-        const mode4Results = [];
+        const PulseParseResults = [];
         // example HEX string  -  WiP #478  -  meter mode 1 e.g. for "ZPA GH305" meters
         // transfer = `2f5a50413547483330352e76322d32302e30302d470d0a0d0a02312d303a432e312e302a32353528315a504130303235313337353738290d0a312d303a312e382e302a323535283031383131362e333030322a6b5768290d0a312d303a312e382e312a323535283030303030302e303030302a6b5768290d0a312d303a312e382e322a323535283031383131362e333030322a6b5768290d0a312d303a322e382e302a323535283031393330362e303938392a6b5768290d0a312d303a31362e372e302a323535282d3030333039342a57290d0a312d303a33322e372e302a323535283233332e352a56290d0a312d303a35322e372e302a323535283233332e332a56290d0a312d303a37322e372e302a323535283233332e392a56290d0a312d303a33312e372e302a323535283030322e39382a41290d0a312d303a35312e372e302a323535283030352e33302a41290d0a312d303a37312e372e302a323535283030352e33302a41290d0a312d303a38312e372e312a323535283132302a646567290d0a312d303a38312e372e322a323535283234302a646567290d0a312d303a38312e372e342a323535283139342a646567290d0a312d303a38312e372e31352a323535283138362a646567290d0a312d303a38312e372e32362a323535283139342a646567290d0a312d303a31342e372e302a3235352835302e302a487a290d0a312d303a302e322e302a323535287665722e32302c44363841393343372c3230323030343039290d0a312d303a432e39302e322a323535284436384139334337290d0a312d303a462e462a32353528303030303030290d0a312d303a432e352e302a323535283030314337393034290d0a312d303a33362e372e302a323535282d3030303637332a57290d0a312d303a35362e372e302a323535282d3030313232322a57290d0a312d303a37362e372e302a323535282d3030313139312a57290d0a312d303a312e382e302a39362830303030392e382a6b5768290d0a312d303a312e382e302a39372830303037362e302a6b5768290d0a312d303a312e382e302a39382830303334372e342a6b5768290d0a312d303a312e382e302a39392830383136392e312a6b5768290d0a312d303a312e382e302a3130302831383131362e332a6b5768290d0a210d0a033c`;
         // example HEX string  -  WiP #477  -  meter mode 4 e.g. for "eBZ DD3" meters
@@ -384,12 +392,12 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                     const value = Math.round(Number(match[2]) * 10) / 10;
                     const unit = match[3];
                     // Push the parsed measurement into the measurements array
-                    mode4Results.push({ name, value, unit });
+                    PulseParseResults.push({ name, value, unit });
                     this.checkAndSetValueNumber(this.getStatePrefixLocal(pulse, name), value, this.adapter.config.PulseList[pulse].puName, unit, false, false, forceMode);
                 }
             }
         }
-        this.adapter.log.debug(`Pulse mode 1 or 4 parse result: ${JSON.stringify(mode4Results)}`);
+        this.adapter.log.debug(`Pulse mode 1 or 4 parse result: ${JSON.stringify(PulseParseResults)}`);
     }
     /**
      * Validates a Unix timestamp and converts it to a German date-time string.
