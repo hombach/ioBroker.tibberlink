@@ -551,6 +551,10 @@ function findDlmsUnitByCode(decimalCode) {
  * @returns A string representing the name associated with the OBIS code, or "Unknown" if the code is not found.
  */
 function findObisCodeName(code) {
+    // Check if the provided OBIS code is valid
+    if (!isValidObisCode(code)) {
+        return `Invalid_Code_${code}`;
+    }
     const obisCodesWithNames = [
         { code: "0100100700ff", name: "Power" },
         { code: "16.7.0", name: "Power" },
@@ -602,5 +606,23 @@ function findObisCodeName(code) {
     ];
     const found = obisCodesWithNames.find((item) => item.code === code);
     return found ? found.name : `Unknown_${code}`;
+}
+/**
+ * Checks if the provided OBIS code is valid.
+ *
+ * This function verifies whether a given OBIS code conforms to one of two possible formats:
+ * - Hexadecimal format: exactly 12 hexadecimal characters.
+ * - Decimal format: three groups of digits separated by dots.
+ *
+ * @param {string} code - The OBIS code to be validated.
+ * @returns {boolean} - Returns true if the code matches either the hexadecimal or decimal format, false otherwise.
+ */
+function isValidObisCode(code) {
+    // Regex for hexadecimal format: exactly 12 hexadecimal characters
+    const hexRegex = /^[0-9a-f]{12}$/;
+    // Regex for decimal format: three groups of digits separated by dots
+    const decRegex = /^\d+(\.\d+){2}$/;
+    // Check if the code matches either of the two formats
+    return hexRegex.test(code) || decRegex.test(code);
 }
 //# sourceMappingURL=tibberLocal.js.map

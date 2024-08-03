@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.5",
+		"version": "3.4.6",
 		"news": {
+			"3.4.6": {
+				"en": "WiP"
+			},
 			"3.4.5": {
 				"en": "decode meter mode 4 for local Tibber Pulse poll (#477)\ndecode meter mode 1 for local Tibber Pulse poll (#478)\nfixed wrong Pulse local status names (voltage)\nadd docu on local Pulse poll config screen (#479)",
 				"de": "Dekodiere Zählermodus 4 für lokale Tibber Pulse-Abfrage (#477)\nDekodiere Zählermodus 1 für lokale Tibber Pulse-Abfrage (#478)\nfalsche lokale Pulse-Statusnamen (Spannung) korrigiert\nDokumentation zum Konfigurationsbildschirm für lokale Pulse-Abfragen hinzugefügt (#479)",
