@@ -404,6 +404,10 @@ export class TibberLocal extends TibberHelper {
 				this.adapter.log.debug(result.name);
 				continue;
 			}
+			if (result.name.startsWith(`Found unknown OBIS-Code:`)) {
+				this.adapter.log.info(result.name);
+				continue;
+			}
 			result.value = parseSignedHex(match[5]);
 			const decimalCode = parseInt(match[2], 16);
 			result.unit = findDlmsUnitByCode(decimalCode);
@@ -494,6 +498,10 @@ export class TibberLocal extends TibberHelper {
 					const name: string = findObisCodeName(match[1]);
 					if (name.startsWith(`Found invalid OBIS-Code:`)) {
 						this.adapter.log.debug(name);
+						continue;
+					}
+					if (name.startsWith(`Found unknown OBIS-Code:`)) {
+						this.adapter.log.info(name);
 						continue;
 					}
 					const value: number = Math.round(Number(match[2]) * 10) / 10;
@@ -732,7 +740,7 @@ function findObisCodeName(code: string): string {
 		{ code: "81.7.26", name: "Current/Potential_L3_Phase_deviation" },
 	];
 	const found = obisCodesWithNames.find((item: any) => item.code === code);
-	return found ? found.name : `Unknown_${code}`;
+	return found ? found.name : `Found unknown OBIS-Code: ${code}`;
 }
 
 /**
