@@ -109,7 +109,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.4.6 (2024-08-xx)
 
--   (HombachC) Catch wrong OBIS Codes, probably caused by Pulse cummunication errors
+-   (HombachC) Catch wrong OBIS Codes, probably caused by Pulse communication errors
 -   (HombachC) code cleanup
 
 ### 3.4.5 (2024-07-31)
