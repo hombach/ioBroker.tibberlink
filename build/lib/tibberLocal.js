@@ -639,7 +639,7 @@ function isValidObisCode(code) {
     const hexRegex = /^[0-9a-f]{12}$/;
     // Regex for decimal format: three groups of digits separated by dots
     //const decRegex = /^\d+(\.\d+){2}$/;
-    const decRegex = /^\d+\.\d+\.\d+$/;
+    const decRegex = /^\d{1,2}\.\d\.\d{1,2}$/;
     // Check if the code matches either of the two formats
     return hexRegex.test(code) || decRegex.test(code);
 }
