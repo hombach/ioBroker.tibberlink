@@ -689,7 +689,7 @@ function findObisCodeName(code: string): string {
 	if (!isValidObisCode(code)) {
 		return `Found invalid OBIS-Code: ${code}`;
 	}
-
+	// https://github.com/Apollon77/smartmeter-obis/blob/master/lib/ObisNames.js
 	const obisCodesWithNames = [
 		{ code: "0100100700ff", name: "Power" },
 		{ code: "16.7.0", name: "Power" },
