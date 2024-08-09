@@ -68,32 +68,6 @@
 				"uk": "додано одиницю виміру температури Pulse і округлено до 0,1°C\nдодано одиницю виміру напруги акумулятора Pulse і округлено до 100мВ\nдодано одиницю виміру часу роботи Pulse\nдодано стан з часом роботи Pulse у вигляді читабельного рядка",
 				"zh-cn": "添加单位到 Pulse 温度并四舍五入到 0.1°C\n添加单位到 Pulse 电池电压并四舍五入到 100mV\n添加单位到 Pulse 运行时间\n添加具有 Pulse 运行时间的状态为人类可读字符串"
 			},
-			"3.4.2": {
-				"en": "fix typos in units\nfix type mismatch for state objects (#455)\ncode optimisation",
-				"de": "Tippfehler in Einheiten korrigieren\nTypeninkongruenz für Statusobjekte beheben (#455)\nCode-Optimierung",
-				"ru": "исправить опечатки в единицах\nисправить несоответствие типов для объектов состояния (#455)\nоптимизация кода",
-				"pt": "corrigir erros de digitação nas unidades\ncorrigir incompatibilidade de tipo para objetos de estado (#455)\notimização de código",
-				"nl": "typfouten in eenheden corrigeren\ntype-mismatch voor toestandsobjecten oplossen (#455)\ncode optimalisatie",
-				"fr": "corriger les fautes de frappe dans les unités\ncorriger l'incohérence de type pour les objets d'état (#455)\noptimisation du code",
-				"it": "correggere i refusi nelle unità\ncorreggere l'incongruenza di tipo per gli oggetti di stato (#455)\nottimizzazione del codice",
-				"es": "corregir errores tipográficos en las unidades\ncorregir la incompatibilidad de tipo para objetos de estado (#455)\noptimización del código",
-				"pl": "poprawić literówki w jednostkach\nnaprawić niezgodność typów dla obiektów stanu (#455)\noptymalizacja kodu",
-				"uk": "виправити друкарські помилки в одиницях\nвиправити невідповідність типів для об'єктів стану (#455)\nоптимізація коду",
-				"zh-cn": "修正单位中的拼写错误\n修正状态对象的类型不匹配 (#455)\n代码优化"
-			},
-			"3.4.1": {
-				"en": "fix logging error\nbump dependencies",
-				"de": "Protokollierungsfehler beheben\nAbhängigkeiten aktualisieren",
-				"ru": "исправить ошибку ведения журнала\nобновить зависимости",
-				"pt": "corrigir erro de registro\natualizar dependências",
-				"nl": "logfout oplossen\nafhankelijkheden bijwerken",
-				"fr": "corriger l'erreur de journalisation\nmettre à jour les dépendances",
-				"it": "correggere l'errore di registrazione\naggiornare le dipendenze",
-				"es": "corregir error de registro\nactualizar dependencias",
-				"pl": "naprawić błąd logowania\nzaktualizować zależności",
-				"uk": "виправити помилку журналювання\nоновити залежності",
-				"zh-cn": "修复日志错误\n更新依赖项"
-			},
 			"3.4.0": {
 				"en": "add mode for local poll of Pulse data (#201)",
 				"de": "Modus für lokale Abfrage von Pulse Daten hinzufügen (#201)",
@@ -107,19 +81,6 @@
 				"uk": "додати режим для локального опитування даних Pulse (#201)",
 				"zh-cn": "添加本地轮询 Pulse 数据模式 (#201)"
 			},
-			"3.3.0": {
-				"en": "implements optional, obsolete API call for total historical cost, incl. grid fees (#405)\nUpdates @iobroker/adapter-core from 3.1.6\nUpdates @iobroker/types from 5.0.19 to 6.0.0",
-				"de": "implementiert optionale, veraltete API-Aufruf für Gesamtkostenhistorie, inkl. Netzgebühren (#405)\nAktualisiert @iobroker/adapter-core von 3.1.6\nAktualisiert @iobroker/types von 5.0.19 auf 6.0.0",
-				"ru": "реализует опциональный устаревший вызов API для общей истории затрат, включая сетевые сборы (#405)\nОбновления @iobroker/adapter-core с 3.1.6\nОбновления @iobroker/types с 5.0.19 на 6.0.0",
-				"pt": "implementa chamada de API opcional e obsoleta para custo histórico total, incluindo taxas de rede (#405)\nAtualizações @iobroker/adapter-core de 3.1.6\nAtualizações @iobroker/types de 5.0.19 para 6.0.0",
-				"nl": "implementeert optionele, verouderde API-oproep voor totale historische kosten, incl. netkosten (#405)\nUpdates @iobroker/adapter-core van 3.1.6\nUpdates @iobroker/types van 5.0.19 naar 6.0.0",
-				"fr": "met en œuvre l'appel d'API facultatif et obsolète pour le coût historique total, y compris les frais de réseau (#405)\nMises à jour @iobroker/adapter-core de 3.1.6\nMises à jour @iobroker/types de 5.0.19 à 6.0.0",
-				"it": "implementa la chiamata API opzionale e obsoleta per il costo storico totale, incluse le tariffe di rete (#405)\nAggiornamenti @iobroker/adapter-core da 3.1.6\nAggiornamenti @iobroker/types da 5.0.19 a 6.0.0",
-				"es": "implementa la llamada de API opcional y obsoleta para el costo histórico total, incluidas las tarifas de red (#405)\nActualizaciones @iobroker/adapter-core desde 3.1.6\nActualizaciones @iobroker/types desde 5.0.19 hasta 6.0.0",
-				"pl": "implementuje opcjonalne przestarzałe wywołanie interfejsu API dla całkowitych historycznych kosztów, w tym opłat za sieć (#405)\nAktualizacje @iobroker/adapter-core z 3.1.6\nAktualizacje @iobroker/types z 5.0.19 do 6.0.0",
-				"uk": "реалізує необов'язковий застарілий виклик API для загальної історії витрат, включаючи мережеві збори (#405)\nОновлення @iobroker/adapter-core з 3.1.6\nОновлення @iobroker/types з 5.0.19 до 6.0.0",
-				"zh-cn": "实现可选的、过时的 API 调用，用于总历史成本，包括网络费用 (#405)\n从 3.1.6 更新 @iobroker/adapter-core\n从 5.0.19 更新 @iobroker/types 到 6.0.0"
-			},
 			"3.2.0": {
 				"en": "IMPORTANT: adapter components had been blocked by Tibber - you have to update!\nbump base dependencies\nadapter will use internal output states for calculator if none defined in configuration (#325)\nimplement first run mode in calculator to reduce system load\ninternal optimizations",
 				"de": "WICHTIG: Adapterkomponenten wurden von Tibber blockiert - Sie müssen aktualisieren!\nBasisabhängigkeiten aktualisieren\nAdapter wird interne Ausgangszustände für den Rechner verwenden, wenn keine in der Konfiguration definiert sind (#325)\nErstlaufmodus im Rechner implementieren, um die Systemlast zu reduzieren\ninterne Optimierungen",
@@ -132,45 +93,6 @@
 				"pl": "WAŻNE: komponenty adaptera zostały zablokowane przez Tibber - musisz zaktualizować!\nzaktualizować podstawowe zależności\nadapter będzie używał wewnętrznych stanów wyjściowych dla kalkulatora, jeśli żaden nie został zdefiniowany w konfiguracji (#325)\nzaimplementować tryb pierwszego uruchomienia w kalkulatorze, aby zmniejszyć obciążenie systemu\noptymalizacje wewnętrzne",
 				"uk": "ВАЖЛИВО: компоненти адаптера були заблоковані Tibber - вам потрібно оновити!\nоновіть базові залежності\nадаптер буде використовувати внутрішні вихідні стани для калькулятора, якщо жоден не визначено в конфігурації (#325)\nреалізувати режим першого запуску в калькуляторі для зменшення навантаження на систему\nвнутрішні оптимізації",
 				"zh-cn": "重要：适配器组件已被 Tibber 阻止 - 你必须更新！\n升级基础依赖项\n适配器将使用计算器的内部输出状态，如果配置中没有定义 (#325)\n在计算器中实现首次运行模式以减少系统负载\n内部优化"
-			},
-			"3.1.1": {
-				"en": "throttle down reconnection speed\nlogging optimizations (#396; #217)\nadaptations to newer environment (#394; #395)",
-				"de": "Verbindungswiederherstellungsgeschwindigkeit drosseln\nLogging-Optimierungen (#396; #217)\nAnpassungen an neuere Umgebung (#394; #395)",
-				"ru": "снижение скорости повторного подключения\nоптимизация логирования (#396; #217)\nадаптации к новой среде (#394; #395)",
-				"pt": "diminuir a velocidade de reconexão\notimizações de registro (#396; #217)\nadaptações ao ambiente mais recente (#394; #395)",
-				"nl": "verbindingsherstelsnelheid vertragen\nlogoptimalisaties (#396; #217)\naanpassingen aan nieuwere omgeving (#394; #395)",
-				"fr": "ralentir la vitesse de reconnexion\noptimisations de journalisation (#396; #217)\nadaptations à un environnement plus récent (#394; #395)",
-				"it": "ridurre la velocità di riconnessione\nottimizzazioni del logging (#396; #217)\nadattamenti all'ambiente più recente (#394; #395)",
-				"es": "ralentizar la velocidad de reconexión\noptimizaciones de registro (#396; #217)\nadaptaciones a entorno más reciente (#394; #395)",
-				"pl": "zmniejsz prędkość ponownego łączenia\noptymalizacje logowania (#396; #217)\nadaptacje do nowszego środowiska (#394; #395)",
-				"uk": "зменшення швидкості повторного підключення\nоптимізація логування (#396; #217)\nадаптації до нового середовища (#394; #395)",
-				"zh-cn": "降低重新连接速度\n日志优化 (#396; #217)\n适应新环境 (#394; #395)"
-			},
-			"3.1.0": {
-				"en": "enable manual control of configured outputs when automation is deactivated (#334)\nfix not working LTF Channel when using too short LTF (#383)\ncode optimizations\nupdate adapter-core to 3.1.4\nbump dependencies",
-				"de": "Manuelle Steuerung der konfigurierten Ausgänge aktivieren, wenn die Automatisierung deaktiviert ist (#334)\nFehler beheben, wenn der LTF-Kanal nicht funktioniert, wenn der LTF zu kurz ist (#383)\nCode-Optimierungen\nadapter-core auf 3.1.4 aktualisieren\nAbhängigkeiten aktualisieren",
-				"ru": "включение ручного управления настроенными выходами при отключении автоматизации (#334)\nисправление неработающего канала LTF при использовании слишком короткого LTF (#383)\nоптимизация кода\nобновление adapter-core до версии 3.1.4\nобновление зависимостей",
-				"pt": "ativar controle manual das saídas configuradas quando a automação está desativada (#334)\ncorrigir o canal LTF que não funciona ao usar LTF muito curto (#383)\noptimizações de código\natualizar adapter-core para 3.1.4\natualizar dependências",
-				"nl": "handmatige controle van geconfigureerde uitgangen inschakelen wanneer automatisering is uitgeschakeld (#334)\nprobleem oplossen met niet-werkend LTF-kanaal bij te kort LTF (#383)\ncode-optimalisaties\nadapter-core bijwerken naar 3.1.4\nafhankelijkheden bijwerken",
-				"fr": "activer le contrôle manuel des sorties configurées lorsque l'automatisation est désactivée (#334)\ncorriger le canal LTF qui ne fonctionne pas lorsqu'un LTF trop court est utilisé (#383)\noptimisations de code\nmettre à jour adapter-core vers 3.1.4\nmettre à jour les dépendances",
-				"it": "abilita il controllo manuale delle uscite configurate quando l'automazione è disattivata (#334)\nrisolvi il problema del canale LTF non funzionante quando si utilizza un LTF troppo breve (#383)\nottimizzazioni del codice\naggiorna adapter-core a 3.1.4\naggiorna le dipendenze",
-				"es": "habilitar el control manual de las salidas configuradas cuando la automatización está desactivada (#334)\nresolver el problema del canal LTF que no funciona cuando se utiliza un LTF demasiado corto (#383)\noptimizaciones de código\nactualizar adapter-core a 3.1.4\nactualizar dependencias",
-				"pl": "włącz ręczną kontrolę skonfigurowanych wyjść, gdy automatyzacja jest wyłączona (#334)\nnapraw kanał LTF, który nie działa, gdy używa się zbyt krótkiego LTF (#383)\noptymalizacje kodu\nzaktualizuj adapter-core do wersji 3.1.4\nzaktualizuj zależności",
-				"uk": "увімкнення ручного керування налаштованими виходами при вимкненні автоматизації (#334)\nвиправлення неробочого каналу LTF при використанні занадто короткого LTF (#383)\nоптимізації коду\nоновлення adapter-core до версії 3.1.4\nоновлення залежностей",
-				"zh-cn": "在自动化被停用时启用对已配置输出的手动控制 (#334)\n修复了使用过短 LTF 时无法工作的 LTF 通道 (#383)\n代码优化\n将 adapter-core 更新到 3.1.4\n升级依赖项"
-			},
-			"3.0.0": {
-				"en": "BREAKING: dropped support for Node.js 16 (#368)\nBREAKING: js-controller >= 5 is required\nchanged to tier 2 as data provider\ncorrected io-package.json according to the new schema (#368)\nupdate TypeScript to 5.4.5\nupdate adapter-core to 3.0.6",
-				"de": "WICHTIG: Unterstützung für Node.js 16 wurde eingestellt (#368)\nWICHTIG: js-controller >= 5 ist erforderlich\nAls Datenanbieter auf Tier 2 geändert\ncorrected io-package.json entsprechend dem neuen Schema (#368)\nTypeScript auf 5.4.5 aktualisiert\nadapter-core auf 3.0.6 aktualisiert",
-				"ru": "ВАЖНО: прекращена поддержка Node.js 16 (#368)\nВАЖНО: требуется js-controller >= 5\nизменено на уровень 2 как поставщик данных\nисправлен файл io-package.json в соответствии с новой схемой (#368)\nобновление TypeScript до 5.4.5\nобновление adapter-core до 3.0.6",
-				"pt": "IMPORTANTE: suporte para Node.js 16 foi removido (#368)\nIMPORTANTE: js-controller >= 5 é necessário\nalterado para o nível 2 como provedor de dados\ncorrigido io-package.json de acordo com o novo esquema (#368)\natualização do TypeScript para 5.4.5\natualização do adapter-core para 3.0.6",
-				"nl": "BELANGRIJK: ondersteuning voor Node.js 16 is verwijderd (#368)\nBELANGRIJK: js-controller >= 5 is vereist\ngewijzigd naar niveau 2 als gegevensleverancier\ncorrectie van io-package.json volgens het nieuwe schema (#368)\nupdate TypeScript naar 5.4.5\nupdate adapter-core naar 3.0.6",
-				"fr": "IMPORTANT : prise en charge de Node.js 16 abandonnée (#368)\nIMPORTANT : js-controller >= 5 est requis\npassé en tier 2 en tant que fournisseur de données\ncorrigé io-package.json selon le nouveau schéma (#368)\nmise à jour de TypeScript vers 5.4.5\nmise à jour de adapter-core vers 3.0.6",
-				"it": "IMPORTANTE: supporto per Node.js 16 eliminato (#368)\nIMPORTANTE: js-controller >= 5 è richiesto\npassato a tier 2 come fornitore di dati\ncorretto io-package.json secondo il nuovo schema (#368)\naggiornato TypeScript a 5.4.5\naggiornato adapter-core a 3.0.6",
-				"es": "IMPORTANTE: se eliminó el soporte para Node.js 16 (#368)\nIMPORTANTE: se requiere js-controller >= 5\ncambiado a nivel 2 como proveedor de datos\ncorregido io-package.json según el nuevo esquema (#368)\nactualización de TypeScript a 5.4.5\nactualización de adapter-core a 3.0.6",
-				"pl": "WAŻNE: wsparcie dla Node.js 16 zostało usunięte (#368)\nWAŻNE: wymagane jest js-controller >= 5\nzmieniono na poziom 2 jako dostawca danych\npoprawiono plik io-package.json zgodnie z nowym schematem (#368)\naktualizacja TypeScript do wersji 5.4.5\naktualizacja adapter-core do wersji 3.0.6",
-				"uk": "ВАЖЛИВО: підтримка Node.js 16 скасована (#368)\nВАЖЛИВО: потрібен js-controller >= 5\nзмінено на рівень 2 як постачальник даних\nвиправлено файл io-package.json відповідно до нової схеми (#368)\nоновлення TypeScript до 5.4.5\nоновлення adapter-core до 3.0.6",
-				"zh-cn": "重要: 放弃对 Node.js 16 的支持 (#368)\n重要: js-controller >= 5 已必需\n更改为二级作为数据提供者\n根据新模式更正了 io-package.json (#368)\n将 TypeScript 更新到 5.4.5\n将 adapter-core 更新到 3.0.6"
 			}
 		},
 		"messages": [
