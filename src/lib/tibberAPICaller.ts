@@ -188,11 +188,9 @@ export class TibberAPICaller extends TibberHelper {
 			today.setHours(0, 0, 0, 0); // sets clock to 0:00
 			if (!exDate || exDate <= today || forceUpdate) {
 				const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
-				// POTENTIAL 2.3.1 better error logging
 				if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2] && pricesToday[2].total)) {
-					throw new Error(`Got invalid data structure from Tibber`);
+					throw new Error(`Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
 				}
-				// WIP
 				this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
 				this.checkAndSetValue(this.getStatePrefix(homeId, "PricesToday", "json"), JSON.stringify(pricesToday), "The prices today as json"); // write also it might be empty
 				this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
@@ -363,14 +361,12 @@ export class TibberAPICaller extends TibberHelper {
 				];
 				for (const { type, state, numCons, description } of resolutions) {
 					if (numCons && numCons > 0) {
-						//WiP #405 change call to get also obsolete data
 						let consumption: IConsumption[];
 						if (this.adapter.config.UseObsoleteStats) {
 							consumption = await this.getConsumptionObs(type, numCons, homeID);
 						} else {
 							consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
 						}
-						//WiP #405
 						this.checkAndSetValue(
 							this.getStatePrefix(homeID, `Consumption`, state),
 							JSON.stringify(consumption),
