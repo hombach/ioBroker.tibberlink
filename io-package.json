@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.6",
+		"version": "3.4.7",
 		"news": {
+			"3.4.7": {
+				"en": "adapter checker detected optimizations (#493)",
+				"de": "Adapter-Checker erkannte Optimierungen (#493)",
+				"ru": "оптимизации, обнаруженные проверяющим адаптера (#493)",
+				"pt": "otimizações detectadas pelo verificador de adaptadores (#493)",
+				"nl": "door adapter checker gedetecteerde optimalisaties (#493)",
+				"fr": "optimisations détectées par le vérificateur d'adaptateurs (#493)",
+				"it": "ottimizzazioni rilevate dal controllo dell'adattatore (#493)",
+				"es": "optimizaciones detectadas por el verificador de adaptadores (#493)",
+				"pl": "optymalizacje wykryte przez sprawdzanie adaptera (#493)",
+				"uk": "оптимізації, виявлені перевіряючим адаптера (#493)",
+				"zh-cn": "适配器检查器检测到的优化 (#493)"
+			},
 			"3.4.6": {
 				"en": "Catch wrong OBIS Codes, probably caused by Pulse communication errors",
 				"de": "Fange falsche OBIS-Codes ab, wahrscheinlich verursacht durch Pulse-Kommunikationsfehler",
@@ -94,45 +107,6 @@
 				"uk": "додати режим для локального опитування даних Pulse (#201)",
 				"zh-cn": "添加本地轮询 Pulse 数据模式 (#201)"
 			},
-			"3.3.3": {
-				"en": "fix Sentry-notified possible error\ntry to fix startup error (#444)",
-				"de": "möglichen von Sentry gemeldeten Fehler beheben\nStartfehler versuchen zu beheben (#444)",
-				"ru": "исправить возможную ошибку, уведомленную Sentry\nпопробуйте исправить ошибку запуска (#444)",
-				"pt": "corrigir possível erro notificado pelo Sentry\ntentar corrigir erro de inicialização (#444)",
-				"nl": "mogelijke fout gemeld door Sentry oplossen\nproberen opstartfout te verhelpen (#444)",
-				"fr": "corriger une erreur possible signalée par Sentry\nessayer de corriger l'erreur de démarrage (#444)",
-				"it": "correggere possibile errore notificato da Sentry\nprovare a risolvere l'errore di avvio (#444)",
-				"es": "corregir posible error notificado por Sentry\nintentar corregir error de inicio (#444)",
-				"pl": "naprawić możliwy błąd zgłoszony przez Sentry\nspróbować naprawić błąd uruchamiania (#444)",
-				"uk": "виправити можливу помилку, повідомлену Sentry\nспробувати виправити помилку запуску (#444)",
-				"zh-cn": "修复 Sentry 通知的可能错误\n尝试修复启动错误 (#444)"
-			},
-			"3.3.2": {
-				"en": "fix 2 security issues in dependencies\nfix Sentry-notified possible error",
-				"de": "2 Sicherheitsprobleme in Abhängigkeiten behoben\nvon Sentry gemeldeten möglichen Fehler beheben",
-				"ru": "исправить 2 проблемы безопасности в зависимостях\nисправить возможную ошибку, уведомленную Sentry",
-				"pt": "corrigir 2 problemas de segurança em dependências\ncorrigir possível erro notificado pelo Sentry",
-				"nl": "2 beveiligingsproblemen in afhankelijkheden opgelost\nmogelijke fout gemeld door Sentry verholpen",
-				"fr": "corriger 2 problèmes de sécurité dans les dépendances\ncorriger une erreur possible signalée par Sentry",
-				"it": "correggere 2 problemi di sicurezza nelle dipendenze\ncorreggere possibile errore notificato da Sentry",
-				"es": "corregir 2 problemas de seguridad en dependencias\ncorregir posible error notificado por Sentry",
-				"pl": "naprawić 2 problemy bezpieczeństwa w zależnościach\nnaprawić możliwy błąd zgłoszony przez Sentry",
-				"uk": "виправити 2 проблеми безпеки в залежностях\nвиправити можливу помилку, повідомлену Sentry",
-				"zh-cn": "修复依赖项中的 2 个安全问题\n修复 Sentry 通知的可能错误"
-			},
-			"3.3.1": {
-				"en": "fix small Sentry-discovered error (#418)\nadded note for multihomes to documentation (#422)",
-				"de": "kleinen von Sentry entdeckten Fehler beheben (#418)\nHinweis für Mehrfachwohnsitze zur Dokumentation hinzugefügt (#422)",
-				"ru": "исправить небольшую ошибку, обнаруженную Sentry (#418)\nдобавлено примечание для многодомов в документацию (#422)",
-				"pt": "corrigir pequeno erro descoberto pelo Sentry (#418)\nadicionada nota para multicasas à documentação (#422)",
-				"nl": "kleine door Sentry ontdekte fout opgelost (#418)\nopmerking voor multihomes aan documentatie toegevoegd (#422)",
-				"fr": "correction d'une petite erreur découverte par Sentry (#418)\najout d'une note pour les multirésidences à la documentation (#422)",
-				"it": "corretto piccolo errore scoperto da Sentry (#418)\naggiunta nota per le multi-abitazioni alla documentazione (#422)",
-				"es": "corregir un pequeño error descubierto por Sentry (#418)\nagregada nota para multihogares a la documentación (#422)",
-				"pl": "naprawiono mały błąd wykryty przez Sentry (#418)\ndodano notatkę dla wielodomy do dokumentacji (#422)",
-				"uk": "виправити невелику помилку, виявлену Sentry (#418)\nдодано примітку для багатодомів до документації (#422)",
-				"zh-cn": "修复 Sentry 发现的小错误 (#418)\n在文档中添加了关于多家庭的说明 (#422)"
-			},
 			"3.3.0": {
 				"en": "implements optional, obsolete API call for total historical cost, incl. grid fees (#405)\nUpdates @iobroker/adapter-core from 3.1.6\nUpdates @iobroker/types from 5.0.19 to 6.0.0",
 				"de": "implementiert optionale, veraltete API-Aufruf für Gesamtkostenhistorie, inkl. Netzgebühren (#405)\nAktualisiert @iobroker/adapter-core von 3.1.6\nAktualisiert @iobroker/types von 5.0.19 auf 6.0.0",
@@ -146,19 +120,6 @@
 				"uk": "реалізує необов'язковий застарілий виклик API для загальної історії витрат, включаючи мережеві збори (#405)\nОновлення @iobroker/adapter-core з 3.1.6\nОновлення @iobroker/types з 5.0.19 до 6.0.0",
 				"zh-cn": "实现可选的、过时的 API 调用，用于总历史成本，包括网络费用 (#405)\n从 3.1.6 更新 @iobroker/adapter-core\n从 5.0.19 更新 @iobroker/types 到 6.0.0"
 			},
-			"3.2.1": {
-				"en": "added unique endpoint string",
-				"de": "eindeutigen Endpunktstring hinzugefügt",
-				"ru": "добавлен уникальный конечный строка",
-				"pt": "adicionado string de endpoint única",
-				"nl": "toegevoegde unieke eindpuntreeks",
-				"fr": "ajouté une chaîne d'extrémité unique",
-				"it": "aggiunta stringa di endpoint univoca",
-				"es": "añadida cadena de endpoint única",
-				"pl": "dodano unikalny ciąg końcowy",
-				"uk": "додано унікальний кінцевий рядок",
-				"zh-cn": "添加唯一的端点字符串"
-			},
 			"3.2.0": {
 				"en": "IMPORTANT: adapter components had been blocked by Tibber - you have to update!\nbump base dependencies\nadapter will use internal output states for calculator if none defined in configuration (#325)\nimplement first run mode in calculator to reduce system load\ninternal optimizations",
 				"de": "WICHTIG: Adapterkomponenten wurden von Tibber blockiert - Sie müssen aktualisieren!\nBasisabhängigkeiten aktualisieren\nAdapter wird interne Ausgangszustände für den Rechner verwenden, wenn keine in der Konfiguration definiert sind (#325)\nErstlaufmodus im Rechner implementieren, um die Systemlast zu reduzieren\ninterne Optimierungen",
@@ -171,19 +132,6 @@
 				"pl": "WAŻNE: komponenty adaptera zostały zablokowane przez Tibber - musisz zaktualizować!\nzaktualizować podstawowe zależności\nadapter będzie używał wewnętrznych stanów wyjściowych dla kalkulatora, jeśli żaden nie został zdefiniowany w konfiguracji (#325)\nzaimplementować tryb pierwszego uruchomienia w kalkulatorze, aby zmniejszyć obciążenie systemu\noptymalizacje wewnętrzne",
 				"uk": "ВАЖЛИВО: компоненти адаптера були заблоковані Tibber - вам потрібно оновити!\nоновіть базові залежності\nадаптер буде використовувати внутрішні вихідні стани для калькулятора, якщо жоден не визначено в конфігурації (#325)\nреалізувати режим першого запуску в калькуляторі для зменшення навантаження на систему\nвнутрішні оптимізації",
 				"zh-cn": "重要：适配器组件已被 Tibber 阻止 - 你必须更新！\n升级基础依赖项\n适配器将使用计算器的内部输出状态，如果配置中没有定义 (#325)\n在计算器中实现首次运行模式以减少系统负载\n内部优化"
-			},
-			"3.1.2": {
-				"en": "deleting unused temporary home objects after adapter configuration (#393)",
-				"de": "Löschen nicht verwendeter temporärer Home-Objekte nach der Adapterkonfiguration (#393)",
-				"ru": "удаление неиспользуемых временных домашних объектов после конфигурации адаптера (#393)",
-				"pt": "excluindo objetos temporários de casa não utilizados após a configuração do adaptador (#393)",
-				"nl": "verwijderen van ongebruikte tijdelijke home-objecten na adapterconfiguratie (#393)",
-				"fr": "suppression des objets de maison temporaires inutilisés après la configuration de l'adaptateur (#393)",
-				"it": "eliminazione degli oggetti temporanei non utilizzati dopo la configurazione dell'adattatore (#393)",
-				"es": "eliminación de objetos temporales de inicio no utilizados después de la configuración del adaptador (#393)",
-				"pl": "usunięcie nieużywanych tymczasowych obiektów domowych po konfiguracji adaptera (#393)",
-				"uk": "видалення невикористаних тимчасових об'єктів дому після конфігурації адаптера (#393)",
-				"zh-cn": "在适配器配置后删除未使用的临时主页对象 (#393)"
 			},
 			"3.1.1": {
 				"en": "throttle down reconnection speed\nlogging optimizations (#396; #217)\nadaptations to newer environment (#394; #395)",
@@ -223,45 +171,6 @@
 				"pl": "WAŻNE: wsparcie dla Node.js 16 zostało usunięte (#368)\nWAŻNE: wymagane jest js-controller >= 5\nzmieniono na poziom 2 jako dostawca danych\npoprawiono plik io-package.json zgodnie z nowym schematem (#368)\naktualizacja TypeScript do wersji 5.4.5\naktualizacja adapter-core do wersji 3.0.6",
 				"uk": "ВАЖЛИВО: підтримка Node.js 16 скасована (#368)\nВАЖЛИВО: потрібен js-controller >= 5\nзмінено на рівень 2 як постачальник даних\nвиправлено файл io-package.json відповідно до нової схеми (#368)\nоновлення TypeScript до 5.4.5\nоновлення adapter-core до 3.0.6",
 				"zh-cn": "重要: 放弃对 Node.js 16 的支持 (#368)\n重要: js-controller >= 5 已必需\n更改为二级作为数据提供者\n根据新模式更正了 io-package.json (#368)\n将 TypeScript 更新到 5.4.5\n将 adapter-core 更新到 3.0.6"
-			},
-			"2.3.2": {
-				"en": "code optimizations\nfix undefined force mode (#349)\nfix poll of not existing current price state (#348)\nfix current price poll when configured as not to poll (#350)",
-				"de": "Code-Optimierungen\nBeheben des undefinierten Zwangmodus (#349)\nBeheben der Abfrage des nicht vorhandenen aktuellen Preisstatus (#348)\nBeheben der Abfrage des aktuellen Preises, wenn sie so konfiguriert ist, dass sie nicht abgefragt wird (#350)",
-				"ru": "Оптимизация кода\nисправление неопределенного режима принуждения (#349)\nисправление опроса несуществующего текущего состояния цены (#348)\nисправление опроса текущей цены, когда она настроена как не опрашиваемая (#350)",
-				"pt": "otimizações de código\ncorrigir o modo de força indefinido (#349)\ncorrigir pesquisa do estado de preço atual inexistente (#348)\ncorrigir a pesquisa do preço atual quando configurado para não pesquisar (#350)",
-				"nl": "code-optimalisaties\nfix undefined force mode (#349)\nfix poll van niet-bestaande huidige prijsstatus (#348)\nfix huidige prijspoll wanneer geconfigureerd als niet te poll (#350)",
-				"fr": "optimisations de code\ncorriger le mode forcé non défini (#349)\ncorriger l'interrogation d'un état de prix actuel inexistant (#348)\ncorriger l'interrogation du prix actuel lorsqu'il est configuré pour ne pas être interrogé (#350)",
-				"it": "ottimizzazioni del codice\ncorrezione della modalità forzata non definita (#349)\ncorrezione del sondaggio dello stato del prezzo corrente non esistente (#348)\ncorrezione del sondaggio del prezzo corrente quando configurato per non essere sondato (#350)",
-				"es": "optimizaciones de código\ncorregir el modo de fuerza indefinido (#349)\ncorregir la encuesta del estado de precio actual no existente (#348)\ncorregir la encuesta del precio actual cuando está configurado para no encuestar (#350)",
-				"pl": "optymalizacje kodu\nnaprawa niezdefiniowanego trybu wymuszenia (#349)\nnaprawa odpytywania nieistniejącego bieżącego stanu ceny (#348)\nnaprawa odpytywania ceny bieżącej, gdy skonfigurowana jest jako nieodpytywalna (#350)",
-				"uk": "оптимізації коду\nвиправлення невизначеного режиму примусу (#349)\nвиправлення опитування неіснуючого поточного стану ціни (#348)\nвиправлення опитування поточної ціни, коли вона налаштована як не опитувальна (#350)",
-				"zh-cn": "代码优化\n修复未定义的强制模式 (#349)\n修复不存在的当前价格状态的轮询 (#348)\n当配置为不轮询时修复当前价格轮询 (#350)"
-			},
-			"2.3.1": {
-				"en": "BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)\nFixed error in jsonConfig.json (#329)",
-				"de": "WICHTIG: Rechnerkanäle vom Typ 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde (#332)\nBehobener Fehler in jsonConfig.json (#329)",
-				"ru": "ВАЖНО: Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false (#332)\nИсправлена ошибка в jsonConfig.json (#329)",
-				"pt": "IMPORTANTE: Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false (#332)\nErro corrigido em jsonConfig.json (#329)",
-				"nl": "BELANGRIJK: Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false (#332)\nFout in jsonConfig.json opgelost (#329)",
-				"fr": "IMPORTANT : Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false (#332)\nErreur corrigée dans jsonConfig.json (#329)",
-				"it": "IMPORTANTE: I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false (#332)\nErrore corretto in jsonConfig.json (#329)",
-				"es": "IMPORTANTE: Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false (#332)\nError corregido en jsonConfig.json (#329)",
-				"pl": "WAŻNE: Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false (#332)\nNaprawiony błąd w jsonConfig.json (#329)",
-				"uk": "ВАЖЛИВО: Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false (#332)\nВиправлена помилка в jsonConfig.json (#329)",
-				"zh-cn": "重要: '智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭” (#332)\n已修复jsonConfig.json中的错误 (#329)"
-			},
-			"2.0.0": {
-				"en": "BREAKING: dropped support for js-controller 3.x (#247)\ndiversificate Tibber server polls to prevent potential DDoS reactions (#252)\nadd data point for averageRemaining of today's prices (#254)\nadd 2 data points for last successful update of today and tomorrow prices (#261)\nyear 2024 changes\nfix small error in dynamic feed timing",
-				"de": "WICHTIG: Unterstützung für js-controller 3.x wurde eingestellt (#247)\nDiversifizieren Sie die Tibber-Serverabfragen, um potenzielle DDoS-Reaktionen zu verhindern (#252)\nFügen Sie einen Datenpunkt für den durchschnittlichen Restbetrag der heutigen Preise hinzu (#254)\nFügen Sie 2 Datenpunkte für das letzte erfolgreiche Update der heutigen und morgigen Preise hinzu (#261)\nÄnderungen im Jahr 2024\nBeheben Sie einen kleinen Fehler in der zeitlichen Abstimmung des dynamischen Feeds",
-				"ru": "ВАЖНО: Прекращена поддержка js-controller 3.x (#247)\nдиверсификация запросов к серверам Tibber для предотвращения потенциальных реакций DDoS (#252)\nдобавление точки данных для среднего оставшегося времени сегодняшних цен (#254)\nдобавление 2 точек данных для последнего успешного обновления цен сегодня и завтра (#261)\nизменения на 2024 год\nисправление маленькой ошибки в динамике времени обновления данных",
-				"pt": "IMPORTANTE: Suporte interrompido para js-controller 3.x (#247)\ndiversificar as consultas ao servidor Tibber para evitar possíveis reações de DDoS (#252)\nadicionar ponto de dados para a média restante dos preços de hoje (#254)\nadicionar 2 pontos de dados para a última atualização bem-sucedida dos preços de hoje e amanhã (#261)\nmudanças para o ano de 2024\ncorrigir pequeno erro no timing do feed dinâmico",
-				"nl": "BELANGRIJK: Ondersteuning voor js-controller 3.x is stopgezet (#247)\ndiversifieer Tibber server polls om mogelijke DDoS-reacties te voorkomen (#252)\nvoeg een datapunt toe voor het gemiddelde resterende bedrag van de prijzen van vandaag (#254)\nvoeg 2 datapunten toe voor de laatste succesvolle update van de prijzen van vandaag en morgen (#261)\njaar 2024 wijzigingen\ncorrigeer kleine fout in timing van dynamische feed",
-				"fr": "IMPORTANT : Prise en charge abandonnée pour js-controller 3.x (#247)\ndiversification des requêtes au serveur Tibber pour prévenir d'éventuelles réactions de type DDoS (#252)\najout d'un point de données pour la moyenne restante des prix d'aujourd'hui (#254)\najout de 2 points de données pour la dernière mise à jour réussie des prix d'aujourd'hui et de demain (#261)\nchangements pour l'année 2024\ncorriger une petite erreur dans la synchronisation du flux dynamique",
-				"it": "IMPORTANTE: Supporto interrotto per js-controller 3.x (#247)\ndiversificare le richieste ai server Tibber per prevenire potenziali reazioni DDoS (#252)\naggiungere un punto dati per la media rimanente dei prezzi di oggi (#254)\naggiungere 2 punti dati per l'ultimo aggiornamento riuscito dei prezzi di oggi e domani (#261)\ncambiamenti per l'anno 2024\ncorreggere piccolo errore nella sincronizzazione del feed dinamico",
-				"es": "¡IMPORTANTE! Soporte discontinuado para js-controller 3.x (#247)\ndiversificar las consultas al servidor Tibber para evitar posibles reacciones de DDoS (#252)\nagregar punto de datos para el promedio restante de los precios de hoy (#254)\nagregar 2 puntos de datos para la última actualización exitosa de los precios de hoy y mañana (#261)\ncambios para el año 2024\ncorregir pequeño error en la sincronización de la alimentación dinámica",
-				"pl": "WAŻNE: Zakończono wsparcie dla js-controller 3.x (#247)\ndywersyfikuj zapytania do serwerów Tibber, aby zapobiec potencjalnym reakcjom DDoS (#252)\ndodaj punkt danych dla średniego pozostałego czasu dzisiejszych cen (#254)\ndodaj 2 punkty danych dla ostatniej udanej aktualizacji cen dzisiaj i jutro (#261)\nzmiany na rok 2024\nnapraw mały błąd w czasie dynamicznego zasilania",
-				"uk": "ВАЖЛИВО: Підтримка js-controller 3.x припинена (#247)\nдиверсифікація запитів до серверів Tibber для запобігання потенційних реакцій DDoS (#252)\nдодавання точки даних для середньої залишкової частини сьогоднішніх цін (#254)\nдодавання 2 точок даних для останнього успішного оновлення цін на сьогодні і завтра (#261)\nзміни на 2024 рік\nвиправлення маленької помилки в динаміці часу оновлення даних",
-				"zh-cn": "重大变更：不再支持 js-controller 3.x (#247)\n多样化 Tibber 服务器轮询，以防止潜在的 DDoS 反应 (#252)\n添加平均剩余今日价格的数据点 (#254)\n添加两个数据点，用于记录今天和明天价格的最后成功更新 (#261)\n2024 年更改\n修复动态反馈时间的小错误"
 			}
 		},
 		"messages": [
@@ -418,7 +327,7 @@
 		},
 		"dependencies": [
 			{
-				"js-controller": ">=5.0.0"
+				"js-controller": ">=5.0.19"
 			}
 		],
 		"globalDependencies": [

@@ -107,6 +107,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.4.7 (2024-08-09)
+
+-   (HombachC) adapter checker detected optimizations (#493)
+
 ### 3.4.6 (2024-08-07)
 
 -   (HombachC) Catch wrong OBIS Codes, probably caused by Pulse communication errors

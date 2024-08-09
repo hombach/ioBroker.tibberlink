@@ -1,6 +1,6 @@
 {
   "name": "iobroker.tibberlink",
-  "version": "3.4.6",
+  "version": "3.4.7",
   "description": "links tibber API data to be used in ioBroker",
   "author": {
     "name": "Hombach",
@@ -9,6 +9,7 @@
   "homepage": "https://github.com/Hombach/ioBroker.tibberlink",
   "license": "GPL-3.0-only",
   "keywords": [
+    "ioBroker",
     "power",
     "energy",
     "energy supplier",

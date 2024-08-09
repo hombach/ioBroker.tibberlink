@@ -159,7 +159,7 @@ class Tibberlink extends utils.Adapter {
 					}
 				}
 
-				//WIP Local Bridge Call - move this... could be used without Tibber contract
+				// Local Bridge Call - WiP move this... could be used without Tibber contract
 				// Set up Pulse local polls if configured
 				const tibberLocal = new TibberLocal(this);
 				if (this.config.UseLocalPulseData) {
@@ -172,7 +172,7 @@ class Tibberlink extends utils.Adapter {
 						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of local Pulse data poll`));
 					}
 				}
-				//WIP Local Bridge Call
+				//Local Bridge Call
 
 				// (force) get current prices and start calculator tasks once for the FIRST time
 				if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {

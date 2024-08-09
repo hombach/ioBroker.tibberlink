@@ -181,7 +181,7 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
                     }
                 }
-                //WIP Local Bridge Call - move this... could be used without Tibber contract
+                // Local Bridge Call - WiP move this... could be used without Tibber contract
                 // Set up Pulse local polls if configured
                 const tibberLocal = new tibberLocal_1.TibberLocal(this);
                 if (this.config.UseLocalPulseData) {
@@ -195,7 +195,7 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of local Pulse data poll`));
                     }
                 }
-                //WIP Local Bridge Call
+                //Local Bridge Call
                 // (force) get current prices and start calculator tasks once for the FIRST time
                 if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
                 }
@@ -205,7 +205,7 @@ class Tibberlink extends utils.Adapter {
                 // Get consumption data for the first time
                 tibberAPICaller.updateConsumptionAllHomes();
                 const jobCurrentPrice = cron_1.CronJob.from({
-                    cronTime: "20 57 * * * *",
+                    cronTime: "20 57 * * * *", //"20 57 * * * *" = 3 minuten vor 00:00:20 jede Stunde
                     onTick: async () => {
                         let okPrice = false;
                         do {
@@ -223,7 +223,7 @@ class Tibberlink extends utils.Adapter {
                 if (jobCurrentPrice)
                     this.cronList.push(jobCurrentPrice);
                 const jobPricesToday = cron_1.CronJob.from({
-                    cronTime: "20 56 23 * * *",
+                    cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 5 minuten vor 00:01:20
                     onTick: async () => {
                         let okPrice = false;
                         do {
@@ -241,7 +241,7 @@ class Tibberlink extends utils.Adapter {
                 if (jobPricesToday)
                     this.cronList.push(jobPricesToday);
                 const jobPricesTomorrow = cron_1.CronJob.from({
-                    cronTime: "20 56 12 * * *",
+                    cronTime: "20 56 12 * * *", //"20 56 12 * * *" = 5 minuten vor 13:01:20
                     onTick: async () => {
                         let okPrice = false;
                         do {

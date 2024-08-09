@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TibberHelper = exports.getCalcTypeDescription = exports.enCalcType = void 0;
+exports.TibberHelper = exports.enCalcType = void 0;
+exports.getCalcTypeDescription = getCalcTypeDescription;
 var enCalcType;
 (function (enCalcType) {
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
@@ -34,7 +35,6 @@ function getCalcTypeDescription(calcType) {
             return "Unknown";
     }
 }
-exports.getCalcTypeDescription = getCalcTypeDescription;
 class TibberHelper {
     constructor(adapter) {
         this.adapter = adapter;
