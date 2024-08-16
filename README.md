@@ -107,6 +107,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ! Note that missing version entries are typically dependency updates for improved security.
 
+### 3.4.8 (2024-08-xx)
+
+-   (HombachC) updated axios because of vulnerability
+-   (HombachC) added tests for Node.js 22
+
 ### 3.4.7 (2024-08-10)
 
 -   (HombachC) adapter checker detected optimizations (#493)

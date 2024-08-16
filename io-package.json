@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.7",
+		"version": "3.4.8",
 		"news": {
+			"3.4.8": {
+				"en": "updated axios because of vulnerability\nadded tests for Node.js 22",
+				"de": "axios aufgrund einer Schwachstelle aktualisiert\nTests für Node.js 22 hinzugefügt",
+				"ru": "обновлен axios из-за уязвимости\nдобавлены тесты для Node.js 22",
+				"pt": "atualizado axios devido a uma vulnerabilidade\nadicionados testes para Node.js 22",
+				"nl": "axios bijgewerkt vanwege kwetsbaarheid\ntests toegevoegd voor Node.js 22",
+				"fr": "axios mis à jour en raison d'une vulnérabilité\najouté des tests pour Node.js 22",
+				"it": "axios aggiornato a causa di una vulnerabilità\naggiunti test per Node.js 22",
+				"es": "axios actualizado debido a una vulnerabilidad\nse añadieron pruebas para Node.js 22",
+				"pl": "zaktualizowano axios z powodu luki\ndodano testy dla Node.js 22",
+				"uk": "оновлено axios через уразливість\nдодано тести для Node.js 22",
+				"zh-cn": "由于漏洞更新了 axios\n添加了 Node.js 22 的测试"
+			},
 			"3.4.7": {
 				"en": "adapter checker detected optimizations (#493)\nimproved error message (#490)",
 				"de": "Adapter-Checker erkannte Optimierungen (#493)\nverbesserte Fehlermeldung (#490)",
@@ -80,19 +93,6 @@
 				"pl": "dodaj tryb lokalnego sondowania danych Pulse (#201)",
 				"uk": "додати режим для локального опитування даних Pulse (#201)",
 				"zh-cn": "添加本地轮询 Pulse 数据模式 (#201)"
-			},
-			"3.2.0": {
-				"en": "IMPORTANT: adapter components had been blocked by Tibber - you have to update!\nbump base dependencies\nadapter will use internal output states for calculator if none defined in configuration (#325)\nimplement first run mode in calculator to reduce system load\ninternal optimizations",
-				"de": "WICHTIG: Adapterkomponenten wurden von Tibber blockiert - Sie müssen aktualisieren!\nBasisabhängigkeiten aktualisieren\nAdapter wird interne Ausgangszustände für den Rechner verwenden, wenn keine in der Konfiguration definiert sind (#325)\nErstlaufmodus im Rechner implementieren, um die Systemlast zu reduzieren\ninterne Optimierungen",
-				"ru": "ВАЖНО: компоненты адаптера были заблокированы Tibber - вам нужно обновить!\nобновить основные зависимости\nадаптер будет использовать внутренние выходные состояния для калькулятора, если они не определены в конфигурации (#325)\nреализовать режим первого запуска в калькуляторе для уменьшения нагрузки на систему\nвнутренние оптимизации",
-				"pt": "IMPORTANTE: os componentes do adaptador foram bloqueados pela Tibber - você precisa atualizar!\natualize as dependências básicas\no adaptador usará estados de saída internos para calculadora se nenhum definido na configuração (#325)\nimplementar o modo de primeira execução na calculadora para reduzir a carga do sistema\notimizações internas",
-				"nl": "BELANGRIJK: adaptercomponenten zijn geblokkeerd door Tibber - je moet updaten!\nbasisafhankelijkheden bijwerken\nadapter zal interne uitvoerstatussen gebruiken voor de calculator als er geen zijn gedefinieerd in de configuratie (#325)\neerste run-modus implementeren in calculator om de systeembelasting te verminderen\ninterne optimalisaties",
-				"fr": "IMPORTANT : les composants de l'adaptateur ont été bloqués par Tibber - vous devez mettre à jour !\nmettre à jour les dépendances de base\nl'adaptateur utilisera des états de sortie internes pour la calculatrice si aucun n'est défini dans la configuration (#325)\nimplémenter le mode premier démarrage dans la calculatrice pour réduire la charge du système\noptimisations internes",
-				"it": "IMPORTANTE: i componenti dell'adattatore sono stati bloccati da Tibber - è necessario aggiornare!\naggiornare le dipendenze di base\nl'adattatore utilizzerà stati di uscita interni per la calcolatrice se nessuno è definito nella configurazione (#325)\nimplementare la modalità di primo avvio nella calcolatrice per ridurre il carico del sistema\nottimizzazioni interne",
-				"es": "IMPORTANTE: ¡los componentes del adaptador han sido bloqueados por Tibber - tienes que actualizar!\nactualiza las dependencias base\nel adaptador utilizará estados de salida internos para la calculadora si no se define ninguno en la configuración (#325)\nimplementar el modo de primera ejecución en la calculadora para reducir la carga del sistema\noptimizaciones internas",
-				"pl": "WAŻNE: komponenty adaptera zostały zablokowane przez Tibber - musisz zaktualizować!\nzaktualizować podstawowe zależności\nadapter będzie używał wewnętrznych stanów wyjściowych dla kalkulatora, jeśli żaden nie został zdefiniowany w konfiguracji (#325)\nzaimplementować tryb pierwszego uruchomienia w kalkulatorze, aby zmniejszyć obciążenie systemu\noptymalizacje wewnętrzne",
-				"uk": "ВАЖЛИВО: компоненти адаптера були заблоковані Tibber - вам потрібно оновити!\nоновіть базові залежності\nадаптер буде використовувати внутрішні вихідні стани для калькулятора, якщо жоден не визначено в конфігурації (#325)\nреалізувати режим першого запуску в калькуляторі для зменшення навантаження на систему\nвнутрішні оптимізації",
-				"zh-cn": "重要：适配器组件已被 Tibber 阻止 - 你必须更新！\n升级基础依赖项\n适配器将使用计算器的内部输出状态，如果配置中没有定义 (#325)\n在计算器中实现首次运行模式以减少系统负载\n内部优化"
 			}
 		},
 		"messages": [
