@@ -106,8 +106,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-! Note that missing version entries are typically dependency updates for improved security.
-
 ### 3.4.8 (2024-08-xx)
 
 -   (HombachC) updated axios because of vulnerability
