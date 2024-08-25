@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.8",
+		"version": "3.4.9",
 		"news": {
+			"3.4.9": {
+				"en": "repository cleanup\ndependency updates",
+				"de": "Repository-Bereinigung\nAbhängigkeits-Updates",
+				"ru": "очистка репозитория\nобновление зависимостей",
+				"pt": "limpeza do repositório\natualizações de dependências",
+				"nl": "opruiming van repository\nafhankelijkheidsupdates",
+				"fr": "nettoyage du dépôt\nmises à jour des dépendances",
+				"it": "pulizia del repository\naggiornamenti delle dipendenze",
+				"es": "limpieza del repositorio\nactualizaciones de dependencias",
+				"pl": "czyszczenie repozytorium\naktualizacje zależności",
+				"uk": "очищення репозиторію\nоновлення залежностей",
+				"zh-cn": "存储库清理\n依赖项更新"
+			},
 			"3.4.8": {
 				"en": "updated axios because of vulnerability\nadded tests for Node.js 22",
 				"de": "axios aufgrund einer Schwachstelle aktualisiert\nTests für Node.js 22 hinzugefügt",
@@ -80,56 +93,9 @@
 				"pl": "dodano jednostkę do temperatury Pulse i zaokrąglono do 0,1°C\ndodano jednostkę do napięcia baterii Pulse i zaokrąglono do 100mV\ndodano jednostkę do czasu pracy Pulse\ndodano stan z czasem pracy Pulse jako czytelny ciąg znaków",
 				"uk": "додано одиницю виміру температури Pulse і округлено до 0,1°C\nдодано одиницю виміру напруги акумулятора Pulse і округлено до 100мВ\nдодано одиницю виміру часу роботи Pulse\nдодано стан з часом роботи Pulse у вигляді читабельного рядка",
 				"zh-cn": "添加单位到 Pulse 温度并四舍五入到 0.1°C\n添加单位到 Pulse 电池电压并四舍五入到 100mV\n添加单位到 Pulse 运行时间\n添加具有 Pulse 运行时间的状态为人类可读字符串"
-			},
-			"3.4.0": {
-				"en": "add mode for local poll of Pulse data (#201)",
-				"de": "Modus für lokale Abfrage von Pulse Daten hinzufügen (#201)",
-				"ru": "добавить режим для локального опроса данных Pulse (#201)",
-				"pt": "adicionar modo para sondagem local de dados Pulse (#201)",
-				"nl": "modus toevoegen voor lokale polling van Pulse data (#201)",
-				"fr": "ajouter un mode pour le sondage local des données Pulse (#201)",
-				"it": "aggiungere una modalità per il sondaggio locale dei dati Pulse (#201)",
-				"es": "añadir modo para sondeo local de datos Pulse (#201)",
-				"pl": "dodaj tryb lokalnego sondowania danych Pulse (#201)",
-				"uk": "додати режим для локального опитування даних Pulse (#201)",
-				"zh-cn": "添加本地轮询 Pulse 数据模式 (#201)"
 			}
 		},
 		"messages": [
-			{
-				"condition": {
-					"operand": "and",
-					"rules": ["oldVersion<0.3.0", "newVersion>=0.3.0"]
-				},
-				"title": {
-					"en": "Important notice!",
-					"de": "Wichtiger Hinweis!",
-					"ru": "Важное замечание!",
-					"pt": "Notícia importante!",
-					"nl": "Belangrijke mededeling!",
-					"fr": "Avis important!",
-					"it": "Avviso IMPORTANTE!",
-					"es": "Noticia importante!",
-					"pl": "Ważna uwaga!",
-					"uk": "Погода!",
-					"zh-cn": "重要通知!"
-				},
-				"text": {
-					"en": "Configuration of Pulse live data feed has changed!! You have to reenable it in the configuration! Now you can enable or disable for each Home.",
-					"de": "Die Konfiguration des Pulse Live-Datenfeeds hat sich geändert! Sie müssen es in der Konfiguration wieder aktivieren! Jetzt können Sie für jedes Zuhause aktivieren oder deaktivieren.",
-					"ru": "Конфигурация базы данных Pulse изменилась! Вы должны восстановить его в конфигурации! Теперь вы можете включить или отключить для каждого дома.",
-					"pt": "A configuração do feed de dados ao vivo do Pulse mudou! Você tem que reenable-lo na configuração! Agora você pode ativar ou desativar para cada casa.",
-					"nl": "Vermomming van Pulse live gegevens is veranderd! Je moet het vergoeden in het vertrouwen. Nu kun je in staat zijn voor elk huis.",
-					"fr": "Configuration du flux de données en direct Pulse a changé! Vous devez le réactiver dans la configuration ! Maintenant, vous pouvez activer ou désactiver pour chaque Maison.",
-					"it": "La configurazione dell'alimentazione dei dati live Pulse è cambiata! Devi riattivarlo nella configurazione! Ora è possibile attivare o disattivare per ogni casa.",
-					"es": "¡La configuración de los datos de Pulse en vivo ha cambiado! ¡Tienes que volver a habilitarlo en la configuración! Ahora usted puede habilitar o desactivar para cada hogar.",
-					"pl": "Zmiana danych na żywo została zmieniona. Zrezygnujesz go w konfiguracji! Teraz możesz umieścić lub uwolnić każdy dom.",
-					"uk": "Настроювання імпульсних живих даних змінено! Ви повинні змінити його в конфігурації! Тепер ви можете ввімкнути або вимкнути для кожного будинку.",
-					"zh-cn": "皮尔西人生活数据集成已改变! 你们必须把它重新纳入组合! 现在,你可以为每一个家庭提供或可分割的东西。."
-				},
-				"level": "warn",
-				"buttons": ["agree", "cancel"]
-			},
 			{
 				"condition": {
 					"operand": "and",
