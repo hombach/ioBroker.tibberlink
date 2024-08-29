@@ -19,16 +19,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hombach/ioBroker.tibberlink.git"
+    "url": "https://github.com/hombach/ioBroker.tibberlink.git"
   },
   "engines": {
-    "node": ">= 18"
+    "node": ">= 18.18"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.1.6",
+    "axios": "^1.7.5",
     "tibber-api": "^5.1.11",
     "cron": "^3.1.7",
-    "axios": "^1.7.5",
     "date-fns": "^3.6.0"
   },
   "devDependencies": {

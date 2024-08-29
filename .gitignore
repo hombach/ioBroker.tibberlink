@@ -7,6 +7,15 @@ yarn-error.log*
 lerna-debug.log*
 .pnpm-debug.log*
 
+*.code-workspace
+node_modules
+nbproject
+
+# npm package files
+iobroker.*.tgz
+
+Thumbs.db
+
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
@@ -35,13 +44,6 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
-
-# Dependency directories
-node_modules/
-jspm_packages/
-
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
 
@@ -65,9 +67,6 @@ web_modules/
 
 # Optional REPL history
 .node_repl_history
-
-# Output of 'npm pack'
-*.tgz
 
 # Yarn Integrity file
 .yarn-integrity

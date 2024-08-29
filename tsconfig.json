@@ -20,9 +20,9 @@
 		// this is necessary for the automatic typing of the adapter config
 		"resolveJsonModule": true,
 
-		// Set this to false if you want to disable the very strict rules (not recommended)
-		"strict": true,
-		// Or enable some of those features for more fine-grained control
+		// If you want to disable the stricter type checks (not recommended), uncomment the following line
+		// "strict": false,
+		// And enable some of those features for more fine-grained control
 		// "strictNullChecks": true,
 		// "strictPropertyInitialization": true,
 		// "strictBindCallApply": true,
@@ -32,13 +32,22 @@
 		// Uncomment this if you want the old behavior of catch variables being `any`
 		// "useUnknownInCatchVariables": false,
 
-		// Consider targetting es2022 or higher if you only support Node.js 18+
-		"target": "es2020",
+		// Consider targetting ES2022 or higher if you only support Node.js 18+
+		"target": "ES2020",
 
 		"sourceMap": true,
 		"inlineSourceMap": false,
 		// "watch": false
 	},
-	"include": ["src/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx"],
-	"exclude": ["build/**", "node_modules/**"]
+	"include": [
+		"src/**/*.ts",
+		"test/**/*.ts",
+		"admin/**/*.ts",
+		"admin/**/*.tsx"
+	],
+	"exclude": [
+		"build/**",
+		"node_modules/**",
+		"widgets/**"
+	]
 }

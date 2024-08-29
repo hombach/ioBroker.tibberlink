@@ -8,8 +8,8 @@ exports.isArray = isArray;
 exports.translateText = translateText;
 const axios_1 = __importDefault(require("axios"));
 /**
- * Tests whether the given variable is a real object and not an Array
- * @param it The variable to test
+ * Tests whether the given variable is a real object and not an Array.
+ * @param it The variable to test.
  */
 function isObject(it) {
     // This is necessary because:

@@ -192,7 +192,6 @@
 		},
 		"authors": ["Hombach <TibberLink@homba.ch>"],
 		"keywords": ["power", "energy", "Tibber"],
-		"tier": 2,
 		"licenseInformation": {
 			"license": "GPL-3.0-only",
 			"type": "free"
@@ -203,6 +202,7 @@
 		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
 		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
 		"loglevel": "info",
+		"tier": 2,
 		"mode": "daemon",
 		"messagebox": true,
 		"allowInit": true,
@@ -280,6 +280,19 @@
 			"native": {}
 		},
 		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		},
+		{
 			"_id": "info.LastSentryLogDay",
 			"type": "state",
 			"common": {
@@ -290,19 +303,6 @@
 				"read": true,
 				"write": false,
 				"def": 0
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
 			},
 			"native": {}
 		}
