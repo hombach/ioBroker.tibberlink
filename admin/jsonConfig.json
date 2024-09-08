@@ -553,41 +553,6 @@
 					"sm": 12,
 					"md": 12,
 					"lg": 12
-				},
-
-				"_divider0": {
-					"newLine": true,
-					"type": "divider",
-					"color": "primary"
-				},
-
-				"_donate": {
-					"type": "staticImage",
-					"tooltip": "PayPal.Me",
-					"noTranslation": true,
-					"href": "https://www.paypal.com/donate/?hosted_button_id=F7NM9R2E2DUYS",
-					"src": "https://raw.githubusercontent.com/hombach/ioBroker.tibberlink/master/docu/bluePayPal.svg",
-					"newLine": true
-				},
-				"_donateTxt": {
-					"type": "staticText",
-					"variant": "outlined",
-					"text": {
-						"en": "If you enjoyed this project — or just feeling generous, consider buying me a beer. Cheers! 🍻",
-						"de": "Wenn Ihnen dieses Projekt gefallen hat – oder Sie einfach großzügig sind, überlegen Sie, mir ein Bier zu spendieren. Prost! 🍻",
-						"ru": "Если вам понравился этот проект — или вы просто чувствуете себя щедрым, подумайте о том, чтобы купить мне пиво. Ура! 🍻",
-						"pt": "Se você gostou deste projeto - ou está se sentindo generoso, considere me comprar uma cerveja. Saúde! 🍻",
-						"nl": "Als je genoten hebt van dit project — of gewoon gul bent, overweeg dan om me een biertje te kopen. Proost! 🍻",
-						"fr": "Si vous avez apprécié ce projet — ou si vous vous sentez généreux, envisagez de m'acheter une bière. Santé! 🍻",
-						"it": "Se ti è piaciuto questo progetto — o se ti senti generoso, considera di offrirmi una birra. Salute! 🍻",
-						"es": "Si disfrutaste de este proyecto — o simplemente te sientes generoso, considera comprarme una cerveza. ¡Salud! 🍻",
-						"pl": "Jeśli spodobał ci się ten projekt — lub po prostu czujesz się hojny, rozważ kupienie mi piwa. Na zdrowie! 🍻",
-						"uk": "Якщо вам сподобався цей проект — або ви просто хочете зробити приємне, подумайте про те, щоб купити мені пиво. Ура! 🍻",
-						"zh-cn": "如果你喜欢这个项目，或者只是觉得慷慨，请考虑请我喝一杯啤酒。干杯！🍻"
-					},
-					"style": {
-						"fontSize": 16
-					}
 				}
 			}
 		},
