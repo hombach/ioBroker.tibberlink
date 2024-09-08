@@ -4,17 +4,17 @@
 		"version": "3.4.9",
 		"news": {
 			"3.4.9": {
-				"en": "repository cleanup\ndependency updates",
-				"de": "Repository-Bereinigung\nAbhängigkeits-Updates",
-				"ru": "очистка репозитория\nобновление зависимостей",
-				"pt": "limpeza do repositório\natualizações de dependências",
-				"nl": "opruiming van repository\nafhankelijkheidsupdates",
-				"fr": "nettoyage du dépôt\nmises à jour des dépendances",
-				"it": "pulizia del repository\naggiornamenti delle dipendenze",
-				"es": "limpieza del repositorio\nactualizaciones de dependencias",
-				"pl": "czyszczenie repozytorium\naktualizacje zależności",
-				"uk": "очищення репозиторію\nоновлення залежностей",
-				"zh-cn": "存储库清理\n依赖项更新"
+				"en": "add docu link to config screen (#504)\nrepository cleanup\ndependency updates",
+				"de": "Dokumentationslink zum Konfigurationsbildschirm hinzufügen (#504)\nRepository-Bereinigung\nAbhängigkeits-Updates",
+				"ru": "добавить ссылку на документацию на экран настроек (#504)\nочистка репозитория\nобновление зависимостей",
+				"pt": "adicionar link de documentação à tela de configuração (#504)\nlimpeza do repositório\natualizações de dependências",
+				"nl": "documentatielink toevoegen aan configuratiescherm (#504)\nopruiming van repository\nafhankelijkheidsupdates",
+				"fr": "ajouter un lien vers la documentation sur l'écran de configuration (#504)\nnettoyage du dépôt\nmises à jour des dépendances",
+				"it": "aggiungere link alla documentazione nella schermata di configurazione (#504)\npulizia del repository\naggiornamenti delle dipendenze",
+				"es": "añadir enlace a la documentación en la pantalla de configuración (#504)\nlimpieza del repositorio\nactualizaciones de dependencias",
+				"pl": "dodanie linku do dokumentacji na ekranie konfiguracji (#504)\nczyszczenie repozytorium\naktualizacje zależności",
+				"uk": "додати посилання на документацію на екран налаштувань (#504)\nочищення репозиторію\nоновлення залежностей",
+				"zh-cn": "在配置屏幕中添加文档链接 (#504)\n存储库清理\n依赖项更新"
 			},
 			"3.4.8": {
 				"en": "updated axios because of vulnerability\nadded tests for Node.js 22",
