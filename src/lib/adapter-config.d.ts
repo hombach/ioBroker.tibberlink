@@ -71,6 +71,7 @@ declare global {
 					tibberBridgeUrl: string;
 					tibberBridgePassword: string;
 					tibberPulseLocalNodeId: number;
+					tibberBridgeRawDataInterval: number;
 				},
 			];
 		}

@@ -14,7 +14,6 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
         this.TestData = "";
         this.TestMode = false;
         this.MetricsDataInterval = 60000;
-        this.RawDataInterval = 2000;
         this.meterMode = 0;
         this.intervalList = [];
     }
@@ -78,7 +77,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         .catch((e) => {
                         this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${e}`);
                     });
-                }, this.RawDataInterval);
+                }, this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval);
                 if (jobPulseLocal)
                     this.intervalList.push(jobPulseLocal);
                 //#endregion

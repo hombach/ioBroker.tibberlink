@@ -108,6 +108,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.4.9 (2024-09-xx)
 
+-   (HombachC) add adjustable Bridge poll intervall (#518)
 -   (HombachC) add node.js 22 to the adapter testing (#519)
 -   (HombachC) add docu link to config screen (#504)
 -   (HombachC) repository cleanup

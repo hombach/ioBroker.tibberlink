@@ -8,7 +8,6 @@ export class TibberLocal extends TibberHelper {
 	TestData: string = "";
 	TestMode: boolean = false;
 	MetricsDataInterval: number = 60000;
-	RawDataInterval: number = 2000;
 	meterMode: number = 0;
 	//negSignPattern: string = "77070100010800ff6301a";
 
@@ -79,7 +78,7 @@ export class TibberLocal extends TibberHelper {
 						.catch((e) => {
 							this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${e}`);
 						});
-				}, this.RawDataInterval);
+				}, this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval);
 				if (jobPulseLocal) this.intervalList.push(jobPulseLocal);
 				//#endregion
 			} else {
