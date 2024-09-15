@@ -4,17 +4,17 @@
 		"version": "3.4.9",
 		"news": {
 			"3.4.9": {
-				"en": "add docu link to config screen (#504)\nrepository cleanup\ndependency updates",
-				"de": "Dokumentationslink zum Konfigurationsbildschirm hinzufügen (#504)\nRepository-Bereinigung\nAbhängigkeits-Updates",
-				"ru": "добавить ссылку на документацию на экран настроек (#504)\nочистка репозитория\nобновление зависимостей",
-				"pt": "adicionar link de documentação à tela de configuração (#504)\nlimpeza do repositório\natualizações de dependências",
-				"nl": "documentatielink toevoegen aan configuratiescherm (#504)\nopruiming van repository\nafhankelijkheidsupdates",
-				"fr": "ajouter un lien vers la documentation sur l'écran de configuration (#504)\nnettoyage du dépôt\nmises à jour des dépendances",
-				"it": "aggiungere link alla documentazione nella schermata di configurazione (#504)\npulizia del repository\naggiornamenti delle dipendenze",
-				"es": "añadir enlace a la documentación en la pantalla de configuración (#504)\nlimpieza del repositorio\nactualizaciones de dependencias",
-				"pl": "dodanie linku do dokumentacji na ekranie konfiguracji (#504)\nczyszczenie repozytorium\naktualizacje zależności",
-				"uk": "додати посилання на документацію на екран налаштувань (#504)\nочищення репозиторію\nоновлення залежностей",
-				"zh-cn": "在配置屏幕中添加文档链接 (#504)\n存储库清理\n依赖项更新"
+				"en": "add node.js 22 to the adapter testing (#519)\nadd docu link to config screen (#504)\nrepository cleanup\ndependency updates",
+				"de": "node.js 22 zu den Adaptertests hinzufügen (#519)\nDoku-Link zum Konfigurationsbildschirm hinzufügen (#504)\nRepository aufräumen\nAbhängigkeitsaktualisierungen",
+				"ru": "добавить node.js 22 в тестирование адаптера (#519)\nдобавить ссылку на документацию в экран конфигурации (#504)\nочистка репозитория\nобновление зависимостей",
+				"pt": "adicionar node.js 22 aos testes do adaptador (#519)\nadicionar link da documentação à tela de configuração (#504)\nlimpeza de repositório\natualizações de dependências",
+				"nl": "node.js 22 toevoegen aan de adaptertesten (#519)\ndocu-link toevoegen aan het configuratiescherm (#504)\nrepository opschonen\nafhankelijkheidsupdates",
+				"fr": "ajouter node.js 22 aux tests de l'adaptateur (#519)\najouter un lien vers la documentation sur l'écran de configuration (#504)\nnettoyage du référentiel\nmises à jour des dépendances",
+				"it": "aggiungere node.js 22 ai test dell'adattatore (#519)\naggiungere link alla documentazione nella schermata di configurazione (#504)\npulizia del repository\naggiornamenti delle dipendenze",
+				"es": "agregar node.js 22 a las pruebas del adaptador (#519)\nagregar enlace a la documentación en la pantalla de configuración (#504)\nlimpieza del repositorio\nactualización de dependencias",
+				"pl": "dodanie node.js 22 do testów adaptera (#519)\ndodanie linku do dokumentacji na ekranie konfiguracji (#504)\nsprzątanie repozytorium\naktualizacje zależności",
+				"uk": "додати node.js 22 до тестування адаптера (#519)\nдодати посилання на документацію на екран конфігурації (#504)\nочищення репозиторію\nоновлення залежностей",
+				"zh-cn": "将 node.js 22 添加到适配器测试中 (#519)\n在配置屏幕添加文档链接 (#504)\n存储库清理\n依赖更新"
 			},
 			"3.4.8": {
 				"en": "updated axios because of vulnerability\nadded tests for Node.js 22",
