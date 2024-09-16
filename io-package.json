@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.9",
+		"version": "3.4.10",
 		"news": {
+			"3.4.10": {
+				"en": "add verification of poll interval (#518)"
+			},
 			"3.4.9": {
 				"en": "add adjustable Bridge poll interval (#518)\nadd node.js 22 to the adapter testing (#519)\nadd docu link to config screen (#504)\nrepository cleanup\ndependency updates",
 				"de": "einstellbares Bridge-Polling-Intervall hinzufügen (#518)\nnode.js 22 zu den Adaptertests hinzufügen (#519)\nDokumentationslink zum Konfigurationsbildschirm hinzufügen (#504)\nRepository-Bereinigung\nAbhängigkeits-Updates",
@@ -80,19 +83,6 @@
 				"pl": "lokalne sondowanie danych - zmiana jednostek z Wh na kWh i zaokrąglenie do 0,1 kWh (#469)",
 				"uk": "локальне опитування даних - змінити одиниці з Втч на кВтч та округлити до 0,1 кВтч (#469)",
 				"zh-cn": "本地数据轮询 - 将单位从 Wh 更改为 kWh 并四舍五入到 0.1kWh (#469)"
-			},
-			"3.4.3": {
-				"en": "added unit to Pulse temperature and round to 0.1°C\nadded unit to Pulse battery voltage and round to 100mV\nadded unit to Pulse uptime\nadded state with Pulse uptime as human readable string",
-				"de": "Einheit zur Pulse-Temperatur hinzugefügt und auf 0,1°C gerundet\nEinheit zur Pulse-Batteriespannung hinzugefügt und auf 100mV gerundet\nEinheit zur Pulse-Betriebszeit hinzugefügt\nZustand mit Pulse-Betriebszeit als lesbaren String hinzugefügt",
-				"ru": "добавлена единица измерения температуры Pulse и округление до 0,1°C\nдобавлена единица измерения напряжения батареи Pulse и округление до 100мВ\nдобавлена единица измерения времени работы Pulse\nдобавлено состояние с временем работы Pulse в виде читаемой строки",
-				"pt": "adicionada unidade à temperatura do Pulse e arredondada para 0,1°C\nadicionada unidade à voltagem da bateria do Pulse e arredondada para 100mV\nadicionada unidade ao tempo de atividade do Pulse\nadicionado estado com tempo de atividade do Pulse como string legível",
-				"nl": "eenheid toegevoegd aan Pulse-temperatuur en afgerond naar 0,1°C\neenheid toegevoegd aan Pulse-accuspanning en afgerond naar 100mV\neenheid toegevoegd aan Pulse-uptime\ntoestand toegevoegd met Pulse-uptime als leesbare string",
-				"fr": "ajout de l'unité à la température du Pulse et arrondi à 0,1°C\najout de l'unité à la tension de la batterie du Pulse et arrondi à 100mV\najout de l'unité au temps de fonctionnement du Pulse\najout de l'état avec le temps de fonctionnement du Pulse sous forme de chaîne lisible",
-				"it": "aggiunta unità alla temperatura Pulse e arrotondata a 0,1°C\naggiunta unità alla tensione della batteria Pulse e arrotondata a 100mV\naggiunta unità al tempo di attività Pulse\naggiunto stato con tempo di attività Pulse come stringa leggibile",
-				"es": "se agregó unidad a la temperatura del Pulse y se redondeó a 0,1°C\nse agregó unidad al voltaje de la batería del Pulse y se redondeó a 100mV\nse agregó unidad al tiempo de actividad del Pulse\nse agregó estado con el tiempo de actividad del Pulse como cadena legible",
-				"pl": "dodano jednostkę do temperatury Pulse i zaokrąglono do 0,1°C\ndodano jednostkę do napięcia baterii Pulse i zaokrąglono do 100mV\ndodano jednostkę do czasu pracy Pulse\ndodano stan z czasem pracy Pulse jako czytelny ciąg znaków",
-				"uk": "додано одиницю виміру температури Pulse і округлено до 0,1°C\nдодано одиницю виміру напруги акумулятора Pulse і округлено до 100мВ\nдодано одиницю виміру часу роботи Pulse\nдодано стан з часом роботи Pulse у вигляді читабельного рядка",
-				"zh-cn": "添加单位到 Pulse 温度并四舍五入到 0.1°C\n添加单位到 Pulse 电池电压并四舍五入到 100mV\n添加单位到 Pulse 运行时间\n添加具有 Pulse 运行时间的状态为人类可读字符串"
 			}
 		},
 		"messages": [

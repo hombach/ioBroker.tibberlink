@@ -106,6 +106,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 3.4.10 (2024-09-16)
+
+-   (HombachC) add verification of poll interval (#518)
+
 ### 3.4.9 (2024-09-15)
 
 -   (HombachC) add adjustable Bridge poll intervall (#518)

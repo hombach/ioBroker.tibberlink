@@ -22,6 +22,10 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             if (this.adapter.config.PulseList[pulse].puName === undefined) {
                 this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
             }
+            const interval = this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval;
+            if (interval === undefined || interval === null || isNaN(interval) || interval < 1000) {
+                this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval = 2000;
+            }
             if (!this.TestMode) {
                 let firstMetricsRun = true;
                 let firstDataRun = true;
@@ -74,8 +78,8 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
                         }
                         firstDataRun = false;
                     })
-                        .catch((e) => {
-                        this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${e}`);
+                        .catch((error) => {
+                        this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${error}`);
                     });
                 }, this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval);
                 if (jobPulseLocal)
