@@ -29,7 +29,7 @@
     "axios": "^1.7.7",
     "tibber-api": "^5.1.11",
     "cron": "^3.1.7",
-    "date-fns": "^3.6.0"
+    "date-fns": "^4.0.0"
   },
   "devDependencies": {
     "@iobroker/testing": "^5.0.0",
