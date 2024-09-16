@@ -109,6 +109,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 3.4.10 (2024-09-16)
 
 -   (HombachC) add verification of poll interval (#518)
+-   (HombachC) bumb date-fns to 4.0.0
 
 ### 3.4.9 (2024-09-15)
 

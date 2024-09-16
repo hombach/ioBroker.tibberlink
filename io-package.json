@@ -4,7 +4,17 @@
 		"version": "3.4.10",
 		"news": {
 			"3.4.10": {
-				"en": "add verification of poll interval (#518)"
+				"en": "add verification of poll interval (#518)\nbump date-fns to 4.0.0",
+				"de": "Überprüfung des Polling-Intervalls hinzufügen (#518)\ndate-fns auf 4.0.0 aktualisieren",
+				"ru": "добавить проверку интервала опроса (#518)\nобновить date-fns до 4.0.0",
+				"pt": "adicionar verificação do intervalo de polling (#518)\natualizar date-fns para 4.0.0",
+				"nl": "verificatie van het polling-interval toevoegen (#518)\ndate-fns bijwerken naar 4.0.0",
+				"fr": "ajouter la vérification de l'intervalle de sondage (#518)\nmettre à jour date-fns vers 4.0.0",
+				"it": "aggiungere la verifica dell'intervallo di polling (#518)\naggiornare date-fns a 4.0.0",
+				"es": "añadir verificación del intervalo de sondeo (#518)\nactualizar date-fns a 4.0.0",
+				"pl": "dodano weryfikację interwału sondowania (#518)\naktualizacja date-fns do wersji 4.0.0",
+				"uk": "додано перевірку інтервалу опитування (#518)\nоновлення date-fns до 4.0.0",
+				"zh-cn": "添加轮询间隔验证 (#518)\n将 date-fns 升级到 4.0.0"
 			},
 			"3.4.9": {
 				"en": "add adjustable Bridge poll interval (#518)\nadd node.js 22 to the adapter testing (#519)\nadd docu link to config screen (#504)\nrepository cleanup\ndependency updates",
