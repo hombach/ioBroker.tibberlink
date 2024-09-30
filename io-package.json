@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.10",
+		"version": "3.4.11",
 		"news": {
+			"3.4.11": {
+				"en": "WIP"
+			},
 			"3.4.10": {
 				"en": "add verification of poll interval (#518)\nbump date-fns to 4.0.0",
 				"de": "Überprüfung des Polling-Intervalls hinzufügen (#518)\ndate-fns auf 4.0.0 aktualisieren",
@@ -80,19 +83,6 @@
 				"pl": "dekodować tryb licznika 4 dla lokalnej ankiety Tibber Pulse (#477)\ndekodować tryb licznika 1 dla lokalnej ankiety Tibber Pulse (#478)\nnazwy lokalnych statusów Pulse (napięcie) naprawiono\ndodaj dokumentację na ekranie konfiguracji lokalnej ankiety Pulse (#479)",
 				"uk": "декодувати режим лічильника 4 для локального опитування Tibber Pulse (#477)\nдекодувати режим лічильника 1 для локального опитування Tibber Pulse (#478)\nвиправлено неправильні локальні назви статусів Pulse (напруга)\nдодати документацію на екрані налаштувань локального опитування Pulse (#479)",
 				"zh-cn": "解码本地 Tibber Pulse 轮询的仪表模式 4 (#477)\n解码本地 Tibber Pulse 轮询的仪表模式 1 (#478)\n修正错误的 Pulse 本地状态名称（电压）\n在本地 Pulse 轮询配置屏幕上添加文档 (#479)"
-			},
-			"3.4.4": {
-				"en": "local poll of data - change units Wh to kWh and round to 0.1kWh (#469)",
-				"de": "Lokale Abfrage von Daten - Einheiten von Wh in kWh ändern und auf 0,1 kWh runden (#469)",
-				"ru": "локальный опрос данных - изменить единицы измерения с Втч на кВтч и округлить до 0,1 кВтч (#469)",
-				"pt": "consulta local de dados - alterar unidades de Wh para kWh e arredondar para 0,1kWh (#469)",
-				"nl": "lokale gegevenspoll - verander eenheden van Wh naar kWh en rond af naar 0,1 kWh (#469)",
-				"fr": "sondage local de données - changer les unités de Wh en kWh et arrondir à 0,1kWh (#469)",
-				"it": "sondaggio locale dei dati - cambiare le unità da Wh a kWh e arrotondare a 0,1 kWh (#469)",
-				"es": "sondeo local de datos: cambiar unidades de Wh a kWh y redondear a 0,1kWh (#469)",
-				"pl": "lokalne sondowanie danych - zmiana jednostek z Wh na kWh i zaokrąglenie do 0,1 kWh (#469)",
-				"uk": "локальне опитування даних - змінити одиниці з Втч на кВтч та округлити до 0,1 кВтч (#469)",
-				"zh-cn": "本地数据轮询 - 将单位从 Wh 更改为 kWh 并四舍五入到 0.1kWh (#469)"
 			}
 		},
 		"messages": [
