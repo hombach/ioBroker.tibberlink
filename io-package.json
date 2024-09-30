@@ -1,10 +1,20 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.4.11",
+		"version": "3.5.0",
 		"news": {
-			"3.4.11": {
-				"en": "WIP"
+			"3.5.0": {
+				"en": "update adapter core\nfix error in SML decoder\nadd 2 new SML scale factor codes (#535)\ndependency updates",
+				"de": "Adapter-Core aktualisieren\nFehler im SML-Decoder beheben\n2 neue SML-Skalierungsfaktoren hinzufügen (#535)\nAbhängigkeitsupdates",
+				"ru": "обновить ядро адаптера\nисправить ошибку в декодере SML\nдобавить 2 новых кода масштабирования SML (#535)\nобновления зависимостей",
+				"pt": "atualizar o núcleo do adaptador\ncorrigir erro no decodificador SML\nadicionar 2 novos códigos de fator de escala SML (#535)\natualizações de dependências",
+				"nl": "adapterkern bijwerken\nfout in SML-decoder oplossen\n2 nieuwe SML-schaalfactorcodes toevoegen (#535)\nbijwerken van afhankelijkheden",
+				"fr": "mettre à jour le noyau de l'adaptateur\ncorriger l'erreur dans le décodeur SML\najouter 2 nouveaux codes de facteur d'échelle SML (#535)\nmises à jour des dépendances",
+				"it": "aggiornare il core dell'adattatore\ncorreggere l'errore nel decodificatore SML\naggiungere 2 nuovi codici del fattore di scala SML (#535)\naggiornamenti delle dipendenze",
+				"es": "actualizar el núcleo del adaptador\ncorregir el error en el decodificador SML\nagregar 2 nuevos códigos de factor de escala SML (#535)\nactualizaciones de dependencias",
+				"pl": "aktualizacja rdzenia adaptera\nnapraw błąd w dekoderze SML\ndodaj 2 nowe kody współczynnika skali SML (#535)\naktualizacje zależności",
+				"uk": "оновлення ядра адаптера\nвиправлення помилки в декодері SML\nдодати 2 нових коди масштабування SML (#535)\nоновлення залежностей",
+				"zh-cn": "更新适配器核心\n修复SML解码器中的错误\n添加2个新的SML比例因子代码 (#535)\n依赖项更新"
 			},
 			"3.4.10": {
 				"en": "add verification of poll interval (#518)\nbump date-fns to 4.0.0",
