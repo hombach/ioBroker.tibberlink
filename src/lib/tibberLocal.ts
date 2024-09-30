@@ -92,7 +92,7 @@ export class TibberLocal extends TibberHelper {
 			} else {
 				// test mode
 				this.adapter.log.error(`RUNNING IN TEST MODE`);
-				const parsedMessages = this.extractAndParseSMLMessages(99, this.TestData);
+				const parsedMessages = this.extractAndParseSMLMessages(0, this.TestData);
 				this.adapter.log.warn(`Parsed messages from test data ${parsedMessages}`);
 			}
 		} catch (error) {
@@ -398,12 +398,14 @@ export class TibberLocal extends TibberHelper {
 		const output: string[] = [];
 		for (const match of messages) {
 			const result: PulseParseResult = { name: "", value: 0 };
-			//this.adapter.log.debug(`overall compliance: ${match[0]}`);
-			//this.adapter.log.debug(`group 1: ${match[1]}`);
-			//this.adapter.log.debug(`group 2: ${match[2]}`);
-			//this.adapter.log.debug(`group 3: $[match[3]}`);
-			//this.adapter.log.debug(`group 4: $[match[4]}`);
-			//this.adapter.log.debug(`group 5: ${match[5]}`);
+			if (this.TestMode) {
+				this.adapter.log.debug(`parse SML overall compliance: ${match[0]}`);
+				this.adapter.log.debug(`parse SML group 1: ${match[1]}`);
+				this.adapter.log.debug(`parse SML group 2: ${match[2]}`);
+				this.adapter.log.debug(`parse SML group 3: $[match[3]}`);
+				this.adapter.log.debug(`parse SML group 4: $[match[4]}`);
+				this.adapter.log.debug(`parse SML group 5: ${match[5]}`);
+			}
 
 			result.name = findObisCodeName(match[1]);
 			if (result.name.startsWith(`Found invalid OBIS-Code:`)) {
