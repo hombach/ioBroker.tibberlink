@@ -402,8 +402,8 @@ export class TibberLocal extends TibberHelper {
 				this.adapter.log.debug(`parse SML overall compliance: ${match[0]}`);
 				this.adapter.log.debug(`parse SML group 1: ${match[1]}`);
 				this.adapter.log.debug(`parse SML group 2: ${match[2]}`);
-				this.adapter.log.debug(`parse SML group 3: $[match[3]}`);
-				this.adapter.log.debug(`parse SML group 4: $[match[4]}`);
+				this.adapter.log.debug(`parse SML group 3: ${match[3]}`);
+				this.adapter.log.debug(`parse SML group 4: ${match[4]}`);
 				this.adapter.log.debug(`parse SML group 5: ${match[5]}`);
 			}
 
@@ -440,12 +440,21 @@ export class TibberLocal extends TibberHelper {
 			}
 			*/
 			//#endregion
-			if (result.value > 1000000000 || result.value < -1000000000) {
-				this.adapter.log.debug(`Result.value < or > 1.000.000.000 skiped!`);
+			if (result.value < -1000000000) {
+				this.adapter.log.debug(`Result.value < -1.000.000.000 skiped!`);
 				this.adapter.log.debug(JSON.stringify(result));
 				this.adapter.log.debug(`overall compliance: ${match[0]}`);
 				this.adapter.log.debug(`RAW: ${transfer}`);
 				continue;
+			}
+			if (result.value > 1000000000) {
+				// this.adapter.log.debug(`Result.value > 1.000.000.000 skiped!`);
+				this.adapter.log.debug(`Result.value > 1.000.000.000 detected! Possible false measurements`);
+				// this.adapter.log.debug(JSON.stringify(result));
+				// this.adapter.log.debug(`overall compliance: ${match[0]}`);
+				// this.adapter.log.debug(`RAW: ${transfer}`);
+				// result.value = result.value / 10000;
+				// continue;
 			}
 			if (result.unit == "Wh") {
 				result.unit = "kWh";
