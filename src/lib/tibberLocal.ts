@@ -456,7 +456,7 @@ export class TibberLocal extends TibberHelper {
 
 			if (result.unit == "Wh") {
 				result.unit = "kWh";
-				result.value = Math.round(result.value / 100) / 10;
+				result.value = Math.round(result.value / 10) / 100;
 			}
 			this.checkAndSetValueNumber(
 				this.getStatePrefixLocal(pulse, result.name),

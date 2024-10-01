@@ -403,10 +403,8 @@ class Tibberlink extends utils.Adapter {
 				cronJob.stop();
 			}
 			if (this.config.UseLocalPulseData) {
-				//tibberLocal
-				//WiP call shutdown in tibberLocale
+				//WiP call shutdown in tibberLocal
 			}
-			// info.connect to false, when adapter is shut down
 			this.setState("info.connection", false, true);
 			callback();
 		} catch (e) {
