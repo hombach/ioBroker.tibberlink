@@ -106,7 +106,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### 3.5.1 (2024-10-xx)
+### 3.5.1 (2024-10-05)
 
 -   (HombachC) changed to less feed disconnection warnings in log (#445)
 -   (HombachC) fix error in output2 of smart battery buffer (#538)
