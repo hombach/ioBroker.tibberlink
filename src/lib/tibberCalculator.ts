@@ -249,8 +249,8 @@ export class TibberCalculator extends TibberHelper {
 	}
 	private async setup_chOutput2(homeId: string, channel: number): Promise<void> {
 		if (
-			this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
-			!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
+			this.adapter.config.CalculatorList[channel].chTargetState2.length > 10 &&
+			!this.adapter.config.CalculatorList[channel].chTargetState2.startsWith("choose your state to drive")
 		) {
 			this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value);
 		} else {
@@ -258,7 +258,7 @@ export class TibberCalculator extends TibberHelper {
 				this.checkAndSetValueBoolean(
 					this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`),
 					false,
-					`standard output if no special one selected in config`,
+					`standard output2 if no special one selected in config`,
 					true,
 					true,
 				);
@@ -1034,7 +1034,14 @@ export class TibberCalculator extends TibberHelper {
 	}
 }
 
-// function to check for equal hour values of given to current
+/**
+ * Checks if the current hour matches the hour of a given entry's start time.
+ * This method compares the hour of the current date and time with the hour extracted from the `startsAt` property of the provided `entry` object.
+ * If the hours match, the function returns `true`, otherwise `false`.
+ *
+ * @param entry - An object of type `IPrice` containing a `startsAt` property that represents the start time as a date string.
+ * @returns A boolean indicating whether the current hour matches the hour of the `startsAt` time.
+ */
 function checkHourMatch(entry: IPrice): boolean {
 	const currentDateTime = new Date();
 	const startDateTime = new Date(entry.startsAt);
