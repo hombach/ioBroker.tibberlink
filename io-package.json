@@ -4,7 +4,17 @@
 		"version": "3.5.1",
 		"news": {
 			"3.5.1": {
-				"en": "update deprecated state calls\ndependency updates"
+				"en": "changed to less feed disconnection warnings in log (#445)\nfix error in output2 of smart battery buffer (#538)\nupdate deprecated state calls\ndependency updates",
+				"de": "geändert auf weniger Feed-Trennungswarnungen im Log (#445)\nFehler in Ausgang2 des Smart-Batterie-Puffers behoben (#538)\nveraltete Statusaufrufe aktualisiert\nAbhängigkeitsupdates",
+				"ru": "изменено на меньшее количество предупреждений об отключении канала в журнале (#445)\nисправлена ошибка в выходе2 умного буферного аккумулятора (#538)\nобновление устаревших вызовов состояния\nобновления зависимостей",
+				"pt": "alterado para menos avisos de desconexão de feed no log (#445)\ncorreção de erro na saída2 do buffer de bateria inteligente (#538)\natualização de chamadas de estado obsoletas\natualizações de dependências",
+				"nl": "gewijzigd naar minder feed-verbindingswaarschuwingen in logboek (#445)\nfout in output2 van slimme batterijbuffer opgelost (#538)\nverouderde statusaanroepen bijgewerkt\nbijwerken van afhankelijkheden",
+				"fr": "modifié pour moins d'avertissements de déconnexion de flux dans le journal (#445)\ncorrection de l'erreur dans la sortie2 du tampon de batterie intelligent (#538)\nmise à jour des appels d'état obsolètes\nmises à jour des dépendances",
+				"it": "modificato per meno avvisi di disconnessione del feed nel registro (#445)\ncorretto errore in output2 del buffer batteria intelligente (#538)\naggiornamento delle chiamate di stato deprecate\naggiornamenti delle dipendenze",
+				"es": "cambiado a menos advertencias de desconexión de alimentación en el registro (#445)\ncorregir error en la salida2 del búfer de batería inteligente (#538)\nactualizar llamadas de estado obsoletas\nactualizaciones de dependencias",
+				"pl": "zmieniono na mniej ostrzeżeń o odłączeniu kanału w dzienniku (#445)\nnaprawiono błąd w wyjściu2 bufora inteligentnej baterii (#538)\naktualizacja przestarzałych wywołań stanu\naktualizacje zależności",
+				"uk": "змінено на менше попереджень про відключення каналу в журналі (#445)\nвиправлено помилку в виході2 розумного буфера акумулятора (#538)\nоновлення застарілих викликів стану\nоновлення залежностей",
+				"zh-cn": "日志中减少了馈电断开警告 (#445)\n修复了智能电池缓冲区的输出2错误 (#538)\n更新了不推荐的状态调用\n依赖项更新"
 			},
 			"3.5.0": {
 				"en": "update adapter core\nfix error in SML decoder\nadd 2 new SML scale factor codes (#535)\ndependency updates",

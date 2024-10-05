@@ -10,6 +10,9 @@ export class TibberPulse extends TibberHelper {
 	httpQueryUrl: string;
 	reconnectTime: number = 6000;
 	maxReconnectTime: number = 900000;
+	countedFeedDisconnects: number = 0;
+	lastFeedWarningTime: Date | null = null;
+	deltaFeedWarningTime: number = 0;
 
 	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
 		super(adapter);
@@ -45,11 +48,49 @@ export class TibberPulse extends TibberHelper {
 			this.adapter.setState("info.connection", true, true);
 		});
 
-		// Set info.connection state for event "disconnected"
+		/**
+		 * Handles the disconnection of a data feed and manages reconnection attempts with incremental delays.
+		 *
+		 * This method is triggered when the data feed gets disconnected. It updates the connection state (`info.connection` to `false`) and monitors the frequency of disconnection attempts to avoid excessive reconnections.
+		 *
+		 * The following logic is applied:
+		 * - **Disconnection count (`countedFeedDisconnects`)**: Tracks the number of disconnections. Warnings are logged when the feed disconnects 5 or 25 times. At 25 disconnections, an error is logged instead of a warning.
+		 * - **Warning time interval (`deltaFeedWarningTime`)**: Measures the time (in minutes) since the last disconnection warning. If more than 60 minutes have passed, the warning counter resets.
+		 * - If the feed disconnects frequently within a **30-minute window**, it logs a warning and resets the disconnection counter.
+		 * - After each disconnection, the system tries to reconnect, logging the result. If disconnections occur too often, warnings or errors are logged based on the number of reconnection attempts.
+		 *
+		 * @param data - The error message sent by Tibber upon disconnection, which is logged for diagnostic purposes.
+		 */
 		currentFeed.on("disconnected", (data) => {
 			this.adapter.setState("info.connection", false, true);
 			if (this.adapter.config.HomesList.some((info) => info.feedActive)) {
-				this.adapter.log.warn(`A feed was disconnected. I try to reconnect with incremental delay -  Tibber error text: ${data.toString()}`);
+				this.deltaFeedWarningTime = 0;
+				if (this.lastFeedWarningTime !== null) {
+					this.deltaFeedWarningTime = (new Date().getTime() - this.lastFeedWarningTime.getTime()) / 1000 / 60; // timedifference in minutes
+				}
+				if (this.countedFeedDisconnects < 25 && this.deltaFeedWarningTime > 60) {
+					this.countedFeedDisconnects = 0;
+					this.lastFeedWarningTime = null;
+					this.deltaFeedWarningTime = 0;
+				}
+
+				this.countedFeedDisconnects++;
+				const loggingTextBlock: string = ` to reconnect with incremental delay -  Error text sent by Tibber: ${data.toString()}`;
+
+				if (this.deltaFeedWarningTime > 30) {
+					this.countedFeedDisconnects = 0;
+					this.lastFeedWarningTime = null;
+					this.adapter.log.warn(`A feed was disconnected very often. I keep trying${loggingTextBlock}`);
+				} else {
+					if (this.countedFeedDisconnects == 5) {
+						this.lastFeedWarningTime = new Date();
+						this.adapter.log.warn(`A feed was disconnected very often. I keep trying${loggingTextBlock}`);
+					} else if (this.countedFeedDisconnects == 25) {
+						this.adapter.log.error(`A feed was disconnected very often. I keep trying${loggingTextBlock}`);
+					} else {
+						this.adapter.log.debug(`A feed was disconnected. I try to${loggingTextBlock}`);
+					}
+				}
 				this.reconnect();
 			}
 		});
