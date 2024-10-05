@@ -519,11 +519,11 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
                     // no repeating planned
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
                 }
                 else {
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                 }
             }
             else {
@@ -545,7 +545,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             else {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
-                this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+                this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         }
@@ -569,12 +569,12 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 // chActive, modeLTF but after LTF -> choose chValueOff and disable channel
                 valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
                 if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
                 }
                 else {
                     // chRepeatDays present, change start and stop time accordingly
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                 }
             }
             else {
@@ -617,7 +617,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             else {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
-                this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+                this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         }
@@ -647,11 +647,11 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 this.setup_chBlockStartFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
                 this.setup_chBlockEndFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
                 if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
                 }
                 else {
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
-                    this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                 }
             }
             else {
@@ -711,7 +711,7 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             else {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
-                this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+                this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         }
@@ -832,17 +832,17 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
             }
             else {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
-                this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+                this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
-            sOutState = "";
-            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
-                !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
-                sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
+            sOutState = ""; // reinit for output 2
+            if (this.adapter.config.CalculatorList[channel].chTargetState2.length > 10 &&
+                !this.adapter.config.CalculatorList[channel].chTargetState2.startsWith("choose your state to drive")) {
+                sOutState = this.adapter.config.CalculatorList[channel].chTargetState2;
                 this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
             }
             else {
                 sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output2`;
-                this.adapter.setStateAsync(sOutState, convertValue(valueToSet2), true);
+                this.adapter.setState(sOutState, convertValue(valueToSet2), true);
             }
         }
         catch (error) {
@@ -857,6 +857,14 @@ function checkHourMatch(entry) {
     const startDateTime = new Date(entry.startsAt);
     return currentDateTime.getHours() === startDateTime.getHours();
 }
+/**
+ * Converts a string value to its corresponding boolean, number, or string representation.
+ * This method attempts to convert the input string into a boolean if it matches "true" or "false" (case-insensitive).
+ * If the string can be parsed as a number, it is converted to a number. Otherwise, the original string is returned.
+ *
+ * @param Value - The string to be converted into a boolean, number, or returned as a string.
+ * @returns A boolean if the string is "true" or "false", a number if the string represents a valid numeric value, or the original string if no conversion is possible.
+ */
 function convertValue(Value) {
     if (Value.toLowerCase() === "true") {
         return true;

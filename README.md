@@ -106,6 +106,12 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 3.5.1 (2024-10-xx)
+
+-   (HombachC) fix error in output2 of smart battery buffer (#538)
+-   (HombachC) update deprecated state calls
+-   (HombachC) dependency updates
+
 ### 3.5.0 (2024-10-02)
 
 -   (HombachC) update adapter core

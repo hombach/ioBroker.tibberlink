@@ -623,9 +623,9 @@ export class TibberCalculator extends TibberHelper {
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
 					// no repeating planned
-					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+					this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
-					this.adapter.setStateAsync(
+					this.adapter.setState(
 						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`,
 						format(
 							addDays(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
@@ -633,7 +633,7 @@ export class TibberCalculator extends TibberHelper {
 						),
 						true,
 					);
-					this.adapter.setStateAsync(
+					this.adapter.setState(
 						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`,
 						format(
 							addDays(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
@@ -661,7 +661,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
 			} else {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
-				this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+				this.adapter.setState(sOutState, convertValue(valueToSet), true);
 			}
 			this.adapter.log.debug(`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
 		} catch (error) {
@@ -683,10 +683,10 @@ export class TibberCalculator extends TibberHelper {
 				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
 				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
-					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+					this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
 					// chRepeatDays present, change start and stop time accordingly
-					this.adapter.setStateAsync(
+					this.adapter.setState(
 						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`,
 						format(
 							addDays(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
@@ -694,7 +694,7 @@ export class TibberCalculator extends TibberHelper {
 						),
 						true,
 					);
-					this.adapter.setStateAsync(
+					this.adapter.setState(
 						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`,
 						format(
 							addDays(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
@@ -752,7 +752,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
 			} else {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
-				this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+				this.adapter.setState(sOutState, convertValue(valueToSet), true);
 			}
 			this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
 		} catch (error) {
@@ -780,9 +780,9 @@ export class TibberCalculator extends TibberHelper {
 				this.setup_chBlockStartFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
 				this.setup_chBlockEndFullHour(this.adapter.config.CalculatorList[channel].chHomeID, channel, true);
 				if (this.adapter.config.CalculatorList[channel].chRepeatDays == 0) {
-					this.adapter.setStateAsync(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
+					this.adapter.setState(`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
-					this.adapter.setStateAsync(
+					this.adapter.setState(
 						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`,
 						format(
 							addDays(this.adapter.config.CalculatorList[channel].chStartTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
@@ -790,7 +790,7 @@ export class TibberCalculator extends TibberHelper {
 						),
 						true,
 					);
-					this.adapter.setStateAsync(
+					this.adapter.setState(
 						`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`,
 						format(
 							addDays(this.adapter.config.CalculatorList[channel].chStopTime, this.adapter.config.CalculatorList[channel].chRepeatDays),
@@ -884,7 +884,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
 			} else {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
-				this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+				this.adapter.setState(sOutState, convertValue(valueToSet), true);
 			}
 			this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
 		} catch (error) {
@@ -1015,18 +1015,18 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
 			} else {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output`;
-				this.adapter.setStateAsync(sOutState, convertValue(valueToSet), true);
+				this.adapter.setState(sOutState, convertValue(valueToSet), true);
 			}
-			sOutState = "";
+			sOutState = ""; // reinit for output 2
 			if (
-				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
-				!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
+				this.adapter.config.CalculatorList[channel].chTargetState2.length > 10 &&
+				!this.adapter.config.CalculatorList[channel].chTargetState2.startsWith("choose your state to drive")
 			) {
-				sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
+				sOutState = this.adapter.config.CalculatorList[channel].chTargetState2;
 				this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
 			} else {
 				sOutState = `Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Output2`;
-				this.adapter.setStateAsync(sOutState, convertValue(valueToSet2), true);
+				this.adapter.setState(sOutState, convertValue(valueToSet2), true);
 			}
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
@@ -1041,6 +1041,14 @@ function checkHourMatch(entry: IPrice): boolean {
 	return currentDateTime.getHours() === startDateTime.getHours();
 }
 
+/**
+ * Converts a string value to its corresponding boolean, number, or string representation.
+ * This method attempts to convert the input string into a boolean if it matches "true" or "false" (case-insensitive).
+ * If the string can be parsed as a number, it is converted to a number. Otherwise, the original string is returned.
+ *
+ * @param Value - The string to be converted into a boolean, number, or returned as a string.
+ * @returns A boolean if the string is "true" or "false", a number if the string represents a valid numeric value, or the original string if no conversion is possible.
+ */
 function convertValue(Value: string): boolean | number | string {
 	if (Value.toLowerCase() === "true") {
 		return true;
