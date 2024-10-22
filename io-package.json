@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.5.1",
+		"version": "3.5.2",
 		"news": {
+			"3.5.2": {
+				"en": "WiP"
+			},
 			"3.5.1": {
 				"en": "changed to less feed disconnection warnings in log (#445)\nfix error in output2 of smart battery buffer (#538)\nupdate deprecated state calls\ndependency updates",
 				"de": "geändert auf weniger Feed-Trennungswarnungen im Log (#445)\nFehler in Ausgang2 des Smart-Batterie-Puffers behoben (#538)\nveraltete Statusaufrufe aktualisiert\nAbhängigkeitsupdates",
@@ -67,19 +70,6 @@
 				"pl": "zaktualizowano axios z powodu luki\ndodano testy dla Node.js 22",
 				"uk": "оновлено axios через уразливість\nдодано тести для Node.js 22",
 				"zh-cn": "由于漏洞更新了 axios\n添加了 Node.js 22 的测试"
-			},
-			"3.4.7": {
-				"en": "adapter checker detected optimizations (#493)\nimproved error message (#490)",
-				"de": "Adapter-Checker erkannte Optimierungen (#493)\nverbesserte Fehlermeldung (#490)",
-				"ru": "оптимизации, обнаруженные проверяющим адаптера (#493)\nулучшенное сообщение об ошибке (#490)",
-				"pt": "otimizações detectadas pelo verificador de adaptadores (#493)\nmensagem de erro aprimorada (#490)",
-				"nl": "door adapter checker gedetecteerde optimalisaties (#493)\nverbeterde foutmelding (#490)",
-				"fr": "optimisations détectées par le vérificateur d'adaptateurs (#493)\nmessage d'erreur amélioré (#490)",
-				"it": "ottimizzazioni rilevate dal controllo dell'adattatore (#493)\nmessaggio di errore migliorato (#490)",
-				"es": "optimizaciones detectadas por el verificador de adaptadores (#493)\nmensaje de error mejorado (#490)",
-				"pl": "optymalizacje wykryte przez sprawdzanie adaptera (#493)\nulepszona wiadomość o błędzie (#490)",
-				"uk": "оптимізації, виявлені перевіряючим адаптера (#493)\nпокращене повідомлення про помилку (#490)",
-				"zh-cn": "适配器检查器检测到的优化 (#493)\n改进的错误消息 (#490)"
 			},
 			"3.4.6": {
 				"en": "Catch wrong OBIS Codes, probably caused by Pulse communication errors",

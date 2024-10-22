@@ -106,6 +106,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 3.5.2 (2024-10-xx)
+
+-   (HombachC) fix config screen error(#xxx)
+
 ### 3.5.1 (2024-10-05)
 
 -   (HombachC) changed to less feed disconnection warnings in log (#445)

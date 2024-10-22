@@ -647,12 +647,6 @@
 								"uk": "Домашній канал",
 								"zh-cn": "家庭通道"
 							},
-							"attr": "chHomeID",
-							"default": "No Home selected",
-							"filter": false,
-							"sort": false,
-							"width": "10% ",
-							"command": "HomesForCalculator",
 							"tooltip": {
 								"en": "select the home this channel should be attached to",
 								"de": "Wählen Sie das Zuhause aus, an das dieser Kanal angehängt werden soll",
@@ -665,7 +659,13 @@
 								"pl": "wybierz dom, do którego ten kanał powinien być podłączony",
 								"uk": "виберіть будинок, до якого має бути приєднаний цей канал",
 								"zh-cn": "选择要连接到的主页"
-							}
+							},
+							"attr": "chHomeID",
+							"default": "No Home selected",
+							"filter": false,
+							"sort": false,
+							"width": "10% ",
+							"command": "HomesForCalculator"
 						},
 						{
 							"type": "select",
