@@ -667,7 +667,7 @@
 					"items": [
 						{
 							"type": "selectSendTo",
-							"text": {
+							"label": {
 								"en": "Channel Home",
 								"de": "Kanal Zuhause",
 								"ru": "Домашний канал",
@@ -702,7 +702,7 @@
 						},
 						{
 							"type": "select",
-							"text": {
+							"label": {
 								"en": "Channel Type",
 								"de": "Kanaltyp",
 								"ru": "Тип канала",
