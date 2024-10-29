@@ -667,7 +667,7 @@
 					"items": [
 						{
 							"type": "selectSendTo",
-							"label": {
+							"title": {
 								"en": "Channel Home",
 								"de": "Kanal Zuhause",
 								"ru": "Домашний канал",
@@ -702,7 +702,7 @@
 						},
 						{
 							"type": "select",
-							"label": {
+							"title": {
 								"en": "Channel Type",
 								"de": "Kanaltyp",
 								"ru": "Тип канала",
@@ -867,7 +867,7 @@
 							"filter": false,
 							"sort": false,
 							"width": "15%",
-							"default": "Channel Name"
+							"default": "channel name"
 						},
 						{
 							"type": "objectId",
@@ -922,7 +922,7 @@
 							"filter": false,
 							"sort": false,
 							"width": "10%",
-							"default": ""
+							"default": "true"
 						},
 						{
 							"type": "text",
@@ -957,7 +957,7 @@
 							"filter": false,
 							"sort": false,
 							"width": "7.5%",
-							"default": ""
+							"default": "false"
 						},
 
 						{
