@@ -33,9 +33,11 @@
 						"zh-cn": "Tibber API 的令牌"
 					},
 					"maxLength": 60,
+					"xs": 12,
 					"sm": 12,
-					"md": 6,
+					"md": 8,
 					"lg": 6,
+					"xl": 4,
 					"newLine": true
 				},
 
@@ -61,9 +63,11 @@
 				},
 				"HomesList": {
 					"type": "table",
+					"xs": 12,
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
+					"xl": 12,
 					"label": {
 						"en": "Configuration of Pulse live data streams",
 						"de": "Konfiguration von Pulse-Live-Datenströmen",
@@ -284,7 +288,7 @@
 
 				"_feedDataDetailHeader": {
 					"type": "header",
-					"text": {
+					"label": {
 						"en": "Select all fields you want to load in live-feed data (power and timestamp are on by default):",
 						"de": "Wählen Sie alle Felder aus, die Sie in den Live-Feed-Daten laden möchten (Leistung und Zeitstempel sind standardmäßig aktiviert):",
 						"ru": "Выберите все поля, которые вы хотите загрузить в данные с живой подачей (мощность и временная метка включены по умолчанию):",
@@ -304,149 +308,183 @@
 				"FeedConfigLastMeterConsumption": {
 					"type": "checkbox",
 					"label": "LastMeterConsumption",
+					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
-					"hidden": "!data.TibberAPIToken",
+					"xl": 4,
 					"newLine": true
 				},
 				"FeedConfigAccumulatedConsumption": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 				"FeedConfigAccumulatedConsumptionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumptionLastHour",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 
 				"FeedConfigLastMeterProduction": {
 					"type": "checkbox",
 					"label": "LastMeterProduction",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
+					"xl": 4,
 					"newLine": true
 				},
 				"FeedConfigAccumulatedProduction": {
 					"type": "checkbox",
 					"label": "AccumulatedProduction",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 				"FeedConfigAccumulatedProductionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedProductionLastHour",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 
 				"FeedConfigAccumulatedCost": {
 					"type": "checkbox",
 					"label": "AccumulatedCost",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
+					"xl": 4,
 					"newLine": true
 				},
 				"FeedConfigAccumulatedReward": {
 					"type": "checkbox",
 					"label": "AccumulatedReward",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 				"FeedConfigCurrency": {
 					"type": "checkbox",
 					"label": "Currency",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 
 				"FeedConfigMinPower": {
 					"type": "checkbox",
 					"label": "MinPower",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
+					"xl": 4,
 					"newLine": true
 				},
 				"FeedConfigAveragePower": {
 					"type": "checkbox",
 					"label": "AveragePower",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 				"FeedConfigMaxPower": {
 					"type": "checkbox",
 					"label": "MaxPower",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 
 				"FeedConfigPowerProduction": {
 					"type": "checkbox",
 					"label": "PowerProduction",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
+					"xl": 4,
 					"newLine": true
 				},
 				"FeedConfigMinPowerProduction": {
 					"type": "checkbox",
 					"label": "MinPowerProduction",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 				"FeedConfigMaxPowerProduction": {
 					"type": "checkbox",
 					"label": "MaxPowerProduction",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 
 				"FeedConfigPowerFactor": {
 					"type": "checkbox",
 					"label": "PowerFactor",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
+					"xl": 4,
 					"newLine": true
 				},
 				"FeedConfigSignalStrength": {
 					"type": "checkbox",
 					"label": "SignalStrength",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 
 				"_phases": {
@@ -472,61 +510,70 @@
 					"type": "checkbox",
 					"label": "VoltagePhase1",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
+					"xl": 4,
 					"newLine": true
 				},
 				"FeedConfigVoltagePhase2": {
 					"type": "checkbox",
 					"label": "VoltagePhase2",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 				"FeedConfigVoltagePhase3": {
 					"type": "checkbox",
 					"label": "VoltagePhase3",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 
 				"FeedConfigCurrentL1": {
 					"type": "checkbox",
 					"label": "CurrentL1",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
+					"xl": 4,
 					"newLine": true
 				},
 				"FeedConfigCurrentL2": {
 					"type": "checkbox",
 					"label": "CurrentL2",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 				"FeedConfigCurrentL3": {
 					"type": "checkbox",
 					"label": "CurrentL3",
 					"hidden": "!data.TibberAPIToken",
+					"xs": 12,
 					"sm": 12,
 					"md": 6,
-					"lg": 4
+					"lg": 4,
+					"xl": 4
 				},
 
 				"_headerDocumentation": {
 					"type": "header",
 					"text": "",
 					"noTranslation": true,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
 					"size": 3
 				},
 				"_helpLink": {
@@ -548,10 +595,7 @@
 						"zh-cn": "显示适配器文档"
 					},
 					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/README.md",
-					"newLine": true,
-					"sm": 12,
-					"md": 12,
-					"lg": 12
+					"newLine": true
 				}
 			}
 		},
