@@ -522,6 +522,7 @@ export class TibberCalculator extends TibberHelper {
 					continue; // skip channel
 				}
 
+				//checks for SmartBatteryBuffer only...
 				if (this.adapter.config.CalculatorList[channel].chType === enCalcType.SmartBatteryBuffer) {
 					if (
 						!this.adapter.config.CalculatorList[channel] ||
@@ -529,7 +530,7 @@ export class TibberCalculator extends TibberHelper {
 						!this.adapter.config.CalculatorList[channel].chTargetState2.trim()
 					) {
 						this.adapter.log.warn(
-							`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - channel will use internal state OUTPUT2`,
+							`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - upon this, channel will use internal state OUTPUT2`,
 						);
 					}
 
@@ -551,6 +552,18 @@ export class TibberCalculator extends TibberHelper {
 						}
 					} else {
 						this.adapter.log.debug(`chTargetState2 is null or undefined in calculator channel ${channel}. Skipping channel execution.`);
+						continue; // skip channel
+					}
+					if (
+						this.adapter.config.CalculatorList[channel].chValueOn2 != null &&
+						this.adapter.config.CalculatorList[channel].chValueOn2 !== "" &&
+						this.adapter.config.CalculatorList[channel].chValueOff2 != null &&
+						this.adapter.config.CalculatorList[channel].chValueOff2 !== ""
+					) {
+					} else {
+						this.adapter.log.error(
+							`"Value YES 2" or "Value NO 2" is null or undefined in calculator channel ${channel}. Please provide usable values in config.`,
+						);
 						continue; // skip channel
 					}
 				}

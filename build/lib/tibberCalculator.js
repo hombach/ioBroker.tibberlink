@@ -424,11 +424,12 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     this.adapter.log.debug(`chTargetState is null or undefined in calculator channel ${channel}. Skipping channel execution.`);
                     continue; // skip channel
                 }
+                //checks for SmartBatteryBuffer only...
                 if (this.adapter.config.CalculatorList[channel].chType === tibberHelper_1.enCalcType.SmartBatteryBuffer) {
                     if (!this.adapter.config.CalculatorList[channel] ||
                         !this.adapter.config.CalculatorList[channel].chTargetState2 ||
                         !this.adapter.config.CalculatorList[channel].chTargetState2.trim()) {
-                        this.adapter.log.warn(`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - channel will use internal state OUTPUT2`);
+                        this.adapter.log.warn(`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - upon this, channel will use internal state OUTPUT2`);
                     }
                     if (this.adapter.config.CalculatorList[channel].chTargetState2 != null &&
                         typeof this.adapter.config.CalculatorList[channel].chTargetState2 === "string" &&
@@ -446,6 +447,15 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                     }
                     else {
                         this.adapter.log.debug(`chTargetState2 is null or undefined in calculator channel ${channel}. Skipping channel execution.`);
+                        continue; // skip channel
+                    }
+                    if (this.adapter.config.CalculatorList[channel].chValueOn2 != null &&
+                        this.adapter.config.CalculatorList[channel].chValueOn2 !== "" &&
+                        this.adapter.config.CalculatorList[channel].chValueOff2 != null &&
+                        this.adapter.config.CalculatorList[channel].chValueOff2 !== "") {
+                    }
+                    else {
+                        this.adapter.log.error(`"Value YES 2" or "Value NO 2" is null or undefined in calculator channel ${channel}. Please provide usable values in config.`);
                         continue; // skip channel
                     }
                 }

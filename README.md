@@ -108,7 +108,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.5.2 (2024-10-xx)
 
--   (HombachC) fix config screen error(#xxx)
+-   (HombachC) add verification for YES/NO 2 values in calculator (#547)
+-   (HombachC) optimized responsive design (#544)
 
 ### 3.5.1 (2024-10-05)
 

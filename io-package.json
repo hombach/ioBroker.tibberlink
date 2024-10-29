@@ -4,7 +4,17 @@
 		"version": "3.5.2",
 		"news": {
 			"3.5.2": {
-				"en": "WiP"
+				"en": "Add verification for YES/NO 2 values in calculator (#547)\nOptimized responsive design (#544)",
+				"de": "Prüfung für JA/NEIN-Werte im Rechner hinzufügen (#547)\nOptimiertes responsives Design (#544)",
+				"ru": "Добавлена проверка значений ДА/НЕТ в калькуляторе (#547)\nОптимизированный адаптивный дизайн (#544)",
+				"pt": "Adicionar verificação para valores SIM/NÃO no calculador (#547)\nDesign responsivo otimizado (#544)",
+				"nl": "Verificatie toevoegen voor JA/NEE-waarden in rekenmachine (#547)\nGeoptimaliseerd responsief ontwerp (#544)",
+				"fr": "Ajout de la vérification des valeurs OUI/NON dans la calculatrice (#547)\nConception réactive optimisée (#544)",
+				"it": "Aggiunta verifica per valori SÌ/NO nel calcolatore (#547)\nDesign reattivo ottimizzato (#544)",
+				"es": "Agregar verificación de valores SÍ/NO en la calculadora (#547)\nDiseño responsivo optimizado (#544)",
+				"pl": "Dodaj weryfikację wartości TAK/NIE w kalkulatorze (#547)\nOptymalizacja responsywnego designu (#544)",
+				"uk": "Додано перевірку значень ТАК/НІ в калькуляторі (#547)\nОптимізований адаптивний дизайн (#544)",
+				"zh-cn": "在计算器中添加 YES/NO 值验证 (#547)\n优化响应式设计 (#544)"
 			},
 			"3.5.1": {
 				"en": "changed to less feed disconnection warnings in log (#445)\nfix error in output2 of smart battery buffer (#538)\nupdate deprecated state calls\ndependency updates",
