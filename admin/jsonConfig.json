@@ -63,11 +63,6 @@
 				},
 				"HomesList": {
 					"type": "table",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
 					"label": {
 						"en": "Configuration of Pulse live data streams",
 						"de": "Konfiguration von Pulse-Live-Datenströmen",
@@ -288,7 +283,7 @@
 
 				"_feedDataDetailHeader": {
 					"type": "header",
-					"label": {
+					"text": {
 						"en": "Select all fields you want to load in live-feed data (power and timestamp are on by default):",
 						"de": "Wählen Sie alle Felder aus, die Sie in den Live-Feed-Daten laden möchten (Leistung und Zeitstempel sind standardmäßig aktiviert):",
 						"ru": "Выберите все поля, которые вы хотите загрузить в данные с живой подачей (мощность и временная метка включены по умолчанию):",
@@ -650,17 +645,11 @@
 						"uk": "Використовувати автоматизацію",
 						"zh-cn": "使用自动化"
 					},
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
 					"newLine": true
 				},
 
 				"CalculatorList": {
 					"type": "table",
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
 					"label": {
 						"en": "Calculator Channels",
 						"de": "Automatisierungs-Kanäle",
