@@ -702,7 +702,7 @@
 						},
 						{
 							"type": "select",
-							"title": {
+							"label": {
 								"en": "Channel Type",
 								"de": "Kanaltyp",
 								"ru": "Тип канала",
@@ -714,19 +714,6 @@
 								"pl": "Typ kanału",
 								"uk": "Тип каналу",
 								"zh-cn": "通道类型"
-							},
-							"tooltip": {
-								"en": "Channels have to be activated or deactivated in a corresponding state",
-								"de": "Kanäle müssen in einem entsprechenden Zustand aktiviert oder deaktiviert werden",
-								"ru": "Каналы должны быть активированы или деактивированы в соответствующем состоянии",
-								"pt": "Os canais devem ser ativados ou desativados em um estado correspondente",
-								"nl": "Kanalen moeten worden geactiveerd of gedeactiveerd in een overeenkomstige staat",
-								"fr": "Les chaînes doivent être activées ou désactivées dans un état correspondant",
-								"it": "I canali devono essere attivati o disattivati in uno stato corrispondente",
-								"es": "Los canales deben activarse o desactivarse en un estado correspondiente",
-								"pl": "Kanały muszą być aktywowane lub dezaktywowane w odpowiednim stanie",
-								"uk": "Канали повинні бути активовані або деактивовані в відповідному стані",
-								"zh-cn": "通道必须在相应状态下激活或停用"
 							},
 							"attr": "chType",
 							"options": [
