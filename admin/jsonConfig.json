@@ -303,6 +303,7 @@
 				"FeedConfigLastMeterConsumption": {
 					"type": "checkbox",
 					"label": "LastMeterConsumption",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -314,6 +315,7 @@
 				"FeedConfigAccumulatedConsumption": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumption",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -324,6 +326,7 @@
 				"FeedConfigAccumulatedConsumptionLastHour": {
 					"type": "checkbox",
 					"label": "AccumulatedConsumptionLastHour",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -334,6 +337,7 @@
 
 				"FeedConfigLastMeterProduction": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "LastMeterProduction",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -345,6 +349,7 @@
 				},
 				"FeedConfigAccumulatedProduction": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "AccumulatedProduction",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -355,6 +360,7 @@
 				},
 				"FeedConfigAccumulatedProductionLastHour": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "AccumulatedProductionLastHour",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -366,6 +372,7 @@
 
 				"FeedConfigAccumulatedCost": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "AccumulatedCost",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -377,6 +384,7 @@
 				},
 				"FeedConfigAccumulatedReward": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "AccumulatedReward",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -387,6 +395,7 @@
 				},
 				"FeedConfigCurrency": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "Currency",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -398,6 +407,7 @@
 
 				"FeedConfigMinPower": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "MinPower",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -409,6 +419,7 @@
 				},
 				"FeedConfigAveragePower": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "AveragePower",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -419,6 +430,7 @@
 				},
 				"FeedConfigMaxPower": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "MaxPower",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -430,6 +442,7 @@
 
 				"FeedConfigPowerProduction": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "PowerProduction",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -441,6 +454,7 @@
 				},
 				"FeedConfigMinPowerProduction": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "MinPowerProduction",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -451,6 +465,7 @@
 				},
 				"FeedConfigMaxPowerProduction": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "MaxPowerProduction",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -462,6 +477,7 @@
 
 				"FeedConfigPowerFactor": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "PowerFactor",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -473,6 +489,7 @@
 				},
 				"FeedConfigSignalStrength": {
 					"type": "checkbox",
+					"noTranslation": true,
 					"label": "SignalStrength",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
@@ -504,6 +521,7 @@
 				"FeedConfigVoltagePhase1": {
 					"type": "checkbox",
 					"label": "VoltagePhase1",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -515,6 +533,7 @@
 				"FeedConfigVoltagePhase2": {
 					"type": "checkbox",
 					"label": "VoltagePhase2",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -525,6 +544,7 @@
 				"FeedConfigVoltagePhase3": {
 					"type": "checkbox",
 					"label": "VoltagePhase3",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -536,6 +556,7 @@
 				"FeedConfigCurrentL1": {
 					"type": "checkbox",
 					"label": "CurrentL1",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -547,6 +568,7 @@
 				"FeedConfigCurrentL2": {
 					"type": "checkbox",
 					"label": "CurrentL2",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -557,6 +579,7 @@
 				"FeedConfigCurrentL3": {
 					"type": "checkbox",
 					"label": "CurrentL3",
+					"noTranslation": true,
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
