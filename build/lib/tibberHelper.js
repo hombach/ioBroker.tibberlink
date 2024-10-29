@@ -36,6 +36,7 @@ function getCalcTypeDescription(calcType) {
     }
 }
 class TibberHelper {
+    adapter;
     constructor(adapter) {
         this.adapter = adapter;
     }

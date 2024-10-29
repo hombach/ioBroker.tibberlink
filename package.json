@@ -32,10 +32,14 @@
     "date-fns": "^4.1.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.13.0",
     "@iobroker/testing": "^5.0.0",
     "@iobroker/types": "^6.0.11",
     "@types/chai": "^4.3.11",
     "@types/chai-as-promised": "^7.1.8",
+    "@types/eslint__eslintrc": "^2.1.2",
+    "@types/eslint__js": "^8.42.3",
     "@types/mocha": "^10.0.9",
     "@types/node": "^22.8.2",
     "@types/proxyquire": "^1.3.31",
@@ -59,8 +63,7 @@
   },
   "main": "build/main.js",
   "files": [
-    "admin{,/!(src)/**}/!(tsconfig|tsconfig.*).json",
-    "admin{,/!(src)/**}/*.{html,css,png,svg,jpg,js}",
+    "admin/",
     "build/",
     "www/",
     "io-package.json",
@@ -76,7 +79,7 @@
     "test:integration": "mocha test/integration --exit",
     "test": "npm run test:ts && npm run test:package",
     "check": "tsc --noEmit",
-    "lint": "eslint --ext .ts src/"
+    "lint": "eslint src/"
   },
   "bugs": {
     "url": "https://github.com/Hombach/ioBroker.tibberlink/issues"

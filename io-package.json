@@ -191,7 +191,11 @@
 			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
 		},
 		"authors": ["Hombach <TibberLink@homba.ch>"],
-		"keywords": ["power", "energy", "Tibber"],
+		"keywords": [
+			"power",
+			"energy",
+			"Tibber"
+		],
 		"licenseInformation": {
 			"license": "GPL-3.0-only",
 			"type": "free"

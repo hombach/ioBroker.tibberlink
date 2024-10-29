@@ -5,6 +5,8 @@ const tibber_api_1 = require("tibber-api");
 const EnergyResolution_1 = require("tibber-api/lib/src/models/enums/EnergyResolution");
 const tibberHelper_1 = require("./tibberHelper");
 class TibberAPICaller extends tibberHelper_1.TibberHelper {
+    tibberConfig;
+    tibberQuery;
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.tibberConfig = tibberConfig;

@@ -32,27 +32,15 @@ const tibberCalculator_1 = require("./lib/tibberCalculator");
 const tibberLocal_1 = require("./lib/tibberLocal");
 const tibberPulse_1 = require("./lib/tibberPulse");
 class Tibberlink extends utils.Adapter {
+    cronList;
+    homeInfoList = [];
+    queryUrl = "";
+    tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
     constructor(options = {}) {
         super({
             ...options,
             name: "tibberlink",
         });
-        this.homeInfoList = [];
-        this.queryUrl = "";
-        this.tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
-        /**
-         * generates random delay time in milliseconds between min minutes and max minutes
-         *
-         * @param minMinutes - minimum minutes of delay as number
-         * @param maxMinutes - maximum minutes of delay as number
-         * @returns delay - milliseconds as integer
-         */
-        this.getRandomDelay = (minMinutes, maxMinutes) => {
-            if (minMinutes >= maxMinutes)
-                throw new Error("minMinutes should be less than maxMinutes");
-            const randomMinutes = Math.random() * (maxMinutes - minMinutes) + minMinutes;
-            return Math.floor(randomMinutes * 60 * 1000);
-        };
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
         // this.on("objectChange", this.onObjectChange.bind(this));
@@ -365,6 +353,19 @@ class Tibberlink extends utils.Adapter {
             await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice);
     }
+    /**
+     * generates random delay time in milliseconds between min minutes and max minutes
+     *
+     * @param minMinutes - minimum minutes of delay as number
+     * @param maxMinutes - maximum minutes of delay as number
+     * @returns delay - milliseconds as integer
+     */
+    getRandomDelay = (minMinutes, maxMinutes) => {
+        if (minMinutes >= maxMinutes)
+            throw new Error("minMinutes should be less than maxMinutes");
+        const randomMinutes = Math.random() * (maxMinutes - minMinutes) + minMinutes;
+        return Math.floor(randomMinutes * 60 * 1000);
+    };
     /**
      * Is called from adapter config screen
      */

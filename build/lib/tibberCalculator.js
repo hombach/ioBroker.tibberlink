@@ -4,6 +4,13 @@ exports.TibberCalculator = void 0;
 const date_fns_1 = require("date-fns");
 const tibberHelper_1 = require("./tibberHelper");
 class TibberCalculator extends tibberHelper_1.TibberHelper {
+    numBestCost;
+    numBestSingleHours;
+    numBestHoursBlock;
+    numBestCostLTF;
+    numBestSingleHoursLTF;
+    numBestHoursBlockLTF;
+    numSmartBatteryBuffer;
     constructor(adapter) {
         super(adapter);
         this.numBestCost = 0;

@@ -4,13 +4,17 @@ exports.TibberPulse = void 0;
 const tibber_api_1 = require("tibber-api");
 const tibberHelper_1 = require("./tibberHelper");
 class TibberPulse extends tibberHelper_1.TibberHelper {
+    tibberConfig;
+    tibberQuery;
+    tibberFeed;
+    httpQueryUrl;
+    reconnectTime = 6000;
+    maxReconnectTime = 900000;
+    countedFeedDisconnects = 0;
+    lastFeedWarningTime = null;
+    deltaFeedWarningTime = 0;
     constructor(tibberConfig, adapter) {
         super(adapter);
-        this.reconnectTime = 6000;
-        this.maxReconnectTime = 900000;
-        this.countedFeedDisconnects = 0;
-        this.lastFeedWarningTime = null;
-        this.deltaFeedWarningTime = 0;
         this.tibberConfig = tibberConfig;
         this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig);
         this.tibberFeed = new tibber_api_1.TibberFeed(this.tibberQuery);

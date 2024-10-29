@@ -33,7 +33,7 @@
 		// "useUnknownInCatchVariables": false,
 
 		// Consider targetting ES2022 or higher if you only support Node.js 18+
-		"target": "ES2020",
+		"target": "ES2022",
 
 		"sourceMap": true,
 		"inlineSourceMap": false,
@@ -43,7 +43,8 @@
 		"src/**/*.ts",
 		"test/**/*.ts",
 		"admin/**/*.ts",
-		"admin/**/*.tsx"
+		"admin/**/*.tsx",
+		"eslint.config.mjs"
 	],
 	"exclude": [
 		"build/**",

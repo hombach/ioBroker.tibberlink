@@ -44,7 +44,8 @@ async function translateText(text, targetLang, yandexApiKey) {
         return translateYandex(text, targetLang, yandexApiKey);
     }
     else {
-        return translateGoogle(text, targetLang);
+        return "DISABLED";
+        //return translateGoogle(text, targetLang);
     }
 }
 /**
@@ -74,24 +75,22 @@ async function translateYandex(text, targetLang, apiKey) {
  * @param text The text to translate
  * @param targetLang The target languate
  */
-async function translateGoogle(text, targetLang) {
+/*async function translateGoogle(text: string, targetLang: string): Promise<string> {
     try {
         // prettier-ignore
         const url = `http://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=${targetLang}&dt=t&q=${encodeURIComponent(text)}&ie=UTF-8&oe=UTF-8`;
-        const response = await axios_1.default.request({ url, timeout: 15000 });
+        const response = await axios.request<any>({ url, timeout: 15000 });
         if (isArray(response.data)) {
             // we got a valid response
             return response.data[0][0][0];
         }
         throw new Error(`Invalid response for translate request`);
-    }
-    catch (e) {
+    } catch (e: any) {
         if (e.response?.status === 429) {
             throw new Error(`Could not translate to "${targetLang}": Rate-limited by Google Translate`);
-        }
-        else {
+        } else {
             throw new Error(`Could not translate to "${targetLang}": ${e}`);
         }
     }
-}
+}*/
 //# sourceMappingURL=tools.js.map
