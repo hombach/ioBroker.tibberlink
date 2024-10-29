@@ -667,7 +667,7 @@
 					"items": [
 						{
 							"type": "selectSendTo",
-							"title": {
+							"label": {
 								"en": "Channel Home",
 								"de": "Kanal Zuhause",
 								"ru": "Домашний канал",
@@ -1467,9 +1467,6 @@
 						"uk": "Використовуйте пряме опитування локальних Tibber Pulse - поводьтеся обережно!",
 						"zh-cn": "使用本地 Tibber Pulse 的直接轮询 - 小心处理！"
 					},
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
 					"newLine": true
 				},
 
@@ -1537,9 +1534,6 @@
 
 				"PulseList": {
 					"type": "table",
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
 					"label": {
 						"en": "Local Pulse to poll data from.",
 						"de": "Lokaler Pulse, von dem Daten abgefragt werden sollen.",
