@@ -4,17 +4,17 @@
 		"version": "3.5.2",
 		"news": {
 			"3.5.2": {
-				"en": "Add verification for YES/NO values in calculator (#547)\nOptimized responsive design (#544)\nMigrate ESLint to >9.x\nSwitch to ES2022 code",
-				"de": "Überprüfung für JA/NEIN-Werte im Rechner hinzufügen (#547)\nResponsives Design optimiert (#544)\nESLint auf >9.x migrieren\nWechsel zu ES2022-Code",
-				"ru": "Добавлена проверка значений ДА/НЕТ в калькуляторе (#547)\nОптимизирован адаптивный дизайн (#544)\nПеренос ESLint на версию >9.x\nПереход на код ES2022",
-				"pt": "Adicionar verificação para valores SIM/NÃO na calculadora (#547)\nDesign responsivo otimizado (#544)\nMigrar ESLint para >9.x\nMudar para código ES2022",
-				"nl": "Verificatie voor JA/NEE-waarden in rekenmachine toevoegen (#547)\nGeoptimaliseerd responsief ontwerp (#544)\nMigreer ESLint naar >9.x\nSchakel over naar ES2022-code",
-				"fr": "Ajout de la vérification des valeurs OUI/NON dans la calculatrice (#547)\nDesign adaptatif optimisé (#544)\nMigration d'ESLint vers >9.x\nPassage au code ES2022",
-				"it": "Aggiunta verifica per i valori SÌ/NO nella calcolatrice (#547)\nDesign reattivo ottimizzato (#544)\nMigrare ESLint a >9.x\nPassare al codice ES2022",
-				"es": "Añadir verificación para valores SÍ/NO en la calculadora (#547)\nDiseño responsivo optimizado (#544)\nMigrar ESLint a >9.x\nCambiar a código ES2022",
-				"pl": "Dodaj weryfikację wartości TAK/NIE w kalkulatorze (#547)\nZoptymalizowano responsywny design (#544)\nMigracja ESLint do wersji >9.x\nPrzełącz na kod ES2022",
-				"uk": "Додано перевірку значень ТАК/НІ в калькуляторі (#547)\nОптимізовано адаптивний дизайн (#544)\nМіграція ESLint на >9.x\nПерехід на код ES2022",
-				"zh-cn": "在计算器中添加YES/NO值的验证 (#547)\n优化响应式设计 (#544)\n迁移ESLint到>9.x\n切换到ES2022代码"
+				"en": "Add verification for YES/NO 2 values in calculator (#547)\nOptimized responsive design (#544)\nMigrate eslint to >9.x\nSwitch to ES2022 code\nAdapted to new API constraints (#546)",
+				"de": "Hinzufügen einer Verifizierung für YES/NO 2-Werte im Rechner (#547)\nOptimiertes responsives Design (#544)\nMigration von eslint zu >9.x\nUmstellung auf ES2022-Code\nAngepasst an neue API-Einschränkungen (#546)",
+				"ru": "Добавлена проверка значений ДА/НЕТ 2 в калькуляторе (#547)\nОптимизирован адаптивный дизайн (#544)\nПереход на eslint >9.x\nПереход на код ES2022\nАдаптировано к новым ограничениям API (#546)",
+				"pt": "Adicionar verificação para valores SIM/NÃO 2 na calculadora (#547)\nDesign responsivo otimizado (#544)\nMigrar eslint para >9.x\nMudar para código ES2022\nAdaptado para novas restrições de API (#546)",
+				"nl": "Verificatie toegevoegd voor JA/NEE 2-waarden in calculator (#547)\nGeoptimaliseerd responsief ontwerp (#544)\nMigratie eslint naar >9.x\nOverschakeling naar ES2022-code\nAangepast aan nieuwe API-beperkingen (#546)",
+				"fr": "Ajout de la vérification des valeurs OUI/NON 2 dans la calculatrice (#547)\nOptimisation du design adaptatif (#544)\nMigration d'eslint vers >9.x\nPassage au code ES2022\nAdaptation aux nouvelles contraintes de l'API (#546)",
+				"it": "Aggiunta verifica per i valori SÌ/NO 2 nel calcolatore (#547)\nDesign reattivo ottimizzato (#544)\nMigrazione di eslint a >9.x\nPassaggio al codice ES2022\nAdattato ai nuovi vincoli API (#546)",
+				"es": "Añadida verificación para valores SÍ/NO 2 en calculadora (#547)\nOptimizado diseño responsivo (#544)\nMigrar eslint a >9.x\nCambiar a código ES2022\nAdaptado a nuevas restricciones de API (#546)",
+				"pl": "Dodano weryfikację wartości TAK/NIE 2 w kalkulatorze (#547)\nZoptymalizowany responsywny design (#544)\nMigracja eslint do >9.x\nPrzejście na kod ES2022\nDostosowano do nowych ograniczeń API (#546)",
+				"uk": "Додано перевірку значень ТАК/НІ 2 в калькуляторі (#547)\nОптимізовано адаптивний дизайн (#544)\nМіграція eslint до >9.x\nПерехід на код ES2022\nАдаптовано до нових обмежень API (#546)",
+				"zh-cn": "为计算器中的 YES/NO 2 值添加验证 (#547)\n优化响应式设计 (#544)\n迁移 eslint 到 >9.x\n切换到 ES2022 代码\n适应新的 API 约束 (#546)"
 			},
 			"3.5.1": {
 				"en": "changed to less feed disconnection warnings in log (#445)\nfix error in output2 of smart battery buffer (#538)\nupdate deprecated state calls\ndependency updates",

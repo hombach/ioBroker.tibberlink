@@ -186,7 +186,7 @@
 							"attr": "numberConsHourly",
 							"disabled": "!data.statsActive",
 							"min": 0,
-							"max": 400,
+							"max": 744,
 							"step": 1,
 							"width": "6%",
 							"default": 24
@@ -209,7 +209,7 @@
 							"attr": "numberConsDaily",
 							"disabled": "!data.statsActive",
 							"min": 0,
-							"max": 30,
+							"max": 31,
 							"step": 1,
 							"width": "6%",
 							"default": 7
@@ -232,7 +232,7 @@
 							"attr": "numberConsWeekly",
 							"disabled": "!data.statsActive",
 							"min": 0,
-							"max": 10,
+							"max": 52,
 							"step": 1,
 							"width": "6%",
 							"default": 4
@@ -255,7 +255,7 @@
 							"attr": "numberConsMonthly",
 							"disabled": "!data.statsActive",
 							"min": 0,
-							"max": 10,
+							"max": 12,
 							"step": 1,
 							"width": "6%",
 							"default": 4
@@ -278,10 +278,10 @@
 							"attr": "numberConsAnnual",
 							"disabled": "!data.statsActive",
 							"min": 0,
-							"max": 10,
+							"max": 1,
 							"step": 1,
 							"width": "6%",
-							"default": 2
+							"default": 1
 						}
 					]
 				},
