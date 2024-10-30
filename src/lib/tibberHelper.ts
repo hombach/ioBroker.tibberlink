@@ -163,7 +163,6 @@ export class TibberHelper {
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
 	protected async checkAndSetValue(
-		//stateName: { [key: string]: string },
 		stateName: Record<string, string>,
 		value: string,
 		description = "-",
@@ -195,7 +194,7 @@ export class TibberHelper {
 					});
 				}
 				if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
-					await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+					await this.adapter.setState(stateName.value, { val: value, ack: true });
 				}
 			}
 		}
@@ -215,7 +214,6 @@ export class TibberHelper {
 	 */
 	protected async checkAndSetValueNumber(
 		stateName: Record<string, string>,
-		//stateName: { [key: string]: string },
 		value: number,
 		description = "-",
 		unit?: string,
@@ -223,7 +221,8 @@ export class TibberHelper {
 		dontUpdate = false,
 		forceMode = false,
 	): Promise<void> {
-		if (value || value === 0) {
+		if (value !== undefined) {
+			//if (value || value === 0) {
 			const commonObj: ioBroker.StateCommon = {
 				name: stateName.key,
 				type: "number",
@@ -236,6 +235,7 @@ export class TibberHelper {
 			if (unit !== null && unit !== undefined) {
 				commonObj.unit = unit;
 			}
+
 			if (!forceMode) {
 				await this.adapter.setObjectNotExistsAsync(stateName.value, {
 					type: "state",
@@ -251,7 +251,7 @@ export class TibberHelper {
 			}
 
 			if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
-				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+				await this.adapter.setState(stateName.value, { val: value, ack: true });
 			}
 		}
 	}
@@ -267,7 +267,6 @@ export class TibberHelper {
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
 	protected async checkAndSetValueBoolean(
-		//stateName: { [key: string]: string },
 		stateName: Record<string, string>,
 		value: boolean,
 		description = "-",
@@ -299,7 +298,7 @@ export class TibberHelper {
 			}
 			// Update the state value if not in don't update mode or the state does not exist
 			if (!dontUpdate || (await this.adapter.getStateAsync(stateName.value)) === null) {
-				await this.adapter.setStateAsync(stateName.value, { val: value, ack: true });
+				await this.adapter.setState(stateName.value, { val: value, ack: true });
 			}
 		}
 	}
