@@ -78,6 +78,7 @@ class Tibberlink extends utils.Adapter {
                     //are there feeds configured to be used??
                     if (this.homeInfoList.length > 0) {
                         //set data in homeinfolist according to config data
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         const result = [];
                         for (const home of this.config.HomesList) {
                             const matchingHomeInfo = this.homeInfoList.find((info) => info.ID === home.homeID);
@@ -127,6 +128,7 @@ class Tibberlink extends utils.Adapter {
                     await this.tibberCalculator.updateCalculatorUsageStats();
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
+                        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                         Sentry &&
                             Sentry.withScope((scope) => {
                                 scope.setLevel("info");
@@ -140,8 +142,7 @@ class Tibberlink extends utils.Adapter {
                                 scope.setTag("numBestSingleHours", this.tibberCalculator.numBestSingleHours);
                                 scope.setTag("numBestSingleHoursLTF", this.tibberCalculator.numBestSingleHoursLTF);
                                 scope.setTag("numSmartBatteryBuffer", this.tibberCalculator.numSmartBatteryBuffer);
-                                //scope.setTag("usedAdminAdapter", version);
-                                Sentry.captureMessage("Adapter TibberLink started", "info"); // Level "info"
+                                Sentry.captureMessage("Adapter TibberLink started", "info");
                             });
                     }
                     this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
@@ -185,8 +186,7 @@ class Tibberlink extends utils.Adapter {
                 }
                 //Local Bridge Call
                 // (force) get current prices and start calculator tasks once for the FIRST time
-                if (!(await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true))) {
-                }
+                await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
                 this.jobPricesTodayLOOP(tibberAPICaller);
                 this.jobPricesTomorrowLOOP(tibberAPICaller);
                 tibberCalculator.startCalculatorTasks(false, true);
@@ -369,6 +369,7 @@ class Tibberlink extends utils.Adapter {
     /**
      * Is called from adapter config screen
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onMessage(obj) {
         if (obj) {
             switch (obj.command) {
@@ -386,7 +387,7 @@ class Tibberlink extends utils.Adapter {
                                 this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
                             }
                         }
-                        catch (error) {
+                        catch {
                             this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
                         }
                     }
@@ -406,7 +407,7 @@ class Tibberlink extends utils.Adapter {
                                 this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
                             }
                         }
-                        catch (error) {
+                        catch {
                             this.sendTo(obj.from, obj.command, [{ label: "None available", value: "None available" }], obj.callback);
                         }
                     }

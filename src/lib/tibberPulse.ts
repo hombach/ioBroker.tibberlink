@@ -8,11 +8,11 @@ export class TibberPulse extends TibberHelper {
 	tibberQuery: TibberQuery;
 	tibberFeed: TibberFeed;
 	httpQueryUrl: string;
-	reconnectTime: number = 6000;
-	maxReconnectTime: number = 900000;
-	countedFeedDisconnects: number = 0;
+	reconnectTime = 6000;
+	maxReconnectTime = 900000;
+	countedFeedDisconnects = 0;
 	lastFeedWarningTime: Date | null = null;
-	deltaFeedWarningTime: number = 0;
+	deltaFeedWarningTime = 0;
 
 	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
 		super(adapter);
@@ -75,7 +75,7 @@ export class TibberPulse extends TibberHelper {
 				}
 
 				this.countedFeedDisconnects++;
-				const loggingTextBlock: string = ` to reconnect with incremental delay -  Error text sent by Tibber: ${data.toString()}`;
+				const loggingTextBlock = ` to reconnect with incremental delay -  Error text sent by Tibber: ${data.toString()}`;
 
 				if (this.deltaFeedWarningTime > 30) {
 					this.countedFeedDisconnects = 0;

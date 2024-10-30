@@ -41,6 +41,7 @@ class TibberHelper {
         this.adapter = adapter;
     }
     getStatePrefix(homeId, space, id, name) {
+        //protected getStatePrefix(homeId: string, space: string, id: string, name?: string): { [key: string]: string } {
         const statePrefix = {
             key: name ? name : id,
             value: `Homes.${homeId}.${space}.${id}`,
@@ -48,6 +49,7 @@ class TibberHelper {
         return statePrefix;
     }
     getStatePrefixLocal(pulse, id, name) {
+        //protected getStatePrefixLocal(pulse: number, id: string, name?: string): { [key: string]: string } {
         const statePrefix = {
             key: name ? name : id,
             value: `LocalPulse.${pulse}.${id}`,
@@ -60,6 +62,7 @@ class TibberHelper {
      * @param stateName - A string representing the name of the state to retrieve.
      * @returns A Promise that resolves with the value of the state if it exists, otherwise resolves with null.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async getStateValue(stateName) {
         try {
             const stateObject = await this.getState(stateName);
@@ -149,7 +152,9 @@ class TibberHelper {
      * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValue(stateName, value, description = "-", writeable = false, dontUpdate = false, forceMode = false) {
+    async checkAndSetValue(
+    //stateName: { [key: string]: string },
+    stateName, value, description = "-", writeable = false, dontUpdate = false, forceMode = false) {
         if (value != undefined) {
             if (value.trim().length > 0) {
                 const commonObj = {
@@ -192,7 +197,9 @@ class TibberHelper {
      * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueNumber(stateName, value, description = "-", unit, writeable = false, dontUpdate = false, forceMode = false) {
+    async checkAndSetValueNumber(stateName, 
+    //stateName: { [key: string]: string },
+    value, description = "-", unit, writeable = false, dontUpdate = false, forceMode = false) {
         if (value || value === 0) {
             const commonObj = {
                 name: stateName.key,
@@ -235,7 +242,9 @@ class TibberHelper {
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueBoolean(stateName, value, description = "-", writeable = false, dontUpdate = false) {
+    async checkAndSetValueBoolean(
+    //stateName: { [key: string]: string },
+    stateName, value, description = "-", writeable = false, dontUpdate = false) {
         if (value !== undefined && value !== null) {
             const commonObj = {
                 name: stateName.key,
@@ -272,6 +281,7 @@ class TibberHelper {
      * @param context - A string providing context for where the error occurred.
      * @returns A string representing the formatted error message.
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     generateErrorMessage(error, context) {
         let errorMessages = "";
         // Check if error object has an 'errors' property that is an array

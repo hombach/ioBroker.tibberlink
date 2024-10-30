@@ -49,7 +49,8 @@ export class TibberHelper {
 		this.adapter = adapter;
 	}
 
-	protected getStatePrefix(homeId: string, space: string, id: string, name?: string): { [key: string]: string } {
+	protected getStatePrefix(homeId: string, space: string, id: string, name?: string): Record<string, string> {
+		//protected getStatePrefix(homeId: string, space: string, id: string, name?: string): { [key: string]: string } {
 		const statePrefix = {
 			key: name ? name : id,
 			value: `Homes.${homeId}.${space}.${id}`,
@@ -57,7 +58,8 @@ export class TibberHelper {
 		return statePrefix;
 	}
 
-	protected getStatePrefixLocal(pulse: number, id: string, name?: string): { [key: string]: string } {
+	protected getStatePrefixLocal(pulse: number, id: string, name?: string): Record<string, string> {
+		//protected getStatePrefixLocal(pulse: number, id: string, name?: string): { [key: string]: string } {
 		const statePrefix = {
 			key: name ? name : id,
 			value: `LocalPulse.${pulse}.${id}`,
@@ -71,6 +73,7 @@ export class TibberHelper {
 	 * @param stateName - A string representing the name of the state to retrieve.
 	 * @returns A Promise that resolves with the value of the state if it exists, otherwise resolves with null.
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	protected async getStateValue(stateName: string): Promise<any | null> {
 		try {
 			const stateObject = await this.getState(stateName);
@@ -87,7 +90,7 @@ export class TibberHelper {
 	 * @param stateName - A string representing the name of the state to retrieve.
 	 * @returns A Promise that resolves with the object of the state if it exists, otherwise resolves with null.
 	 */
-	private async getState(stateName: string): Promise<any> {
+	private async getState(stateName: string): Promise<ioBroker.State | null> {
 		try {
 			if (await this.verifyStateAvailable(stateName)) {
 				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
@@ -110,7 +113,7 @@ export class TibberHelper {
 	 * @param stateName - A string representing the name of the state to verify.
 	 * @returns A Promise that resolves with true if the state exists, otherwise resolves with false.
 	 */
-	private async verifyStateAvailable(stateName: string): Promise<any> {
+	private async verifyStateAvailable(stateName: string): Promise<boolean> {
 		const stateObject = await this.adapter.getObjectAsync(stateName); // Check state existence
 		if (!stateObject) {
 			this.adapter.log.debug(`[verifyStateAvailable](${stateName}): State does not exist.`);
@@ -160,12 +163,13 @@ export class TibberHelper {
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
 	protected async checkAndSetValue(
-		stateName: { [key: string]: string },
+		//stateName: { [key: string]: string },
+		stateName: Record<string, string>,
 		value: string,
-		description: string = "-",
-		writeable: boolean = false,
-		dontUpdate: boolean = false,
-		forceMode: boolean = false,
+		description = "-",
+		writeable = false,
+		dontUpdate = false,
+		forceMode = false,
 	): Promise<void> {
 		if (value != undefined) {
 			if (value.trim().length > 0) {
@@ -210,13 +214,14 @@ export class TibberHelper {
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
 	protected async checkAndSetValueNumber(
-		stateName: { [key: string]: string },
+		stateName: Record<string, string>,
+		//stateName: { [key: string]: string },
 		value: number,
-		description: string = "-",
+		description = "-",
 		unit?: string,
-		writeable: boolean = false,
-		dontUpdate: boolean = false,
-		forceMode: boolean = false,
+		writeable = false,
+		dontUpdate = false,
+		forceMode = false,
 	): Promise<void> {
 		if (value || value === 0) {
 			const commonObj: ioBroker.StateCommon = {
@@ -262,11 +267,12 @@ export class TibberHelper {
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
 	protected async checkAndSetValueBoolean(
-		stateName: { [key: string]: string },
+		//stateName: { [key: string]: string },
+		stateName: Record<string, string>,
 		value: boolean,
-		description: string = "-",
-		writeable: boolean = false,
-		dontUpdate: boolean = false,
+		description = "-",
+		writeable = false,
+		dontUpdate = false,
 	): Promise<void> {
 		if (value !== undefined && value !== null) {
 			const commonObj: ioBroker.StateCommon = {
@@ -305,6 +311,7 @@ export class TibberHelper {
 	 * @param context - A string providing context for where the error occurred.
 	 * @returns A string representing the formatted error message.
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public generateErrorMessage(error: any, context: string): string {
 		let errorMessages = "";
 		// Check if error object has an 'errors' property that is an array

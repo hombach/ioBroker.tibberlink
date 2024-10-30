@@ -191,6 +191,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
      * @param prefix - An optional string prefix to prepend to state keys (default is an empty string).
      * @param firstTime - A boolean indicating if this is the first time fetching the information (default is false).
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     fetchPulseInfo(pulse, obj, prefix = "", firstTime = false) {
         if (!obj || typeof obj !== "object") {
             this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
@@ -202,6 +203,7 @@ class TibberLocal extends tibberHelper_1.TibberHelper {
             else {
                 switch (key) {
                     case "timestamp":
+                        // eslint-disable-next-line no-case-declarations
                         const TimeValue = this.isValidUnixTimestampAndConvert(obj[key]);
                         if (TimeValue) {
                             obj[key] = TimeValue;
@@ -644,6 +646,7 @@ function findObisCodeName(code) {
         { code: "010051071aff", name: "Current/Potential_L3_Phase_deviation" },
         { code: "81.7.26", name: "Current/Potential_L3_Phase_deviation" },
     ];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const found = obisCodesWithNames.find((item) => item.code === code);
     return found ? found.name : `Found unknown OBIS-Code: ${code}`;
 }

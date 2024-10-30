@@ -102,7 +102,7 @@ class TibberAPICaller extends tibberHelper_1.TibberHelper {
                         return true;
                     }
                 }
-                else if (now.getHours() !== exDateCurrent.getHours()) {
+                else if (now.getHours() == exDateCurrent.getHours()) {
                     this.adapter.log.debug(`Hour (${exDateCurrent.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`);
                     return true;
                 }

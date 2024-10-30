@@ -89,7 +89,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate: boolean = false): Promise<boolean> {
+	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate = false): Promise<boolean> {
 		let okprice = true;
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) continue;
@@ -104,7 +104,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got new data
 	 */
-	private async updateCurrentPrice(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
+	private async updateCurrentPrice(homeId: string, forceUpdate = false): Promise<boolean> {
 		try {
 			if (homeId) {
 				let exDateCurrent: Date | null = null;
@@ -128,7 +128,7 @@ export class TibberAPICaller extends TibberHelper {
 					if (exDateCurrent && now.getHours() === exDateCurrent.getHours()) {
 						return true;
 					}
-				} else if (now.getHours() !== exDateCurrent.getHours()) {
+				} else if (now.getHours() == exDateCurrent.getHours()) {
 					this.adapter.log.debug(
 						`Hour (${exDateCurrent.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`,
 					);
@@ -139,7 +139,7 @@ export class TibberAPICaller extends TibberHelper {
 			} else {
 				return false;
 			}
-		} catch (error: any) {
+		} catch (error: unknown) {
 			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `pull of current price`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of current price`));
 			return false;
@@ -154,7 +154,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	async updatePricesTodayAllHomes(homeInfoList: IHomeInfo[], forceUpdate: boolean = false): Promise<boolean> {
+	async updatePricesTodayAllHomes(homeInfoList: IHomeInfo[], forceUpdate = false): Promise<boolean> {
 		let okprice = true;
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) continue;
@@ -174,7 +174,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	private async updatePricesToday(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
+	private async updatePricesToday(homeId: string, forceUpdate = false): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			let exPricesToday: IPrice[] = [];
@@ -233,7 +233,7 @@ export class TibberAPICaller extends TibberHelper {
 				this.adapter.log.debug(`Existing date (${exDate}) of price info is already the today date, polling of prices today from Tibber skipped`);
 				return true;
 			}
-		} catch (error: any) {
+		} catch (error: unknown) {
 			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `force pull of prices today`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
 			return false;
@@ -248,7 +248,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	async updatePricesTomorrowAllHomes(homeInfoList: IHomeInfo[], forceUpdate: boolean = false): Promise<boolean> {
+	async updatePricesTomorrowAllHomes(homeInfoList: IHomeInfo[], forceUpdate = false): Promise<boolean> {
 		let okprice = true;
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) continue;
@@ -268,7 +268,7 @@ export class TibberAPICaller extends TibberHelper {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got new data
 	 */
-	private async updatePricesTomorrow(homeId: string, forceUpdate: boolean = false): Promise<boolean> {
+	private async updatePricesTomorrow(homeId: string, forceUpdate = false): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			let exPricesTomorrow: IPrice[] = [];
@@ -335,7 +335,7 @@ export class TibberAPICaller extends TibberHelper {
 				return true;
 			}
 			return false;
-		} catch (error: any) {
+		} catch (error: unknown) {
 			if (forceUpdate) this.adapter.log.error(this.generateErrorMessage(error, `force pull of prices tomorrow`));
 			else this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));
 			return false;
@@ -378,7 +378,7 @@ export class TibberAPICaller extends TibberHelper {
 				}
 				this.adapter.log.debug(`Got all consumption data from Tibber Server for home: ${homeID}`);
 			}
-		} catch (error: any) {
+		} catch (error: unknown) {
 			this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
 		}
 	}

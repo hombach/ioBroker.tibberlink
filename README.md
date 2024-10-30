@@ -110,6 +110,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) add verification for YES/NO 2 values in calculator (#547)
 -   (HombachC) optimized responsive design (#544)
+-   (HombachC) migrate eslint to >9.x
 -   (HombachC) switch to ES2022 code
 
 ### 3.5.1 (2024-10-05)

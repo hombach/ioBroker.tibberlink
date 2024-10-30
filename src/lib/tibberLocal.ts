@@ -5,14 +5,14 @@ import { TibberHelper } from "./tibberHelper";
 
 export class TibberLocal extends TibberHelper {
 	intervalList: NodeJS.Timeout[];
-	TestData: string = "";
+	TestData = "";
 	// example HEX strings  -  meter mode 3 e.g. for "ISKRA ISK00 7034" meters
 	// TestData: string = `1b1b1b1b01010101760512923b426200620072630101760101050630be6c0b090149534b0004316b61010163a9b600760512923b43620062007263070177010b090149534b0004316b61070100620affff726201650b7415f27a77078181c78203ff010101010449534b0177070100000009ff010101010b090149534b0004316b610177070100010800ff65000101a001621e52ff59000000000ee32fcb0177070100010801ff0101621e52ff59000000000ee32fcb0177070100010802ff0101621e52ff5900000000000000000177070100020800ff0101621e52ff590000000007318ead0177070100020801ff0101621e52ff590000000007318ead0177070100020802ff0101621e52ff5900000000000000000177070100100700ff0101621b520055fffffff10177078181c78205ff010101018302268dd6b5bfb5760a1b2c763b034bd3af9863ea9000593a8da767ec1ba01e9b6e8d52fa200e7ec7517fc100295699650b01010163d03800760512923b4462006200726302017101630a84001b1b1b1b1a00a9f2`;
 	// example HEX strings  -  meter mode 3??? WiP e.g. for "EasyMeter Q3AA2064" meters
 	// TestData: string = `1b1b1b1b01010101760b455359416ebd0ac96831620062007263010176010445535908455359781168310b09014553591103bf6ebd0101638b0d00760b455359416ebd0ac96832620062007263070177010b09014553591103bf6ebd080100620affff0072620165039878117677078181c78203ff01010101044553590177070100000009ff010101010b09014553591103bf6ebd0177070100010800ff6400008001621e52fc5900000007fdd4f5c60177070100020800ff6400008001621e52fc5900000000002009db0177070100100700ff0101621b52fe5900000000000028d60177078181c7f006ff010101010401003e0101016305d800760b455359416ebd0ac968336200620072630201710163c13b000000001b1b1b1b1a032b3e`;
-	TestMode: boolean = false;
-	MetricsDataInterval: number = 60000;
-	meterMode: number = 0;
+	TestMode = false;
+	MetricsDataInterval = 60000;
+	meterMode = 0;
 	//negSignPattern: string = "77070100010800ff6301a";
 
 	constructor(adapter: utils.AdapterInstance) {
@@ -30,8 +30,8 @@ export class TibberLocal extends TibberHelper {
 				this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval = 2000;
 			}
 			if (!this.TestMode) {
-				let firstMetricsRun: boolean = true;
-				let firstDataRun: boolean = true;
+				let firstMetricsRun = true;
+				let firstDataRun = true;
 				//#region *** get Tibber Bridge metrics first time
 				this.getPulseData(pulse)
 					.then((response) => {
@@ -189,7 +189,8 @@ export class TibberLocal extends TibberHelper {
 	 * @param prefix - An optional string prefix to prepend to state keys (default is an empty string).
 	 * @param firstTime - A boolean indicating if this is the first time fetching the information (default is false).
 	 */
-	private fetchPulseInfo(pulse: number, obj: any, prefix: string = "", firstTime: boolean = false): void {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	private fetchPulseInfo(pulse: number, obj: any, prefix = "", firstTime = false): void {
 		if (!obj || typeof obj !== "object") {
 			this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
 		}
@@ -199,6 +200,7 @@ export class TibberLocal extends TibberHelper {
 			} else {
 				switch (key) {
 					case "timestamp":
+						// eslint-disable-next-line no-case-declarations
 						const TimeValue = this.isValidUnixTimestampAndConvert(obj[key]);
 						if (TimeValue) {
 							obj[key] = TimeValue;
@@ -386,7 +388,7 @@ export class TibberLocal extends TibberHelper {
 	 * @param forceMode - An optional boolean indicating whether to force the mode (default is false).
 	 * @returns A Promise that resolves when the parsing and processing are complete.
 	 */
-	private async extractAndParseSMLMessages(pulse: number, transfer: string, forceMode: boolean = false): Promise<void> {
+	private async extractAndParseSMLMessages(pulse: number, transfer: string, forceMode = false): Promise<void> {
 		interface PulseParseResult {
 			name: string;
 			value: number;
@@ -486,7 +488,7 @@ export class TibberLocal extends TibberHelper {
 	 * @param forceMode - An optional boolean indicating whether to force the mode (default is false).
 	 * @returns A Promise that resolves when the parsing and processing are complete.
 	 */
-	private async extractAndParseMode1_4Messages(pulse: number, transfer: string, forceMode: boolean = false): Promise<void> {
+	private async extractAndParseMode1_4Messages(pulse: number, transfer: string, forceMode = false): Promise<void> {
 		interface PulseParseResult {
 			name: string;
 			value: number;
@@ -755,6 +757,7 @@ function findObisCodeName(code: string): string {
 		{ code: "010051071aff", name: "Current/Potential_L3_Phase_deviation" },
 		{ code: "81.7.26", name: "Current/Potential_L3_Phase_deviation" },
 	];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const found = obisCodesWithNames.find((item: any) => item.code === code);
 	return found ? found.name : `Found unknown OBIS-Code: ${code}`;
 }

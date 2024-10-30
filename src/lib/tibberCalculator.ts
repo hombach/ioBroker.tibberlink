@@ -452,7 +452,7 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AverageTotalCost for calculator`));
 		}
 	}
-	private async setup_chBlockStartFullHour(homeId: string, channel: number, delMode: boolean = false): Promise<void> {
+	private async setup_chBlockStartFullHour(homeId: string, channel: number, delMode = false): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 			this.checkAndSetValue(
@@ -467,7 +467,7 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator`));
 		}
 	}
-	private async setup_chBlockEndFullHour(homeId: string, channel: number, delMode: boolean = false): Promise<void> {
+	private async setup_chBlockEndFullHour(homeId: string, channel: number, delMode = false): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 			this.checkAndSetValue(
@@ -483,7 +483,7 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	async startCalculatorTasks(onStateChange: boolean = false, firstRun: boolean = false): Promise<void> {
+	async startCalculatorTasks(onStateChange = false, firstRun = false): Promise<void> {
 		if (!this.adapter.config.UseCalculator) return;
 
 		const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
@@ -555,12 +555,11 @@ export class TibberCalculator extends TibberHelper {
 						continue; // skip channel
 					}
 					if (
-						this.adapter.config.CalculatorList[channel].chValueOn2 != null &&
-						this.adapter.config.CalculatorList[channel].chValueOn2 !== "" &&
-						this.adapter.config.CalculatorList[channel].chValueOff2 != null &&
-						this.adapter.config.CalculatorList[channel].chValueOff2 !== ""
+						this.adapter.config.CalculatorList[channel].chValueOn2 == null ||
+						this.adapter.config.CalculatorList[channel].chValueOn2 === "" ||
+						this.adapter.config.CalculatorList[channel].chValueOff2 == null ||
+						this.adapter.config.CalculatorList[channel].chValueOff2 === ""
 					) {
-					} else {
 						this.adapter.log.error(
 							`"Value YES 2" or "Value NO 2" is null or undefined in calculator channel ${channel}. Please provide usable values in config.`,
 						);
@@ -603,27 +602,27 @@ export class TibberCalculator extends TibberHelper {
 						`calculator channel: ${channel} - ${getCalcTypeDescription(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`,
 					);
 				}
-			} catch (error: any) {
-				this.adapter.log.warn(`unhandled error execute calculator channel ${channel}`);
+			} catch (error: unknown) {
+				this.adapter.log.warn(`unhandled error ${error} while executing calculator channel ${channel}`);
 			}
 		}
 	}
 
 	async updateCalculatorUsageStats(): Promise<void> {
 		if (!this.adapter.config.UseCalculator) return;
-		this.initStats;
+		this.initStats();
 		for (const channel in this.adapter.config.CalculatorList) {
 			try {
 				this.increaseStatsValueByOne(this.adapter.config.CalculatorList[channel].chType);
-			} catch (error: any) {
-				this.adapter.log.debug(`unhandled error in calculator channel ${channel} scan`);
+			} catch (error: unknown) {
+				this.adapter.log.debug(`unhandled error ${error} in calculator usage scan for channel ${channel}`);
 			}
 		}
 	}
 
-	private async executeCalculatorBestCost(channel: number, modeLTF: boolean = false): Promise<void> {
+	private async executeCalculatorBestCost(channel: number, modeLTF = false): Promise<void> {
 		try {
-			let valueToSet: string = "";
+			let valueToSet = "";
 			const now = new Date();
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
 				// not active
@@ -665,7 +664,7 @@ export class TibberCalculator extends TibberHelper {
 				}
 			}
 			//set value to foreign state, if defined
-			let sOutState: string = "";
+			let sOutState = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
 				!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
@@ -682,9 +681,9 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	private async executeCalculatorBestSingleHours(channel: number, modeLTF: boolean = false): Promise<void> {
+	private async executeCalculatorBestSingleHours(channel: number, modeLTF = false): Promise<void> {
 		try {
-			let valueToSet: string = "";
+			let valueToSet = "";
 			const now = new Date();
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
 				// not active -> choose chValueOff
@@ -756,7 +755,7 @@ export class TibberCalculator extends TibberHelper {
 				}
 			}
 			//set value to foreign state, if defined
-			let sOutState: string = "";
+			let sOutState = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
 				!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
@@ -773,9 +772,9 @@ export class TibberCalculator extends TibberHelper {
 		}
 	}
 
-	private async executeCalculatorBestHoursBlock(channel: number, modeLTF: boolean = false): Promise<void> {
+	private async executeCalculatorBestHoursBlock(channel: number, modeLTF = false): Promise<void> {
 		try {
-			let valueToSet: string = "";
+			let valueToSet = "";
 			const now = new Date();
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
 				// not active -> choose chValueOff
@@ -888,7 +887,7 @@ export class TibberCalculator extends TibberHelper {
 				);
 			}
 			//set value to foreign state, if defined
-			let sOutState: string = "";
+			let sOutState = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
 				!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
@@ -937,8 +936,8 @@ export class TibberCalculator extends TibberHelper {
 		*/
 		//#endregion
 		try {
-			let valueToSet: string = "";
-			let valueToSet2: string = "";
+			let valueToSet = "";
+			let valueToSet2 = "";
 			if (!this.adapter.config.CalculatorList[channel].chActive) {
 				// Not Active - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2)
 				valueToSet = this.adapter.config.CalculatorList[channel].chValueOff;
@@ -1019,7 +1018,7 @@ export class TibberCalculator extends TibberHelper {
 				}
 			}
 			//set value to foreign states, if defined
-			let sOutState: string = "";
+			let sOutState = "";
 			if (
 				this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
 				!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")

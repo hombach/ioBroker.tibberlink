@@ -456,12 +456,10 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                         this.adapter.log.debug(`chTargetState2 is null or undefined in calculator channel ${channel}. Skipping channel execution.`);
                         continue; // skip channel
                     }
-                    if (this.adapter.config.CalculatorList[channel].chValueOn2 != null &&
-                        this.adapter.config.CalculatorList[channel].chValueOn2 !== "" &&
-                        this.adapter.config.CalculatorList[channel].chValueOff2 != null &&
-                        this.adapter.config.CalculatorList[channel].chValueOff2 !== "") {
-                    }
-                    else {
+                    if (this.adapter.config.CalculatorList[channel].chValueOn2 == null ||
+                        this.adapter.config.CalculatorList[channel].chValueOn2 === "" ||
+                        this.adapter.config.CalculatorList[channel].chValueOff2 == null ||
+                        this.adapter.config.CalculatorList[channel].chValueOff2 === "") {
                         this.adapter.log.error(`"Value YES 2" or "Value NO 2" is null or undefined in calculator channel ${channel}. Please provide usable values in config.`);
                         continue; // skip channel
                     }
@@ -502,20 +500,20 @@ class TibberCalculator extends tibberHelper_1.TibberHelper {
                 }
             }
             catch (error) {
-                this.adapter.log.warn(`unhandled error execute calculator channel ${channel}`);
+                this.adapter.log.warn(`unhandled error ${error} while executing calculator channel ${channel}`);
             }
         }
     }
     async updateCalculatorUsageStats() {
         if (!this.adapter.config.UseCalculator)
             return;
-        this.initStats;
+        this.initStats();
         for (const channel in this.adapter.config.CalculatorList) {
             try {
                 this.increaseStatsValueByOne(this.adapter.config.CalculatorList[channel].chType);
             }
             catch (error) {
-                this.adapter.log.debug(`unhandled error in calculator channel ${channel} scan`);
+                this.adapter.log.debug(`unhandled error ${error} in calculator usage scan for channel ${channel}`);
             }
         }
     }
