@@ -59,7 +59,7 @@ export class TibberHelper {
 		return statePrefix;
 	}
 
-	protected getStatePrefixLocal(pulse: number, id: string, name?: string): Record<string, string> {
+	protected OBSOLETEgetStatePrefixLocal(pulse: number, id: string, name?: string): Record<string, string> {
 		const statePrefix = {
 			key: name ? name : id,
 			value: `LocalPulse.${pulse}.${id}`,

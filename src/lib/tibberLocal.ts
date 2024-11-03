@@ -1,10 +1,8 @@
 import * as utils from "@iobroker/adapter-core";
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { format, formatDuration, intervalToDuration } from "date-fns";
-// import { TibberHelper } from "./tibberHelper";
 import { ProjectUtils } from "./projectUtils";
 
-//export class TibberLocal extends TibberHelper {
 export class TibberLocal extends ProjectUtils {
 	intervalList: NodeJS.Timeout[];
 	TestData = "";
@@ -69,7 +67,6 @@ export class TibberLocal extends ProjectUtils {
 						.then((hexString) => {
 							this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
 							this.checkAndSetValue(`LocalPulse.${pulse}.SMLDataHEX`, hexString, this.adapter.config.PulseList[pulse].puName);
-							//WiP this.checkAndSetValue(this.getStatePrefixLocal(pulse, "SMLDataHEX"), hexString, this.adapter.config.PulseList[pulse].puName);
 							this.adapter.log.debug(`trying to parse meter mode ${this.meterMode}`);
 							switch (this.meterMode) {
 								case 1:
@@ -209,7 +206,6 @@ export class TibberLocal extends ProjectUtils {
 							obj[key] = TimeValue;
 							this.checkAndSetValue(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
 								false,
@@ -222,7 +218,6 @@ export class TibberLocal extends ProjectUtils {
 						if (typeof obj[key] === "number") {
 							this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								Math.round(obj[key] * 10) / 10,
 								`Temperature of this Tibber Pulse unit`,
 								"°C",
@@ -236,7 +231,6 @@ export class TibberLocal extends ProjectUtils {
 						if (typeof obj[key] === "number") {
 							this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								Math.round(obj[key] * 10) / 10,
 								`Mode of your Pulse to grid-meter communication`,
 								"",
@@ -254,7 +248,6 @@ export class TibberLocal extends ProjectUtils {
 						if (typeof obj[key] === "number") {
 							this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								Math.round(obj[key] * 100) / 100,
 								`Temperature of this Tibber Pulse unit`,
 								"V",
@@ -268,7 +261,6 @@ export class TibberLocal extends ProjectUtils {
 						if (typeof obj[key] === "number") {
 							this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								obj[key],
 								`Uptime of your Tibber Pulse in ms`,
 								"ms",
@@ -287,7 +279,6 @@ export class TibberLocal extends ProjectUtils {
 							}
 							this.checkAndSetValue(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}node_uptime`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}node_uptime`),
 								formatMilliseconds(obj[key]),
 								`Uptime of your Tibber Pulse`,
 								false,
@@ -300,7 +291,6 @@ export class TibberLocal extends ProjectUtils {
 						if (typeof obj[key] === "number") {
 							this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
 								"ms",
@@ -314,7 +304,6 @@ export class TibberLocal extends ProjectUtils {
 						if (typeof obj[key] === "number") {
 							this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
 								"ms",
@@ -328,7 +317,6 @@ export class TibberLocal extends ProjectUtils {
 						if (typeof obj[key] === "number") {
 							this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
 								"ms",
@@ -342,7 +330,6 @@ export class TibberLocal extends ProjectUtils {
 						if (typeof obj[key] === "string") {
 							this.checkAndSetValue(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
 								false,
@@ -352,7 +339,6 @@ export class TibberLocal extends ProjectUtils {
 						} else {
 							this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
-								//WiP this.getStatePrefixLocal(pulse, `PulseInfo.${prefix}${key}`),
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
 								"",
@@ -476,7 +462,6 @@ export class TibberLocal extends ProjectUtils {
 			}
 			this.checkAndSetValueNumber(
 				`LocalPulse.${pulse}.${result.name}`,
-				//WiP this.getStatePrefixLocal(pulse, result.name),
 				result.value,
 				this.adapter.config.PulseList[pulse].puName,
 				result.unit,
@@ -544,7 +529,6 @@ export class TibberLocal extends ProjectUtils {
 					PulseParseResults.push({ name, value, unit });
 					this.checkAndSetValueNumber(
 						`LocalPulse.${pulse}.${name}`,
-						//WiP this.getStatePrefixLocal(pulse, name),
 						value,
 						this.adapter.config.PulseList[pulse].puName,
 						unit,

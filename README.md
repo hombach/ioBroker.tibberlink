@@ -110,7 +110,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) update deprecated state calls
 -   (HombachC) add await to delObjectAsync
--   (HombachC) prepare project tools harmonization
+-   (HombachC) harmonize project tools for TibberLocal
 -   (HombachC) dependency updates
 
 ### 3.5.2 (2024-10-30)

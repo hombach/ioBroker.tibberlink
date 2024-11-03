@@ -3,7 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberPulse = void 0;
 const tibber_api_1 = require("tibber-api");
 const tibberHelper_1 = require("./tibberHelper");
+//import { ProjectUtils } from "./projectUtils";
 class TibberPulse extends tibberHelper_1.TibberHelper {
+    //export class TibberPulse extends TibberHelper {
     tibberConfig;
     tibberQuery;
     tibberFeed;

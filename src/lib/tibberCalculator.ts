@@ -2,6 +2,7 @@ import * as utils from "@iobroker/adapter-core";
 import { addDays, addHours, format } from "date-fns";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { TibberHelper, enCalcType, getCalcTypeDescription } from "./tibberHelper";
+//import { ProjectUtils } from "./projectUtils";
 
 export class TibberCalculator extends TibberHelper {
 	numBestCost: number;

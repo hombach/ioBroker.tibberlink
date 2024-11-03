@@ -2,8 +2,10 @@ import * as utils from "@iobroker/adapter-core";
 import { IConfig, TibberFeed, TibberQuery } from "tibber-api";
 import { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement";
 import { TibberHelper } from "./tibberHelper";
+//import { ProjectUtils } from "./projectUtils";
 
 export class TibberPulse extends TibberHelper {
+	//export class TibberPulse extends TibberHelper {
 	tibberConfig: IConfig;
 	tibberQuery: TibberQuery;
 	tibberFeed: TibberFeed;

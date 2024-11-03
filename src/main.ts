@@ -133,7 +133,7 @@ class Tibberlink extends utils.Adapter {
 								Sentry.captureMessage("Adapter TibberLink started", "info");
 							});
 					}
-					this.setStateAsync("info.LastSentryLogDay", { val: today.getDate(), ack: true });
+					this.setState("info.LastSentryLogDay", { val: today.getDate(), ack: true });
 				}
 			}
 

@@ -8,6 +8,7 @@ import { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
 import { IHomeInfo, TibberHelper } from "./tibberHelper";
+//import { ProjectUtils } from "./projectUtils";
 
 export class TibberAPICaller extends TibberHelper {
 	tibberConfig: IConfig;
