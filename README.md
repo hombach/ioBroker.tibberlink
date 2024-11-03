@@ -106,6 +106,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 3.5.3 (2024-11-xx) - WiP
+
+-   (HombachC) update deprecated state calls
+
 ### 3.5.2 (2024-10-30)
 
 -   (HombachC) add verification for YES/NO 2 values in calculator (#547)
