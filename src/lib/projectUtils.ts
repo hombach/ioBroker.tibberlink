@@ -14,7 +14,7 @@ export class ProjectUtils {
 	 * @returns A Promise that resolves with the value of the state if it exists, otherwise resolves with null.
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	async getStateValue(stateName: string): Promise<any | null> {
+	protected async getStateValue(stateName: string): Promise<any | null> {
 		try {
 			const stateObject = await this.getState(stateName);
 			return stateObject?.val ?? null; // errors have already been handled in getState()
@@ -30,7 +30,7 @@ export class ProjectUtils {
 	 * @param stateName - A string representing the name of the state to retrieve.
 	 * @returns A Promise that resolves with the object of the state if it exists, otherwise resolves with null.
 	 */
-	private async getState(stateName: string): Promise<ioBroker.State | null | undefined> {
+	private async getState(stateName: string): Promise<ioBroker.State | null> {
 		try {
 			if (await this.verifyStateAvailable(stateName)) {
 				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, �}
@@ -156,7 +156,7 @@ export class ProjectUtils {
 		if (value != undefined) {
 			if (value.trim().length > 0) {
 				const commonObj: ioBroker.StateCommon = {
-					name: stateName,
+					name: stateName.split(".").pop(),
 					type: "string",
 					role: "text",
 					desc: description,
@@ -195,7 +195,7 @@ export class ProjectUtils {
 	 * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	async checkAndSetValueNumber(
+	protected async checkAndSetValueNumber(
 		stateName: string,
 		value: number,
 		description = "-",
@@ -204,9 +204,9 @@ export class ProjectUtils {
 		dontUpdate = false,
 		forceMode = false,
 	): Promise<void> {
-		if (value || value === 0) {
+		if (value !== undefined) {
 			const commonObj: ioBroker.StateCommon = {
-				name: stateName,
+				name: stateName.split(".").pop(),
 				type: "number",
 				role: "value",
 				desc: description,
@@ -247,10 +247,17 @@ export class ProjectUtils {
 	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	async checkAndSetValueBoolean(stateName: string, value: boolean, description = "-", writeable = false, dontUpdate = false): Promise<void> {
+	protected async checkAndSetValueBoolean(
+		stateName: string,
+		value: boolean,
+		description = "-",
+		writeable = false,
+		dontUpdate = false,
+		forceMode = false,
+	): Promise<void> {
 		if (value !== undefined && value !== null) {
 			const commonObj: ioBroker.StateCommon = {
-				name: stateName,
+				name: stateName.split(".").pop(),
 				type: "boolean",
 				role: "indicator",
 				desc: description,
@@ -258,7 +265,7 @@ export class ProjectUtils {
 				write: writeable,
 			};
 
-			if (stateName.split(".").pop() === stateName) {
+			if (!forceMode) {
 				await this.adapter.setObjectNotExistsAsync(stateName, {
 					type: "state",
 					common: commonObj,
@@ -271,10 +278,36 @@ export class ProjectUtils {
 					native: {},
 				});
 			}
-			// Update the state value if not in don't update mode or the state does not exist
+
 			if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
 				await this.adapter.setState(stateName, { val: value, ack: true });
 			}
 		}
+	}
+
+	/**
+	 * Generates a formatted error message based on the provided error object and context.
+	 *
+	 * @param error - The error object containing information about the error, such as status and error messages.
+	 * @param context - A string providing context for where the error occurred.
+	 * @returns A string representing the formatted error message.
+	 */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	public generateErrorMessage(error: any, context: string): string {
+		let errorMessages = "";
+		// Check if error object has an 'errors' property that is an array
+		if (error.errors && Array.isArray(error.errors)) {
+			// Iterate over the array of errors and concatenate their messages
+			for (const err of error.errors) {
+				if (errorMessages) errorMessages += ", ";
+				errorMessages += err.message;
+			}
+		} else if (error.message) {
+			errorMessages = error.message; // If 'errors' array is not present, use the 'message' property of the error object
+		} else {
+			errorMessages = "Unknown error"; // If no 'errors' or 'message' property is found, default to "Unknown error"
+		}
+		// Construct the final error message string with status, context, and error messages
+		return `Error (${error.statusMessage || error.statusText || "Unknown Status"}) occurred during: -${context}- : ${errorMessages}`;
 	}
 }

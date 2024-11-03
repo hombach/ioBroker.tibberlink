@@ -152,7 +152,7 @@ class ProjectUtils {
         if (value != undefined) {
             if (value.trim().length > 0) {
                 const commonObj = {
-                    name: stateName,
+                    name: stateName.split(".").pop(),
                     type: "string",
                     role: "text",
                     desc: description,
@@ -192,9 +192,9 @@ class ProjectUtils {
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
     async checkAndSetValueNumber(stateName, value, description = "-", unit, writeable = false, dontUpdate = false, forceMode = false) {
-        if (value || value === 0) {
+        if (value !== undefined) {
             const commonObj = {
-                name: stateName,
+                name: stateName.split(".").pop(),
                 type: "number",
                 role: "value",
                 desc: description,
@@ -234,17 +234,17 @@ class ProjectUtils {
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueBoolean(stateName, value, description = "-", writeable = false, dontUpdate = false) {
+    async checkAndSetValueBoolean(stateName, value, description = "-", writeable = false, dontUpdate = false, forceMode = false) {
         if (value !== undefined && value !== null) {
             const commonObj = {
-                name: stateName,
+                name: stateName.split(".").pop(),
                 type: "boolean",
                 role: "indicator",
                 desc: description,
                 read: true,
                 write: writeable,
             };
-            if (stateName.split(".").pop() === stateName) {
+            if (!forceMode) {
                 await this.adapter.setObjectNotExistsAsync(stateName, {
                     type: "state",
                     common: commonObj,
@@ -258,11 +258,38 @@ class ProjectUtils {
                     native: {},
                 });
             }
-            // Update the state value if not in don't update mode or the state does not exist
             if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
                 await this.adapter.setState(stateName, { val: value, ack: true });
             }
         }
+    }
+    /**
+     * Generates a formatted error message based on the provided error object and context.
+     *
+     * @param error - The error object containing information about the error, such as status and error messages.
+     * @param context - A string providing context for where the error occurred.
+     * @returns A string representing the formatted error message.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    generateErrorMessage(error, context) {
+        let errorMessages = "";
+        // Check if error object has an 'errors' property that is an array
+        if (error.errors && Array.isArray(error.errors)) {
+            // Iterate over the array of errors and concatenate their messages
+            for (const err of error.errors) {
+                if (errorMessages)
+                    errorMessages += ", ";
+                errorMessages += err.message;
+            }
+        }
+        else if (error.message) {
+            errorMessages = error.message; // If 'errors' array is not present, use the 'message' property of the error object
+        }
+        else {
+            errorMessages = "Unknown error"; // If no 'errors' or 'message' property is found, default to "Unknown error"
+        }
+        // Construct the final error message string with status, context, and error messages
+        return `Error (${error.statusMessage || error.statusText || "Unknown Status"}) occurred during: -${context}- : ${errorMessages}`;
     }
 }
 exports.ProjectUtils = ProjectUtils;
