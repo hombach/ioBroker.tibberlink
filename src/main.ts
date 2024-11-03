@@ -254,7 +254,7 @@ class Tibberlink extends utils.Adapter {
 					const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 
 					if (!this.homeInfoList.some((homeInfo) => homeInfo.ID == `None available - restart adapter after entering token`)) {
-						this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true });
+						await this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true });
 					}
 
 					for (const index in this.homeInfoList) {
@@ -423,7 +423,7 @@ class Tibberlink extends utils.Adapter {
 			if (state) {
 				// The state was changed
 				// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
-				this.log.debug(`statechange detected and parsing for is: ${id}- state: ${state}`);
+				this.log.debug(`statechange detected and parsing for id: ${id} - state: ${state}`);
 				if (!state.ack) {
 					if (id.includes(`.Calculations.`)) {
 						const statePath = id.split(".");
