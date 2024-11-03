@@ -109,6 +109,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 3.5.3 (2024-11-xx) - WiP
 
 -   (HombachC) update deprecated state calls
+-   (HombachC) dependency updates
 
 ### 3.5.2 (2024-10-30)
 

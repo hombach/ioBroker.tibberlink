@@ -443,6 +443,7 @@ class Tibberlink extends utils.Adapter {
             if (state) {
                 // The state was changed
                 // this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
+                this.log.debug(`statechange detected and parsing for is: ${id}- state: ${state}`);
                 if (!state.ack) {
                     if (id.includes(`.Calculations.`)) {
                         const statePath = id.split(".");
@@ -468,7 +469,7 @@ class Tibberlink extends utils.Adapter {
                                         if (typeof state.val === "number") {
                                             this.config.CalculatorList[calcChannel].chTriggerPrice = state.val;
                                             this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to TriggerPrice: ${this.config.CalculatorList[calcChannel].chTriggerPrice}`);
-                                            this.setStateAsync(id, state.val, true);
+                                            this.setState(id, state.val, true);
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chTriggerPrice: ${state.val}`);
@@ -479,7 +480,7 @@ class Tibberlink extends utils.Adapter {
                                         if (typeof state.val === "number") {
                                             this.config.CalculatorList[calcChannel].chAmountHours = state.val;
                                             this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours: ${this.config.CalculatorList[calcChannel].chAmountHours}`);
-                                            this.setStateAsync(id, state.val, true);
+                                            this.setState(id, state.val, true);
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chAmountHours: ${state.val}`);
@@ -497,7 +498,7 @@ class Tibberlink extends utils.Adapter {
                                                 dateWithTimeZone.setMinutes(0, 0, 0);
                                                 this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
                                                 this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
-                                                this.setStateAsync(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                                                this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
                                             else {
                                                 this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStartTime: ${state.val}`);
@@ -519,7 +520,7 @@ class Tibberlink extends utils.Adapter {
                                                 dateWithTimeZone.setMinutes(0, 0, 0);
                                                 this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
                                                 this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
-                                                this.setStateAsync(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                                                this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
                                             else {
                                                 this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStopTime: ${state.val}`);
@@ -534,7 +535,7 @@ class Tibberlink extends utils.Adapter {
                                         if (typeof state.val === "number") {
                                             this.config.CalculatorList[calcChannel].chRepeatDays = state.val;
                                             this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to RepeatDays: ${this.config.CalculatorList[calcChannel].chRepeatDays}`);
-                                            this.setStateAsync(id, state.val, true);
+                                            this.setState(id, state.val, true);
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chRepeatDays: ${state.val}`);
@@ -545,7 +546,7 @@ class Tibberlink extends utils.Adapter {
                                         if (typeof state.val === "number") {
                                             this.config.CalculatorList[calcChannel].chEfficiencyLoss = state.val;
                                             this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to EfficiencyLoss: ${this.config.CalculatorList[calcChannel].chEfficiencyLoss}`);
-                                            this.setStateAsync(id, state.val, true);
+                                            this.setState(id, state.val, true);
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chEfficiencyLoss: ${state.val}`);
