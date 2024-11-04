@@ -59,6 +59,11 @@
 					"href": "https://invite.tibber.com/mu8c82n5",
 					"button": true,
 					"icon": "info",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
 					"newLine": true
 				},
 				"HomesList": {
