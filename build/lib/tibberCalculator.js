@@ -200,7 +200,6 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             //#endregion
             //#region *** subscribe state changes ***
             // this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
-            this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
