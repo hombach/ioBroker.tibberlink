@@ -51,7 +51,6 @@ export class TibberHelper {
 
 	protected getStatePrefix(homeId: string, space: string, id: string, name?: string): Record<string, string> {
 		//this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`) => `Homes.${homeId}.Calculations.${channel}.${id}`
-		//protected getStatePrefix(homeId: string, space: string, id: string, name?: string): { [key: string]: string } {
 		const statePrefix = {
 			key: name ? name : id,
 			value: `Homes.${homeId}.${space}.${id}`,

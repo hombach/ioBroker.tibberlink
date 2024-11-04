@@ -5,6 +5,7 @@ const date_fns_1 = require("date-fns");
 const tibberHelper_1 = require("./tibberHelper");
 //import { ProjectUtils } from "./projectUtils";
 class TibberCalculator extends tibberHelper_1.TibberHelper {
+    // export class TibberCalculator extends TibberHelper {
     numBestCost;
     numBestSingleHours;
     numBestHoursBlock;

@@ -5,6 +5,7 @@ import { TibberHelper, enCalcType, getCalcTypeDescription } from "./tibberHelper
 //import { ProjectUtils } from "./projectUtils";
 
 export class TibberCalculator extends TibberHelper {
+	// export class TibberCalculator extends TibberHelper {
 	numBestCost: number;
 	numBestSingleHours: number;
 	numBestHoursBlock: number;
