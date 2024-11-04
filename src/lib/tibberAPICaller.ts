@@ -7,9 +7,8 @@ import { IHome } from "tibber-api/lib/src/models/IHome"; // obsolete data poll f
 import { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
-import { IHomeInfo } from "./tibberHelper";
-//import { IHomeInfo, TibberHelper } from "./tibberHelper";
 import { ProjectUtils } from "./projectUtils";
+import { IHomeInfo } from "./tibberHelper";
 
 export class TibberAPICaller extends ProjectUtils {
 	tibberConfig: IConfig;

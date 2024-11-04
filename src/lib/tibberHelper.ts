@@ -49,19 +49,11 @@ export class TibberHelper {
 		this.adapter = adapter;
 	}
 
-	protected getStatePrefix(homeId: string, space: string, id: string, name?: string): Record<string, string> {
+	protected OBSOLETEgetStatePrefix(homeId: string, space: string, id: string, name?: string): Record<string, string> {
 		//this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`) => `Homes.${homeId}.Calculations.${channel}.${id}`
 		const statePrefix = {
 			key: name ? name : id,
 			value: `Homes.${homeId}.${space}.${id}`,
-		};
-		return statePrefix;
-	}
-
-	protected OBSOLETEgetStatePrefixLocal(pulse: number, id: string, name?: string): Record<string, string> {
-		const statePrefix = {
-			key: name ? name : id,
-			value: `LocalPulse.${pulse}.${id}`,
 		};
 		return statePrefix;
 	}
@@ -161,7 +153,7 @@ export class TibberHelper {
 	 * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	protected async checkAndSetValue(
+	protected async OBSOLETEcheckAndSetValue(
 		stateName: Record<string, string>,
 		value: string,
 		description = "-",
@@ -211,7 +203,7 @@ export class TibberHelper {
 	 * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	protected async checkAndSetValueNumber(
+	protected async OBSOLETEcheckAndSetValueNumber(
 		stateName: Record<string, string>,
 		value: number,
 		description = "-",
@@ -265,7 +257,7 @@ export class TibberHelper {
 	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	protected async checkAndSetValueBoolean(
+	protected async OBSOLETEcheckAndSetValueBoolean(
 		stateName: Record<string, string>,
 		value: boolean,
 		description = "-",
@@ -310,7 +302,7 @@ export class TibberHelper {
 	 * @returns A string representing the formatted error message.
 	 */
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public generateErrorMessage(error: any, context: string): string {
+	public OBSOLETEgenerateErrorMessage(error: any, context: string): string {
 		let errorMessages = "";
 		// Check if error object has an 'errors' property that is an array
 		if (error.errors && Array.isArray(error.errors)) {

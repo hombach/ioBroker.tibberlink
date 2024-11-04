@@ -1,10 +1,11 @@
 import * as utils from "@iobroker/adapter-core";
 import { addDays, addHours, format } from "date-fns";
 import { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { TibberHelper, enCalcType, getCalcTypeDescription } from "./tibberHelper";
-//import { ProjectUtils } from "./projectUtils";
+import { enCalcType, getCalcTypeDescription } from "./tibberHelper";
+//import { TibberHelper, enCalcType, getCalcTypeDescription } from "./tibberHelper";
+import { ProjectUtils } from "./projectUtils";
 
-export class TibberCalculator extends TibberHelper {
+export class TibberCalculator extends ProjectUtils {
 	// export class TibberCalculator extends TibberHelper {
 	numBestCost: number;
 	numBestSingleHours: number;
@@ -84,7 +85,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chActive = false;
 			}
 			this.checkAndSetValueBoolean(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `Active`, channelName),
+				`Homes.${homeId}.Calculations.${channel}.Active`,
 				this.adapter.config.CalculatorList[channel].chActive,
 				`Whether the calculation channel is active`,
 				true,
@@ -119,73 +120,73 @@ export class TibberCalculator extends TibberHelper {
 			*/
 			switch (this.adapter.config.CalculatorList[channel].chType) {
 				case enCalcType.BestCost:
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value); // INPUTS
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AmountHours`); // INPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StopTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.setup_chTriggerPrice(homeId, channel);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.setup_chOutput(homeId, channel);
 					break;
 				case enCalcType.BestSingleHours:
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StopTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.setup_chAmountHours(homeId, channel);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.setup_chOutput(homeId, channel);
 					break;
 				case enCalcType.BestHoursBlock:
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`).value);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StopTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chAverageTotalCost(homeId, channel);
 					await this.setup_chBlockStartFullHour(homeId, channel);
 					await this.setup_chBlockEndFullHour(homeId, channel);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.setup_chOutput(homeId, channel);
 					break;
 				case enCalcType.BestCostLTF:
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`).value); // INPUTS
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AmountHours`); // INPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.setup_chTriggerPrice(homeId, channel);
 					await this.setup_chStartTime(homeId, channel);
 					await this.setup_chStopTime(homeId, channel);
 					await this.setup_chRepeatDays(homeId, channel);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.setup_chOutput(homeId, channel);
 					break;
 				case enCalcType.BestSingleHoursLTF:
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chStartTime(homeId, channel);
 					await this.setup_chStopTime(homeId, channel);
 					await this.setup_chRepeatDays(homeId, channel);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.setup_chOutput(homeId, channel);
 					break;
 				case enCalcType.BestHoursBlockLTF:
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`).value);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chStartTime(homeId, channel);
 					await this.setup_chStopTime(homeId, channel);
@@ -193,17 +194,17 @@ export class TibberCalculator extends TibberHelper {
 					await this.setup_chAverageTotalCost(homeId, channel);
 					await this.setup_chBlockStartFullHour(homeId, channel);
 					await this.setup_chBlockEndFullHour(homeId, channel);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value); // OUTPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.setup_chOutput(homeId, channel);
 					break;
 				case enCalcType.SmartBatteryBuffer:
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`).value); // INPUTS
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartTime`).value);
-					await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStopTime`).value);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StopTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chEfficiencyLoss(homeId, channel);
 					await this.setup_chOutput(homeId, channel); // OUTPUTS
@@ -234,11 +235,11 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
 			!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
 		) {
-			await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`).value);
+			await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output`);
 		} else {
 			try {
 				this.checkAndSetValueBoolean(
-					this.getStatePrefix(homeId, `Calculations.${channel}`, `Output`),
+					`Homes.${homeId}.Calculations.${channel}.Output`,
 					false,
 					`standard output if no special one selected in config`,
 					true,
@@ -254,11 +255,11 @@ export class TibberCalculator extends TibberHelper {
 			this.adapter.config.CalculatorList[channel].chTargetState2.length > 10 &&
 			!this.adapter.config.CalculatorList[channel].chTargetState2.startsWith("choose your state to drive")
 		) {
-			await this.adapter.delObjectAsync(this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`).value);
+			await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`);
 		} else {
 			try {
 				this.checkAndSetValueBoolean(
-					this.getStatePrefix(homeId, `Calculations.${channel}`, `Output2`),
+					`Homes.${homeId}.Calculations.${channel}.Output2`,
 					false,
 					`standard output2 if no special one selected in config`,
 					true,
@@ -276,7 +277,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chTriggerPrice = 0;
 			}
 			this.checkAndSetValueNumber(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `TriggerPrice`),
+				`Homes.${homeId}.Calculations.${channel}.TriggerPrice`,
 				this.adapter.config.CalculatorList[channel].chTriggerPrice,
 				`pricelevel to trigger this channel at`,
 				undefined,
@@ -304,7 +305,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chAmountHours = 0;
 			}
 			this.checkAndSetValueNumber(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `AmountHours`),
+				`Homes.${homeId}.Calculations.${channel}.AmountHours`,
 				this.adapter.config.CalculatorList[channel].chAmountHours,
 				`amount of hours to trigger this channel`,
 				undefined,
@@ -334,7 +335,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chStartTime = today;
 			}
 			this.checkAndSetValue(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `StartTime`),
+				`Homes.${homeId}.Calculations.${channel}.StartTime`,
 				this.adapter.config.CalculatorList[channel].chStartTime.toISOString(),
 				`Start time for this channel`,
 				true,
@@ -363,7 +364,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chStopTime = today;
 			}
 			this.checkAndSetValue(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `StopTime`),
+				`Homes.${homeId}.Calculations.${channel}.StopTime`,
 				this.adapter.config.CalculatorList[channel].chStopTime.toISOString(),
 				`Stop time for this channel`,
 				true,
@@ -390,7 +391,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chRepeatDays = 0;
 			}
 			this.checkAndSetValueNumber(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `RepeatDays`),
+				`Homes.${homeId}.Calculations.${channel}.RepeatDays`,
 				this.adapter.config.CalculatorList[channel].chRepeatDays,
 				`number of days to shift this LTF channel for repetition`,
 				undefined,
@@ -418,7 +419,7 @@ export class TibberCalculator extends TibberHelper {
 				this.adapter.config.CalculatorList[channel].chEfficiencyLoss = 0;
 			}
 			this.checkAndSetValueNumber(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `EfficiencyLoss`),
+				`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`,
 				this.adapter.config.CalculatorList[channel].chEfficiencyLoss,
 				`efficiency loss between charge and discharge of battery system`,
 				undefined,
@@ -442,7 +443,7 @@ export class TibberCalculator extends TibberHelper {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
 			this.checkAndSetValueNumber(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `AverageTotalCost`),
+				`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`,
 				0,
 				`average total cost in determined block`,
 				undefined,
@@ -457,13 +458,7 @@ export class TibberCalculator extends TibberHelper {
 	private async setup_chBlockStartFullHour(homeId: string, channel: number, delMode = false): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
-			this.checkAndSetValue(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockStartFullHour`),
-				`-`,
-				`first hour of determined block`,
-				false,
-				false,
-			);
+			this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStartFullHour`, `-`, `first hour of determined block`, false, false);
 			if (!delMode) this.adapter.log.debug(`setup calculator output state BlockStartFullHour in home: ${homeId} - channel: ${channel}-${channelName}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator`));
@@ -472,13 +467,7 @@ export class TibberCalculator extends TibberHelper {
 	private async setup_chBlockEndFullHour(homeId: string, channel: number, delMode = false): Promise<void> {
 		try {
 			const channelName = this.adapter.config.CalculatorList[channel].chName;
-			this.checkAndSetValue(
-				this.getStatePrefix(homeId, `Calculations.${channel}`, `BlockEndFullHour`),
-				`-`,
-				`end hour of determined block`,
-				false,
-				false,
-			);
+			this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end hour of determined block`, false, false);
 			if (!delMode) this.adapter.log.debug(`setup calculator output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelName}`);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEndFullHour for calculator`));
@@ -863,7 +852,7 @@ export class TibberCalculator extends TibberHelper {
 
 				// calculate average cost of determined block of hours, write to data point
 				this.checkAndSetValueNumber(
-					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `AverageTotalCost`),
+					`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.AverageTotalCost`,
 					Math.round(1000 * (minSum / n)) / 1000,
 					`average total cost in determined block`,
 					undefined,
@@ -874,14 +863,14 @@ export class TibberCalculator extends TibberHelper {
 				const beginDate = new Date(filteredPrices[startIndex].startsAt);
 				const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
 				this.checkAndSetValue(
-					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockStartFullHour`),
+					`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.BlockStartFullHour`,
 					format(beginDate, "H"),
 					`first hour of determined block`,
 					false,
 					false,
 				);
 				this.checkAndSetValue(
-					this.getStatePrefix(this.adapter.config.CalculatorList[channel].chHomeID, `Calculations.${channel}`, `BlockEndFullHour`),
+					`Homes.${this.adapter.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.BlockEndFullHour`,
 					format(addHours(endDate, 1), "H"),
 					`end hour of determined block`,
 					false,

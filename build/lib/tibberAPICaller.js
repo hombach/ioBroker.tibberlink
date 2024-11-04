@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberAPICaller = void 0;
 const tibber_api_1 = require("tibber-api");
 const EnergyResolution_1 = require("tibber-api/lib/src/models/enums/EnergyResolution");
-//import { IHomeInfo, TibberHelper } from "./tibberHelper";
 const projectUtils_1 = require("./projectUtils");
 class TibberAPICaller extends projectUtils_1.ProjectUtils {
     tibberConfig;
