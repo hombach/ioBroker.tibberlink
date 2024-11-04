@@ -2,11 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberCalculator = void 0;
 const date_fns_1 = require("date-fns");
-const tibberHelper_1 = require("./tibberHelper");
-//import { TibberHelper, enCalcType, getCalcTypeDescription } from "./tibberHelper";
 const projectUtils_1 = require("./projectUtils");
+const tibberHelper_1 = require("./tibberHelper");
 class TibberCalculator extends projectUtils_1.ProjectUtils {
-    // export class TibberCalculator extends TibberHelper {
     numBestCost;
     numBestSingleHours;
     numBestHoursBlock;
