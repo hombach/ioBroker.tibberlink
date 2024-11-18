@@ -32,7 +32,7 @@
     "date-fns": "^4.1.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.14.0",
     "@iobroker/testing": "^5.0.0",
     "@iobroker/types": "^6.0.11",
