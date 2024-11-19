@@ -567,7 +567,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             //set value to foreign state, if defined
             let sOutState = "";
-            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+            if (this.adapter.config.CalculatorList[channel]?.chTargetState &&
+                this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
                 sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
                 this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
@@ -639,7 +640,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             //set value to foreign state, if defined
             let sOutState = "";
-            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+            if (this.adapter.config.CalculatorList[channel]?.chTargetState &&
+                this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
                 sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
                 this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
@@ -733,7 +735,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             //set value to foreign state, if defined
             let sOutState = "";
-            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+            if (this.adapter.config.CalculatorList[channel]?.chTargetState &&
+                this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
                 sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
                 this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
@@ -854,7 +857,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             //set value to foreign states, if defined
             let sOutState = "";
-            if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+            if (this.adapter.config.CalculatorList[channel]?.chTargetState &&
+                this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
                 !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
                 sOutState = this.adapter.config.CalculatorList[channel].chTargetState;
                 this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));

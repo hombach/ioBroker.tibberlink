@@ -108,7 +108,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.5.3 (2024-11-xx) - WiP
 
--   (HombachC) fix error in output state setup
+-   (HombachC) fix edge case in output state setup and usage
 -   (HombachC) optimzed state subscription
 -   (HombachC) update deprecated state calls
 -   (HombachC) add await to delObjectAsync
