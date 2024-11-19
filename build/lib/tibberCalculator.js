@@ -200,6 +200,16 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             //#endregion
             //#region *** subscribe state changes ***
             // this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
+            this.adapter.subscribeStates([
+                `Homes.${homeId}.Calculations.${channel}.Active`,
+                `Homes.${homeId}.Calculations.${channel}.TriggerPrice`,
+                `Homes.${homeId}.Calculations.${channel}.AmountHours`,
+                `Homes.${homeId}.Calculations.${channel}.StartTime`,
+                `Homes.${homeId}.Calculations.${channel}.StopTime`,
+                `Homes.${homeId}.Calculations.${channel}.RepeatDays`,
+                `Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`,
+            ]);
+            /*
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
@@ -207,6 +217,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StopTime`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+            */
             //#endregion
         }
         catch (error) {
