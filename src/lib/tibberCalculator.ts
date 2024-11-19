@@ -241,6 +241,7 @@ export class TibberCalculator extends ProjectUtils {
 
 	private async setup_chOutput(homeId: string, channel: number): Promise<void> {
 		if (
+			this.adapter.config.CalculatorList[channel]?.chTargetState &&
 			this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
 			!this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")
 		) {
@@ -255,12 +256,13 @@ export class TibberCalculator extends ProjectUtils {
 					true,
 				);
 			} catch (error) {
-				this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator`));
+				this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator for Home ${homeId}, Channel ${channel}`));
 			}
 		}
 	}
 	private async setup_chOutput2(homeId: string, channel: number): Promise<void> {
 		if (
+			this.adapter.config.CalculatorList[channel]?.chTargetState2 &&
 			this.adapter.config.CalculatorList[channel].chTargetState2.length > 10 &&
 			!this.adapter.config.CalculatorList[channel].chTargetState2.startsWith("choose your state to drive")
 		) {
@@ -275,7 +277,7 @@ export class TibberCalculator extends ProjectUtils {
 					true,
 				);
 			} catch (error) {
-				this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator`));
+				this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator for Home ${homeId}, Channel ${channel}`));
 			}
 		}
 	}

@@ -225,7 +225,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
     }
     async setup_chOutput(homeId, channel) {
-        if (this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
+        if (this.adapter.config.CalculatorList[channel]?.chTargetState &&
+            this.adapter.config.CalculatorList[channel].chTargetState.length > 10 &&
             !this.adapter.config.CalculatorList[channel].chTargetState.startsWith("choose your state to drive")) {
             await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output`);
         }
@@ -234,12 +235,13 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output`, false, `standard output if no special one selected in config`, true, true);
             }
             catch (error) {
-                this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator`));
+                this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator for Home ${homeId}, Channel ${channel}`));
             }
         }
     }
     async setup_chOutput2(homeId, channel) {
-        if (this.adapter.config.CalculatorList[channel].chTargetState2.length > 10 &&
+        if (this.adapter.config.CalculatorList[channel]?.chTargetState2 &&
+            this.adapter.config.CalculatorList[channel].chTargetState2.length > 10 &&
             !this.adapter.config.CalculatorList[channel].chTargetState2.startsWith("choose your state to drive")) {
             await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`);
         }
@@ -248,7 +250,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output2`, false, `standard output2 if no special one selected in config`, true, true);
             }
             catch (error) {
-                this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator`));
+                this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator for Home ${homeId}, Channel ${channel}`));
             }
         }
     }
