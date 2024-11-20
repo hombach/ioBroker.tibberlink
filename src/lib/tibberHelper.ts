@@ -1,4 +1,4 @@
-import * as utils from "@iobroker/adapter-core";
+//import * as utils from "@iobroker/adapter-core";
 
 export enum enCalcType {
 	BestCost = 1,
@@ -42,10 +42,10 @@ export interface IHomeInfo {
 	PriceDataPollActive: boolean;
 }
 
-export class TibberHelper {
-	adapter: utils.AdapterInstance;
+//export class TibberHelper {
+//	adapter: utils.AdapterInstance;
 
-	constructor(adapter: utils.AdapterInstance) {
-		this.adapter = adapter;
-	}
-}
+//	constructor(adapter: utils.AdapterInstance) {
+//		this.adapter = adapter;
+//	}
+//}
