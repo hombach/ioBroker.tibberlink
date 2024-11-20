@@ -215,7 +215,6 @@ export class TibberCalculator extends ProjectUtils {
 
 			//#region *** subscribe state changes ***
 			// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
-			this.adapter.log.warn(`START of SETUP of states for calculator`);
 			this.adapter.subscribeStates([
 				`Homes.${homeId}.Calculations.${channel}.Active`,
 				`Homes.${homeId}.Calculations.${channel}.TriggerPrice`,

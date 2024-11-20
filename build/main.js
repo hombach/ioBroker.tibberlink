@@ -43,7 +43,7 @@ class Tibberlink extends utils.Adapter {
         });
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
-        // this.on("objectChange", this.onObjectChange.bind(this));
+        this.on("objectChange", this.onObjectChange.bind(this));
         this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
         this.homeInfoList = [];
@@ -434,6 +434,9 @@ class Tibberlink extends utils.Adapter {
             this.log.warn(e.message);
             callback();
         }
+    }
+    onObjectChange(id, state) {
+        this.log.debug(`state change detected and parsing for id: ${id} - state: ${state}`);
     }
     /**
      * Is called if a subscribed state changes
