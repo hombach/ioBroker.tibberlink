@@ -9,12 +9,7 @@ import { IHomeInfo } from "./lib/tibberHelper";
 import { TibberLocal } from "./lib/tibberLocal";
 import { TibberPulse } from "./lib/tibberPulse";
 
-export class Tibberlink extends utils.Adapter {
-	cronList: CronJob[];
-	homeInfoList: IHomeInfo[] = [];
-	queryUrl = "";
-	tibberCalculator = new TibberCalculator(this);
-
+class Tibberlink extends utils.Adapter {
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
 		super({
 			...options,
@@ -29,6 +24,11 @@ export class Tibberlink extends utils.Adapter {
 		this.cronList = [];
 		this.queryUrl = "https://api.tibber.com/v1-beta/gql";
 	}
+
+	private cronList: CronJob[];
+	private homeInfoList: IHomeInfo[] = [];
+	private queryUrl = "";
+	private tibberCalculator = new TibberCalculator(this);
 
 	/**
 	 * Is called when databases are connected and adapter received configuration.

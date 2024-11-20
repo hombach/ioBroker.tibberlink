@@ -23,7 +23,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Tibberlink = void 0;
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 const utils = __importStar(require("@iobroker/adapter-core"));
 const cron_1 = require("cron");
@@ -33,10 +32,6 @@ const tibberCalculator_1 = require("./lib/tibberCalculator");
 const tibberLocal_1 = require("./lib/tibberLocal");
 const tibberPulse_1 = require("./lib/tibberPulse");
 class Tibberlink extends utils.Adapter {
-    cronList;
-    homeInfoList = [];
-    queryUrl = "";
-    tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
     constructor(options = {}) {
         super({
             ...options,
@@ -51,6 +46,10 @@ class Tibberlink extends utils.Adapter {
         this.cronList = [];
         this.queryUrl = "https://api.tibber.com/v1-beta/gql";
     }
+    cronList;
+    homeInfoList = [];
+    queryUrl = "";
+    tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
     /**
      * Is called when databases are connected and adapter received configuration.
      */
@@ -575,7 +574,6 @@ class Tibberlink extends utils.Adapter {
         }
     }
 }
-exports.Tibberlink = Tibberlink;
 if (require.main !== module) {
     // Export the constructor in compact mode
     module.exports = (options) => new Tibberlink(options);
