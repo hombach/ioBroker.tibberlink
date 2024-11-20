@@ -23,6 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Tibberlink = void 0;
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 const utils = __importStar(require("@iobroker/adapter-core"));
 const cron_1 = require("cron");
@@ -43,7 +44,7 @@ class Tibberlink extends utils.Adapter {
         });
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
-        this.on("objectChange", this.onObjectChange.bind(this));
+        // this.on("objectChange", this.onObjectChange.bind(this));
         this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
         this.homeInfoList = [];
@@ -435,9 +436,6 @@ class Tibberlink extends utils.Adapter {
             callback();
         }
     }
-    onObjectChange(id, state) {
-        this.log.debug(`state change detected and parsing for id: ${id} - state: ${state}`);
-    }
     /**
      * Is called if a subscribed state changes
      */
@@ -577,6 +575,7 @@ class Tibberlink extends utils.Adapter {
         }
     }
 }
+exports.Tibberlink = Tibberlink;
 if (require.main !== module) {
     // Export the constructor in compact mode
     module.exports = (options) => new Tibberlink(options);
