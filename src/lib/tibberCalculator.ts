@@ -227,15 +227,12 @@ export class TibberCalculator extends ProjectUtils {
 			]);
 			*/
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
-			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.ActiveBLUB`);
-			/*
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StartTime`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StopTime`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
-			*/
 			//#endregion
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));

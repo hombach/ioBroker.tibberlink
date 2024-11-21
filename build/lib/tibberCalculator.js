@@ -212,14 +212,12 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             ]);
             */
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
-            /*
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StartTime`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StopTime`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
             this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
-            */
             //#endregion
         }
         catch (error) {
