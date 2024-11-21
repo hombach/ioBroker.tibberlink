@@ -1,5 +1,4 @@
 "use strict";
-//import * as utils from "@iobroker/adapter-core";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.enCalcType = void 0;
 exports.getCalcTypeDescription = getCalcTypeDescription;
@@ -36,10 +35,4 @@ function getCalcTypeDescription(calcType) {
             return "Unknown";
     }
 }
-//export class TibberHelper {
-//	adapter: utils.AdapterInstance;
-//	constructor(adapter: utils.AdapterInstance) {
-//		this.adapter = adapter;
-//	}
-//}
 //# sourceMappingURL=tibberHelper.js.map

@@ -83,19 +83,6 @@
 				"pl": "zaktualizowano axios z powodu luki\ndodano testy dla Node.js 22",
 				"uk": "оновлено axios через уразливість\nдодано тести для Node.js 22",
 				"zh-cn": "由于漏洞更新了 axios\n添加了 Node.js 22 的测试"
-			},
-			"3.4.6": {
-				"en": "Catch wrong OBIS Codes, probably caused by Pulse communication errors",
-				"de": "Fange falsche OBIS-Codes ab, wahrscheinlich verursacht durch Pulse-Kommunikationsfehler",
-				"ru": "Перехват неправильных кодов OBIS, вероятно, вызванных ошибками связи Pulse",
-				"pt": "Capturar códigos OBIS incorretos, provavelmente causados por erros de comunicação Pulse",
-				"nl": "Ongeldige OBIS-codes opvangen, waarschijnlijk veroorzaakt door Pulse-communicatiefouten",
-				"fr": "Intercepter les codes OBIS incorrects, probablement causés par des erreurs de communication Pulse",
-				"it": "Cattura codici OBIS errati, probabilmente causati da errori di comunicazione Pulse",
-				"es": "Capturar códigos OBIS incorrectos, probablemente causados por errores de comunicación de Pulse",
-				"pl": "Przechwyć nieprawidłowe kody OBIS, prawdopodobnie spowodowane błędami komunikacji Pulse",
-				"uk": "Перехоплення неправильних OBIS-кодів, ймовірно, спричинених помилками зв'язку Pulse",
-				"zh-cn": "捕获错误的 OBIS 代码，可能是由于 Pulse 通信错误引起的"
 			}
 		},
 		"messages": [

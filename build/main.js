@@ -29,6 +29,7 @@ const cron_1 = require("cron");
 const date_fns_1 = require("date-fns");
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
+//import { IHomeInfo } from "./lib/tibberHelper";
 const tibberLocal_1 = require("./lib/tibberLocal");
 const tibberPulse_1 = require("./lib/tibberPulse");
 class Tibberlink extends utils.Adapter {

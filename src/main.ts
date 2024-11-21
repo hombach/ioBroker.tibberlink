@@ -3,9 +3,10 @@ import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
 import { format } from "date-fns";
 import { IConfig } from "tibber-api";
+import { IHomeInfo } from "./lib/projectUtils";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberCalculator } from "./lib/tibberCalculator";
-import { IHomeInfo } from "./lib/tibberHelper";
+//import { IHomeInfo } from "./lib/tibberHelper";
 import { TibberLocal } from "./lib/tibberLocal";
 import { TibberPulse } from "./lib/tibberPulse";
 

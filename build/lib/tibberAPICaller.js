@@ -4,6 +4,7 @@ exports.TibberAPICaller = void 0;
 const tibber_api_1 = require("tibber-api");
 const EnergyResolution_1 = require("tibber-api/lib/src/models/enums/EnergyResolution");
 const projectUtils_1 = require("./projectUtils");
+//	import { IHomeInfo } from "./tibberHelper";
 class TibberAPICaller extends projectUtils_1.ProjectUtils {
     tibberConfig;
     tibberQuery;
