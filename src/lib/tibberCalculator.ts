@@ -215,7 +215,6 @@ export class TibberCalculator extends ProjectUtils {
 
 			//#region *** subscribe state changes ***
 			// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
-			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 			/*
 			await this.adapter.subscribeStates([
 				`Homes.${homeId}.Calculations.${channel}.Active`,
@@ -226,8 +225,9 @@ export class TibberCalculator extends ProjectUtils {
 				`Homes.${homeId}.Calculations.${channel}.RepeatDays`,
 				`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`,
 			]);
-			/*
+			*/
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
+			/*
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StartTime`);
