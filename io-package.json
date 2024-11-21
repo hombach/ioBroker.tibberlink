@@ -4,7 +4,17 @@
 		"version": "3.5.3",
 		"news": {
 			"3.5.3": {
-				"en": "WIP"
+				"en": "Fix edge case in output state setup and usage\nOptimized state subscription\nUpdate deprecated state calls\nAdd await to delObjectAsync\nHarmonize project tools\nDependency updates",
+				"de": "Randfall bei der Einrichtung und Nutzung von Ausgabeständen behoben\nZustandsabonnement optimiert\nVeraltete Zustandsaufrufe aktualisiert\nAwait zu delObjectAsync hinzugefügt\nProjektwerkzeuge harmonisiert\nAbhängigkeiten aktualisiert",
+				"ru": "Исправлен крайний случай настройки и использования выходного состояния\nОптимизирована подписка на состояние\nОбновлены устаревшие вызовы состояния\nДобавлено ожидание в delObjectAsync\nУнификация инструментов проекта\nОбновление зависимостей",
+				"pt": "Corrigir caso extremo na configuração e uso do estado de saída\nAssinatura de estado otimizada\nAtualizar chamadas de estado obsoletas\nAdicionar await ao delObjectAsync\nHarmonizar ferramentas do projeto\nAtualizar dependências",
+				"nl": "Randgeval in output statusinstelling en gebruik opgelost\nStatusabonnement geoptimaliseerd\nVerouderde statusaanroepen bijgewerkt\nAwait toegevoegd aan delObjectAsync\nProjecttools geharmoniseerd\nAfhankelijkheden bijgewerkt",
+				"fr": "Correction d'un cas limite dans la configuration et l'utilisation de l'état de sortie\nOptimisation de la souscription d'état\nMise à jour des appels d'état obsolètes\nAjout d'attente à delObjectAsync\nHarmonisation des outils de projet\nMise à jour des dépendances",
+				"it": "Corretto caso limite nella configurazione e utilizzo dello stato di output\nOttimizzata la sottoscrizione dello stato\nAggiornate le chiamate di stato deprecate\nAggiunto await a delObjectAsync\nArmonizzati gli strumenti del progetto\nAggiornate le dipendenze",
+				"es": "Corregir caso límite en la configuración y uso del estado de salida\nOptimizar suscripción de estado\nActualizar llamadas de estado obsoletas\nAgregar await a delObjectAsync\nArmonizar herramientas del proyecto\nActualizar dependencias",
+				"pl": "Naprawiono przypadek brzegowy w konfiguracji i użyciu stanu wyjścia\nZoptymalizowano subskrypcję stanu\nZaktualizowano przestarzałe wywołania stanów\nDodano await do delObjectAsync\nUjednolicono narzędzia projektu\nZaktualizowano zależności",
+				"uk": "Виправлено крайній випадок у налаштуванні та використанні стану виходу\nОптимізовано підписку на стан\nОновлено застарілі виклики стану\nДодано await до delObjectAsync\nУніфіковано інструменти проєкту\nОновлено залежності",
+				"zh-cn": "修复输出状态设置和使用中的边缘情况\n优化状态订阅\n更新已弃用的状态调用\n在 delObjectAsync 中添加 await\n统一项目工具\n更新依赖项"
 			},
 			"3.5.2": {
 				"en": "Add verification for YES/NO 2 values in calculator (#547)\nOptimized responsive design (#544)\nMigrate eslint to >9.x\nSwitch to ES2022 code\nAdapted to new API constraints (#546)",

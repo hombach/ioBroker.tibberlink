@@ -215,16 +215,6 @@ export class TibberCalculator extends ProjectUtils {
 
 			//#region *** subscribe state changes ***
 			// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
-			this.adapter.subscribeStates([
-				`Homes.${homeId}.Calculations.${channel}.Active`,
-				`Homes.${homeId}.Calculations.${channel}.TriggerPrice`,
-				`Homes.${homeId}.Calculations.${channel}.AmountHours`,
-				`Homes.${homeId}.Calculations.${channel}.StartTime`,
-				`Homes.${homeId}.Calculations.${channel}.StopTime`,
-				`Homes.${homeId}.Calculations.${channel}.RepeatDays`,
-				`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`,
-			]);
-			/*
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
@@ -232,7 +222,6 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StopTime`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
-*/
 			//#endregion
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
