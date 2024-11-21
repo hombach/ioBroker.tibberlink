@@ -201,6 +201,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             //#region *** subscribe state changes ***
             // this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
             // this.adapter.subscribeStates([
+            this.adapter.subscribeStates(`Homes.*`);
             /*
             await this.adapter.subscribeStatesAsync([
                 `Homes.${homeId}.Calculations.${channel}.Active`,

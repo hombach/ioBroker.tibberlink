@@ -155,16 +155,6 @@ class Tibberlink extends utils.Adapter {
 						this.log.info(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
 						for (const channel in this.config.CalculatorList) {
 							await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[channel].chHomeID, parseInt(channel));
-
-							this.subscribeStates([
-								`Homes.${this.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.Active`,
-								`Homes.${this.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.TriggerPrice`,
-								`Homes.${this.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.AmountHours`,
-								`Homes.${this.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StartTime`,
-								`Homes.${this.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.StopTime`,
-								`Homes.${this.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.RepeatDays`,
-								`Homes.${this.config.CalculatorList[channel].chHomeID}.Calculations.${channel}.EfficiencyLoss`,
-							]);
 						}
 					} catch (error: unknown) {
 						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
