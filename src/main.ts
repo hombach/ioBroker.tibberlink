@@ -420,9 +420,9 @@ class Tibberlink extends utils.Adapter {
 	 * Is called if a subscribed state changes
 	 */
 	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
-		this.log.info(`state change detected and parsing for id: ${id} - state: ${state}`);
 		try {
 			if (state) {
+				this.log.info(`state change detected and parsing for id: ${id} - state: ${state}`);
 				// The state was changed
 				// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 				if (!state.ack) {
