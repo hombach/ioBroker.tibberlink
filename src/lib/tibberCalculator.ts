@@ -227,6 +227,7 @@ export class TibberCalculator extends ProjectUtils {
 			]);
 			*/
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Active`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.ActiveBLUB`);
 			/*
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
