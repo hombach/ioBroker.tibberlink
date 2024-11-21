@@ -1,8 +1,11 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.5.2",
+		"version": "3.5.3",
 		"news": {
+			"3.5.3": {
+				"en": "WIP"
+			},
 			"3.5.2": {
 				"en": "Add verification for YES/NO 2 values in calculator (#547)\nOptimized responsive design (#544)\nMigrate eslint to >9.x\nSwitch to ES2022 code\nAdapted to new API constraints (#546)",
 				"de": "Hinzufügen einer Verifizierung für YES/NO 2-Werte im Rechner (#547)\nOptimiertes responsives Design (#544)\nMigration von eslint zu >9.x\nUmstellung auf ES2022-Code\nAngepasst an neue API-Einschränkungen (#546)",
