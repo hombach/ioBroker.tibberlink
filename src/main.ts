@@ -422,10 +422,10 @@ class Tibberlink extends utils.Adapter {
 	private onStateChange(id: string, state: ioBroker.State | null | undefined): void {
 		try {
 			if (state) {
-				this.log.info(`state change detected and parsing for id: ${id} - state: ${state}`);
 				// The state was changed
 				// this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.*`);
 				if (!state.ack) {
+					this.log.info(`state change detected and parsing for id: ${id} - state: ${state.val}`);
 					if (id.includes(`.Calculations.`)) {
 						const statePath = id.split(".");
 						const homeIDToMatch = statePath[3];
