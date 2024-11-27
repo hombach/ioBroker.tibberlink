@@ -106,6 +106,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 3.5.4 (2024-11-xx)
+
+-   (HombachC) performance optimizations
+-   (HombachC) dependency updates
+
 ### 3.5.3 (2024-11-23)
 
 -   (HombachC) fix edge case in output state setup and usage
