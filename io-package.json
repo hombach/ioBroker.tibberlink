@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.5.3",
+		"version": "3.5.4",
 		"news": {
+			"3.5.4": {
+				"en": "Introduce 'iobroker/eslint-config' (#591), performance optimizations, dependency updates",
+				"de": "'iobroker/eslint-config' einführen (#591), Leistungsoptimierungen, Abhängigkeitsaktualisierungen",
+				"ru": "Внедрение 'iobroker/eslint-config' (#591), оптимизация производительности, обновление зависимостей",
+				"pt": "Introduzir 'iobroker/eslint-config' (#591), otimizações de desempenho, atualizações de dependências",
+				"nl": "'iobroker/eslint-config' introduceren (#591), prestatie-optimalisaties, afhankelijkheidsupdates",
+				"fr": "Introduction de 'iobroker/eslint-config' (#591), optimisations des performances, mises à jour des dépendances",
+				"it": "Introdurre 'iobroker/eslint-config' (#591), ottimizzazioni delle prestazioni, aggiornamenti delle dipendenze",
+				"es": "Introducir 'iobroker/eslint-config' (#591), optimizaciones de rendimiento, actualizaciones de dependencias",
+				"pl": "Wprowadzenie 'iobroker/eslint-config' (#591), optymalizacje wydajności, aktualizacje zależności",
+				"uk": "Впровадження 'iobroker/eslint-config' (#591), оптимізація продуктивності, оновлення залежностей",
+				"zh-cn": "引入 'iobroker/eslint-config' (#591)，性能优化，依赖项更新"
+			},
 			"3.5.3": {
 				"en": "Fix edge case in output state setup and usage\nOptimized state subscription\nUpdate deprecated state calls\nAdd await to delObjectAsync\nHarmonize project tools\nDependency updates",
 				"de": "Randfall bei der Einrichtung und Nutzung von Ausgabeständen behoben\nZustandsabonnement optimiert\nVeraltete Zustandsaufrufe aktualisiert\nAwait zu delObjectAsync hinzugefügt\nProjektwerkzeuge harmonisiert\nAbhängigkeiten aktualisiert",
@@ -80,19 +93,6 @@
 				"pl": "dodano regulowany interwał sondowania Bridge (#518)\ndodano node.js 22 do testów adaptera (#519)\ndodano link do dokumentacji na ekranie konfiguracji (#504)\nczyszczenie repozytorium\naktualizacje zależności",
 				"uk": "додано регульований інтервал опитування Bridge (#518)\nдодано node.js 22 до тестування адаптера (#519)\nдодано посилання на документацію на екран конфігурації (#504)\nочищення репозиторію\nоновлення залежностей",
 				"zh-cn": "添加可调桥轮询间隔 (#518)\n将 node.js 22 添加到适配器测试中 (#519)\n在配置屏幕中添加文档链接 (#504)\n清理仓库\n依赖更新"
-			},
-			"3.4.8": {
-				"en": "updated axios because of vulnerability\nadded tests for Node.js 22",
-				"de": "axios aufgrund einer Schwachstelle aktualisiert\nTests für Node.js 22 hinzugefügt",
-				"ru": "обновлен axios из-за уязвимости\nдобавлены тесты для Node.js 22",
-				"pt": "atualizado axios devido a uma vulnerabilidade\nadicionados testes para Node.js 22",
-				"nl": "axios bijgewerkt vanwege kwetsbaarheid\ntests toegevoegd voor Node.js 22",
-				"fr": "axios mis à jour en raison d'une vulnérabilité\najouté des tests pour Node.js 22",
-				"it": "axios aggiornato a causa di una vulnerabilità\naggiunti test per Node.js 22",
-				"es": "axios actualizado debido a una vulnerabilidad\nse añadieron pruebas para Node.js 22",
-				"pl": "zaktualizowano axios z powodu luki\ndodano testy dla Node.js 22",
-				"uk": "оновлено axios через уразливість\nдодано тести для Node.js 22",
-				"zh-cn": "由于漏洞更新了 axios\n添加了 Node.js 22 的测试"
 			}
 		},
 		"messages": [

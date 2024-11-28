@@ -108,7 +108,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.5.4 (2024-11-xx)
 
--   (HombachC) intruduce iobroker/eslint-config (#591)
+-   (HombachC) intruduce 'iobroker/eslint-config' (#591)
 -   (HombachC) performance optimizations
 -   (HombachC) dependency updates
 
