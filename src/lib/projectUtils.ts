@@ -1,4 +1,4 @@
-import * as utils from "@iobroker/adapter-core";
+import type * as utils from "@iobroker/adapter-core";
 
 export enum enCalcType {
 	BestCost = 1,
@@ -11,6 +11,11 @@ export enum enCalcType {
 	//BestCostMaxHours = 8,
 }
 
+/**
+ * getCalcTypeDescription
+ *
+ * @param calcType - ID of calculator channel type
+ */
 export function getCalcTypeDescription(calcType: enCalcType): string {
 	switch (calcType) {
 		case enCalcType.BestCost:
@@ -34,17 +39,33 @@ export function getCalcTypeDescription(calcType: enCalcType): string {
 	}
 }
 
+/**
+ * Information about a home configuration.
+ */
 export interface IHomeInfo {
+	/** Unique identifier for the home. */
 	ID: string;
+	/** Display name of the home in the app. */
 	NameInApp: string;
+	/** Whether real-time updates are enabled. */
 	RealTime: boolean;
+	/** Whether the home feed is active. */
 	FeedActive: boolean;
+	/** Whether price data polling is active. */
 	PriceDataPollActive: boolean;
 }
 
+/**
+ * ProjectUtils
+ */
 export class ProjectUtils {
 	adapter: utils.AdapterInstance;
 
+	/**
+	 * constructor
+	 *
+	 * @param adapter - ioBroker adapter instance
+	 */
 	constructor(adapter: utils.AdapterInstance) {
 		this.adapter = adapter;
 	}
@@ -55,8 +76,7 @@ export class ProjectUtils {
 	 * @param stateName - A string representing the name of the state to retrieve.
 	 * @returns A Promise that resolves with the value of the state if it exists, otherwise resolves with null.
 	 */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	protected async getStateValue(stateName: string): Promise<any | null> {
+	protected async getStateValue(stateName: string): Promise<any> {
 		try {
 			const stateObject = await this.getState(stateName);
 			return stateObject?.val ?? null; // errors have already been handled in getState()
@@ -79,9 +99,8 @@ export class ProjectUtils {
 				const stateValueObject = await this.adapter.getStateAsync(stateName);
 				if (!this.isLikeEmpty(stateValueObject)) {
 					return stateValueObject;
-				} else {
-					throw `Unable to retrieve info from state '${stateName}'.`;
 				}
+				throw new Error(`Unable to retrieve info from state '${stateName}'.`);
 			}
 		} catch (error) {
 			this.adapter.log.error(`[asyncGetState](${stateName}): ${error}`);
@@ -106,14 +125,17 @@ export class ProjectUtils {
 
 	/**
 	 * Get foreign state value
-	 * @param {string}      stateName  - Full path to state, like 0_userdata.0.other.isSummer
-	 * @return {Promise<*>}            - State value, or null if error
+	 *
+	 * @param stateName - Full path to state, like 0_userdata.0.other.isSummer
+	 * @returns State value, or null if error
 	 */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 	async asyncGetForeignStateVal(stateName: string): Promise<any | null> {
 		try {
 			const stateObject = await this.asyncGetForeignState(stateName);
-			if (stateObject == null) return null; // errors thrown already in asyncGetForeignState()
+			if (stateObject == null) {
+				return null;
+			} // errors thrown already in asyncGetForeignState()
 			return stateObject.val;
 		} catch (error) {
 			this.adapter.log.error(`[asyncGetForeignStateValue](${stateName}): ${error}`);
@@ -124,22 +146,21 @@ export class ProjectUtils {
 	/**
 	 * Get foreign state
 	 *
-	 * @param {string}      stateName  - Full path to state, like 0_userdata.0.other.isSummer
-	 * @return {Promise<object>}       - State object: {val: false, ack: true, ts: 1591117034451, …}, or null if error
+	 * @param stateName - Full path to state, like 0_userdata.0.other.isSummer
+	 * @returns State object: {val: false, ack: true, ts: 1591117034451, …}, or null if error
 	 */
 	private async asyncGetForeignState(stateName: string): Promise<ioBroker.State | null | undefined> {
 		try {
 			const stateObject = await this.adapter.getForeignObjectAsync(stateName); // Check state existence
 			if (!stateObject) {
-				throw `State '${stateName}' does not exist.`;
+				throw new Error(`State '${stateName}' does not exist.`);
 			} else {
 				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, …}
 				const stateValueObject = await this.adapter.getForeignStateAsync(stateName);
 				if (!this.isLikeEmpty(stateValueObject)) {
 					return stateValueObject;
-				} else {
-					throw `Unable to retrieve info from state '${stateName}'.`;
 				}
+				throw new Error(`Unable to retrieve info from state '${stateName}'.`);
 			}
 		} catch (error) {
 			this.adapter.log.error(`[asyncGetForeignState](${stateName}): ${error}`);
@@ -168,12 +189,10 @@ export class ProjectUtils {
 			sTemp = sTemp.replace(/\}+/g, ""); // remove all >}<
 			if (sTemp !== "") {
 				return false;
-			} else {
-				return true;
 			}
-		} else {
 			return true;
 		}
+		return true;
 	}
 
 	/**
@@ -287,6 +306,7 @@ export class ProjectUtils {
 	 * @param description - Optional description for the state (default is "-").
 	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
 	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
+	 * @param forceMode - Optional boolean indicating if the state should be overwritten if it already exists (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
 	protected async checkAndSetValueBoolean(
@@ -334,14 +354,15 @@ export class ProjectUtils {
 	 * @param context - A string providing context for where the error occurred.
 	 * @returns A string representing the formatted error message.
 	 */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public generateErrorMessage(error: any, context: string): string {
 		let errorMessages = "";
 		// Check if error object has an 'errors' property that is an array
 		if (error.errors && Array.isArray(error.errors)) {
 			// Iterate over the array of errors and concatenate their messages
 			for (const err of error.errors) {
-				if (errorMessages) errorMessages += ", ";
+				if (errorMessages) {
+					errorMessages += ", ";
+				}
 				errorMessages += err.message;
 			}
 		} else if (error.message) {

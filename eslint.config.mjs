@@ -1,14 +1,20 @@
-// @ts-check
+// ioBroker eslint template configuration file for js and ts files
+// Please note that esm or react based modules need additional modules loaded.
+import config from "@iobroker/eslint-config";
 
-import eslint from "@eslint/js";
-import tseslint from "typescript-eslint";
+export default [
+	...config,
 
-export default tseslint.config(eslint.configs.recommended, ...tseslint.configs.strict, ...tseslint.configs.stylistic, {
-	languageOptions: {
-		ecmaVersion: 2022,
-		parserOptions: {
-			projectService: true,
-			sourceType: "module",
+	{
+		// specify files to exclude from linting here
+		ignores: ["*.test.js", "test/**/*.js", "*.config.mjs", "build", "admin/build", "admin/words.js", "admin/admin.d.ts", "**/adapter-config.d.ts"],
+	},
+
+	{
+		// you may disable some 'jsdoc' warnings - but using jsdoc is highly recommended
+		// as this improves maintainability. jsdoc warnings will not block buiuld process.
+		rules: {
+			// 'jsdoc/require-jsdoc': 'off',
 		},
 	},
-});
+];

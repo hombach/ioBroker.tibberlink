@@ -1,8 +1,11 @@
-import * as utils from "@iobroker/adapter-core";
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import type * as utils from "@iobroker/adapter-core";
+import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { format, formatDuration, intervalToDuration } from "date-fns";
 import { ProjectUtils } from "./projectUtils";
 
+/**
+ * TibberLocal
+ */
 export class TibberLocal extends ProjectUtils {
 	intervalList: NodeJS.Timeout[];
 	TestData = "";
@@ -15,12 +18,21 @@ export class TibberLocal extends ProjectUtils {
 	meterMode = 0;
 	//negSignPattern: string = "77070100010800ff6301a";
 
+	/**
+	 *
+	 * @param adapter - ioBroker adapter instance
+	 */
 	constructor(adapter: utils.AdapterInstance) {
 		super(adapter);
 		this.intervalList = [];
 	}
 
-	async setupOnePulseLocal(pulse: number): Promise<void> {
+	/**
+	 * setupOnePulseLocal
+	 *
+	 * @param pulse - ID of the Tibber Pulse
+	 */
+	setupOnePulseLocal(pulse: number): void {
 		try {
 			if (this.adapter.config.PulseList[pulse].puName === undefined) {
 				this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
@@ -34,14 +46,14 @@ export class TibberLocal extends ProjectUtils {
 				let firstDataRun = true;
 				//#region *** get Tibber Bridge metrics first time
 				this.getPulseData(pulse)
-					.then((response) => {
+					.then(response => {
 						this.adapter.log.debug(
 							`Polled local Tibber Bridge metrics${firstMetricsRun ? " for the first time" : ""}: ${JSON.stringify(response)}`,
 						);
 						this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
 						firstMetricsRun = false;
 					})
-					.catch((e) => {
+					.catch(e => {
 						this.adapter.log.error(`Error while polling and parsing Tibber Bridge metrics: ${e}`);
 					});
 				//#endregion
@@ -49,24 +61,26 @@ export class TibberLocal extends ProjectUtils {
 				//#region *** setup Tibber Bridge metrics job
 				const jobBridgeMetrics = setInterval(() => {
 					this.getPulseData(pulse)
-						.then((response) => {
+						.then(response => {
 							this.adapter.log.debug(`Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
 							this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
 							firstMetricsRun = false;
 						})
-						.catch((e) => {
+						.catch(e => {
 							this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics: ${e}`);
 						});
 				}, this.MetricsDataInterval);
-				if (jobBridgeMetrics) this.intervalList.push(jobBridgeMetrics);
+				if (jobBridgeMetrics) {
+					this.intervalList.push(jobBridgeMetrics);
+				}
 				//#endregion
 				//#region *** setup Tibber Pulse data job
 				const jobPulseLocal = setInterval(() => {
 					// poll data and log as HEX string
 					this.getDataAsHexString(pulse)
-						.then((hexString) => {
+						.then(hexString => {
 							this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
-							this.checkAndSetValue(`LocalPulse.${pulse}.SMLDataHEX`, hexString, this.adapter.config.PulseList[pulse].puName);
+							void this.checkAndSetValue(`LocalPulse.${pulse}.SMLDataHEX`, hexString, this.adapter.config.PulseList[pulse].puName);
 							this.adapter.log.debug(`trying to parse meter mode ${this.meterMode}`);
 							switch (this.meterMode) {
 								case 1:
@@ -83,16 +97,18 @@ export class TibberLocal extends ProjectUtils {
 							}
 							firstDataRun = false;
 						})
-						.catch((error) => {
+						.catch(error => {
 							this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${error}`);
 						});
 				}, this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval);
-				if (jobPulseLocal) this.intervalList.push(jobPulseLocal);
+				if (jobPulseLocal) {
+					this.intervalList.push(jobPulseLocal);
+				}
 				//#endregion
 			} else {
 				// test mode
 				this.adapter.log.error(`RUNNING IN TEST MODE`);
-				const parsedMessages = this.extractAndParseSMLMessages(0, this.TestData);
+				const parsedMessages = void this.extractAndParseSMLMessages(0, this.TestData);
 				this.adapter.log.warn(`Parsed messages from test data ${parsedMessages}`);
 			}
 		} catch (error) {
@@ -105,10 +121,8 @@ export class TibberLocal extends ProjectUtils {
 	 *
 	 * This method iterates over all interval jobs stored in `this.intervalList` and clears each one.
 	 * If an error occurs during this process, it logs a warning message.
-	 *
-	 * @returns A promise that resolves when all intervals have been cleared.
 	 */
-	async clearIntervals(): Promise<void> {
+	clearIntervals(): void {
 		try {
 			// Here we must clear all intervals that may still be active
 			for (const intervalJob of this.intervalList) {
@@ -189,7 +203,6 @@ export class TibberLocal extends ProjectUtils {
 	 * @param prefix - An optional string prefix to prepend to state keys (default is an empty string).
 	 * @param firstTime - A boolean indicating if this is the first time fetching the information (default is false).
 	 */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private fetchPulseInfo(pulse: number, obj: any, prefix = "", firstTime = false): void {
 		if (!obj || typeof obj !== "object") {
 			this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`); //
@@ -204,7 +217,7 @@ export class TibberLocal extends ProjectUtils {
 						const TimeValue = this.isValidUnixTimestampAndConvert(obj[key]);
 						if (TimeValue) {
 							obj[key] = TimeValue;
-							this.checkAndSetValue(
+							void this.checkAndSetValue(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
@@ -216,7 +229,7 @@ export class TibberLocal extends ProjectUtils {
 						break;
 					case "node_temperature":
 						if (typeof obj[key] === "number") {
-							this.checkAndSetValueNumber(
+							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								Math.round(obj[key] * 10) / 10,
 								`Temperature of this Tibber Pulse unit`,
@@ -229,7 +242,7 @@ export class TibberLocal extends ProjectUtils {
 						break;
 					case "meter_mode":
 						if (typeof obj[key] === "number") {
-							this.checkAndSetValueNumber(
+							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								Math.round(obj[key] * 10) / 10,
 								`Mode of your Pulse to grid-meter communication`,
@@ -246,7 +259,7 @@ export class TibberLocal extends ProjectUtils {
 						break;
 					case "node_battery_voltage":
 						if (typeof obj[key] === "number") {
-							this.checkAndSetValueNumber(
+							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								Math.round(obj[key] * 100) / 100,
 								`Temperature of this Tibber Pulse unit`,
@@ -259,7 +272,7 @@ export class TibberLocal extends ProjectUtils {
 						break;
 					case "node_uptime_ms":
 						if (typeof obj[key] === "number") {
-							this.checkAndSetValueNumber(
+							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								obj[key],
 								`Uptime of your Tibber Pulse in ms`,
@@ -277,7 +290,7 @@ export class TibberLocal extends ProjectUtils {
 								return parts.slice(0, 6).join(" "); // slice(0, 4) um die ersten zwei Blöcke (jeweils Einheit und Wert) zu erhalten
 								// Output: "229 days 3 hours 17 minutes"
 							}
-							this.checkAndSetValue(
+							void this.checkAndSetValue(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}node_uptime`,
 								formatMilliseconds(obj[key]),
 								`Uptime of your Tibber Pulse`,
@@ -289,7 +302,7 @@ export class TibberLocal extends ProjectUtils {
 						break;
 					case "time_in_em0_ms":
 						if (typeof obj[key] === "number") {
-							this.checkAndSetValueNumber(
+							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
@@ -302,7 +315,7 @@ export class TibberLocal extends ProjectUtils {
 						break;
 					case "time_in_em1_ms":
 						if (typeof obj[key] === "number") {
-							this.checkAndSetValueNumber(
+							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
@@ -315,7 +328,7 @@ export class TibberLocal extends ProjectUtils {
 						break;
 					case "time_in_em2_ms":
 						if (typeof obj[key] === "number") {
-							this.checkAndSetValueNumber(
+							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
@@ -328,7 +341,7 @@ export class TibberLocal extends ProjectUtils {
 						break;
 					default:
 						if (typeof obj[key] === "string") {
-							this.checkAndSetValue(
+							void this.checkAndSetValue(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
@@ -337,7 +350,7 @@ export class TibberLocal extends ProjectUtils {
 								firstTime,
 							);
 						} else {
-							this.checkAndSetValueNumber(
+							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
 								obj[key],
 								this.adapter.config.PulseList[pulse].puName,
@@ -386,12 +399,25 @@ export class TibberLocal extends ProjectUtils {
 	 * @param pulse - An identifier for the pulse.
 	 * @param transfer - A string representing the hexadecimal mode 3 message to be parsed.
 	 * @param forceMode - An optional boolean indicating whether to force the mode (default is false).
-	 * @returns A Promise that resolves when the parsing and processing are complete.
 	 */
-	private async extractAndParseSMLMessages(pulse: number, transfer: string, forceMode = false): Promise<void> {
+	private extractAndParseSMLMessages(pulse: number, transfer: string, forceMode = false): void {
+		/**
+		 * Represents the result of parsing a pulse signal.
+		 */
 		interface PulseParseResult {
+			/**
+			 * The name or identifier of the pulse signal.
+			 */
 			name: string;
+
+			/**
+			 * The numeric value of the pulse.
+			 */
 			value: number;
+
+			/**
+			 * The unit of measurement for the pulse value (optional).
+			 */
 			unit?: string;
 		}
 		const messages = transfer.matchAll(
@@ -424,7 +450,9 @@ export class TibberLocal extends ProjectUtils {
 
 			const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 };
 			const scaleFactor = scalingFactors[match[3].toLowerCase()];
-			if (scaleFactor) result.value /= scaleFactor;
+			if (scaleFactor) {
+				result.value /= scaleFactor;
+			}
 
 			//#region *** negSignPattern
 			/*
@@ -460,7 +488,7 @@ export class TibberLocal extends ProjectUtils {
 				result.unit = "kWh";
 				result.value = Math.round(result.value / 10) / 100;
 			}
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`LocalPulse.${pulse}.${result.name}`,
 				result.value,
 				this.adapter.config.PulseList[pulse].puName,
@@ -473,7 +501,9 @@ export class TibberLocal extends ProjectUtils {
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
 			output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
 		}
-		if (output.length > 0) this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
+		if (output.length > 0) {
+			this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
+		}
 	}
 
 	/**
@@ -486,14 +516,28 @@ export class TibberLocal extends ProjectUtils {
 	 * @param pulse - An identifier for the pulse.
 	 * @param transfer - A string representing the hexadecimal Mode 1 or 4 messages to be parsed.
 	 * @param forceMode - An optional boolean indicating whether to force the mode (default is false).
-	 * @returns A Promise that resolves when the parsing and processing are complete.
 	 */
-	private async extractAndParseMode1_4Messages(pulse: number, transfer: string, forceMode = false): Promise<void> {
+	private extractAndParseMode1_4Messages(pulse: number, transfer: string, forceMode = false): void {
+		/**
+		 * Represents the result of parsing a pulse signal.
+		 */
 		interface PulseParseResult {
+			/**
+			 * The name or identifier of the pulse signal.
+			 */
 			name: string;
+
+			/**
+			 * The numeric value of the pulse.
+			 */
 			value: number;
+
+			/**
+			 * The unit of measurement for the pulse value (optional).
+			 */
 			unit?: string;
 		}
+
 		const PulseParseResults: PulseParseResult[] = [];
 		// example HEX strings  -  meter mode 1 e.g. for "ZPA GH305" meters
 		// transfer = `2f5a50413547483330352e76322d32302e30302d470d0a0d0a02312d303a432e312e302a32353528315a504130303235313337353738290d0a312d303a312e382e302a323535283031383131362e333030322a6b5768290d0a312d303a312e382e312a323535283030303030302e303030302a6b5768290d0a312d303a312e382e322a323535283031383131362e333030322a6b5768290d0a312d303a322e382e302a323535283031393330362e303938392a6b5768290d0a312d303a31362e372e302a323535282d3030333039342a57290d0a312d303a33322e372e302a323535283233332e352a56290d0a312d303a35322e372e302a323535283233332e332a56290d0a312d303a37322e372e302a323535283233332e392a56290d0a312d303a33312e372e302a323535283030322e39382a41290d0a312d303a35312e372e302a323535283030352e33302a41290d0a312d303a37312e372e302a323535283030352e33302a41290d0a312d303a38312e372e312a323535283132302a646567290d0a312d303a38312e372e322a323535283234302a646567290d0a312d303a38312e372e342a323535283139342a646567290d0a312d303a38312e372e31352a323535283138362a646567290d0a312d303a38312e372e32362a323535283139342a646567290d0a312d303a31342e372e302a3235352835302e302a487a290d0a312d303a302e322e302a323535287665722e32302c44363841393343372c3230323030343039290d0a312d303a432e39302e322a323535284436384139334337290d0a312d303a462e462a32353528303030303030290d0a312d303a432e352e302a323535283030314337393034290d0a312d303a33362e372e302a323535282d3030303637332a57290d0a312d303a35362e372e302a323535282d3030313232322a57290d0a312d303a37362e372e302a323535282d3030313139312a57290d0a312d303a312e382e302a39362830303030392e382a6b5768290d0a312d303a312e382e302a39372830303037362e302a6b5768290d0a312d303a312e382e302a39382830303334372e342a6b5768290d0a312d303a312e382e302a39392830383136392e312a6b5768290d0a312d303a312e382e302a3130302831383131362e332a6b5768290d0a210d0a033c`;
@@ -527,7 +571,7 @@ export class TibberLocal extends ProjectUtils {
 
 					// Push the parsed measurement into the measurements array
 					PulseParseResults.push({ name, value, unit });
-					this.checkAndSetValueNumber(
+					void this.checkAndSetValueNumber(
 						`LocalPulse.${pulse}.${name}`,
 						value,
 						this.adapter.config.PulseList[pulse].puName,
@@ -554,7 +598,7 @@ export class TibberLocal extends ProjectUtils {
 		if (typeof n !== "number" || n < 0 || n > currentTime || !Number.isInteger(n)) {
 			return false;
 		}
-		// Konvertiere zu deutschem Zeitformat
+		// convert to German format
 		const date = new Date(n * 1000);
 		return date.toLocaleString("de-DE"); // WiP: use system string instead of always German; use date-fns
 	}
@@ -586,22 +630,34 @@ function parseSignedHex(hexStr: string): number {
 	const bitLength = hexStr.length * 4;
 	if (bitLength <= 4) {
 		// Behandlung als 4-Bit-Zahl
-		if (num > 0x7) num = num - 0x1n;
+		if (num > 0x7) {
+			num = num - 0x1n;
+		}
 	} else if (bitLength <= 8) {
 		// Behandlung als 8-Bit-Zahl
-		if (num > 0x7f) num = num - 0x100n;
+		if (num > 0x7f) {
+			num = num - 0x100n;
+		}
 	} else if (bitLength <= 16) {
 		// Behandlung als 16-Bit-Zahl
-		if (num > 0x7fff) num = num - 0x10000n;
+		if (num > 0x7fff) {
+			num = num - 0x10000n;
+		}
 	} else if (bitLength <= 24) {
 		// Behandlung als 16-Bit-Zahl
-		if (num > 0x7fffff) num = num - 0x1000000n;
+		if (num > 0x7fffff) {
+			num = num - 0x1000000n;
+		}
 	} else if (bitLength <= 32) {
 		// Behandlung als 32-Bit-Zahl
-		if (num > 0x7fffffff) num = num - 0x100000000n;
+		if (num > 0x7fffffff) {
+			num = num - 0x100000000n;
+		}
 	} else {
 		// Behandlung als 64-Bit-Zahl
-		if (num > 0x7fffffffffffffffn) num = num - 0x10000000000000000n;
+		if (num > 0x7fffffffffffffffn) {
+			num = num - 0x10000000000000000n;
+		}
 	}
 	return Number(num.toString());
 }
@@ -691,7 +747,7 @@ function findDlmsUnitByCode(decimalCode: number): string {
 		{ code: 0x42, unit: "(unitless)", quantity: "no unit, unitless, count", unitName: "", siDefinition: "" },
 		{ code: 0x0, unit: "", quantity: "", unitName: "", siDefinition: "stop condition for iterator" },
 	];
-	const found = dlmsUnits.find((item) => item.code === decimalCode);
+	const found = dlmsUnits.find(item => item.code === decimalCode);
 	return found ? found.unit : "";
 }
 
@@ -699,7 +755,6 @@ function findDlmsUnitByCode(decimalCode: number): string {
  * Finds the name corresponding to a given OBIS code.
  *
  * @param code - A string representing the OBIS code to look up.
- * @param obisCodesWithNames - An array of objects where each object contains a `code` and `name` property.
  * @returns A string representing the name associated with the OBIS code, or "Unknown" if the code is not found.
  */
 function findObisCodeName(code: string): string {
@@ -757,7 +812,6 @@ function findObisCodeName(code: string): string {
 		{ code: "010051071aff", name: "Current/Potential_L3_Phase_deviation" },
 		{ code: "81.7.26", name: "Current/Potential_L3_Phase_deviation" },
 	];
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const found = obisCodesWithNames.find((item: any) => item.code === code);
 	return found ? found.name : `Found unknown OBIS-Code: ${code}`;
 }
@@ -769,8 +823,8 @@ function findObisCodeName(code: string): string {
  * - Hexadecimal format: exactly 12 hexadecimal characters.
  * - Decimal format: three groups of digits separated by dots.
  *
- * @param {string} code - The OBIS code to be validated.
- * @returns {boolean} - Returns true if the code matches either the hexadecimal or decimal format, false otherwise.
+ * @param code - The OBIS code to be validated.
+ * @returns Returns true if the code matches either the hexadecimal or decimal format, false otherwise.
  */
 function isValidObisCode(code: string): boolean {
 	// Regex for hexadecimal format: exactly 12 hexadecimal characters

@@ -36,19 +36,9 @@
 		"target": "ES2022",
 
 		"sourceMap": true,
-		"inlineSourceMap": false,
+		"inlineSourceMap": false
 		// "watch": false
 	},
-	"include": [
-		"src/**/*.ts",
-		"test/**/*.ts",
-		"admin/**/*.ts",
-		"admin/**/*.tsx",
-		"eslint.config.mjs"
-	],
-	"exclude": [
-		"build/**",
-		"node_modules/**",
-		"widgets/**"
-	]
+	"include": ["src/**/*.ts", "test/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx", "eslint.config.mjs", "prettier.config.mjs"],
+	"exclude": ["build/**", "node_modules/**", "widgets/**"]
 }

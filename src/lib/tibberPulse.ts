@@ -1,8 +1,11 @@
-import * as utils from "@iobroker/adapter-core";
-import { IConfig, TibberFeed, TibberQuery } from "tibber-api";
-import { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement";
+import type * as utils from "@iobroker/adapter-core";
+import { TibberFeed, TibberQuery, type IConfig } from "tibber-api";
+import type { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement";
 import { ProjectUtils } from "./projectUtils";
 
+/**
+ * TibberPulse
+ */
 export class TibberPulse extends ProjectUtils {
 	tibberConfig: IConfig;
 	tibberQuery: TibberQuery;
@@ -14,6 +17,12 @@ export class TibberPulse extends ProjectUtils {
 	lastFeedWarningTime: Date | null = null;
 	deltaFeedWarningTime = 0;
 
+	/**
+	 * constructor
+	 *
+	 * @param tibberConfig - The Tibber config object
+	 * @param adapter - ioBroker adapter instance
+	 */
 	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
 		super(adapter);
 		this.tibberConfig = tibberConfig;
@@ -23,6 +32,9 @@ export class TibberPulse extends ProjectUtils {
 		this.addEventHandlerOnFeed(this.tibberFeed);
 	}
 
+	/**
+	 * ConnectPulseStream
+	 */
 	async ConnectPulseStream(): Promise<void> {
 		try {
 			await this.tibberFeed.connect();
@@ -31,6 +43,9 @@ export class TibberPulse extends ProjectUtils {
 		}
 	}
 
+	/**
+	 * DisconnectPulseStream
+	 */
 	DisconnectPulseStream(): void {
 		try {
 			this.tibberFeed.close();
@@ -43,9 +58,9 @@ export class TibberPulse extends ProjectUtils {
 
 	private addEventHandlerOnFeed(currentFeed: TibberFeed): void {
 		// Set info.connection state for event "connected"
-		currentFeed.on("connected", (data) => {
+		currentFeed.on("connected", data => {
 			this.adapter.log.debug(`Tibber feed connected: ${data.toString()}`);
-			this.adapter.setState("info.connection", true, true);
+			void this.adapter.setState("info.connection", true, true);
 		});
 
 		/**
@@ -61,9 +76,9 @@ export class TibberPulse extends ProjectUtils {
 		 *
 		 * @param data - The error message sent by Tibber upon disconnection, which is logged for diagnostic purposes.
 		 */
-		currentFeed.on("disconnected", (data) => {
-			this.adapter.setState("info.connection", false, true);
-			if (this.adapter.config.HomesList.some((info) => info.feedActive)) {
+		currentFeed.on("disconnected", data => {
+			void this.adapter.setState("info.connection", false, true);
+			if (this.adapter.config.HomesList.some(info => info.feedActive)) {
 				this.deltaFeedWarningTime = 0;
 				if (this.lastFeedWarningTime !== null) {
 					this.deltaFeedWarningTime = (new Date().getTime() - this.lastFeedWarningTime.getTime()) / 1000 / 60; // timedifference in minutes
@@ -91,24 +106,31 @@ export class TibberPulse extends ProjectUtils {
 						this.adapter.log.debug(`A feed was disconnected. I try to${loggingTextBlock}`);
 					}
 				}
-				this.reconnect();
+				void this.reconnect();
 			}
 		});
 
 		// Add error handler on connection
-		currentFeed.on("error", (error) => {
+		currentFeed.on("error", error => {
 			let errorMessage = "";
 			if (error instanceof Error) {
-				if (error.message) errorMessage = error.message;
-				else if (error.name) errorMessage = error.name;
-				else errorMessage = "Unspecified error";
-			} else if (typeof error === "string") errorMessage = error;
-			else errorMessage = "Unknown error";
+				if (error.message) {
+					errorMessage = error.message;
+				} else if (error.name) {
+					errorMessage = error.name;
+				} else {
+					errorMessage = "Unspecified error";
+				}
+			} else if (typeof error === "string") {
+				errorMessage = error;
+			} else {
+				errorMessage = "Unknown error";
+			}
 			this.adapter.log.warn(`Error on Tibber feed: ${errorMessage}`);
 		});
 
 		// Add data receiver
-		currentFeed.on("data", (data) => {
+		currentFeed.on("data", data => {
 			const receivedData: ILiveMeasurement = data;
 			this.fetchLiveMeasurement("LiveMeasurement", receivedData);
 		});
@@ -116,7 +138,9 @@ export class TibberPulse extends ProjectUtils {
 
 	private fetchLiveMeasurement(objectDestination: string, liveMeasurement: ILiveMeasurement): void {
 		let power = 0;
-		if (liveMeasurement.powerProduction === undefined || liveMeasurement.powerProduction === null) liveMeasurement.powerProduction = 0; // fix wrong data from Tibber in edge cases
+		if (liveMeasurement.powerProduction === undefined || liveMeasurement.powerProduction === null) {
+			liveMeasurement.powerProduction = 0;
+		} // fix wrong data from Tibber in edge cases
 		if (liveMeasurement.power > 0) {
 			power = liveMeasurement.power;
 		} else if (liveMeasurement.powerProduction > 0) {
@@ -125,148 +149,153 @@ export class TibberPulse extends ProjectUtils {
 		// "minpower" should be called "minpowerConsumption" - in fact there is no correct minpower yet,
 		// when we think about minpower and maxpower should be linked to "power" (positive and negative power)
 		if (this.tibberConfig.homeId !== undefined) {
-			this.checkAndSetValue(
+			void this.checkAndSetValue(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.timestamp`,
 				liveMeasurement.timestamp,
 				"Timestamp when usage occurred",
 			);
-			this.checkAndSetValueNumber(`Homes.${this.tibberConfig.homeId}.${objectDestination}.power`, power, "Powerlevel measured at the moment +/-", "W");
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
+				`Homes.${this.tibberConfig.homeId}.${objectDestination}.power`,
+				power,
+				"Powerlevel measured at the moment +/-",
+				"W",
+			);
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.lastMeterConsumption`,
 				Math.round(1000 * liveMeasurement.lastMeterConsumption) / 1000,
 				"Latest consumption meter state",
 				"kWh",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.accumulatedConsumption`,
 				Math.round(1000 * liveMeasurement.accumulatedConsumption) / 1000,
 				"Energy consumed since midnight",
 				"kWh",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.accumulatedProduction`,
 				Math.round(1000 * liveMeasurement.accumulatedProduction) / 1000,
 				"Energy feed into grid since midnight",
 				"kWh",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.accumulatedConsumptionLastHour`,
 				Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour) / 1000,
 				"Energy consumed since since last hour shift",
 				"kWh",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.accumulatedProductionLastHour`,
 				Math.round(1000 * liveMeasurement.accumulatedProductionLastHour) / 1000,
 				"Energy produced since last hour shift",
 				"kWh",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.accumulatedCost`,
 				liveMeasurement.accumulatedCost,
 				"Accumulated cost since midnight; requires active Tibber power deal",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.accumulatedReward`,
 				liveMeasurement.accumulatedReward,
 				"Accumulated reward since midnight; requires active Tibber power deal",
 			);
-			this.checkAndSetValue(
+			void this.checkAndSetValue(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.currency`,
 				liveMeasurement.currency,
 				"Currency of displayed cost; requires active Tibber power deal",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.minPower`,
 				liveMeasurement.minPower,
 				"Min consumption since midnight",
 				"W",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.averagePower`,
 				liveMeasurement.averagePower,
 				"Average consumption since midnight",
 				"W",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.maxPower`,
 				liveMeasurement.maxPower,
 				"Peak consumption since midnight",
 				"W",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.powerConsumption`,
 				liveMeasurement.power,
 				"Net consumption (A+) at the moment",
 				"W",
 			);
 			if (this.adapter.config.FeedConfigPowerProduction) {
-				this.checkAndSetValueNumber(
+				void this.checkAndSetValueNumber(
 					`Homes.${this.tibberConfig.homeId}.${objectDestination}.powerProduction`,
 					liveMeasurement.powerProduction,
 					"Net grid feed-in (A-) at the moment",
 					"W",
 				);
 			}
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.minPowerProduction`,
 				liveMeasurement.minPowerProduction,
 				"Min net grid feed-in since midnight",
 				"W",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.maxPowerProduction`,
 				liveMeasurement.maxPowerProduction,
 				"Max net grid feed-in since midnight",
 				"W",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.lastMeterProduction`,
 				Math.round(1000 * liveMeasurement.lastMeterProduction) / 1000,
 				"Latest grid feed-in meter state",
 				"kWh",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.powerFactor`,
 				liveMeasurement.powerFactor,
 				"Power factor (active power / apparent power)",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.signalStrength`,
 				liveMeasurement.signalStrength,
 				"Device signal strength (Pulse - dB; Watty - percent)",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.voltagePhase1`,
 				liveMeasurement.voltagePhase1,
 				"Voltage on phase 1; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
 				"V",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.voltagePhase2`,
 				liveMeasurement.voltagePhase2,
 				"Voltage on phase 2; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
 				"V",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.voltagePhase3`,
 				liveMeasurement.voltagePhase3,
 				"Voltage on phase 3; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
 				"V",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.currentL1`,
 				liveMeasurement.currentL1,
 				"Current on L1; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
 				"A",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.currentL2`,
 				liveMeasurement.currentL2,
 				"Current on L2; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
 				"A",
 			);
-			this.checkAndSetValueNumber(
+			void this.checkAndSetValueNumber(
 				`Homes.${this.tibberConfig.homeId}.${objectDestination}.currentL3`,
 				liveMeasurement.currentL3,
 				"Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
