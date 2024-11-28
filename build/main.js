@@ -103,10 +103,18 @@ class Tibberlink extends utils.Adapter {
                             matchingHomeInfo.PriceDataPollActive = home.priceDataPollActive;
                             result.push(matchingHomeInfo);
                         }
-                        for (const index in this.homeInfoList) {
-                            this.log.debug(`Feed Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`);
-                            this.log.debug(`Price Poll Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - poll configured as active: ${this.homeInfoList[index].PriceDataPollActive}`);
+                        for (const homeInfo of this.homeInfoList) {
+                            this.log.debug(`Feed Config for Home: ${homeInfo.NameInApp} (${homeInfo.ID}) - realtime data available: ${homeInfo.RealTime} - feed configured as active: ${homeInfo.FeedActive}`);
+                            this.log.debug(`Price Poll Config for Home: ${homeInfo.NameInApp} (${homeInfo.ID}) - poll configured as active: ${homeInfo.PriceDataPollActive}`);
                         }
+                        /*for (const index in this.homeInfoList) {
+                            this.log.debug(
+                                `Feed Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`,
+                            );
+                            this.log.debug(
+                                `Price Poll Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - poll configured as active: ${this.homeInfoList[index].PriceDataPollActive}`,
+                            );
+                        }*/
                     }
                 }
                 else {
@@ -274,6 +282,7 @@ class Tibberlink extends utils.Adapter {
                     if (!this.homeInfoList.some(homeInfo => homeInfo.ID == `None available - restart adapter after entering token`)) {
                         await this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true });
                     }
+                    // eslint-disable-next-line @typescript-eslint/no-for-in-array
                     for (const index in this.homeInfoList) {
                         if (!this.homeInfoList[index].FeedActive || !this.homeInfoList[index].RealTime) {
                             this.log.warn(`skipping feed of live data - no Pulse configured for this home according to Tibber server`);

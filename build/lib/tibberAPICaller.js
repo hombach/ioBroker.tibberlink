@@ -29,8 +29,9 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
             const Homes = await this.tibberQuery.getHomes();
             this.adapter.log.debug(`Got homes from tibber api: ${JSON.stringify(Homes)}`);
             const homeInfoList = [];
-            for (const index in Homes) {
-                const currentHome = Homes[index];
+            //for (const index in Homes) {
+            //const currentHome = Homes[index];
+            for (const currentHome of Homes) {
                 homeInfoList.push({
                     ID: currentHome.id,
                     NameInApp: currentHome.appNickname,
@@ -193,8 +194,9 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
                 this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday.sort((a, b) => a.total - b.total));
                 this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday.sort((a, b) => a.total - b.total));
-                for (const i in pricesToday) {
-                    const price = pricesToday[i];
+                //for (const i in pricesToday) {
+                for (const price of pricesToday) {
+                    //const price = pricesToday[i];
                     const hour = new Date(price.startsAt.substr(0, 19)).getHours();
                     await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
                 }
@@ -288,8 +290,9 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 }
                 else if (Array.isArray(pricesTomorrow)) {
                     // pricing known, after about 13:00 - write the states
-                    for (const i in pricesTomorrow) {
-                        const price = pricesTomorrow[i];
+                    //for (const i in pricesTomorrow) {
+                    for (const price of pricesTomorrow) {
+                        //const price = pricesTomorrow[i];
                         const hour = new Date(price.startsAt.substr(0, 19)).getHours();
                         await this.fetchPrice(homeId, `PricesTomorrow.${hour}`, price);
                     }
