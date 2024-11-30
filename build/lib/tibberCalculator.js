@@ -630,7 +630,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             else {
                 // chActive and inside LTF -> choose desired value
-                const pricesToday = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.jsonBYpriceASC`));
+                // WIP OLD const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.jsonBYpriceASC`));
+                const pricesToday = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
                 let filteredPrices = pricesToday;
                 if (modeLTF) {
                     // Limited Time Frame mode
@@ -648,6 +649,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                         return priceDate >= startTime && priceDate < stopTime;
                     });
                 }
+                //WIP
+                filteredPrices.sort((a, b) => a.total - b.total);
                 // get first n entries und test for matching hour
                 const n = channelConfig.chAmountHours;
                 const result = filteredPrices.slice(0, n).map((entry) => checkHourMatch(entry));
