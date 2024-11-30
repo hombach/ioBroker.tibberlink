@@ -717,8 +717,7 @@
 				},
 
 				"CalculatorList": {
-					"type": "accordion",
-					"titleAttr": "chName",
+					"type": "table",
 					"label": {
 						"en": "Calculator Channels",
 						"de": "Automatisierungs-Kanäle",
@@ -938,8 +937,6 @@
 							},
 							"maxLength": 25,
 							"attr": "chName",
-							"validator": "if(data.name === '' || data.name === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.name);}",
-							"validatorNoSaveOnError": true,
 							"filter": false,
 							"sort": false,
 							"width": "15%",
