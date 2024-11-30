@@ -32,7 +32,6 @@
 		"tibber-api": "^5.1.11"
 	},
 	"devDependencies": {
-		"@eslint/eslintrc": "^3.2.0",
 		"@iobroker/eslint-config": "^1.0.0",
 		"@iobroker/testing": "^5.0.0",
 		"@iobroker/types": "^6.0.11",
