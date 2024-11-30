@@ -1,7 +1,7 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
-import { format } from "date-fns";
+import { addDays, format, isSameDay } from "date-fns";
 import type { IConfig } from "tibber-api";
 import type { IHomeInfo } from "./lib/projectUtils";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
@@ -191,7 +191,7 @@ class Tibberlink extends utils.Adapter {
 				void tibberAPICaller.updateConsumptionAllHomes();
 
 				const jobCurrentPrice = CronJob.from({
-					cronTime: "20 57 * * * *", //"20 57 * * * *" = 3 minuten vor 00:00:20 jede Stunde
+					cronTime: "20 57 * * * *", //"20 58 * * * *" = 2 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
 					onTick: async () => {
 						let okPrice = false;
 						do {
@@ -211,15 +211,15 @@ class Tibberlink extends utils.Adapter {
 				}
 
 				const jobPricesToday = CronJob.from({
-					cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 5 minuten vor 00:01:20
+					cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 5 minutes before 00:01:20 => 00:00:20 - 00:02:20 for first try
 					onTick: async () => {
 						let okPrice = false;
 						do {
 							await this.delay(this.getRandomDelay(4, 6));
+							await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
 							okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
 							this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
 						} while (!okPrice);
-						await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
 						void tibberCalculator.startCalculatorTasks();
 					},
 					start: true,
@@ -231,7 +231,7 @@ class Tibberlink extends utils.Adapter {
 				}
 
 				const jobPricesTomorrow = CronJob.from({
-					cronTime: "20 56 12 * * *", //"20 56 12 * * *" = 5 minuten vor 13:01:20
+					cronTime: "20 56 12 * * *", //"20 56 12 * * *" = 5 minutes before 13:01:20 => 13:00:20 - 13:02:20 for first try
 					onTick: async () => {
 						let okPrice = false;
 						do {
@@ -578,6 +578,21 @@ class Tibberlink extends utils.Adapter {
 												// floor to hour
 												dateWithTimeZone.setMinutes(0, 0, 0);
 												this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
+
+												// WIP 3.5.4 START Warn long LTF
+												// Get StartTime directly as a Date object
+												const startTime = this.config.CalculatorList[calcChannel].chStartTime;
+												// Check if StopTime is not the same day or the next day as StartTime
+												if (!isSameDay(dateWithTimeZone, startTime) && !isSameDay(dateWithTimeZone, addDays(startTime, 1))) {
+													this.log.warn(
+														`StopTime for channel ${calcChannel} is not the same or next day as StartTime! StartTime: ${startTime.toISOString()}, StopTime: ${dateWithTimeZone.toISOString()}`,
+													);
+													this.log.warn(
+														`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`,
+													);
+												}
+												// WIP 3.5.4 STOP
+
 												this.log.debug(
 													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${format(
 														dateWithTimeZone,

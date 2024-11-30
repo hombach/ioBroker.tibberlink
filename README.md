@@ -108,6 +108,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### 3.5.4 (2024-11-xx)
 
+-   (HombachC) add warnung when LTF stop time isn't same or next day
 -   (HombachC) fix error in calculator channel 'best single hours' (#594)
 -   (HombachC) intruduce 'iobroker/eslint-config' (#591)
 -   (HombachC) performance optimizations
