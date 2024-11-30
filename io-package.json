@@ -4,17 +4,17 @@
 		"version": "3.5.4",
 		"news": {
 			"3.5.4": {
-				"en": "Fix error in calculator channel 'best single hours' (#594), introduce 'iobroker/eslint-config' (#591), performance optimizations, dependency updates",
-				"de": "Fehler im Berechnungs-Kanal 'beste einzelne Stunden' (#594) beheben, 'iobroker/eslint-config' einführen (#591), Leistungsoptimierungen, Abhängigkeitsaktualisierungen",
-				"ru": "Исправление ошибки в канале калькулятора 'лучшие отдельные часы' (#594), внедрение 'iobroker/eslint-config' (#591), оптимизация производительности, обновление зависимостей",
-				"pt": "Corrigir erro no canal do calculador 'melhores horas individuais' (#594), introduzir 'iobroker/eslint-config' (#591), otimizações de desempenho, atualizações de dependências",
-				"nl": "Fout in de calculatorkanaal 'beste enkele uren' (#594) verhelpen, 'iobroker/eslint-config' introduceren (#591), prestatieoptimalisaties, afhankelijkheidsupdates",
-				"fr": "Corriger l'erreur dans le canal du calculateur 'meilleures heures individuelles' (#594), introduire 'iobroker/eslint-config' (#591), optimisations des performances, mises à jour des dépendances",
-				"it": "Correggere l'errore nel canale del calcolatore 'migliori singole ore' (#594), introdurre 'iobroker/eslint-config' (#591), ottimizzazioni delle prestazioni, aggiornamenti delle dipendenze",
-				"es": "Corregir error en el canal del calculador 'mejores horas individuales' (#594), introducir 'iobroker/eslint-config' (#591), optimizaciones de rendimiento, actualizaciones de dependencias",
-				"pl": "Napraw błąd w kanale kalkulatora 'najlepsze pojedyncze godziny' (#594), wprowadź 'iobroker/eslint-config' (#591), optymalizacje wydajności, aktualizacje zależności",
-				"uk": "Виправити помилку в каналі калькулятора 'кращі окремі години' (#594), впровадити 'iobroker/eslint-config' (#591), оптимізація продуктивності, оновлення залежностей",
-				"zh-cn": "修复计算器频道 '最佳单个小时' 中的错误 (#594)，引入 'iobroker/eslint-config' (#591)，性能优化，更新依赖"
+				"en": "Fix error in calculator channel 'best single hours' (#594)\nIntroduce 'iobroker/eslint-config' (#591)\nPerformance optimizations\nDependency updates",
+				"de": "Fehler im Berechnungs-Kanal 'beste einzelne Stunden' (#594) beheben\n'iobroker/eslint-config' einführen (#591)\nLeistungsoptimierungen\nAbhängigkeitsaktualisierungen",
+				"ru": "Исправление ошибки в канале калькулятора 'лучшие отдельные часы' (#594)\nВнедрение 'iobroker/eslint-config' (#591)\nОптимизация производительности\nОбновление зависимостей",
+				"pt": "Corrigir erro no canal do calculador 'melhores horas individuais' (#594)\nIntroduzir 'iobroker/eslint-config' (#591)\nOtimizações de desempenho\nAtualizações de dependências",
+				"nl": "Fout in de calculatorkanaal 'beste enkele uren' (#594) verhelpen\n'iobroker/eslint-config' introduceren (#591)\nPrestatieoptimalisaties\nAfhankelijkheidsupdates",
+				"fr": "Corriger l'erreur dans le canal du calculateur 'meilleures heures individuelles' (#594)\nIntroduire 'iobroker/eslint-config' (#591)\nOptimisations des performances\nMises à jour des dépendances",
+				"it": "Correggere l'errore nel canale del calcolatore 'migliori singole ore' (#594)\nIntrodurre 'iobroker/eslint-config' (#591)\nOttimizzazioni delle prestazioni\nAggiornamenti delle dipendenze",
+				"es": "Corregir error en el canal del calculador 'mejores horas individuales' (#594)\nIntroducir 'iobroker/eslint-config' (#591)\nOptimizaciones de rendimiento\nActualizaciones de dependencias",
+				"pl": "Napraw błąd w kanale kalkulatora 'najlepsze pojedyncze godziny' (#594)\nWprowadź 'iobroker/eslint-config' (#591)\nOptymalizacje wydajności\nAktualizacje zależności",
+				"uk": "Виправити помилку в каналі калькулятора 'кращі окремі години' (#594)\nВпровадити 'iobroker/eslint-config' (#591)\nОптимізація продуктивності\nОновлення залежностей",
+				"zh-cn": "修复计算器频道 '最佳单个小时' 中的错误 (#594)\n引入 'iobroker/eslint-config' (#591)\n性能优化\n更新依赖"
 			},
 			"3.5.3": {
 				"en": "Fix edge case in output state setup and usage\nOptimized state subscription\nUpdate deprecated state calls\nAdd await to delObjectAsync\nHarmonize project tools\nDependency updates",
