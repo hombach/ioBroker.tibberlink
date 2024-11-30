@@ -1,9 +1,9 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.5.4",
+		"version": "3.6.0",
 		"news": {
-			"3.5.4": {
+			"3.6.0": {
 				"en": "Fix error in calculator channel 'best single hours' (#594)\nIntroduce 'iobroker/eslint-config' (#591)\nPerformance optimizations\nDependency updates",
 				"de": "Fehler im Berechnungs-Kanal 'beste einzelne Stunden' (#594) beheben\n'iobroker/eslint-config' einführen (#591)\nLeistungsoptimierungen\nAbhängigkeitsaktualisierungen",
 				"ru": "Исправление ошибки в канале калькулятора 'лучшие отдельные часы' (#594)\nВнедрение 'iobroker/eslint-config' (#591)\nОптимизация производительности\nОбновление зависимостей",
@@ -220,7 +220,7 @@
 		],
 		"globalDependencies": [
 			{
-				"admin": ">=5.1.28"
+				"admin": ">=6.6.0"
 			}
 		],
 		"plugins": {

@@ -106,9 +106,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### 3.5.4 (2024-11-xx)
+### 3.6.0 (2024-11-xx)
 
--   (HombachC) add warnung when LTF stop time isn't same or next day
+-   (HombachC) WIP BREAKING: admin 6.6.0
+-   (HombachC) WIP redesigned admin tab for calculator
+-   (HombachC) add warning when LTF stop time isn't same or next day
 -   (HombachC) fix error in calculator channel 'best single hours' (#594)
 -   (HombachC) intruduce 'iobroker/eslint-config' (#591)
 -   (HombachC) performance optimizations

@@ -1,5 +1,8 @@
 {
 	"type": "tabs",
+	"tabsStyle": {
+		"width": "calc(100% - 100px)"
+	},
 	"items": {
 		"_StandardTab": {
 			"type": "panel",
@@ -769,10 +772,12 @@
 							},
 							"attr": "chHomeID",
 							"default": "No Home selected",
-							"filter": false,
-							"sort": false,
-							"width": "10% ",
-							"command": "HomesForCalculator"
+							"command": "HomesForCalculator",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						},
 						{
 							"type": "select",
@@ -904,10 +909,13 @@
 									"value": 7
 								}
 							],
-							"filter": false,
-							"sort": false,
-							"width": "15%"
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						},
+
 						{
 							"type": "text",
 							"title": {
@@ -940,14 +948,17 @@
 							"attr": "chName",
 							"validator": "if(data.name === '' || data.name === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.name);}",
 							"validatorNoSaveOnError": true,
-							"filter": false,
-							"sort": false,
-							"width": "15%",
-							"default": "channel name"
+							"default": "channel name",
+							"xs": 12,
+							"sm": 12,
+							"md": 12,
+							"lg": 12,
+							"xl": 12
 						},
+
 						{
 							"type": "objectId",
-							"title": {
+							"label": {
 								"en": "Target State",
 								"de": "Ziel State",
 								"ru": "Целевое состояние",
@@ -961,13 +972,18 @@
 								"zh-cn": "目标状态"
 							},
 							"attr": "chTargetState",
-							"filter": false,
-							"sort": false,
-							"width": "15%"
+							"tooltip": "Select target state for this channel",
+							"default": "",
+							"xs": 12,
+							"sm": 12,
+							"md": 12,
+							"lg": 12,
+							"xl": 12
 						},
+
 						{
 							"type": "text",
-							"title": {
+							"label": {
 								"en": "Value YES",
 								"de": "Wert JA",
 								"ru": "Значение ДА",
@@ -995,14 +1011,16 @@
 							},
 							"maxLength": 20,
 							"attr": "chValueOn",
-							"filter": false,
-							"sort": false,
-							"width": "10%",
-							"default": "true"
+							"default": "true",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						},
 						{
 							"type": "text",
-							"title": {
+							"label": {
 								"en": "Value NO",
 								"de": "Wert NEIN",
 								"ru": "Значение НЕТ",
@@ -1030,15 +1048,17 @@
 							},
 							"maxLength": 20,
 							"attr": "chValueOff",
-							"filter": false,
-							"sort": false,
-							"width": "7.5%",
-							"default": "false"
+							"default": "true",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						},
 
 						{
 							"type": "objectId",
-							"title": {
+							"label": {
 								"en": "Target State 2",
 								"de": "Zielzustand 2",
 								"ru": "Целевое состояние 2",
@@ -1052,14 +1072,18 @@
 								"zh-cn": "目标状态 2"
 							},
 							"attr": "chTargetState2",
-							"filter": false,
-							"sort": false,
-							"width": "15%",
-							"hidden": "data.chType !== 7"
+							"tooltip": "Select second target state for this channel",
+							"hidden": "data.chType !== 7",
+							"xs": 12,
+							"sm": 12,
+							"md": 12,
+							"lg": 12,
+							"xl": 12
 						},
+
 						{
 							"type": "text",
-							"title": {
+							"label": {
 								"en": "Value YES 2",
 								"de": "Wert JA 2",
 								"ru": "Значение ДА 2",
@@ -1087,15 +1111,17 @@
 							},
 							"maxLength": 20,
 							"attr": "chValueOn2",
-							"filter": false,
-							"sort": false,
-							"width": "7.5%",
-							"default": "",
+							"default": "true",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6,
 							"hidden": "data.chType !== 7"
 						},
 						{
 							"type": "text",
-							"title": {
+							"label": {
 								"en": "Value NO 2",
 								"de": "Wert NEIN 2",
 								"ru": "Значение НЕТ 2",
@@ -1123,10 +1149,12 @@
 							},
 							"maxLength": 20,
 							"attr": "chValueOff2",
-							"filter": false,
-							"sort": false,
-							"width": "7.5%",
-							"default": "",
+							"default": "true",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6,
 							"hidden": "data.chType !== 7"
 						}
 					]
