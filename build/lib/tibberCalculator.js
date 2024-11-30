@@ -494,10 +494,10 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     }
                 }
             }
-            //#endregion first run mode
+            //#endregion first run checks
             try {
                 if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
-                    // If Active=false been set just now - or still active then act  - else just produce debug log in the following runs
+                    // If Active=false been set just now - or still active then act - else just produce debug log in the following runs
                     switch (this.adapter.config.CalculatorList[channel].chType) {
                         case projectUtils_1.enCalcType.BestCost:
                             void this.executeCalculatorBestCost(parseInt(channel));
@@ -630,7 +630,6 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             else {
                 // chActive and inside LTF -> choose desired value
-                // WIP OLD const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.jsonBYpriceASC`));
                 const pricesToday = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
                 let filteredPrices = pricesToday;
                 if (modeLTF) {
@@ -711,6 +710,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }
             }
             else {
+                // chActive and inside LTF -> choose desired value
                 const pricesToday = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
                 let filteredPrices = pricesToday;
                 if (modeLTF) {
@@ -729,6 +729,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                         return priceDate >= startTime && priceDate < stopTime;
                     });
                 }
+                //#region *** Find cheapest block ***
                 let minSum = Number.MAX_VALUE;
                 let startIndex = 0;
                 const n = Math.min(channelConfig.chAmountHours, filteredPrices.length);
@@ -750,15 +751,17 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 else {
                     valueToSet = channelConfig.chValueOff;
                 }
+                //#endregion
                 // calculate average cost of determined block of hours, write to data point
                 void this.checkAndSetValueNumber(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AverageTotalCost`, Math.round(1000 * (minSum / n)) / 1000, `average total cost in determined block`, undefined, false, false);
-                // write start and stop time of determined block to data points
+                //#region *** Write start and stop time of determined block to data points ***
                 const beginDate = new Date(filteredPrices[startIndex].startsAt);
-                const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, (0, date_fns_1.format)(beginDate, "H"), `first hour of determined block`, false, false);
+                const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, false, false);
+                //#endregion
             }
-            //set value to foreign state, if defined
+            //#region *** set value to foreign state, if defined, or use internal Output ***
             let sOutState = "";
             if (channelConfig?.chTargetState &&
                 channelConfig.chTargetState.length > 10 &&
@@ -771,6 +774,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 void this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
+            //#endregion
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
