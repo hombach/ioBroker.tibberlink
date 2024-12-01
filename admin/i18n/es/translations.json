@@ -84,5 +84,8 @@
     "LBL_item_tibberPulseLocalNodeId": "ID de nodo de pulso",
     "TTIP_item_tibberPulseLocalNodeId": "El ID del nodo donde está registrado su Pulse en el Bridge.",
     "LBL_item_tibberBridgeRawDataInterval": "Intervalo de encuesta",
-    "TTIP_item_tibberBridgeRawDataInterval": "El intervalo, en milisegundos, para sondear los datos de Bridge for Pulse."
+    "TTIP_item_tibberBridgeRawDataInterval": "El intervalo, en milisegundos, para sondear los datos de Bridge for Pulse.",
+    "LBL_helpLink": "Mostrar documentación del adaptador",
+    "LBL_feedDataDetailHeader": "Seleccione todos los campos que desea cargar en los datos de transmisión en vivo (la energía y la marca de tiempo están habilitadas de forma predeterminada):",
+    "LBL_phases": "Valores de voltaje y corriente: en el caso de varios medidores, es posible que estos valores no se incluyan en el marco de datos, lo que podría generar valores nulos. Pueden ocurrir otras desviaciones dependiendo del firmware específico del medidor. Los valores nulos no generarán un estado en sus objetos ioBroker."
 }

@@ -84,5 +84,8 @@
     "LBL_item_tibberPulseLocalNodeId": "Impulsowy identyfikator węzła",
     "TTIP_item_tibberPulseLocalNodeId": "Identyfikator węzła, w którym Twój Pulse jest zarejestrowany na moście.",
     "LBL_item_tibberBridgeRawDataInterval": "Interwał ankiety",
-    "TTIP_item_tibberBridgeRawDataInterval": "Interwał w milisekundach odpytywania danych Bridge for Pulse."
+    "TTIP_item_tibberBridgeRawDataInterval": "Interwał w milisekundach odpytywania danych Bridge for Pulse.",
+    "LBL_helpLink": "Pokaż dokumentację adaptera",
+    "LBL_feedDataDetailHeader": "Wybierz wszystkie pola, które chcesz załadować do danych na żywo (zasilanie i znacznik czasu są domyślnie włączone):",
+    "LBL_phases": "Wartości napięcia i prądu – w przypadku wielu liczników wartości te mogą nie zostać uwzględnione w ramce danych, co może skutkować otrzymaniem wartości zerowych. Mogą wystąpić inne odchylenia w zależności od konkretnego oprogramowania licznika. Wartości null nie będą generować stanu w obiektach ioBroker."
 }

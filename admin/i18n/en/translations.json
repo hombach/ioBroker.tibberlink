@@ -21,8 +21,9 @@
 	"TTIP_item_numberConsMonthly": "Number of past months to be retrieved",
 	"LBL_item_numberConsAnnual": "Years",
 	"TTIP_item_numberConsAnnual": "Number of past years to be retrieved",
-	"LBL_item_": "EMPTY",
-	"TTIP_item_": "EMPTY",
+	"LBL_feedDataDetailHeader": "Select all fields you want to load in the live-feed data (power and timestamp are enabled by default):",
+	"LBL_phases": "Voltage and current values - In the case of multiple meters, these values may not be included in the data frame, potentially resulting in null values. Other deviations may occur depending on the specific firmware of the meter. Null values will not generate a state in your ioBroker objects.",
+	"LBL_helpLink": "Show adapter documentation",
 
 	"LBL_CalculatorTab": "Calculator Settings",
 	"LBL_UseCalculator": "Use automation calculator channels",

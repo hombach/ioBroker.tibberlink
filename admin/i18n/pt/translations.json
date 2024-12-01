@@ -84,5 +84,8 @@
     "LBL_item_tibberPulseLocalNodeId": "ID do nó de pulso",
     "TTIP_item_tibberPulseLocalNodeId": "O ID do nó onde seu Pulse está registrado na Bridge.",
     "LBL_item_tibberBridgeRawDataInterval": "Intervalo de pesquisa",
-    "TTIP_item_tibberBridgeRawDataInterval": "O intervalo, em milissegundos, para pesquisar dados do Bridge for Pulse."
+    "TTIP_item_tibberBridgeRawDataInterval": "O intervalo, em milissegundos, para pesquisar dados do Bridge for Pulse.",
+    "LBL_helpLink": "Mostrar documentação do adaptador",
+    "LBL_feedDataDetailHeader": "Selecione todos os campos que deseja carregar nos dados do feed ao vivo (a potência e o carimbo de data/hora estão habilitados por padrão):",
+    "LBL_phases": "Valores de tensão e corrente - No caso de medidores múltiplos, esses valores podem não ser incluídos no quadro de dados, resultando potencialmente em valores nulos. Outros desvios podem ocorrer dependendo do firmware específico do medidor. Valores nulos não gerarão um estado em seus objetos ioBroker."
 }

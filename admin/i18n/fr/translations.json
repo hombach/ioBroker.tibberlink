@@ -84,5 +84,8 @@
     "LBL_item_tibberPulseLocalNodeId": "ID de nœud d'impulsion",
     "TTIP_item_tibberPulseLocalNodeId": "L'ID du nœud où votre Pulse est enregistré sur le Bridge.",
     "LBL_item_tibberBridgeRawDataInterval": "Intervalle d'interrogation",
-    "TTIP_item_tibberBridgeRawDataInterval": "L'intervalle, en millisecondes, pour interroger votre Bridge for Pulse."
+    "TTIP_item_tibberBridgeRawDataInterval": "L'intervalle, en millisecondes, pour interroger votre Bridge for Pulse.",
+    "LBL_helpLink": "Afficher la documentation de l'adaptateur",
+    "LBL_feedDataDetailHeader": "Sélectionnez tous les champs que vous souhaitez charger dans les données du flux en direct (la puissance et l'horodatage sont activés par défaut) :",
+    "LBL_phases": "Valeurs de tension et de courant : dans le cas de plusieurs compteurs, ces valeurs peuvent ne pas être incluses dans la trame de données, ce qui peut entraîner des valeurs nulles. D'autres écarts peuvent survenir en fonction du micrologiciel spécifique du compteur. Les valeurs nulles ne généreront pas d'état dans vos objets ioBroker."
 }

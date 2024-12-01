@@ -84,5 +84,8 @@
     "LBL_item_tibberPulseLocalNodeId": "Pulse NodeID",
     "TTIP_item_tibberPulseLocalNodeId": "Die Knoten-ID, unter der Ihr Pulse auf der Bridge registriert ist.",
     "LBL_item_tibberBridgeRawDataInterval": "Abfrageintervall",
-    "TTIP_item_tibberBridgeRawDataInterval": "Das Intervall (in Millisekunden) für die Abfrage Ihrer Bridge nach Pulse-Daten."
+    "TTIP_item_tibberBridgeRawDataInterval": "Das Intervall (in Millisekunden) für die Abfrage Ihrer Bridge nach Pulse-Daten.",
+    "LBL_helpLink": "Adapterdokumentation anzeigen",
+    "LBL_feedDataDetailHeader": "Wählen Sie alle Felder aus, die Sie in die Live-Feed-Daten laden möchten (Leistung und Zeitstempel sind standardmäßig aktiviert):",
+    "LBL_phases": "Spannungs- und Stromwerte – Bei mehreren Messgeräten sind diese Werte möglicherweise nicht im Datenrahmen enthalten, was möglicherweise zu Nullwerten führt. Abhängig von der spezifischen Firmware des Messgeräts können weitere Abweichungen auftreten. Nullwerte generieren keinen Status in Ihren ioBroker-Objekten."
 }
