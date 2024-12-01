@@ -669,11 +669,13 @@ export class TibberCalculator extends ProjectUtils {
 						format(addDays(channelConfig.chStartTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
 						true,
 					);
+					channelConfig.chStartTime = addDays(channelConfig.chStartTime, channelConfig.chRepeatDays);
 					void this.adapter.setState(
 						`Homes.${channelConfig.chHomeID}.Calculations.${channel}.StopTime`,
 						format(addDays(channelConfig.chStopTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
 						true,
 					);
+					channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
 				}
 			} else {
 				// chActive and inside LTF -> choose desired value
@@ -727,11 +729,13 @@ export class TibberCalculator extends ProjectUtils {
 						format(addDays(channelConfig.chStartTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
 						true,
 					);
+					channelConfig.chStartTime = addDays(channelConfig.chStartTime, channelConfig.chRepeatDays);
 					void this.adapter.setState(
 						`Homes.${channelConfig.chHomeID}.Calculations.${channel}.StopTime`,
 						format(addDays(channelConfig.chStopTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
 						true,
 					);
+					channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
 				}
 			} else {
 				// chActive and inside LTF -> choose desired value
