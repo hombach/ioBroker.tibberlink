@@ -1,7 +1,7 @@
 import type * as utils from "@iobroker/adapter-core";
 import { addDays, addHours, format } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { ProjectUtils, enCalcType, getCalcTypeDescription } from "./projectUtils";
+import { ProjectUtils, enCalcType, getCalcTypeDescription } from "./projectUtils.js";
 
 /**
  * TibberCalculator

@@ -1,7 +1,7 @@
 import type * as utils from "@iobroker/adapter-core";
 import { TibberFeed, TibberQuery, type IConfig } from "tibber-api";
 import type { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement";
-import { ProjectUtils } from "./projectUtils";
+import { ProjectUtils } from "./projectUtils.js";
 
 /**
  * TibberPulse

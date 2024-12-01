@@ -3,11 +3,11 @@ import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
 import { addDays, format, isSameDay } from "date-fns";
 import type { IConfig } from "tibber-api";
-import type { IHomeInfo } from "./lib/projectUtils";
+import type { IHomeInfo } from "./lib/projectUtils.js";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
-import { TibberCalculator } from "./lib/tibberCalculator";
-import { TibberLocal } from "./lib/tibberLocal";
-import { TibberPulse } from "./lib/tibberPulse";
+import { TibberCalculator } from "./lib/tibberCalculator.js";
+import { TibberLocal } from "./lib/tibberLocal.js";
+import { TibberPulse } from "./lib/tibberPulse.js";
 
 class Tibberlink extends utils.Adapter {
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {

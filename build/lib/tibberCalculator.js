@@ -1,5 +1,5 @@
 import { addDays, addHours, format } from "date-fns";
-import { ProjectUtils, enCalcType, getCalcTypeDescription } from "./projectUtils";
+import { ProjectUtils, enCalcType, getCalcTypeDescription } from "./projectUtils.js";
 /**
  * TibberCalculator
  */

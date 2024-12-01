@@ -7,7 +7,7 @@ import type { IHome } from "tibber-api/lib/src/models/IHome"; // obsolete data p
 import type { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
-import { ProjectUtils, type IHomeInfo } from "./projectUtils";
+import { ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
 /**
  * TibberAPICaller

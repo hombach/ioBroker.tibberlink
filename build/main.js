@@ -3,9 +3,9 @@ import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
 import { addDays, format, isSameDay } from "date-fns";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
-import { TibberCalculator } from "./lib/tibberCalculator";
-import { TibberLocal } from "./lib/tibberLocal";
-import { TibberPulse } from "./lib/tibberPulse";
+import { TibberCalculator } from "./lib/tibberCalculator.js";
+import { TibberLocal } from "./lib/tibberLocal.js";
+import { TibberPulse } from "./lib/tibberPulse.js";
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
         super({

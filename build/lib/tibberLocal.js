@@ -1,6 +1,6 @@
 import axios from "axios";
 import { format, formatDuration, intervalToDuration } from "date-fns";
-import { ProjectUtils } from "./projectUtils";
+import { ProjectUtils } from "./projectUtils.js";
 /**
  * TibberLocal
  */

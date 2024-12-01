@@ -1,5 +1,5 @@
 import { TibberFeed, TibberQuery } from "tibber-api";
-import { ProjectUtils } from "./projectUtils";
+import { ProjectUtils } from "./projectUtils.js";
 /**
  * TibberPulse
  */
