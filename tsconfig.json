@@ -32,7 +32,7 @@
 		// Uncomment this if you want the old behavior of catch variables being `any`
 		// "useUnknownInCatchVariables": false,
 
-		"target": "ESNext",
+		"target": "ES2022",
 
 		"sourceMap": true,
 		"inlineSourceMap": false
