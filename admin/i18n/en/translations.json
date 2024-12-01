@@ -1,5 +1,6 @@
 {
-	"DUMMY_StandardTab": "DUMMY",
+	"LBL_StandardTab": "Standard Settings",
+	"LBL_TibberAPIToken": "Tibber API Token",
 
 	"LBL_CalculatorTab": "Calculator Settings",
 	"LBL_UseCalculator": "Use automation calculator channels",

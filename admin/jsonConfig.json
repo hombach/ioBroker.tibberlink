@@ -7,35 +7,11 @@
 	"items": {
 		"_StandardTab": {
 			"type": "panel",
-			"label": {
-				"en": "Standard settings",
-				"de": "Standard-Einstellungen",
-				"ru": "Стандартные настройки",
-				"pt": "Configurações padrão",
-				"nl": "Standaardinstellingen",
-				"fr": "Paramètres standard",
-				"it": "Impostazioni predefinite",
-				"es": "Configuración estándar",
-				"pl": "Ustawienia standardowe",
-				"uk": "Стандартні налаштування",
-				"zh-cn": "标准设置"
-			},
+			"label": "LBL_StandardTab",
 			"items": {
 				"TibberAPIToken": {
 					"type": "text",
-					"label": {
-						"en": "Token for Tibber API",
-						"de": "Token für Tibber API",
-						"ru": "Токен для Tibber API",
-						"pt": "Token para a API Tibber",
-						"nl": "Token voor Tibber API",
-						"fr": "Token pour l'API Tibber",
-						"it": "Token per l'API di Tibber",
-						"es": "Token para la API de Tibber",
-						"pl": "Token do API Tibber",
-						"uk": "Токен для API Tibber",
-						"zh-cn": "Tibber API 的令牌"
-					},
+					"label": "LBL_TibberAPIToken",
 					"maxLength": 60,
 					"xs": 12,
 					"sm": 12,
