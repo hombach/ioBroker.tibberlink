@@ -54,5 +54,13 @@
     "LBL_item_localpulsehelp2": "Щоб він працював, вам потрібно змінити веб-інтерфейс Bridge, щоб він постійно залишався ввімкненим.",
     "LBL_item_localpulsehelp3": "marq24 надав чудовий опис того, як це зробити для інтеграції домашнього помічника тут:",
     "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
-    "LBL_PulseList": "Місцевий імпульс для опитування даних з:"
+    "LBL_PulseList": "Місцевий імпульс для опитування даних з:",
+    "LBL_item_tibberBridgeUrl": "Мережева адреса мосту",
+    "TTIP_item_tibberBridgeUrl": "Назва вашого Bridge або його IP-адреса (за замовчуванням — «tibber-host»).",
+    "LBL_item_tibberBridgePassword": "Пароль мосту",
+    "TTIP_item_tibberBridgePassword": "Пароль для вашого локального Tibber Bridge, як зазначено на апаратному забезпеченні.",
+    "LBL_item_tibberPulseLocalNodeId": "Pulse NodeID",
+    "TTIP_item_tibberPulseLocalNodeId": "Ідентифікатор вузла, де ваш Pulse зареєстровано на Bridge.",
+    "LBL_item_tibberBridgeRawDataInterval": "Інтервал опитування",
+    "TTIP_item_tibberBridgeRawDataInterval": "Інтервал, у мілісекундах, для опитування вашого Bridge для даних Pulse."
 }

@@ -54,5 +54,13 @@
     "LBL_item_localpulsehelp2": "Om het te laten werken, moet u de webinterface van Bridge aanpassen zodat deze permanent ingeschakeld blijft.",
     "LBL_item_localpulsehelp3": "marq24 heeft hier een uitstekende beschrijving gegeven van hoe dit te doen voor zijn Home Assistant-integratie:",
     "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
-    "LBL_PulseList": "Lokale puls om gegevens op te vragen van:"
+    "LBL_PulseList": "Lokale puls om gegevens op te vragen van:",
+    "LBL_item_tibberBridgeUrl": "Bridge-netwerkadres",
+    "TTIP_item_tibberBridgeUrl": "Naam van uw Bridge of zijn IP-adres (standaard 'tibber-host').",
+    "LBL_item_tibberBridgePassword": "Bridge-wachtwoord",
+    "TTIP_item_tibberBridgePassword": "Het wachtwoord voor uw lokale Tibber Bridge, zoals aangegeven op de hardware.",
+    "LBL_item_tibberPulseLocalNodeId": "PulsknooppuntID",
+    "TTIP_item_tibberPulseLocalNodeId": "Het knooppunt-ID waar uw Pulse op de Bridge is geregistreerd.",
+    "LBL_item_tibberBridgeRawDataInterval": "Poll-interval",
+    "TTIP_item_tibberBridgeRawDataInterval": "Het interval, in milliseconden, voor het opvragen van uw Bridge for Pulse-gegevens."
 }

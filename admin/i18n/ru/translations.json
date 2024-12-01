@@ -54,5 +54,13 @@
     "LBL_item_localpulsehelp2": "Чтобы это работало, вам необходимо изменить веб-интерфейс Bridge, чтобы он оставался включенным постоянно.",
     "LBL_item_localpulsehelp3": "marq24 предоставил здесь отличное описание того, как это сделать для интеграции Home Assistant:",
     "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
-    "LBL_PulseList": "Local Pulse для опроса данных из:"
+    "LBL_PulseList": "Local Pulse для опроса данных из:",
+    "LBL_item_tibberBridgeUrl": "Сетевой адрес моста",
+    "TTIP_item_tibberBridgeUrl": "Имя вашего моста или его IP-адрес (по умолчанию «tibber-host»).",
+    "LBL_item_tibberBridgePassword": "Пароль моста",
+    "TTIP_item_tibberBridgePassword": "Пароль для вашего локального Tibber Bridge, предусмотренный на оборудовании.",
+    "LBL_item_tibberPulseLocalNodeId": "Идентификатор импульсного узла",
+    "TTIP_item_tibberPulseLocalNodeId": "Идентификатор узла, на котором ваш Pulse зарегистрирован на мосту.",
+    "LBL_item_tibberBridgeRawDataInterval": "Интервал опроса",
+    "TTIP_item_tibberBridgeRawDataInterval": "Интервал в миллисекундах для опроса вашего моста на предмет импульсных данных."
 }

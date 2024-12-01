@@ -54,5 +54,13 @@
     "LBL_item_localpulsehelp2": "要使其正常工作，您需要修改 Bridge 的 Web 界面以使其永久启用。",
     "LBL_item_localpulsehelp3": "marq24 在这里提供了关于如何为其 Home Assistant 集成执行此操作的精彩描述：",
     "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
-    "LBL_PulseList": "本地脉冲轮询数据："
+    "LBL_PulseList": "本地脉冲轮询数据：",
+    "LBL_item_tibberBridgeUrl": "网桥网络地址",
+    "TTIP_item_tibberBridgeUrl": "您的网桥名称或其 IP 地址（默认为“tibber-host”）。",
+    "LBL_item_tibberBridgePassword": "桥接密码",
+    "TTIP_item_tibberBridgePassword": "硬件上提供的本地 Tibber Bridge 的密码。",
+    "LBL_item_tibberPulseLocalNodeId": "脉冲节点ID",
+    "TTIP_item_tibberPulseLocalNodeId": "您的 Pulse 在网桥上注册的节点 ID。",
+    "LBL_item_tibberBridgeRawDataInterval": "轮询间隔",
+    "TTIP_item_tibberBridgeRawDataInterval": "轮询 Bridge 获取脉冲数据的时间间隔（以毫秒为单位）。"
 }

@@ -54,5 +54,13 @@
     "LBL_item_localpulsehelp2": "Aby to zadziałało, musisz zmodyfikować interfejs sieciowy Bridge, aby był stale włączony.",
     "LBL_item_localpulsehelp3": "marq24 dostarczył tutaj doskonały opis, jak to zrobić w przypadku integracji z Home Assistant:",
     "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
-    "LBL_PulseList": "Local Pulse do odpytywania danych z:"
+    "LBL_PulseList": "Local Pulse do odpytywania danych z:",
+    "LBL_item_tibberBridgeUrl": "Adres sieciowy mostu",
+    "TTIP_item_tibberBridgeUrl": "Nazwa Twojego mostu lub jego adres IP (domyślnie „tibber-host”).",
+    "LBL_item_tibberBridgePassword": "Hasło mostu",
+    "TTIP_item_tibberBridgePassword": "Hasło do lokalnego mostu Tibber Bridge, podane na sprzęcie.",
+    "LBL_item_tibberPulseLocalNodeId": "Impulsowy identyfikator węzła",
+    "TTIP_item_tibberPulseLocalNodeId": "Identyfikator węzła, w którym Twój Pulse jest zarejestrowany na moście.",
+    "LBL_item_tibberBridgeRawDataInterval": "Interwał ankiety",
+    "TTIP_item_tibberBridgeRawDataInterval": "Interwał w milisekundach odpytywania danych Bridge for Pulse."
 }
