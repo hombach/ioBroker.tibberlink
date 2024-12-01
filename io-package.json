@@ -1,8 +1,21 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "3.5.4",
+		"version": "4.0.0",
 		"news": {
+			"4.0.0": {
+				"en": "BREAKING: Dropped support for ioBroker.admin versions below 7.0.0 due to the ioBroker Responsive Design Initiative (#544).\nRedesigned the admin tab for the calculator.",
+				"de": "BREAKING: Unterstützung für ioBroker.admin-Versionen unter 7.0.0 eingestellt aufgrund der ioBroker Responsive Design Initiative (#544).\nAdmin-Tab für den Rechner neu gestaltet.",
+				"ru": "ВАЖНО: Прекращена поддержка версий ioBroker.admin ниже 7.0.0 из-за инициативы ioBroker Responsive Design (#544).\nПереработана вкладка администратора для калькулятора.",
+				"pt": "IMPORTANTE: Suporte para versões do ioBroker.admin abaixo de 7.0.0 descontinuado devido à Iniciativa de Design Responsivo do ioBroker (#544).\nAba do administrador para a calculadora redesenhada.",
+				"nl": "BELANGRIJK: Ondersteuning voor ioBroker.admin-versies onder 7.0.0 stopgezet vanwege de ioBroker Responsive Design Initiative (#544).\nBeheertabblad voor de rekenmachine opnieuw ontworpen.",
+				"fr": "IMPORTANT : Support des versions ioBroker.admin inférieures à 7.0.0 abandonné en raison de l'initiative ioBroker Responsive Design (#544).\nOnglet administrateur pour la calculatrice repensé.",
+				"it": "IMPORTANTE: Interrotto il supporto per le versioni di ioBroker.admin inferiori alla 7.0.0 a causa dell'iniziativa ioBroker Responsive Design (#544).\nRidisegnata la scheda amministratore per il calcolatore.",
+				"es": "IMPORTANTE: Se eliminó el soporte para versiones de ioBroker.admin inferiores a 7.0.0 debido a la iniciativa de diseño receptivo de ioBroker (#544).\nRediseñada la pestaña de administrador para la calculadora.",
+				"pl": "WAŻNE: Zakończono wsparcie dla wersji ioBroker.admin poniżej 7.0.0 z powodu inicjatywy ioBroker Responsive Design (#544).\nPrzeprojektowano kartę administracyjną dla kalkulatora.",
+				"uk": "ВАЖЛИВО: Припинено підтримку версій ioBroker.admin нижче 7.0.0 через ініціативу ioBroker Responsive Design (#544).\nПерероблено вкладку адміністратора для калькулятора.",
+				"zh-cn": "重要更新：由于 ioBroker 响应式设计计划 (#544)，停止支持低于 7.0.0 的 ioBroker.admin 版本。\n重新设计了计算器的管理选项卡。"
+			},
 			"3.5.4": {
 				"en": "Fix error in calculator channel 'best single hours' (#594)\nIntroduce 'iobroker/eslint-config' (#591)\nPerformance optimizations\nDependency updates",
 				"de": "Fehler im Berechnungs-Kanal 'beste einzelne Stunden' (#594) beheben\n'iobroker/eslint-config' einführen (#591)\nLeistungsoptimierungen\nAbhängigkeitsaktualisierungen",
@@ -80,19 +93,6 @@
 				"pl": "dodano weryfikację interwału sondowania (#518)\naktualizacja date-fns do wersji 4.0.0",
 				"uk": "додано перевірку інтервалу опитування (#518)\nоновлення date-fns до 4.0.0",
 				"zh-cn": "添加轮询间隔验证 (#518)\n将 date-fns 升级到 4.0.0"
-			},
-			"3.4.9": {
-				"en": "add adjustable Bridge poll interval (#518)\nadd node.js 22 to the adapter testing (#519)\nadd docu link to config screen (#504)\nrepository cleanup\ndependency updates",
-				"de": "einstellbares Bridge-Polling-Intervall hinzufügen (#518)\nnode.js 22 zu den Adaptertests hinzufügen (#519)\nDokumentationslink zum Konfigurationsbildschirm hinzufügen (#504)\nRepository-Bereinigung\nAbhängigkeits-Updates",
-				"ru": "добавить регулируемый интервал опроса моста (#518)\nдобавить node.js 22 в тестирование адаптера (#519)\nдобавить ссылку на документацию в экран настроек (#504)\nочистка репозитория\nобновления зависимостей",
-				"pt": "adicionar intervalo de polling ajustável da Bridge (#518)\nadicionar node.js 22 ao teste do adaptador (#519)\nadicionar link da documentação à tela de configuração (#504)\nlimpeza do repositório\natualizações de dependências",
-				"nl": "aanpasbaar Bridge-pollinterval toevoegen (#518)\nnode.js 22 toevoegen aan de adaptertests (#519)\ndoculink toevoegen aan configuratiescherm (#504)\nrepository opschonen\nafhankelijkheidsupdates",
-				"fr": "ajouter un intervalle de sondage ajustable pour le Bridge (#518)\najouter node.js 22 aux tests de l'adaptateur (#519)\najouter un lien vers la documentation dans l'écran de configuration (#504)\nnettoyage du dépôt\nmises à jour des dépendances",
-				"it": "aggiungere un intervallo di polling regolabile per il Bridge (#518)\naggiungere node.js 22 ai test dell'adattatore (#519)\naggiungere un link alla documentazione nella schermata di configurazione (#504)\npulizia del repository\naggiornamenti delle dipendenze",
-				"es": "añadir intervalo de sondeo ajustable para la Bridge (#518)\nañadir node.js 22 a las pruebas del adaptador (#519)\nañadir enlace a la documentación en la pantalla de configuración (#504)\nlimpieza del repositorio\nactualización de dependencias",
-				"pl": "dodano regulowany interwał sondowania Bridge (#518)\ndodano node.js 22 do testów adaptera (#519)\ndodano link do dokumentacji na ekranie konfiguracji (#504)\nczyszczenie repozytorium\naktualizacje zależności",
-				"uk": "додано регульований інтервал опитування Bridge (#518)\nдодано node.js 22 до тестування адаптера (#519)\nдодано посилання на документацію на екран конфігурації (#504)\nочищення репозиторію\nоновлення залежностей",
-				"zh-cn": "添加可调桥轮询间隔 (#518)\n将 node.js 22 添加到适配器测试中 (#519)\n在配置屏幕中添加文档链接 (#504)\n清理仓库\n依赖更新"
 			}
 		},
 		"messages": [
@@ -220,7 +220,7 @@
 		],
 		"globalDependencies": [
 			{
-				"admin": ">=5.1.28"
+				"admin": ">=7.0.0"
 			}
 		],
 		"plugins": {

@@ -106,6 +106,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 4.0.0 (2024-12-xx) WORK in PROGRESS
+
+-   (HombachC) BREAKING: dropped support for ioBroker.admin < 7.0.0 because of ioBroker Responsive Design Initiative (#544)
+-   (HombachC) redesigned admin tab for calculator
+
 ### 3.5.4 (2024-12-01)
 
 -   (HombachC) add warning when LTF stop time isn't same or next day and provide docu
@@ -277,123 +282,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -   (HombachC) corrected io-package.json according to new schema (#368)
 -   (HombachC) update typescript to 5.4.5
 -   (HombachC) update adapter-core to 3.0.6
-
-### 2.3.2 (2024-03-17)
-
--   (HombachC) code optimizations
--   (HombachC) fix undefined force mode (#349)
--   (HombachC) fix poll of not existing current price state (#348)
--   (HombachC) fix current price poll when configured as not to poll (#350)
--   (HombachC) bump dependencies
-
-### 2.3.1 (2024-03-10)
-
--   (HombachC) BREAKING: Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false (#332)
--   (HombachC) Fixed error in jsonConfig.json (#329)
--   (HombachC) deleted feed disconnect debug-message, cause warn message already exists
--   (HombachC) bump typescript-eslint to gen 7
--   (HombachC) bump dependencies
-
-### 2.2.2 (2024-02-19)
-
--   (HombachC) simplify internal state handling
--   (HombachC) shorten home string in Calculator screen (#317)
--   (HombachC) fix feedback loop trap (#321)
--   (HombachC) add some tooltips to config screen (#317)
-
-### 2.2.1 (2024-02-08)
-
--   (HombachC) fix edge case problems with defect feed data from Tibber server (#312)
--   (HombachC) bump dependencies
-
-### 2.2.0 (2024-02-04)
-
--   (HombachC) add data points for BestHoursBlock results - period and average cost (#240)
--   (HombachC) fixed wrong error message texts
--   (HombachC) fix some possible edge cases in internal support functions
--   (HombachC) internal code docu optimization
--   (HombachC) bump dependencies
-
-### 2.1.1 (2024-01-27)
-
--   (HombachC) fix reconnect error for Pulse feed (#300)
--   (HombachC) new error message handler
--   (HombachC) internal code docu optimization
-
-### 2.1.0 (2024-01-21)
-
--   (HombachC) add repeatablity for LTF channels (#289)
--   (HombachC) tweak Smart Battery Buffer documentation
-
-### 2.0.1 (2024-01-15)
-
--   (HombachC) modify timing in Tibber Pulse feed connect (#271)
--   (HombachC) bump dependencies
-
-### 2.0.0 (2023-12-23)
-
--   (HombachC) BREAKING: dropped support for js-controller 3.x (#247)
--   (HombachC) diversificate Tibber server polls to prevent potential DDoS reactions (#252)
--   (HombachC) add data point for averageRemaining of todays prices (#254)
--   (HombachC) add 2 data points for last successfull update of today and tomorrow prices (#261)
--   (HombachC) year 2024 changes
--   (HombachC) fix small error in dynamic feed timing
--   (HombachC) bump dependencies
-
-### 1.8.1 (2023-12-16)
-
--   (HombachC) add notice about changes in configuration
-
-### 1.8.0 (2023-12-14)
-
--   (HombachC) implement optional disable of price pull (#232)
--   (HombachC) implement price categorization algorithm for battery buffer applications (#193)
--   (HombachC) Fix 2 errors in pull of prices tomorrow (#235, #232)
--   (HombachC) changed Tibber link in config
-
-### 1.7.2 (2023-12-07)
-
--   (HombachC) implemented dynamic raise of feed reconnect (#225)
--   (HombachC) small bugfix in pricecalls
--   (HombachC) first changes for "smart battery buffer" (#193)
--   (HombachC) update typescript to 5.3.3
-
-### 1.7.1 (2023-12-04)
-
--   (HombachC) added hint for consumption data in documentation (#223)
--   (HombachC) mitigate error handling (#217)
--   (HombachC) added description to object Features/RealTimeConsumptionEnabled (#224)
--   (HombachC) bump dependencies
-
-### 1.7.0 (2023-11-30)
-
--   (HombachC) implement getting historical consumption data from Tibber Server (#163)
--   (HombachC) fix error in adapter unload
--   (HombachC) some code optimisations
-
-### 1.6.1 (2023-11-26)
-
--   (HombachC) cleanup in documentation and translation handling
-
-### 1.6.0 (2023-11-26)
-
--   (HombachC) fixed major bug in 1.5.0, not working calculator channels (#212)
--   (HombachC) implement limit calculations to a time frame (#153)
--   (HombachC) fix error of missing price data upon not working tibber server connect at adapter start (#204)
--   (HombachC) fixed possible error with wrong price date in multi home systems
--   (HombachC) fixed possible type error, notified by Sentry
--   (HombachC) added some documentation for inverse use of channels (#202)
--   (HombachC) added Sentry statistics
--   (HombachC) optimize translation handling
--   (HombachC) bump dependencies
-
-### 1.5.0 (2023-11-13)
-
--   (HombachC) implement calculator channel names (#186)
--   (HombachC) fix error in cron jobs (#190)
--   (HombachC) remove not used calculator channel state objects (#188)
--   (HombachC) code optimizations
--   (HombachC) optimize translation handling
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

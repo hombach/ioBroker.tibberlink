@@ -1,5 +1,8 @@
 {
 	"type": "tabs",
+	"tabsStyle": {
+		"width": "calc(100% - 100px)"
+	},
 	"items": {
 		"_StandardTab": {
 			"type": "panel",
@@ -717,7 +720,8 @@
 				},
 
 				"CalculatorList": {
-					"type": "table",
+					"type": "accordion",
+					"titleAttr": "chName",
 					"label": {
 						"en": "Calculator Channels",
 						"de": "Automatisierungs-Kanäle",
@@ -768,10 +772,12 @@
 							},
 							"attr": "chHomeID",
 							"default": "No Home selected",
-							"filter": false,
-							"sort": false,
-							"width": "10% ",
-							"command": "HomesForCalculator"
+							"command": "HomesForCalculator",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						},
 						{
 							"type": "select",
@@ -903,10 +909,13 @@
 									"value": 7
 								}
 							],
-							"filter": false,
-							"sort": false,
-							"width": "15%"
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						},
+
 						{
 							"type": "text",
 							"title": {
@@ -937,14 +946,19 @@
 							},
 							"maxLength": 25,
 							"attr": "chName",
-							"filter": false,
-							"sort": false,
-							"width": "15%",
-							"default": "channel name"
+							"validator": "if(data.name === '' || data.name === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.name);}",
+							"validatorNoSaveOnError": true,
+							"default": "channel name",
+							"xs": 12,
+							"sm": 12,
+							"md": 12,
+							"lg": 12,
+							"xl": 12
 						},
+
 						{
 							"type": "objectId",
-							"title": {
+							"label": {
 								"en": "Target State",
 								"de": "Ziel State",
 								"ru": "Целевое состояние",
@@ -958,13 +972,18 @@
 								"zh-cn": "目标状态"
 							},
 							"attr": "chTargetState",
-							"filter": false,
-							"sort": false,
-							"width": "15%"
+							"tooltip": "Select target state for this channel",
+							"default": "",
+							"xs": 12,
+							"sm": 12,
+							"md": 12,
+							"lg": 12,
+							"xl": 12
 						},
+
 						{
 							"type": "text",
-							"title": {
+							"label": {
 								"en": "Value YES",
 								"de": "Wert JA",
 								"ru": "Значение ДА",
@@ -992,14 +1011,16 @@
 							},
 							"maxLength": 20,
 							"attr": "chValueOn",
-							"filter": false,
-							"sort": false,
-							"width": "10%",
-							"default": "true"
+							"default": "true",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						},
 						{
 							"type": "text",
-							"title": {
+							"label": {
 								"en": "Value NO",
 								"de": "Wert NEIN",
 								"ru": "Значение НЕТ",
@@ -1027,36 +1048,42 @@
 							},
 							"maxLength": 20,
 							"attr": "chValueOff",
-							"filter": false,
-							"sort": false,
-							"width": "7.5%",
-							"default": "false"
+							"default": "false",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						},
 
 						{
 							"type": "objectId",
-							"title": {
+							"label": {
 								"en": "Target State 2",
-								"de": "Zielzustand 2",
+								"de": "Ziel State 2",
 								"ru": "Целевое состояние 2",
-								"pt": "Estado alvo 2",
+								"pt": "Estado Alvo 2",
 								"nl": "Doelstaat 2",
-								"fr": "État cible 2",
-								"it": "Stato di destinazione 2",
-								"es": "Estado objetivo 2",
-								"pl": "Stan docelowy 2",
+								"fr": "État Cible 2",
+								"it": "Stato Obiettivo 2",
+								"es": "Estado Objetivo 2",
+								"pl": "Stan Docelowy 2",
 								"uk": "Цільовий стан 2",
 								"zh-cn": "目标状态 2"
 							},
 							"attr": "chTargetState2",
-							"filter": false,
-							"sort": false,
-							"width": "15%",
-							"hidden": "data.chType !== 7"
+							"tooltip": "Select second target state for this channel",
+							"hidden": "data.chType !== 7",
+							"xs": 12,
+							"sm": 12,
+							"md": 12,
+							"lg": 12,
+							"xl": 12
 						},
+
 						{
 							"type": "text",
-							"title": {
+							"label": {
 								"en": "Value YES 2",
 								"de": "Wert JA 2",
 								"ru": "Значение ДА 2",
@@ -1084,15 +1111,17 @@
 							},
 							"maxLength": 20,
 							"attr": "chValueOn2",
-							"filter": false,
-							"sort": false,
-							"width": "7.5%",
-							"default": "",
+							"default": "true",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6,
 							"hidden": "data.chType !== 7"
 						},
 						{
 							"type": "text",
-							"title": {
+							"label": {
 								"en": "Value NO 2",
 								"de": "Wert NEIN 2",
 								"ru": "Значение НЕТ 2",
@@ -1120,10 +1149,12 @@
 							},
 							"maxLength": 20,
 							"attr": "chValueOff2",
-							"filter": false,
-							"sort": false,
-							"width": "7.5%",
-							"default": "",
+							"default": "false",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6,
 							"hidden": "data.chType !== 7"
 						}
 					]
@@ -1455,17 +1486,40 @@
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
 					"label": {
-						"en": "LTF channels: Function similarly to standard channels but only operate within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel deactivates itself. 'StartTime' and 'StopTime' may span over several days. The states must be filled with a date-time string in ISO-8601 format with a timezone offset, such as: '2023-11-17T21:00:00.000+01:00'",
-						"de": "LTF-Kanäle: Funktionieren ähnlich wie Standardkanäle, arbeiten jedoch nur innerhalb eines durch die Statusobjekte 'StartTime' und 'StopTime' definierten Zeitrahmens. Nach 'StopTime' deaktiviert sich der Kanal selbst. 'StartTime' und 'StopTime' können sich über mehrere Tage erstrecken. Die Zustände müssen mit einem Datum-Zeit-String im ISO-8601-Format mit einem Zeitzonenoffset gefüllt sein, z. B .: '2023-11-17T21:00:00.000+01:00'",
-						"ru": "LTF-каналы: Функционируют аналогично стандартным каналам, но работают только в пределах временного интервала, определенного объектами состояний 'StartTime' и 'StopTime'. После 'StopTime' канал деактивируется сам. 'StartTime' и 'StopTime' могут охватывать несколько дней. Состояния должны быть заполнены строкой даты-времени в формате ISO-8601 с смещением часового пояса, например: '2023-11-17T21:00:00.000+01:00'",
-						"pt": "Canais LTF: Funcionam de maneira semelhante aos canais padrão, mas operam apenas dentro de um intervalo de tempo definido pelos objetos de estado 'StartTime' e 'StopTime'. Após 'StopTime', o canal se desativa. 'StartTime' e 'StopTime' podem abranger vários dias. Os estados devem ser preenchidos com uma string de data e hora no formato ISO-8601 com um deslocamento de fuso horário, como: '2023-11-17T21:00:00.000+01:00'",
-						"nl": "LTF-kanalen: Functioneren op dezelfde manier als standaardkanalen, maar werken alleen binnen een tijdsbestek dat wordt gedefinieerd door de toestelobjecten 'StartTime' en 'StopTime'. Na 'StopTime' deactiveert het kanaal zichzelf. 'StartTime' en 'StopTime' kunnen zich over meerdere dagen uitstrekken. De staten moeten worden gevuld met een datum-tijdreeks in ISO-8601-indeling met een tijdzoneverschil, zoals: '2023-11-17T21:00:00.000+01:00'",
-						"fr": "Canaux LTF : Fonctionnent de manière similaire aux canaux standard mais n'opèrent que dans une plage horaire définie par les objets d'état 'StartTime' et 'StopTime'. Après 'StopTime', le canal se désactive. 'StartTime' et 'StopTime' peuvent s'étendre sur plusieurs jours. Les états doivent être remplis avec une chaîne de date-heure au format ISO-8601 avec un décalage de fuseau horaire, par exemple : '2023-11-17T21:00:00.000+01:00'",
-						"it": "Canali LTF: Funzionano in modo simile ai canali standard ma operano solo all'interno di un periodo definito dagli oggetti di stato 'StartTime' e 'StopTime'. Dopo 'StopTime', il canale si disattiva. 'StartTime' e 'StopTime' possono estendersi su più giorni. Gli stati devono essere compilati con una stringa di data e ora nel formato ISO-8601 con un offset di fuso orario, ad esempio: '2023-11-17T21:00:00.000+01:00'",
-						"es": "Canales LTF: Funcionan de manera similar a los canales estándar, pero solo operan dentro de un marco de tiempo definido por los objetos de estado 'StartTime' y 'StopTime'. Después de 'StopTime', el canal se desactiva. 'StartTime' y 'StopTime' pueden abarcar varios días. Los estados deben llenarse con una cadena de fecha y hora en formato ISO-8601 con un desplazamiento de zona horaria, como: '2023-11-17T21:00:00.000+01:00'",
-						"pl": "Kanały LTF: Działają podobnie jak standardowe kanały, ale działają tylko w oknie czasowym określonym przez obiekty stanu 'StartTime' i 'StopTime'. Po 'StopTime' kanał dezaktywuje się. 'StartTime' i 'StopTime' mogą obejmować kilka dni. Stany muszą być wypełnione ciągiem daty i godziny w formacie ISO-8601 z przesunięciem strefy czasowej, na przykład: '2023-11-17T21:00:00.000+01:00'",
-						"uk": "LTF-канали: Функціонують аналогічно стандартним каналам, але працюють лише в межах часового інтервалу, визначеного об'єктами стану 'StartTime' та 'StopTime'. Після 'StopTime' канал деактивується. 'StartTime' та 'StopTime' можуть охоплювати кілька днів. Стани повинні бути заповнені рядком дати та часу в форматі ISO-8601 з часовим поясом, наприклад: '2023-11-17T21:00:00.000+01:00'",
-						"zh-cn": "LTF通道：与标准通道类似，但仅在由'StartTime'和'StopTime'状态对象定义的时间范围内运行。在'StopTime'后，通道将自动停用。 'StartTime'和'StopTime'可能跨越多天。状态必须填写ISO-8601格式的带有时区偏移的日期时间字符串，例如：'2023-11-17T21:00:00.000+01:00'"
+						"en": "LTF channels: These operate similarly to standard channels but are active only within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel automatically deactivates. 'StartTime' and 'StopTime' can span two calendar days, as Tibber does not provide data beyond a 48-hour window. Both states require a date-time string in ISO-8601 format with a timezone offset, e.g., '2024-12-24T18:00:00.000+01:00'.",
+						"de": "LTF-Kanäle: Diese funktionieren ähnlich wie Standardkanäle, sind jedoch nur innerhalb eines Zeitrahmens aktiv, der durch die Statusobjekte 'StartTime' und 'StopTime' definiert wird. Nach 'StopTime' deaktiviert sich der Kanal automatisch. 'StartTime' und 'StopTime' können sich über zwei Kalendertage erstrecken, da Tibber keine Daten über ein 48-Stunden-Fenster hinaus bereitstellt. Beide Zustände erfordern eine Datum-Zeit-Zeichenkette im ISO-8601-Format mit einer Zeitzonenangabe, z. B.: '2024-12-24T18:00:00.000+01:00'.",
+						"ru": "Каналы LTF: Они работают аналогично стандартным каналам, но активны только в рамках временного интервала, определяемого объектами состояния 'StartTime' и 'StopTime'. После 'StopTime' канал автоматически отключается. 'StartTime' и 'StopTime' могут охватывать два календарных дня, так как Tibber не предоставляет данные за пределами 48-часового окна. Оба состояния требуют строку даты и времени в формате ISO-8601 с указанием часового пояса, например: '2024-12-24T18:00:00.000+01:00'.",
+						"pt": "Canais LTF: Operam de forma semelhante aos canais padrão, mas ficam ativos apenas dentro de um período de tempo definido pelos objetos de estado 'StartTime' e 'StopTime'. Após o 'StopTime', o canal se desativa automaticamente. 'StartTime' e 'StopTime' podem abranger dois dias consecutivos, pois a Tibber não fornece dados além de uma janela de 48 horas. Ambos os estados exigem uma string de data e hora no formato ISO-8601 com um offset de fuso horário, por exemplo: '2024-12-24T18:00:00.000+01:00'.",
+						"nl": "LTF-kanalen: Deze werken vergelijkbaar met standaardkanalen, maar zijn alleen actief binnen een tijdsbestek dat wordt gedefinieerd door de statusobjecten 'StartTime' en 'StopTime'. Na 'StopTime' deactiveert het kanaal automatisch. 'StartTime' en 'StopTime' kunnen twee kalenderdagen omvatten, aangezien Tibber geen gegevens verstrekt buiten een venster van 48 uur. Beide statussen vereisen een datum-tijdreeks in ISO-8601-indeling met een tijdzone-offset, bijvoorbeeld: '2024-12-24T18:00:00.000+01:00'.",
+						"fr": "Canaux LTF : Ils fonctionnent de manière similaire aux canaux standard mais ne sont actifs que pendant une plage de temps définie par les objets d'état 'StartTime' et 'StopTime'. Après 'StopTime', le canal se désactive automatiquement. 'StartTime' et 'StopTime' peuvent couvrir deux jours calendaires, car Tibber ne fournit pas de données au-delà d'une fenêtre de 48 heures. Les deux états nécessitent une chaîne de date-heure au format ISO-8601 avec un décalage de fuseau horaire, par exemple : '2024-12-24T18:00:00.000+01:00'.",
+						"it": "Canali LTF: Funzionano in modo simile ai canali standard, ma sono attivi solo all'interno di un intervallo di tempo definito dagli oggetti di stato 'StartTime' e 'StopTime'. Dopo 'StopTime', il canale si disattiva automaticamente. 'StartTime' e 'StopTime' possono estendersi su due giorni di calendario, poiché Tibber non fornisce dati oltre una finestra di 48 ore. Entrambi gli stati richiedono una stringa data-ora nel formato ISO-8601 con offset del fuso orario, ad esempio: '2024-12-24T18:00:00.000+01:00'.",
+						"es": "Canales LTF: Funcionan de manera similar a los canales estándar, pero solo están activos dentro de un marco de tiempo definido por los objetos de estado 'StartTime' y 'StopTime'. Después de 'StopTime', el canal se desactiva automáticamente. 'StartTime' y 'StopTime' pueden abarcar dos días calendario, ya que Tibber no proporciona datos más allá de una ventana de 48 horas. Ambos estados requieren una cadena de fecha y hora en formato ISO-8601 con un desplazamiento de zona horaria, por ejemplo: '2024-12-24T18:00:00.000+01:00'.",
+						"pl": "Kanały LTF: Działają podobnie do standardowych kanałów, ale są aktywne tylko w ramach czasowych określonych przez obiekty stanu 'StartTime' i 'StopTime'. Po 'StopTime' kanał automatycznie się dezaktywuje. 'StartTime' i 'StopTime' mogą obejmować dwa dni kalendarzowe, ponieważ Tibber nie udostępnia danych poza 48-godzinnym oknem. Oba stany wymagają ciągu daty i godziny w formacie ISO-8601 z przesunięciem strefy czasowej, np.: '2024-12-24T18:00:00.000+01:00'.",
+						"uk": "Канали LTF: Вони працюють подібно до стандартних каналів, але активні лише в межах часових рамок, визначених об'єктами стану 'StartTime' і 'StopTime'. Після 'StopTime' канал автоматично деактивується. 'StartTime' і 'StopTime' можуть охоплювати два календарних дні, оскільки Tibber не надає даних поза 48-годинним вікном. Обидва стани вимагають рядок дати-часу у форматі ISO-8601 із зсувом часового поясу, наприклад: '2024-12-24T18:00:00.000+01:00'.",
+						"zh-cn": "LTF 通道：这些通道的工作方式类似于标准通道，但仅在 'StartTime' 和 'StopTime' 状态对象定义的时间范围内激活。超过 'StopTime' 后，通道会自动停用。'StartTime' 和 'StopTime' 可以跨越两个日历日，因为 Tibber 不提供超过 48 小时窗口的数据。这两个状态必须使用带有时区偏移量的 ISO-8601 格式的日期时间字符串，例如：'2024-12-24T18:00:00.000+01:00'。"
+					},
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_calculatorhelp16": {
+					"type": "staticText",
+					"hidden": "!data.UseCalculator",
+					"label": {
+						"en": "Additionally, the LTF channels include a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel repeats its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition.",
+						"de": "Zusätzlich verfügen die LTF-Kanäle über einen neuen Statusparameter namens 'RepeatDays', der standardmäßig auf 0 gesetzt ist. Wenn 'RepeatDays' auf eine positive Ganzzahl gesetzt wird, wiederholt der Kanal seinen Zyklus, indem sowohl 'StartTime' als auch 'StopTime' um die angegebene Anzahl von Tagen nach Erreichen von 'StopTime' erhöht werden. Zum Beispiel, setzen Sie 'RepeatDays' auf 1 für eine tägliche Wiederholung.",
+						"ru": "Кроме того, каналы LTF имеют новый параметр состояния под названием 'RepeatDays', который по умолчанию равен 0. Если 'RepeatDays' установить на положительное целое число, канал будет повторять свой цикл, увеличивая 'StartTime' и 'StopTime' на указанное количество дней после достижения 'StopTime'. Например, установите 'RepeatDays' на 1 для ежедневного повторения.",
+						"pt": "Além disso, os canais LTF possuem um novo parâmetro de estado chamado 'RepeatDays', que é definido como 0 por padrão. Quando 'RepeatDays' é configurado para um número inteiro positivo, o canal repetirá seu ciclo, incrementando 'StartTime' e 'StopTime' pelo número especificado de dias após o 'StopTime'. Por exemplo, defina 'RepeatDays' como 1 para repetição diária.",
+						"nl": "Bovendien hebben de LTF-kanalen een nieuwe statusparameter genaamd 'RepeatDays', die standaard op 0 is ingesteld. Als 'RepeatDays' wordt ingesteld op een positief geheel getal, zal het kanaal zijn cyclus herhalen door zowel 'StartTime' als 'StopTime' te verhogen met het opgegeven aantal dagen nadat 'StopTime' is bereikt. Stel bijvoorbeeld 'RepeatDays' in op 1 voor dagelijkse herhaling.",
+						"fr": "De plus, les canaux LTF disposent d'un nouveau paramètre d'état appelé 'RepeatDays', qui est défini par défaut à 0. Lorsque 'RepeatDays' est défini sur un entier positif, le canal répétera son cycle en incrémentant à la fois 'StartTime' et 'StopTime' du nombre de jours spécifié après que 'StopTime' ait été atteint. Par exemple, définissez 'RepeatDays' sur 1 pour une répétition quotidienne.",
+						"it": "Inoltre, i canali LTF dispongono di un nuovo parametro di stato chiamato 'RepeatDays', che per impostazione predefinita è 0. Quando 'RepeatDays' è impostato su un numero intero positivo, il canale ripeterà il suo ciclo incrementando sia 'StartTime' che 'StopTime' del numero di giorni specificato una volta raggiunto 'StopTime'. Ad esempio, impostare 'RepeatDays' su 1 per la ripetizione giornaliera.",
+						"es": "Además, los canales LTF tienen un nuevo parámetro de estado llamado 'RepeatDays', que por defecto está configurado en 0. Cuando 'RepeatDays' se establece en un número entero positivo, el canal repetirá su ciclo incrementando tanto 'StartTime' como 'StopTime' en el número especificado de días una vez que se alcance 'StopTime'. Por ejemplo, establezca 'RepeatDays' en 1 para una repetición diaria.",
+						"pl": "Dodatkowo, kanały LTF mają nowy parametr stanu o nazwie 'RepeatDays', który domyślnie jest ustawiony na 0. Jeśli 'RepeatDays' zostanie ustawiony na dodatnią liczbę całkowitą, kanał będzie powtarzał swój cykl, zwiększając 'StartTime' i 'StopTime' o określoną liczbę dni po osiągnięciu 'StopTime'. Na przykład ustaw 'RepeatDays' na 1, aby uzyskać codzienne powtórzenia.",
+						"uk": "Крім того, канали LTF мають новий параметр стану під назвою 'RepeatDays', який за замовчуванням дорівнює 0. Якщо 'RepeatDays' встановити на додатне ціле число, канал буде повторювати свій цикл, збільшуючи 'StartTime' і 'StopTime' на вказану кількість днів після досягнення 'StopTime'. Наприклад, встановіть 'RepeatDays' на 1 для щоденного повторення.",
+						"zh-cn": "此外，LTF 通道新增了一个状态参数，称为 'RepeatDays'，默认值为 0。如果将 'RepeatDays' 设置为正整数，通道将在达到 'StopTime' 后，通过增加指定的天数重复其周期，同时调整 'StartTime' 和 'StopTime'。例如，将 'RepeatDays' 设置为 1 以实现每日重复。"
 					},
 					"xs": 12,
 					"sm": 12,
