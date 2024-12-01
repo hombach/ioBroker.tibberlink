@@ -1,12 +1,12 @@
 import type * as utils from "@iobroker/adapter-core";
 import { TibberQuery, type IConfig } from "tibber-api";
-import type { IAddress } from "tibber-api/lib/src/models/IAddress";
-import type { IConsumption } from "tibber-api/lib/src/models/IConsumption"; // obsolete data poll for consumption data
-import type { IContactInfo } from "tibber-api/lib/src/models/IContactInfo";
-import type { IHome } from "tibber-api/lib/src/models/IHome"; // obsolete data poll for consumption data
-import type { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
-import type { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
+import type { IAddress } from "tibber-api/lib/src/models/IAddress.js";
+import type { IConsumption } from "tibber-api/lib/src/models/IConsumption.js"; // obsolete data poll for consumption data
+import type { IContactInfo } from "tibber-api/lib/src/models/IContactInfo.js";
+import type { IHome } from "tibber-api/lib/src/models/IHome.js"; // obsolete data poll for consumption data
+import type { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity.js";
+import type { IPrice } from "tibber-api/lib/src/models/IPrice.js";
+import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution.js";
 import { ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
 /**

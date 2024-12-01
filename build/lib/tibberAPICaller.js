@@ -1,5 +1,5 @@
 import { TibberQuery } from "tibber-api";
-import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
+import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution.js";
 import { ProjectUtils } from "./projectUtils.js";
 /**
  * TibberAPICaller
