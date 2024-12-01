@@ -110,6 +110,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 -   (HombachC) BREAKING: dropped support for ioBroker.admin < 7.0.0 because of ioBroker Responsive Design Initiative (#544)
 -   (HombachC) redesigned admin tab for calculator
+-   (HombachC) change calculator translations
 
 ### 3.5.4 (2024-12-01)
 
