@@ -1,6 +1,6 @@
 import type * as utils from "@iobroker/adapter-core";
 import { TibberFeed, TibberQuery, type IConfig } from "tibber-api";
-import type { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement";
+import type { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement.js";
 import { ProjectUtils } from "./projectUtils.js";
 
 /**
