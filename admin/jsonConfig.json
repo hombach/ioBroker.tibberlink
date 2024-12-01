@@ -1,4 +1,5 @@
 {
+	"i18n": true,
 	"type": "tabs",
 	"tabsStyle": {
 		"width": "calc(100% - 100px)"
@@ -673,29 +674,6 @@
 			"lg": 12,
 			"xl": 12,
 			"items": {
-				"_CalculatorHeader": {
-					"type": "header",
-					"text": {
-						"en": "Calculator Channels",
-						"de": "Automatisierungs-Kanäle",
-						"ru": "Каналы автоматизации",
-						"pt": "Canais de automação",
-						"nl": "Automatiseringskanalen",
-						"fr": "Canaux d'automatisation",
-						"it": "Canali di automazione",
-						"es": "Canales de automatización",
-						"pl": "Kanały automatyzacji",
-						"uk": "Канали автоматизації",
-						"zh-cn": "自动化通道"
-					},
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"size": 3
-				},
-
 				"UseCalculator": {
 					"type": "checkbox",
 					"label": {
@@ -715,8 +693,7 @@
 					"sm": 12,
 					"md": 12,
 					"lg": 12,
-					"xl": 12,
-					"newLine": true
+					"xl": 12
 				},
 
 				"CalculatorList": {
@@ -1163,19 +1140,7 @@
 				"_calculatorhelp1": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "Channels can be activated or deactivated in a corresponding state.",
-						"de": "Kanäle können in einem entsprechenden Zustand aktiviert oder deaktiviert werden.",
-						"ru": "Каналы могут быть активированы или деактивированы в соответствующем состоянии.",
-						"pt": "Os canais podem ser ativados ou desativados em um estado correspondente.",
-						"nl": "Kanalen kunnen worden geactiveerd of gedeactiveerd in een overeenkomstige status.",
-						"fr": "Les canaux peuvent être activés ou désactivés dans un état correspondant.",
-						"it": "I canali possono essere attivati o disattivati in uno stato corrispondente.",
-						"es": "Los canales se pueden activar o desactivar en un estado correspondiente.",
-						"pl": "Kanały można aktywować lub dezaktywować w odpowiednim stanie.",
-						"uk": "Канали можуть бути активовані або деактивовані в відповідному стані.",
-						"zh-cn": "通道可以在相应状态下激活或停用。"
-					},
+					"label": "LBL_calculatorhelp1",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,

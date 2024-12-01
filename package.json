@@ -32,6 +32,7 @@
 		"tibber-api": "^5.1.11"
 	},
 	"devDependencies": {
+		"@iobroker/adapter-dev": "^1.3.0",
 		"@iobroker/eslint-config": "^1.0.0",
 		"@iobroker/testing": "^5.0.0",
 		"@iobroker/types": "^6.0.11",
@@ -70,7 +71,8 @@
 		"test:integration": "mocha test/integration --exit",
 		"test": "npm run test:ts && npm run test:package",
 		"check": "tsc --noEmit",
-		"lint": "eslint -c eslint.config.mjs ."
+		"lint": "eslint -c eslint.config.mjs .",
+		"translate": "translate-adapter"
 	},
 	"bugs": {
 		"url": "https://github.com/Hombach/ioBroker.tibberlink/issues"
