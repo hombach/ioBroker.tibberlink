@@ -1,8 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProjectUtils = exports.enCalcType = void 0;
-exports.getCalcTypeDescription = getCalcTypeDescription;
-var enCalcType;
+export var enCalcType;
 (function (enCalcType) {
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
     enCalcType[enCalcType["BestSingleHours"] = 2] = "BestSingleHours";
@@ -12,13 +8,13 @@ var enCalcType;
     enCalcType[enCalcType["BestHoursBlockLTF"] = 6] = "BestHoursBlockLTF";
     enCalcType[enCalcType["SmartBatteryBuffer"] = 7] = "SmartBatteryBuffer";
     //BestCostMaxHours = 8,
-})(enCalcType || (exports.enCalcType = enCalcType = {}));
+})(enCalcType || (enCalcType = {}));
 /**
  * getCalcTypeDescription
  *
  * @param calcType - ID of calculator channel type
  */
-function getCalcTypeDescription(calcType) {
+export function getCalcTypeDescription(calcType) {
     switch (calcType) {
         case enCalcType.BestCost:
             return `best cost`;
@@ -43,7 +39,7 @@ function getCalcTypeDescription(calcType) {
 /**
  * ProjectUtils
  */
-class ProjectUtils {
+export class ProjectUtils {
     adapter;
     /**
      * constructor
@@ -333,5 +329,4 @@ class ProjectUtils {
         return `Error (${error.statusMessage || error.statusText || "Unknown Status"}) occurred during: -${context}- : ${errorMessages}`;
     }
 }
-exports.ProjectUtils = ProjectUtils;
 //# sourceMappingURL=projectUtils.js.map

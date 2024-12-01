@@ -1,18 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.isObject = isObject;
-exports.isArray = isArray;
-exports.translateText = translateText;
-const axios_1 = __importDefault(require("axios"));
+import axios from "axios";
 /**
  * Tests whether the given variable is a real object and not an Array.
  *
  * @param it The variable to test.
  */
-function isObject(it) {
+export function isObject(it) {
     // This is necessary because:
     // typeof null === 'object'
     // typeof [] === 'object'
@@ -24,7 +16,7 @@ function isObject(it) {
  *
  * @param it The variable to test
  */
-function isArray(it) {
+export function isArray(it) {
     if (Array.isArray != null) {
         return Array.isArray(it);
     }
@@ -37,7 +29,7 @@ function isArray(it) {
  * @param targetLang The target languate
  * @param yandexApiKey The yandex API key. You can create one for free at https://translate.yandex.com/developers
  */
-async function translateText(text, targetLang, yandexApiKey) {
+export async function translateText(text, targetLang, yandexApiKey) {
     if (targetLang === "en") {
         return text;
     }
@@ -63,7 +55,7 @@ async function translateYandex(text, targetLang, apiKey) {
     }
     try {
         const url = `https://translate.yandex.net/api/v1.5/tr.json/translate?key=${apiKey}&text=${encodeURIComponent(text)}&lang=en-${targetLang}`;
-        const response = await axios_1.default.request({ url, timeout: 15000 });
+        const response = await axios.request({ url, timeout: 15000 });
         if (isArray(response.data?.text)) {
             return response.data.text[0];
         }

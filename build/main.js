@@ -1,46 +1,11 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
-const utils = __importStar(require("@iobroker/adapter-core"));
-const cron_1 = require("cron");
-const date_fns_1 = require("date-fns");
-const tibberAPICaller_1 = require("./lib/tibberAPICaller");
-const tibberCalculator_1 = require("./lib/tibberCalculator");
-const tibberLocal_1 = require("./lib/tibberLocal");
-const tibberPulse_1 = require("./lib/tibberPulse");
+import * as utils from "@iobroker/adapter-core";
+import { CronJob } from "cron";
+import { addDays, format, isSameDay } from "date-fns";
+import { TibberAPICaller } from "./lib/tibberAPICaller";
+import { TibberCalculator } from "./lib/tibberCalculator";
+import { TibberLocal } from "./lib/tibberLocal";
+import { TibberPulse } from "./lib/tibberPulse";
 class Tibberlink extends utils.Adapter {
     constructor(options = {}) {
         super({
@@ -59,7 +24,7 @@ class Tibberlink extends utils.Adapter {
     cronList;
     homeInfoList = [];
     queryUrl = "";
-    tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
+    tibberCalculator = new TibberCalculator(this);
     /**
      * Is called when databases are connected and adapter received configuration.
      */
@@ -81,7 +46,7 @@ class Tibberlink extends utils.Adapter {
                 },
             };
             // Now read homes list from API
-            const tibberAPICaller = new tibberAPICaller_1.TibberAPICaller(tibberConfigAPI, this);
+            const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
                 if (this.config.HomesList.length > 0) {
@@ -173,7 +138,7 @@ class Tibberlink extends utils.Adapter {
             // if there are any homes the adapter will do something
             // Init load data and calculator for all homes
             if (this.homeInfoList.length > 0) {
-                const tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
+                const tibberCalculator = new TibberCalculator(this);
                 // Set up calculation channel states if configured
                 if (this.config.UseCalculator) {
                     try {
@@ -188,7 +153,7 @@ class Tibberlink extends utils.Adapter {
                 }
                 // Local Bridge Call - WiP move this... could be used without Tibber contract
                 // Set up Pulse local polls if configured
-                const tibberLocal = new tibberLocal_1.TibberLocal(this);
+                const tibberLocal = new TibberLocal(this);
                 if (this.config.UseLocalPulseData) {
                     try {
                         this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
@@ -208,7 +173,7 @@ class Tibberlink extends utils.Adapter {
                 void tibberCalculator.startCalculatorTasks(false, true);
                 // Get consumption data for the first time
                 void tibberAPICaller.updateConsumptionAllHomes();
-                const jobCurrentPrice = cron_1.CronJob.from({
+                const jobCurrentPrice = CronJob.from({
                     cronTime: "20 57 * * * *", //"20 58 * * * *" = 2 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
                     onTick: async () => {
                         let okPrice = false;
@@ -227,7 +192,7 @@ class Tibberlink extends utils.Adapter {
                 if (jobCurrentPrice) {
                     this.cronList.push(jobCurrentPrice);
                 }
-                const jobPricesToday = cron_1.CronJob.from({
+                const jobPricesToday = CronJob.from({
                     cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 5 minutes before 00:01:20 => 00:00:20 - 00:02:20 for first try
                     onTick: async () => {
                         let okPrice = false;
@@ -246,7 +211,7 @@ class Tibberlink extends utils.Adapter {
                 if (jobPricesToday) {
                     this.cronList.push(jobPricesToday);
                 }
-                const jobPricesTomorrow = cron_1.CronJob.from({
+                const jobPricesTomorrow = CronJob.from({
                     cronTime: "20 56 12 * * *", //"20 56 12 * * *" = 5 minutes before 13:01:20 => 13:00:20 - 13:02:20 for first try
                     onTick: async () => {
                         let okPrice = false;
@@ -362,7 +327,7 @@ class Tibberlink extends utils.Adapter {
                             if (this.config.FeedConfigSignalStrength) {
                                 tibberFeedConfigs[index].signalStrength = true;
                             }
-                            tibberPulseInstances[index] = new tibberPulse_1.TibberPulse(tibberFeedConfigs[index], this); // add new instance to array
+                            tibberPulseInstances[index] = new TibberPulse(tibberFeedConfigs[index], this); // add new instance to array
                             tibberPulseInstances[index].ConnectPulseStream();
                         }
                         catch (error) {
@@ -551,8 +516,8 @@ class Tibberlink extends utils.Adapter {
                                                 // floor to hour
                                                 dateWithTimeZone.setMinutes(0, 0, 0);
                                                 this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
-                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
-                                                void this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
+                                                void this.setState(id, format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
                                             else {
                                                 this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStartTime: ${state.val}`);
@@ -577,13 +542,13 @@ class Tibberlink extends utils.Adapter {
                                                 // Get StartTime directly as a Date object
                                                 const startTime = this.config.CalculatorList[calcChannel].chStartTime;
                                                 // Check if StopTime is not the same day or the next day as StartTime
-                                                if (!(0, date_fns_1.isSameDay)(dateWithTimeZone, startTime) && !(0, date_fns_1.isSameDay)(dateWithTimeZone, (0, date_fns_1.addDays)(startTime, 1))) {
+                                                if (!isSameDay(dateWithTimeZone, startTime) && !isSameDay(dateWithTimeZone, addDays(startTime, 1))) {
                                                     this.log.warn(`StopTime for channel ${calcChannel} is not the same or next day as StartTime! StartTime: ${startTime.toISOString()}, StopTime: ${dateWithTimeZone.toISOString()}`);
                                                     this.log.warn(`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`);
                                                 }
                                                 // WIP 3.5.4 STOP
-                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
-                                                void this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
+                                                void this.setState(id, format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
                                             else {
                                                 this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStopTime: ${state.val}`);

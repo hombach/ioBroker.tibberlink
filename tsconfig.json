@@ -14,7 +14,7 @@
 		"noEmitOnError": true,
 		"outDir": "./build/",
 		"removeComments": false,
-		"module": "commonjs",
+		"module": "ESNext",
 		"moduleResolution": "node",
 		"esModuleInterop": true,
 		// this is necessary for the automatic typing of the adapter config
@@ -32,8 +32,7 @@
 		// Uncomment this if you want the old behavior of catch variables being `any`
 		// "useUnknownInCatchVariables": false,
 
-		// Consider targetting ES2022 or higher if you only support Node.js 18+
-		"target": "ES2022",
+		"target": "ESNext",
 
 		"sourceMap": true,
 		"inlineSourceMap": false

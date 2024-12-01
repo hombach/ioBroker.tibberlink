@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TibberAPICaller = void 0;
-const tibber_api_1 = require("tibber-api");
-const EnergyResolution_1 = require("tibber-api/lib/src/models/enums/EnergyResolution");
-const projectUtils_1 = require("./projectUtils");
+import { TibberQuery } from "tibber-api";
+import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
+import { ProjectUtils } from "./projectUtils";
 /**
  * TibberAPICaller
  */
-class TibberAPICaller extends projectUtils_1.ProjectUtils {
+export class TibberAPICaller extends ProjectUtils {
     tibberConfig;
     tibberQuery;
     /**
@@ -19,7 +16,7 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.tibberConfig = tibberConfig;
-        this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig, 60000);
+        this.tibberQuery = new TibberQuery(this.tibberConfig, 60000);
     }
     /**
      * updateHomesFromAPI
@@ -336,11 +333,11 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 }
                 const homeID = home.homeID;
                 const resolutions = [
-                    { type: EnergyResolution_1.EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
-                    { type: EnergyResolution_1.EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
-                    { type: EnergyResolution_1.EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
-                    { type: EnergyResolution_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
-                    { type: EnergyResolution_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
+                    { type: EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
+                    { type: EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
+                    { type: EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
+                    { type: EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
+                    { type: EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
                 ];
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
@@ -528,5 +525,4 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
         return result && result.error ? result : { error: "An error occurred while loading obsolete consumption data." };
     }
 }
-exports.TibberAPICaller = TibberAPICaller;
 //# sourceMappingURL=tibberAPICaller.js.map

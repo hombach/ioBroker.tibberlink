@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TibberPulse = void 0;
-const tibber_api_1 = require("tibber-api");
-const projectUtils_1 = require("./projectUtils");
+import { TibberFeed, TibberQuery } from "tibber-api";
+import { ProjectUtils } from "./projectUtils";
 /**
  * TibberPulse
  */
-class TibberPulse extends projectUtils_1.ProjectUtils {
+export class TibberPulse extends ProjectUtils {
     tibberConfig;
     tibberQuery;
     tibberFeed;
@@ -25,8 +22,8 @@ class TibberPulse extends projectUtils_1.ProjectUtils {
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.tibberConfig = tibberConfig;
-        this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig);
-        this.tibberFeed = new tibber_api_1.TibberFeed(this.tibberQuery);
+        this.tibberQuery = new TibberQuery(this.tibberConfig);
+        this.tibberFeed = new TibberFeed(this.tibberQuery);
         this.httpQueryUrl = tibberConfig.apiEndpoint.queryUrl;
         this.addEventHandlerOnFeed(this.tibberFeed);
     }
@@ -52,7 +49,7 @@ class TibberPulse extends projectUtils_1.ProjectUtils {
             this.adapter.log.warn(`Error on feed close: ${error.message}`);
         }
         // Reinitialize TibberFeed
-        this.tibberFeed = new tibber_api_1.TibberFeed(new tibber_api_1.TibberQuery(this.tibberConfig));
+        this.tibberFeed = new TibberFeed(new TibberQuery(this.tibberConfig));
     }
     addEventHandlerOnFeed(currentFeed) {
         // Set info.connection state for event "connected"
@@ -196,5 +193,4 @@ class TibberPulse extends projectUtils_1.ProjectUtils {
         this.adapter.log.debug(`Reconnection successful!`);
     }
 }
-exports.TibberPulse = TibberPulse;
 //# sourceMappingURL=tibberPulse.js.map

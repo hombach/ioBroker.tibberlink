@@ -1,16 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TibberLocal = void 0;
-const axios_1 = __importDefault(require("axios"));
-const date_fns_1 = require("date-fns");
-const projectUtils_1 = require("./projectUtils");
+import axios from "axios";
+import { format, formatDuration, intervalToDuration } from "date-fns";
+import { ProjectUtils } from "./projectUtils";
 /**
  * TibberLocal
  */
-class TibberLocal extends projectUtils_1.ProjectUtils {
+export class TibberLocal extends ProjectUtils {
     intervalList;
     TestData = "";
     // example HEX strings  -  meter mode 3 e.g. for "ISKRA ISK00 7034" meters
@@ -148,7 +142,7 @@ class TibberLocal extends projectUtils_1.ProjectUtils {
             },
         };
         try {
-            const response = await axios_1.default.request({
+            const response = await axios.request({
                 url: options.path,
                 method: options.method,
                 baseURL: `http://${options.hostname}`,
@@ -244,8 +238,8 @@ class TibberLocal extends projectUtils_1.ProjectUtils {
                         if (typeof obj[key] === "number") {
                             void this.checkAndSetValueNumber(`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`, obj[key], `Uptime of your Tibber Pulse in ms`, "ms", false, false, firstTime);
                             function formatMilliseconds(ms) {
-                                const duration = (0, date_fns_1.intervalToDuration)({ start: 0, end: ms });
-                                const formattedDuration = (0, date_fns_1.formatDuration)(duration, { format: ["months", "days", "hours", "minutes", "seconds"] });
+                                const duration = intervalToDuration({ start: 0, end: ms });
+                                const formattedDuration = formatDuration(duration, { format: ["months", "days", "hours", "minutes", "seconds"] });
                                 // Output: "229 days 3 hours 17 minutes 2 seconds"
                                 // view only first 3 blocks
                                 const parts = formattedDuration.split(" ");
@@ -299,7 +293,7 @@ class TibberLocal extends projectUtils_1.ProjectUtils {
             responseType: "arraybuffer", // important for handling binary data
         };
         try {
-            const response = await (0, axios_1.default)(options);
+            const response = await axios(options);
             const buffer = Buffer.from(response.data);
             const hexString = buffer.toString("hex");
             return hexString;
@@ -452,7 +446,6 @@ class TibberLocal extends projectUtils_1.ProjectUtils {
         return date.toLocaleString("de-DE"); // WiP: use system string instead of always German; use date-fns
     }
 }
-exports.TibberLocal = TibberLocal;
 /**
  * Converts a hexadecimal string to its ASCII representation.
  * This method takes a hexadecimal string as input and converts each pair of hexadecimal digits to their corresponding ASCII character, constructing the resulting ASCII string.
@@ -521,7 +514,7 @@ function parseSignedHex(hexStr) {
  */
 function getCurrentTimeFormatted() {
     const now = new Date();
-    return (0, date_fns_1.format)(now, "HH:mm:ss.SSS");
+    return format(now, "HH:mm:ss.SSS");
 }
 /**
  * Finds the DLMS unit corresponding to a given decimal code.
