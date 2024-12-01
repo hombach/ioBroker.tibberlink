@@ -1,5 +1,6 @@
 {
-	"DUMMY_CalculatorTab": "DUMMY",
+	"DUMMY_StandardTab": "DUMMY",
+
 	"LBL_CalculatorTab": "Calculator Settings",
 	"LBL_UseCalculator": "Use automation calculator channels",
 	"LBL_CalculatorList": "Calculator Channels",
@@ -43,5 +44,16 @@
 	"LBL_calculatorhelp13": "'Best hours block LTF': 'Best hours block' within a Limited Time Frame (LTF)",
 	"LBL_calculatorhelp14": "'Smart Battery Buffer': Utilizes the 'EfficiencyLoss' parameter to specify the efficiency loss of the battery system. The 'AmountHours' parameter defines the desired number of hours for battery charging. The calculator will activate battery charging ('value YES') and deactivate battery feed ('value 2 NO') during the specified 'AmountHours' of the cheapest hours. Conversely, it will deactivate battery charging ('value NO') and activate battery feed ('value 2 YES') during the hours with the highest cost, provided the cost exceeds the highest total price among the cheapest hours. During the remaining normal hours, where energy buffering by the battery is not economically viable, both outputs will be turned off.",
 	"LBL_calculatorhelp15": "<b>LTF channels:</b> These function similarly to standard channels but are active only within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel automatically deactivates. 'StartTime' and 'StopTime' can span two calendar days, as Tibber does not provide data beyond a 48-hour window. Both states require a date-time string in ISO-8601 format with a timezone offset, e.g., '2024-12-24T18:00:00.000+01:00'.",
-	"LBL_calculatorhelp16": "Additionally, the LTF channels include a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel repeats its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition."
+	"LBL_calculatorhelp16": "Additionally, the LTF channels include a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel repeats its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition.",
+
+	"LBL_SpecialsTab": "Special Settings",
+	"LBL_UseObsoleteStats": "Use obsolete API call for historical consumption data - proceed with caution!",
+	"LBL_specialshelp1": "Also retrieves TotalCost values, including special grid fees in Germany. Please verify the values with those shown in your Tibber app.",
+
+	"LBL_LocalPulseTab": "Local Pulse Poll Settings",
+	"LBL_item_UseLocalPulseData": "Use direct polling of local Tibber Pulse(s) - proceed with caution!",
+	"LBL_item_localpulsehelp1": "Use your Tibber Bridge(s) to directly poll data from your Tibber Pulse module(s) locally.",
+	"LBL_item_localpulsehelp2": "To make it work, you need to modify the Bridge's web interface to keep it permanently enabled.",
+	"LBL_item_localpulsehelp3": "marq24 has provided an excellent description of how to do this for his Home Assistant integration here:",
+	"LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local"
 }

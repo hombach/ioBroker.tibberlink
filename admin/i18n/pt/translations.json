@@ -43,5 +43,15 @@
     "LBL_calculatorhelp13": "'Bloco de melhores horas LTF': 'Bloco de melhores horas' dentro de um período de tempo limitado (LTF)",
     "LBL_calculatorhelp14": "'Smart Battery Buffer': Utiliza o parâmetro 'EfficiencyLoss' para especificar a perda de eficiência do sistema de bateria. O parâmetro ‘AmountHours’ define o número desejado de horas para carregamento da bateria. A calculadora ativará o carregamento da bateria ('valor YES') e desativará a alimentação da bateria ('valor 2 NO') durante o 'AmountHours' especificado das horas mais baratas. Por outro lado, desativará o carregamento da bateria ('valor NÃO') e ativará a alimentação da bateria ('valor 2 SIM') durante as horas de maior custo, desde que o custo exceda o preço total mais elevado entre as horas mais baratas. Durante as restantes horas normais, onde o armazenamento de energia pela bateria não for economicamente viável, ambas as saídas serão desligadas.",
     "LBL_calculatorhelp15": "<b>Canais LTF:</b> Funcionam de forma semelhante aos canais padrão, mas ficam ativos apenas dentro de um período de tempo definido pelos objetos de estado 'StartTime' e 'StopTime'. Após 'StopTime', o canal é desativado automaticamente. 'StartTime' e 'StopTime' podem abranger dois dias corridos, já que o Tibber não fornece dados além de uma janela de 48 horas. Ambos os estados exigem uma sequência de data e hora no formato ISO-8601 com um deslocamento de fuso horário, por exemplo, '2024-12-24T18:00:00.000+01:00'.",
-    "LBL_calculatorhelp16": "Além disso, os canais LTF incluem um novo parâmetro de estado chamado 'RepeatDays', cujo padrão é 0. Quando 'RepeatDays' é definido como um número inteiro positivo, o canal repete seu ciclo incrementando 'StartTime' e 'StopTime' pelo número especificado de dias após 'StopTime' ser atingido. Por exemplo, defina 'RepeatDays' como 1 para repetição diária."
+    "LBL_calculatorhelp16": "Além disso, os canais LTF incluem um novo parâmetro de estado chamado 'RepeatDays', cujo padrão é 0. Quando 'RepeatDays' é definido como um número inteiro positivo, o canal repete seu ciclo incrementando 'StartTime' e 'StopTime' pelo número especificado de dias após 'StopTime' ser atingido. Por exemplo, defina 'RepeatDays' como 1 para repetição diária.",
+    "DUMMY_StandardTab": "FICTÍCIO",
+    "LBL_SpecialsTab": "Configurações especiais",
+    "LBL_UseObsoleteStats": "Use uma chamada de API obsoleta para dados históricos de consumo. Proceda com cautela!",
+    "LBL_specialshelp1": "Também recupera valores TotalCost, incluindo taxas especiais de rede na Alemanha. Verifique os valores com aqueles mostrados em seu aplicativo Tibber.",
+    "LBL_LocalPulseTab": "Configurações de pesquisa de pulso local",
+    "LBL_item_UseLocalPulseData": "Use a pesquisa direta do(s) Pulso(s) Tibber local(is) - proceda com cautela!",
+    "LBL_item_localpulsehelp1": "Use seu(s) Tibber Bridge(s) para pesquisar dados diretamente de seu(s) módulo(s) Tibber Pulse localmente.",
+    "LBL_item_localpulsehelp2": "Para que funcione, você precisa modificar a interface web do Bridge para mantê-lo permanentemente ativado.",
+    "LBL_item_localpulsehelp3": "marq24 forneceu uma excelente descrição de como fazer isso para a integração do Home Assistant aqui:",
+    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local"
 }
