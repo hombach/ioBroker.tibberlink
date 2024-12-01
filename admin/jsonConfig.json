@@ -20,22 +20,9 @@
 					"xl": 4,
 					"newLine": true
 				},
-
-				"_link": {
+				"_referralLink": {
 					"type": "staticLink",
-					"label": {
-						"en": "If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link",
-						"de": "Wenn Sie derzeit kein Tibber-Benutzer sind, würde ich es sehr schätzen, wenn Sie meinen Empfehlungslink verwenden könnten",
-						"ru": "Если вы в настоящее время не являетесь пользователем Tibber, я был бы очень признателен, если бы вы могли использовать мою реферальную ссылку",
-						"pt": "Se você não é atualmente um usuário da Tibber, eu ficaria muito agradecido se você pudesse usar meu link de referência",
-						"nl": "Als u op dit moment geen Tibber-gebruiker bent, zou ik het zeer waarderen als u mijn verwijzingslink zou kunnen gebruiken",
-						"fr": "Si vous n'êtes pas actuellement un utilisateur de Tibber, je vous serais très reconnaissant si vous pouviez utiliser mon lien de parrainage",
-						"it": "Se al momento non sei un utente di Tibber, sarei molto grato se potessi utilizzare il mio link di riferimento",
-						"es": "Si actualmente no eres usuario de Tibber, te agradecería mucho si pudieras usar mi enlace de referencia",
-						"pl": "Jeśli obecnie nie jesteś użytkownikiem Tibber, bardzo bym docenił, gdybyś mógł skorzystać z mojego linku polecającego",
-						"uk": "Якщо ви в даний момент не є користувачем Tibber, я б вдячний, якщо ви могли б використовувати мій реферальний посилання",
-						"zh-cn": "如果您目前不是Tibber的用户，如果您能使用我的推荐链接，我将非常感激"
-					},
+					"label": "LBL_referralLink",
 					"href": "https://invite.tibber.com/mu8c82n5",
 					"button": true,
 					"icon": "info",
@@ -48,19 +35,7 @@
 				},
 				"HomesList": {
 					"type": "table",
-					"label": {
-						"en": "Configuration of Pulse live data streams",
-						"de": "Konfiguration von Pulse-Live-Datenströmen",
-						"ru": "Настройка потоковых данных в режиме реального времени Pulse",
-						"pt": "Configuração de transmissões de dados ao vivo do Pulse",
-						"nl": "Configuratie van Pulse live gegevensstromen",
-						"fr": "Configuration des flux de données en direct Pulse",
-						"it": "Configurazione dei flussi di dati in tempo reale di Pulse",
-						"es": "Configuración de transmisiones de datos en tiempo real de Pulse",
-						"pl": "Konfiguracja strumieni danych na żywo Pulse",
-						"uk": "Налаштування потокових даних в режимі реального часу Pulse",
-						"zh-cn": "Pulse实时数据流配置"
-					},
+					"label": "LBL_HomesList",
 					"hidden": "!data.TibberAPIToken",
 					"xs": 12,
 					"sm": 12,
@@ -70,19 +45,8 @@
 					"items": [
 						{
 							"type": "selectSendTo",
-							"title": {
-								"en": "Tibber Home",
-								"de": "Tibber Zuhause",
-								"ru": "Дом Tibber",
-								"pt": "Casa Tibber",
-								"nl": "Tibber Thuis",
-								"fr": "Maison Tibber",
-								"it": "Casa Tibber",
-								"es": "Casa Tibber",
-								"pl": "Dom Tibber",
-								"uk": "Tibber Дім",
-								"zh-cn": "Tibber家"
-							},
+							"label": "LBL_item_homeID",
+							"tooltip": "TTIP_item_homeID",
 							"command": "HomesForConfig",
 							"attr": "homeID",
 							"filter": false,
@@ -92,19 +56,8 @@
 						},
 						{
 							"type": "checkbox",
-							"title": {
-								"en": "Use Tibber price data poll",
-								"de": "Verwende die Tibber Preisdatenabfrage",
-								"ru": "Использовать опрос данных о ценах от Tibber",
-								"pt": "Usar pesquisa de dados de preço da Tibber",
-								"nl": "Gebruik de prijsgegevenspoll van Tibber",
-								"fr": "Utiliser l'interrogation des données de prix Tibber",
-								"it": "Utilizza l'interrogazione dei dati sui prezzi di Tibber",
-								"es": "Utilizar la consulta de datos de precios de Tibber",
-								"pl": "Użyj ankiety cenowej danych Tibber",
-								"uk": "Використовуйте опитування даних про ціни від Tibber",
-								"zh-cn": "使用 Tibber 价格数据轮询"
-							},
+							"label": "LBL_item_priceDataPollActive",
+							"tooltip": "TTIP_item_priceDataPollActive",
 							"attr": "priceDataPollActive",
 							"filter": false,
 							"sort": false,
@@ -113,19 +66,8 @@
 						},
 						{
 							"type": "checkbox",
-							"title": {
-								"en": "Use Tibber Pulse feed",
-								"de": "Verwende Tibber Pulse-Feed",
-								"ru": "Используйте ленту Tibber Pulse",
-								"pt": "Use o feed Tibber Pulse",
-								"nl": "Gebruik Tibber Pulse-feed",
-								"fr": "Utilisez le flux Tibber Pulse",
-								"it": "Usa il feed Tibber Pulse",
-								"es": "Utiliza el feed Tibber Pulse",
-								"pl": "Użyj strumienia Tibber Pulse",
-								"uk": "Використовуйте стрічку Tibber Pulse",
-								"zh-cn": "使用 Tibber Pulse 数据流"
-							},
+							"label": "LBL_item_feedActive",
+							"tooltip": "TTIP_item_feedActive",
 							"attr": "feedActive",
 							"filter": false,
 							"sort": false,
@@ -134,19 +76,8 @@
 						},
 						{
 							"type": "checkbox",
-							"title": {
-								"en": "Pull historical consumption data",
-								"de": "Historische Verbrauchsdaten abrufen",
-								"ru": "Получение истории потребления энергии",
-								"pt": "Buscar dados históricos de consumo",
-								"nl": "Historische verbruiksgegevens ophalen",
-								"fr": "Extraire les données de consommation historiques",
-								"it": "Recupera i dati storici di consumo",
-								"es": "Obtener datos históricos de consumo",
-								"pl": "Pobierz historyczne dane o zużyciu",
-								"uk": "Отримати історичні дані споживання",
-								"zh-cn": "拉取历史耗电数据"
-							},
+							"label": "LBL_item_statsActive",
+							"tooltip": "TTIP_item_statsActive",
 							"attr": "statsActive",
 							"filter": false,
 							"sort": false,
@@ -155,19 +86,8 @@
 						},
 						{
 							"type": "number",
-							"title": {
-								"en": "hours",
-								"de": "Stunden",
-								"ru": "часов",
-								"pt": "horas",
-								"nl": "uren",
-								"fr": "heures",
-								"it": "ore",
-								"es": "horas",
-								"pl": "godziny",
-								"uk": "годин",
-								"zh-cn": "小时"
-							},
+							"label": "LBL_item_numberConsHourly",
+							"tooltip": "TTIP_item_numberConsHourly",
 							"attr": "numberConsHourly",
 							"disabled": "!data.statsActive",
 							"min": 0,
@@ -178,19 +98,8 @@
 						},
 						{
 							"type": "number",
-							"title": {
-								"en": "days",
-								"de": "Tage",
-								"ru": "дней",
-								"pt": "dias",
-								"nl": "dagen",
-								"fr": "jours",
-								"it": "giorni",
-								"es": "días",
-								"pl": "dni",
-								"uk": "днів",
-								"zh-cn": "天"
-							},
+							"label": "LBL_item_numberConsDaily",
+							"tooltip": "TTIP_item_numberConsDaily",
 							"attr": "numberConsDaily",
 							"disabled": "!data.statsActive",
 							"min": 0,
@@ -201,19 +110,8 @@
 						},
 						{
 							"type": "number",
-							"title": {
-								"en": "weeks",
-								"de": "Wochen",
-								"ru": "недель",
-								"pt": "semanas",
-								"nl": "weken",
-								"fr": "semaines",
-								"it": "settimane",
-								"es": "semanas",
-								"pl": "tygodnie",
-								"uk": "тижнів",
-								"zh-cn": "周"
-							},
+							"label": "LBL_item_numberConsWeekly",
+							"tooltip": "TTIP_item_numberConsWeekly",
 							"attr": "numberConsWeekly",
 							"disabled": "!data.statsActive",
 							"min": 0,
@@ -224,19 +122,8 @@
 						},
 						{
 							"type": "number",
-							"title": {
-								"en": "months",
-								"de": "Monate",
-								"ru": "месяцев",
-								"pt": "meses",
-								"nl": "maanden",
-								"fr": "mois",
-								"it": "mesi",
-								"es": "meses",
-								"pl": "miesięcy",
-								"uk": "місяців",
-								"zh-cn": "月"
-							},
+							"label": "LBL_item_numberConsMonthly",
+							"tooltip": "TTIP_item_numberConsMonthly",
 							"attr": "numberConsMonthly",
 							"disabled": "!data.statsActive",
 							"min": 0,
@@ -247,19 +134,8 @@
 						},
 						{
 							"type": "number",
-							"title": {
-								"en": "years",
-								"de": "Jahre",
-								"ru": "лет",
-								"pt": "anos",
-								"nl": "jaren",
-								"fr": "ans",
-								"it": "anni",
-								"es": "años",
-								"pl": "lat",
-								"uk": "років",
-								"zh-cn": "年"
-							},
+							"label": "LBL_item_numberConsAnnual",
+							"tooltip": "TTIP_item_numberConsAnnual",
 							"attr": "numberConsAnnual",
 							"disabled": "!data.statsActive",
 							"min": 0,
