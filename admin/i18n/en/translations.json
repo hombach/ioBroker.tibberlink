@@ -55,5 +55,6 @@
 	"LBL_item_localpulsehelp1": "Use your Tibber Bridge(s) to directly poll data from your Tibber Pulse module(s) locally.",
 	"LBL_item_localpulsehelp2": "To make it work, you need to modify the Bridge's web interface to keep it permanently enabled.",
 	"LBL_item_localpulsehelp3": "marq24 has provided an excellent description of how to do this for his Home Assistant integration here:",
-	"LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local"
+	"LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
+	"LBL_PulseList": "Local Pulse to poll data from:"
 }

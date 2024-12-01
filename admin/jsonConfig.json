@@ -841,7 +841,7 @@
 				"_calculatorhelp1": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp1",
+					"text": "LBL_calculatorhelp1",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -852,7 +852,7 @@
 				"_calculatorhelp2": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp2",
+					"text": "LBL_calculatorhelp2",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1106,19 +1106,7 @@
 
 				"PulseList": {
 					"type": "table",
-					"label": {
-						"en": "Local Pulse to poll data from.",
-						"de": "Lokaler Pulse, von dem Daten abgefragt werden sollen.",
-						"ru": "Локальный Pulse для опроса данных.",
-						"pt": "Pulse local para buscar dados de.",
-						"nl": "Lokale Pulse om gegevens van te polleren.",
-						"fr": "Pulse local pour interroger les données.",
-						"it": "Pulse locale da cui sondare i dati.",
-						"es": "Pulse local para sondear datos de.",
-						"pl": "Lokalny Pulse do sondowania danych.",
-						"uk": "Локальний Pulse для опитування даних.",
-						"zh-cn": "用于轮询数据的本地 Pulse。"
-					},
+					"label": "LBL_PulseList",
 					"hidden": "!data.UseLocalPulseData",
 					"xs": 12,
 					"sm": 12,

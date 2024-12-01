@@ -53,5 +53,6 @@
     "LBL_item_localpulsehelp1": "使用 Tibber Bridge 直接从本地 Tibber Pulse 模块轮询数据。",
     "LBL_item_localpulsehelp2": "要使其正常工作，您需要修改 Bridge 的 Web 界面以使其永久启用。",
     "LBL_item_localpulsehelp3": "marq24 在这里提供了关于如何为其 Home Assistant 集成执行此操作的精彩描述：",
-    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local"
+    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
+    "LBL_PulseList": "本地脉冲轮询数据："
 }

@@ -53,5 +53,6 @@
     "LBL_item_localpulsehelp1": "Utilice su(s) puente(s) Tibber para sondear directamente los datos de su(s) módulo(s) Tibber Pulse localmente.",
     "LBL_item_localpulsehelp2": "Para que funcione, debe modificar la interfaz web de Bridge para mantenerla habilitada permanentemente.",
     "LBL_item_localpulsehelp3": "marq24 ha proporcionado una excelente descripción de cómo hacer esto para la integración de Home Assistant aquí:",
-    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local"
+    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
+    "LBL_PulseList": "Pulso local para sondear datos de:"
 }

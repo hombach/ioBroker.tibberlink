@@ -53,5 +53,6 @@
     "LBL_item_localpulsehelp1": "Utilizza i tuoi Tibber Bridge per interrogare direttamente i dati dai tuoi moduli Tibber Pulse localmente.",
     "LBL_item_localpulsehelp2": "Per farlo funzionare, è necessario modificare l'interfaccia web del Bridge per mantenerlo permanentemente abilitato.",
     "LBL_item_localpulsehelp3": "marq24 ha fornito un'eccellente descrizione di come eseguire questa operazione per l'integrazione dell'Home Assistant qui:",
-    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local"
+    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
+    "LBL_PulseList": "Impulso locale per interrogare i dati da:"
 }

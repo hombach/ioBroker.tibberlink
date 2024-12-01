@@ -53,5 +53,6 @@
     "LBL_item_localpulsehelp1": "Gebruik uw Tibber Bridge(s) om rechtstreeks lokaal gegevens van uw Tibber Pulse-module(s) op te vragen.",
     "LBL_item_localpulsehelp2": "Om het te laten werken, moet u de webinterface van Bridge aanpassen zodat deze permanent ingeschakeld blijft.",
     "LBL_item_localpulsehelp3": "marq24 heeft hier een uitstekende beschrijving gegeven van hoe dit te doen voor zijn Home Assistant-integratie:",
-    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local"
+    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
+    "LBL_PulseList": "Lokale puls om gegevens op te vragen van:"
 }

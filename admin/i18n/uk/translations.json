@@ -53,5 +53,6 @@
     "LBL_item_localpulsehelp1": "Використовуйте свій(-і) Tibber Bridge(-и) для безпосереднього локального опитування даних із вашого(их) модуля(ів) Tibber Pulse.",
     "LBL_item_localpulsehelp2": "Щоб він працював, вам потрібно змінити веб-інтерфейс Bridge, щоб він постійно залишався ввімкненим.",
     "LBL_item_localpulsehelp3": "marq24 надав чудовий опис того, як це зробити для інтеграції домашнього помічника тут:",
-    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local"
+    "LBL_item_localpulsehelp4": "https://github.com/marq24/ha-tibber-pulse-local",
+    "LBL_PulseList": "Місцевий імпульс для опитування даних з:"
 }
