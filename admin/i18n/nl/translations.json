@@ -21,8 +21,9 @@
     "TTIP_item_numberConsMonthly": "Aantal afgelopen maanden dat moet worden opgehaald",
     "LBL_item_numberConsAnnual": "Jaren",
     "TTIP_item_numberConsAnnual": "Aantal op te halen afgelopen jaren",
-    "LBL_item_": "LEEG",
-    "TTIP_item_": "LEEG",
+    "LBL_feedDataDetailHeader": "Selecteer alle velden die u in de livefeedgegevens wilt laden (stroom en tijdstempel zijn standaard ingeschakeld):",
+    "LBL_phases": "Spannings- en stroomwaarden - In het geval van meerdere meters zijn deze waarden mogelijk niet opgenomen in het dataframe, wat mogelijk resulteert in nulwaarden. Andere afwijkingen kunnen optreden afhankelijk van de specifieke firmware van de meter. Null-waarden genereren geen status in uw ioBroker-objecten.",
+    "LBL_helpLink": "Adapterdocumentatie tonen",
     "LBL_CalculatorTab": "Rekenmachine-instellingen",
     "LBL_UseCalculator": "Gebruik automatiseringscalculatorkanalen",
     "LBL_CalculatorList": "Rekenmachinekanalen",
@@ -84,8 +85,5 @@
     "LBL_item_tibberPulseLocalNodeId": "PulsknooppuntID",
     "TTIP_item_tibberPulseLocalNodeId": "Het knooppunt-ID waar uw Pulse op de Bridge is geregistreerd.",
     "LBL_item_tibberBridgeRawDataInterval": "Poll-interval",
-    "TTIP_item_tibberBridgeRawDataInterval": "Het interval, in milliseconden, voor het opvragen van uw Bridge for Pulse-gegevens.",
-    "LBL_helpLink": "Adapterdocumentatie tonen",
-    "LBL_feedDataDetailHeader": "Selecteer alle velden die u in de livefeedgegevens wilt laden (stroom en tijdstempel zijn standaard ingeschakeld):",
-    "LBL_phases": "Spannings- en stroomwaarden - In het geval van meerdere meters zijn deze waarden mogelijk niet opgenomen in het dataframe, wat mogelijk resulteert in nulwaarden. Andere afwijkingen kunnen optreden afhankelijk van de specifieke firmware van de meter. Null-waarden genereren geen status in uw ioBroker-objecten."
+    "TTIP_item_tibberBridgeRawDataInterval": "Het interval, in milliseconden, voor het opvragen van uw Bridge for Pulse-gegevens."
 }

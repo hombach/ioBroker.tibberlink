@@ -21,8 +21,9 @@
     "TTIP_item_numberConsMonthly": "Numero di mesi passati da recuperare",
     "LBL_item_numberConsAnnual": "Anni",
     "TTIP_item_numberConsAnnual": "Numero di anni passati da recuperare",
-    "LBL_item_": "VUOTO",
-    "TTIP_item_": "VUOTO",
+    "LBL_feedDataDetailHeader": "Seleziona tutti i campi che desideri caricare nei dati del feed live (alimentazione e timestamp sono abilitati per impostazione predefinita):",
+    "LBL_phases": "Valori di tensione e corrente: nel caso di più contatori, questi valori potrebbero non essere inclusi nel frame dati, risultando potenzialmente in valori nulli. Potrebbero verificarsi altre deviazioni a seconda del firmware specifico del misuratore. I valori null non genereranno uno stato nei tuoi oggetti ioBroker.",
+    "LBL_helpLink": "Mostra la documentazione dell'adattatore",
     "LBL_CalculatorTab": "Impostazioni della calcolatrice",
     "LBL_UseCalculator": "Utilizza i canali del calcolatore di automazione",
     "LBL_CalculatorList": "Canali della calcolatrice",
@@ -84,8 +85,5 @@
     "LBL_item_tibberPulseLocalNodeId": "ID nodo impulso",
     "TTIP_item_tibberPulseLocalNodeId": "L'ID del nodo in cui è registrato il tuo Pulse sul Bridge.",
     "LBL_item_tibberBridgeRawDataInterval": "Intervallo di sondaggio",
-    "TTIP_item_tibberBridgeRawDataInterval": "L'intervallo, in millisecondi, per il polling dei dati Bridge for Pulse.",
-    "LBL_helpLink": "Mostra la documentazione dell'adattatore",
-    "LBL_feedDataDetailHeader": "Seleziona tutti i campi che desideri caricare nei dati del feed live (alimentazione e timestamp sono abilitati per impostazione predefinita):",
-    "LBL_phases": "Valori di tensione e corrente: nel caso di più contatori, questi valori potrebbero non essere inclusi nel frame dati, risultando potenzialmente in valori nulli. Potrebbero verificarsi altre deviazioni a seconda del firmware specifico del misuratore. I valori null non genereranno uno stato nei tuoi oggetti ioBroker."
+    "TTIP_item_tibberBridgeRawDataInterval": "L'intervallo, in millisecondi, per il polling dei dati Bridge for Pulse."
 }

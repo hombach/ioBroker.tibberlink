@@ -8,7 +8,7 @@ process.env.TS_NODE_PROJECT = "tsconfig.json";
 process.env.TS_NODE_FILES = "TRUE";
 
 // Don't silently swallow unhandled rejections
-process.on("unhandledRejection", (e) => {
+process.on("unhandledRejection", e => {
 	throw e;
 });
 
@@ -19,5 +19,6 @@ const chaiAsPromised = require("chai-as-promised");
 const { should, use } = require("chai");
 
 should();
+// @ts-ignore
 use(sinonChai);
 use(chaiAsPromised);

@@ -21,8 +21,9 @@
     "TTIP_item_numberConsMonthly": "要检索的过去月份数",
     "LBL_item_numberConsAnnual": "年",
     "TTIP_item_numberConsAnnual": "要检索的过去年份数",
-    "LBL_item_": "空的",
-    "TTIP_item_": "空的",
+    "LBL_feedDataDetailHeader": "选择要在实时馈送数据中加载的所有字段（默认情况下启用电源和时间戳）：",
+    "LBL_phases": "电压和电流值 - 如果有多个仪表，这些值可能不包含在数据帧中，从而可能导致空值。根据仪表的具体固件，可能会出现其他偏差。空值不会在 ioBroker 对象中生成状态。",
+    "LBL_helpLink": "显示适配器文档",
     "LBL_CalculatorTab": "计算器设置",
     "LBL_UseCalculator": "使用自动化计算器通道",
     "LBL_CalculatorList": "计算器频道",
@@ -84,8 +85,5 @@
     "LBL_item_tibberPulseLocalNodeId": "脉冲节点ID",
     "TTIP_item_tibberPulseLocalNodeId": "您的 Pulse 在网桥上注册的节点 ID。",
     "LBL_item_tibberBridgeRawDataInterval": "轮询间隔",
-    "TTIP_item_tibberBridgeRawDataInterval": "轮询 Bridge 获取脉冲数据的时间间隔（以毫秒为单位）。",
-    "LBL_helpLink": "显示适配器文档",
-    "LBL_feedDataDetailHeader": "选择要在实时馈送数据中加载的所有字段（默认情况下启用电源和时间戳）：",
-    "LBL_phases": "电压和电流值 - 如果有多个仪表，这些值可能不包含在数据帧中，从而可能导致空值。根据仪表的具体固件，可能会出现其他偏差。空值不会在 ioBroker 对象中生成状态。"
+    "TTIP_item_tibberBridgeRawDataInterval": "轮询 Bridge 获取脉冲数据的时间间隔（以毫秒为单位）。"
 }
