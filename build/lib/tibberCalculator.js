@@ -706,7 +706,9 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }
                 else {
                     void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    channelConfig.chStartTime = (0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays);
                     void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(channelConfig.chStopTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    channelConfig.chStopTime = (0, date_fns_1.addDays)(channelConfig.chStopTime, channelConfig.chRepeatDays);
                 }
             }
             else {

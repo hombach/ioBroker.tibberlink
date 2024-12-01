@@ -4,17 +4,17 @@
         "version": "4.0.0",
         "news": {
             "4.0.0": {
-                "en": "BREAKING: Dropped support for ioBroker.admin versions below 7.0.0 due to the ioBroker Responsive Design Initiative (#544).\nRedesigned the admin tab for the calculator.",
-                "de": "BREAKING: Unterstützung für ioBroker.admin-Versionen unter 7.0.0 eingestellt aufgrund der ioBroker Responsive Design Initiative (#544).\nAdmin-Tab für den Rechner neu gestaltet.",
-                "ru": "ВАЖНО: Прекращена поддержка версий ioBroker.admin ниже 7.0.0 из-за инициативы ioBroker Responsive Design (#544).\nПереработана вкладка администратора для калькулятора.",
-                "pt": "IMPORTANTE: Suporte para versões do ioBroker.admin abaixo de 7.0.0 descontinuado devido à Iniciativa de Design Responsivo do ioBroker (#544).\nAba do administrador para a calculadora redesenhada.",
-                "nl": "BELANGRIJK: Ondersteuning voor ioBroker.admin-versies onder 7.0.0 stopgezet vanwege de ioBroker Responsive Design Initiative (#544).\nBeheertabblad voor de rekenmachine opnieuw ontworpen.",
-                "fr": "IMPORTANT : Support des versions ioBroker.admin inférieures à 7.0.0 abandonné en raison de l'initiative ioBroker Responsive Design (#544).\nOnglet administrateur pour la calculatrice repensé.",
-                "it": "IMPORTANTE: Interrotto il supporto per le versioni di ioBroker.admin inferiori alla 7.0.0 a causa dell'iniziativa ioBroker Responsive Design (#544).\nRidisegnata la scheda amministratore per il calcolatore.",
-                "es": "IMPORTANTE: Se eliminó el soporte para versiones de ioBroker.admin inferiores a 7.0.0 debido a la iniciativa de diseño receptivo de ioBroker (#544).\nRediseñada la pestaña de administrador para la calculadora.",
-                "pl": "WAŻNE: Zakończono wsparcie dla wersji ioBroker.admin poniżej 7.0.0 z powodu inicjatywy ioBroker Responsive Design (#544).\nPrzeprojektowano kartę administracyjną dla kalkulatora.",
-                "uk": "ВАЖЛИВО: Припинено підтримку версій ioBroker.admin нижче 7.0.0 через ініціативу ioBroker Responsive Design (#544).\nПерероблено вкладку адміністратора для калькулятора.",
-                "zh-cn": "重要更新：由于 ioBroker 响应式设计计划 (#544)，停止支持低于 7.0.0 的 ioBroker.admin 版本。\n重新设计了计算器的管理选项卡。"
+                "en": "BREAKING: Dropped support for ioBroker.admin versions below 7.0.0 due to the ioBroker Responsive Design Initiative (#544).\nRedesigned the admin tab for the calculator.\noptimize translations, added more tooltips",
+                "de": "BREAKING: Die Unterstützung für ioBroker.admin-Versionen unter 7.0.0 wurde aufgrund der ioBroker Responsive Design Initiative eingestellt (#544).\nDie Registerkarte „Admin“ für den Rechner wurde neu gestaltet.\nÜbersetzungen optimieren, weitere Tooltips hinzugefügt",
+                "ru": "СРОЧНАЯ ИНФОРМАЦИЯ: Прекращена поддержка версий ioBroker.admin ниже 7.0.0 из-за инициативы адаптивного дизайна ioBroker (#544).\nПереработана вкладка администратора калькулятора.\nоптимизировать переводы, добавлены дополнительные подсказки",
+                "pt": "QUEBRANDO: Suporte abandonado para versões ioBroker.admin abaixo de 7.0.0 devido à ioBroker Responsive Design Initiative (#544).\nA guia de administração da calculadora foi redesenhada.\notimizar traduções, adicionou mais dicas de ferramentas",
+                "nl": "BREAKING: Ondersteuning voor ioBroker.admin-versies lager dan 7.0.0 is stopgezet vanwege het ioBroker Responsive Design Initiative (#544).\nHet beheerderstabblad voor de rekenmachine is opnieuw ontworpen.\noptimaliseer vertalingen, heb meer tooltips toegevoegd",
+                "fr": "RUPTURE : suppression de la prise en charge des versions ioBroker.admin inférieures à 7.0.0 en raison de l'initiative de conception réactive ioBroker (#544).\nRefonte de l'onglet d'administration de la calculatrice.\noptimiser les traductions, ajout de plus d'info-bulles",
+                "it": "BREAKING: Supporto interrotto per le versioni di ioBroker.admin precedenti alla 7.0.0 a causa della ioBroker Responsive Design Initiative (#544).\nRiprogettata la scheda di amministrazione per la calcolatrice.\nottimizzare le traduzioni, aggiungere più tooltip",
+                "es": "ÚLTIMA HORA: Se eliminó el soporte para las versiones de ioBroker.admin inferiores a 7.0.0 debido a la Iniciativa de Diseño Responsivo de ioBroker (#544).\nRediseñado la pestaña de administración de la calculadora.\noptimizar las traducciones, agregar más información sobre herramientas",
+                "pl": "ŁAMANIE: Usunięto obsługę wersji ioBroker.admin poniżej 7.0.0 z powodu inicjatywy ioBroker Responsive Design Initiative (nr 544).\nPrzeprojektowano zakładkę administracyjną kalkulatora.\nzoptymalizować tłumaczenia, dodano więcej podpowiedzi",
+                "uk": "ПОРУШЕННЯ: припинено підтримку версій ioBroker.admin нижче 7.0.0 через ініціативу ioBroker Responsive Design Initiative (#544).\nПерероблено вкладку адміністратора для калькулятора.\nоптимізувати переклади, додано більше підказок",
+                "zh-cn": "重大事件：由于 ioBroker 响应式设计计划 (#544)，不再支持 7.0.0 以下的 ioBroker.admin 版本。\n重新设计了计算器的管理选项卡。\n优化翻译，添加更多工具提示"
             },
             "3.5.4": {
                 "en": "Fix error in calculator channel 'best single hours' (#594)\nIntroduce 'iobroker/eslint-config' (#591)\nPerformance optimizations\nDependency updates",
