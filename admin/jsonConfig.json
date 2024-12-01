@@ -654,19 +654,7 @@
 
 		"_CalculatorTab": {
 			"type": "panel",
-			"label": {
-				"en": "Calculator Settings",
-				"de": "Automatisierungs-Einstellungen",
-				"ru": "Настройки автоматизации",
-				"pt": "Configurações de automação",
-				"nl": "Automatiseringsinstellingen",
-				"fr": "Paramètres d'automatisation",
-				"it": "Impostazioni di automazione",
-				"es": "Configuración de automatización",
-				"pl": "Ustawienia automatyzacji",
-				"uk": "Налаштування автоматизації",
-				"zh-cn": "自动化设置"
-			},
+			"label": "LBL_CalculatorTab",
 			"hidden": "!data.TibberAPIToken",
 			"xs": 12,
 			"sm": 12,
@@ -676,19 +664,7 @@
 			"items": {
 				"UseCalculator": {
 					"type": "checkbox",
-					"label": {
-						"en": "Use Automation",
-						"de": "Automatisierung verwenden",
-						"ru": "Использовать автоматизацию",
-						"pt": "Usar Automação",
-						"nl": "Gebruik Automatisering",
-						"fr": "Utiliser l'Automatisation",
-						"it": "Usa Automazione",
-						"es": "Usar Automatización",
-						"pl": "Użyj Automatyzacji",
-						"uk": "Використовувати автоматизацію",
-						"zh-cn": "使用自动化"
-					},
+					"label": "LBL_UseCalculator",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -699,19 +675,7 @@
 				"CalculatorList": {
 					"type": "accordion",
 					"titleAttr": "chName",
-					"label": {
-						"en": "Calculator Channels",
-						"de": "Automatisierungs-Kanäle",
-						"ru": "Каналы автоматизации",
-						"pt": "Canais de automação",
-						"nl": "Automatiseringskanalen",
-						"fr": "Canaux d'automatisation",
-						"it": "Canali di automazione",
-						"es": "Canales de automatización",
-						"pl": "Kanały automatyzacji",
-						"uk": "Канали автоматизації",
-						"zh-cn": "自动化通道"
-					},
+					"label": "LBL_CalculatorList",
 					"hidden": "!data.UseCalculator",
 					"xs": 12,
 					"sm": 12,
@@ -721,32 +685,8 @@
 					"items": [
 						{
 							"type": "selectSendTo",
-							"title": {
-								"en": "Channel Home",
-								"de": "Kanal Zuhause",
-								"ru": "Домашний канал",
-								"pt": "Canal Residencial",
-								"nl": "Thuis-kanaal",
-								"fr": "Canal Domicile",
-								"it": "Canale Home",
-								"es": "Canal de Hogar",
-								"pl": "Kanał Domowy",
-								"uk": "Домашній канал",
-								"zh-cn": "家庭通道"
-							},
-							"tooltip": {
-								"en": "select the home this channel should be attached to",
-								"de": "Wählen Sie das Zuhause aus, an das dieser Kanal angehängt werden soll",
-								"ru": "выберите дом, к которому должен быть присоединен этот канал",
-								"pt": "selecione a casa à qual este canal deve ser anexado",
-								"nl": "selecteer het huis waaraan dit kanaal moet worden gekoppeld",
-								"fr": "sélectionnez la maison à laquelle ce canal doit être attaché",
-								"it": "seleziona la casa a cui questo canale dovrebbe essere collegato",
-								"es": "seleccione el hogar al que este canal debe estar adjunto",
-								"pl": "wybierz dom, do którego ten kanał powinien być podłączony",
-								"uk": "виберіть будинок, до якого має бути приєднаний цей канал",
-								"zh-cn": "选择要连接到的主页"
-							},
+							"label": "LBL_item_chHomeID",
+							"tooltip": "TTIP_item_chHomeID",
 							"attr": "chHomeID",
 							"default": "No Home selected",
 							"command": "HomesForCalculator",
@@ -758,131 +698,36 @@
 						},
 						{
 							"type": "select",
-							"title": {
-								"en": "Channel Type",
-								"de": "Kanaltyp",
-								"ru": "Тип канала",
-								"pt": "Tipo de Canal",
-								"nl": "Soort Kanaal",
-								"fr": "Type de Canal",
-								"it": "Tipo di Canale",
-								"es": "Tipo de Canal",
-								"pl": "Typ kanału",
-								"uk": "Тип каналу",
-								"zh-cn": "通道类型"
-							},
+							"label": "LBL_item_chType",
+							"tooltip": "TTIP_item_chType",
 							"attr": "chType",
 							"options": [
 								{
-									"label": {
-										"en": "best cost",
-										"de": "beste Kosten",
-										"ru": "лучшие затраты",
-										"pt": "melhor custo",
-										"nl": "beste kosten",
-										"fr": "meilleur coût",
-										"it": "miglior costo",
-										"es": "mejor costo",
-										"pl": "najlepsze koszty",
-										"uk": "кращі витрати",
-										"zh-cn": "最佳成本"
-									},
+									"label": "LBL_item_chType_option_1",
 									"value": 1
 								},
 								{
-									"label": {
-										"en": "best single hours",
-										"de": "beste Einzelstunden",
-										"ru": "лучшие одиночные часы",
-										"pt": "melhores horas únicas",
-										"nl": "beste enkele uren",
-										"fr": "meilleures heures uniques",
-										"it": "migliori ore singole",
-										"es": "mejores horas individuales",
-										"pl": "najlepsze pojedyncze godziny",
-										"uk": "кращі одиничні години",
-										"zh-cn": "最佳单个小时"
-									},
+									"label": "LBL_item_chType_option_2",
 									"value": 2
 								},
 								{
-									"label": {
-										"en": "best hours block",
-										"de": "beste Stundenblock",
-										"ru": "лучший часовой блок",
-										"pt": "melhor bloco de horas",
-										"nl": "beste uren blok",
-										"fr": "meilleur bloc d'heures",
-										"it": "miglior blocco di ore",
-										"es": "mejor bloque de horas",
-										"pl": "najlepszy blok godzin",
-										"uk": "кращий годинний блок",
-										"zh-cn": "最佳小时块"
-									},
+									"label": "LBL_item_chType_option_3",
 									"value": 3
 								},
 								{
-									"label": {
-										"en": "best cost LTF",
-										"de": "beste Kosten LTF",
-										"ru": "лучшие затраты LTF",
-										"pt": "melhor custo LTF",
-										"nl": "beste kosten LTF",
-										"fr": "meilleur coût LTF",
-										"it": "miglior costo LTF",
-										"es": "mejor costo LTF",
-										"pl": "najlepsze koszty LTF",
-										"uk": "Найкращі витрати LTF",
-										"zh-cn": "最佳成本 LTF"
-									},
+									"label": "LBL_item_chType_option_4",
 									"value": 4
 								},
 								{
-									"label": {
-										"en": "best single hours LTF",
-										"de": "beste Einzelstunden LTF",
-										"ru": "лучшие одиночные часы LTF",
-										"pt": "melhores horas únicas LTF",
-										"nl": "beste enkele uren LTF",
-										"fr": "meilleures heures uniques LTF",
-										"it": "migliori ore singole LTF",
-										"es": "mejores horas individuales LTF",
-										"pl": "najlepsze pojedyncze godziny LTF",
-										"uk": "кращі одиничні години LTF",
-										"zh-cn": "最佳单个小时 LTF"
-									},
+									"label": "LBL_item_chType_option_5",
 									"value": 5
 								},
 								{
-									"label": {
-										"en": "best hours block LTF",
-										"de": "beste Stundenblock LTF",
-										"ru": "лучший часовой блок LTF",
-										"pt": "melhor bloco de horas LTF",
-										"nl": "beste uren blok LTF",
-										"fr": "meilleur bloc d'heures LTF",
-										"it": "miglior blocco di ore LTF",
-										"es": "mejor bloque de horas LTF",
-										"pl": "najlepszy blok godzin LTF",
-										"uk": "кращий годинний блок LTF",
-										"zh-cn": "最佳小时块 LTF"
-									},
+									"label": "LBL_item_chType_option_6",
 									"value": 6
 								},
 								{
-									"label": {
-										"en": "smart battery buffer",
-										"de": "intelligenter Batteriepuffer",
-										"ru": "умный буфер батареи",
-										"pt": "buffer de bateria inteligente",
-										"nl": "slimme batterijbuffer",
-										"fr": "tampon de batterie intelligent",
-										"it": "buffer batteria intelligente",
-										"es": "buffer de batería inteligente",
-										"pl": "inteligentny bufor baterii",
-										"uk": "розумний буфер акумулятора",
-										"zh-cn": "智能电池缓冲区"
-									},
+									"label": "LBL_item_chType_option_7",
 									"value": 7
 								}
 							],
@@ -895,32 +740,8 @@
 
 						{
 							"type": "text",
-							"title": {
-								"en": "Channel Name",
-								"de": "Kanalname",
-								"ru": "Имя канала",
-								"pt": "Nome do Canal",
-								"nl": "Kanaalnaam",
-								"fr": "Nom du Canal",
-								"it": "Nome del Canale",
-								"es": "Nombre del Canal",
-								"pl": "Nazwa kanału",
-								"uk": "Назва каналу",
-								"zh-cn": "通道名称"
-							},
-							"tooltip": {
-								"en": "channel name to better identify your states",
-								"de": "Kanalname zur besseren Identifizierung Ihrer Zustände",
-								"ru": "название канала для лучшей идентификации ваших состояний",
-								"pt": "nome do canal para identificar melhor seus estados",
-								"nl": "kanaalnaam om uw toestanden beter te identificeren",
-								"fr": "nom du canal pour mieux identifier vos états",
-								"it": "nome del canale per identificare meglio i tuoi stati",
-								"es": "nombre del canal para identificar mejor tus estados",
-								"pl": "nazwa kanału do lepszego zidentyfikowania twoich stanów",
-								"uk": "назва каналу для кращої ідентифікації ваших станів",
-								"zh-cn": "通道名称以更好地识别您的状态"
-							},
+							"label": "LBL_item_chName",
+							"tooltip": "TTIP_item_chName",
 							"maxLength": 25,
 							"attr": "chName",
 							"validator": "if(data.name === '' || data.name === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.name);}",
@@ -935,21 +756,9 @@
 
 						{
 							"type": "objectId",
-							"label": {
-								"en": "Target State",
-								"de": "Ziel State",
-								"ru": "Целевое состояние",
-								"pt": "Estado Alvo",
-								"nl": "Doelstaat",
-								"fr": "État Cible",
-								"it": "Stato Obiettivo",
-								"es": "Estado Objetivo",
-								"pl": "Stan Docelowy",
-								"uk": "Цільовий стан",
-								"zh-cn": "目标状态"
-							},
+							"label": "LBL_item_chTargetState",
+							"tooltip": "TTIP_item_chTargetState",
 							"attr": "chTargetState",
-							"tooltip": "Select target state for this channel",
 							"default": "",
 							"xs": 12,
 							"sm": 12,
@@ -960,32 +769,8 @@
 
 						{
 							"type": "text",
-							"label": {
-								"en": "Value YES",
-								"de": "Wert JA",
-								"ru": "Значение ДА",
-								"pt": "Valor SIM",
-								"nl": "Waarde JA",
-								"fr": "Valeur OUI",
-								"it": "Valore SÌ",
-								"es": "Valor SÍ",
-								"pl": "Wartość TAK",
-								"uk": "Значення ТАК",
-								"zh-cn": "值 是"
-							},
-							"tooltip": {
-								"en": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written.",
-								"de": "Die Werte, die in den Ausgabestatus geschrieben werden sollen, können in 'Wert JA' und 'Wert NEIN' definiert werden, z.B. 'true' für boolesche Zustände oder eine Zahl oder Text, der geschrieben werden soll.",
-								"ru": "Значения, которые должны быть записаны в состояние вывода, могут быть определены в 'значение ДА' и 'значение НЕТ', например, 'true' для булевых состояний или число или текст, который должен быть записан.",
-								"pt": "Os valores a serem escritos no estado de saída podem ser definidos em 'valor SIM' e 'valor NÃO', por exemplo, 'true' para estados booleanos, ou um número ou texto a ser escrito.",
-								"nl": "De waarden die moeten worden geschreven naar de uitvoerstatus kunnen worden gedefinieerd in 'waarde JA' en 'waarde NEE', bijvoorbeeld 'true' voor booleaanse toestanden, of een getal of tekst om te schrijven.",
-								"fr": "Les valeurs à écrire dans l'état de sortie peuvent être définies dans 'valeur OUI' et 'valeur NON', par exemple 'true' pour les états booléens, ou un nombre ou un texte à écrire.",
-								"it": "I valori da scrivere nello stato di uscita possono essere definiti in 'valore SÌ' e 'valore NO', ad esempio 'true' per gli stati booleani, o un numero o un testo da scrivere.",
-								"es": "Los valores que se deben escribir en el estado de salida se pueden definir en 'valor SÍ' y 'valor NO', por ejemplo, 'true' para estados booleanos, o un número o texto que se debe escribir.",
-								"pl": "Wartości do zapisania w stanie wyjściowym można zdefiniować w 'wartość TAK' i 'wartość NIE', na przykład 'true' dla stanów logicznych lub liczby lub tekst do zapisania.",
-								"uk": "Значення, які слід записувати в вихідний стан, можуть бути визначені у 'значення ТАК' і 'значення НІ', наприклад, 'true' для булевих станів або число або текст для запису.",
-								"zh-cn": "要写入输出状态的值可以在'值是'和'值否'中定义，例如，对于布尔状态可以使用'true'，或者可以写入数字或文本。"
-							},
+							"label": "LBL_item_chValueOn",
+							"tooltip": "TTIP_item_chValueOn",
 							"maxLength": 20,
 							"attr": "chValueOn",
 							"default": "true",
@@ -997,32 +782,8 @@
 						},
 						{
 							"type": "text",
-							"label": {
-								"en": "Value NO",
-								"de": "Wert NEIN",
-								"ru": "Значение НЕТ",
-								"pt": "Valor NÃO",
-								"nl": "Waarde NEE",
-								"fr": "Valeur NON",
-								"it": "Valore NO",
-								"es": "Valor NO",
-								"pl": "Wartość NIE",
-								"uk": "Значення НІ",
-								"zh-cn": "值 否"
-							},
-							"tooltip": {
-								"en": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written.",
-								"de": "Die Werte, die in den Ausgabestatus geschrieben werden sollen, können in 'Wert JA' und 'Wert NEIN' definiert werden, z.B. 'true' für boolesche Zustände oder eine Zahl oder Text, der geschrieben werden soll.",
-								"ru": "Значения, которые должны быть записаны в состояние вывода, могут быть определены в 'значение ДА' и 'значение НЕТ', например, 'true' для булевых состояний или число или текст, который должен быть записан.",
-								"pt": "Os valores a serem escritos no estado de saída podem ser definidos em 'valor SIM' e 'valor NÃO', por exemplo, 'true' para estados booleanos, ou um número ou texto a ser escrito.",
-								"nl": "De waarden die moeten worden geschreven naar de uitvoerstatus kunnen worden gedefinieerd in 'waarde JA' en 'waarde NEE', bijvoorbeeld 'true' voor booleaanse toestanden, of een getal of tekst om te schrijven.",
-								"fr": "Les valeurs à écrire dans l'état de sortie peuvent être définies dans 'valeur OUI' et 'valeur NON', par exemple 'true' pour les états booléens, ou un nombre ou un texte à écrire.",
-								"it": "I valori da scrivere nello stato di uscita possono essere definiti in 'valore SÌ' e 'valore NO', ad esempio 'true' per gli stati booleani, o un numero o un testo da scrivere.",
-								"es": "Los valores que se deben escribir en el estado de salida se pueden definir en 'valor SÍ' y 'valor NO', por ejemplo, 'true' para estados booleanos, o un número o texto que se debe escribir.",
-								"pl": "Wartości do zapisania w stanie wyjściowym można zdefiniować w 'wartość TAK' i 'wartość NIE', na przykład 'true' dla stanów logicznych lub liczby lub tekst do zapisania.",
-								"uk": "Значення, які слід записувати в вихідний стан, можуть бути визначені у 'значення ТАК' і 'значення НІ', наприклад, 'true' для булевих станів або число або текст для запису.",
-								"zh-cn": "要写入输出状态的值可以在'值是'和'值否'中定义，例如，对于布尔状态可以使用'true'，或者可以写入数字或文本。"
-							},
+							"label": "LBL_item_chValueOff",
+							"tooltip": "TTIP_item_chValueOff",
 							"maxLength": 20,
 							"attr": "chValueOff",
 							"default": "false",
@@ -1035,21 +796,9 @@
 
 						{
 							"type": "objectId",
-							"label": {
-								"en": "Target State 2",
-								"de": "Ziel State 2",
-								"ru": "Целевое состояние 2",
-								"pt": "Estado Alvo 2",
-								"nl": "Doelstaat 2",
-								"fr": "État Cible 2",
-								"it": "Stato Obiettivo 2",
-								"es": "Estado Objetivo 2",
-								"pl": "Stan Docelowy 2",
-								"uk": "Цільовий стан 2",
-								"zh-cn": "目标状态 2"
-							},
+							"label": "LBL_item_chTargetState2",
+							"tooltip": "TTIP_item_chTargetState2",
 							"attr": "chTargetState2",
-							"tooltip": "Select second target state for this channel",
 							"hidden": "data.chType !== 7",
 							"xs": 12,
 							"sm": 12,
@@ -1060,32 +809,8 @@
 
 						{
 							"type": "text",
-							"label": {
-								"en": "Value YES 2",
-								"de": "Wert JA 2",
-								"ru": "Значение ДА 2",
-								"pt": "Valor SIM 2",
-								"nl": "Waarde JA 2",
-								"fr": "Valeur OUI 2",
-								"it": "Valore SÌ 2",
-								"es": "Valor SÍ 2",
-								"pl": "Wartość TAK 2",
-								"uk": "Значення ТАК 2",
-								"zh-cn": "值 是 2"
-							},
-							"tooltip": {
-								"en": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written.",
-								"de": "Die Werte, die in den Ausgabestatus geschrieben werden sollen, können in 'Wert JA' und 'Wert NEIN' definiert werden, z.B. 'true' für boolesche Zustände oder eine Zahl oder Text, der geschrieben werden soll.",
-								"ru": "Значения, которые должны быть записаны в состояние вывода, могут быть определены в 'значение ДА' и 'значение НЕТ', например, 'true' для булевых состояний или число или текст, который должен быть записан.",
-								"pt": "Os valores a serem escritos no estado de saída podem ser definidos em 'valor SIM' e 'valor NÃO', por exemplo, 'true' para estados booleanos, ou um número ou texto a ser escrito.",
-								"nl": "De waarden die moeten worden geschreven naar de uitvoerstatus kunnen worden gedefinieerd in 'waarde JA' en 'waarde NEE', bijvoorbeeld 'true' voor booleaanse toestanden, of een getal of tekst om te schrijven.",
-								"fr": "Les valeurs à écrire dans l'état de sortie peuvent être définies dans 'valeur OUI' et 'valeur NON', par exemple 'true' pour les états booléens, ou un nombre ou un texte à écrire.",
-								"it": "I valori da scrivere nello stato di uscita possono essere definiti in 'valore SÌ' e 'valore NO', ad esempio 'true' per gli stati booleani, o un numero o un testo da scrivere.",
-								"es": "Los valores que se deben escribir en el estado de salida se pueden definir en 'valor SÍ' y 'valor NO', por ejemplo, 'true' para estados booleanos, o un número o texto que se debe escribir.",
-								"pl": "Wartości do zapisania w stanie wyjściowym można zdefiniować w 'wartość TAK' i 'wartość NIE', na przykład 'true' dla stanów logicznych lub liczby lub tekst do zapisania.",
-								"uk": "Значення, які слід записувати в вихідний стан, можуть бути визначені у 'значення ТАК' і 'значення НІ', наприклад, 'true' для булевих станів або число або текст для запису.",
-								"zh-cn": "要写入输出状态的值可以在'值是'和'值否'中定义，例如，对于布尔状态可以使用'true'，或者可以写入数字或文本。"
-							},
+							"label": "LBL_item_chValueOn2",
+							"tooltip": "TTIP_item_chValueOn2",
 							"maxLength": 20,
 							"attr": "chValueOn2",
 							"default": "true",
@@ -1098,32 +823,8 @@
 						},
 						{
 							"type": "text",
-							"label": {
-								"en": "Value NO 2",
-								"de": "Wert NEIN 2",
-								"ru": "Значение НЕТ 2",
-								"pt": "Valor NÃO 2",
-								"nl": "Waarde NEE 2",
-								"fr": "Valeur NON 2",
-								"it": "Valore NO 2",
-								"es": "Valor NO 2",
-								"pl": "Wartość NIE 2",
-								"uk": "Значення НІ 2",
-								"zh-cn": "值 否 2"
-							},
-							"tooltip": {
-								"en": "The values to be written to the output state can be defined in 'value YES' and 'value NO,' e.g., 'true' for boolean states, or a number or text to be written.",
-								"de": "Die Werte, die in den Ausgabestatus geschrieben werden sollen, können in 'Wert JA' und 'Wert NEIN' definiert werden, z.B. 'true' für boolesche Zustände oder eine Zahl oder Text, der geschrieben werden soll.",
-								"ru": "Значения, которые должны быть записаны в состояние вывода, могут быть определены в 'значение ДА' и 'значение НЕТ', например, 'true' для булевых состояний или число или текст, который должен быть записан.",
-								"pt": "Os valores a serem escritos no estado de saída podem ser definidos em 'valor SIM' e 'valor NÃO', por exemplo, 'true' para estados booleanos, ou um número ou texto a ser escrito.",
-								"nl": "De waarden die moeten worden geschreven naar de uitvoerstatus kunnen worden gedefinieerd in 'waarde JA' en 'waarde NEE', bijvoorbeeld 'true' voor booleaanse toestanden, of een getal of tekst om te schrijven.",
-								"fr": "Les valeurs à écrire dans l'état de sortie peuvent être définies dans 'valeur OUI' et 'valeur NON', par exemple 'true' pour les états booléens, ou un nombre ou un texte à écrire.",
-								"it": "I valori da scrivere nello stato di uscita possono essere definiti in 'valore SÌ' e 'valore NO', ad esempio 'true' per gli stati booleani, o un numero o un testo da scrivere.",
-								"es": "Los valores que se deben escribir en el estado de salida se pueden definir en 'valor SÍ' y 'valor NO', por ejemplo, 'true' para estados booleanos, o un número o texto que se debe escribir.",
-								"pl": "Wartości do zapisania w stanie wyjściowym można zdefiniować w 'wartość TAK' i 'wartość NIE', na przykład 'true' dla stanów logicznych lub liczby lub tekst do zapisania.",
-								"uk": "Значення, які слід записувати в вихідний стан, можуть бути визначені у 'значення ТАК' і 'значення НІ', наприклад, 'true' для булевих станів або число або текст для запису.",
-								"zh-cn": "要写入输出状态的值可以在'值是'和'值否'中定义，例如，对于布尔状态可以使用'true'，或者可以写入数字或文本。"
-							},
+							"label": "LBL_item_chValueOff2",
+							"tooltip": "TTIP_item_chValueOff2",
 							"maxLength": 20,
 							"attr": "chValueOff2",
 							"default": "false",
@@ -1217,19 +918,7 @@
 				"_calculatorhelp8": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "   'Best cost': Utilizes the 'TriggerPrice' object as input, producing a 'YES' output every hour when the current Tibber energy cost is below the trigger price",
-						"de": "   'Beste Kosten': Verwendet das Objekt 'TriggerPrice' als Eingabe und erzeugt jede Stunde eine 'YES'-Ausgabe, wenn die aktuellen Tibber-Energiekosten unter dem Auslösepreis liegen",
-						"ru": "   'Лучшие затраты': Использует объект 'TriggerPrice' в качестве входных данных, выдающее 'YES' каждый час, когда текущая стоимость энергии Tibber ниже цены триггера",
-						"pt": "   'Melhor custo': Utiliza o objeto 'TriggerPrice' como entrada, produzindo uma saída 'YES' a cada hora quando o custo de energia atual da Tibber estiver abaixo do preço de gatilho",
-						"nl": "   'Beste kost': Gebruikt het object 'TriggerPrice' als invoer, geeft elke uur een 'JA'-uitvoer wanneer de huidige Tibber energiekosten onder de drempelprijs liggen",
-						"fr": "   'Meilleur coût': Utilise l'objet 'TriggerPrice' comme entrée, produisant une sortie 'YES' chaque heure lorsque le coût actuel de l'énergie Tibber est inférieur au prix déclencheur",
-						"it": "   'Miglior costo': Utilizza l'oggetto 'TriggerPrice' come input, producendo un output 'YES' ogni ora quando il costo energetico corrente di Tibber è inferiore al prezzo di trigger",
-						"es": "   'Mejor costo': Utiliza el objeto 'TriggerPrice' como entrada, produciendo una salida 'YES' cada hora cuando el costo actual de la energía Tibber está por debajo del precio de activación",
-						"pl": "   'Najlepszy koszt': Wykorzystuje obiekt 'TriggerPrice' jako wejście, generując wyjście 'YES' co godzinę, gdy aktualny koszt energii Tibber jest poniżej ceny wyzwalacza",
-						"uk": "   'Best cost': Використовує об'єкт 'TriggerPrice' як вхідні дані, видає 'YES' кожну годину, коли поточна вартість енергії Tibber нижче тригер-ціни",
-						"zh-cn": "   '最佳成本'：使用'TriggerPrice'对象作为输入，当当前Tibber能源成本低于触发价格时，每小时产生'YES'输出"
-					},
+					"label": "LBL_calculatorhelp8",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1240,19 +929,7 @@
 				"_calculatorhelp9": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "   'Best single hours': Generates a 'YES' output during the least expensive hours, with the number defined in the 'AmountHours' object",
-						"de": "   'Beste Einzelstunden': Erzeugt eine 'YES'-Ausgabe während der kostengünstigsten Stunden, mit der im Objekt 'AmountHours' definierten Anzahl",
-						"ru": "   'Лучшие одиночные часы': Генерирует выход 'YES' во время наименее дорогих часов, с количеством, определенным в объекте 'AmountHours'",
-						"pt": "   'Melhores horas únicas': Gera uma saída 'YES' durante as horas menos caras, com o número definido no objeto 'AmountHours'",
-						"nl": "   'Beste enkele uren': Genereert een 'JA'-uitvoer tijdens de goedkoopste uren, met het aantal gedefinieerd in het object 'AmountHours'",
-						"fr": "   'Meilleures heures uniques': Génère une sortie 'YES' pendant les heures les moins chères, avec le nombre défini dans l'objet 'AmountHours'",
-						"it": "   'Migliori ore singole': Genera un'uscita 'YES' durante le ore meno costose, con il numero definito nell'oggetto 'AmountHours'",
-						"es": "   'Mejores horas individuales': Genera una salida 'YES' durante las horas menos costosas, con el número definido en el objeto 'AmountHours'",
-						"pl": "   'Najlepsze pojedyncze godziny': Generuje wyjście 'YES' w trakcie najtańszych godzin, z liczbą określoną w obiekcie 'AmountHours'",
-						"uk": "   'Найкращі одиночні години': Генерує вихід 'YES' протягом найменш дорогих годин, з числом, визначеним у об'єкті 'AmountHours'",
-						"zh-cn": "   '最佳单小时': 在最便宜的小时内生成'YES'输出，其数量在'AmountHours'对象中定义"
-					},
+					"label": "LBL_calculatorhelp9",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1263,19 +940,7 @@
 				"_calculatorhelp10": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "   'Best hours block': Outputs 'YES' during the most cost-effective block of hours, with the number of hours specified in the 'AmountHours' object",
-						"de": "   'Bester Stundenblock': Gibt 'YES' während des kostengünstigsten Stundenblocks aus, mit der im Objekt 'AmountHours' festgelegten Anzahl von Stunden",
-						"ru": "   'Лучший блок часов': Выводит 'YES' во время наиболее эффективного по стоимости блока часов, с указанием количества часов в объекте 'AmountHours'",
-						"pt": "   'Melhor bloco de horas': Gera 'YES' durante o bloco de horas mais econômico, com o número de horas especificado no objeto 'AmountHours'",
-						"nl": "   'Beste uren blok': Geeft 'JA' uit tijdens het meest kosteneffectieve blok van uren, met het aantal uur gespecificeerd in het object 'AmountHours'",
-						"fr": "   'Meilleur bloc d'heures': Produit 'YES' pendant le bloc d'heures le plus rentable, avec le nombre d'heures spécifié dans l'objet 'AmountHours'",
-						"it": "   'Miglior blocco di ore': Emette un'uscita 'YES' durante il blocco di ore più conveniente, con il numero di ore specificato nell'oggetto 'AmountHours'",
-						"es": "   'Mejor bloque de horas': Genera 'YES' durante el bloque de horas más rentable, con el número de horas especificado en el objeto 'AmountHours'",
-						"pl": "   'Najlepszy blok godzin': Generuje 'YES' podczas najbardziej opłacalnego bloku godzin, z liczbą godzin określoną w obiekcie 'AmountHours'",
-						"uk": "   'Кращий блок годин': Виводить 'YES' під час найбільш вигідного блоку годин, із зазначенням кількості годин у об'єкті 'AmountHours'",
-						"zh-cn": "   '最佳时段': 在最经济的小时内输出'YES'，在'AmountHours'对象中指定的小时数"
-					},
+					"label": "LBL_calculatorhelp10",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1286,19 +951,7 @@
 				"_calculatorhelp11": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "   'Best cost LTF': 'Best cost' within a Limited Time Frame (LTF)",
-						"de": "   'Beste Kosten LTF': 'Beste Kosten' innerhalb eines begrenzten Zeitrahmens (LTF)",
-						"ru": "   'Лучшие затраты LTF': 'Лучшие затраты' в пределах ограниченного временного интервала (LTF)",
-						"pt": "   'Melhor custo LTF': 'Melhor custo' dentro de um quadro de tempo limitado (LTF)",
-						"nl": "   'Beste kosten LTF': 'Beste kosten' binnen een beperkt tijdsbestek (LTF)",
-						"fr": "   'Meilleur coût LTF': 'Meilleur coût' dans un cadre temporel limité (LTF)",
-						"it": "   'Miglior costo LTF': 'Miglior costo' all'interno di un periodo di tempo limitato (LTF)",
-						"es": "   'Mejor costo LTF': 'Mejor costo' dentro de un Marco de Tiempo Limitado (LTF)",
-						"pl": "   'Najlepsze koszty LTF': 'Najlepsze koszty' w ramach ograniczonego okresu czasu (LTF)",
-						"uk": "   'Найкращі витрати LTF': 'Найкращі витрати' в межах обмеженого часового проміжку (LTF)",
-						"zh-cn": "   '最佳成本 LTF': 在有限时间范围内的'最佳成本' (LTF)"
-					},
+					"label": "LBL_calculatorhelp11",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1309,19 +962,7 @@
 				"_calculatorhelp12": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "   'Best single hours LTF': 'Best single hours' within a Limited Time Frame (LTF)",
-						"de": "   'Beste Einzelstunden LTF': 'Beste Einzelstunden' innerhalb eines begrenzten Zeitrahmens (LTF)",
-						"ru": "   'Лучшие одиночные часы LTF': 'Лучшие одиночные часы' в пределах ограниченного временного интервала (LTF)",
-						"pt": "   'Melhores horas únicas LTF': 'Melhores horas únicas' dentro de um quadro de tempo limitado (LTF)",
-						"nl": "   'Beste enkele uren LTF': 'Beste enkele uren' binnen een beperkt tijdsbestek (LTF)",
-						"fr": "   'Meilleures heures uniques LTF': 'Meilleures heures uniques' dans un cadre temporel limité (LTF)",
-						"it": "   'Miglior ore singole LTF': 'Miglior ore singole' all'interno di un periodo di tempo limitato (LTF)",
-						"es": "   'Mejor horas individuales LTF': 'Mejor horas individuales' dentro de un Marco de Tiempo Limitado (LTF)",
-						"pl": "   'Najlepsze pojedyncze godziny LTF': 'Najlepsze pojedyncze godziny' w ramach ograniczonego okresu czasu (LTF)",
-						"uk": "   'Найкращі одиночні години LTF': 'Найкращі одиночні години' в межах обмеженого часового проміжку (LTF)",
-						"zh-cn": "   '最佳单小时 LTF': 在有限时间范围内的'最佳单小时' (LTF)"
-					},
+					"label": "LBL_calculatorhelp12",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1332,19 +973,7 @@
 				"_calculatorhelp13": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "   'Best hours block LTF': 'Best hours block' within a Limited Time Frame (LTF)",
-						"de": "   'Bester Stundenblock LTF': 'Bester Stundenblock' innerhalb eines begrenzten Zeitrahmens (LTF)",
-						"ru": "   'Лучший блок часов LTF': 'Лучший блок часов' в пределах ограниченного временного интервала (LTF)",
-						"pt": "   'Melhor bloco de horas LTF': 'Melhor bloco de horas' dentro de um quadro de tempo limitado (LTF)",
-						"nl": "   'Beste uren blok LTF': 'Beste uren blok' binnen een beperkt tijdsbestek (LTF)",
-						"fr": "   'Meilleur bloc d'heures LTF': 'Meilleur bloc d'heures' dans un cadre temporel limité (LTF)",
-						"it": "   'Miglior blocco di ore LTF': 'Miglior blocco di ore' all'interno di un periodo di tempo limitato (LTF)",
-						"es": "   'Mejor bloque de horas LTF': 'Mejor bloque de horas' dentro de un Marco de Tiempo Limitado (LTF)",
-						"pl": "   'Najlepszy blok godzin LTF': 'Najlepszy blok godzin' w ramach ograniczonego okresu czasu (LTF)",
-						"uk": "   'Найкращий блок годин LTF': 'Найкращий блок годин' в межах обмеженого часового проміжку (LTF)",
-						"zh-cn": "   '最佳时段 LTF': 在有限时间范围内的'最佳时段' (LTF)"
-					},
+					"label": "LBL_calculatorhelp13",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1355,19 +984,7 @@
 				"_calculatorhelp14": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "   'Smart Battery Buffer': Utilize the 'EfficiencyLoss' parameter to specify the efficiency loss of the battery system. Use the 'AmountHours' parameter to input the desired number of hours for battery charging. The calculator will activate battery charging ('value YES') and deactivate battery feed ('value 2 NO') during the specified 'AmountHours' cheapest hours. Conversely, it will deactivate battery charging ('value NO') and activate battery feed ('value 2 YES') during hours with the highest cost, provided the cost is higher than the highest total price among the cheap hours. In the remaining normal hours where energy buffering by the battery is not economically viable, both outputs will be switched off.",
-						"de": "   'Intelligenter Batteriepuffer': Verwenden Sie den Parameter 'EfficiencyLoss', um den Wirkungsgradverlust des Batteriesystems anzugeben. Verwenden Sie den Parameter 'AmountHours', um die gewünschte Anzahl von Stunden für das Laden der Batterie einzugeben. Der Rechner aktiviert das Batterieladen ('Wert YES') und deaktiviert die Batteriezufuhr ('Wert 2 NO') während der angegebenen 'AmountHours' günstigsten Stunden. Umgekehrt deaktiviert er das Batterieladen ('Wert NO') und aktiviert die Batteriezufuhr ('Wert 2 YES') während der Stunden mit den höchsten Kosten, vorausgesetzt, die Kosten sind höher als der höchste Gesamtpreis unter den günstigen Stunden. In den verbleibenden normalen Stunden, in denen eine Energiespeicherung durch die Batterie wirtschaftlich nicht sinnvoll ist, werden beide Ausgänge ausgeschaltet.",
-						"ru": "   'Умный буфер батареи': Используйте параметр 'EfficiencyLoss', чтобы указать потери эффективности батарейной системы. Используйте параметр 'AmountHours', чтобы ввести желаемое количество часов для зарядки батареи. Калькулятор активирует зарядку батареи ('значение YES') и деактивирует подачу батареи ('значение 2 NO') в течение указанных 'AmountHours' самых дешевых часов. Напротив, он деактивирует зарядку батареи ('значение NO') и активирует подачу батареи ('значение 2 YES') в часы с наивысшей стоимостью, при условии, что стоимость выше самой высокой общей цены среди дешевых часов. В оставшиеся обычные часы, когда энергия буферизации батареи экономически нецелесообразна, оба выхода будут отключены.",
-						"pt": "   'Buffer de bateria inteligente': Utilize o parâmetro 'EfficiencyLoss' para especificar a perda de eficiência do sistema de bateria. Use o parâmetro 'AmountHours' para inserir o número desejado de horas para carregar a bateria. A calculadora ativará o carregamento da bateria ('valor YES') e desativará a alimentação da bateria ('valor 2 NO') durante as horas mais baratas especificadas em 'AmountHours'. Ao contrário, desativará o carregamento da bateria ('valor NO') e ativará a alimentação da bateria ('valor 2 YES') durante as horas com o maior custo, desde que o custo seja maior que o preço total mais alto entre as horas mais baratas. Nas horas normais restantes, em que o armazenamento de energia pela bateria não é economicamente viável, ambas as saídas serão desligadas.",
-						"nl": "   'Slimme batterijbuffer': Gebruik de parameter 'EfficiencyLoss' om het rendementsverlies van het batterijsysteem aan te geven. Gebruik de parameter 'AmountHours' om het gewenste aantal uren voor het opladen van de batterij in te voeren. De rekenmachine activeert het opladen van de batterij ('waarde YES') en deactiveert de batterijtoevoer ('waarde 2 NO') tijdens de gespecificeerde 'AmountHours' goedkoopste uren. Omgekeerd zal het het opladen van de batterij deactiveren ('waarde NO') en de batterijtoevoer activeren ('waarde 2 YES') tijdens uren met de hoogste kosten, op voorwaarde dat de kosten hoger zijn dan de hoogste totale prijs onder de goedkope uren. In de overige normale uren waar energiebuffering door de batterij niet economisch haalbaar is, worden beide uitgangen uitgeschakeld.",
-						"fr": "   'Tampon de batterie intelligent': Utilisez le paramètre 'EfficiencyLoss' pour spécifier la perte d'efficacité du système de batterie. Utilisez le paramètre 'AmountHours' pour entrer le nombre d'heures souhaité pour la charge de la batterie. Le calculateur activera la charge de la batterie ('valeur YES') et désactivera l'alimentation de la batterie ('valeur 2 NO') pendant les heures les moins chères spécifiées dans 'AmountHours'. Inversement, il désactivera la charge de la batterie ('valeur NO') et activera l'alimentation de la batterie ('valeur 2 YES') pendant les heures les plus coûteuses, à condition que le coût soit supérieur au prix total le plus élevé parmi les heures bon marché. Pendant les heures normales restantes où le tamponnement d'énergie par la batterie n'est pas économiquement viable, les deux sorties seront désactivées.",
-						"it": "   'Buffer batteria intelligente': Utilizza il parametro 'EfficiencyLoss' per specificare la perdita di efficienza del sistema di batterie. Usa il parametro 'AmountHours' per inserire il numero desiderato di ore per la ricarica della batteria. La calcolatrice attiverà la ricarica della batteria ('valore YES') e disattiverà l'alimentazione della batteria ('valore 2 NO') durante le 'AmountHours' ore più economiche specificate. Al contrario, disattiverà la ricarica della batteria ('valore NO') e attiverà l'alimentazione della batteria ('valore 2 YES') durante le ore con il costo più elevato, a condizione che il costo sia superiore al prezzo totale più alto tra le ore economiche. Nelle restanti ore normali in cui il buffering energetico della batteria non è economicamente vantaggioso, entrambe le uscite verranno disattivate.",
-						"es": "   'Buffer de batería inteligente': Utilice el parámetro 'EfficiencyLoss' para especificar la pérdida de eficiencia del sistema de batería. Utilice el parámetro 'AmountHours' para ingresar la cantidad deseada de horas para la carga de la batería. La calculadora activará la carga de la batería ('valor YES') y desactivará la alimentación de la batería ('valor 2 NO') durante las horas más baratas especificadas en 'AmountHours'. Por el contrario, desactivará la carga de la batería ('valor NO') y activará la alimentación de la batería ('valor 2 YES') durante las horas con el mayor costo, siempre que el costo sea mayor que el precio total más alto entre las horas baratas. En las horas normales restantes en las que el almacenamiento de energía por la batería no es económicamente viable, ambas salidas se apagarán.",
-						"pl": "   'Inteligentny bufor baterii': Użyj parametru 'EfficiencyLoss', aby określić straty wydajności systemu baterii. Użyj parametru 'AmountHours', aby wprowadzić żądaną liczbę godzin na ładowanie baterii. Kalkulator aktywuje ładowanie baterii ('wartość YES') i dezaktywuje podawanie baterii ('wartość 2 NO') podczas określonych 'AmountHours' najtańszych godzin. W przeciwnym razie dezaktywuje ładowanie baterii ('wartość NO') i aktywuje podawanie baterii ('wartość 2 YES') podczas godzin o najwyższym koszcie, pod warunkiem, że koszt jest wyższy niż najwyższa cena całkowita wśród tanich godzin. W pozostałych normalnych godzinach, gdy buforowanie energii przez baterię nie jest ekonomicznie opłacalne, obie wyjścia zostaną wyłączone.",
-						"uk": "   'Розумний буфер акумулятора': Використовуйте параметр 'EfficiencyLoss', щоб вказати втрати ефективності системи акумулятора. Використовуйте параметр 'AmountHours', щоб ввести бажану кількість годин для заряджання акумулятора. Калькулятор активує заряджання акумулятора ('значення YES') та вимкне живлення акумулятора ('значення 2 NO') протягом вказаних 'AmountHours' найдешевших годин. Навпаки, він вимкне заряджання акумулятора ('значення NO') та активує живлення акумулятора ('значення 2 YES') протягом годин з найвищою вартістю, за умови, що вартість вища за найвищу загальну ціну серед дешевих годин. В залишкові нормальні години, коли буферизація енергії акумулятором економічно невигідна, обидві виходи будуть вимкнені.",
-						"zh-cn": "   '智能电池缓冲区': 使用 'EfficiencyLoss' 参数指定电池系统的效率损失。使用 'AmountHours' 参数输入所需的电池充电小时数。计算器将在指定的 'AmountHours' 最便宜的小时内激活电池充电（'value YES'）并停用电池供电（'value 2 NO'）。相反，在成本最高的小时内，前提是成本高于便宜小时中的最高总价，将停用电池充电（'value NO'）并激活电池供电（'value 2 YES'）。在电池缓冲能量在经济上不可行的其余正常小时内，两个输出都将关闭。"
-					},
+					"label": "LBL_calculatorhelp14",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1378,19 +995,7 @@
 				"_calculatorhelp15": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "LTF channels: These operate similarly to standard channels but are active only within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel automatically deactivates. 'StartTime' and 'StopTime' can span two calendar days, as Tibber does not provide data beyond a 48-hour window. Both states require a date-time string in ISO-8601 format with a timezone offset, e.g., '2024-12-24T18:00:00.000+01:00'.",
-						"de": "LTF-Kanäle: Diese funktionieren ähnlich wie Standardkanäle, sind jedoch nur innerhalb eines Zeitrahmens aktiv, der durch die Statusobjekte 'StartTime' und 'StopTime' definiert wird. Nach 'StopTime' deaktiviert sich der Kanal automatisch. 'StartTime' und 'StopTime' können sich über zwei Kalendertage erstrecken, da Tibber keine Daten über ein 48-Stunden-Fenster hinaus bereitstellt. Beide Zustände erfordern eine Datum-Zeit-Zeichenkette im ISO-8601-Format mit einer Zeitzonenangabe, z. B.: '2024-12-24T18:00:00.000+01:00'.",
-						"ru": "Каналы LTF: Они работают аналогично стандартным каналам, но активны только в рамках временного интервала, определяемого объектами состояния 'StartTime' и 'StopTime'. После 'StopTime' канал автоматически отключается. 'StartTime' и 'StopTime' могут охватывать два календарных дня, так как Tibber не предоставляет данные за пределами 48-часового окна. Оба состояния требуют строку даты и времени в формате ISO-8601 с указанием часового пояса, например: '2024-12-24T18:00:00.000+01:00'.",
-						"pt": "Canais LTF: Operam de forma semelhante aos canais padrão, mas ficam ativos apenas dentro de um período de tempo definido pelos objetos de estado 'StartTime' e 'StopTime'. Após o 'StopTime', o canal se desativa automaticamente. 'StartTime' e 'StopTime' podem abranger dois dias consecutivos, pois a Tibber não fornece dados além de uma janela de 48 horas. Ambos os estados exigem uma string de data e hora no formato ISO-8601 com um offset de fuso horário, por exemplo: '2024-12-24T18:00:00.000+01:00'.",
-						"nl": "LTF-kanalen: Deze werken vergelijkbaar met standaardkanalen, maar zijn alleen actief binnen een tijdsbestek dat wordt gedefinieerd door de statusobjecten 'StartTime' en 'StopTime'. Na 'StopTime' deactiveert het kanaal automatisch. 'StartTime' en 'StopTime' kunnen twee kalenderdagen omvatten, aangezien Tibber geen gegevens verstrekt buiten een venster van 48 uur. Beide statussen vereisen een datum-tijdreeks in ISO-8601-indeling met een tijdzone-offset, bijvoorbeeld: '2024-12-24T18:00:00.000+01:00'.",
-						"fr": "Canaux LTF : Ils fonctionnent de manière similaire aux canaux standard mais ne sont actifs que pendant une plage de temps définie par les objets d'état 'StartTime' et 'StopTime'. Après 'StopTime', le canal se désactive automatiquement. 'StartTime' et 'StopTime' peuvent couvrir deux jours calendaires, car Tibber ne fournit pas de données au-delà d'une fenêtre de 48 heures. Les deux états nécessitent une chaîne de date-heure au format ISO-8601 avec un décalage de fuseau horaire, par exemple : '2024-12-24T18:00:00.000+01:00'.",
-						"it": "Canali LTF: Funzionano in modo simile ai canali standard, ma sono attivi solo all'interno di un intervallo di tempo definito dagli oggetti di stato 'StartTime' e 'StopTime'. Dopo 'StopTime', il canale si disattiva automaticamente. 'StartTime' e 'StopTime' possono estendersi su due giorni di calendario, poiché Tibber non fornisce dati oltre una finestra di 48 ore. Entrambi gli stati richiedono una stringa data-ora nel formato ISO-8601 con offset del fuso orario, ad esempio: '2024-12-24T18:00:00.000+01:00'.",
-						"es": "Canales LTF: Funcionan de manera similar a los canales estándar, pero solo están activos dentro de un marco de tiempo definido por los objetos de estado 'StartTime' y 'StopTime'. Después de 'StopTime', el canal se desactiva automáticamente. 'StartTime' y 'StopTime' pueden abarcar dos días calendario, ya que Tibber no proporciona datos más allá de una ventana de 48 horas. Ambos estados requieren una cadena de fecha y hora en formato ISO-8601 con un desplazamiento de zona horaria, por ejemplo: '2024-12-24T18:00:00.000+01:00'.",
-						"pl": "Kanały LTF: Działają podobnie do standardowych kanałów, ale są aktywne tylko w ramach czasowych określonych przez obiekty stanu 'StartTime' i 'StopTime'. Po 'StopTime' kanał automatycznie się dezaktywuje. 'StartTime' i 'StopTime' mogą obejmować dwa dni kalendarzowe, ponieważ Tibber nie udostępnia danych poza 48-godzinnym oknem. Oba stany wymagają ciągu daty i godziny w formacie ISO-8601 z przesunięciem strefy czasowej, np.: '2024-12-24T18:00:00.000+01:00'.",
-						"uk": "Канали LTF: Вони працюють подібно до стандартних каналів, але активні лише в межах часових рамок, визначених об'єктами стану 'StartTime' і 'StopTime'. Після 'StopTime' канал автоматично деактивується. 'StartTime' і 'StopTime' можуть охоплювати два календарних дні, оскільки Tibber не надає даних поза 48-годинним вікном. Обидва стани вимагають рядок дати-часу у форматі ISO-8601 із зсувом часового поясу, наприклад: '2024-12-24T18:00:00.000+01:00'.",
-						"zh-cn": "LTF 通道：这些通道的工作方式类似于标准通道，但仅在 'StartTime' 和 'StopTime' 状态对象定义的时间范围内激活。超过 'StopTime' 后，通道会自动停用。'StartTime' 和 'StopTime' 可以跨越两个日历日，因为 Tibber 不提供超过 48 小时窗口的数据。这两个状态必须使用带有时区偏移量的 ISO-8601 格式的日期时间字符串，例如：'2024-12-24T18:00:00.000+01:00'。"
-					},
+					"label": "LBL_calculatorhelp15",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1401,19 +1006,7 @@
 				"_calculatorhelp16": {
 					"type": "staticText",
 					"hidden": "!data.UseCalculator",
-					"label": {
-						"en": "Additionally, the LTF channels include a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel repeats its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition.",
-						"de": "Zusätzlich verfügen die LTF-Kanäle über einen neuen Statusparameter namens 'RepeatDays', der standardmäßig auf 0 gesetzt ist. Wenn 'RepeatDays' auf eine positive Ganzzahl gesetzt wird, wiederholt der Kanal seinen Zyklus, indem sowohl 'StartTime' als auch 'StopTime' um die angegebene Anzahl von Tagen nach Erreichen von 'StopTime' erhöht werden. Zum Beispiel, setzen Sie 'RepeatDays' auf 1 für eine tägliche Wiederholung.",
-						"ru": "Кроме того, каналы LTF имеют новый параметр состояния под названием 'RepeatDays', который по умолчанию равен 0. Если 'RepeatDays' установить на положительное целое число, канал будет повторять свой цикл, увеличивая 'StartTime' и 'StopTime' на указанное количество дней после достижения 'StopTime'. Например, установите 'RepeatDays' на 1 для ежедневного повторения.",
-						"pt": "Além disso, os canais LTF possuem um novo parâmetro de estado chamado 'RepeatDays', que é definido como 0 por padrão. Quando 'RepeatDays' é configurado para um número inteiro positivo, o canal repetirá seu ciclo, incrementando 'StartTime' e 'StopTime' pelo número especificado de dias após o 'StopTime'. Por exemplo, defina 'RepeatDays' como 1 para repetição diária.",
-						"nl": "Bovendien hebben de LTF-kanalen een nieuwe statusparameter genaamd 'RepeatDays', die standaard op 0 is ingesteld. Als 'RepeatDays' wordt ingesteld op een positief geheel getal, zal het kanaal zijn cyclus herhalen door zowel 'StartTime' als 'StopTime' te verhogen met het opgegeven aantal dagen nadat 'StopTime' is bereikt. Stel bijvoorbeeld 'RepeatDays' in op 1 voor dagelijkse herhaling.",
-						"fr": "De plus, les canaux LTF disposent d'un nouveau paramètre d'état appelé 'RepeatDays', qui est défini par défaut à 0. Lorsque 'RepeatDays' est défini sur un entier positif, le canal répétera son cycle en incrémentant à la fois 'StartTime' et 'StopTime' du nombre de jours spécifié après que 'StopTime' ait été atteint. Par exemple, définissez 'RepeatDays' sur 1 pour une répétition quotidienne.",
-						"it": "Inoltre, i canali LTF dispongono di un nuovo parametro di stato chiamato 'RepeatDays', che per impostazione predefinita è 0. Quando 'RepeatDays' è impostato su un numero intero positivo, il canale ripeterà il suo ciclo incrementando sia 'StartTime' che 'StopTime' del numero di giorni specificato una volta raggiunto 'StopTime'. Ad esempio, impostare 'RepeatDays' su 1 per la ripetizione giornaliera.",
-						"es": "Además, los canales LTF tienen un nuevo parámetro de estado llamado 'RepeatDays', que por defecto está configurado en 0. Cuando 'RepeatDays' se establece en un número entero positivo, el canal repetirá su ciclo incrementando tanto 'StartTime' como 'StopTime' en el número especificado de días una vez que se alcance 'StopTime'. Por ejemplo, establezca 'RepeatDays' en 1 para una repetición diaria.",
-						"pl": "Dodatkowo, kanały LTF mają nowy parametr stanu o nazwie 'RepeatDays', który domyślnie jest ustawiony na 0. Jeśli 'RepeatDays' zostanie ustawiony na dodatnią liczbę całkowitą, kanał będzie powtarzał swój cykl, zwiększając 'StartTime' i 'StopTime' o określoną liczbę dni po osiągnięciu 'StopTime'. Na przykład ustaw 'RepeatDays' na 1, aby uzyskać codzienne powtórzenia.",
-						"uk": "Крім того, канали LTF мають новий параметр стану під назвою 'RepeatDays', який за замовчуванням дорівнює 0. Якщо 'RepeatDays' встановити на додатне ціле число, канал буде повторювати свій цикл, збільшуючи 'StartTime' і 'StopTime' на вказану кількість днів після досягнення 'StopTime'. Наприклад, встановіть 'RepeatDays' на 1 для щоденного повторення.",
-						"zh-cn": "此外，LTF 通道新增了一个状态参数，称为 'RepeatDays'，默认值为 0。如果将 'RepeatDays' 设置为正整数，通道将在达到 'StopTime' 后，通过增加指定的天数重复其周期，同时调整 'StartTime' 和 'StopTime'。例如，将 'RepeatDays' 设置为 1 以实现每日重复。"
-					},
+					"label": "LBL_calculatorhelp16",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
