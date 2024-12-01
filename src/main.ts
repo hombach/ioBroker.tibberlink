@@ -4,7 +4,7 @@ import { CronJob } from "cron";
 import { addDays, format, isSameDay } from "date-fns";
 import type { IConfig } from "tibber-api";
 import type { IHomeInfo } from "./lib/projectUtils";
-import { TibberAPICaller } from "./lib/tibberAPICaller";
+import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator";
 import { TibberLocal } from "./lib/tibberLocal";
 import { TibberPulse } from "./lib/tibberPulse";
