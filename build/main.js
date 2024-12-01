@@ -6,7 +6,15 @@ import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
 import { TibberLocal } from "./lib/tibberLocal.js";
 import { TibberPulse } from "./lib/tibberPulse.js";
+/**
+ * Tibberlink
+ */
 class Tibberlink extends utils.Adapter {
+    /**
+     * constructor
+     *
+     * @param options - ioBroker adapter options
+     */
     constructor(options = {}) {
         super({
             ...options,
@@ -602,12 +610,19 @@ class Tibberlink extends utils.Adapter {
         }
     }
 }
+/*
 if (require.main !== module) {
     // Export the constructor in compact mode
-    module.exports = (options) => new Tibberlink(options);
-}
-else {
+    module.exports = (options: Partial<utils.AdapterOptions> | undefined) => new Tibberlink(options);
+} else {
     // otherwise start the instance directly
     (() => new Tibberlink())();
 }
+*/
+// Prüfen, ob das Modul direkt gestartet wird
+if (import.meta.url === `file://${process.argv[1]}`) {
+    (() => new Tibberlink())();
+}
+// Optional: Exportieren, wenn notwendig
+export { Tibberlink };
 //# sourceMappingURL=main.js.map
