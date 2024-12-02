@@ -99,40 +99,6 @@
 			{
 				"condition": {
 					"operand": "and",
-					"rules": ["oldVersion<1.8.0", "newVersion>=1.8.0"]
-				},
-				"title": {
-					"en": "Important notice!",
-					"de": "Wichtiger Hinweis!",
-					"ru": "Важное замечание!",
-					"pt": "Notícia importante!",
-					"nl": "Belangrijke mededeling!",
-					"fr": "Avis important!",
-					"it": "Avviso IMPORTANTE!",
-					"es": "Noticia importante!",
-					"pl": "Ważna uwaga!",
-					"uk": "Погода!",
-					"zh-cn": "重要通知!"
-				},
-				"text": {
-					"en": "Configuration of adapter has changed!! Please verify your settings for Tibber price data poll. And save the settings!!",
-					"de": "Die Konfiguration des Adapters wurde geändert!! Überprüfen Sie bitte Ihre Einstellungen für die Tibber-Preisdatenabfrage. Und speichern Sie die Einstellungen!!",
-					"ru": "Конфигурация адаптера была изменена!! Пожалуйста, проверьте ваши настройки для опроса ценовых данных Tibber. И сохраните настройки!!",
-					"pt": "A configuração do adaptador foi alterada!! Por favor, verifique suas configurações para a pesquisa de dados de preços do Tibber. E salve as configurações!!",
-					"nl": "De configuratie van de adapter is gewijzigd!! Controleer alstublieft uw instellingen voor de Tibber-prijsgegevens poll. En sla de instellingen op!!",
-					"fr": "La configuration de l'adaptateur a été modifiée!! Veuillez vérifier vos paramètres pour l'interrogation des données de prix Tibber. Et sauvegardez les paramètres!!",
-					"it": "La configurazione dell'adattatore è stata modificata!! Verifica le tue impostazioni per l'interrogazione dei dati sui prezzi di Tibber. E salva le impostazioni!!",
-					"es": "¡¡La configuración del adaptador ha cambiado!! Por favor, verifique sus ajustes para la consulta de datos de precios de Tibber. ¡Y guarde la configuración!!",
-					"pl": "Konfiguracja adaptera została zmieniona!! Proszę sprawdzić ustawienia dla sondowania danych cenowych Tibber. I zapisać ustawienia!!",
-					"uk": "Конфігурація адаптера була змінена!! Будь ласка, перевірте ваші налаштування для опитування цінових даних Tibber. І збережіть налаштування!!",
-					"zh-cn": "适配器的配置已更改！请验证您的 Tibber 价格数据调查设置。并保存设置！！"
-				},
-				"level": "warn",
-				"buttons": ["agree", "cancel"]
-			},
-			{
-				"condition": {
-					"operand": "and",
 					"rules": ["oldVersion<2.3.0", "newVersion>=2.3.0"]
 				},
 				"title": {
