@@ -763,6 +763,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 //#region *** Write start and stop time of determined block to data points ***
                 const beginDate = new Date(filteredPrices[startIndex].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, (0, date_fns_1.format)(beginDate, "H"), `first hour of determined block`, false, false);
+                //WiP #516
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, false, false);
                 //#endregion

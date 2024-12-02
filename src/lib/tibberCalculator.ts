@@ -892,6 +892,7 @@ export class TibberCalculator extends ProjectUtils {
 					false,
 					false,
 				);
+				//WiP #516
 				const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
 				void this.checkAndSetValue(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`,
