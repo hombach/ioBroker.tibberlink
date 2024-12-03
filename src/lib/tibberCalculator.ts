@@ -892,12 +892,26 @@ export class TibberCalculator extends ProjectUtils {
 					false,
 					false,
 				);
+				void this.checkAndSetValue(
+					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`,
+					filteredPrices[startIndex].startsAt,
+					`start date string of determined block`,
+					false,
+					false,
+				);
 				//WiP #516
 				const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
 				void this.checkAndSetValue(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`,
 					format(addHours(endDate, 1), "H"),
 					`end hour of determined block`,
+					false,
+					false,
+				);
+				void this.checkAndSetValue(
+					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
+					filteredPrices[startIndex + n - 1].startsAt,
+					`stop date string of determined block`,
 					false,
 					false,
 				);
