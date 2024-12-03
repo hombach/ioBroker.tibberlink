@@ -107,14 +107,6 @@ class Tibberlink extends utils.Adapter {
                             this.log.debug(`Feed Config for Home: ${homeInfo.NameInApp} (${homeInfo.ID}) - realtime data available: ${homeInfo.RealTime} - feed configured as active: ${homeInfo.FeedActive}`);
                             this.log.debug(`Price Poll Config for Home: ${homeInfo.NameInApp} (${homeInfo.ID}) - poll configured as active: ${homeInfo.PriceDataPollActive}`);
                         }
-                        /*for (const index in this.homeInfoList) {
-                            this.log.debug(
-                                `Feed Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`,
-                            );
-                            this.log.debug(
-                                `Price Poll Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - poll configured as active: ${this.homeInfoList[index].PriceDataPollActive}`,
-                            );
-                        }*/
                     }
                 }
                 else {
