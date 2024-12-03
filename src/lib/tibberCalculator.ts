@@ -833,10 +833,10 @@ export class TibberCalculator extends ProjectUtils {
 			if (!channelConfig.chActive) {
 				// not active -> choose chValueOff
 				valueToSet = channelConfig.chValueOff;
-				void this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
-				void this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
-				void this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
-				void this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
+				this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
+				this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
+				this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
+				this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
 			} else if (modeLTF && now < channelConfig.chStartTime) {
 				// chActive but before LTF -> choose chValueOff
 				valueToSet = channelConfig.chValueOff;

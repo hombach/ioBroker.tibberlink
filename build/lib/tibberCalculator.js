@@ -107,7 +107,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 "best single hours" 	| Input state: "AmountHours"
                                         | Output state: "Output"
                 "best hours block"		| Input state: "AmountHours"
-                                        | Output state: "Output", "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour"
+                                        | Output state: "Output", "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour", "BlockStart", "BlockEnd"
                 "best cost LTF"			| Input state: "TriggerPrice", "StartTime", "StopTime", "RepeatDays"
                                         | Output state: "Output"
                 "best single hours LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
@@ -127,6 +127,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
                     await this.setup_chTriggerPrice(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
                     await this.setup_chOutput(homeId, channel);
@@ -140,6 +142,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
                     await this.setup_chAmountHours(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
                     await this.setup_chOutput(homeId, channel);
@@ -154,6 +158,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     this.setup_chAverageTotalCost(homeId, channel);
                     this.setup_chBlockStartFullHour(homeId, channel);
                     this.setup_chBlockEndFullHour(homeId, channel);
+                    this.setup_chBlockStart(homeId, channel);
+                    this.setup_chBlockEnd(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
                     await this.setup_chOutput(homeId, channel);
                     break;
@@ -193,6 +199,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     this.setup_chAverageTotalCost(homeId, channel);
                     this.setup_chBlockStartFullHour(homeId, channel);
                     this.setup_chBlockEndFullHour(homeId, channel);
+                    this.setup_chBlockStart(homeId, channel);
+                    this.setup_chBlockEnd(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
                     await this.setup_chOutput(homeId, channel);
                     break;
@@ -204,6 +212,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
                     await this.setup_chAmountHours(homeId, channel);
                     await this.setup_chEfficiencyLoss(homeId, channel);
                     await this.setup_chOutput(homeId, channel); // OUTPUTS
@@ -419,6 +429,30 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEndFullHour for calculator`));
+        }
+    }
+    setup_chBlockStart(homeId, channel, delMode = false) {
+        try {
+            const channelConfig = this.adapter.config.CalculatorList[channel];
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStart`, `-`, `start date string of determined block`, false, false);
+            if (!delMode) {
+                this.adapter.log.debug(`setup calculator output state BlockStart in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+            }
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStart for calculator`));
+        }
+    }
+    setup_chBlockEnd(homeId, channel, delMode = false) {
+        try {
+            const channelConfig = this.adapter.config.CalculatorList[channel];
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEnd`, `-`, `stop date string of determined block`, false, false);
+            if (!delMode) {
+                this.adapter.log.debug(`setup calculator output state BlockEnd in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+            }
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEnd for calculator`));
         }
     }
     /**
@@ -691,20 +725,26 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             if (!channelConfig.chActive) {
                 // not active -> choose chValueOff
                 valueToSet = channelConfig.chValueOff;
-                void this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
-                void this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 // chActive but before LTF -> choose chValueOff
                 valueToSet = channelConfig.chValueOff;
                 void this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
                 void this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
+                void this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
+                void this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
                 // chActive but after LTF -> choose chValueOff and disable channel or generate new running period
                 valueToSet = channelConfig.chValueOff;
                 void this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
                 void this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
+                void this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
+                void this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
                 if (channelConfig.chRepeatDays == 0) {
                     void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
                 }
@@ -764,7 +804,6 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 const beginDate = new Date(filteredPrices[startIndex].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, (0, date_fns_1.format)(beginDate, "H"), `first hour of determined block`, false, false);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, `start date string of determined block`, false, false);
-                //WiP #516
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, false, false);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, filteredPrices[startIndex + n].startsAt, `stop date string of determined block`, false, false);
