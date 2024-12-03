@@ -767,7 +767,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 //WiP #516
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, false, false);
-                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, filteredPrices[startIndex + n - 1].startsAt, `stop date string of determined block`, false, false);
+                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, filteredPrices[startIndex + n].startsAt, `stop date string of determined block`, false, false);
                 //#endregion
             }
             //#region *** set value to foreign state, if defined, or use internal Output ***

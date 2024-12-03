@@ -910,7 +910,7 @@ export class TibberCalculator extends ProjectUtils {
 				);
 				void this.checkAndSetValue(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
-					filteredPrices[startIndex + n - 1].startsAt,
+					filteredPrices[startIndex + n].startsAt,
 					`stop date string of determined block`,
 					false,
 					false,
