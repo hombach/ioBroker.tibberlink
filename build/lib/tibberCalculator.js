@@ -733,18 +733,18 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             else if (modeLTF && now < channelConfig.chStartTime) {
                 // chActive but before LTF -> choose chValueOff
                 valueToSet = channelConfig.chValueOff;
-                void this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
-                void this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
-                void this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
-                void this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
                 // chActive but after LTF -> choose chValueOff and disable channel or generate new running period
                 valueToSet = channelConfig.chValueOff;
-                void this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
-                void this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
-                void this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
-                void this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
+                this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
                 if (channelConfig.chRepeatDays == 0) {
                     void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
                 }
