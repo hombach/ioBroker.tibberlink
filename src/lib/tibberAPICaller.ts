@@ -213,6 +213,7 @@ export class TibberAPICaller extends ProjectUtils {
 				}
 				this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
 				void this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(pricesToday), "The prices today as json"); // write also it might be empty
+				//WiP 600
 				this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
 				this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
 				this.fetchPriceMaximum(
