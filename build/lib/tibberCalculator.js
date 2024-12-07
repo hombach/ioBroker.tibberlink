@@ -673,9 +673,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 if (modeLTF) {
                     // Limited Time Frame mode
                     const pricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesTomorrow.json`));
-                    //WiP 600
                     const pricesYesterday = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesYesterday.json`));
-                    //WiP 600
                     const startTime = channelConfig.chStartTime;
                     const stopTime = channelConfig.chStopTime;
                     // Merge prices if pricesTomorrow is not empty
@@ -683,11 +681,9 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     if (pricesTomorrow.length !== 0) {
                         mergedPrices = [...pricesToday, ...pricesTomorrow];
                     }
-                    //WiP 600
                     if (pricesYesterday.length !== 0) {
                         mergedPrices = [...pricesYesterday, ...mergedPrices];
                     }
-                    //WiP 600
                     // filter objects to time frame
                     filteredPrices = mergedPrices.filter(price => {
                         const priceDate = new Date(price.startsAt);

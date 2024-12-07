@@ -1,278 +1,296 @@
 {
-	"common": {
-		"name": "tibberlink",
-		"version": "4.0.0",
-		"news": {
-			"4.0.0": {
-				"en": "BREAKING: Dropped support for ioBroker.admin versions below 7.0.0 due to the ioBroker Responsive Design Initiative (#544).\nRedesigned the admin tab for the calculator.\noptimize translations, added more tooltips",
-				"de": "BREAKING: Die Unterstützung für ioBroker.admin-Versionen unter 7.0.0 wurde aufgrund der ioBroker Responsive Design Initiative eingestellt (#544).\nDie Registerkarte „Admin“ für den Rechner wurde neu gestaltet.\nÜbersetzungen optimieren, weitere Tooltips hinzugefügt",
-				"ru": "СРОЧНАЯ ИНФОРМАЦИЯ: Прекращена поддержка версий ioBroker.admin ниже 7.0.0 из-за инициативы адаптивного дизайна ioBroker (#544).\nПереработана вкладка администратора калькулятора.\nоптимизировать переводы, добавлены дополнительные подсказки",
-				"pt": "QUEBRANDO: Suporte abandonado para versões ioBroker.admin abaixo de 7.0.0 devido à ioBroker Responsive Design Initiative (#544).\nA guia de administração da calculadora foi redesenhada.\notimizar traduções, adicionou mais dicas de ferramentas",
-				"nl": "BREAKING: Ondersteuning voor ioBroker.admin-versies lager dan 7.0.0 is stopgezet vanwege het ioBroker Responsive Design Initiative (#544).\nHet beheerderstabblad voor de rekenmachine is opnieuw ontworpen.\noptimaliseer vertalingen, heb meer tooltips toegevoegd",
-				"fr": "RUPTURE : suppression de la prise en charge des versions ioBroker.admin inférieures à 7.0.0 en raison de l'initiative de conception réactive ioBroker (#544).\nRefonte de l'onglet d'administration de la calculatrice.\noptimiser les traductions, ajout de plus d'info-bulles",
-				"it": "BREAKING: Supporto interrotto per le versioni di ioBroker.admin precedenti alla 7.0.0 a causa della ioBroker Responsive Design Initiative (#544).\nRiprogettata la scheda di amministrazione per la calcolatrice.\nottimizzare le traduzioni, aggiungere più tooltip",
-				"es": "ÚLTIMA HORA: Se eliminó el soporte para las versiones de ioBroker.admin inferiores a 7.0.0 debido a la Iniciativa de Diseño Responsivo de ioBroker (#544).\nRediseñado la pestaña de administración de la calculadora.\noptimizar las traducciones, agregar más información sobre herramientas",
-				"pl": "ŁAMANIE: Usunięto obsługę wersji ioBroker.admin poniżej 7.0.0 z powodu inicjatywy ioBroker Responsive Design Initiative (nr 544).\nPrzeprojektowano zakładkę administracyjną kalkulatora.\nzoptymalizować tłumaczenia, dodano więcej podpowiedzi",
-				"uk": "ПОРУШЕННЯ: припинено підтримку версій ioBroker.admin нижче 7.0.0 через ініціативу ioBroker Responsive Design Initiative (#544).\nПерероблено вкладку адміністратора для калькулятора.\nоптимізувати переклади, додано більше підказок",
-				"zh-cn": "重大事件：由于 ioBroker 响应式设计计划 (#544)，不再支持 7.0.0 以下的 ioBroker.admin 版本。\n重新设计了计算器的管理选项卡。\n优化翻译，添加更多工具提示"
-			},
-			"3.5.4": {
-				"en": "Fix error in calculator channel 'best single hours' (#594)\nIntroduce 'iobroker/eslint-config' (#591)\nPerformance optimizations\nDependency updates",
-				"de": "Fehler im Berechnungs-Kanal 'beste einzelne Stunden' (#594) beheben\n'iobroker/eslint-config' einführen (#591)\nLeistungsoptimierungen\nAbhängigkeitsaktualisierungen",
-				"ru": "Исправление ошибки в канале калькулятора 'лучшие отдельные часы' (#594)\nВнедрение 'iobroker/eslint-config' (#591)\nОптимизация производительности\nОбновление зависимостей",
-				"pt": "Corrigir erro no canal do calculador 'melhores horas individuais' (#594)\nIntroduzir 'iobroker/eslint-config' (#591)\nOtimizações de desempenho\nAtualizações de dependências",
-				"nl": "Fout in de calculatorkanaal 'beste enkele uren' (#594) verhelpen\n'iobroker/eslint-config' introduceren (#591)\nPrestatieoptimalisaties\nAfhankelijkheidsupdates",
-				"fr": "Corriger l'erreur dans le canal du calculateur 'meilleures heures individuelles' (#594)\nIntroduire 'iobroker/eslint-config' (#591)\nOptimisations des performances\nMises à jour des dépendances",
-				"it": "Correggere l'errore nel canale del calcolatore 'migliori singole ore' (#594)\nIntrodurre 'iobroker/eslint-config' (#591)\nOttimizzazioni delle prestazioni\nAggiornamenti delle dipendenze",
-				"es": "Corregir error en el canal del calculador 'mejores horas individuales' (#594)\nIntroducir 'iobroker/eslint-config' (#591)\nOptimizaciones de rendimiento\nActualizaciones de dependencias",
-				"pl": "Napraw błąd w kanale kalkulatora 'najlepsze pojedyncze godziny' (#594)\nWprowadź 'iobroker/eslint-config' (#591)\nOptymalizacje wydajności\nAktualizacje zależności",
-				"uk": "Виправити помилку в каналі калькулятора 'кращі окремі години' (#594)\nВпровадити 'iobroker/eslint-config' (#591)\nОптимізація продуктивності\nОновлення залежностей",
-				"zh-cn": "修复计算器频道 '最佳单个小时' 中的错误 (#594)\n引入 'iobroker/eslint-config' (#591)\n性能优化\n更新依赖"
-			},
-			"3.5.3": {
-				"en": "Fix edge case in output state setup and usage\nOptimized state subscription\nUpdate deprecated state calls\nAdd await to delObjectAsync\nHarmonize project tools\nDependency updates",
-				"de": "Randfall bei der Einrichtung und Nutzung von Ausgabeständen behoben\nZustandsabonnement optimiert\nVeraltete Zustandsaufrufe aktualisiert\nAwait zu delObjectAsync hinzugefügt\nProjektwerkzeuge harmonisiert\nAbhängigkeiten aktualisiert",
-				"ru": "Исправлен крайний случай настройки и использования выходного состояния\nОптимизирована подписка на состояние\nОбновлены устаревшие вызовы состояния\nДобавлено ожидание в delObjectAsync\nУнификация инструментов проекта\nОбновление зависимостей",
-				"pt": "Corrigir caso extremo na configuração e uso do estado de saída\nAssinatura de estado otimizada\nAtualizar chamadas de estado obsoletas\nAdicionar await ao delObjectAsync\nHarmonizar ferramentas do projeto\nAtualizar dependências",
-				"nl": "Randgeval in output statusinstelling en gebruik opgelost\nStatusabonnement geoptimaliseerd\nVerouderde statusaanroepen bijgewerkt\nAwait toegevoegd aan delObjectAsync\nProjecttools geharmoniseerd\nAfhankelijkheden bijgewerkt",
-				"fr": "Correction d'un cas limite dans la configuration et l'utilisation de l'état de sortie\nOptimisation de la souscription d'état\nMise à jour des appels d'état obsolètes\nAjout d'attente à delObjectAsync\nHarmonisation des outils de projet\nMise à jour des dépendances",
-				"it": "Corretto caso limite nella configurazione e utilizzo dello stato di output\nOttimizzata la sottoscrizione dello stato\nAggiornate le chiamate di stato deprecate\nAggiunto await a delObjectAsync\nArmonizzati gli strumenti del progetto\nAggiornate le dipendenze",
-				"es": "Corregir caso límite en la configuración y uso del estado de salida\nOptimizar suscripción de estado\nActualizar llamadas de estado obsoletas\nAgregar await a delObjectAsync\nArmonizar herramientas del proyecto\nActualizar dependencias",
-				"pl": "Naprawiono przypadek brzegowy w konfiguracji i użyciu stanu wyjścia\nZoptymalizowano subskrypcję stanu\nZaktualizowano przestarzałe wywołania stanów\nDodano await do delObjectAsync\nUjednolicono narzędzia projektu\nZaktualizowano zależności",
-				"uk": "Виправлено крайній випадок у налаштуванні та використанні стану виходу\nОптимізовано підписку на стан\nОновлено застарілі виклики стану\nДодано await до delObjectAsync\nУніфіковано інструменти проєкту\nОновлено залежності",
-				"zh-cn": "修复输出状态设置和使用中的边缘情况\n优化状态订阅\n更新已弃用的状态调用\n在 delObjectAsync 中添加 await\n统一项目工具\n更新依赖项"
-			},
-			"3.5.2": {
-				"en": "Add verification for YES/NO 2 values in calculator (#547)\nOptimized responsive design (#544)\nMigrate eslint to >9.x\nSwitch to ES2022 code\nAdapted to new API constraints (#546)",
-				"de": "Hinzufügen einer Verifizierung für YES/NO 2-Werte im Rechner (#547)\nOptimiertes responsives Design (#544)\nMigration von eslint zu >9.x\nUmstellung auf ES2022-Code\nAngepasst an neue API-Einschränkungen (#546)",
-				"ru": "Добавлена проверка значений ДА/НЕТ 2 в калькуляторе (#547)\nОптимизирован адаптивный дизайн (#544)\nПереход на eslint >9.x\nПереход на код ES2022\nАдаптировано к новым ограничениям API (#546)",
-				"pt": "Adicionar verificação para valores SIM/NÃO 2 na calculadora (#547)\nDesign responsivo otimizado (#544)\nMigrar eslint para >9.x\nMudar para código ES2022\nAdaptado para novas restrições de API (#546)",
-				"nl": "Verificatie toegevoegd voor JA/NEE 2-waarden in calculator (#547)\nGeoptimaliseerd responsief ontwerp (#544)\nMigratie eslint naar >9.x\nOverschakeling naar ES2022-code\nAangepast aan nieuwe API-beperkingen (#546)",
-				"fr": "Ajout de la vérification des valeurs OUI/NON 2 dans la calculatrice (#547)\nOptimisation du design adaptatif (#544)\nMigration d'eslint vers >9.x\nPassage au code ES2022\nAdaptation aux nouvelles contraintes de l'API (#546)",
-				"it": "Aggiunta verifica per i valori SÌ/NO 2 nel calcolatore (#547)\nDesign reattivo ottimizzato (#544)\nMigrazione di eslint a >9.x\nPassaggio al codice ES2022\nAdattato ai nuovi vincoli API (#546)",
-				"es": "Añadida verificación para valores SÍ/NO 2 en calculadora (#547)\nOptimizado diseño responsivo (#544)\nMigrar eslint a >9.x\nCambiar a código ES2022\nAdaptado a nuevas restricciones de API (#546)",
-				"pl": "Dodano weryfikację wartości TAK/NIE 2 w kalkulatorze (#547)\nZoptymalizowany responsywny design (#544)\nMigracja eslint do >9.x\nPrzejście na kod ES2022\nDostosowano do nowych ograniczeń API (#546)",
-				"uk": "Додано перевірку значень ТАК/НІ 2 в калькуляторі (#547)\nОптимізовано адаптивний дизайн (#544)\nМіграція eslint до >9.x\nПерехід на код ES2022\nАдаптовано до нових обмежень API (#546)",
-				"zh-cn": "为计算器中的 YES/NO 2 值添加验证 (#547)\n优化响应式设计 (#544)\n迁移 eslint 到 >9.x\n切换到 ES2022 代码\n适应新的 API 约束 (#546)"
-			},
-			"3.5.1": {
-				"en": "changed to less feed disconnection warnings in log (#445)\nfix error in output2 of smart battery buffer (#538)\nupdate deprecated state calls\ndependency updates",
-				"de": "geändert auf weniger Feed-Trennungswarnungen im Log (#445)\nFehler in Ausgang2 des Smart-Batterie-Puffers behoben (#538)\nveraltete Statusaufrufe aktualisiert\nAbhängigkeitsupdates",
-				"ru": "изменено на меньшее количество предупреждений об отключении канала в журнале (#445)\nисправлена ошибка в выходе2 умного буферного аккумулятора (#538)\nобновление устаревших вызовов состояния\nобновления зависимостей",
-				"pt": "alterado para menos avisos de desconexão de feed no log (#445)\ncorreção de erro na saída2 do buffer de bateria inteligente (#538)\natualização de chamadas de estado obsoletas\natualizações de dependências",
-				"nl": "gewijzigd naar minder feed-verbindingswaarschuwingen in logboek (#445)\nfout in output2 van slimme batterijbuffer opgelost (#538)\nverouderde statusaanroepen bijgewerkt\nbijwerken van afhankelijkheden",
-				"fr": "modifié pour moins d'avertissements de déconnexion de flux dans le journal (#445)\ncorrection de l'erreur dans la sortie2 du tampon de batterie intelligent (#538)\nmise à jour des appels d'état obsolètes\nmises à jour des dépendances",
-				"it": "modificato per meno avvisi di disconnessione del feed nel registro (#445)\ncorretto errore in output2 del buffer batteria intelligente (#538)\naggiornamento delle chiamate di stato deprecate\naggiornamenti delle dipendenze",
-				"es": "cambiado a menos advertencias de desconexión de alimentación en el registro (#445)\ncorregir error en la salida2 del búfer de batería inteligente (#538)\nactualizar llamadas de estado obsoletas\nactualizaciones de dependencias",
-				"pl": "zmieniono na mniej ostrzeżeń o odłączeniu kanału w dzienniku (#445)\nnaprawiono błąd w wyjściu2 bufora inteligentnej baterii (#538)\naktualizacja przestarzałych wywołań stanu\naktualizacje zależności",
-				"uk": "змінено на менше попереджень про відключення каналу в журналі (#445)\nвиправлено помилку в виході2 розумного буфера акумулятора (#538)\nоновлення застарілих викликів стану\nоновлення залежностей",
-				"zh-cn": "日志中减少了馈电断开警告 (#445)\n修复了智能电池缓冲区的输出2错误 (#538)\n更新了不推荐的状态调用\n依赖项更新"
-			},
-			"3.5.0": {
-				"en": "update adapter core\nfix error in SML decoder\nadd 2 new SML scale factor codes (#535)\ndependency updates",
-				"de": "Adapter-Core aktualisieren\nFehler im SML-Decoder beheben\n2 neue SML-Skalierungsfaktoren hinzufügen (#535)\nAbhängigkeitsupdates",
-				"ru": "обновить ядро адаптера\nисправить ошибку в декодере SML\nдобавить 2 новых кода масштабирования SML (#535)\nобновления зависимостей",
-				"pt": "atualizar o núcleo do adaptador\ncorrigir erro no decodificador SML\nadicionar 2 novos códigos de fator de escala SML (#535)\natualizações de dependências",
-				"nl": "adapterkern bijwerken\nfout in SML-decoder oplossen\n2 nieuwe SML-schaalfactorcodes toevoegen (#535)\nbijwerken van afhankelijkheden",
-				"fr": "mettre à jour le noyau de l'adaptateur\ncorriger l'erreur dans le décodeur SML\najouter 2 nouveaux codes de facteur d'échelle SML (#535)\nmises à jour des dépendances",
-				"it": "aggiornare il core dell'adattatore\ncorreggere l'errore nel decodificatore SML\naggiungere 2 nuovi codici del fattore di scala SML (#535)\naggiornamenti delle dipendenze",
-				"es": "actualizar el núcleo del adaptador\ncorregir el error en el decodificador SML\nagregar 2 nuevos códigos de factor de escala SML (#535)\nactualizaciones de dependencias",
-				"pl": "aktualizacja rdzenia adaptera\nnapraw błąd w dekoderze SML\ndodaj 2 nowe kody współczynnika skali SML (#535)\naktualizacje zależności",
-				"uk": "оновлення ядра адаптера\nвиправлення помилки в декодері SML\nдодати 2 нових коди масштабування SML (#535)\nоновлення залежностей",
-				"zh-cn": "更新适配器核心\n修复SML解码器中的错误\n添加2个新的SML比例因子代码 (#535)\n依赖项更新"
-			},
-			"3.4.10": {
-				"en": "add verification of poll interval (#518)\nbump date-fns to 4.0.0",
-				"de": "Überprüfung des Polling-Intervalls hinzufügen (#518)\ndate-fns auf 4.0.0 aktualisieren",
-				"ru": "добавить проверку интервала опроса (#518)\nобновить date-fns до 4.0.0",
-				"pt": "adicionar verificação do intervalo de polling (#518)\natualizar date-fns para 4.0.0",
-				"nl": "verificatie van het polling-interval toevoegen (#518)\ndate-fns bijwerken naar 4.0.0",
-				"fr": "ajouter la vérification de l'intervalle de sondage (#518)\nmettre à jour date-fns vers 4.0.0",
-				"it": "aggiungere la verifica dell'intervallo di polling (#518)\naggiornare date-fns a 4.0.0",
-				"es": "añadir verificación del intervalo de sondeo (#518)\nactualizar date-fns a 4.0.0",
-				"pl": "dodano weryfikację interwału sondowania (#518)\naktualizacja date-fns do wersji 4.0.0",
-				"uk": "додано перевірку інтервалу опитування (#518)\nоновлення date-fns до 4.0.0",
-				"zh-cn": "添加轮询间隔验证 (#518)\n将 date-fns 升级到 4.0.0"
-			}
-		},
-		"messages": [
-			{
-				"condition": {
-					"operand": "and",
-					"rules": ["oldVersion<2.3.0", "newVersion>=2.3.0"]
-				},
-				"title": {
-					"en": "Important notice!",
-					"de": "Wichtiger Hinweis!",
-					"ru": "Важное замечание!",
-					"pt": "Notícia importante!",
-					"nl": "Belangrijke mededeling!",
-					"fr": "Avis important!",
-					"it": "Avviso IMPORTANTE!",
-					"es": "Noticia importante!",
-					"pl": "Ważna uwaga!",
-					"uk": "Погода!",
-					"zh-cn": "重要通知!"
-				},
-				"text": {
-					"en": "The behavior of the adapter has changed! Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false.",
-					"de": "Das Verhalten des Adapters hat sich geändert! Rechnerkanäle des Typs 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde.",
-					"ru": "Поведение адаптера изменилось! Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false.",
-					"pt": "O comportamento do adaptador mudou! Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false.",
-					"nl": "Het gedrag van de adapter is veranderd! Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false.",
-					"fr": "Le comportement de l'adaptateur a changé ! Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false.",
-					"it": "Il comportamento dell'adattatore è cambiato! I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false.",
-					"es": "¡El comportamiento del adaptador ha cambiado! Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false.",
-					"pl": "Zachowanie adaptera zmieniło się! Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false.",
-					"uk": "Поведінка адаптера змінилась! Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false.",
-					"zh-cn": "适配器行为已更改！'智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭”。"
-				},
-				"level": "warn",
-				"buttons": ["agree", "cancel"]
-			}
-		],
-		"titleLang": {
-			"en": "Tibber Link",
-			"de": "Tibber Link",
-			"ru": "Тиббер Ссылка",
-			"pt": "Tibber Link",
-			"nl": "Tibber Link",
-			"fr": "Tibber Link",
-			"it": "Tibber Link",
-			"es": "Tibber Link",
-			"pl": "Tibber Link",
-			"uk": "Посилання",
-			"zh-cn": "网络联系"
-		},
-		"desc": {
-			"en": "Links Tibber API data to be used in ioBroker",
-			"de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
-			"ru": "Ссылки на данные Tibber API для использования в ioBroker",
-			"pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
-			"nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
-			"fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
-			"it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
-			"es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
-			"pl": "Łączy dane z API Tibber do użycia w ioBroker",
-			"uk": "Посилання на дані Tibber API для використання в ioBroker",
-			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
-		},
-		"authors": ["Hombach <TibberLink@homba.ch>"],
-		"keywords": ["power", "energy", "Tibber"],
-		"licenseInformation": {
-			"license": "GPL-3.0-only",
-			"type": "free"
-		},
-		"platform": "Javascript/Node.js",
-		"icon": "tibberlink.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
-		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
-		"loglevel": "info",
-		"tier": 2,
-		"mode": "daemon",
-		"messagebox": true,
-		"allowInit": true,
-		"type": "energy",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=5.0.19"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=7.0.0"
-			}
-		],
-		"plugins": {
-			"sentry": {
-				"dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
-			}
-		}
-	},
-	"encryptedNative": ["TibberAPIToken", "tibberBridgePassword"],
-	"protectedNative": ["TibberAPIToken", "tibberBridgePassword"],
-	"native": {
-		"TibberAPIToken": "",
-		"HomesList": [
-			{
-				"feedActive": "false",
-				"priceDataPollActive": "true",
-				"homeID": "None available - restart adapter after entering token",
-				"statsActive": "false",
-				"numberConsHourly": 24,
-				"numberConsDaily": 7,
-				"numberConsWeekly": 4,
-				"numberConsMonthly": 4,
-				"numberConsAnnual": 2
-			}
-		],
-		"CalculatorList": [
-			{
-				"chHomeID": "None available - restart adapter after entering token",
-				"chType": "best cost",
-				"chName": "Channel Name",
-				"chActive": "false",
-				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
-				"chValueOn": "true",
-				"chValueOff": "false",
-				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
-				"chValueOn2": "true",
-				"chValueOff2": "false"
-			}
-		],
-		"PulseList": [
-			{
-				"puName": "Pulse Local",
-				"tibberBridgeUrl": "tibber-host",
-				"tibberBridgePassword": "xxxx-xxxx",
-				"tibberPulseLocalNodeId": 1,
-				"tibberBridgeRawDataInterval": 2000
-			}
-		]
-	},
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.LastSentryLogDay",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Last day of month for Sentry log",
-				"type": "number",
-				"unit": "",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		}
-	]
+    "common": {
+        "name": "tibberlink",
+        "version": "4.0.0",
+        "news": {
+            "4.0.0": {
+                "en": "BREAKING: dropped support for ioBroker.admin < 7.0.0 because of ioBroker Responsive Design Initiative (#544)\nredesigned admin tab for calculator\noptimize translations, added more tooltips\nfix repeated calculation of LTF channels (#593)\nadded BlockStart / BlockEnd as date string (#516)\nthrottle sentry messaging\nadd prices yesterday (#600)",
+                "de": "BREAKING: Die Unterstützung für ioBroker.admin < 7.0.0 wurde aufgrund der ioBroker Responsive Design Initiative eingestellt (#544)\nNeu gestaltete Admin-Registerkarte für den Taschenrechner\nÜbersetzungen optimieren, weitere Tooltips hinzugefügt\nwiederholte Berechnung von LTF-Kanälen behoben (#593)\nBlockStart / BlockEnd als Datumszeichenfolge hinzugefügt (#516)\nDrosseln Sie die Sentry-Nachrichtenübermittlung\nPreise gestern hinzufügen (#600)",
+                "ru": "СРОЧНАЯ ИНФОРМАЦИЯ: прекращена поддержка ioBroker.admin < 7.0.0 из-за инициативы адаптивного дизайна ioBroker (#544).\nпереработанная вкладка администратора для калькулятора\nоптимизировать переводы, добавлены дополнительные подсказки\nисправить повторный расчет каналов LTF (#593)\nдобавлен BlockStart/BlockEnd в качестве строки даты (#516)\nсообщение дроссельной заслонки\nдобавить цены вчера (#600)",
+                "pt": "QUEBRANDO: abandonou o suporte para ioBroker.admin <7.0.0 por causa da ioBroker Responsive Design Initiative (#544)\nguia de administração redesenhada para calculadora\notimizar traduções, adicionou mais dicas de ferramentas\ncorrigir cálculo repetido de canais LTF (#593)\nadicionado BlockStart / BlockEnd como string de data (#516)\nacelerar mensagens de sentinela\nadicione preços ontem (#600)",
+                "nl": "BREAKING: ondersteuning voor ioBroker.admin < 7.0.0 verwijderd vanwege ioBroker Responsive Design Initiative (#544)\nopnieuw ontworpen admin-tabblad voor rekenmachine\noptimaliseer vertalingen, heb meer tooltips toegevoegd\nherhaalde berekening van LTF-kanalen repareren (#593)\nBlockStart / BlockEnd toegevoegd als datumreeks (#516)\ngaswachtpostberichten\ngisteren prijzen toevoegen (#600)",
+                "fr": "RUPTURE : suppression du support pour ioBroker.admin < 7.0.0 en raison de l'initiative de conception réactive ioBroker (#544)\nonglet d'administration repensé pour la calculatrice\noptimiser les traductions, ajout de plus d'info-bulles\ncorrection du calcul répété des canaux LTF (#593)\najout de BlockStart / BlockEnd comme chaîne de date (#516)\nmessagerie de la sentinelle des gaz\najouter les prix hier (#600)",
+                "it": "BREAKING: interrotto il supporto per ioBroker.admin < 7.0.0 a causa della ioBroker Responsive Design Initiative (#544)\nscheda di amministrazione ridisegnata per la calcolatrice\nottimizzare le traduzioni, aggiungere più tooltip\ncorretto il calcolo ripetuto dei canali LTF (#593).\naggiunto BlockStart / BlockEnd come stringa della data (#516)\nstrozzare la messaggistica della sentinella\naggiungi prezzi ieri (#600)",
+                "es": "ÚLTIMA HORA: se abandonó el soporte para ioBroker.admin < 7.0.0 debido a la Iniciativa de Diseño Responsivo de ioBroker (#544)\npestaña de administración rediseñada para la calculadora\noptimizar las traducciones, agregar más información sobre herramientas\ncorregir el cálculo repetido de los canales LTF (#593)\nagregado BlockStart / BlockEnd como cadena de fecha (#516)\nmensajes centinela del acelerador\nagregar precios ayer (#600)",
+                "pl": "ŁAMANIE: porzucono obsługę ioBroker.admin < 7.0.0 z powodu inicjatywy ioBroker Responsive Design Initiative (#544)\nprzeprojektowana zakładka administracyjna dla kalkulatora\nzoptymalizować tłumaczenia, dodano więcej podpowiedzi\nnaprawiono powtarzające się obliczanie kanałów LTF (#593)\ndodano BlockStart / BlockEnd jako ciąg daty (#516)\nkomunikat czujnika przepustnicy\ndodaj ceny wczoraj (#600)",
+                "uk": "ПОРУШЕННЯ: припинено підтримку ioBroker.admin < 7.0.0 через ioBroker Responsive Design Initiative (#544)\nперероблена вкладка адміністратора для калькулятора\nоптимізувати переклади, додано більше підказок\nвиправлено повторне обчислення каналів LTF (#593)\nдодано BlockStart / BlockEnd як рядок дати (#516)\nсповіщення дросельної заслінки\nдодати ціни вчора (#600)",
+                "zh-cn": "重大事件：由于 ioBroker 响应式设计计划，放弃了对 ioBroker.admin < 7.0.0 的支持 (#544)\n重新设计的计算器管理选项卡\n优化翻译，添加更多工具提示\n修复 LTF 通道的重复计算 (#593)\n添加了 BlockStart / BlockEnd 作为日期字符串 (#516)\n节流哨兵消息传递\n昨天添加价格 (#600)"
+            },
+            "3.5.4": {
+                "en": "Fix error in calculator channel 'best single hours' (#594)\nIntroduce 'iobroker/eslint-config' (#591)\nPerformance optimizations\nDependency updates",
+                "de": "Fehler im Berechnungs-Kanal 'beste einzelne Stunden' (#594) beheben\n'iobroker/eslint-config' einführen (#591)\nLeistungsoptimierungen\nAbhängigkeitsaktualisierungen",
+                "ru": "Исправление ошибки в канале калькулятора 'лучшие отдельные часы' (#594)\nВнедрение 'iobroker/eslint-config' (#591)\nОптимизация производительности\nОбновление зависимостей",
+                "pt": "Corrigir erro no canal do calculador 'melhores horas individuais' (#594)\nIntroduzir 'iobroker/eslint-config' (#591)\nOtimizações de desempenho\nAtualizações de dependências",
+                "nl": "Fout in de calculatorkanaal 'beste enkele uren' (#594) verhelpen\n'iobroker/eslint-config' introduceren (#591)\nPrestatieoptimalisaties\nAfhankelijkheidsupdates",
+                "fr": "Corriger l'erreur dans le canal du calculateur 'meilleures heures individuelles' (#594)\nIntroduire 'iobroker/eslint-config' (#591)\nOptimisations des performances\nMises à jour des dépendances",
+                "it": "Correggere l'errore nel canale del calcolatore 'migliori singole ore' (#594)\nIntrodurre 'iobroker/eslint-config' (#591)\nOttimizzazioni delle prestazioni\nAggiornamenti delle dipendenze",
+                "es": "Corregir error en el canal del calculador 'mejores horas individuales' (#594)\nIntroducir 'iobroker/eslint-config' (#591)\nOptimizaciones de rendimiento\nActualizaciones de dependencias",
+                "pl": "Napraw błąd w kanale kalkulatora 'najlepsze pojedyncze godziny' (#594)\nWprowadź 'iobroker/eslint-config' (#591)\nOptymalizacje wydajności\nAktualizacje zależności",
+                "uk": "Виправити помилку в каналі калькулятора 'кращі окремі години' (#594)\nВпровадити 'iobroker/eslint-config' (#591)\nОптимізація продуктивності\nОновлення залежностей",
+                "zh-cn": "修复计算器频道 '最佳单个小时' 中的错误 (#594)\n引入 'iobroker/eslint-config' (#591)\n性能优化\n更新依赖"
+            },
+            "3.5.3": {
+                "en": "Fix edge case in output state setup and usage\nOptimized state subscription\nUpdate deprecated state calls\nAdd await to delObjectAsync\nHarmonize project tools\nDependency updates",
+                "de": "Randfall bei der Einrichtung und Nutzung von Ausgabeständen behoben\nZustandsabonnement optimiert\nVeraltete Zustandsaufrufe aktualisiert\nAwait zu delObjectAsync hinzugefügt\nProjektwerkzeuge harmonisiert\nAbhängigkeiten aktualisiert",
+                "ru": "Исправлен крайний случай настройки и использования выходного состояния\nОптимизирована подписка на состояние\nОбновлены устаревшие вызовы состояния\nДобавлено ожидание в delObjectAsync\nУнификация инструментов проекта\nОбновление зависимостей",
+                "pt": "Corrigir caso extremo na configuração e uso do estado de saída\nAssinatura de estado otimizada\nAtualizar chamadas de estado obsoletas\nAdicionar await ao delObjectAsync\nHarmonizar ferramentas do projeto\nAtualizar dependências",
+                "nl": "Randgeval in output statusinstelling en gebruik opgelost\nStatusabonnement geoptimaliseerd\nVerouderde statusaanroepen bijgewerkt\nAwait toegevoegd aan delObjectAsync\nProjecttools geharmoniseerd\nAfhankelijkheden bijgewerkt",
+                "fr": "Correction d'un cas limite dans la configuration et l'utilisation de l'état de sortie\nOptimisation de la souscription d'état\nMise à jour des appels d'état obsolètes\nAjout d'attente à delObjectAsync\nHarmonisation des outils de projet\nMise à jour des dépendances",
+                "it": "Corretto caso limite nella configurazione e utilizzo dello stato di output\nOttimizzata la sottoscrizione dello stato\nAggiornate le chiamate di stato deprecate\nAggiunto await a delObjectAsync\nArmonizzati gli strumenti del progetto\nAggiornate le dipendenze",
+                "es": "Corregir caso límite en la configuración y uso del estado de salida\nOptimizar suscripción de estado\nActualizar llamadas de estado obsoletas\nAgregar await a delObjectAsync\nArmonizar herramientas del proyecto\nActualizar dependencias",
+                "pl": "Naprawiono przypadek brzegowy w konfiguracji i użyciu stanu wyjścia\nZoptymalizowano subskrypcję stanu\nZaktualizowano przestarzałe wywołania stanów\nDodano await do delObjectAsync\nUjednolicono narzędzia projektu\nZaktualizowano zależności",
+                "uk": "Виправлено крайній випадок у налаштуванні та використанні стану виходу\nОптимізовано підписку на стан\nОновлено застарілі виклики стану\nДодано await до delObjectAsync\nУніфіковано інструменти проєкту\nОновлено залежності",
+                "zh-cn": "修复输出状态设置和使用中的边缘情况\n优化状态订阅\n更新已弃用的状态调用\n在 delObjectAsync 中添加 await\n统一项目工具\n更新依赖项"
+            },
+            "3.5.2": {
+                "en": "Add verification for YES/NO 2 values in calculator (#547)\nOptimized responsive design (#544)\nMigrate eslint to >9.x\nSwitch to ES2022 code\nAdapted to new API constraints (#546)",
+                "de": "Hinzufügen einer Verifizierung für YES/NO 2-Werte im Rechner (#547)\nOptimiertes responsives Design (#544)\nMigration von eslint zu >9.x\nUmstellung auf ES2022-Code\nAngepasst an neue API-Einschränkungen (#546)",
+                "ru": "Добавлена проверка значений ДА/НЕТ 2 в калькуляторе (#547)\nОптимизирован адаптивный дизайн (#544)\nПереход на eslint >9.x\nПереход на код ES2022\nАдаптировано к новым ограничениям API (#546)",
+                "pt": "Adicionar verificação para valores SIM/NÃO 2 na calculadora (#547)\nDesign responsivo otimizado (#544)\nMigrar eslint para >9.x\nMudar para código ES2022\nAdaptado para novas restrições de API (#546)",
+                "nl": "Verificatie toegevoegd voor JA/NEE 2-waarden in calculator (#547)\nGeoptimaliseerd responsief ontwerp (#544)\nMigratie eslint naar >9.x\nOverschakeling naar ES2022-code\nAangepast aan nieuwe API-beperkingen (#546)",
+                "fr": "Ajout de la vérification des valeurs OUI/NON 2 dans la calculatrice (#547)\nOptimisation du design adaptatif (#544)\nMigration d'eslint vers >9.x\nPassage au code ES2022\nAdaptation aux nouvelles contraintes de l'API (#546)",
+                "it": "Aggiunta verifica per i valori SÌ/NO 2 nel calcolatore (#547)\nDesign reattivo ottimizzato (#544)\nMigrazione di eslint a >9.x\nPassaggio al codice ES2022\nAdattato ai nuovi vincoli API (#546)",
+                "es": "Añadida verificación para valores SÍ/NO 2 en calculadora (#547)\nOptimizado diseño responsivo (#544)\nMigrar eslint a >9.x\nCambiar a código ES2022\nAdaptado a nuevas restricciones de API (#546)",
+                "pl": "Dodano weryfikację wartości TAK/NIE 2 w kalkulatorze (#547)\nZoptymalizowany responsywny design (#544)\nMigracja eslint do >9.x\nPrzejście na kod ES2022\nDostosowano do nowych ograniczeń API (#546)",
+                "uk": "Додано перевірку значень ТАК/НІ 2 в калькуляторі (#547)\nОптимізовано адаптивний дизайн (#544)\nМіграція eslint до >9.x\nПерехід на код ES2022\nАдаптовано до нових обмежень API (#546)",
+                "zh-cn": "为计算器中的 YES/NO 2 值添加验证 (#547)\n优化响应式设计 (#544)\n迁移 eslint 到 >9.x\n切换到 ES2022 代码\n适应新的 API 约束 (#546)"
+            },
+            "3.5.1": {
+                "en": "changed to less feed disconnection warnings in log (#445)\nfix error in output2 of smart battery buffer (#538)\nupdate deprecated state calls\ndependency updates",
+                "de": "geändert auf weniger Feed-Trennungswarnungen im Log (#445)\nFehler in Ausgang2 des Smart-Batterie-Puffers behoben (#538)\nveraltete Statusaufrufe aktualisiert\nAbhängigkeitsupdates",
+                "ru": "изменено на меньшее количество предупреждений об отключении канала в журнале (#445)\nисправлена ошибка в выходе2 умного буферного аккумулятора (#538)\nобновление устаревших вызовов состояния\nобновления зависимостей",
+                "pt": "alterado para menos avisos de desconexão de feed no log (#445)\ncorreção de erro na saída2 do buffer de bateria inteligente (#538)\natualização de chamadas de estado obsoletas\natualizações de dependências",
+                "nl": "gewijzigd naar minder feed-verbindingswaarschuwingen in logboek (#445)\nfout in output2 van slimme batterijbuffer opgelost (#538)\nverouderde statusaanroepen bijgewerkt\nbijwerken van afhankelijkheden",
+                "fr": "modifié pour moins d'avertissements de déconnexion de flux dans le journal (#445)\ncorrection de l'erreur dans la sortie2 du tampon de batterie intelligent (#538)\nmise à jour des appels d'état obsolètes\nmises à jour des dépendances",
+                "it": "modificato per meno avvisi di disconnessione del feed nel registro (#445)\ncorretto errore in output2 del buffer batteria intelligente (#538)\naggiornamento delle chiamate di stato deprecate\naggiornamenti delle dipendenze",
+                "es": "cambiado a menos advertencias de desconexión de alimentación en el registro (#445)\ncorregir error en la salida2 del búfer de batería inteligente (#538)\nactualizar llamadas de estado obsoletas\nactualizaciones de dependencias",
+                "pl": "zmieniono na mniej ostrzeżeń o odłączeniu kanału w dzienniku (#445)\nnaprawiono błąd w wyjściu2 bufora inteligentnej baterii (#538)\naktualizacja przestarzałych wywołań stanu\naktualizacje zależności",
+                "uk": "змінено на менше попереджень про відключення каналу в журналі (#445)\nвиправлено помилку в виході2 розумного буфера акумулятора (#538)\nоновлення застарілих викликів стану\nоновлення залежностей",
+                "zh-cn": "日志中减少了馈电断开警告 (#445)\n修复了智能电池缓冲区的输出2错误 (#538)\n更新了不推荐的状态调用\n依赖项更新"
+            },
+            "3.5.0": {
+                "en": "update adapter core\nfix error in SML decoder\nadd 2 new SML scale factor codes (#535)\ndependency updates",
+                "de": "Adapter-Core aktualisieren\nFehler im SML-Decoder beheben\n2 neue SML-Skalierungsfaktoren hinzufügen (#535)\nAbhängigkeitsupdates",
+                "ru": "обновить ядро адаптера\nисправить ошибку в декодере SML\nдобавить 2 новых кода масштабирования SML (#535)\nобновления зависимостей",
+                "pt": "atualizar o núcleo do adaptador\ncorrigir erro no decodificador SML\nadicionar 2 novos códigos de fator de escala SML (#535)\natualizações de dependências",
+                "nl": "adapterkern bijwerken\nfout in SML-decoder oplossen\n2 nieuwe SML-schaalfactorcodes toevoegen (#535)\nbijwerken van afhankelijkheden",
+                "fr": "mettre à jour le noyau de l'adaptateur\ncorriger l'erreur dans le décodeur SML\najouter 2 nouveaux codes de facteur d'échelle SML (#535)\nmises à jour des dépendances",
+                "it": "aggiornare il core dell'adattatore\ncorreggere l'errore nel decodificatore SML\naggiungere 2 nuovi codici del fattore di scala SML (#535)\naggiornamenti delle dipendenze",
+                "es": "actualizar el núcleo del adaptador\ncorregir el error en el decodificador SML\nagregar 2 nuevos códigos de factor de escala SML (#535)\nactualizaciones de dependencias",
+                "pl": "aktualizacja rdzenia adaptera\nnapraw błąd w dekoderze SML\ndodaj 2 nowe kody współczynnika skali SML (#535)\naktualizacje zależności",
+                "uk": "оновлення ядра адаптера\nвиправлення помилки в декодері SML\nдодати 2 нових коди масштабування SML (#535)\nоновлення залежностей",
+                "zh-cn": "更新适配器核心\n修复SML解码器中的错误\n添加2个新的SML比例因子代码 (#535)\n依赖项更新"
+            },
+            "3.4.10": {
+                "en": "add verification of poll interval (#518)\nbump date-fns to 4.0.0",
+                "de": "Überprüfung des Polling-Intervalls hinzufügen (#518)\ndate-fns auf 4.0.0 aktualisieren",
+                "ru": "добавить проверку интервала опроса (#518)\nобновить date-fns до 4.0.0",
+                "pt": "adicionar verificação do intervalo de polling (#518)\natualizar date-fns para 4.0.0",
+                "nl": "verificatie van het polling-interval toevoegen (#518)\ndate-fns bijwerken naar 4.0.0",
+                "fr": "ajouter la vérification de l'intervalle de sondage (#518)\nmettre à jour date-fns vers 4.0.0",
+                "it": "aggiungere la verifica dell'intervallo di polling (#518)\naggiornare date-fns a 4.0.0",
+                "es": "añadir verificación del intervalo de sondeo (#518)\nactualizar date-fns a 4.0.0",
+                "pl": "dodano weryfikację interwału sondowania (#518)\naktualizacja date-fns do wersji 4.0.0",
+                "uk": "додано перевірку інтервалу опитування (#518)\nоновлення date-fns до 4.0.0",
+                "zh-cn": "添加轮询间隔验证 (#518)\n将 date-fns 升级到 4.0.0"
+            }
+        },
+        "messages": [
+            {
+                "condition": {
+                    "operand": "and",
+                    "rules": [
+                        "oldVersion<2.3.0",
+                        "newVersion>=2.3.0"
+                    ]
+                },
+                "title": {
+                    "en": "Important notice!",
+                    "de": "Wichtiger Hinweis!",
+                    "ru": "Важное замечание!",
+                    "pt": "Notícia importante!",
+                    "nl": "Belangrijke mededeling!",
+                    "fr": "Avis important!",
+                    "it": "Avviso IMPORTANTE!",
+                    "es": "Noticia importante!",
+                    "pl": "Ważna uwaga!",
+                    "uk": "Погода!",
+                    "zh-cn": "重要通知!"
+                },
+                "text": {
+                    "en": "The behavior of the adapter has changed! Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false.",
+                    "de": "Das Verhalten des Adapters hat sich geändert! Rechnerkanäle des Typs 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde.",
+                    "ru": "Поведение адаптера изменилось! Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false.",
+                    "pt": "O comportamento do adaptador mudou! Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false.",
+                    "nl": "Het gedrag van de adapter is veranderd! Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false.",
+                    "fr": "Le comportement de l'adaptateur a changé ! Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false.",
+                    "it": "Il comportamento dell'adattatore è cambiato! I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false.",
+                    "es": "¡El comportamiento del adaptador ha cambiado! Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false.",
+                    "pl": "Zachowanie adaptera zmieniło się! Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false.",
+                    "uk": "Поведінка адаптера змінилась! Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false.",
+                    "zh-cn": "适配器行为已更改！'智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭”。"
+                },
+                "level": "warn",
+                "buttons": [
+                    "agree",
+                    "cancel"
+                ]
+            }
+        ],
+        "titleLang": {
+            "en": "Tibber Link",
+            "de": "Tibber Link",
+            "ru": "Тиббер Ссылка",
+            "pt": "Tibber Link",
+            "nl": "Tibber Link",
+            "fr": "Tibber Link",
+            "it": "Tibber Link",
+            "es": "Tibber Link",
+            "pl": "Tibber Link",
+            "uk": "Посилання",
+            "zh-cn": "网络联系"
+        },
+        "desc": {
+            "en": "Links Tibber API data to be used in ioBroker",
+            "de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
+            "ru": "Ссылки на данные Tibber API для использования в ioBroker",
+            "pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
+            "nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
+            "fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
+            "it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
+            "es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
+            "pl": "Łączy dane z API Tibber do użycia w ioBroker",
+            "uk": "Посилання на дані Tibber API для використання в ioBroker",
+            "zh-cn": "连接Tibber API数据以在ioBroker中使用"
+        },
+        "authors": [
+            "Hombach <TibberLink@homba.ch>"
+        ],
+        "keywords": [
+            "power",
+            "energy",
+            "Tibber"
+        ],
+        "licenseInformation": {
+            "license": "GPL-3.0-only",
+            "type": "free"
+        },
+        "platform": "Javascript/Node.js",
+        "icon": "tibberlink.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
+        "readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
+        "loglevel": "info",
+        "tier": 2,
+        "mode": "daemon",
+        "messagebox": true,
+        "allowInit": true,
+        "type": "energy",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=5.0.19"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=7.0.0"
+            }
+        ],
+        "plugins": {
+            "sentry": {
+                "dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
+            }
+        }
+    },
+    "encryptedNative": [
+        "TibberAPIToken",
+        "tibberBridgePassword"
+    ],
+    "protectedNative": [
+        "TibberAPIToken",
+        "tibberBridgePassword"
+    ],
+    "native": {
+        "TibberAPIToken": "",
+        "HomesList": [
+            {
+                "feedActive": "false",
+                "priceDataPollActive": "true",
+                "homeID": "None available - restart adapter after entering token",
+                "statsActive": "false",
+                "numberConsHourly": 24,
+                "numberConsDaily": 7,
+                "numberConsWeekly": 4,
+                "numberConsMonthly": 4,
+                "numberConsAnnual": 2
+            }
+        ],
+        "CalculatorList": [
+            {
+                "chHomeID": "None available - restart adapter after entering token",
+                "chType": "best cost",
+                "chName": "Channel Name",
+                "chActive": "false",
+                "chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
+                "chValueOn": "true",
+                "chValueOff": "false",
+                "chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
+                "chValueOn2": "true",
+                "chValueOff2": "false"
+            }
+        ],
+        "PulseList": [
+            {
+                "puName": "Pulse Local",
+                "tibberBridgeUrl": "tibber-host",
+                "tibberBridgePassword": "xxxx-xxxx",
+                "tibberPulseLocalNodeId": 1,
+                "tibberBridgeRawDataInterval": 2000
+            }
+        ]
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.LastSentryLogDay",
+            "type": "state",
+            "common": {
+                "role": "value",
+                "name": "Last day of month for Sentry log",
+                "type": "number",
+                "unit": "",
+                "read": true,
+                "write": false,
+                "def": 0
+            },
+            "native": {}
+        }
+    ]
 }

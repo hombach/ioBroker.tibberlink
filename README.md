@@ -114,6 +114,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) fix repeated calculation of LTF channels (#593)
 - (HombachC) added BlockStart / BlockEnd as date string (#516)
 - (HombachC) throttle sentry messaging
+- (HombachC) add prices yesterday (#600)
 
 ### 3.5.4 (2024-12-01)
 
