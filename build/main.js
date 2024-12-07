@@ -132,8 +132,11 @@ class Tibberlink extends utils.Adapter {
                 const sentryInstance = this.getPluginInstance("sentry");
                 const today = new Date();
                 const last = await this.getStateAsync("info.LastSentryLogDay");
+                const lastDate = last?.val ? (0, date_fns_1.parseISO)(last.val) : null;
                 const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
-                if (last?.val != today.getDate()) {
+                // Verify if 3 or more days in the past
+                if (!lastDate || (0, date_fns_1.differenceInDays)(today, lastDate) >= 3) {
+                    // WiP 4.0.0 if (last?.val != today.getDate()) {
                     this.tibberCalculator.updateCalculatorUsageStats();
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
