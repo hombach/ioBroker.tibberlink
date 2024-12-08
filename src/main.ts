@@ -1,7 +1,7 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
-import { addDays, differenceInDays, format, isSameDay, parseISO } from "date-fns";
+import { addDays, format, isSameDay } from "date-fns";
 import type { IConfig } from "tibber-api";
 import type { IHomeInfo } from "./lib/projectUtils";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
@@ -110,11 +110,10 @@ class Tibberlink extends utils.Adapter {
 				const sentryInstance = this.getPluginInstance("sentry");
 				const today = new Date();
 				const last = await this.getStateAsync("info.LastSentryLogDay");
-				const lastDate = last?.val ? parseISO(last.val as string) : null;
 				const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
 
 				// Verify if 3 or more days in the past
-				if (!lastDate || differenceInDays(today, lastDate) >= 3) {
+				if ((Number(last?.val) || 0) < today.getDate() + 3) {
 					// WiP 4.0.0 if (last?.val != today.getDate()) {
 					this.tibberCalculator.updateCalculatorUsageStats();
 					if (sentryInstance) {
