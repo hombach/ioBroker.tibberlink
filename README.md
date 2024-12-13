@@ -106,6 +106,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 4.0.1 (2024-12-xx)
+
+- (HombachC) split jsonConfig.json to multiple files
+
 ### 4.0.0 (2024-12-08)
 
 - (HombachC) BREAKING: dropped support for ioBroker.admin < 7.0.0 because of ioBroker Responsive Design Initiative (#544)
