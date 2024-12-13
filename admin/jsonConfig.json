@@ -865,6 +865,7 @@
 		"_LocalPulseTab": {
 			"type": "panel",
 			"label": "LBL_LocalPulseTab",
+			"#include": "LocalPulseTab.jsonConfig.json",
 			"items": {
 				"UseLocalPulseData": {
 					"type": "checkbox",
