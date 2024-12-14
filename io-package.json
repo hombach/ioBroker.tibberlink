@@ -1,8 +1,21 @@
 {
     "common": {
         "name": "tibberlink",
-        "version": "4.0.0",
+        "version": "4.1.0",
         "news": {
+            "4.1.0": {
+                "en": "enable local poll also without Token (#613)\nsplit jsonConfig.json to multiple files",
+                "de": "Lokale Umfrage auch ohne Token aktivieren (#613)\nTeilen Sie jsonConfig.json in mehrere Dateien auf",
+                "ru": "включить локальный опрос также без токена (#613)\nразделить jsonConfig.json на несколько файлов",
+                "pt": "habilite a enquete local também sem Token (#613)\ndividir jsonConfig.json em vários arquivos",
+                "nl": "schakel lokale peiling ook zonder token in (#613)\njsonConfig.json splitsen in meerdere bestanden",
+                "fr": "activer le sondage local également sans jeton (#613)\ndiviser jsonConfig.json en plusieurs fichiers",
+                "it": "abilita il poll locale anche senza Token (#613)\ndividere jsonConfig.json in più file",
+                "es": "habilitar encuesta local también sin Token (#613)\ndividir jsonConfig.json en varios archivos",
+                "pl": "włącz ankietę lokalną również bez tokena (#613)\npodziel jsonConfig.json na wiele plików",
+                "uk": "увімкнути локальне опитування також без маркера (#613)\nрозділити jsonConfig.json на кілька файлів",
+                "zh-cn": "也可以在没有令牌的情况下启用本地轮询 (#613)\n将 jsonConfig.json 拆分为多个文件"
+            },
             "4.0.0": {
                 "en": "BREAKING: dropped support for ioBroker.admin < 7.0.0 because of ioBroker Responsive Design Initiative (#544)\nredesigned admin tab for calculator\noptimize translations, added more tooltips\nfix repeated calculation of LTF channels (#593)\nadded BlockStart / BlockEnd as date string (#516)\nthrottle sentry messaging\nadd prices yesterday (#600)",
                 "de": "BREAKING: Die Unterstützung für ioBroker.admin < 7.0.0 wurde aufgrund der ioBroker Responsive Design Initiative eingestellt (#544)\nNeu gestaltete Admin-Registerkarte für den Taschenrechner\nÜbersetzungen optimieren, weitere Tooltips hinzugefügt\nwiederholte Berechnung von LTF-Kanälen behoben (#593)\nBlockStart / BlockEnd als Datumszeichenfolge hinzugefügt (#516)\nDrosseln Sie die Sentry-Nachrichtenübermittlung\nPreise gestern hinzufügen (#600)",
@@ -80,19 +93,6 @@
                 "pl": "aktualizacja rdzenia adaptera\nnapraw błąd w dekoderze SML\ndodaj 2 nowe kody współczynnika skali SML (#535)\naktualizacje zależności",
                 "uk": "оновлення ядра адаптера\nвиправлення помилки в декодері SML\nдодати 2 нових коди масштабування SML (#535)\nоновлення залежностей",
                 "zh-cn": "更新适配器核心\n修复SML解码器中的错误\n添加2个新的SML比例因子代码 (#535)\n依赖项更新"
-            },
-            "3.4.10": {
-                "en": "add verification of poll interval (#518)\nbump date-fns to 4.0.0",
-                "de": "Überprüfung des Polling-Intervalls hinzufügen (#518)\ndate-fns auf 4.0.0 aktualisieren",
-                "ru": "добавить проверку интервала опроса (#518)\nобновить date-fns до 4.0.0",
-                "pt": "adicionar verificação do intervalo de polling (#518)\natualizar date-fns para 4.0.0",
-                "nl": "verificatie van het polling-interval toevoegen (#518)\ndate-fns bijwerken naar 4.0.0",
-                "fr": "ajouter la vérification de l'intervalle de sondage (#518)\nmettre à jour date-fns vers 4.0.0",
-                "it": "aggiungere la verifica dell'intervallo di polling (#518)\naggiornare date-fns a 4.0.0",
-                "es": "añadir verificación del intervalo de sondeo (#518)\nactualizar date-fns a 4.0.0",
-                "pl": "dodano weryfikację interwału sondowania (#518)\naktualizacja date-fns do wersji 4.0.0",
-                "uk": "додано перевірку інтервалу опитування (#518)\nоновлення date-fns до 4.0.0",
-                "zh-cn": "添加轮询间隔验证 (#518)\n将 date-fns 升级到 4.0.0"
             }
         },
         "messages": [
