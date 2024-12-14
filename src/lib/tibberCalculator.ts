@@ -795,7 +795,6 @@ export class TibberCalculator extends ProjectUtils {
 						return priceDate >= startTime && priceDate < stopTime;
 					});
 				}
-				//WIP
 				filteredPrices.sort((a, b) => a.total - b.total);
 
 				// get first n entries und test for matching hour
@@ -877,9 +876,7 @@ export class TibberCalculator extends ProjectUtils {
 				if (modeLTF) {
 					// Limited Time Frame mode, modify filteredPrices accordingly
 					const pricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesTomorrow.json`));
-					//WiP 600
 					const pricesYesterday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesYesterday.json`));
-					//WiP 600
 					const startTime: Date = channelConfig.chStartTime;
 					const stopTime: Date = channelConfig.chStopTime;
 
@@ -888,11 +885,9 @@ export class TibberCalculator extends ProjectUtils {
 					if (pricesTomorrow.length !== 0) {
 						mergedPrices = [...pricesToday, ...pricesTomorrow];
 					}
-					//WiP 600
 					if (pricesYesterday.length !== 0) {
 						mergedPrices = [...pricesYesterday, ...mergedPrices];
 					}
-					//WiP 600
 
 					// filter objects to time frame
 					filteredPrices = mergedPrices.filter(price => {

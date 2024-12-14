@@ -70,26 +70,21 @@ class Tibberlink extends utils.Adapter {
             this.log.error(`Missing API Token - please check configuration`);
             void this.setState(`info.connection`, false, true);
         }
-        else {
-            /*
-        }
-
         // Local Bridge Call ... could be used without Tibber contract
         if (this.config.UseLocalPulseData) {
             // Set up Pulse local polls if configured
-            const tibberLocal = new TibberLocal(this);
+            const tibberLocal = new tibberLocal_1.TibberLocal(this);
             try {
                 this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
                 for (const pulse in this.config.PulseList) {
                     tibberLocal.setupOnePulseLocal(parseInt(pulse));
                 }
-            } catch (error: unknown) {
-                this.log.warn(`Error in setup of local Pulse data poll: ${error as Error}`);
+            }
+            catch (error) {
+                this.log.warn(`Error in setup of local Pulse data poll: ${error}`);
             }
         }
-
         if (this.config.TibberAPIToken) {
-        */
             // Need 2 configs - API and Feed (feed changed query url)
             const tibberConfigAPI = {
                 active: true,
@@ -199,21 +194,20 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
                     }
                 }
-                // Local Bridge Call - WiP move this... could be used without Tibber contract
+                /*WIP // Local Bridge Call - WiP move this... could be used without Tibber contract
                 // Set up Pulse local polls if configured
-                const tibberLocal = new tibberLocal_1.TibberLocal(this);
+                const tibberLocal = new TibberLocal(this);
                 if (this.config.UseLocalPulseData) {
                     try {
                         this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
                         for (const pulse in this.config.PulseList) {
                             tibberLocal.setupOnePulseLocal(parseInt(pulse));
                         }
-                    }
-                    catch (error) {
+                    } catch (error: unknown) {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of local Pulse data poll`));
                     }
                 }
-                //Local Bridge Call
+                //Local Bridge Call */
                 // (force) get current prices and start calculator tasks once for the FIRST time
                 await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
                 void this.jobPricesTodayLOOP(tibberAPICaller);
@@ -586,7 +580,7 @@ class Tibberlink extends utils.Adapter {
                                                 // floor to hour
                                                 dateWithTimeZone.setMinutes(0, 0, 0);
                                                 this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
-                                                // WIP 3.5.4 START Warn long LTF
+                                                // START Warn long LTF
                                                 // Get StartTime directly as a Date object
                                                 const startTime = this.config.CalculatorList[calcChannel].chStartTime;
                                                 // Check if StopTime is not the same day or the next day as StartTime
@@ -594,7 +588,7 @@ class Tibberlink extends utils.Adapter {
                                                     this.log.warn(`StopTime for channel ${calcChannel} is not the same or next day as StartTime! StartTime: ${startTime.toISOString()}, StopTime: ${dateWithTimeZone.toISOString()}`);
                                                     this.log.warn(`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`);
                                                 }
-                                                // WIP 3.5.4 STOP
+                                                // STOP
                                                 this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
                                                 void this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
