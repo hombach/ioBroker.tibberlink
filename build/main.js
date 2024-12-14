@@ -65,12 +65,31 @@ class Tibberlink extends utils.Adapter {
      */
     async onReady() {
         // Reset the connection indicator during startup;
-        if (!this.config.TibberAPIToken) {
+        if (!this.config.TibberAPIToken && !this.config.UseLocalPulseData) {
             // No Token defined in configuration
             this.log.error(`Missing API Token - please check configuration`);
             void this.setState(`info.connection`, false, true);
         }
         else {
+            /*
+        }
+
+        // Local Bridge Call ... could be used without Tibber contract
+        if (this.config.UseLocalPulseData) {
+            // Set up Pulse local polls if configured
+            const tibberLocal = new TibberLocal(this);
+            try {
+                this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
+                for (const pulse in this.config.PulseList) {
+                    tibberLocal.setupOnePulseLocal(parseInt(pulse));
+                }
+            } catch (error: unknown) {
+                this.log.warn(`Error in setup of local Pulse data poll: ${error as Error}`);
+            }
+        }
+
+        if (this.config.TibberAPIToken) {
+        */
             // Need 2 configs - API and Feed (feed changed query url)
             const tibberConfigAPI = {
                 active: true,

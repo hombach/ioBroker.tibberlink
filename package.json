@@ -69,7 +69,7 @@
 		"test:ts": "mocha --config test/mocharc.custom.json src/**/*.test.ts",
 		"test:package": "mocha test/package --exit",
 		"test:integration": "mocha test/integration --exit",
-		"test": "npm run test:ts && npm run test:package",
+		"test": "npm run test:ts && npm run test:package && npm run test:integration",
 		"check": "tsc --noEmit",
 		"lint": "eslint -c eslint.config.mjs .",
 		"translate": "translate-adapter"
