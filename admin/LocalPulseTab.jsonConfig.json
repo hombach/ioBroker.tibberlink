@@ -88,8 +88,8 @@
 				},
 				{
 					"type": "number",
-					"label": "LBL_item_tibberBridgePassword",
-					"tooltip": "TTIP_item_tibberBridgePassword",
+					"label": "LBL_item_tibberPulseLocalNodeId",
+					"tooltip": "TTIP_item_tibberPulseLocalNodeId",
 					"attr": "tibberPulseLocalNodeId",
 					"min": 0,
 					"max": 99,

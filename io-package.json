@@ -4,17 +4,17 @@
         "version": "4.1.0",
         "news": {
             "4.1.0": {
-                "en": "enable local poll also without Token (#613)\nsplit jsonConfig.json to multiple files",
-                "de": "Lokale Umfrage auch ohne Token aktivieren (#613)\nTeilen Sie jsonConfig.json in mehrere Dateien auf",
-                "ru": "включить локальный опрос также без токена (#613)\nразделить jsonConfig.json на несколько файлов",
-                "pt": "habilite a enquete local também sem Token (#613)\ndividir jsonConfig.json em vários arquivos",
-                "nl": "schakel lokale peiling ook zonder token in (#613)\njsonConfig.json splitsen in meerdere bestanden",
-                "fr": "activer le sondage local également sans jeton (#613)\ndiviser jsonConfig.json en plusieurs fichiers",
-                "it": "abilita il poll locale anche senza Token (#613)\ndividere jsonConfig.json in più file",
-                "es": "habilitar encuesta local también sin Token (#613)\ndividir jsonConfig.json en varios archivos",
-                "pl": "włącz ankietę lokalną również bez tokena (#613)\npodziel jsonConfig.json na wiele plików",
-                "uk": "увімкнути локальне опитування також без маркера (#613)\nрозділити jsonConfig.json на кілька файлів",
-                "zh-cn": "也可以在没有令牌的情况下启用本地轮询 (#613)\n将 jsonConfig.json 拆分为多个文件"
+                "en": "enable local poll also without Token (#613)\nsplit jsonConfig.json to multiple files\nfix typo in translation handling\nbump cron",
+                "de": "Lokale Umfrage auch ohne Token aktivieren (#613)\nTeilen Sie jsonConfig.json in mehrere Dateien auf\nTippfehler bei der Übersetzungsverarbeitung beheben\nBump Cron",
+                "ru": "включить локальный опрос также без токена (#613)\nразделить jsonConfig.json на несколько файлов\nисправить опечатку при обработке перевода\nудар хрон",
+                "pt": "habilite a enquete local também sem Token (#613)\ndividir jsonConfig.json em vários arquivos\ncorrigir erro de digitação no tratamento da tradução\ncolisão cron",
+                "nl": "schakel lokale peiling ook zonder token in (#613)\njsonConfig.json splitsen in meerdere bestanden\ntypfout in de verwerking van vertalingen repareren\nbult cron",
+                "fr": "activer le sondage local également sans jeton (#613)\ndiviser jsonConfig.json en plusieurs fichiers\ncorrection d'une faute de frappe dans la gestion de la traduction\nbosse cron",
+                "it": "abilita il poll locale anche senza Token (#613)\ndividere jsonConfig.json in più file\ncorretto un errore di battitura nella gestione della traduzione\nurtare cron",
+                "es": "habilitar encuesta local también sin Token (#613)\ndividir jsonConfig.json en varios archivos\ncorregir errores tipográficos en el manejo de la traducción\ngolpe cron",
+                "pl": "włącz ankietę lokalną również bez tokena (#613)\npodziel jsonConfig.json na wiele plików\nnapraw literówkę w obsłudze tłumaczeń\npodbij crona",
+                "uk": "увімкнути локальне опитування також без маркера (#613)\nрозділити jsonConfig.json на кілька файлів\nвиправити помилку в обробці перекладу\nшишка cron",
+                "zh-cn": "也可以在没有令牌的情况下启用本地轮询 (#613)\n将 jsonConfig.json 拆分为多个文件\n修复翻译处理中的拼写错误\n碰撞计划"
             },
             "4.0.0": {
                 "en": "BREAKING: dropped support for ioBroker.admin < 7.0.0 because of ioBroker Responsive Design Initiative (#544)\nredesigned admin tab for calculator\noptimize translations, added more tooltips\nfix repeated calculation of LTF channels (#593)\nadded BlockStart / BlockEnd as date string (#516)\nthrottle sentry messaging\nadd prices yesterday (#600)",
