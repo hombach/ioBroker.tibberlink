@@ -8,7 +8,8 @@ export enum enCalcType {
 	BestSingleHoursLTF = 5,
 	BestHoursBlockLTF = 6,
 	SmartBatteryBuffer = 7,
-	//BestCostMaxHours = 8,
+	BestPercentage = 8,
+	BestPercentageLTF = 9,
 }
 
 /**
@@ -32,8 +33,10 @@ export function getCalcTypeDescription(calcType: enCalcType): string {
 			return `best hours block LTF`;
 		case enCalcType.SmartBatteryBuffer:
 			return `smart battery buffer`;
-		//case enCalcType.BestCostMaxHours:
-		//return "best cost max hours";
+		case enCalcType.BestPercentage:
+			return `best hours within top x percentage`;
+		case enCalcType.BestPercentageLTF:
+			return `best hours within top x percentage LTF`;
 		default:
 			return "Unknown";
 	}

@@ -11,7 +11,8 @@ var enCalcType;
     enCalcType[enCalcType["BestSingleHoursLTF"] = 5] = "BestSingleHoursLTF";
     enCalcType[enCalcType["BestHoursBlockLTF"] = 6] = "BestHoursBlockLTF";
     enCalcType[enCalcType["SmartBatteryBuffer"] = 7] = "SmartBatteryBuffer";
-    //BestCostMaxHours = 8,
+    enCalcType[enCalcType["BestPercentage"] = 8] = "BestPercentage";
+    enCalcType[enCalcType["BestPercentageLTF"] = 9] = "BestPercentageLTF";
 })(enCalcType || (exports.enCalcType = enCalcType = {}));
 /**
  * getCalcTypeDescription
@@ -34,8 +35,10 @@ function getCalcTypeDescription(calcType) {
             return `best hours block LTF`;
         case enCalcType.SmartBatteryBuffer:
             return `smart battery buffer`;
-        //case enCalcType.BestCostMaxHours:
-        //return "best cost max hours";
+        case enCalcType.BestPercentage:
+            return `best hours within top x percentage`;
+        case enCalcType.BestPercentageLTF:
+            return `best hours within top x percentage LTF`;
         default:
             return "Unknown";
     }
