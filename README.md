@@ -106,6 +106,12 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 4.1.1 (2024-12-xx)
+
+- (HombachC) code cleanup
+- (HombachC) fix translations
+- (HombachC) fix chai-as-promised
+
 ### 4.1.0 (2024-12-15)
 
 - (HombachC) enable local poll also without Token (#613)
