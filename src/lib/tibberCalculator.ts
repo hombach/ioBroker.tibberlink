@@ -14,6 +14,8 @@ export class TibberCalculator extends ProjectUtils {
 	numBestSingleHoursLTF: number;
 	numBestHoursBlockLTF: number;
 	numSmartBatteryBuffer: number;
+	numBestPercentage: number;
+	numBestPercentageLTF: number;
 
 	/**
 	 * constructor
@@ -42,6 +44,8 @@ export class TibberCalculator extends ProjectUtils {
 		this.numBestSingleHoursLTF = 0;
 		this.numBestHoursBlockLTF = 0;
 		this.numSmartBatteryBuffer = 0;
+		this.numBestPercentage = 0;
+		this.numBestPercentageLTF = 0;
 	}
 
 	private increaseStatsValueByOne(type: enCalcType): void {
@@ -66,6 +70,12 @@ export class TibberCalculator extends ProjectUtils {
 				break;
 			case enCalcType.SmartBatteryBuffer:
 				this.numSmartBatteryBuffer++;
+				break;
+			case enCalcType.BestPercentage:
+				this.numBestPercentage++;
+				break;
+			case enCalcType.BestPercentageLTF:
+				this.numBestPercentageLTF++;
 		}
 	}
 
@@ -83,7 +93,7 @@ export class TibberCalculator extends ProjectUtils {
 
 			//#region *** setup calculation channels folder ***
 			const typeDesc: string = getCalcTypeDescription(channelConfig.chType);
-			await this.adapter.setObjectAsync(`Homes.${homeId}.Calculations.${channel}`, {
+			await this.adapter.setObject(`Homes.${homeId}.Calculations.${channel}`, {
 				type: "channel",
 				common: {
 					name: channelConfig.chName,
@@ -147,7 +157,6 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
-					//WiP616
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setup_chTriggerPrice(homeId, channel);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
@@ -164,7 +173,6 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
-					//WiP616
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
@@ -176,7 +184,6 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StopTime`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
-					//WiP616
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setup_chAmountHours(homeId, channel);
 					this.setup_chAverageTotalCost(homeId, channel);
@@ -206,7 +213,6 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
-					//WiP616
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chStartTime(homeId, channel);
@@ -218,7 +224,6 @@ export class TibberCalculator extends ProjectUtils {
 				case enCalcType.BestHoursBlockLTF:
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
-					//WiP616
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chStartTime(homeId, channel);
@@ -242,7 +247,6 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
-					//WiP616
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setup_chAmountHours(homeId, channel);
 					await this.setup_chEfficiencyLoss(homeId, channel);
@@ -250,7 +254,6 @@ export class TibberCalculator extends ProjectUtils {
 					await this.setup_chOutput2(homeId, channel);
 					break;
 				case enCalcType.BestPercentage:
-					//WiP616
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StartTime`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StopTime`);
@@ -261,12 +264,12 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
-					//await this.setup_chPercentage(homeId, channel);
+					//WiP616
+					await this.setup_chPercentage(homeId, channel);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.setup_chOutput(homeId, channel);
 					break;
 				case enCalcType.BestPercentageLTF:
-					//WiP616
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
@@ -276,7 +279,8 @@ export class TibberCalculator extends ProjectUtils {
 					await this.setup_chStartTime(homeId, channel);
 					await this.setup_chStopTime(homeId, channel);
 					await this.setup_chRepeatDays(homeId, channel);
-					//await this.setup_chPercentage(homeId, channel);
+					//WiP616
+					await this.setup_chPercentage(homeId, channel);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.setup_chOutput(homeId, channel);
 					break;
@@ -294,6 +298,8 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.StopTime`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Percentage`);
+			//WiP616
 			//#endregion
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
@@ -393,6 +399,35 @@ export class TibberCalculator extends ProjectUtils {
 			}
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AmountHours for calculator`));
+		}
+	}
+	private async setup_chPercentage(homeId: string, channel: number): Promise<void> {
+		//WiP616
+		try {
+			const channelConfig = this.adapter.config.CalculatorList[channel];
+			//***  chPercentage  ***
+			if (channelConfig.chPercentage === undefined) {
+				channelConfig.chPercentage = 0;
+			}
+			void this.checkAndSetValueNumber(
+				`Homes.${homeId}.Calculations.${channel}.Percentage`,
+				channelConfig.chPercentage,
+				`amount of percentage to trigger this channel`,
+				undefined,
+				true,
+				true,
+			);
+			const valuePercentage = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Percentage`);
+			if (typeof valuePercentage === "number") {
+				channelConfig.chPercentage = valuePercentage;
+				this.adapter.log.debug(
+					`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to percentage: ${channelConfig.chPercentage}`,
+				);
+			} else {
+				this.adapter.log.debug(`Wrong type for chPercentage: ${valuePercentage}`);
+			}
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Percentage for calculator`));
 		}
 	}
 	private async setup_chStartTime(homeId: string, channel: number): Promise<void> {
@@ -695,9 +730,11 @@ export class TibberCalculator extends ProjectUtils {
 							break;
 						case enCalcType.BestPercentage:
 							//WiP616
+							//void this.executeCalculatorBestPercentage(parseInt(channel));
 							break;
 						case enCalcType.BestPercentageLTF:
 							//WiP616
+							//void this.executeCalculatorBestPercentage(parseInt(channel), true);
 							break;
 						default:
 							this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);

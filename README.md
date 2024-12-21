@@ -106,7 +106,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### 4.1.1 (2024-12-xx)
+### 4.1.1 (2024-12-21)
 
 - (HombachC) code cleanup
 - (HombachC) fix translations

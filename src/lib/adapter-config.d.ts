@@ -63,6 +63,7 @@ declare global {
 					chStopTime: Date;
 					chRepeatDays: number;
 					chEfficiencyLoss: number;
+					chPercentage: number;
 				},
 			];
 			PulseList: [
