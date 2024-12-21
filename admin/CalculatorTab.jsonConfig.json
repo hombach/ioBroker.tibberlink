@@ -67,6 +67,14 @@
 						{
 							"label": "LBL_item_chType_option_7",
 							"value": 7
+						},
+						{
+							"label": "LBL_item_chType_option_8",
+							"value": 8
+						},
+						{
+							"label": "LBL_item_chType_option_9",
+							"value": 9
 						}
 					],
 					"xs": 12,
@@ -342,6 +350,28 @@
 			"newLine": true
 		},
 		"_calculatorhelp16": {
+			"type": "staticText",
+			"hidden": "!data.UseCalculator",
+			"label": "LBL_calculatorhelp16",
+			"xs": 12,
+			"sm": 12,
+			"md": 12,
+			"lg": 12,
+			"xl": 12,
+			"newLine": true
+		},
+		"_calculatorhelp17": {
+			"type": "staticText",
+			"hidden": "!data.UseCalculator",
+			"label": "LBL_calculatorhelp15",
+			"xs": 12,
+			"sm": 12,
+			"md": 12,
+			"lg": 12,
+			"xl": 12,
+			"newLine": true
+		},
+		"_calculatorhelp18": {
 			"type": "staticText",
 			"hidden": "!data.UseCalculator",
 			"label": "LBL_calculatorhelp16",

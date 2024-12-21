@@ -631,11 +631,11 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                             break;
                         case projectUtils_1.enCalcType.BestPercentage:
                             //WiP616
-                            //void this.executeCalculatorBestPercentage(parseInt(channel));
+                            void this.executeCalculatorBestPercentage(parseInt(channel));
                             break;
                         case projectUtils_1.enCalcType.BestPercentageLTF:
                             //WiP616
-                            //void this.executeCalculatorBestPercentage(parseInt(channel), true);
+                            void this.executeCalculatorBestPercentage(parseInt(channel), true);
                             break;
                         default:
                             this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
@@ -1047,6 +1047,90 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
+        }
+    }
+    async executeCalculatorBestPercentage(channel, modeLTF = false) {
+        //WiP616
+        try {
+            let valueToSet = "";
+            const now = new Date();
+            const channelConfig = this.adapter.config.CalculatorList[channel];
+            if (!channelConfig.chActive) {
+                // not active -> choose chValueOff
+                valueToSet = channelConfig.chValueOff;
+            }
+            else if (modeLTF && now < channelConfig.chStartTime) {
+                // chActive but before LTF -> choose chValueOff
+                valueToSet = channelConfig.chValueOff;
+            }
+            else if (modeLTF && now > channelConfig.chStopTime) {
+                // chActive, modeLTF but after LTF -> choose chValueOff and disable channel
+                valueToSet = channelConfig.chValueOff;
+                //WIP handleAfterLTF(channel);
+                if (channelConfig.chRepeatDays == 0) {
+                    void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
+                }
+                else {
+                    // chRepeatDays present, change start and stop time accordingly
+                    void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.StartTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    channelConfig.chStartTime = (0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays);
+                    void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.StopTime`, (0, date_fns_1.format)((0, date_fns_1.addDays)(channelConfig.chStopTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                    channelConfig.chStopTime = (0, date_fns_1.addDays)(channelConfig.chStopTime, channelConfig.chRepeatDays);
+                }
+            }
+            else {
+                // chActive and inside LTF -> choose desired value
+                const pricesToday = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
+                let filteredPrices = pricesToday;
+                if (modeLTF) {
+                    // Limited Time Frame mode
+                    const pricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesTomorrow.json`));
+                    const pricesYesterday = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesYesterday.json`));
+                    const startTime = channelConfig.chStartTime;
+                    const stopTime = channelConfig.chStopTime;
+                    // Merge prices if pricesTomorrow is not empty
+                    let mergedPrices = pricesToday;
+                    if (pricesTomorrow.length !== 0) {
+                        mergedPrices = [...pricesToday, ...pricesTomorrow];
+                    }
+                    if (pricesYesterday.length !== 0) {
+                        mergedPrices = [...pricesYesterday, ...mergedPrices];
+                    }
+                    // filter objects to time frame
+                    filteredPrices = mergedPrices.filter(price => {
+                        const priceDate = new Date(price.startsAt);
+                        return priceDate >= startTime && priceDate < stopTime;
+                    });
+                }
+                filteredPrices.sort((a, b) => a.total - b.total);
+                const cheapestPrice = filteredPrices[0]?.total;
+                const percentage = channelConfig.chPercentage;
+                const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
+                const result = allowedPrices.map((entry) => checkHourMatch(entry));
+                // identify if any element is true
+                if (result.some(value => value)) {
+                    valueToSet = channelConfig.chValueOn;
+                }
+                else {
+                    valueToSet = channelConfig.chValueOff;
+                }
+            }
+            //set value to foreign state, if defined
+            let sOutState = "";
+            if (channelConfig?.chTargetState &&
+                channelConfig.chTargetState.length > 10 &&
+                !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+                sOutState = channelConfig.chTargetState;
+                void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
+            }
+            else {
+                sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
+                void this.adapter.setState(sOutState, convertValue(valueToSet), true);
+            }
+            this.adapter.log.debug(`calculator channel: ${channel} - best percentage ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percantage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
 }

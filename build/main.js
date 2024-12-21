@@ -194,20 +194,6 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
                     }
                 }
-                /*WIP // Local Bridge Call - WiP move this... could be used without Tibber contract
-                // Set up Pulse local polls if configured
-                const tibberLocal = new TibberLocal(this);
-                if (this.config.UseLocalPulseData) {
-                    try {
-                        this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
-                        for (const pulse in this.config.PulseList) {
-                            tibberLocal.setupOnePulseLocal(parseInt(pulse));
-                        }
-                    } catch (error: unknown) {
-                        this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of local Pulse data poll`));
-                    }
-                }
-                //Local Bridge Call */
                 // (force) get current prices and start calculator tasks once for the FIRST time
                 await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
                 void this.jobPricesTodayLOOP(tibberAPICaller);
@@ -620,6 +606,17 @@ class Tibberlink extends utils.Adapter {
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chEfficiencyLoss: ${state.val}`);
+                                        }
+                                        break;
+                                    case "Percentage":
+                                        // Update .chPercentage based on state.val if it's a number
+                                        if (typeof state.val === "number") {
+                                            this.config.CalculatorList[calcChannel].chPercentage = state.val;
+                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to Percentage: ${this.config.CalculatorList[calcChannel].chPercentage}`);
+                                            void this.setState(id, state.val, true);
+                                        }
+                                        else {
+                                            this.log.warn(`Wrong type for channel: ${calcChannel} - chPercentage: ${state.val}`);
                                         }
                                         break;
                                     default:
