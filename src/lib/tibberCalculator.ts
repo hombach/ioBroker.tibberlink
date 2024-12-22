@@ -298,7 +298,6 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Percentage`);
-			//WiP616
 			//#endregion
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
@@ -401,7 +400,6 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 	private async setup_chPercentage(homeId: string, channel: number): Promise<void> {
-		//WiP616
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
 			//***  chPercentage  ***
@@ -728,11 +726,9 @@ export class TibberCalculator extends ProjectUtils {
 							void this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
 							break;
 						case enCalcType.BestPercentage:
-							//WiP616
 							void this.executeCalculatorBestPercentage(parseInt(channel));
 							break;
 						case enCalcType.BestPercentageLTF:
-							//WiP616
 							void this.executeCalculatorBestPercentage(parseInt(channel), true);
 							break;
 						default:
@@ -781,8 +777,9 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive but after LTF
 				valueToSet = channelConfig.chValueOff;
+				handleAfterLTF(channel);
+				/* WIP
 				if (channelConfig.chRepeatDays == 0) {
-					// no repeating planned
 					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
 					void this.adapter.setState(
@@ -798,6 +795,7 @@ export class TibberCalculator extends ProjectUtils {
 					);
 					channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
 				}
+				*/
 			} else {
 				// chActive and inside LTF -> choose desired value
 				const currentPrice = await this.getStateValue(`Homes.${channelConfig.chHomeID}.CurrentPrice.total`);
@@ -826,7 +824,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	private async executeCalculatorBestSingleHours(channel: number, modeLTF = false): Promise<void> {
+	private executeCalculatorBestSingleHours(channel: number, modeLTF = false): void {
 		try {
 			let valueToSet = "";
 			const now = new Date();
@@ -841,6 +839,8 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
 				valueToSet = channelConfig.chValueOff;
+				handleAfterLTF(channel);
+				/*  WIP
 				if (channelConfig.chRepeatDays == 0) {
 					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
@@ -858,8 +858,12 @@ export class TibberCalculator extends ProjectUtils {
 					);
 					channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
 				}
+				*/
 			} else {
 				// chActive and inside LTF -> choose desired value
+				//WIP
+				const filteredPrices: IPrice[] = getPricesLTF(channel, modeLTF);
+				/*
 				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
 				let filteredPrices: IPrice[] = pricesToday;
 				if (modeLTF) {
@@ -884,6 +888,7 @@ export class TibberCalculator extends ProjectUtils {
 						return priceDate >= startTime && priceDate < stopTime;
 					});
 				}
+				*/
 				filteredPrices.sort((a, b) => a.total - b.total);
 
 				// get first n entries und test for matching hour
@@ -916,7 +921,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	private async executeCalculatorBestHoursBlock(channel: number, modeLTF = false): Promise<void> {
+	private executeCalculatorBestHoursBlock(channel: number, modeLTF = false): void {
 		try {
 			let valueToSet = "";
 			const now = new Date();
@@ -942,6 +947,8 @@ export class TibberCalculator extends ProjectUtils {
 				this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
 				this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
 				this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
+				handleAfterLTF(channel);
+				/* WIP
 				if (channelConfig.chRepeatDays == 0) {
 					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
@@ -958,8 +965,12 @@ export class TibberCalculator extends ProjectUtils {
 					);
 					channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
 				}
+				*/
 			} else {
 				// chActive and inside LTF -> choose desired value
+				//WIP
+				const filteredPrices: IPrice[] = getPricesLTF(channel, modeLTF);
+				/*
 				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
 				let filteredPrices: IPrice[] = pricesToday;
 				if (modeLTF) {
@@ -984,6 +995,7 @@ export class TibberCalculator extends ProjectUtils {
 						return priceDate >= startTime && priceDate < stopTime;
 					});
 				}
+				*/
 				//#region *** Find cheapest block ***
 				let minSum = Number.MAX_VALUE;
 				let startIndex = 0;
@@ -1205,8 +1217,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	private async executeCalculatorBestPercentage(channel: number, modeLTF = false): Promise<void> {
-		//WiP616
+	private executeCalculatorBestPercentage(channel: number, modeLTF = false): void {
 		try {
 			let valueToSet = "";
 			const now = new Date();
@@ -1221,7 +1232,8 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
 				valueToSet = channelConfig.chValueOff;
-				//WIP handleAfterLTF(channel);
+				handleAfterLTF(channel);
+				/* WIP
 				if (channelConfig.chRepeatDays == 0) {
 					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
 				} else {
@@ -1238,9 +1250,12 @@ export class TibberCalculator extends ProjectUtils {
 						true,
 					);
 					channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
-				}
+				}*/
 			} else {
 				// chActive and inside LTF -> choose desired value
+				//WIP
+				const filteredPrices: IPrice[] = getPricesLTF(channel, modeLTF);
+				/*
 				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
 				let filteredPrices: IPrice[] = pricesToday;
 				if (modeLTF) {
@@ -1265,6 +1280,7 @@ export class TibberCalculator extends ProjectUtils {
 						return priceDate >= startTime && priceDate < stopTime;
 					});
 				}
+				*/
 				filteredPrices.sort((a, b) => a.total - b.total);
 
 				const cheapestPrice = filteredPrices[0]?.total;
@@ -1298,6 +1314,72 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percantage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
 	}
+}
+
+/**
+ * Handles the actions to be performed after a LTF has completed for a specific channel.
+ * This function updates the active state, start time, and stop time of a calculation
+ * based on the provided channel configuration. If no repeat days are specified, the calculation
+ * is deactivated. Otherwise, the start and stop times are adjusted according to the repeat days.
+ *
+ * @param channel - The number representing the channel to process.
+ */
+function handleAfterLTF(channel: number): void {
+	const { chHomeID, chRepeatDays, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
+	if (chRepeatDays == 0) {
+		void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.Active`, false, true);
+		return;
+	}
+	// chRepeatDays present, change start and stop time accordingly
+	const newStartTime = addDays(chStartTime, chRepeatDays);
+	const newStopTime = addDays(chStopTime, chRepeatDays);
+
+	void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.StartTime`, format(newStartTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+	void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.StopTime`, format(newStopTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+
+	this.adapter.config.CalculatorList[channel].chStartTime = addDays(chStartTime, chRepeatDays);
+	this.adapter.config.CalculatorList[channel].chStopTime = addDays(chStopTime, chRepeatDays);
+}
+
+/**
+ * Retrieves price data for a specific channel, optionally limited to a defined time frame.
+ * The function fetches price information for today, and if Limited Time Frame (LTF) mode is enabled, it merges the data from yesterday, today, and tomorrow,
+ * filtering it according to the specified start and stop times.
+ *
+ * @param channel - The index representing the channel in the configuration.
+ * @param modeLTF - A boolean indicating whether Limited Time Frame mode is active.
+ * @returns An array of price objects (`IPrice[]`) relevant to the specified channel and time frame.
+ *          - If `modeLTF` is false, returns today's prices as-is.
+ *          - If `modeLTF` is true, merges price data from yesterday, today, and tomorrow,
+ *            and filters it to include only prices within the specified time frame.
+ */
+function getPricesLTF(channel: number, modeLTF: boolean): IPrice[] {
+	const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
+	const pricesToday: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
+	if (!modeLTF) {
+		return pricesToday;
+	}
+	// Limited Time Frame mode
+	const pricesTomorrow: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
+	const pricesYesterday: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
+	const startTime: Date = chStartTime;
+	const stopTime: Date = chStopTime;
+
+	// Merge prices if pricesTomorrow is not empty
+	let mergedPrices: IPrice[] = pricesToday;
+	if (pricesTomorrow.length !== 0) {
+		mergedPrices = [...pricesToday, ...pricesTomorrow];
+	}
+	if (pricesYesterday.length !== 0) {
+		mergedPrices = [...pricesYesterday, ...mergedPrices];
+	}
+
+	// filter objects to time frame
+	const filteredPrices = mergedPrices.filter(price => {
+		const priceDate = new Date(price.startsAt);
+		return priceDate >= startTime && priceDate < stopTime;
+	});
+	return filteredPrices;
 }
 
 /**
