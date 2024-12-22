@@ -908,12 +908,12 @@ export class TibberCalculator extends ProjectUtils {
 				// mark the entries with the result and create JSON output
 				///*
 				const jsonOutput = filteredPrices
-					.slice(0, n)
+					//.slice(0, n)
 					.map((entry: IPrice, index: number) => ({
-						total: entry.total,
+						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
-						output: result[index],
-						// Add the matching result for each entry
+						total: entry.total,
+						output: result[index], // add the matching result for each entry
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				//*/
