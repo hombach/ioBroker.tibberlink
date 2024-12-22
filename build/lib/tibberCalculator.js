@@ -814,7 +814,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     //startsAt: entry.startsAt,
                     total: entry.total,
                     //output: result[index], // add the matching result for each entry
-                    output: index !== -1 ? true : false, // always true if in first n entries, otherwise false
+                    output: result[index] ? true : false, // always true if in first n entries, otherwise false
                 }));
                 //.sort((a, b) => new Date(a.hour).getTime() - new Date(b.hour).getTime()); // Sort by startsAt
                 //.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
