@@ -816,10 +816,10 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                         // Add the matching result for each entry
                     }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                */
                 // log or use the generated JSON output
                 this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}:`);
-                this.adapter.log.warn(JSON.stringify(jsonOutput, null, 2));
-                */
+                //this.adapter.log.warn(JSON.stringify(jsonOutput, null, 2));
             }
             //set value to foreign state, if defined
             let sOutState = "";
