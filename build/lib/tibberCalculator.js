@@ -811,11 +811,13 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     //.slice(0, n)
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
-                    startsAt: entry.startsAt,
+                    //startsAt: entry.startsAt,
                     total: entry.total,
                     output: result[index], // add the matching result for each entry
-                }))
-                    .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                }));
+                //.sort((a, b) => new Date(a.hour).getTime() - new Date(b.hour).getTime()); // Sort by startsAt
+                //.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                jsonOutput.sort((a, b) => new Date(a.hour).getTime() - new Date(b.hour).getTime()); // Sort by startsAt
                 //*/
                 // log or use the generated JSON output
                 this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}:`);
