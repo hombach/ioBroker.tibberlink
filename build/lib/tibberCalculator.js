@@ -823,7 +823,6 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 const jsonOutput = filteredPrices
                     .slice(0, n)
                     .map((entry, index) => ({
-                    homeId: entry.homeId,
                     total: entry.total,
                     startsAt: entry.startsAt,
                     output: result[index],
@@ -831,7 +830,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 // log or use the generated JSON output
-                this.adapter.log.debug(JSON.stringify(jsonOutput, null, 2));
+                this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}:`);
+                this.adapter.log.warn(JSON.stringify(jsonOutput, null, 2));
             }
             //set value to foreign state, if defined
             let sOutState = "";
