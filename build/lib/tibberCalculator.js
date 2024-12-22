@@ -726,7 +726,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
-    executeCalculatorBestSingleHours(channel, modeLTF = false) {
+    async executeCalculatorBestSingleHours(channel, modeLTF = false) {
         try {
             let valueToSet = "";
             const now = new Date();
@@ -767,7 +767,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: chActive and inside LTF`);
                 // chActive and inside LTF -> choose desired value
                 // WIP
-                const filteredPrices = getPricesLTF(channel, modeLTF);
+                const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: getPricesLTF DONE`);
                 /* WIP
                 const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
@@ -841,7 +841,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
-    executeCalculatorBestHoursBlock(channel, modeLTF = false) {
+    async executeCalculatorBestHoursBlock(channel, modeLTF = false) {
         try {
             let valueToSet = "";
             const now = new Date();
@@ -892,7 +892,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             else {
                 // chActive and inside LTF -> choose desired value
                 //WIP
-                const filteredPrices = getPricesLTF(channel, modeLTF);
+                const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 /*
                 const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
                 let filteredPrices: IPrice[] = pricesToday;
@@ -1103,7 +1103,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
         }
     }
-    executeCalculatorBestPercentage(channel, modeLTF = false) {
+    async executeCalculatorBestPercentage(channel, modeLTF = false) {
         try {
             let valueToSet = "";
             const now = new Date();
@@ -1142,7 +1142,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             else {
                 // chActive and inside LTF -> choose desired value
                 //WIP
-                const filteredPrices = getPricesLTF(channel, modeLTF);
+                const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 /*
                 const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
                 let filteredPrices: IPrice[] = pricesToday;
@@ -1200,6 +1200,46 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percantage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
+    /**
+     * Retrieves price data for a specific channel, optionally limited to a defined time frame.
+     * The function fetches price information for today, and if Limited Time Frame (LTF) mode is enabled, it merges the data from yesterday, today, and tomorrow,
+     * filtering it according to the specified start and stop times.
+     *
+     * @param channel - The index representing the channel in the configuration.
+     * @param modeLTF - A boolean indicating whether Limited Time Frame mode is active.
+     * @returns An array of price objects (`IPrice[]`) relevant to the specified channel and time frame.
+     *          - If `modeLTF` is false, returns today's prices as-is.
+     *          - If `modeLTF` is true, merges price data from yesterday, today, and tomorrow,
+     *            and filters it to include only prices within the specified time frame.
+     */
+    async getPricesLTF(channel, modeLTF) {
+        this.adapter.log.warn(`calculator channel: ${channel} - getPricesLTF ${modeLTF ? "LTF" : ""}: START`);
+        const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
+        this.adapter.log.warn(`channel Home ID: ${chHomeID}`);
+        const pricesToday = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
+        if (!modeLTF) {
+            return pricesToday;
+        }
+        // Limited Time Frame mode
+        const pricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
+        const pricesYesterday = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
+        const startTime = chStartTime;
+        const stopTime = chStopTime;
+        // Merge prices if pricesTomorrow is not empty
+        let mergedPrices = pricesToday;
+        if (pricesTomorrow.length !== 0) {
+            mergedPrices = [...pricesToday, ...pricesTomorrow];
+        }
+        if (pricesYesterday.length !== 0) {
+            mergedPrices = [...pricesYesterday, ...mergedPrices];
+        }
+        // filter objects to time frame
+        const filteredPrices = mergedPrices.filter(price => {
+            const priceDate = new Date(price.startsAt);
+            return priceDate >= startTime && priceDate < stopTime;
+        });
+        return filteredPrices;
+    }
 }
 exports.TibberCalculator = TibberCalculator;
 /**
@@ -1236,25 +1276,33 @@ function handleAfterLTF(channel) {
  *          - If `modeLTF` is true, merges price data from yesterday, today, and tomorrow,
  *            and filters it to include only prices within the specified time frame.
  */
-function getPricesLTF(channel, modeLTF) {
+/*
+function getPricesLTF(channel: number, modeLTF: boolean): IPrice[] {
+    this.adapter.log.warn(`calculator channel: ${channel} - getPricesLTF ${modeLTF ? "LTF" : ""}: START`);
+
     const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
-    const pricesToday = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
+
+    this.adapter.log.warn(`channel Home ID: ${chHomeID}`);
+
+    const pricesToday: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
     if (!modeLTF) {
         return pricesToday;
     }
     // Limited Time Frame mode
-    const pricesTomorrow = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
-    const pricesYesterday = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
-    const startTime = chStartTime;
-    const stopTime = chStopTime;
+    const pricesTomorrow: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
+    const pricesYesterday: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
+    const startTime: Date = chStartTime;
+    const stopTime: Date = chStopTime;
+
     // Merge prices if pricesTomorrow is not empty
-    let mergedPrices = pricesToday;
+    let mergedPrices: IPrice[] = pricesToday;
     if (pricesTomorrow.length !== 0) {
         mergedPrices = [...pricesToday, ...pricesTomorrow];
     }
     if (pricesYesterday.length !== 0) {
         mergedPrices = [...pricesYesterday, ...mergedPrices];
     }
+
     // filter objects to time frame
     const filteredPrices = mergedPrices.filter(price => {
         const priceDate = new Date(price.startsAt);
@@ -1262,6 +1310,7 @@ function getPricesLTF(channel, modeLTF) {
     });
     return filteredPrices;
 }
+*/
 /**
  * Checks if the current hour matches the hour of a given entry's start time.
  * This method compares the hour of the current date and time with the hour extracted from the `startsAt` property of the provided `entry` object.
