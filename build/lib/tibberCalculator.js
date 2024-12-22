@@ -793,8 +793,23 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     });
                 }
                 */
+                /* WIP
                 filteredPrices.sort((a, b) => a.total - b.total);
+
                 // get first n entries und test for matching hour
+                const n = channelConfig.chAmountHours;
+                const result: boolean[] = filteredPrices.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
+
+                // identify if any element is true
+                if (result.some(value => value)) {
+                    valueToSet = channelConfig.chValueOn;
+                } else {
+                    valueToSet = channelConfig.chValueOff;
+                }
+                */
+                // WIP
+                filteredPrices.sort((a, b) => a.total - b.total);
+                // get first n entries and test for matching hour
                 const n = channelConfig.chAmountHours;
                 const result = filteredPrices.slice(0, n).map((entry) => checkHourMatch(entry));
                 // identify if any element is true
@@ -804,6 +819,19 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 else {
                     valueToSet = channelConfig.chValueOff;
                 }
+                // mark the entries with the result and create JSON output
+                const jsonOutput = filteredPrices
+                    .slice(0, n)
+                    .map((entry, index) => ({
+                    homeId: entry.homeId,
+                    total: entry.total,
+                    startsAt: entry.startsAt,
+                    output: result[index],
+                    // Add the matching result for each entry
+                }))
+                    .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                // log or use the generated JSON output
+                this.adapter.log.debug(JSON.stringify(jsonOutput, null, 2));
             }
             //set value to foreign state, if defined
             let sOutState = "";
