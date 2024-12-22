@@ -830,6 +830,8 @@ export class TibberCalculator extends ProjectUtils {
 			const now = new Date();
 			const channelConfig = this.adapter.config.CalculatorList[channel];
 
+			this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: STARTING`);
+
 			if (!channelConfig.chActive) {
 				// not active -> choose chValueOff
 				valueToSet = channelConfig.chValueOff;
@@ -860,10 +862,12 @@ export class TibberCalculator extends ProjectUtils {
 				}
 				*/
 			} else {
+				this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: chActive and inside LTF`);
+
 				// chActive and inside LTF -> choose desired value
-				//WIP
+				// WIP
 				const filteredPrices: IPrice[] = getPricesLTF(channel, modeLTF);
-				/*
+				/* WIP
 				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
 				let filteredPrices: IPrice[] = pricesToday;
 				if (modeLTF) {
