@@ -777,7 +777,7 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive but after LTF
 				valueToSet = channelConfig.chValueOff;
-				handleAfterLTF(channel);
+				this.handleAfterLTF(channel);
 				/* WIP
 				if (channelConfig.chRepeatDays == 0) {
 					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
@@ -839,7 +839,7 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
 				valueToSet = channelConfig.chValueOff;
-				handleAfterLTF(channel);
+				this.handleAfterLTF(channel);
 				/*  WIP
 				if (channelConfig.chRepeatDays == 0) {
 					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
@@ -860,13 +860,9 @@ export class TibberCalculator extends ProjectUtils {
 				}
 				*/
 			} else {
-				this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: chActive and inside LTF`);
-
 				// chActive and inside LTF -> choose desired value
 				// WIP
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-
-				this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: getPricesLTF DONE`);
 
 				/* WIP
 				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
@@ -910,7 +906,7 @@ export class TibberCalculator extends ProjectUtils {
 
 				// WIP
 				// mark the entries with the result and create JSON output
-				/*
+				///*
 				const jsonOutput = filteredPrices
 					.slice(0, n)
 					.map((entry: IPrice, index: number) => ({
@@ -920,10 +916,10 @@ export class TibberCalculator extends ProjectUtils {
 						// Add the matching result for each entry
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
-				*/
+				//*/
 				// log or use the generated JSON output
 				this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}:`);
-				//this.adapter.log.warn(JSON.stringify(jsonOutput, null, 2));
+				this.adapter.log.warn(JSON.stringify(jsonOutput, null, 2));
 			}
 
 			//set value to foreign state, if defined
@@ -971,7 +967,7 @@ export class TibberCalculator extends ProjectUtils {
 				this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
 				this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
 				this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
-				handleAfterLTF(channel);
+				this.handleAfterLTF(channel);
 				/* WIP
 				if (channelConfig.chRepeatDays == 0) {
 					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
@@ -1256,7 +1252,7 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
 				valueToSet = channelConfig.chValueOff;
-				handleAfterLTF(channel);
+				this.handleAfterLTF(channel);
 				/* WIP
 				if (channelConfig.chRepeatDays == 0) {
 					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
@@ -1352,12 +1348,7 @@ export class TibberCalculator extends ProjectUtils {
 	 *            and filters it to include only prices within the specified time frame.
 	 */
 	async getPricesLTF(channel: number, modeLTF: boolean): Promise<IPrice[]> {
-		this.adapter.log.warn(`calculator channel: ${channel} - getPricesLTF ${modeLTF ? "LTF" : ""}: START`);
-
 		const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
-
-		this.adapter.log.warn(`channel Home ID: ${chHomeID}`);
-
 		const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
 		if (!modeLTF) {
 			return pricesToday;
@@ -1384,80 +1375,32 @@ export class TibberCalculator extends ProjectUtils {
 		});
 		return filteredPrices;
 	}
+
+	/**
+	 * Handles the actions to be performed after a LTF has completed for a specific channel.
+	 * This function updates the active state, start time, and stop time of a calculation
+	 * based on the provided channel configuration. If no repeat days are specified, the calculation
+	 * is deactivated. Otherwise, the start and stop times are adjusted according to the repeat days.
+	 *
+	 * @param channel - The number representing the channel to process.
+	 */
+	handleAfterLTF(channel: number): void {
+		const { chHomeID, chRepeatDays, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
+		if (chRepeatDays == 0) {
+			void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.Active`, false, true);
+			return;
+		}
+		// chRepeatDays present, change start and stop time accordingly
+		const newStartTime = addDays(chStartTime, chRepeatDays);
+		const newStopTime = addDays(chStopTime, chRepeatDays);
+
+		void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.StartTime`, format(newStartTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+		void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.StopTime`, format(newStopTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+
+		this.adapter.config.CalculatorList[channel].chStartTime = addDays(chStartTime, chRepeatDays);
+		this.adapter.config.CalculatorList[channel].chStopTime = addDays(chStopTime, chRepeatDays);
+	}
 }
-
-/**
- * Handles the actions to be performed after a LTF has completed for a specific channel.
- * This function updates the active state, start time, and stop time of a calculation
- * based on the provided channel configuration. If no repeat days are specified, the calculation
- * is deactivated. Otherwise, the start and stop times are adjusted according to the repeat days.
- *
- * @param channel - The number representing the channel to process.
- */
-function handleAfterLTF(channel: number): void {
-	const { chHomeID, chRepeatDays, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
-	if (chRepeatDays == 0) {
-		void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.Active`, false, true);
-		return;
-	}
-	// chRepeatDays present, change start and stop time accordingly
-	const newStartTime = addDays(chStartTime, chRepeatDays);
-	const newStopTime = addDays(chStopTime, chRepeatDays);
-
-	void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.StartTime`, format(newStartTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
-	void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.StopTime`, format(newStopTime, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
-
-	this.adapter.config.CalculatorList[channel].chStartTime = addDays(chStartTime, chRepeatDays);
-	this.adapter.config.CalculatorList[channel].chStopTime = addDays(chStopTime, chRepeatDays);
-}
-
-/**
- * Retrieves price data for a specific channel, optionally limited to a defined time frame.
- * The function fetches price information for today, and if Limited Time Frame (LTF) mode is enabled, it merges the data from yesterday, today, and tomorrow,
- * filtering it according to the specified start and stop times.
- *
- * @param channel - The index representing the channel in the configuration.
- * @param modeLTF - A boolean indicating whether Limited Time Frame mode is active.
- * @returns An array of price objects (`IPrice[]`) relevant to the specified channel and time frame.
- *          - If `modeLTF` is false, returns today's prices as-is.
- *          - If `modeLTF` is true, merges price data from yesterday, today, and tomorrow,
- *            and filters it to include only prices within the specified time frame.
- */
-/*
-function getPricesLTF(channel: number, modeLTF: boolean): IPrice[] {
-	this.adapter.log.warn(`calculator channel: ${channel} - getPricesLTF ${modeLTF ? "LTF" : ""}: START`);
-
-	const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
-
-	this.adapter.log.warn(`channel Home ID: ${chHomeID}`);
-
-	const pricesToday: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
-	if (!modeLTF) {
-		return pricesToday;
-	}
-	// Limited Time Frame mode
-	const pricesTomorrow: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
-	const pricesYesterday: IPrice[] = JSON.parse(this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
-	const startTime: Date = chStartTime;
-	const stopTime: Date = chStopTime;
-
-	// Merge prices if pricesTomorrow is not empty
-	let mergedPrices: IPrice[] = pricesToday;
-	if (pricesTomorrow.length !== 0) {
-		mergedPrices = [...pricesToday, ...pricesTomorrow];
-	}
-	if (pricesYesterday.length !== 0) {
-		mergedPrices = [...pricesYesterday, ...mergedPrices];
-	}
-
-	// filter objects to time frame
-	const filteredPrices = mergedPrices.filter(price => {
-		const priceDate = new Date(price.startsAt);
-		return priceDate >= startTime && priceDate < stopTime;
-	});
-	return filteredPrices;
-}
-*/
 
 /**
  * Checks if the current hour matches the hour of a given entry's start time.
