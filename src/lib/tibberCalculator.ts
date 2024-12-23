@@ -357,7 +357,7 @@ export class TibberCalculator extends ProjectUtils {
 		try {
 			void this.checkAndSetValue(
 				`Homes.${homeId}.Calculations.${channel}.OutputJSON`,
-				``,
+				`[]`,
 				`JSON output to see the schedule the channel will follow`,
 				true,
 				true,

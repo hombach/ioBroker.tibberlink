@@ -330,7 +330,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     }
     setup_chOutputJSON(homeId, channel) {
         try {
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.OutputJSON`, ``, `JSON output to see the schedule the channel will follow`, true, true);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.OutputJSON`, `[]`, `JSON output to see the schedule the channel will follow`, true, true);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `setup of state OutputJSON for calculator for Home ${homeId}, Channel ${channel}`));
