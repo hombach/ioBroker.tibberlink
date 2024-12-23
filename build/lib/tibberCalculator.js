@@ -115,13 +115,13 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             /*	"best cost"				| Input state: "TriggerPrice"
                                         | Output state: "Output"
                 "best single hours" 	| Input state: "AmountHours"
-                                        | Output state: "Output"
+                                        | Output state: "Output", "OutputJSON"
                 "best hours block"		| Input state: "AmountHours"
                                         | Output state: "Output", "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour", "BlockStart", "BlockEnd"
                 "best cost LTF"			| Input state: "TriggerPrice", "StartTime", "StopTime", "RepeatDays"
                                         | Output state: "Output"
                 "best single hours LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
-                                        | Output state: "Output"
+                                        | Output state: "Output", "OutputJSON"
                 "best hours block LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
                                         | Output state: "Output"
                 "smart battery buffer"	| Input state: "AmountHours", "EfficiencyLoss"
@@ -146,6 +146,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
                     await this.setup_chTriggerPrice(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestSingleHours:
@@ -163,6 +164,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chAmountHours(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
                     await this.setup_chOutput(homeId, channel);
+                    this.setup_chOutputJSON(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestHoursBlock:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
@@ -178,6 +180,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     this.setup_chBlockStart(homeId, channel);
                     this.setup_chBlockEnd(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestCostLTF:
@@ -191,6 +194,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chStopTime(homeId, channel);
                     await this.setup_chRepeatDays(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestSingleHoursLTF:
@@ -206,6 +210,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chRepeatDays(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
                     await this.setup_chOutput(homeId, channel);
+                    this.setup_chOutputJSON(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestHoursBlockLTF:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
@@ -221,6 +226,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     this.setup_chBlockStart(homeId, channel);
                     this.setup_chBlockEnd(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.SmartBatteryBuffer:
@@ -237,6 +243,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chAmountHours(homeId, channel);
                     await this.setup_chEfficiencyLoss(homeId, channel);
                     await this.setup_chOutput(homeId, channel); // OUTPUTS
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput2(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestPercentage:
@@ -253,6 +260,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
                     await this.setup_chPercentage(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestPercentageLTF:
@@ -267,6 +275,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chRepeatDays(homeId, channel);
                     await this.setup_chPercentage(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
+                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
                     break;
                 default:
@@ -317,6 +326,14 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator for Home ${homeId}, Channel ${channel}`));
             }
+        }
+    }
+    setup_chOutputJSON(homeId, channel) {
+        try {
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.OutputJSON`, ``, `JSON output to see the schedule the channel will follow`, true, true);
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `setup of state OutputJSON for calculator for Home ${homeId}, Channel ${channel}`));
         }
     }
     async setup_chTriggerPrice(homeId, channel) {
@@ -679,24 +696,6 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 // chActive but after LTF
                 valueToSet = channelConfig.chValueOff;
                 this.handleAfterLTF(channel);
-                /* WIP
-                if (channelConfig.chRepeatDays == 0) {
-                    void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
-                } else {
-                    void this.adapter.setState(
-                        `Homes.${channelConfig.chHomeID}.Calculations.${channel}.StartTime`,
-                        format(addDays(channelConfig.chStartTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
-                        true,
-                    );
-                    channelConfig.chStartTime = addDays(channelConfig.chStartTime, channelConfig.chRepeatDays);
-                    void this.adapter.setState(
-                        `Homes.${channelConfig.chHomeID}.Calculations.${channel}.StopTime`,
-                        format(addDays(channelConfig.chStopTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
-                        true,
-                    );
-                    channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
-                }
-                */
             }
             else {
                 // chActive and inside LTF -> choose desired value
@@ -743,56 +742,10 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 // chActive, modeLTF but after LTF -> choose chValueOff and disable channel
                 valueToSet = channelConfig.chValueOff;
                 this.handleAfterLTF(channel);
-                /*  WIP
-                if (channelConfig.chRepeatDays == 0) {
-                    void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
-                } else {
-                    // chRepeatDays present, change start and stop time accordingly
-                    void this.adapter.setState(
-                        `Homes.${channelConfig.chHomeID}.Calculations.${channel}.StartTime`,
-                        format(addDays(channelConfig.chStartTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
-                        true,
-                    );
-                    channelConfig.chStartTime = addDays(channelConfig.chStartTime, channelConfig.chRepeatDays);
-                    void this.adapter.setState(
-                        `Homes.${channelConfig.chHomeID}.Calculations.${channel}.StopTime`,
-                        format(addDays(channelConfig.chStopTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
-                        true,
-                    );
-                    channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
-                }
-                */
             }
             else {
                 // chActive and inside LTF -> choose desired value
-                // WIP
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
-                /* WIP
-                const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
-                let filteredPrices: IPrice[] = pricesToday;
-                if (modeLTF) {
-                    // Limited Time Frame mode
-                    const pricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesTomorrow.json`));
-                    const pricesYesterday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesYesterday.json`));
-                    const startTime: Date = channelConfig.chStartTime;
-                    const stopTime: Date = channelConfig.chStopTime;
-
-                    // Merge prices if pricesTomorrow is not empty
-                    let mergedPrices: IPrice[] = pricesToday;
-                    if (pricesTomorrow.length !== 0) {
-                        mergedPrices = [...pricesToday, ...pricesTomorrow];
-                    }
-                    if (pricesYesterday.length !== 0) {
-                        mergedPrices = [...pricesYesterday, ...mergedPrices];
-                    }
-
-                    // filter objects to time frame
-                    filteredPrices = mergedPrices.filter(price => {
-                        const priceDate = new Date(price.startsAt);
-                        return priceDate >= startTime && priceDate < stopTime;
-                    });
-                }
-                */
                 filteredPrices.sort((a, b) => a.total - b.total);
                 // get first n entries und test for matching hour
                 const n = channelConfig.chAmountHours;
@@ -813,11 +766,10 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     total: entry.total,
                     output: result[index] !== undefined ? true : false, // Check if result[index] is defined
                 }))
-                    //.sort((a, b) => new Date(a.hour).getTime() - new Date(b.hour).getTime()); // Sort by startsAt
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
-                //jsonOutput.sort((a, b) => new Date(a.hour).getTime() - new Date(b.hour).getTime()); // Sort by startsAt
-                // log or use the generated JSON output
-                this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: ${JSON.stringify(jsonOutput, null, 2)}`);
+                // log the generated JSON output
+                // this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: ${JSON.stringify(jsonOutput, null, 2)}`);
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
             }
             //set value to foreign state, if defined
             let sOutState = "";
@@ -866,24 +818,6 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
                 this.handleAfterLTF(channel);
-                /* WIP
-                if (channelConfig.chRepeatDays == 0) {
-                    void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
-                } else {
-                    void this.adapter.setState(
-                        `Homes.${channelConfig.chHomeID}.Calculations.${channel}.StartTime`,
-                        format(addDays(channelConfig.chStartTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
-                        true,
-                    );
-                    channelConfig.chStartTime = addDays(channelConfig.chStartTime, channelConfig.chRepeatDays);
-                    void this.adapter.setState(
-                        `Homes.${channelConfig.chHomeID}.Calculations.${channel}.StopTime`,
-                        format(addDays(channelConfig.chStopTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
-                        true,
-                    );
-                    channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
-                }
-                */
             }
             else {
                 // chActive and inside LTF -> choose desired value
