@@ -923,34 +923,7 @@ export class TibberCalculator extends ProjectUtils {
 				this.handleAfterLTF(channel);
 			} else {
 				// chActive and inside LTF -> choose desired value
-				//WIP
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-				/*
-				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
-				let filteredPrices: IPrice[] = pricesToday;
-				if (modeLTF) {
-					// Limited Time Frame mode, modify filteredPrices accordingly
-					const pricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesTomorrow.json`));
-					const pricesYesterday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesYesterday.json`));
-					const startTime: Date = channelConfig.chStartTime;
-					const stopTime: Date = channelConfig.chStopTime;
-
-					// Merge prices if pricesTomorrow is not empty
-					let mergedPrices: IPrice[] = pricesToday;
-					if (pricesTomorrow.length !== 0) {
-						mergedPrices = [...pricesToday, ...pricesTomorrow];
-					}
-					if (pricesYesterday.length !== 0) {
-						mergedPrices = [...pricesYesterday, ...mergedPrices];
-					}
-
-					// filter objects to time frame
-					filteredPrices = mergedPrices.filter(price => {
-						const priceDate = new Date(price.startsAt);
-						return priceDate >= startTime && priceDate < stopTime;
-					});
-				}
-				*/
 				//#region *** Find cheapest block ***
 				let minSum = Number.MAX_VALUE;
 				let startIndex = 0;
@@ -1188,54 +1161,9 @@ export class TibberCalculator extends ProjectUtils {
 				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
 				valueToSet = channelConfig.chValueOff;
 				this.handleAfterLTF(channel);
-				/* WIP
-				if (channelConfig.chRepeatDays == 0) {
-					void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.Active`, false, true);
-				} else {
-					// chRepeatDays present, change start and stop time accordingly
-					void this.adapter.setState(
-						`Homes.${channelConfig.chHomeID}.Calculations.${channel}.StartTime`,
-						format(addDays(channelConfig.chStartTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
-						true,
-					);
-					channelConfig.chStartTime = addDays(channelConfig.chStartTime, channelConfig.chRepeatDays);
-					void this.adapter.setState(
-						`Homes.${channelConfig.chHomeID}.Calculations.${channel}.StopTime`,
-						format(addDays(channelConfig.chStopTime, channelConfig.chRepeatDays), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
-						true,
-					);
-					channelConfig.chStopTime = addDays(channelConfig.chStopTime, channelConfig.chRepeatDays);
-				}*/
 			} else {
 				// chActive and inside LTF -> choose desired value
-				//WIP
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-				/*
-				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
-				let filteredPrices: IPrice[] = pricesToday;
-				if (modeLTF) {
-					// Limited Time Frame mode
-					const pricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesTomorrow.json`));
-					const pricesYesterday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesYesterday.json`));
-					const startTime: Date = channelConfig.chStartTime;
-					const stopTime: Date = channelConfig.chStopTime;
-
-					// Merge prices if pricesTomorrow is not empty
-					let mergedPrices: IPrice[] = pricesToday;
-					if (pricesTomorrow.length !== 0) {
-						mergedPrices = [...pricesToday, ...pricesTomorrow];
-					}
-					if (pricesYesterday.length !== 0) {
-						mergedPrices = [...pricesYesterday, ...mergedPrices];
-					}
-
-					// filter objects to time frame
-					filteredPrices = mergedPrices.filter(price => {
-						const priceDate = new Date(price.startsAt);
-						return priceDate >= startTime && priceDate < stopTime;
-					});
-				}
-				*/
 				filteredPrices.sort((a, b) => a.total - b.total);
 
 				const cheapestPrice = filteredPrices[0]?.total;
