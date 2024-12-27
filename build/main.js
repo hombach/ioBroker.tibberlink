@@ -166,6 +166,8 @@ class Tibberlink extends utils.Adapter {
                                 scope.setTag("numBestSingleHours", this.tibberCalculator.numBestSingleHours);
                                 scope.setTag("numBestSingleHoursLTF", this.tibberCalculator.numBestSingleHoursLTF);
                                 scope.setTag("numSmartBatteryBuffer", this.tibberCalculator.numSmartBatteryBuffer);
+                                scope.setTag("numBestPercentage", this.tibberCalculator.numBestPercentage);
+                                scope.setTag("numBestPercentageLTF", this.tibberCalculator.numBestPercentageLTF);
                                 Sentry.captureMessage("Adapter TibberLink started", "info");
                             });
                     }
