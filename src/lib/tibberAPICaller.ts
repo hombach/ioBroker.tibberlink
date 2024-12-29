@@ -636,7 +636,7 @@ export class TibberAPICaller extends ProjectUtils {
 			xAxis: {
 				type: 'category',
 				boundaryGap: false,
-				data: [${JSON.stringify(startsAtValues)}].map(function (str) {
+				data: ${JSON.stringify(startsAtValues)}.map(function (str) {
 				return str.replace('T', '\n');
 				})
 			},
@@ -661,7 +661,7 @@ export class TibberAPICaller extends ProjectUtils {
 					type: 'line',
 					step: 'end',
 					symbol: 'none',
-					data: [${JSON.stringify(totalValues)}],
+					data: ${JSON.stringify(totalValues)},
 
 					markArea: {
 						itemStyle: {
