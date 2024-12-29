@@ -566,7 +566,7 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
 						},
 						data: [
 							[{name: "Car Charging", xAxis: "29.12.\\n04:00"}, {xAxis: "29.12.\\n07:00"}], // doppelter Backslash nötig
-							[{name: "Battery", xAxis: "29.12.\\n21:00"}, {xAxis: "29.12.\\n24:00"}] // doppelter Backslash nötig
+							[{name: "Battery", xAxis: "29.12.\\n21:00"}, {xAxis: "30.12.\\n00:00"}] // doppelter Backslash nötig
 						]
 					}
 				}
