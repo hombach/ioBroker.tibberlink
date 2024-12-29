@@ -1,6 +1,6 @@
 ## Template 01 for FlexCharts
 
-```
+```json
 option = {
 	backgroundColor: "rgb(232, 232, 232)",
 	title: {
