@@ -75,6 +75,7 @@ declare global {
 					tibberBridgeRawDataInterval: number;
 				},
 			];
+			FlexGraphJSON: string;
 		}
 	}
 }

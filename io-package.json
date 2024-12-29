@@ -4,17 +4,17 @@
         "version": "4.2.0",
         "news": {
             "4.2.0": {
-                "en": "add new calculator channels 'BestPercentage' and 'BestPercentageLTF' (#616)",
-                "de": "neue Rechnerkanäle „BestPercentage“ und „BestPercentageLTF“ hinzufügen (#616)",
-                "ru": "добавить новые каналы калькулятора BestPercentage и BestPercentageLTF (#616)",
-                "pt": "adicionar novos canais de calculadora 'BestPercentage' e 'BestPercentageLTF' (#616)",
-                "nl": "nieuwe rekenmachinekanalen 'BestPercentage' en 'BestPercentageLTF' (#616) toevoegen",
-                "fr": "ajouter de nouveaux canaux de calculatrice 'BestPercentage' et 'BestPercentageLTF' (#616)",
-                "it": "aggiungi nuovi canali calcolatrice \"BestPercentage\" e \"BestPercentageLTF\" (#616)",
-                "es": "agregue nuevos canales de calculadora 'BestPercentage' y 'BestPercentageLTF' (#616)",
-                "pl": "dodaj nowe kanały kalkulatora „BestPercentage” i „BestPercentageLTF” (#616)",
-                "uk": "додати нові канали калькулятора «BestPercentage» і «BestPercentageLTF» (#616)",
-                "zh-cn": "添加新的计算器通道“BestPercentage”和“BestPercentageLTF”(#616)"
+                "en": "add new calculator channels 'BestPercentage' and 'BestPercentageLTF' (#616)\nadd outputJSON for 'BestSingleHours' and 'BestSingleHoursLTF' (#592)\nadd jsonFlexCharts as overview graph for prices and calculators (#458)\nfixed some i18n translations\ncode optimization",
+                "de": "neue Rechnerkanäle „BestPercentage“ und „BestPercentageLTF“ hinzufügen (#616)\nOutputJSON für „BestSingleHours“ und „BestSingleHoursLTF“ hinzufügen (#592)\njsonFlexCharts als Übersichtsdiagramm für Preise und Rechner hinzufügen (#458)\nEinige i18n-Übersetzungen wurden korrigiert\nCodeoptimierung",
+                "ru": "добавить новые каналы калькулятора BestPercentage и BestPercentageLTF (#616)\nдобавить выходной JSON для BestSingleHours и BestSingleHoursLTF (#592)\nдобавить jsonFlexCharts в качестве обзорного графика цен и калькуляторов (#458)\nисправлены некоторые переводы i18n\nоптимизация кода",
+                "pt": "adicionar novos canais de calculadora 'BestPercentage' e 'BestPercentageLTF' (#616)\nadicione outputJSON para 'BestSingleHours' e 'BestSingleHoursLTF' (#592)\nadicione jsonFlexCharts como gráfico de visão geral para preços e calculadoras (#458)\ncorrigiu algumas traduções do i18n\notimização de código",
+                "nl": "nieuwe rekenmachinekanalen 'BestPercentage' en 'BestPercentageLTF' (#616) toevoegen\nvoeg outputJSON toe voor 'BestSingleHours' en 'BestSingleHoursLTF' (#592)\nvoeg jsonFlexCharts toe als overzichtsgrafiek voor prijzen en rekenmachines (#458)\nenkele i18n-vertalingen gerepareerd\ncode-optimalisatie",
+                "fr": "ajouter de nouveaux canaux de calculatrice 'BestPercentage' et 'BestPercentageLTF' (#616)\najoutez outputJSON pour 'BestSingleHours' et 'BestSingleHoursLTF' (#592)\najouter jsonFlexCharts comme graphique de présentation pour les prix et les calculatrices (#458)\ncorrection de quelques traductions i18n\noptimisation du code",
+                "it": "aggiungi nuovi canali calcolatrice \"BestPercentage\" e \"BestPercentageLTF\" (#616)\naggiungi outputJSON per \"BestSingleHours\" e \"BestSingleHoursLTF\" (#592)\naggiungi jsonFlexCharts come grafico generale per prezzi e calcolatori (#458)\ncorrette alcune traduzioni i18n\nottimizzazione del codice",
+                "es": "agregue nuevos canales de calculadora 'BestPercentage' y 'BestPercentageLTF' (#616)\nagregue outputJSON para 'BestSingleHours' y 'BestSingleHoursLTF' (#592)\nagregue jsonFlexCharts como gráfico general para precios y calculadoras (#458)\nSe corrigieron algunas traducciones i18n.\noptimización de código",
+                "pl": "dodaj nowe kanały kalkulatora „BestPercentage” i „BestPercentageLTF” (#616)\ndodaj wyjścieJSON dla „BestSingleHours” i „BestSingleHoursLTF” (#592)\ndodaj jsonFlexCharts jako wykres przeglądowy cen i kalkulatorów (#458)\nnaprawiono niektóre tłumaczenia i18n\noptymalizacja kodu",
+                "uk": "додати нові канали калькулятора «BestPercentage» і «BestPercentageLTF» (#616)\nдодати вихід JSON для «BestSingleHours» і «BestSingleHoursLTF» (#592)\nдодати jsonFlexCharts як оглядовий графік для цін і калькуляторів (#458)\nвиправлено деякі переклади i18n\nоптимізація коду",
+                "zh-cn": "添加新的计算器通道“BestPercentage”和“BestPercentageLTF”(#616)\n为“BestSingleHours”和“BestSingleHoursLTF”添加outputJSON (#592)\n添加 jsonFlexCharts 作为价格和计算器的概览图 (#458)\n修复了一些 i18n 翻译\n代码优化"
             },
             "4.1.1": {
                 "en": "code cleanup\nfix translations\nfix chai",

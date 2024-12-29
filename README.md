@@ -112,6 +112,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) add new calculator channels 'BestPercentage' and 'BestPercentageLTF' (#616)
 - (HombachC) WIP add outputJSON for 'BestSingleHours' and 'BestSingleHoursLTF' (#592)
+- (HombachC) WIP add jsonFlexCharts as overview graph for prices and calculators (#458)
 - (HombachC) fixed some i18n translations
 - (HombachC) code optimization
 

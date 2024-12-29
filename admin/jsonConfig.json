@@ -505,6 +505,58 @@
 					"lg": 12,
 					"xl": 12,
 					"newLine": true
+				},
+
+				"_headerGraph": {
+					"type": "header",
+					"text": "",
+					"noTranslation": true,
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"size": 3
+				},
+
+				"_jsonHdr": {
+					"type": "header",
+					"text": "JSON",
+					"size": 2
+				},
+				"_jsonWarning": {
+					"type": "staticText",
+					"text": "WARNING: functionality of element JSON currently WiP",
+					"style": {
+						"color": "red"
+					},
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 6,
+					"xl": 6
+				},
+				"_jsonTxt": {
+					"type": "staticText",
+					"text": "configure json data",
+					"newLine": true,
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 6,
+					"xl": 6
+				},
+				"FlexGraphJSON": {
+					"type": "jsonEditor",
+					"label": "json editor",
+					"delimiter": ";",
+					"newLine": true,
+					"default": "option = {",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 6,
+					"xl": 6
 				}
 			}
 		},
