@@ -226,13 +226,12 @@ export class TibberAPICaller extends ProjectUtils {
 					`PricesToday.minimum`,
 					pricesToday.sort((a, b) => a.total - b.total),
 				);
-				//for (const i in pricesToday) {
 				for (const price of pricesToday) {
-					//const price = pricesToday[i];
 					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
 					await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
 				}
 				if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
+					// Got valid pricesToday
 					void this.checkAndSetValue(
 						`Homes.${homeId}.PricesToday.jsonBYpriceASC`,
 						JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)),
@@ -240,6 +239,7 @@ export class TibberAPICaller extends ProjectUtils {
 					);
 					exDate = new Date(pricesToday[2].startsAt);
 					if (exDate && exDate >= today) {
+						void this.generateFlexChartJSON(homeId);
 						return true;
 					}
 				} else {
@@ -581,6 +581,22 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.Country`, address.country);
 		void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.Latitude`, address.latitude);
 		void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.Longitude`, address.longitude);
+	}
+
+	private async generateFlexChartJSON(homeId: string): Promise<void> {
+		// https://echarts.apache.org/examples/en/index.html
+		// https://github.com/MyHomeMyData/ioBroker.flexcharts
+		const exPricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
+		const exPricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`));
+		let mergedPrices: IPrice[] = exPricesToday;
+		if (exPricesTomorrow.length !== 0) {
+			mergedPrices = [...exPricesToday, ...exPricesTomorrow];
+		}
+		void this.checkAndSetValue(
+			`Homes.${homeId}.PricesTotal.jsonFlexCharts`,
+			JSON.stringify(mergedPrices),
+			"JSON string to be used for FlexCharts adapter for Apache ECharts",
+		);
 	}
 
 	//#region *** obsolete data poll for consumption data ***

@@ -860,7 +860,6 @@ export class TibberCalculator extends ProjectUtils {
 					valueToSet = channelConfig.chValueOff;
 				}
 
-				// WIP
 				// mark the entries with the result and create JSON output
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
@@ -870,8 +869,6 @@ export class TibberCalculator extends ProjectUtils {
 						output: result[index] !== undefined ? true : false, // Check if result[index] is defined
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
-				// log the generated JSON output
-				// this.adapter.log.warn(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}: ${JSON.stringify(jsonOutput, null, 2)}`);
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 			}
 
