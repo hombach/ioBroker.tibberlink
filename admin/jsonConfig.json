@@ -549,6 +549,7 @@
 				"FlexGraphJSON": {
 					"type": "jsonEditor",
 					"label": "json editor",
+					"validateJson": false,
 					"delimiter": ";",
 					"newLine": true,
 					"default": "option = { %%xAxisData%% - %%yAxisData%% }",

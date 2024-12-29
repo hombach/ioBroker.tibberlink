@@ -633,7 +633,7 @@ export class TibberAPICaller extends ProjectUtils {
 			xAxis: {
 				type: "category",
 				boundaryGap: false,
-				data: %%xAxisData%%${JSON.stringify(startsAtValues)}.map(function (str) {
+				data: %%xAxisData%%$.map(function (str) {
 				return str.replace("T", "\\n"); // doppelter Backslash nötig
 				})
 			},
