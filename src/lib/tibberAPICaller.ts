@@ -676,9 +676,14 @@ export class TibberAPICaller extends ProjectUtils {
 			//#endregion
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
+			let calcsValues = "";
 			if (jsonFlexCharts) {
 				jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
 				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
+				if (jsonFlexCharts.includes("%%CalcChannelsData%%")) {
+					calcsValues = `[{name: "Car Charging", xAxis: "30.12.\n04:00"}, {xAxis: "30.12.\n07:00"}]`;
+					jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
+				}
 			}
 
 			void this.checkAndSetValue(
