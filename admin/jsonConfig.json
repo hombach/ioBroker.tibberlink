@@ -551,7 +551,7 @@
 					"label": "json editor",
 					"delimiter": ";",
 					"newLine": true,
-					"default": "option = {",
+					"default": "option = { %%xAxisData%% - %%yAxisData%% }",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,

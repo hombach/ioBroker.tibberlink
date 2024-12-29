@@ -30,8 +30,6 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
             const Homes = await this.tibberQuery.getHomes();
             this.adapter.log.debug(`Got homes from tibber api: ${JSON.stringify(Homes)}`);
             const homeInfoList = [];
-            //for (const index in Homes) {
-            //const currentHome = Homes[index];
             for (const currentHome of Homes) {
                 homeInfoList.push({
                     ID: currentHome.id,
@@ -516,62 +514,65 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
         console.log("Total Values:", totalValues);
         console.log("Starts At Values:", startsAtValues);
         //const jsonFlexCharts = `Hello World ${JSON.stringify(startsAtValues)} - ${JSON.stringify(totalValues)}`;
-        const jsonFlexCharts = `option = {
-			backgroundColor: "rgb(232, 232, 232)",
-			title: {
-				text: "Tibber Price",
-			},
-			tooltip: {
-				trigger: "axis",
-				axisPointer: {
-					type: "cross"
-				}
-			},
-			grid: { // Randabstände
-				left: "10%", right: "4%", top: "8%", bottom: "8%"
-			},
-			xAxis: {
-				type: "category",
-				boundaryGap: false,
-				data: ${JSON.stringify(startsAtValues)}.map(function (str) {
-				return str.replace("T", "\\n"); // doppelter Backslash nötig
-				})
-			},
-			yAxis: {
-				type: "value",
-				axisLabel: {formatter: "{value} ct/kWh"},
-				axisPointer: {
-					snap: true
-				}
-			},
-			visualMap: {
-				min: 0.2,
-				max: 0.3,
-				inRange: {
-					color: ["green", "yellow", "red"] // Verlauf von grün über gelb nach rot
-				},
-				show: false
-			},
-			series: [
-				{
-					name: "Total",
-					type: "line",
-					step: "end",
-					symbol: "none",
-					data: ${JSON.stringify(totalValues)},
+        /*
+        let jsonFlexCharts = `option = {
+            backgroundColor: "rgb(232, 232, 232)",
+            title: {
+                text: "Tibber Price",
+            },
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "cross"
+                }
+            },
+            grid: { // Randabstände
+                left: "10%", right: "4%", top: "8%", bottom: "8%"
+            },
+            xAxis: {
+                type: "category",
+                boundaryGap: false,
+                data: %%xAxisData%%${JSON.stringify(startsAtValues)}.map(function (str) {
+                return str.replace("T", "\\n"); // doppelter Backslash nötig
+                })
+            },
+            yAxis: {
+                type: "value",
+                axisLabel: {formatter: "{value} ct/kWh"},
+                axisPointer: {
+                    snap: true
+                }
+            },
+            visualMap: {
+                min: 0.2,
+                max: 0.3,
+                inRange: {
+                    color: ["green", "yellow", "red"] // Verlauf von grün über gelb nach rot
+                },
+                show: false
+            },
+            series: [
+                {
+                    name: "Total",
+                    type: "line",
+                    step: "end",
+                    symbol: "none",
+                    data: %%yAxisData%%,
 
-					markArea: {
-						itemStyle: {
-							color: "rgba(120, 200, 120, 0.2)"
-						},
-						data: [
-							[{name: "Car Charging", xAxis: "29.12.\\n04:00"}, {xAxis: "29.12.\\n07:00"}], // doppelter Backslash nötig
-							[{name: "Battery", xAxis: "29.12.\\n21:00"}, {xAxis: "30.12.\\n00:00"}] // doppelter Backslash nötig
-						]
-					}
-				}
-			]
-		};`;
+                    markArea: {
+                        itemStyle: {
+                            color: "rgba(120, 200, 120, 0.2)"
+                        },
+                        data: [
+                            [{name: "Car Charging", xAxis: "29.12.\\n04:00"}, {xAxis: "29.12.\\n07:00"}], // doppelter Backslash nötig
+                            [{name: "Battery", xAxis: "29.12.\\n21:00"}, {xAxis: "30.12.\\n00:00"}] // doppelter Backslash nötig
+                        ]
+                    }
+                }
+            ]
+        };`;
+        */
+        //#region *** FlexCharts demo
         /*
         option = {
             backgroundColor: 'rgb(220, 220, 220)',
@@ -634,6 +635,10 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
             ]
         };
         */
+        //#endregion
+        let jsonFlexCharts = this.adapter.config.FlexGraphJSON;
+        jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
+        jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
         void this.checkAndSetValue(`Homes.${homeId}.PricesTotal.jsonFlexCharts`, jsonFlexCharts, "JSON string to be used for FlexCharts adapter for Apache ECharts");
     }
     //#region *** obsolete data poll for consumption data ***

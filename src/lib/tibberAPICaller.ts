@@ -37,8 +37,6 @@ export class TibberAPICaller extends ProjectUtils {
 			const Homes = await this.tibberQuery.getHomes();
 			this.adapter.log.debug(`Got homes from tibber api: ${JSON.stringify(Homes)}`);
 			const homeInfoList: IHomeInfo[] = [];
-			//for (const index in Homes) {
-			//const currentHome = Homes[index];
 			for (const currentHome of Homes) {
 				homeInfoList.push({
 					ID: currentHome.id,
@@ -617,7 +615,8 @@ export class TibberAPICaller extends ProjectUtils {
 
 		//const jsonFlexCharts = `Hello World ${JSON.stringify(startsAtValues)} - ${JSON.stringify(totalValues)}`;
 
-		const jsonFlexCharts = `option = {
+		/*
+		let jsonFlexCharts = `option = {
 			backgroundColor: "rgb(232, 232, 232)",
 			title: {
 				text: "Tibber Price",
@@ -634,7 +633,7 @@ export class TibberAPICaller extends ProjectUtils {
 			xAxis: {
 				type: "category",
 				boundaryGap: false,
-				data: ${JSON.stringify(startsAtValues)}.map(function (str) {
+				data: %%xAxisData%%${JSON.stringify(startsAtValues)}.map(function (str) {
 				return str.replace("T", "\\n"); // doppelter Backslash nötig
 				})
 			},
@@ -659,7 +658,7 @@ export class TibberAPICaller extends ProjectUtils {
 					type: "line",
 					step: "end",
 					symbol: "none",
-					data: ${JSON.stringify(totalValues)},
+					data: %%yAxisData%%,
 
 					markArea: {
 						itemStyle: {
@@ -673,7 +672,9 @@ export class TibberAPICaller extends ProjectUtils {
 				}
 			]
 		};`;
+		*/
 
+		//#region *** FlexCharts demo
 		/*
 		option = {
 			backgroundColor: 'rgb(220, 220, 220)',
@@ -736,6 +737,11 @@ export class TibberAPICaller extends ProjectUtils {
 			]
 		};
 		*/
+		//#endregion
+
+		let jsonFlexCharts = this.adapter.config.FlexGraphJSON;
+		jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
+		jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
 
 		void this.checkAndSetValue(
 			`Homes.${homeId}.PricesTotal.jsonFlexCharts`,
