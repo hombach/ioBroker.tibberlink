@@ -609,12 +609,6 @@ export class TibberAPICaller extends ProjectUtils {
 			return format(date, "dd.MM.'T'HH:mm");
 		});
 
-		// Ergebnisse ausgeben
-		console.log("Total Values:", totalValues);
-		console.log("Starts At Values:", startsAtValues);
-
-		//const jsonFlexCharts = `Hello World ${JSON.stringify(startsAtValues)} - ${JSON.stringify(totalValues)}`;
-
 		/*
 		let jsonFlexCharts = `option = {
 			backgroundColor: "rgb(232, 232, 232)",
