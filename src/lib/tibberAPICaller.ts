@@ -635,7 +635,7 @@ export class TibberAPICaller extends ProjectUtils {
 				type: "category",
 				boundaryGap: false,
 				data: ${JSON.stringify(startsAtValues)}.map(function (str) {
-				return str.replace("T", "\n");
+				return str.replace("T", "\\n"); // doppelter Backslash nötig
 				})
 			},
 			yAxis: {
@@ -666,8 +666,8 @@ export class TibberAPICaller extends ProjectUtils {
 							color: "rgba(120, 200, 120, 0.2)"
 						},
 						data: [
-							[{name: "Car Charging", xAxis: "29.12.\n04:00"}, {xAxis: "29.12.\n07:00"}],
-							[{name: "Battery", xAxis: "29.12.\n21:00"}, {xAxis: "29.12.\n24:00"}]
+							[{name: "Car Charging", xAxis: "29.12.\\n04:00"}, {xAxis: "29.12.\\n07:00"}], // doppelter Backslash nötig
+							[{name: "Battery", xAxis: "29.12.\\n21:00"}, {xAxis: "29.12.\\n24:00"}] // doppelter Backslash nötig
 						]
 					}
 				}
