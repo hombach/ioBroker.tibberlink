@@ -733,9 +733,9 @@ export class TibberAPICaller extends ProjectUtils {
 			};
 			*/
 			//#endregion
-			let jsonFlexCharts = "";
-			if (typeof jsonFlexCharts !== "undefined" && jsonFlexCharts !== null) {
-				jsonFlexCharts = this.adapter.config.FlexGraphJSON;
+
+			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
+			if (jsonFlexCharts) {
 				jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
 				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
 			}
