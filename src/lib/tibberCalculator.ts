@@ -666,6 +666,9 @@ export class TibberCalculator extends ProjectUtils {
 		for (const channel in this.adapter.config.CalculatorList) {
 			//#region *** first run checks ***
 			if (firstRun) {
+				//WIP assign channel ID - needed in graph output, because of sorted and filtered channels
+				this.adapter.config.CalculatorList[channel].chChannelID = channel;
+				//WIP
 				if (
 					!this.adapter.config.CalculatorList[channel] ||
 					!this.adapter.config.CalculatorList[channel].chTargetState ||
@@ -856,34 +859,31 @@ export class TibberCalculator extends ProjectUtils {
 
 	private async executeCalculatorBestSingleHours(channel: number, modeLTF = false): Promise<void> {
 		try {
-			let valueToSet = "";
 			const now = new Date();
 			const channelConfig = this.adapter.config.CalculatorList[channel];
+			let valueToSet = channelConfig.chValueOff;
 
 			if (!channelConfig.chActive) {
 				// not active -> choose chValueOff
-				valueToSet = channelConfig.chValueOff;
+				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
 			} else if (modeLTF && now < channelConfig.chStartTime) {
 				// chActive but before LTF -> choose chValueOff
-				valueToSet = channelConfig.chValueOff;
 			} else if (modeLTF && now > channelConfig.chStopTime) {
-				// chActive, modeLTF but after LTF -> choose chValueOff and disable channel
-				valueToSet = channelConfig.chValueOff;
+				// chActive, modeLTF but after LTF -> choose chValueOff and disable or redefine channel
+				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
 				this.handleAfterLTF(channel);
 			} else {
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-				filteredPrices.sort((a, b) => a.total - b.total);
 
-				// get first n entries und test for matching hour
-				const n = channelConfig.chAmountHours;
-				const result: boolean[] = filteredPrices.slice(0, n).map((entry: IPrice) => checkHourMatch(entry));
+				// sort by total cost
+				filteredPrices.sort((a, b) => a.total - b.total);
+				// get first chAmountHours entries und test for matching hour
+				const result: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
 
 				// identify if any element is true
 				if (result.some(value => value)) {
 					valueToSet = channelConfig.chValueOn;
-				} else {
-					valueToSet = channelConfig.chValueOff;
 				}
 
 				// mark the entries with the result and create JSON output

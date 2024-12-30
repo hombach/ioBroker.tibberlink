@@ -477,22 +477,22 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
         void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.Email`, contactInfo.email);
         void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.Mobile`, contactInfo.mobile);
     }
-    fetchAddress(homeId, objectDestination, address) {
-        void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.address1`, address.address1);
-        void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.address2`, address.address2);
-        void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.address3`, address.address3);
-        void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.City`, address.city);
-        void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.PostalCode`, address.postalCode);
-        void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.Country`, address.country);
-        void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.Latitude`, address.latitude);
-        void this.checkAndSetValue(`Homes.${homeId}.${objectDestination}.Longitude`, address.longitude);
+    fetchAddress(homeID, objectDestination, address) {
+        void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.address1`, address.address1);
+        void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.address2`, address.address2);
+        void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.address3`, address.address3);
+        void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.City`, address.city);
+        void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.PostalCode`, address.postalCode);
+        void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Country`, address.country);
+        void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Latitude`, address.latitude);
+        void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Longitude`, address.longitude);
     }
-    async generateFlexChartJSON(homeId) {
+    async generateFlexChartJSON(homeID) {
         // https://echarts.apache.org/examples/en/index.html
         // https://github.com/MyHomeMyData/ioBroker.flexcharts
         try {
-            const exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
-            const exPricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`));
+            const exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesToday.json`));
+            const exPricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesTomorrow.json`));
             let mergedPrices = exPricesToday;
             if (exPricesTomorrow.length !== 0) {
                 mergedPrices = [...exPricesToday, ...exPricesTomorrow];
@@ -581,41 +581,39 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
                 jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
                 if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
-                    const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeId);
+                    const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && entry.chType == 5);
                     if (filteredEntries.length > 0) {
                         let calcsValues = "";
-                        filteredEntries.forEach(entry => {
-                            //WIP
+                        for (const entry of filteredEntries) {
+                            // WIP EASY
                             calcsValues += `[{name: "${entry.chName}", xAxis: "30.12.\\n04:00"}, {xAxis: "30.12.\\n07:00"}],\n`;
-                        });
+                            // WIP END EASY
+                            //WIP FINAL
+                            const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
+                            const filteredData = jsonOutput.filter(entry => entry.output); // Nur Einträge mit output = true
+                            let startIndex = 0;
+                            for (let i = 1; i <= filteredData.length; i++) {
+                                // check: connected hours?
+                                const current = filteredData[i - 1];
+                                const next = filteredData[i];
+                                const isContinuous = next && (0, date_fns_1.differenceInHours)((0, date_fns_1.parseISO)(next.startsAt), (0, date_fns_1.parseISO)(current.startsAt)) === 1;
+                                if (!isContinuous || i === filteredData.length) {
+                                    // end of block or last iteration
+                                    const startTime = (0, date_fns_1.parseISO)(filteredData[startIndex].startsAt);
+                                    const endTime = (0, date_fns_1.addHours)((0, date_fns_1.parseISO)(current.startsAt), 1);
+                                    const startFormatted = (0, date_fns_1.format)(startTime, "dd.MM.'\n'HH:mm");
+                                    const endFormatted = (0, date_fns_1.format)(endTime, "dd.MM.'\n'HH:mm");
+                                    calcsValues += `[{name: "${entry.chName}", xAxis: "${startFormatted}"}, {xAxis: "${endFormatted}"}],\n`;
+                                    startIndex = i; // start next group
+                                }
+                            }
+                            //WIP END FINAL
+                        }
                         jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
                     }
-                    /*
-                    filteredEntries.forEach(entry => {
-                        const startTimeFormatted = entry.chStartTime
-                            .toLocaleString("de-DE", {
-                                day: "2-digit",
-                                month: "2-digit",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                            })
-                            .replace(", ", "\\n");
-
-                        const endTimeFormatted = entry.chStopTime
-                            .toLocaleString("de-DE", {
-                                day: "2-digit",
-                                month: "2-digit",
-                                hour: "2-digit",
-                                minute: "2-digit",
-                            })
-                            .replace(", ", "\\n");
-
-                        calcsValues += `[{name: "${entry.chName}", xAxis: "${startTimeFormatted}"}, {xAxis: "${endTimeFormatted}"}],`;
-                    });
-                    */
                 }
             }
-            void this.checkAndSetValue(`Homes.${homeId}.PricesTotal.jsonFlexCharts`, jsonFlexCharts, "JSON string to be used for FlexCharts adapter for Apache ECharts", "json");
+            void this.checkAndSetValue(`Homes.${homeID}.PricesTotal.jsonFlexCharts`, jsonFlexCharts, "JSON string to be used for FlexCharts adapter for Apache ECharts", "json");
         }
         catch (error) {
             this.adapter.log.error(this.generateErrorMessage(error, `generate FlexChart JSON `));
