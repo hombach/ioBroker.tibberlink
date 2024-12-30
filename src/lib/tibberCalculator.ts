@@ -111,6 +111,7 @@ export class TibberCalculator extends ProjectUtils {
 				`Homes.${homeId}.Calculations.${channel}.Active`,
 				channelConfig.chActive,
 				`Whether the calculation channel is active`,
+				`switch.enable`,
 				true,
 				true, // set to false if adapter config from database should be used
 			);
@@ -323,6 +324,7 @@ export class TibberCalculator extends ProjectUtils {
 					`Homes.${homeId}.Calculations.${channel}.Output`,
 					false,
 					`standard output if no special one selected in config`,
+					`switch.enable`,
 					true,
 					true,
 				);
@@ -345,6 +347,7 @@ export class TibberCalculator extends ProjectUtils {
 					`Homes.${homeId}.Calculations.${channel}.Output2`,
 					false,
 					`standard output2 if no special one selected in config`,
+					`switch.enable`,
 					true,
 					true,
 				);
@@ -359,6 +362,7 @@ export class TibberCalculator extends ProjectUtils {
 				`Homes.${homeId}.Calculations.${channel}.OutputJSON`,
 				`[]`,
 				`JSON output to see the schedule the channel will follow`,
+				`json`,
 				true,
 				true,
 			);
@@ -377,6 +381,7 @@ export class TibberCalculator extends ProjectUtils {
 				channelConfig.chTriggerPrice,
 				`pricelevel to trigger this channel at`,
 				undefined,
+				`level.max`,
 				true,
 				true,
 			);
@@ -405,6 +410,7 @@ export class TibberCalculator extends ProjectUtils {
 				channelConfig.chAmountHours,
 				`amount of hours to trigger this channel`,
 				undefined,
+				`level`,
 				true,
 				true,
 			);
@@ -433,6 +439,7 @@ export class TibberCalculator extends ProjectUtils {
 				channelConfig.chPercentage,
 				`amount of percentage to trigger this channel`,
 				undefined,
+				`level.max`,
 				true,
 				true,
 			);
@@ -462,6 +469,7 @@ export class TibberCalculator extends ProjectUtils {
 				`Homes.${homeId}.Calculations.${channel}.StartTime`,
 				channelConfig.chStartTime.toISOString(),
 				`Start time for this channel`,
+				`date`,
 				true,
 				true,
 			);
@@ -491,6 +499,7 @@ export class TibberCalculator extends ProjectUtils {
 				`Homes.${homeId}.Calculations.${channel}.StopTime`,
 				channelConfig.chStopTime.toISOString(),
 				`Stop time for this channel`,
+				`date`,
 				true,
 				true,
 			);
@@ -519,6 +528,7 @@ export class TibberCalculator extends ProjectUtils {
 				channelConfig.chRepeatDays,
 				`number of days to shift this LTF channel for repetition`,
 				undefined,
+				`level`,
 				true,
 				true,
 			);
@@ -547,6 +557,7 @@ export class TibberCalculator extends ProjectUtils {
 				channelConfig.chEfficiencyLoss,
 				`efficiency loss between charge and discharge of battery system`,
 				undefined,
+				`level.max`,
 				true,
 				true,
 			);
@@ -571,6 +582,7 @@ export class TibberCalculator extends ProjectUtils {
 				0,
 				`average total cost in determined block`,
 				undefined,
+				`value`,
 				false,
 				false,
 			);
@@ -582,7 +594,14 @@ export class TibberCalculator extends ProjectUtils {
 	private setup_chBlockStartFullHour(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
-			void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStartFullHour`, `-`, `first hour of determined block`, false, false);
+			void this.checkAndSetValue(
+				`Homes.${homeId}.Calculations.${channel}.BlockStartFullHour`,
+				`-`,
+				`first hour of determined block`,
+				`value`,
+				false,
+				false,
+			);
 			if (!delMode) {
 				this.adapter.log.debug(`setup calculator output state BlockStartFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
 			}
@@ -593,7 +612,7 @@ export class TibberCalculator extends ProjectUtils {
 	private setup_chBlockEndFullHour(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
-			void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end hour of determined block`, false, false);
+			void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end hour of determined block`, `value`, false, false);
 			if (!delMode) {
 				this.adapter.log.debug(`setup calculator output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
 			}
@@ -604,7 +623,14 @@ export class TibberCalculator extends ProjectUtils {
 	private setup_chBlockStart(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
-			void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStart`, `-`, `start date string of determined block`, false, false);
+			void this.checkAndSetValue(
+				`Homes.${homeId}.Calculations.${channel}.BlockStart`,
+				`-`,
+				`start date string of determined block`,
+				`date`,
+				false,
+				false,
+			);
 			if (!delMode) {
 				this.adapter.log.debug(`setup calculator output state BlockStart in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
 			}
@@ -615,7 +641,7 @@ export class TibberCalculator extends ProjectUtils {
 	private setup_chBlockEnd(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
-			void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEnd`, `-`, `stop date string of determined block`, false, false);
+			void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEnd`, `-`, `stop date string of determined block`, `date`, false, false);
 			if (!delMode) {
 				this.adapter.log.debug(`setup calculator output state BlockEnd in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
 			}
@@ -951,6 +977,7 @@ export class TibberCalculator extends ProjectUtils {
 					Math.round(1000 * (minSum / n)) / 1000,
 					`average total cost in determined block`,
 					undefined,
+					`value`,
 					false,
 					false,
 				);
@@ -960,6 +987,7 @@ export class TibberCalculator extends ProjectUtils {
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`,
 					format(beginDate, "H"),
 					`first hour of determined block`,
+					`value`,
 					false,
 					false,
 				);
@@ -967,6 +995,7 @@ export class TibberCalculator extends ProjectUtils {
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`,
 					filteredPrices[startIndex].startsAt,
 					`start date string of determined block`,
+					`date`,
 					false,
 					false,
 				);
@@ -975,6 +1004,7 @@ export class TibberCalculator extends ProjectUtils {
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`,
 					format(addHours(endDate, 1), "H"),
 					`end hour of determined block`,
+					`value`,
 					false,
 					false,
 				);
@@ -982,6 +1012,7 @@ export class TibberCalculator extends ProjectUtils {
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
 					filteredPrices[startIndex + n].startsAt,
 					`stop date string of determined block`,
+					`date`,
 					false,
 					false,
 				);

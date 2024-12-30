@@ -186,18 +186,19 @@ class ProjectUtils {
      * @param stateName - A string representing the name of the state.
      * @param value - The string value to set for the state.
      * @param description - Optional description for the state (default is "-").
+     * @param role - Optional role type for the state (default is "text").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValue(stateName, value, description = "-", writeable = false, dontUpdate = false, forceMode = false) {
+    async checkAndSetValue(stateName, value, description = "-", role = "text", writeable = false, dontUpdate = false, forceMode = false) {
         if (value != undefined) {
             if (value.trim().length > 0) {
                 const commonObj = {
                     name: stateName.split(".").pop(),
                     type: "string",
-                    role: "text",
+                    role: role,
                     desc: description,
                     read: true,
                     write: writeable,
@@ -229,17 +230,18 @@ class ProjectUtils {
      * @param value - The number value to set for the state.
      * @param description - Optional description for the state (default is "-").
      * @param unit - Optional unit string to set for the state (default is undefined).
+     * @param role - Optional role type for the state (default is "value").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueNumber(stateName, value, description = "-", unit, writeable = false, dontUpdate = false, forceMode = false) {
+    async checkAndSetValueNumber(stateName, value, description = "-", unit, role = "value", writeable = false, dontUpdate = false, forceMode = false) {
         if (value !== undefined) {
             const commonObj = {
                 name: stateName.split(".").pop(),
                 type: "number",
-                role: "value",
+                role: role,
                 desc: description,
                 read: true,
                 write: writeable,
@@ -273,17 +275,18 @@ class ProjectUtils {
      * @param stateName - A string representing the name of the state.
      * @param value - The boolean value to set for the state.
      * @param description - Optional description for the state (default is "-").
+     * @param role - Optional role type for the state (default is "indicator").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @param forceMode - Optional boolean indicating if the state should be overwritten if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueBoolean(stateName, value, description = "-", writeable = false, dontUpdate = false, forceMode = false) {
+    async checkAndSetValueBoolean(stateName, value, description = "-", role = "indicator", writeable = false, dontUpdate = false, forceMode = false) {
         if (value !== undefined && value !== null) {
             const commonObj = {
                 name: stateName.split(".").pop(),
                 type: "boolean",
-                role: "indicator",
+                role: role,
                 desc: description,
                 read: true,
                 write: writeable,

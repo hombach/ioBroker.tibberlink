@@ -101,7 +101,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             if (channelConfig.chActive === undefined) {
                 channelConfig.chActive = false;
             }
-            void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Active`, channelConfig.chActive, `Whether the calculation channel is active`, true, true);
+            void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Active`, channelConfig.chActive, `Whether the calculation channel is active`, `switch.enable`, true, true);
             const valueActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
             if (typeof valueActive === "boolean") {
                 channelConfig.chActive = valueActive;
@@ -305,7 +305,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
         else {
             try {
-                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output`, false, `standard output if no special one selected in config`, true, true);
+                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output`, false, `standard output if no special one selected in config`, `switch.enable`, true, true);
             }
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator for Home ${homeId}, Channel ${channel}`));
@@ -321,7 +321,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
         else {
             try {
-                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output2`, false, `standard output2 if no special one selected in config`, true, true);
+                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output2`, false, `standard output2 if no special one selected in config`, `switch.enable`, true, true);
             }
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator for Home ${homeId}, Channel ${channel}`));
@@ -330,7 +330,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     }
     setup_chOutputJSON(homeId, channel) {
         try {
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.OutputJSON`, `[]`, `JSON output to see the schedule the channel will follow`, true, true);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.OutputJSON`, `[]`, `JSON output to see the schedule the channel will follow`, `json`, true, true);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `setup of state OutputJSON for calculator for Home ${homeId}, Channel ${channel}`));
@@ -342,7 +342,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             if (channelConfig.chTriggerPrice === undefined) {
                 channelConfig.chTriggerPrice = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`, channelConfig.chTriggerPrice, `pricelevel to trigger this channel at`, undefined, true, true);
+            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`, channelConfig.chTriggerPrice, `pricelevel to trigger this channel at`, undefined, `level.max`, true, true);
             const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             if (typeof valueTriggerPrice === "number") {
                 channelConfig.chTriggerPrice = valueTriggerPrice;
@@ -363,7 +363,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             if (channelConfig.chAmountHours === undefined) {
                 channelConfig.chAmountHours = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AmountHours`, channelConfig.chAmountHours, `amount of hours to trigger this channel`, undefined, true, true);
+            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AmountHours`, channelConfig.chAmountHours, `amount of hours to trigger this channel`, undefined, `level`, true, true);
             const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
             if (typeof valueAmountHours === "number") {
                 channelConfig.chAmountHours = valueAmountHours;
@@ -384,7 +384,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             if (channelConfig.chPercentage === undefined) {
                 channelConfig.chPercentage = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.Percentage`, channelConfig.chPercentage, `amount of percentage to trigger this channel`, undefined, true, true);
+            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.Percentage`, channelConfig.chPercentage, `amount of percentage to trigger this channel`, undefined, `level.max`, true, true);
             const valuePercentage = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Percentage`);
             if (typeof valuePercentage === "number") {
                 channelConfig.chPercentage = valuePercentage;
@@ -407,7 +407,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 today.setHours(0, 0, 0, 0); // sets clock to 0:00
                 channelConfig.chStartTime = today;
             }
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.StartTime`, channelConfig.chStartTime.toISOString(), `Start time for this channel`, true, true);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.StartTime`, channelConfig.chStartTime.toISOString(), `Start time for this channel`, `date`, true, true);
             const valueStartTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StartTime`);
             if (typeof valueStartTime === "string") {
                 channelConfig.chStartTime.setTime(Date.parse(valueStartTime));
@@ -430,7 +430,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 today.setHours(23, 59, 0, 0); // sets clock to 0:00
                 channelConfig.chStopTime = today;
             }
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.StopTime`, channelConfig.chStopTime.toISOString(), `Stop time for this channel`, true, true);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.StopTime`, channelConfig.chStopTime.toISOString(), `Stop time for this channel`, `date`, true, true);
             const valueStopTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StopTime`);
             if (typeof valueStopTime === "string") {
                 channelConfig.chStopTime.setTime(Date.parse(valueStopTime));
@@ -451,7 +451,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             if (channelConfig.chRepeatDays === undefined) {
                 channelConfig.chRepeatDays = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.RepeatDays`, channelConfig.chRepeatDays, `number of days to shift this LTF channel for repetition`, undefined, true, true);
+            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.RepeatDays`, channelConfig.chRepeatDays, `number of days to shift this LTF channel for repetition`, undefined, `level`, true, true);
             const valueRepeatDays = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
             if (typeof valueRepeatDays === "number") {
                 channelConfig.chRepeatDays = valueRepeatDays;
@@ -472,7 +472,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             if (channelConfig.chEfficiencyLoss === undefined) {
                 channelConfig.chEfficiencyLoss = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`, channelConfig.chEfficiencyLoss, `efficiency loss between charge and discharge of battery system`, undefined, true, true);
+            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`, channelConfig.chEfficiencyLoss, `efficiency loss between charge and discharge of battery system`, undefined, `level.max`, true, true);
             const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
             if (typeof valueEfficiencyLoss === "number") {
                 channelConfig.chAmountHours = valueEfficiencyLoss;
@@ -489,7 +489,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     setup_chAverageTotalCost(homeId, channel) {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`, 0, `average total cost in determined block`, undefined, false, false);
+            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`, 0, `average total cost in determined block`, undefined, `value`, false, false);
             this.adapter.log.debug(`setup calculator output state AverageTotalCost in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
         }
         catch (error) {
@@ -499,7 +499,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     setup_chBlockStartFullHour(homeId, channel, delMode = false) {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStartFullHour`, `-`, `first hour of determined block`, false, false);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStartFullHour`, `-`, `first hour of determined block`, `value`, false, false);
             if (!delMode) {
                 this.adapter.log.debug(`setup calculator output state BlockStartFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
@@ -511,7 +511,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     setup_chBlockEndFullHour(homeId, channel, delMode = false) {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end hour of determined block`, false, false);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end hour of determined block`, `value`, false, false);
             if (!delMode) {
                 this.adapter.log.debug(`setup calculator output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
@@ -523,7 +523,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     setup_chBlockStart(homeId, channel, delMode = false) {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStart`, `-`, `start date string of determined block`, false, false);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStart`, `-`, `start date string of determined block`, `date`, false, false);
             if (!delMode) {
                 this.adapter.log.debug(`setup calculator output state BlockStart in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
@@ -535,7 +535,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     setup_chBlockEnd(homeId, channel, delMode = false) {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEnd`, `-`, `stop date string of determined block`, false, false);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEnd`, `-`, `stop date string of determined block`, `date`, false, false);
             if (!delMode) {
                 this.adapter.log.debug(`setup calculator output state BlockEnd in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
@@ -843,14 +843,14 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }
                 //#endregion
                 // calculate average cost of determined block of hours, write to data point
-                void this.checkAndSetValueNumber(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AverageTotalCost`, Math.round(1000 * (minSum / n)) / 1000, `average total cost in determined block`, undefined, false, false);
+                void this.checkAndSetValueNumber(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AverageTotalCost`, Math.round(1000 * (minSum / n)) / 1000, `average total cost in determined block`, undefined, `value`, false, false);
                 //#region *** Write start and stop time of determined block to data points ***
                 const beginDate = new Date(filteredPrices[startIndex].startsAt);
-                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, (0, date_fns_1.format)(beginDate, "H"), `first hour of determined block`, false, false);
-                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, `start date string of determined block`, false, false);
+                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, (0, date_fns_1.format)(beginDate, "H"), `first hour of determined block`, `value`, false, false);
+                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, `start date string of determined block`, `date`, false, false);
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
-                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, false, false);
-                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, filteredPrices[startIndex + n].startsAt, `stop date string of determined block`, false, false);
+                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, `value`, false, false);
+                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, filteredPrices[startIndex + n].startsAt, `stop date string of determined block`, `date`, false, false);
                 //#endregion
             }
             //#region *** set value to foreign state, if defined, or use internal Output ***
