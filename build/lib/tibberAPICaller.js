@@ -302,6 +302,7 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                     void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`, JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
                     exDate = new Date(pricesTomorrow[2].startsAt);
                     if (exDate && exDate >= morgen) {
+                        void this.generateFlexChartJSON(homeId);
                         return true;
                     }
                     return false;
@@ -509,7 +510,7 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
             const totalValues = mergedPrices.map(item => item.total);
             const startsAtValues = mergedPrices.map(item => {
                 const date = new Date(item.startsAt);
-                return (0, date_fns_1.format)(date, "dd.MM.'T'HH:mm");
+                return (0, date_fns_1.format)(date, "dd.MM.'\n'HH:mm");
             });
             //#region *** FlexCharts demo
             /*
@@ -576,13 +577,19 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
             */
             //#endregion
             let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
-            let calcsValues = "";
             if (jsonFlexCharts) {
                 jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
                 jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
-                if (jsonFlexCharts.includes("%%CalcChannelsData%%")) {
-                    calcsValues = `[{name: "Car Charging", xAxis: "30.12.\n04:00"}, {xAxis: "30.12.\n07:00"}]`;
-                    jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
+                if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
+                    const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive === true && entry.chHomeID === homeId);
+                    if (filteredEntries.length > 0) {
+                        let calcsValues = "";
+                        filteredEntries.forEach(entry => {
+                            //WIP
+                            calcsValues = `[{name: "${entry.chName}", xAxis: "30.12.\n04:00"}, {xAxis: "30.12.\n07:00"}],`;
+                        });
+                        jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
+                    }
                 }
             }
             void this.checkAndSetValue(`Homes.${homeId}.PricesTotal.jsonFlexCharts`, jsonFlexCharts, "JSON string to be used for FlexCharts adapter for Apache ECharts");

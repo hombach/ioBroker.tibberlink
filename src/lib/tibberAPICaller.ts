@@ -352,6 +352,7 @@ export class TibberAPICaller extends ProjectUtils {
 					);
 					exDate = new Date(pricesTomorrow[2].startsAt);
 					if (exDate && exDate >= morgen) {
+						void this.generateFlexChartJSON(homeId);
 						return true;
 					}
 					return false;
@@ -607,7 +608,7 @@ export class TibberAPICaller extends ProjectUtils {
 			const totalValues = mergedPrices.map(item => item.total);
 			const startsAtValues = mergedPrices.map(item => {
 				const date = new Date(item.startsAt);
-				return format(date, "dd.MM.'T'HH:mm");
+				return format(date, "dd.MM.'\n'HH:mm");
 			});
 
 			//#region *** FlexCharts demo
@@ -676,13 +677,19 @@ export class TibberAPICaller extends ProjectUtils {
 			//#endregion
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
-			let calcsValues = "";
 			if (jsonFlexCharts) {
 				jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
 				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
-				if (jsonFlexCharts.includes("%%CalcChannelsData%%")) {
-					calcsValues = `[{name: "Car Charging", xAxis: "30.12.\n04:00"}, {xAxis: "30.12.\n07:00"}]`;
-					jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
+				if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
+					const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive === true && entry.chHomeID === homeId);
+					if (filteredEntries.length > 0) {
+						let calcsValues = "";
+						filteredEntries.forEach(entry => {
+							//WIP
+							calcsValues = `[{name: "${entry.chName}", xAxis: "30.12.\n04:00"}, {xAxis: "30.12.\n07:00"}],`;
+						});
+						jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
+					}
 				}
 			}
 

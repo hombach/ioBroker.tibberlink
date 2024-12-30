@@ -50,8 +50,9 @@ option = {
 					color: "rgba(120, 200, 120, 0.2)"
 				},
 				data: [
-					[{name: "Car Charging", xAxis: "29.12.\n04:00"}, {xAxis: "29.12.\n07:00"}],
-					[{name: "Battery", xAxis: "29.12.\n21:00"}, {xAxis: "30.12.\n00:00"}]
+					%%CalcChannelsData%%
+					[{name: "Car Charging", xAxis: "30.12.\n08:00"}, {xAxis: "30.12.\n09:00"}],
+					[{name: "Battery", xAxis: "30.12.\n21:00"}, {xAxis: "31.12.\n00:00"}]
 				]
 			}
 		}
