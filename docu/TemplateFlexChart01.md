@@ -18,9 +18,7 @@ option = {
 	xAxis: {
 		type: "category",
 		boundaryGap: false,
-		data: %%xAxisData%%.map(function (str) {
-		return str.replace("T", "\n");
-		})
+		data: %%xAxisData%%.map
 	},
 	yAxis: {
 		type: "value",
