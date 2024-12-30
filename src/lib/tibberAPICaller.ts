@@ -706,9 +706,10 @@ export class TibberAPICaller extends ProjectUtils {
 									// end of block or last iteration
 									const startTime = parseISO(filteredData[startIndex].startsAt);
 									const endTime = addHours(parseISO(current.startsAt), 1);
-									const startFormatted = format(startTime, "dd.MM.'\n'HH:mm");
-									const endFormatted = format(endTime, "dd.MM.'\n'HH:mm");
-									calcsValues += `[{name: "${entry.chName}", xAxis: "${startFormatted}"}, {xAxis: "${endFormatted}"}],\n`;
+									const startFormatted = format(startTime, "dd.MM.'\\n'HH:mm");
+									//const endFormatted = format(endTime, "dd.MM.'\\n'HH:mm");
+									//calcsValues += `[{name: "${entry.chName}", xAxis: "${startFormatted}"}, {xAxis: "${endFormatted}"}],\n`;
+									calcsValues += `[{name: "${entry.chName}", xAxis: "${startFormatted}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
 									startIndex = i; // start next group
 								}
 							}
