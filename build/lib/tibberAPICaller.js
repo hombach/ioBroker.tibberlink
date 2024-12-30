@@ -581,16 +581,13 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
                 jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
                 if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
-                    const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && entry.chType == 2);
+                    const allowedTypes = [2, 5, 3, 6]; // list of supported channel types
+                    const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
                     if (filteredEntries.length > 0) {
                         let calcsValues = "";
                         for (const entry of filteredEntries) {
-                            // WIP EASY
-                            calcsValues += `[{name: "${entry.chName}", xAxis: "30.12.\\n04:00"}, {xAxis: "30.12.\\n07:00"}],\n`;
-                            // WIP END EASY
-                            //WIP FINAL
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
-                            const filteredData = jsonOutput.filter(entry => entry.output); // Nur Einträge mit output = true
+                            const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
                             let startIndex = 0;
                             for (let i = 1; i <= filteredData.length; i++) {
                                 // check: connected hours?
@@ -601,14 +598,13 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                                     // end of block or last iteration
                                     const startTime = (0, date_fns_1.parseISO)(filteredData[startIndex].startsAt);
                                     const endTime = (0, date_fns_1.addHours)((0, date_fns_1.parseISO)(current.startsAt), 1);
-                                    const startFormatted = (0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm");
+                                    //const startFormatted = format(startTime, "dd.MM.'\\n'HH:mm");
                                     //const endFormatted = format(endTime, "dd.MM.'\\n'HH:mm");
                                     //calcsValues += `[{name: "${entry.chName}", xAxis: "${startFormatted}"}, {xAxis: "${endFormatted}"}],\n`;
-                                    calcsValues += `[{name: "${entry.chName}", xAxis: "${startFormatted}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+                                    calcsValues += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
                                     startIndex = i; // start next group
                                 }
                             }
-                            //WIP END FINAL
                         }
                         jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
                     }

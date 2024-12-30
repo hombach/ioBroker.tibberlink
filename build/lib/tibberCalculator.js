@@ -117,13 +117,13 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 "best single hours" 	| Input state: "AmountHours"
                                         | Output state: "Output", "OutputJSON"
                 "best hours block"		| Input state: "AmountHours"
-                                        | Output state: "Output", "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour", "BlockStart", "BlockEnd"
+                                        | Output state: "Output", "OutputJSON", "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour", "BlockStart", "BlockEnd"
                 "best cost LTF"			| Input state: "TriggerPrice", "StartTime", "StopTime", "RepeatDays"
                                         | Output state: "Output"
                 "best single hours LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
                                         | Output state: "Output", "OutputJSON"
                 "best hours block LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
-                                        | Output state: "Output"
+                                        | Output state: "Output", "OutputJSON", "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour", "BlockStart", "BlockEnd"
                 "smart battery buffer"	| Input state: "AmountHours", "EfficiencyLoss"
                                         | Output state: "Output", "Output2"
                 "best percentage"	 	| Input state: "Percentage"
@@ -180,8 +180,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     this.setup_chBlockStart(homeId, channel);
                     this.setup_chBlockEnd(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
-                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
+                    this.setup_chOutputJSON(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestCostLTF:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AmountHours`); // INPUTS
@@ -226,8 +226,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     this.setup_chBlockStart(homeId, channel);
                     this.setup_chBlockEnd(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
-                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
+                    this.setup_chOutputJSON(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.SmartBatteryBuffer:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
@@ -328,12 +328,16 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
         }
     }
-    setup_chOutputJSON(homeId, channel) {
+    setup_chOutputJSON(homeId, channel, delMode = false) {
         try {
+            const channelConfig = this.adapter.config.CalculatorList[channel];
             void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.OutputJSON`, `[]`, `JSON output to see the schedule the channel will follow`, `json`, false, true);
+            if (!delMode) {
+                this.adapter.log.debug(`setup calculator output state OutputJSON in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+            }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `setup of state OutputJSON for calculator for Home ${homeId}, Channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `write  state OutputJSON for calculator in Home ${homeId}, Channel ${channel}`));
         }
     }
     async setup_chTriggerPrice(homeId, channel) {
@@ -505,7 +509,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator in Home ${homeId}, Channel ${channel}`));
         }
     }
     setup_chBlockEndFullHour(homeId, channel, delMode = false) {
@@ -741,33 +745,35 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 // chActive but before LTF -> choose chValueOff
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
-                // chActive, modeLTF but after LTF -> choose chValueOff and disable or redefine channel
+                // chActive but after LTF -> choose chValueOff and disable channel or generate new running period
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
                 this.handleAfterLTF(channel);
             }
             else {
                 // chActive and inside LTF -> choose desired value
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
+                //#region *** Find channel result ***
                 // sort by total cost
                 filteredPrices.sort((a, b) => a.total - b.total);
                 // get first chAmountHours entries und test for matching hour
-                const result = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkHourMatch(entry));
+                const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkHourMatch(entry));
                 // identify if any element is true
-                if (result.some(value => value)) {
+                if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                 }
+                //#endregion
                 // mark the entries with the result and create JSON output
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
                     startsAt: entry.startsAt,
                     total: entry.total,
-                    output: result[index] !== undefined ? true : false, // Check if result[index] is defined
+                    output: channelResult[index] !== undefined ? true : false, // Check if result[index] is defined
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
             }
-            //set value to foreign state, if defined
+            //#region *** set value to foreign state, if defined, or use internal Output ***
             let sOutState = "";
             if (channelConfig?.chTargetState &&
                 channelConfig.chTargetState.length > 10 &&
@@ -780,6 +786,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 void this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
+            //#endregion
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -787,12 +794,12 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     }
     async executeCalculatorBestHoursBlock(channel, modeLTF = false) {
         try {
-            let valueToSet = "";
             const now = new Date();
             const channelConfig = this.adapter.config.CalculatorList[channel];
+            let valueToSet = channelConfig.chValueOff;
             if (!channelConfig.chActive) {
                 // not active -> choose chValueOff
-                valueToSet = channelConfig.chValueOff;
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
                 this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
@@ -800,7 +807,6 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 // chActive but before LTF -> choose chValueOff
-                valueToSet = channelConfig.chValueOff;
                 this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
@@ -808,7 +814,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
                 // chActive but after LTF -> choose chValueOff and disable channel or generate new running period
-                valueToSet = channelConfig.chValueOff;
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
                 this.setup_chBlockStartFullHour(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
@@ -818,7 +824,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             else {
                 // chActive and inside LTF -> choose desired value
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
-                //#region *** Find cheapest block ***
+                //#region *** Find channel result ***
                 let minSum = Number.MAX_VALUE;
                 let startIndex = 0;
                 const n = Math.min(channelConfig.chAmountHours, filteredPrices.length);
@@ -832,15 +838,22 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                         startIndex = i;
                     }
                 }
-                const minSumEntries = filteredPrices.slice(startIndex, startIndex + n).map((entry) => checkHourMatch(entry));
+                const channelResult = filteredPrices.slice(startIndex, startIndex + n).map((entry) => checkHourMatch(entry));
                 // identify if any element is true
-                if (minSumEntries.some(value => value)) {
+                if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                 }
-                else {
-                    valueToSet = channelConfig.chValueOff;
-                }
                 //#endregion
+                // mark the entries with the result and create JSON output
+                const jsonOutput = filteredPrices
+                    .map((entry, index) => ({
+                    hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+                    startsAt: entry.startsAt,
+                    total: entry.total,
+                    output: channelResult[index] !== undefined ? true : false, // Check if result[index] is defined
+                }))
+                    .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
                 // calculate average cost of determined block of hours, write to data point
                 void this.checkAndSetValueNumber(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AverageTotalCost`, Math.round(1000 * (minSum / n)) / 1000, `average total cost in determined block`, undefined, `value`, false, false);
                 //#region *** Write start and stop time of determined block to data points ***
