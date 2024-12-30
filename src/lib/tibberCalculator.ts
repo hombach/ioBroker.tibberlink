@@ -325,7 +325,7 @@ export class TibberCalculator extends ProjectUtils {
 					false,
 					`standard output if no special one selected in config`,
 					`switch.enable`,
-					true,
+					false,
 					true,
 				);
 			} catch (error) {
@@ -348,7 +348,7 @@ export class TibberCalculator extends ProjectUtils {
 					false,
 					`standard output2 if no special one selected in config`,
 					`switch.enable`,
-					true,
+					false,
 					true,
 				);
 			} catch (error) {

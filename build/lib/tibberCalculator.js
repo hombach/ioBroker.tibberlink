@@ -305,7 +305,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
         else {
             try {
-                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output`, false, `standard output if no special one selected in config`, `switch.enable`, true, true);
+                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output`, false, `standard output if no special one selected in config`, `switch.enable`, false, true);
             }
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator for Home ${homeId}, Channel ${channel}`));
@@ -321,7 +321,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
         else {
             try {
-                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output2`, false, `standard output2 if no special one selected in config`, `switch.enable`, true, true);
+                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output2`, false, `standard output2 if no special one selected in config`, `switch.enable`, false, true);
             }
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator for Home ${homeId}, Channel ${channel}`));

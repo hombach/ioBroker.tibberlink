@@ -681,15 +681,38 @@ export class TibberAPICaller extends ProjectUtils {
 				jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
 				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
 				if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
-					const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive === true && entry.chHomeID === homeId);
+					const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeId);
 					if (filteredEntries.length > 0) {
 						let calcsValues = "";
 						filteredEntries.forEach(entry => {
 							//WIP
-							calcsValues = `[{name: "${entry.chName}", xAxis: "30.12.\\n04:00"}, {xAxis: "30.12.\\n07:00"}],`;
+							calcsValues += `[{name: "${entry.chName}", xAxis: "30.12.\\n04:00"}, {xAxis: "30.12.\\n07:00"}],`;
 						});
 						jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
 					}
+					/*
+					filteredEntries.forEach(entry => {
+						const startTimeFormatted = entry.chStartTime
+							.toLocaleString("de-DE", {
+								day: "2-digit",
+								month: "2-digit",
+								hour: "2-digit",
+								minute: "2-digit",
+							})
+							.replace(", ", "\\n");
+
+						const endTimeFormatted = entry.chStopTime
+							.toLocaleString("de-DE", {
+								day: "2-digit",
+								month: "2-digit",
+								hour: "2-digit",
+								minute: "2-digit",
+							})
+							.replace(", ", "\\n");
+
+						calcsValues += `[{name: "${entry.chName}", xAxis: "${startTimeFormatted}"}, {xAxis: "${endTimeFormatted}"}],`;
+					});
+					*/
 				}
 			}
 
@@ -697,6 +720,7 @@ export class TibberAPICaller extends ProjectUtils {
 				`Homes.${homeId}.PricesTotal.jsonFlexCharts`,
 				jsonFlexCharts,
 				"JSON string to be used for FlexCharts adapter for Apache ECharts",
+				"json",
 			);
 		} catch (error: unknown) {
 			this.adapter.log.error(this.generateErrorMessage(error, `generate FlexChart JSON `));
