@@ -536,22 +536,9 @@
 					"lg": 6,
 					"xl": 6
 				},
-				"_jsonTxt": {
-					"type": "staticText",
-					"text": "Configure template to create a FlexCharts data string",
-					"style": {
-						"size": 3
-					},
-					"newLine": true,
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 6,
-					"xl": 6
-				},
 				"FlexGraphJSON": {
 					"type": "jsonEditor",
-					"label": "JSON EDITOR",
+					"label": "Configure template to create a FlexCharts data string",
 					"validateJson": false,
 					"delimiter": ";",
 					"newLine": true,
