@@ -524,76 +524,12 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 const date = new Date(item.startsAt);
                 return (0, date_fns_1.format)(date, "dd.MM.'\n'HH:mm");
             });
-            //#region *** FlexCharts demo
-            /*
-            option = {
-                backgroundColor: 'rgb(220, 220, 220)',
-                title: {
-                    text: 'Tibber Price',
-                },
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'cross'
-                    }
-                },
-                grid: { // Randabstände
-                    left: '10%', right: '4%', top: '8%', bottom: '8%'
-                },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    // prettier-ignore
-                    data: ['29.12.T00:00', '29.12.T01:00', '29.12.T02:00', '29.12.T03:00', '29.12.T04:00', '29.12.T05:00',
-                    '29.12.T06:00', '29.12.T07:00', '29.12.T08:00', '29.12.T09:00', '29.12.T10:00', '29.12.T11:00',
-                    '29.12.T12:00', '29.12.T13:00', '29.12.T14:00', '29.12.T15:00', '29.12.T16:00', '29.12.T17:00',
-                    '29.12.T18:00', '29.12.T19:00', '29.12.T20:00', '29.12.T21:00', '29.12.T22:00', '29.12.T23:00', '29.12.T24:00'].map(function (str) {
-                    return str.replace('T', '\n');
-                    })
-                },
-                yAxis: {
-                    type: 'value',
-                    axisLabel: {formatter: '{value} ct/kWh'},
-                    axisPointer: {
-                        snap: true
-                    }
-                },
-                visualMap: {
-                    min: 0.2,
-                    max: 0.3,
-                    inRange: {
-                        color: ['green', 'yellow', 'red'] // Verlauf von grün über gelb nach rot
-                    },
-                    show: false
-                },
-                series: [
-                    {
-                        name: 'Total',
-                        type: 'line',
-                        step: 'end',
-                        symbol: 'none',
-                        data: [0.2938, 0.278, 0.2704, 0.2632, 0.2585, 0.2596, 0.259, 0.2637, 0.274, 0.2787, 0.2661, 0.2614, 0.2621, 0.2609, 0.2594, 0.266, 0.2871, 0.2874, 0.2923, 0.2866, 0.273, 0.2496, 0.2419, 0.2275, 0.2275],
-
-                        markArea: {
-                            itemStyle: {
-                                color: 'rgba(120, 200, 120, 0.2)'
-                            },
-                            data: [
-                                [{name: 'Car Charging', xAxis: '29.12.\n04:00'}, {xAxis: '29.12.\n07:00'}],
-                                [{name: 'Battery', xAxis: '29.12.\n21:00'}, {xAxis: '29.12.\n24:00'}]
-                            ]
-                        }
-                    }
-                ]
-            };
-            */
-            //#endregion
             let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
             if (jsonFlexCharts) {
                 jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
                 jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
                 if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
-                    const allowedTypes = [2, 5, 3, 6]; // list of supported channel types
+                    const allowedTypes = [2, 3, 5, 6, 8, 9]; // list of supported channel types
                     const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
                     if (filteredEntries.length > 0) {
                         let calcsValues = "";

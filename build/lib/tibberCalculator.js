@@ -127,9 +127,9 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 "smart battery buffer"	| Input state: "AmountHours", "EfficiencyLoss"
                                         | Output state: "Output", "Output2"
                 "best percentage"	 	| Input state: "Percentage"
-                                        | Output state: "Output"
+                                        | Output state: "Output", "OutputJSON"
                 "best percentage LTF" 	| Input state: "Percentage", "StartTime", "StopTime", "RepeatDays"
-                                        | Output state: "Output"
+                                        | Output state: "Output", "OutputJSON"
             */
             switch (channelConfig.chType) {
                 case projectUtils_1.enCalcType.BestCost:
@@ -260,8 +260,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
                     await this.setup_chPercentage(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
-                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
+                    this.setup_chOutputJSON(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestPercentageLTF:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AmountHours`); // INPUTS
@@ -275,8 +275,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chRepeatDays(homeId, channel);
                     await this.setup_chPercentage(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
-                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
+                    this.setup_chOutputJSON(homeId, channel);
                     break;
                 default:
                     this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
@@ -1046,6 +1046,15 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }
                 //#endregion
                 // mark the entries with the result and create JSON output
+                const jsonOutput = filteredPrices
+                    .map((entry, index) => ({
+                    hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+                    startsAt: entry.startsAt,
+                    total: entry.total,
+                    output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
+                }))
+                    .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
             }
             //#region *** set value to foreign state, if defined, or use internal Output ***
             let sOutState = "";
