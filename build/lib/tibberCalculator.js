@@ -768,7 +768,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
                     startsAt: entry.startsAt,
                     total: entry.total,
-                    output: channelResult[index] !== undefined ? true : false, // Check if result[index] is defined
+                    output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
@@ -850,7 +850,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
                     startsAt: entry.startsAt,
                     total: entry.total,
-                    output: channelResult[index] !== undefined ? true : false, // Check if result[index] is defined
+                    output: channelResult[index - startIndex] !== undefined ? true : false, // Check if channelResult[index] is defined
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
