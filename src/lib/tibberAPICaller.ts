@@ -238,7 +238,6 @@ export class TibberAPICaller extends ProjectUtils {
 					);
 					exDate = new Date(pricesToday[2].startsAt);
 					if (exDate && exDate >= today) {
-						void this.generateFlexChartJSON(homeId);
 						return true;
 					}
 				} else {
@@ -352,7 +351,6 @@ export class TibberAPICaller extends ProjectUtils {
 					);
 					exDate = new Date(pricesTomorrow[2].startsAt);
 					if (exDate && exDate >= morgen) {
-						void this.generateFlexChartJSON(homeId);
 						return true;
 					}
 					return false;
@@ -583,6 +581,20 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Longitude`, address.longitude);
 	}
 
+	/**
+	 * updates FlexChart JSONs of all homes
+	 *
+	 * @param homeInfoList - homeInfo list object
+	 * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
+	 */
+	async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
+		for (const curHomeInfo of homeInfoList) {
+			if (!curHomeInfo.PriceDataPollActive) {
+				continue;
+			}
+			await this.generateFlexChartJSON(curHomeInfo.ID);
+		}
+	}
 	private async generateFlexChartJSON(homeID: string): Promise<void> {
 		// https://echarts.apache.org/examples/en/index.html
 		// https://github.com/MyHomeMyData/ioBroker.flexcharts

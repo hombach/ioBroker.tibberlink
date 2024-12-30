@@ -203,7 +203,6 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                     void this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
                     exDate = new Date(pricesToday[2].startsAt);
                     if (exDate && exDate >= today) {
-                        void this.generateFlexChartJSON(homeId);
                         return true;
                     }
                 }
@@ -302,7 +301,6 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                     void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`, JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
                     exDate = new Date(pricesTomorrow[2].startsAt);
                     if (exDate && exDate >= morgen) {
-                        void this.generateFlexChartJSON(homeId);
                         return true;
                     }
                     return false;
@@ -486,6 +484,20 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
         void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Country`, address.country);
         void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Latitude`, address.latitude);
         void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Longitude`, address.longitude);
+    }
+    /**
+     * updates FlexChart JSONs of all homes
+     *
+     * @param homeInfoList - homeInfo list object
+     * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
+     */
+    async generateFlexChartJSONAllHomes(homeInfoList) {
+        for (const curHomeInfo of homeInfoList) {
+            if (!curHomeInfo.PriceDataPollActive) {
+                continue;
+            }
+            await this.generateFlexChartJSON(curHomeInfo.ID);
+        }
     }
     async generateFlexChartJSON(homeID) {
         // https://echarts.apache.org/examples/en/index.html

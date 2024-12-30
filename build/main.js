@@ -203,6 +203,7 @@ class Tibberlink extends utils.Adapter {
                 void tibberCalculator.startCalculatorTasks(false, true);
                 // Get consumption data for the first time
                 void tibberAPICaller.updateConsumptionAllHomes();
+                void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
                     cronTime: "20 57 * * * *", //"20 58 * * * *" = 2 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
                     onTick: async () => {
@@ -233,6 +234,7 @@ class Tibberlink extends utils.Adapter {
                             this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
                         } while (!okPrice);
                         void tibberCalculator.startCalculatorTasks();
+                        void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,
                     timeZone: "system",
@@ -251,6 +253,7 @@ class Tibberlink extends utils.Adapter {
                             this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
                         } while (!okPrice);
                         void tibberCalculator.startCalculatorTasks();
+                        void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,
                     timeZone: "system",
@@ -625,6 +628,7 @@ class Tibberlink extends utils.Adapter {
                                         this.log.debug(`unknown value for setting type: ${settingType}`);
                                 }
                                 void this.tibberCalculator.startCalculatorTasks(true);
+                                //void this.tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
                             }
                             else {
                                 this.log.debug(`wrong index values in state ID or missing value for settingType`);
