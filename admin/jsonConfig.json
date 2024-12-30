@@ -521,12 +521,12 @@
 
 				"_jsonHdr": {
 					"type": "header",
-					"text": "JSON",
+					"text": "Stuctured Data Output",
 					"size": 2
 				},
 				"_jsonWarning": {
 					"type": "staticText",
-					"text": "WARNING: functionality of element JSON currently WiP",
+					"text": "WARNING: functionality of JSON graph elements currently WORK in PROGRESS",
 					"style": {
 						"color": "red"
 					},
@@ -538,7 +538,10 @@
 				},
 				"_jsonTxt": {
 					"type": "staticText",
-					"text": "configure json data",
+					"text": "Configure template to create a FlexCharts data string",
+					"style": {
+						"size": 3
+					},
 					"newLine": true,
 					"xs": 12,
 					"sm": 12,
@@ -548,11 +551,11 @@
 				},
 				"FlexGraphJSON": {
 					"type": "jsonEditor",
-					"label": "json editor",
+					"label": "JSON EDITOR",
 					"validateJson": false,
 					"delimiter": ";",
 					"newLine": true,
-					"default": "option = { %%xAxisData%% - %%yAxisData%% }",
+					"default": "%%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,

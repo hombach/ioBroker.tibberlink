@@ -18,7 +18,7 @@ option = {
 	xAxis: {
 		type: "category",
 		boundaryGap: false,
-		data: %%xAxisData%%.map
+		data: %%xAxisData%%
 	},
 	yAxis: {
 		type: "value",
@@ -49,8 +49,6 @@ option = {
 				},
 				data: [
 					%%CalcChannelsData%%
-					[{name: "Car Charging", xAxis: "30.12.\n08:00"}, {xAxis: "30.12.\n09:00"}],
-					[{name: "Battery", xAxis: "30.12.\n21:00"}, {xAxis: "31.12.\n00:00"}]
 				]
 			}
 		}

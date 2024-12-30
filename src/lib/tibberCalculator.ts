@@ -363,7 +363,7 @@ export class TibberCalculator extends ProjectUtils {
 				`[]`,
 				`JSON output to see the schedule the channel will follow`,
 				`json`,
-				true,
+				false,
 				true,
 			);
 		} catch (error) {

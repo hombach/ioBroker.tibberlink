@@ -586,7 +586,7 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                         let calcsValues = "";
                         filteredEntries.forEach(entry => {
                             //WIP
-                            calcsValues += `[{name: "${entry.chName}", xAxis: "30.12.\\n04:00"}, {xAxis: "30.12.\\n07:00"}],`;
+                            calcsValues += `[{name: "${entry.chName}", xAxis: "30.12.\\n04:00"}, {xAxis: "30.12.\\n07:00"}],\n`;
                         });
                         jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
                     }
