@@ -1017,39 +1017,37 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     }
     async executeCalculatorBestPercentage(channel, modeLTF = false) {
         try {
-            let valueToSet = "";
             const now = new Date();
             const channelConfig = this.adapter.config.CalculatorList[channel];
+            let valueToSet = channelConfig.chValueOff;
             if (!channelConfig.chActive) {
                 // not active -> choose chValueOff
-                valueToSet = channelConfig.chValueOff;
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 // chActive but before LTF -> choose chValueOff
-                valueToSet = channelConfig.chValueOff;
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
-                // chActive, modeLTF but after LTF -> choose chValueOff and disable channel
-                valueToSet = channelConfig.chValueOff;
+                // chActive but after LTF -> choose chValueOff and disable channel or generate new running period
                 this.handleAfterLTF(channel);
             }
             else {
                 // chActive and inside LTF -> choose desired value
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
+                //#region *** Find channel result ***
+                // sort by total cost
                 filteredPrices.sort((a, b) => a.total - b.total);
                 const cheapestPrice = filteredPrices[0]?.total;
                 const percentage = channelConfig.chPercentage;
                 const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
-                const result = allowedPrices.map((entry) => checkHourMatch(entry));
+                const channelResult = allowedPrices.map((entry) => checkHourMatch(entry));
                 // identify if any element is true
-                if (result.some(value => value)) {
+                if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                 }
-                else {
-                    valueToSet = channelConfig.chValueOff;
-                }
+                //#endregion
+                // mark the entries with the result and create JSON output
             }
-            //set value to foreign state, if defined
+            //#region *** set value to foreign state, if defined, or use internal Output ***
             let sOutState = "";
             if (channelConfig?.chTargetState &&
                 channelConfig.chTargetState.length > 10 &&
@@ -1062,9 +1060,10 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 void this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best percentage ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
+            //#endregion
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percantage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percentage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
     /**

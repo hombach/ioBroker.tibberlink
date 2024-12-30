@@ -108,11 +108,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### 4.2.0 (2025-01-xx)
+### 4.2.0 (2025-01-xx) - WORK in PROGRESS
 
 - (HombachC) add new calculator channels 'BestPercentage' and 'BestPercentageLTF' (#616)
-- (HombachC) WIP add outputJSON for 'BestSingleHours' and 'BestSingleHoursLTF' (#592)
-- (HombachC) WIP add outputJSON for 'BestHoursBlock' and 'BestHoursBlockLTF' (#592)
+- (HombachC) add outputJSON for 'BestSingleHours' and 'BestSingleHoursLTF' (#592)
+- (HombachC) add outputJSON for 'BestHoursBlock' and 'BestHoursBlockLTF' (#592)
 - (HombachC) WIP add jsonFlexCharts as overview graph for prices and calculators (#458)
 - (HombachC) fixed some i18n translations
 - (HombachC) year 2025 changes

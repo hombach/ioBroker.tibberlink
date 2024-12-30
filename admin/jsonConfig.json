@@ -552,7 +552,7 @@
 				"_templateFlexGraph01": {
 					"type": "staticLink",
 					"button": true,
-					"variant": "contained",
+					"variant": "outlined",
 					"icon": "info",
 					"label": "You could use this demo template for FlexCharts - just copy paste the code to the editor",
 					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/docu/TemplateFlexChart01.md",
@@ -580,8 +580,8 @@
 				"_flexchartsLink": {
 					"type": "staticLink",
 					"button": true,
-					"variant": "contained",
-					"icon": "info",
+					"variant": "text",
+					"icon": "help",
 					"label": "For informations how to use ioBroker FlexCharts see this link",
 					"href": "https://github.com/MyHomeMyData/ioBroker.flexcharts",
 					"xs": 12,
