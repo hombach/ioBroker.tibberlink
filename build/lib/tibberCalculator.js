@@ -926,13 +926,11 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         */
         //#endregion
         try {
-            let valueToSet = "";
-            let valueToSet2 = "";
             const channelConfig = this.adapter.config.CalculatorList[channel];
+            let valueToSet = channelConfig.chValueOff;
+            let valueToSet2 = channelConfig.chValueOff2;
             if (!channelConfig.chActive) {
                 // Not Active - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2)
-                valueToSet = channelConfig.chValueOff;
-                valueToSet2 = channelConfig.chValueOff2;
             }
             else {
                 // chActive -> choose desired values
@@ -999,7 +997,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     return cheapAverage * efficiencyLoss;
                 }
             }
-            //set value to foreign states, if defined
+            //#region *** set value to foreign state, if defined, or use internal Output ***
             let sOutState = "";
             if (channelConfig?.chTargetState &&
                 channelConfig.chTargetState.length > 10 &&
@@ -1020,6 +1018,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output2`;
                 void this.adapter.setState(sOutState, convertValue(valueToSet2), true);
             }
+            //#endregion
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
