@@ -113,13 +113,13 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             //#endregion
             //#region *** setup and delete channel states according to channel type ***
             /*	"best cost"				| Input state: "TriggerPrice"
-                                        | Output state: "Output"
+                                        | Output state: "Output", "OutputJSON"
                 "best single hours" 	| Input state: "AmountHours"
                                         | Output state: "Output", "OutputJSON"
                 "best hours block"		| Input state: "AmountHours"
                                         | Output state: "Output", "OutputJSON", "AverageTotalCost", "BlockStartFullHour", "BlockEndFullHour", "BlockStart", "BlockEnd"
                 "best cost LTF"			| Input state: "TriggerPrice", "StartTime", "StopTime", "RepeatDays"
-                                        | Output state: "Output"
+                                        | Output state: "Output", "OutputJSON"
                 "best single hours LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
                                         | Output state: "Output", "OutputJSON"
                 "best hours block LTF"	| Input state: "AmountHours", "StartTime", "StopTime", "RepeatDays"
@@ -146,8 +146,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
                     await this.setup_chTriggerPrice(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
-                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
+                    this.setup_chOutputJSON(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestSingleHours:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
@@ -194,8 +194,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chStopTime(homeId, channel);
                     await this.setup_chRepeatDays(homeId, channel);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
-                    await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON`);
                     await this.setup_chOutput(homeId, channel);
+                    this.setup_chOutputJSON(homeId, channel);
                     break;
                 case projectUtils_1.enCalcType.BestSingleHoursLTF:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
@@ -688,33 +688,42 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     }
     async executeCalculatorBestCost(channel, modeLTF = false) {
         try {
-            let valueToSet = "";
             const now = new Date();
             const channelConfig = this.adapter.config.CalculatorList[channel];
+            let valueToSet = channelConfig.chValueOff;
             if (!channelConfig.chActive) {
                 // not active
-                valueToSet = channelConfig.chValueOff;
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 // chActive but before LTF
-                valueToSet = channelConfig.chValueOff;
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
                 // chActive but after LTF
-                valueToSet = channelConfig.chValueOff;
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
                 this.handleAfterLTF(channel);
             }
             else {
                 // chActive and inside LTF -> choose desired value
+                const filteredPrices = await this.getPricesLTF(channel, modeLTF);
+                //#region *** Find channel result ***
                 const currentPrice = await this.getStateValue(`Homes.${channelConfig.chHomeID}.CurrentPrice.total`);
                 if (channelConfig.chTriggerPrice > currentPrice) {
                     valueToSet = channelConfig.chValueOn;
                 }
-                else {
-                    valueToSet = channelConfig.chValueOff;
-                }
+                //#endregion
+                // mark the entries with the result and create JSON output
+                const jsonOutput = filteredPrices
+                    .map((entry) => ({
+                    hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+                    startsAt: entry.startsAt,
+                    total: entry.total,
+                    output: channelConfig.chTriggerPrice > entry.total ? true : false, // mark all cheap hours
+                }))
+                    .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
             }
-            //set value to foreign state, if defined
+            //#region *** set value to foreign state, if defined, or use internal Output ***
             let sOutState = "";
             if (channelConfig?.chTargetState &&
                 channelConfig.chTargetState.length > 10 &&
@@ -727,6 +736,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 void this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
+            //#endregion
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
