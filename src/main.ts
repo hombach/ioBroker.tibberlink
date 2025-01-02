@@ -6,6 +6,7 @@ import type { IConfig } from "tibber-api";
 import type { IHomeInfo } from "./lib/projectUtils";
 import { TibberAPICaller } from "./lib/tibberAPICaller";
 import { TibberCalculator } from "./lib/tibberCalculator";
+import { TibberCharts } from "./lib/tibberCharts";
 import { TibberLocal } from "./lib/tibberLocal";
 import { TibberPulse } from "./lib/tibberPulse";
 
@@ -29,7 +30,7 @@ class Tibberlink extends utils.Adapter {
 	private homeInfoList: IHomeInfo[] = [];
 	private queryUrl = "";
 	private tibberCalculator = new TibberCalculator(this);
-
+	private tibberCharts = new TibberCharts(this);
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
@@ -187,7 +188,7 @@ class Tibberlink extends utils.Adapter {
 				void tibberCalculator.startCalculatorTasks(false, true);
 				// Get consumption data for the first time
 				void tibberAPICaller.updateConsumptionAllHomes();
-				void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
+				void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 
 				const jobCurrentPrice = CronJob.from({
 					cronTime: "20 57 * * * *", //"20 58 * * * *" = 2 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
@@ -220,7 +221,7 @@ class Tibberlink extends utils.Adapter {
 							this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
 						} while (!okPrice);
 						void tibberCalculator.startCalculatorTasks();
-						void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
+						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
 					timeZone: "system",
@@ -240,7 +241,7 @@ class Tibberlink extends utils.Adapter {
 							this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
 						} while (!okPrice);
 						void tibberCalculator.startCalculatorTasks();
-						void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
+						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
 					timeZone: "system",
@@ -649,7 +650,7 @@ class Tibberlink extends utils.Adapter {
 										this.log.debug(`unknown value for setting type: ${settingType}`);
 								}
 								void this.tibberCalculator.startCalculatorTasks(true);
-								//void this.tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
+								void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 							} else {
 								this.log.debug(`wrong index values in state ID or missing value for settingType`);
 							}

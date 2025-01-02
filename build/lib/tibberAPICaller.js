@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberAPICaller = void 0;
-const date_fns_1 = require("date-fns");
+//import { addHours, differenceInHours, format, parseISO } from "date-fns";
 const tibber_api_1 = require("tibber-api");
 const EnergyResolution_1 = require("tibber-api/lib/src/models/enums/EnergyResolution");
 const projectUtils_1 = require("./projectUtils");
@@ -491,7 +491,8 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
      * @param homeInfoList - homeInfo list object
      * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
      */
-    async generateFlexChartJSONAllHomes(homeInfoList) {
+    /*
+    async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
         for (const curHomeInfo of homeInfoList) {
             if (!curHomeInfo.PriceDataPollActive) {
                 continue;
@@ -499,54 +500,61 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
             await this.generateFlexChartJSON(curHomeInfo.ID);
         }
     }
-    async generateFlexChartJSON(homeID) {
+
+    private async generateFlexChartJSON(homeID: string): Promise<void> {
         // https://echarts.apache.org/examples/en/index.html
         // https://github.com/MyHomeMyData/ioBroker.flexcharts
         try {
-            const exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesToday.json`));
-            const exPricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesTomorrow.json`));
-            let mergedPrices = exPricesToday;
+            const exPricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesToday.json`));
+            const exPricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesTomorrow.json`));
+            let mergedPrices: IPrice[] = exPricesToday;
             if (exPricesTomorrow.length !== 0) {
                 mergedPrices = [...exPricesToday, ...exPricesTomorrow];
             }
+
             // double last item and raise hour by one
             const lastItem = mergedPrices[mergedPrices.length - 1];
             const lastStartsAt = new Date(lastItem.startsAt);
-            const newStartsAt = (0, date_fns_1.addHours)(lastStartsAt, 1);
+            const newStartsAt = addHours(lastStartsAt, 1);
             const duplicatedItem = {
                 ...lastItem,
                 startsAt: newStartsAt.toISOString(),
             };
             mergedPrices.push(duplicatedItem);
+
             // build data-rows
             const totalValues = mergedPrices.map(item => item.total);
             const startsAtValues = mergedPrices.map(item => {
                 const date = new Date(item.startsAt);
-                return (0, date_fns_1.format)(date, "dd.MM.'\n'HH:mm");
+                return format(date, "dd.MM.'\n'HH:mm");
             });
+
             let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
             if (jsonFlexCharts) {
                 jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
                 jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
                 if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
                     const allowedTypes = [1, 2, 3, 4, 5, 6, 8, 9]; // list of supported channel types
-                    const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
+                    const filteredEntries = this.adapter.config.CalculatorList.filter(
+                        entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
+                    );
                     let calcsValues = "";
                     if (filteredEntries.length > 0) {
                         for (const entry of filteredEntries) {
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
+
                             const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
                             let startIndex = 0;
                             for (let i = 1; i <= filteredData.length; i++) {
                                 // check: connected hours?
                                 const current = filteredData[i - 1];
                                 const next = filteredData[i];
-                                const isContinuous = next && (0, date_fns_1.differenceInHours)((0, date_fns_1.parseISO)(next.startsAt), (0, date_fns_1.parseISO)(current.startsAt)) === 1;
+                                const isContinuous = next && differenceInHours(parseISO(next.startsAt), parseISO(current.startsAt)) === 1;
                                 if (!isContinuous || i === filteredData.length) {
                                     // end of block or last iteration
-                                    const startTime = (0, date_fns_1.parseISO)(filteredData[startIndex].startsAt);
-                                    const endTime = (0, date_fns_1.addHours)((0, date_fns_1.parseISO)(current.startsAt), 1);
-                                    calcsValues += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+                                    const startTime = parseISO(filteredData[startIndex].startsAt);
+                                    const endTime = addHours(parseISO(current.startsAt), 1);
+                                    calcsValues += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
                                     startIndex = i; // start next group
                                 }
                             }
@@ -558,12 +566,18 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                     jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
                 }
             }
-            void this.checkAndSetValue(`Homes.${homeID}.PricesTotal.jsonFlexCharts`, jsonFlexCharts, "JSON string to be used for FlexCharts adapter for Apache ECharts", "json");
-        }
-        catch (error) {
+
+            void this.checkAndSetValue(
+                `Homes.${homeID}.PricesTotal.jsonFlexCharts`,
+                jsonFlexCharts,
+                "JSON string to be used for FlexCharts adapter for Apache ECharts",
+                "json",
+            );
+        } catch (error: unknown) {
             this.adapter.log.error(this.generateErrorMessage(error, `generate FlexChart JSON `));
         }
     }
+    */
     //#region *** obsolete data poll for consumption data ***
     /**
      * Get energy consumption for one or more homes.

@@ -1,5 +1,5 @@
 import type * as utils from "@iobroker/adapter-core";
-import { addHours, differenceInHours, format, parseISO } from "date-fns";
+//import { addHours, differenceInHours, format, parseISO } from "date-fns";
 import { TibberQuery, type IConfig } from "tibber-api";
 import type { IAddress } from "tibber-api/lib/src/models/IAddress";
 import type { IConsumption } from "tibber-api/lib/src/models/IConsumption"; // obsolete data poll for consumption data
@@ -587,6 +587,7 @@ export class TibberAPICaller extends ProjectUtils {
 	 * @param homeInfoList - homeInfo list object
 	 * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
 	 */
+	/*
 	async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) {
@@ -595,6 +596,7 @@ export class TibberAPICaller extends ProjectUtils {
 			await this.generateFlexChartJSON(curHomeInfo.ID);
 		}
 	}
+
 	private async generateFlexChartJSON(homeID: string): Promise<void> {
 		// https://echarts.apache.org/examples/en/index.html
 		// https://github.com/MyHomeMyData/ioBroker.flexcharts
@@ -671,6 +673,7 @@ export class TibberAPICaller extends ProjectUtils {
 			this.adapter.log.error(this.generateErrorMessage(error, `generate FlexChart JSON `));
 		}
 	}
+	*/
 
 	//#region *** obsolete data poll for consumption data ***
 

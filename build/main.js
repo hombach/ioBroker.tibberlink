@@ -39,6 +39,7 @@ const cron_1 = require("cron");
 const date_fns_1 = require("date-fns");
 const tibberAPICaller_1 = require("./lib/tibberAPICaller");
 const tibberCalculator_1 = require("./lib/tibberCalculator");
+const tibberCharts_1 = require("./lib/tibberCharts");
 const tibberLocal_1 = require("./lib/tibberLocal");
 const tibberPulse_1 = require("./lib/tibberPulse");
 class Tibberlink extends utils.Adapter {
@@ -60,6 +61,7 @@ class Tibberlink extends utils.Adapter {
     homeInfoList = [];
     queryUrl = "";
     tibberCalculator = new tibberCalculator_1.TibberCalculator(this);
+    tibberCharts = new tibberCharts_1.TibberCharts(this);
     /**
      * Is called when databases are connected and adapter received configuration.
      */
@@ -203,7 +205,7 @@ class Tibberlink extends utils.Adapter {
                 void tibberCalculator.startCalculatorTasks(false, true);
                 // Get consumption data for the first time
                 void tibberAPICaller.updateConsumptionAllHomes();
-                void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
+                void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
                     cronTime: "20 57 * * * *", //"20 58 * * * *" = 2 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
                     onTick: async () => {
@@ -234,7 +236,7 @@ class Tibberlink extends utils.Adapter {
                             this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
                         } while (!okPrice);
                         void tibberCalculator.startCalculatorTasks();
-                        void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
+                        void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,
                     timeZone: "system",
@@ -253,7 +255,7 @@ class Tibberlink extends utils.Adapter {
                             this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
                         } while (!okPrice);
                         void tibberCalculator.startCalculatorTasks();
-                        void tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
+                        void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,
                     timeZone: "system",
@@ -628,7 +630,7 @@ class Tibberlink extends utils.Adapter {
                                         this.log.debug(`unknown value for setting type: ${settingType}`);
                                 }
                                 void this.tibberCalculator.startCalculatorTasks(true);
-                                //void this.tibberAPICaller.generateFlexChartJSONAllHomes(this.homeInfoList);
+                                void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                             }
                             else {
                                 this.log.debug(`wrong index values in state ID or missing value for settingType`);
