@@ -632,9 +632,8 @@ export class TibberAPICaller extends ProjectUtils {
 					const filteredEntries = this.adapter.config.CalculatorList.filter(
 						entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
 					);
+					let calcsValues = "";
 					if (filteredEntries.length > 0) {
-						let calcsValues = "";
-
 						for (const entry of filteredEntries) {
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
 
@@ -654,11 +653,11 @@ export class TibberAPICaller extends ProjectUtils {
 								}
 							}
 						}
-						if (calcsValues == "") {
-							calcsValues = `[{xAxis: ""}, {xAxis: ""}]`;
-						}
-						jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
 					}
+					if (calcsValues == "") {
+						calcsValues = `[{xAxis: ""}, {xAxis: ""}]`;
+					}
+					jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
 				}
 			}
 

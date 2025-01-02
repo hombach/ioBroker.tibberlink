@@ -531,8 +531,8 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
                     const allowedTypes = [1, 2, 3, 4, 5, 6, 8, 9]; // list of supported channel types
                     const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
+                    let calcsValues = "";
                     if (filteredEntries.length > 0) {
-                        let calcsValues = "";
                         for (const entry of filteredEntries) {
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
                             const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
@@ -551,11 +551,11 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                                 }
                             }
                         }
-                        if (calcsValues == "") {
-                            calcsValues = `[{xAxis: ""}, {xAxis: ""}]`;
-                        }
-                        jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
                     }
+                    if (calcsValues == "") {
+                        calcsValues = `[{xAxis: ""}, {xAxis: ""}]`;
+                    }
+                    jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
                 }
             }
             void this.checkAndSetValue(`Homes.${homeID}.PricesTotal.jsonFlexCharts`, jsonFlexCharts, "JSON string to be used for FlexCharts adapter for Apache ECharts", "json");
