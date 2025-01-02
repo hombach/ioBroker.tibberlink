@@ -654,6 +654,9 @@ export class TibberAPICaller extends ProjectUtils {
 								}
 							}
 						}
+						if (calcsValues == "") {
+							calcsValues = `[{xAxis: ""}, {xAxis: ""}]`;
+						}
 						jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
 					}
 				}
