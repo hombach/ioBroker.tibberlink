@@ -51,6 +51,7 @@ export class TibberCharts extends ProjectUtils {
 				...lastItem,
 				startsAt: newStartsAt.toISOString(),
 			};
+
 			mergedPrices.push(duplicatedItem);
 
 			// build data-rows
@@ -64,6 +65,7 @@ export class TibberCharts extends ProjectUtils {
 			if (jsonFlexCharts) {
 				jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
 				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
+
 				if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
 					const allowedTypes = [1, 2, 3, 4, 5, 6, 8, 9]; // list of supported channel types
 					const filteredEntries = this.adapter.config.CalculatorList.filter(
