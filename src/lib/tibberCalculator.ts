@@ -1133,46 +1133,7 @@ export class TibberCalculator extends ProjectUtils {
 					return cheapAverage * efficiencyLoss;
 				}
 			}
-			//#region *** set value to foreign state, if defined, or use internal Output ***
 			this.setChannelOutState(channel, valueToSet, valueToSet2);
-			/*
-			let sOutState = "";
-			if (
-				channelConfig?.chTargetState &&
-				channelConfig.chTargetState.length > 10 &&
-				!channelConfig.chTargetState.startsWith("choose your state to drive")
-			) {
-				sOutState = channelConfig.chTargetState;
-				void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
-			} else {
-				sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
-				void this.adapter.setState(sOutState, convertValue(valueToSet), true);
-			}
-			this.adapter.log.debug(
-				`calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`,
-			);
-			*/
-
-			/*
-			let sOutState = "";
-			//sOutState = ""; // reinit for output 2
-			if (
-				channelConfig?.chTargetState2 &&
-				channelConfig.chTargetState2.length > 10 &&
-				!channelConfig.chTargetState2.startsWith("choose your state to drive")
-			) {
-				sOutState = channelConfig.chTargetState2;
-				void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
-			} else {
-				sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output2`;
-				void this.adapter.setState(sOutState, convertValue(valueToSet2), true);
-			}
-			this.adapter.log.debug(
-				`calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet2}`,
-			);
-			*/
-
-			//#endregion
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
 		}
@@ -1238,7 +1199,6 @@ export class TibberCalculator extends ProjectUtils {
 			sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
 			void this.adapter.setState(sOutState, convertValue(valueToSet), true);
 		}
-		//this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
 		this.adapter.log.debug(
 			`calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`,
 		);
