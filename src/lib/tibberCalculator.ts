@@ -1134,6 +1134,8 @@ export class TibberCalculator extends ProjectUtils {
 				}
 			}
 			//#region *** set value to foreign state, if defined, or use internal Output ***
+			this.setChannelOutState(channel, valueToSet, valueToSet2);
+			/*
 			let sOutState = "";
 			if (
 				channelConfig?.chTargetState &&
@@ -1146,14 +1148,30 @@ export class TibberCalculator extends ProjectUtils {
 				sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
 				void this.adapter.setState(sOutState, convertValue(valueToSet), true);
 			}
-			sOutState = ""; // reinit for output 2
-			if (channelConfig.chTargetState2.length > 10 && !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
+			this.adapter.log.debug(
+				`calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`,
+			);
+			*/
+
+			/*
+			let sOutState = "";
+			//sOutState = ""; // reinit for output 2
+			if (
+				channelConfig?.chTargetState2 &&
+				channelConfig.chTargetState2.length > 10 &&
+				!channelConfig.chTargetState2.startsWith("choose your state to drive")
+			) {
 				sOutState = channelConfig.chTargetState2;
 				void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
 			} else {
 				sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output2`;
 				void this.adapter.setState(sOutState, convertValue(valueToSet2), true);
 			}
+			this.adapter.log.debug(
+				`calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet2}`,
+			);
+			*/
+
 			//#endregion
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
@@ -1210,8 +1228,8 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	private setChannelOutState(channel: number, valueToSet: string): void {
-		let sOutState = "";
+	private setChannelOutState(channel: number, valueToSet: string, valueToSet2 = `EMPTY`): void {
+		let sOutState = ``;
 		const channelConfig = this.adapter.config.CalculatorList[channel];
 		if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
 			sOutState = channelConfig.chTargetState;
@@ -1224,6 +1242,23 @@ export class TibberCalculator extends ProjectUtils {
 		this.adapter.log.debug(
 			`calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`,
 		);
+		if (valueToSet2 != `EMPTY`) {
+			sOutState = ``; // reinit for output 2
+			if (
+				channelConfig?.chTargetState2 &&
+				channelConfig.chTargetState2.length > 10 &&
+				!channelConfig.chTargetState2.startsWith("choose your state to drive")
+			) {
+				sOutState = channelConfig.chTargetState2;
+				void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
+			} else {
+				sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output2`;
+				void this.adapter.setState(sOutState, convertValue(valueToSet2), true);
+			}
+			this.adapter.log.debug(
+				`calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state 2: ${sOutState} to ${valueToSet2}`,
+			);
+		}
 	}
 
 	/**

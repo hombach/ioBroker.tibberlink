@@ -959,26 +959,42 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }
             }
             //#region *** set value to foreign state, if defined, or use internal Output ***
+            this.setChannelOutState(channel, valueToSet, valueToSet2);
+            /*
             let sOutState = "";
-            if (channelConfig?.chTargetState &&
+            if (
+                channelConfig?.chTargetState &&
                 channelConfig.chTargetState.length > 10 &&
-                !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+                !channelConfig.chTargetState.startsWith("choose your state to drive")
+            ) {
                 sOutState = channelConfig.chTargetState;
                 void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
-            }
-            else {
+            } else {
                 sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
                 void this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
-            sOutState = ""; // reinit for output 2
-            if (channelConfig.chTargetState2.length > 10 && !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
+            this.adapter.log.debug(
+                `calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`,
+            );
+            */
+            /*
+            let sOutState = "";
+            //sOutState = ""; // reinit for output 2
+            if (
+                channelConfig?.chTargetState2 &&
+                channelConfig.chTargetState2.length > 10 &&
+                !channelConfig.chTargetState2.startsWith("choose your state to drive")
+            ) {
                 sOutState = channelConfig.chTargetState2;
                 void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
-            }
-            else {
+            } else {
                 sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output2`;
                 void this.adapter.setState(sOutState, convertValue(valueToSet2), true);
             }
+            this.adapter.log.debug(
+                `calculator channel: ${channel} - ${getCalcTypeDescription(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet2}`,
+            );
+            */
             //#endregion
         }
         catch (error) {
@@ -1032,8 +1048,8 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percentage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
-    setChannelOutState(channel, valueToSet) {
-        let sOutState = "";
+    setChannelOutState(channel, valueToSet, valueToSet2 = `EMPTY`) {
+        let sOutState = ``;
         const channelConfig = this.adapter.config.CalculatorList[channel];
         if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
             sOutState = channelConfig.chTargetState;
@@ -1045,6 +1061,20 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
         //this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
         this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`);
+        if (valueToSet2 != `EMPTY`) {
+            sOutState = ``; // reinit for output 2
+            if (channelConfig?.chTargetState2 &&
+                channelConfig.chTargetState2.length > 10 &&
+                !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
+                sOutState = channelConfig.chTargetState2;
+                void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
+            }
+            else {
+                sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output2`;
+                void this.adapter.setState(sOutState, convertValue(valueToSet2), true);
+            }
+            this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)}; setting state 2: ${sOutState} to ${valueToSet2}`);
+        }
     }
     /**
      * Retrieves price data for a specific channel, optionally limited to a defined time frame.
