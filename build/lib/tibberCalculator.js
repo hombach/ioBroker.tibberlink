@@ -723,20 +723,24 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
             }
+            /*
             //#region *** set value to foreign state, if defined, or use internal Output ***
             let sOutState = "";
-            if (channelConfig?.chTargetState &&
+            if (
+                channelConfig?.chTargetState &&
                 channelConfig.chTargetState.length > 10 &&
-                !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+                !channelConfig.chTargetState.startsWith("choose your state to drive")
+            ) {
                 sOutState = channelConfig.chTargetState;
                 void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
-            }
-            else {
+            } else {
                 sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
                 void this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best price ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
             //#endregion
+            */
+            this.setChannelOutState(channel, valueToSet);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -783,42 +787,11 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
             }
-            //#region *** set value to foreign state, if defined, or use internal Output ***
-            /*
-            let sOutState = "";
-            if (
-                channelConfig?.chTargetState &&
-                channelConfig.chTargetState.length > 10 &&
-                !channelConfig.chTargetState.startsWith("choose your state to drive")
-            ) {
-                sOutState = channelConfig.chTargetState;
-                void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
-            } else {
-                sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
-                void this.adapter.setState(sOutState, convertValue(valueToSet), true);
-            }
-            this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
-            */
             this.setChannelOutState(channel, valueToSet);
-            //#endregion
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
-    }
-    setChannelOutState(channel, valueToSet) {
-        let sOutState = "";
-        const channelConfig = this.adapter.config.CalculatorList[channel];
-        if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
-            sOutState = channelConfig.chTargetState;
-            void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
-        }
-        else {
-            sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
-            void this.adapter.setState(sOutState, convertValue(valueToSet), true);
-        }
-        //this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
-        this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`);
     }
     async executeCalculatorBestHoursBlock(channel, modeLTF = false) {
         try {
@@ -894,23 +867,41 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 //#endregion
             }
             //#region *** set value to foreign state, if defined, or use internal Output ***
+            /*
             let sOutState = "";
-            if (channelConfig?.chTargetState &&
+            if (
+                channelConfig?.chTargetState &&
                 channelConfig.chTargetState.length > 10 &&
-                !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+                !channelConfig.chTargetState.startsWith("choose your state to drive")
+            ) {
                 sOutState = channelConfig.chTargetState;
                 void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
-            }
-            else {
+            } else {
                 sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
                 void this.adapter.setState(sOutState, convertValue(valueToSet), true);
             }
             this.adapter.log.debug(`calculator channel: ${channel} - best hours block ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
+            */
+            this.setChannelOutState(channel, valueToSet);
             //#endregion
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
+    }
+    setChannelOutState(channel, valueToSet) {
+        let sOutState = "";
+        const channelConfig = this.adapter.config.CalculatorList[channel];
+        if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+            sOutState = channelConfig.chTargetState;
+            void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
+        }
+        else {
+            sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
+            void this.adapter.setState(sOutState, convertValue(valueToSet), true);
+        }
+        //this.adapter.log.debug(`calculator channel: ${channel} - best single hours ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
+        this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`);
     }
     async executeCalculatorSmartBatteryBuffer(channel) {
         //#region *** SPECIFICATION ***
