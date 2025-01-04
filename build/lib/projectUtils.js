@@ -20,28 +20,18 @@ var enCalcType;
  * @param calcType - ID of calculator channel type
  */
 function getCalcTypeDescription(calcType) {
-    switch (calcType) {
-        case enCalcType.BestCost:
-            return `best cost`;
-        case enCalcType.BestSingleHours:
-            return `best single hours`;
-        case enCalcType.BestHoursBlock:
-            return `best hours block`;
-        case enCalcType.BestCostLTF:
-            return `best cost LTF`;
-        case enCalcType.BestSingleHoursLTF:
-            return `best single hours LTF`;
-        case enCalcType.BestHoursBlockLTF:
-            return `best hours block LTF`;
-        case enCalcType.SmartBatteryBuffer:
-            return `smart battery buffer`;
-        case enCalcType.BestPercentage:
-            return `best hours within percentage`;
-        case enCalcType.BestPercentageLTF:
-            return `best hours within percentage LTF`;
-        default:
-            return "Unknown";
-    }
+    const descriptions = {
+        [enCalcType.BestCost]: `best cost`,
+        [enCalcType.BestSingleHours]: `best single hours`,
+        [enCalcType.BestHoursBlock]: `best hours block`,
+        [enCalcType.BestCostLTF]: `best cost LTF`,
+        [enCalcType.BestSingleHoursLTF]: `best single hours LTF`,
+        [enCalcType.BestHoursBlockLTF]: `best hours block LTF`,
+        [enCalcType.SmartBatteryBuffer]: `smart battery buffer`,
+        [enCalcType.BestPercentage]: `best percentage`,
+        [enCalcType.BestPercentageLTF]: `best percentage LTF`,
+    };
+    return descriptions[calcType] || `Unknown`;
 }
 /**
  * ProjectUtils
