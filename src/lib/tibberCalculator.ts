@@ -1204,24 +1204,6 @@ export class TibberCalculator extends ProjectUtils {
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 			}
-
-			/*
-			//#region *** set value to foreign state, if defined, or use internal Output ***
-			let sOutState = "";
-			if (
-				channelConfig?.chTargetState &&
-				channelConfig.chTargetState.length > 10 &&
-				!channelConfig.chTargetState.startsWith("choose your state to drive")
-			) {
-				sOutState = channelConfig.chTargetState;
-				void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
-			} else {
-				sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
-				void this.adapter.setState(sOutState, convertValue(valueToSet), true);
-			}
-			this.adapter.log.debug(`calculator channel: ${channel} - best percentage ${modeLTF ? "LTF" : ""}; setting state: ${sOutState} to ${valueToSet}`);
-			//#endregion
-			*/
 			this.setChannelOutState(channel, valueToSet);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percentage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
