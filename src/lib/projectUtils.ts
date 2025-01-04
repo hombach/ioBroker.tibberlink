@@ -34,9 +34,9 @@ export function getCalcTypeDescription(calcType: enCalcType): string {
 		case enCalcType.SmartBatteryBuffer:
 			return `smart battery buffer`;
 		case enCalcType.BestPercentage:
-			return `best hours within top x percentage`;
+			return `best hours within percentage`;
 		case enCalcType.BestPercentageLTF:
-			return `best hours within top x percentage LTF`;
+			return `best hours within percentage LTF`;
 		default:
 			return "Unknown";
 	}
