@@ -76,7 +76,14 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
                                     // end of block or last iteration
                                     const startTime = (0, date_fns_1.parseISO)(filteredData[startIndex].startsAt);
                                     const endTime = (0, date_fns_1.addHours)((0, date_fns_1.parseISO)(current.startsAt), 1);
-                                    calcsValues += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+                                    switch (entry.chType) {
+                                        case projectUtils_1.enCalcType.BestCost:
+                                        case projectUtils_1.enCalcType.BestCostLTF:
+                                            calcsValues += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+                                            break;
+                                        default:
+                                            calcsValues += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+                                    }
                                     startIndex = i; // start next group
                                 }
                             }

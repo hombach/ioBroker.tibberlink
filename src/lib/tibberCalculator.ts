@@ -834,7 +834,7 @@ export class TibberCalculator extends ProjectUtils {
 				this.handleAfterLTF(channel);
 			} else {
 				// chActive and inside LTF -> choose desired value
-				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
+				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF, true);
 
 				//#region *** Find channel result ***
 				const currentPrice = await this.getStateValue(`Homes.${channelConfig.chHomeID}.CurrentPrice.total`);
@@ -1230,28 +1230,34 @@ export class TibberCalculator extends ProjectUtils {
 	 *
 	 * @param channel - The index representing the channel in the configuration.
 	 * @param modeLTF - A boolean indicating whether Limited Time Frame mode is active.
+	 * @param modeTwoDays - A boolean indicating whether also tomorrow should be added to non LTF channels. Default false.
 	 * @returns An array of price objects (`IPrice[]`) relevant to the specified channel and time frame.
 	 *          - If `modeLTF` is false, returns today's prices as-is.
 	 *          - If `modeLTF` is true, merges price data from yesterday, today, and tomorrow,
 	 *            and filters it to include only prices within the specified time frame.
 	 */
-	async getPricesLTF(channel: number, modeLTF: boolean): Promise<IPrice[]> {
+	async getPricesLTF(channel: number, modeLTF: boolean, modeTwoDays = false): Promise<IPrice[]> {
 		const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
 		const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
+		const pricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
+		let mergedPrices: IPrice[] = pricesToday;
+		// Merge prices if pricesTomorrow is not empty
+		if (pricesTomorrow.length !== 0) {
+			mergedPrices = [...pricesToday, ...pricesTomorrow];
+		}
 		if (!modeLTF) {
-			return pricesToday;
+			if (!modeTwoDays) {
+				return pricesToday;
+			}
+			// TwoDays needed for e.g. non LTF best cost channel
+			return mergedPrices;
 		}
 		// Limited Time Frame mode
-		const pricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
 		const pricesYesterday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
 		const startTime: Date = chStartTime;
 		const stopTime: Date = chStopTime;
 
-		// Merge prices if pricesTomorrow is not empty
-		let mergedPrices: IPrice[] = pricesToday;
-		if (pricesTomorrow.length !== 0) {
-			mergedPrices = [...pricesToday, ...pricesTomorrow];
-		}
+		// Merge prices if pricesYesterday is not empty
 		if (pricesYesterday.length !== 0) {
 			mergedPrices = [...pricesYesterday, ...mergedPrices];
 		}

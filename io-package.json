@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "4.2.0-beta2",
+		"version": "4.2.0-beta3",
 		"news": {
 			"4.2.0": {
 				"en": "add new calculator channels 'BestPercentage' and 'BestPercentageLTF' (#616)\nadd outputJSON for 'BestSingleHours' and 'BestSingleHoursLTF' (#592)\nadd jsonFlexCharts as overview graph for prices and calculators (#458)\nfixed some i18n translations\ncode optimization",

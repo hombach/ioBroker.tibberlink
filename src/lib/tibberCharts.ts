@@ -1,7 +1,7 @@
 import type * as utils from "@iobroker/adapter-core";
 import { addHours, differenceInHours, format, parseISO } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { ProjectUtils, type IHomeInfo } from "./projectUtils";
+import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils";
 
 // https://echarts.apache.org/examples/en/index.html
 // https://github.com/MyHomeMyData/ioBroker.flexcharts
@@ -87,7 +87,14 @@ export class TibberCharts extends ProjectUtils {
 									// end of block or last iteration
 									const startTime = parseISO(filteredData[startIndex].startsAt);
 									const endTime = addHours(parseISO(current.startsAt), 1);
-									calcsValues += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+									switch (entry.chType) {
+										case enCalcType.BestCost:
+										case enCalcType.BestCostLTF:
+											calcsValues += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+											break;
+										default:
+											calcsValues += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+									}
 									startIndex = i; // start next group
 								}
 							}
