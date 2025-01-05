@@ -67,7 +67,16 @@ export class TibberCharts extends ProjectUtils {
 				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
 
 				if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
-					const allowedTypes = [1, 2, 3, 4, 5, 6, 8, 9]; // list of supported channel types
+					const allowedTypes = [
+						enCalcType.BestCost,
+						enCalcType.BestCostLTF,
+						enCalcType.BestSingleHours,
+						enCalcType.BestSingleHoursLTF,
+						enCalcType.BestHoursBlock,
+						enCalcType.BestHoursBlockLTF,
+						enCalcType.BestPercentage,
+						enCalcType.BestPercentageLTF,
+					]; // list of supported channel types
 					const filteredEntries = this.adapter.config.CalculatorList.filter(
 						entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
 					);
