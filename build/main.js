@@ -217,6 +217,7 @@ class Tibberlink extends utils.Adapter {
                         } while (!okPrice);
                         void tibberCalculator.startCalculatorTasks();
                         void tibberAPICaller.updateConsumptionAllHomes();
+                        void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,
                     timeZone: "system",
