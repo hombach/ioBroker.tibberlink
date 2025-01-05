@@ -712,7 +712,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     valueToSet = channelConfig.chValueOn;
                 }
                 //#endregion
-                // mark the entries with the result and create JSON output
+                //#region *** Mark the entries with the result and create JSON output ***
                 const jsonOutput = filteredPrices
                     .map((entry) => ({
                     hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
@@ -722,8 +722,9 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+                //#endregion
             }
-            this.setChannelOutState(channel, valueToSet);
+            this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -759,7 +760,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     valueToSet = channelConfig.chValueOn;
                 }
                 //#endregion
-                // mark the entries with the result and create JSON output
+                //#region *** Mark the entries with the result and create JSON output ***
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
@@ -769,8 +770,9 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+                //#endregion
             }
-            this.setChannelOutState(channel, valueToSet);
+            this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -849,7 +851,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, filteredPrices[startIndex + n].startsAt, `stop date string of determined block`, `date`, false, false);
                 //#endregion
             }
-            this.setChannelOutState(channel, valueToSet);
+            this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
@@ -958,7 +960,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     return cheapAverage * efficiencyLoss;
                 }
             }
-            this.setChannelOutState(channel, valueToSet, valueToSet2);
+            this.setChannelOutStates(channel, valueToSet, valueToSet2);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
@@ -1005,13 +1007,13 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
             }
-            this.setChannelOutState(channel, valueToSet);
+            this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percentage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
         }
     }
-    setChannelOutState(channel, valueToSet, valueToSet2 = `EMPTY`) {
+    setChannelOutStates(channel, valueToSet, valueToSet2 = `EMPTY`) {
         let sOutState = ``;
         const channelConfig = this.adapter.config.CalculatorList[channel];
         if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {

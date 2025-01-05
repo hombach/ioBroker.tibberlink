@@ -843,7 +843,7 @@ export class TibberCalculator extends ProjectUtils {
 				}
 				//#endregion
 
-				// mark the entries with the result and create JSON output
+				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice) => ({
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
@@ -853,8 +853,9 @@ export class TibberCalculator extends ProjectUtils {
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+				//#endregion
 			}
-			this.setChannelOutState(channel, valueToSet);
+			this.setChannelOutStates(channel, valueToSet);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
@@ -891,7 +892,7 @@ export class TibberCalculator extends ProjectUtils {
 				}
 				//#endregion
 
-				// mark the entries with the result and create JSON output
+				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
@@ -901,8 +902,9 @@ export class TibberCalculator extends ProjectUtils {
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+				//#endregion
 			}
-			this.setChannelOutState(channel, valueToSet);
+			this.setChannelOutStates(channel, valueToSet);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
@@ -1020,7 +1022,7 @@ export class TibberCalculator extends ProjectUtils {
 				);
 				//#endregion
 			}
-			this.setChannelOutState(channel, valueToSet);
+			this.setChannelOutStates(channel, valueToSet);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
@@ -1133,7 +1135,7 @@ export class TibberCalculator extends ProjectUtils {
 					return cheapAverage * efficiencyLoss;
 				}
 			}
-			this.setChannelOutState(channel, valueToSet, valueToSet2);
+			this.setChannelOutStates(channel, valueToSet, valueToSet2);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for smart battery buffer in channel ${channel}`));
 		}
@@ -1183,13 +1185,13 @@ export class TibberCalculator extends ProjectUtils {
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 			}
-			this.setChannelOutState(channel, valueToSet);
+			this.setChannelOutStates(channel, valueToSet);
 		} catch (error) {
 			this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percentage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
 		}
 	}
 
-	private setChannelOutState(channel: number, valueToSet: string, valueToSet2 = `EMPTY`): void {
+	private setChannelOutStates(channel: number, valueToSet: string, valueToSet2 = `EMPTY`): void {
 		let sOutState = ``;
 		const channelConfig = this.adapter.config.CalculatorList[channel];
 		if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
