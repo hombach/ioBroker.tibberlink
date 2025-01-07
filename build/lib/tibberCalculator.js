@@ -845,10 +845,18 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 //#region *** Write start and stop time of determined block to data points ***
                 const beginDate = new Date(filteredPrices[startIndex].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, (0, date_fns_1.format)(beginDate, "H"), `first hour of determined block`, `value`, false, false);
-                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, `start date string of determined block`, `date`, false, false);
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, true);
+                /*void this.checkAndSetValue(
+                    `Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`,
+                    filteredPrices[startIndex].startsAt,
+                    `start date string of determined block`,
+                    `date`,
+                    false,
+                    false,
+                );*/
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, `value`, false, false);
-                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, (0, date_fns_1.format)(filteredPrices[startIndex + n].startsAt, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, (0, date_fns_1.format)((0, date_fns_1.addHours)(filteredPrices[startIndex].startsAt, n), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                 /*void this.checkAndSetValue(
                     `Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
                     filteredPrices[startIndex + n].startsAt,

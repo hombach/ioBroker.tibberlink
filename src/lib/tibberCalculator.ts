@@ -995,14 +995,15 @@ export class TibberCalculator extends ProjectUtils {
 					false,
 					false,
 				);
-				void this.checkAndSetValue(
+				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, true);
+				/*void this.checkAndSetValue(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`,
 					filteredPrices[startIndex].startsAt,
 					`start date string of determined block`,
 					`date`,
 					false,
 					false,
-				);
+				);*/
 				const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
 				void this.checkAndSetValue(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`,
@@ -1014,7 +1015,7 @@ export class TibberCalculator extends ProjectUtils {
 				);
 				void this.adapter.setState(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
-					format(filteredPrices[startIndex + n].startsAt, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
+					format(addHours(filteredPrices[startIndex].startsAt, n), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
 					true,
 				);
 				/*void this.checkAndSetValue(
