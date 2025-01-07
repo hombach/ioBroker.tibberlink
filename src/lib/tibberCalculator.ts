@@ -1012,14 +1012,19 @@ export class TibberCalculator extends ProjectUtils {
 					false,
 					false,
 				);
-				void this.checkAndSetValue(
+				void this.adapter.setState(
+					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
+					format(filteredPrices[startIndex + n].startsAt, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
+					true,
+				);
+				/*void this.checkAndSetValue(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
 					filteredPrices[startIndex + n].startsAt,
 					`stop date string of determined block`,
 					`date`,
 					false,
 					false,
-				);
+				);*/
 				//#endregion
 			}
 			this.setChannelOutStates(channel, valueToSet);

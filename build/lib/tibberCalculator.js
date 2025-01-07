@@ -848,7 +848,15 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, `start date string of determined block`, `date`, false, false);
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
                 void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), `end hour of determined block`, `value`, false, false);
-                void this.checkAndSetValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, filteredPrices[startIndex + n].startsAt, `stop date string of determined block`, `date`, false, false);
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, (0, date_fns_1.format)(filteredPrices[startIndex + n].startsAt, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                /*void this.checkAndSetValue(
+                    `Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
+                    filteredPrices[startIndex + n].startsAt,
+                    `stop date string of determined block`,
+                    `date`,
+                    false,
+                    false,
+                );*/
                 //#endregion
             }
             this.setChannelOutStates(channel, valueToSet);
