@@ -5,6 +5,7 @@ const date_fns_1 = require("date-fns");
 const projectUtils_1 = require("./projectUtils");
 // https://echarts.apache.org/examples/en/index.html
 // https://github.com/MyHomeMyData/ioBroker.flexcharts
+// - (HombachC) WIP add jsonFlexCharts as overview graph for prices and calculators (#458)
 /**
  * TibberCalculator
  */
@@ -23,12 +24,13 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
      * @param homeInfoList - homeInfo list object
      * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
      */
-    async generateFlexChartJSONAllHomes(homeInfoList) {
+    //async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
+    generateFlexChartJSONAllHomes(homeInfoList) {
         for (const curHomeInfo of homeInfoList) {
             if (!curHomeInfo.PriceDataPollActive) {
                 continue;
             }
-            await this.generateFlexChartJSON(curHomeInfo.ID);
+            //WiP4.3 await this.generateFlexChartJSON(curHomeInfo.ID);
         }
     }
     async generateFlexChartJSON(homeID) {

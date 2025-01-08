@@ -526,7 +526,7 @@
 				},
 				"_jsonWarning": {
 					"type": "staticText",
-					"text": "WARNING: functionality of JSON graph elements currently WORK in PROGRESS",
+					"text": "Functionality of JSON graph elements currently WORK in PROGRESS",
 					"style": {
 						"color": "red"
 					},
@@ -541,6 +541,7 @@
 					"label": "Configure template to create a data string to be used in graphs - e.g. ioBroker FlexCharts",
 					"validateJson": false,
 					"delimiter": ";",
+					"hidden": "true",
 					"newLine": true,
 					"default": "%%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%",
 					"xs": 12,
@@ -556,6 +557,7 @@
 					"icon": "info",
 					"label": "You could use this demo template for FlexCharts - just copy paste the code to the editor",
 					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/docu/TemplateFlexChart01.md",
+					"hidden": "true",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -570,6 +572,7 @@
 					"icon": "info",
 					"label": "For informations how to use ECharts see this link",
 					"href": "https://echarts.apache.org/examples/en/index.html",
+					"hidden": "true",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -584,6 +587,7 @@
 					"icon": "help",
 					"label": "For informations how to use ioBroker FlexCharts see this link",
 					"href": "https://github.com/MyHomeMyData/ioBroker.flexcharts",
+					"hidden": "true",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,

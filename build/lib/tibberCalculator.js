@@ -842,37 +842,12 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
                 // calculate average cost of determined block of hours, write to data point
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AverageTotalCost`, Math.round(1000 * (minSum / n)) / 1000, true);
-                /*void this.checkAndSetValueNumber(
-                    `Homes.${channelConfig.chHomeID}.Calculations.${channel}.AverageTotalCost`,
-                    Math.round(1000 * (minSum / n)) / 1000,
-                    `average total cost in determined block`,
-                    undefined,
-                    `value`,
-                    false,
-                    false,
-                );*/
                 //#region *** Write start and stop time of determined block to data points ***
                 const beginDate = new Date(filteredPrices[startIndex].startsAt);
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, (0, date_fns_1.format)(beginDate, "H"), true);
-                /*void this.checkAndSetValue(
-                    `Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`,
-                    format(beginDate, "H"),
-                    `first hour of determined block`,
-                    `value`,
-                    false,
-                    false,
-                );*/
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, true);
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), true);
-                /*void this.checkAndSetValue(
-                    `Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`,
-                    format(addHours(endDate, 1), "H"),
-                    `end hour of determined block`,
-                    `value`,
-                    false,
-                    false,
-                );*/
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                 //#endregion
             }

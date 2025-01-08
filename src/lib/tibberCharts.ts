@@ -5,6 +5,7 @@ import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils";
 
 // https://echarts.apache.org/examples/en/index.html
 // https://github.com/MyHomeMyData/ioBroker.flexcharts
+// - (HombachC) WIP add jsonFlexCharts as overview graph for prices and calculators (#458)
 
 /**
  * TibberCalculator
@@ -25,12 +26,13 @@ export class TibberCharts extends ProjectUtils {
 	 * @param homeInfoList - homeInfo list object
 	 * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
 	 */
-	async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
+	//async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
+	generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): void {
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) {
 				continue;
 			}
-			await this.generateFlexChartJSON(curHomeInfo.ID);
+			//WiP4.3 await this.generateFlexChartJSON(curHomeInfo.ID);
 		}
 	}
 
