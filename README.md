@@ -108,6 +108,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 4.2.1 (2025-01-08)
+
+- (HombachC) fix missing translation
+
 ### 4.2.0 (2025-01-08)
 
 - (HombachC) fix error in BestHoursBlock LTF intruduced in 4.x (#618)
