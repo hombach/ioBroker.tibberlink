@@ -89,5 +89,8 @@
     "LBL_item_tibberPulseLocalNodeId": "脉冲节点ID",
     "TTIP_item_tibberPulseLocalNodeId": "您的 Pulse 在网桥上注册的节点 ID。",
     "LBL_item_tibberBridgeRawDataInterval": "轮询间隔",
-    "TTIP_item_tibberBridgeRawDataInterval": "轮询 Bridge 获取脉冲数据的时间间隔（以毫秒为单位）。"
+    "TTIP_item_tibberBridgeRawDataInterval": "轮询 Bridge 获取脉冲数据的时间间隔（以毫秒为单位）。",
+    "TXT_Stuctured Data Output": "结构化数据输出",
+    "LBL_EChartsLink": "有关如何使用 ECharts 的信息，请参阅此链接",
+    "LBL_FlexChartsLink": "有关如何使用 ioBroker FlexCharts 的信息，请参阅此链接"
 }

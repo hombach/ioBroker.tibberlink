@@ -89,5 +89,8 @@
     "LBL_item_tibberPulseLocalNodeId": "Идентификатор импульсного узла",
     "TTIP_item_tibberPulseLocalNodeId": "Идентификатор узла, на котором ваш Pulse зарегистрирован на мосту.",
     "LBL_item_tibberBridgeRawDataInterval": "Интервал опроса",
-    "TTIP_item_tibberBridgeRawDataInterval": "Интервал в миллисекундах для опроса вашего моста на предмет импульсных данных."
+    "TTIP_item_tibberBridgeRawDataInterval": "Интервал в миллисекундах для опроса вашего моста на предмет импульсных данных.",
+    "TXT_Stuctured Data Output": "Структурированный вывод данных",
+    "LBL_EChartsLink": "Информацию о том, как использовать ECharts, можно найти по этой ссылке.",
+    "LBL_FlexChartsLink": "Информацию о том, как использовать ioBroker FlexCharts, можно найти по этой ссылке."
 }

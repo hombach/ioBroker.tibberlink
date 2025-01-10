@@ -77,6 +77,9 @@
 	"LBL_SpecialsTab": "Special Settings",
 	"LBL_UseObsoleteStats": "Use obsolete API call for historical consumption data - proceed with caution!",
 	"LBL_specialshelp1": "Also retrieves TotalCost values, including special grid fees in Germany. Please verify the values with those shown in your Tibber app.",
+	"TXT_Stuctured Data Output": "Stuctured Data Output",
+	"LBL_EChartsLink": "For informations how to use ECharts see this link",
+	"LBL_FlexChartsLink": "For informations how to use ioBroker FlexCharts see this link",
 
 	"LBL_LocalPulseTab": "Local Pulse Poll Settings",
 	"LBL_item_UseLocalPulseData": "Use direct polling of local Tibber Pulse(s) - proceed with caution!",

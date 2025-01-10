@@ -521,7 +521,7 @@
 
 				"_jsonHdr": {
 					"type": "header",
-					"text": "Stuctured Data Output",
+					"text": "TXT_Stuctured Data Output",
 					"size": 2
 				},
 				"_jsonWarning": {
@@ -568,7 +568,7 @@
 					"button": true,
 					"variant": "contained",
 					"icon": "info",
-					"label": "For informations how to use ECharts see this link",
+					"label": "LBL_EChartsLink",
 					"href": "https://echarts.apache.org/examples/en/index.html",
 					"xs": 12,
 					"sm": 12,
@@ -582,7 +582,7 @@
 					"button": true,
 					"variant": "text",
 					"icon": "help",
-					"label": "For informations how to use ioBroker FlexCharts see this link",
+					"label": "LBL_FlexChartsLink",
 					"href": "https://github.com/MyHomeMyData/ioBroker.flexcharts",
 					"xs": 12,
 					"sm": 12,

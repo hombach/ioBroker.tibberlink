@@ -89,5 +89,8 @@
     "LBL_item_tibberPulseLocalNodeId": "Pulse NodeID",
     "TTIP_item_tibberPulseLocalNodeId": "Ідентифікатор вузла, де ваш Pulse зареєстровано на Bridge.",
     "LBL_item_tibberBridgeRawDataInterval": "Інтервал опитування",
-    "TTIP_item_tibberBridgeRawDataInterval": "Інтервал, у мілісекундах, для опитування вашого Bridge для даних Pulse."
+    "TTIP_item_tibberBridgeRawDataInterval": "Інтервал, у мілісекундах, для опитування вашого Bridge для даних Pulse.",
+    "TXT_Stuctured Data Output": "Виведення структурованих даних",
+    "LBL_EChartsLink": "Щоб отримати інформацію про використання ECharts, перегляньте це посилання",
+    "LBL_FlexChartsLink": "Щоб отримати інформацію про те, як використовувати ioBroker FlexCharts, перегляньте це посилання"
 }

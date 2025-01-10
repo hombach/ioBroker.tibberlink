@@ -89,5 +89,8 @@
     "LBL_item_tibberPulseLocalNodeId": "Pulse NodeID",
     "TTIP_item_tibberPulseLocalNodeId": "Die Knoten-ID, unter der Ihr Pulse auf der Bridge registriert ist.",
     "LBL_item_tibberBridgeRawDataInterval": "Abfrageintervall",
-    "TTIP_item_tibberBridgeRawDataInterval": "Das Intervall (in Millisekunden) für die Abfrage Ihrer Bridge nach Pulse-Daten."
+    "TTIP_item_tibberBridgeRawDataInterval": "Das Intervall (in Millisekunden) für die Abfrage Ihrer Bridge nach Pulse-Daten.",
+    "TXT_Stuctured Data Output": "Strukturierte Datenausgabe",
+    "LBL_EChartsLink": "Informationen zur Verwendung von ECharts finden Sie unter diesem Link",
+    "LBL_FlexChartsLink": "Informationen zur Verwendung von ioBroker FlexCharts finden Sie unter diesem Link"
 }
