@@ -5,7 +5,6 @@ const date_fns_1 = require("date-fns");
 const projectUtils_1 = require("./projectUtils");
 // https://echarts.apache.org/examples/en/index.html
 // https://github.com/MyHomeMyData/ioBroker.flexcharts
-//- (HombachC) fix error in BestHoursBlock LTF intruduced in 4.x (#618)\nadd new calculator channels 'BestPercentage' and 'BestPercentageLTF' (#616)\nadd outputJSON for 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' and their LTF variants (#592)\nfixed some i18n translations\nyear 2025 changes\ncode optimization",
 /**
  * TibberCalculator
  */
@@ -24,13 +23,12 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
      * @param homeInfoList - homeInfo list object
      * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
      */
-    //async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
-    generateFlexChartJSONAllHomes(homeInfoList) {
+    async generateFlexChartJSONAllHomes(homeInfoList) {
         for (const curHomeInfo of homeInfoList) {
             if (!curHomeInfo.PriceDataPollActive) {
                 continue;
             }
-            //WiP4.3 await this.generateFlexChartJSON(curHomeInfo.ID);
+            await this.generateFlexChartJSON(curHomeInfo.ID);
         }
     }
     async generateFlexChartJSON(homeID) {

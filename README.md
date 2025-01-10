@@ -108,6 +108,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 4.3.0 (2025-01-xx) - Work in Progress
+
+- (HombachC) WiP add Graph-JSON
+
 ### 4.2.1 (2025-01-08)
 
 - (HombachC) fix missing translation
