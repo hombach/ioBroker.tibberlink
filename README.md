@@ -108,6 +108,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 4.2.3 (2025-01-14)
+
+- (HombachC) bump cron to 3.5
+
 ### 4.2.2 (2025-01-14)
 
 - (HombachC) max API-Token lenght now 80 to meet newest Tibber accounts (#627)
