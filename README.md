@@ -108,9 +108,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### 4.3.0 (2025-01-xx) - Work in Progress
+### 4.2.2 (2025-01-14)
 
-- (HombachC) WiP add Graph-JSON
+- (HombachC) max API-Token lenght now 80 to meet newest Tibber accounts (#627)
 
 ### 4.2.1 (2025-01-08)
 

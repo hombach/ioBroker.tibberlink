@@ -12,7 +12,7 @@
 				"TibberAPIToken": {
 					"type": "text",
 					"label": "LBL_TibberAPIToken",
-					"maxLength": 60,
+					"maxLength": 80,
 					"xs": 12,
 					"sm": 12,
 					"md": 8,
@@ -530,6 +530,7 @@
 					"style": {
 						"color": "red"
 					},
+					"hidden": "true",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -541,6 +542,7 @@
 					"label": "Configure template to create a data string to be used in graphs - e.g. ioBroker FlexCharts",
 					"validateJson": false,
 					"delimiter": ";",
+					"hidden": "true",
 					"newLine": true,
 					"default": "%%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%",
 					"xs": 12,
@@ -553,6 +555,7 @@
 					"type": "staticLink",
 					"button": true,
 					"variant": "outlined",
+					"hidden": "true",
 					"icon": "info",
 					"label": "You could use this demo template for FlexCharts - just copy paste the code to the editor",
 					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/docu/TemplateFlexChart01.md",
@@ -568,6 +571,7 @@
 					"button": true,
 					"variant": "contained",
 					"icon": "info",
+					"hidden": "true",
 					"label": "LBL_EChartsLink",
 					"href": "https://echarts.apache.org/examples/en/index.html",
 					"xs": 12,
@@ -581,6 +585,7 @@
 					"type": "staticLink",
 					"button": true,
 					"variant": "text",
+					"hidden": "true",
 					"icon": "help",
 					"label": "LBL_FlexChartsLink",
 					"href": "https://github.com/MyHomeMyData/ioBroker.flexcharts",

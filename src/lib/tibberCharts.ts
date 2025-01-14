@@ -25,12 +25,13 @@ export class TibberCharts extends ProjectUtils {
 	 * @param homeInfoList - homeInfo list object
 	 * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
 	 */
-	async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
+	// async generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
+	generateFlexChartJSONAllHomes(homeInfoList: IHomeInfo[]): void {
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) {
 				continue;
 			}
-			await this.generateFlexChartJSON(curHomeInfo.ID);
+			//await this.generateFlexChartJSON(curHomeInfo.ID);
 		}
 	}
 
