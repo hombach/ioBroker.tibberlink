@@ -111,7 +111,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 4.3.0 (2025-01-xx) WORK in PROGRESS
 
 - (HombachC) WiP add Graph-JSON
-- (HombachC) Update tibber-api to 5.2.1 - handle obsolete data as default
+- (HombachC) Update tibber-api to 5.2.1 - handle obsolete data as default, remove option
+- (HombachC) Calculate BestCost channels prior to time frame
 
 ### 4.2.3 (2025-01-14)
 

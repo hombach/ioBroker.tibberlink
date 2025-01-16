@@ -697,6 +697,18 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 // chActive but before LTF
+                const filteredPrices = await this.getPricesLTF(channel, modeLTF, true);
+                //#region *** Mark the entries with the result and create JSON output ***
+                const jsonOutput = filteredPrices
+                    .map((entry) => ({
+                    hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+                    startsAt: entry.startsAt,
+                    total: entry.total,
+                    output: channelConfig.chTriggerPrice > entry.total ? true : false, // mark all cheap hours
+                }))
+                    .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+                //#endregion
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
                 // chActive but after LTF
