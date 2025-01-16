@@ -342,13 +342,15 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 ];
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
-                        let consumption;
+                        /*
+                        let consumption: IConsumption[];
                         if (this.adapter.config.UseObsoleteStats) {
                             consumption = await this.getConsumptionObs(type, numCons, homeID);
-                        }
-                        else {
+                        } else {
                             consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         }
+                        */
+                        const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`);
                     }
                     else {

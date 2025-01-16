@@ -390,12 +390,16 @@ export class TibberAPICaller extends ProjectUtils {
 				];
 				for (const { type, state, numCons, description } of resolutions) {
 					if (numCons && numCons > 0) {
+						/*
 						let consumption: IConsumption[];
 						if (this.adapter.config.UseObsoleteStats) {
 							consumption = await this.getConsumptionObs(type, numCons, homeID);
 						} else {
 							consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
 						}
+						*/
+						const consumption: IConsumption[] = await this.tibberQuery.getConsumption(type, numCons, homeID);
+
 						void this.checkAndSetValue(
 							`Homes.${homeID}.Consumption.${state}`,
 							JSON.stringify(consumption),

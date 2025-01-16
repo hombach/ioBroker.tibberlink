@@ -493,7 +493,8 @@
 					"md": 12,
 					"lg": 12,
 					"xl": 12,
-					"newLine": true
+					"newLine": true,
+					"hidden": "true"
 				},
 
 				"_specialshelp1": {
@@ -504,7 +505,8 @@
 					"md": 12,
 					"lg": 12,
 					"xl": 12,
-					"newLine": true
+					"newLine": true,
+					"hidden": "true"
 				},
 
 				"_headerGraph": {
@@ -516,7 +518,8 @@
 					"md": 12,
 					"lg": 12,
 					"xl": 12,
-					"size": 3
+					"size": 3,
+					"hidden": "true"
 				},
 
 				"_jsonHdr": {
