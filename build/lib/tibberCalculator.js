@@ -1001,32 +1001,22 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             const now = new Date();
             const channelConfig = this.adapter.config.CalculatorList[channel];
             let valueToSet = channelConfig.chValueOff;
+            const percentage = channelConfig.chPercentage;
             if (!channelConfig.chActive) {
                 // not active -> choose chValueOff
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 // chActive but before LTF -> choose chValueOff
-            }
-            else if (modeLTF && now > channelConfig.chStopTime) {
-                // chActive but after LTF -> choose chValueOff and disable channel or generate new running period
-                this.handleAfterLTF(channel);
-            }
-            else {
-                // chActive and inside LTF -> choose desired value
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 //#region *** Find channel result ***
                 // sort by total cost
                 filteredPrices.sort((a, b) => a.total - b.total);
                 const cheapestPrice = filteredPrices[0]?.total;
-                const percentage = channelConfig.chPercentage;
                 const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
                 const channelResult = allowedPrices.map((entry) => checkHourMatch(entry));
-                // identify if any element is true
-                if (channelResult.some(value => value)) {
-                    valueToSet = channelConfig.chValueOn;
-                }
                 //#endregion
-                // mark the entries with the result and create JSON output
+                //#region *** Mark the entries with the result and create JSON output ***
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
@@ -1036,6 +1026,38 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+                //#endregion
+            }
+            else if (modeLTF && now > channelConfig.chStopTime) {
+                // chActive but after LTF -> choose chValueOff and disable channel or generate new running period
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
+                this.handleAfterLTF(channel);
+            }
+            else {
+                // chActive and inside LTF -> choose desired value
+                const filteredPrices = await this.getPricesLTF(channel, modeLTF);
+                //#region *** Find channel result ***
+                // sort by total cost
+                filteredPrices.sort((a, b) => a.total - b.total);
+                const cheapestPrice = filteredPrices[0]?.total;
+                const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
+                const channelResult = allowedPrices.map((entry) => checkHourMatch(entry));
+                // identify if any element is true
+                if (channelResult.some(value => value)) {
+                    valueToSet = channelConfig.chValueOn;
+                }
+                //#endregion
+                //#region *** Mark the entries with the result and create JSON output ***
+                const jsonOutput = filteredPrices
+                    .map((entry, index) => ({
+                    hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+                    startsAt: entry.startsAt,
+                    total: entry.total,
+                    output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
+                }))
+                    .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+                //#endregion
             }
             this.setChannelOutStates(channel, valueToSet);
         }
