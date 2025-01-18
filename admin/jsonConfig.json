@@ -485,43 +485,6 @@
 			"label": "LBL_SpecialsTab",
 			"hidden": "!data.TibberAPIToken",
 			"items": {
-				"UseObsoleteStats": {
-					"type": "checkbox",
-					"label": "LBL_UseObsoleteStats",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true,
-					"hidden": "true"
-				},
-
-				"_specialshelp1": {
-					"type": "staticText",
-					"label": "LBL_specialshelp1",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true,
-					"hidden": "true"
-				},
-
-				"_headerGraph": {
-					"type": "header",
-					"text": "",
-					"noTranslation": true,
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"size": 3,
-					"hidden": "true"
-				},
-
 				"_jsonHdr": {
 					"type": "header",
 					"text": "TXT_Stuctured Data Output",

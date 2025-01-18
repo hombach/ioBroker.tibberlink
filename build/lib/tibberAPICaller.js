@@ -486,47 +486,6 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
         void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Latitude`, address.latitude);
         void this.checkAndSetValue(`Homes.${homeID}.${objectDestination}.Longitude`, address.longitude);
     }
-    //#region *** obsolete data poll for consumption data ***
-    /**
-     * Get energy consumption for one or more homes.
-     * Returns an array of IConsumption
-     *
-     * @param resolution EnergyResolution. Valid values: HOURLY, DAILY, WEEKLY, MONTHLY, ANNUAL
-     * @param lastCount Return the last number of records
-     * @param homeId Tibber home ID.
-     * @returns Array of IConsumption
-     */
-    async getConsumptionObs(resolution, lastCount, homeId) {
-        const gqlHomeConsumptionObs = `
-			query getConsumption($homeId:ID! $resolution: EnergyResolution! $lastCount:Int!){
-				viewer {
-					home(id:$homeId) {
-						id
-							consumption(resolution: $resolution, last: $lastCount) {
-								nodes {
-									from
-									to
-									totalCost
-									cost
-									unitPrice
-									unitPriceVAT
-									consumption
-									consumptionUnit
-									currency
-								}
-							}
-					}
-				}
-			}
-		`;
-        const variables = { homeId, resolution, lastCount };
-        const result = await this.tibberQuery.query(gqlHomeConsumptionObs, variables);
-        if (result && result.viewer && result.viewer.home) {
-            const home = result.viewer.home;
-            return Object.assign([], home.consumption ? home.consumption.nodes : []);
-        }
-        return result && result.error ? result : { error: "An error occurred while loading obsolete consumption data." };
-    }
 }
 exports.TibberAPICaller = TibberAPICaller;
 //# sourceMappingURL=tibberAPICaller.js.map

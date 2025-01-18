@@ -43,7 +43,7 @@ declare global {
 			FeedConfigCurrentL3: boolean;
 			FeedConfigSignalStrength: boolean;
 			UseCalculator: boolean;
-			UseObsoleteStats: boolean;
+			//UseObsoleteStats: boolean;
 			UseLocalPulseData: boolean;
 			CalculatorList: [
 				{

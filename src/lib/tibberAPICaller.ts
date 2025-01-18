@@ -3,7 +3,6 @@ import { TibberQuery, type IConfig } from "tibber-api";
 import type { IAddress } from "tibber-api/lib/src/models/IAddress";
 import type { IConsumption } from "tibber-api/lib/src/models/IConsumption"; // obsolete data poll for consumption data
 import type { IContactInfo } from "tibber-api/lib/src/models/IContactInfo";
-import type { IHome } from "tibber-api/lib/src/models/IHome"; // obsolete data poll for consumption data
 import type { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution";
@@ -595,6 +594,7 @@ export class TibberAPICaller extends ProjectUtils {
 	 * @param homeId Tibber home ID.
 	 * @returns Array of IConsumption
 	 */
+	/*
 	async getConsumptionObs(resolution: EnergyResolution, lastCount: number, homeId: string): Promise<IConsumption[]> {
 		const gqlHomeConsumptionObs = `
 			query getConsumption($homeId:ID! $resolution: EnergyResolution! $lastCount:Int!){
@@ -627,5 +627,6 @@ export class TibberAPICaller extends ProjectUtils {
 		}
 		return result && result.error ? result : { error: "An error occurred while loading obsolete consumption data." };
 	}
+	*/
 	//#endregion
 }
