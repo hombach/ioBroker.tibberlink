@@ -1,7 +1,7 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "4.3.0-beta3",
+		"version": "4.3.0-beta4",
 		"news": {
 			"4.3.0": {
 				"en": "added FlexGraph-JSON",

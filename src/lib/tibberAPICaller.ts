@@ -1,7 +1,7 @@
 import type * as utils from "@iobroker/adapter-core";
 import { TibberQuery, type IConfig } from "tibber-api";
 import type { IAddress } from "tibber-api/lib/src/models/IAddress";
-import type { IConsumption } from "tibber-api/lib/src/models/IConsumption"; // obsolete data poll for consumption data
+import type { IConsumption } from "tibber-api/lib/src/models/IConsumption";
 import type { IContactInfo } from "tibber-api/lib/src/models/IContactInfo";
 import type { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
