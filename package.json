@@ -72,7 +72,8 @@
 		"test": "npm run test:ts && npm run test:package && npm run test:integration",
 		"check": "tsc --noEmit",
 		"lint": "eslint -c eslint.config.mjs .",
-		"translate": "translate-adapter"
+		"translate": "translate-adapter",
+		"make": "npm run lint && npm run build && npm run test"
 	},
 	"bugs": {
 		"url": "https://github.com/Hombach/ioBroker.tibberlink/issues"

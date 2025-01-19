@@ -960,6 +960,37 @@ export class TibberCalculator extends ProjectUtils {
 				this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
 				this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
 				this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
+
+				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
+
+				//#region *** Find channel result ***
+				let minSum = Number.MAX_VALUE;
+				let startIndex = 0;
+				const n = Math.min(channelConfig.chAmountHours, filteredPrices.length);
+				for (let i = 0; i < filteredPrices.length - n + 1; i++) {
+					let sum = 0;
+					for (let j = i; j < i + n; j++) {
+						sum += filteredPrices[j].total;
+					}
+					if (sum < minSum) {
+						minSum = sum;
+						startIndex = i;
+					}
+				}
+				const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+				//#endregion
+
+				//#region *** Mark the entries with the result and create JSON output ***
+				const jsonOutput = filteredPrices
+					.map((entry: IPrice, index: number) => ({
+						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						startsAt: entry.startsAt,
+						total: entry.total,
+						output: channelResult[index - startIndex] !== undefined ? true : false, // Check if channelResult[index] is defined
+					}))
+					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+				//#endregion
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive but after LTF -> choose chValueOff and disable channel or generate new running period
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
@@ -976,7 +1007,6 @@ export class TibberCalculator extends ProjectUtils {
 				let minSum = Number.MAX_VALUE;
 				let startIndex = 0;
 				const n = Math.min(channelConfig.chAmountHours, filteredPrices.length);
-
 				for (let i = 0; i < filteredPrices.length - n + 1; i++) {
 					let sum = 0;
 					for (let j = i; j < i + n; j++) {
@@ -994,7 +1024,7 @@ export class TibberCalculator extends ProjectUtils {
 				}
 				//#endregion
 
-				// mark the entries with the result and create JSON output
+				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
@@ -1004,6 +1034,7 @@ export class TibberCalculator extends ProjectUtils {
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+				//#endregion
 
 				// calculate average cost of determined block of hours, write to data point
 				void this.adapter.setState(
