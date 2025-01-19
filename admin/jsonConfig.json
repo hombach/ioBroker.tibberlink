@@ -480,16 +480,11 @@
 			"#include": "CalculatorTab.jsonConfig.json"
 		},
 
-		"_SpecialsTab": {
+		"_GraphsTab": {
 			"type": "panel",
-			"label": "LBL_SpecialsTab",
+			"label": "LBL_GraphsTab",
 			"hidden": "!data.TibberAPIToken",
 			"items": {
-				"_jsonHdr": {
-					"type": "header",
-					"text": "TXT_Stuctured Data Output",
-					"size": 2
-				},
 				"_jsonWarning": {
 					"type": "staticText",
 					"text": "Functionality of JSON graph elements currently WORK in PROGRESS",

@@ -74,8 +74,7 @@
 	"LBL_calculatorhelp17": "<b>LTF channels:</b> These function similarly to standard channels but are active only within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel automatically deactivates. 'StartTime' and 'StopTime' can span two calendar days, as Tibber does not provide data beyond a 48-hour window. Both states require a date-time string in ISO-8601 format with a timezone offset, e.g., '2024-12-24T18:00:00.000+01:00'.",
 	"LBL_calculatorhelp18": "Additionally, the LTF channels include a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel repeats its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition.",
 
-	"LBL_SpecialsTab": "Special Settings",
-	"TXT_Stuctured Data Output": "Stuctured Data Output",
+	"LBL_GraphsTab": "Graph Output Settings",
 	"LBL_EChartsLink": "For informations how to use ECharts see this link",
 	"LBL_FlexChartsLink": "For informations how to use ioBroker FlexCharts see this link",
 
