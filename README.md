@@ -115,6 +115,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) Calculate BestCost channels JSON prior to time frame
 - (HombachC) Calculate BestSingleHours channels JSON prior to time frame (#592)
 - (HombachC) Calculate BestPercentage channels JSON prior to time frame
+- (HombachC) Calculate BestHoursBlock channels JSON prior to time frame (#592)
+- (HombachC) calculator code optimizations
 
 ### 4.2.3 (2025-01-14)
 

@@ -687,10 +687,10 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
     }
     async executeCalculatorBestCost(channel, modeLTF = false) {
+        const now = new Date();
+        const channelConfig = this.adapter.config.CalculatorList[channel];
+        let valueToSet = channelConfig.chValueOff;
         try {
-            const now = new Date();
-            const channelConfig = this.adapter.config.CalculatorList[channel];
-            let valueToSet = channelConfig.chValueOff;
             if (!channelConfig.chActive) {
                 // not active
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
@@ -739,14 +739,14 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best price ${modeLTF ? "LTF " : ""}in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
     async executeCalculatorBestSingleHours(channel, modeLTF = false) {
+        const now = new Date();
+        const channelConfig = this.adapter.config.CalculatorList[channel];
+        let valueToSet = channelConfig.chValueOff;
         try {
-            const now = new Date();
-            const channelConfig = this.adapter.config.CalculatorList[channel];
-            let valueToSet = channelConfig.chValueOff;
             if (!channelConfig.chActive) {
                 // not active -> choose chValueOff
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
@@ -805,14 +805,14 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best single hours ${modeLTF ? "LTF " : ""}in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
     async executeCalculatorBestHoursBlock(channel, modeLTF = false) {
+        const now = new Date();
+        const channelConfig = this.adapter.config.CalculatorList[channel];
+        let valueToSet = channelConfig.chValueOff;
         try {
-            const now = new Date();
-            const channelConfig = this.adapter.config.CalculatorList[channel];
-            let valueToSet = channelConfig.chValueOff;
             if (!channelConfig.chActive) {
                 // not active -> choose chValueOff
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
@@ -913,7 +913,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best hours block ${modeLTF ? "LTF " : ""}in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
     async executeCalculatorSmartBatteryBuffer(channel) {
@@ -1026,11 +1026,11 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
         }
     }
     async executeCalculatorBestPercentage(channel, modeLTF = false) {
+        const now = new Date();
+        const channelConfig = this.adapter.config.CalculatorList[channel];
+        let valueToSet = channelConfig.chValueOff;
+        const percentage = channelConfig.chPercentage;
         try {
-            const now = new Date();
-            const channelConfig = this.adapter.config.CalculatorList[channel];
-            let valueToSet = channelConfig.chValueOff;
-            const percentage = channelConfig.chPercentage;
             if (!channelConfig.chActive) {
                 // not active -> choose chValueOff
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
@@ -1091,9 +1091,26 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for best percentage ${modeLTF ? "LTF " : ""}in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
+    /**
+     * Sets the output state(s) for a specific calculator channel.
+     *
+     * Depending on the configuration of the channel, the function sets either a custom target state or a default state for the specified channel.
+     * Optionally, a second value can also be set.
+     *
+     * @param channel - The index of the channel in the configuration list (`CalculatorList`).
+     * @param valueToSet - The primary value to set for the channel's output state.
+     * @param valueToSet2 - An optional secondary value to set for the channel's second output state. Defaults to `EMPTY`.
+     *
+     * ### Function Behavior:
+     * - If a custom `chTargetState` is defined for the channel (length > 10 and does not start with "choose your state to drive"),
+     *   the function sets this custom target state using `setForeignStateAsync`.
+     * - Otherwise, it sets a default state for the channel in the format `Homes.{chHomeID}.Calculations.{channel}.Output`.
+     * - Logs debug information about the state being set, including the channel type and the value.
+     * - If `valueToSet2` is not `EMPTY`, the function repeats the process for a secondary target state.
+     */
     setChannelOutStates(channel, valueToSet, valueToSet2 = `EMPTY`) {
         let sOutState = ``;
         const channelConfig = this.adapter.config.CalculatorList[channel];
