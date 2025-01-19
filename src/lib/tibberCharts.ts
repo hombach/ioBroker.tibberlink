@@ -76,6 +76,7 @@ export class TibberCharts extends ProjectUtils {
 						enCalcType.BestHoursBlockLTF,
 						enCalcType.BestPercentage,
 						enCalcType.BestPercentageLTF,
+						enCalcType.SmartBatteryBuffer,
 					]; // list of supported channel types
 					const filteredEntries = this.adapter.config.CalculatorList.filter(
 						entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
