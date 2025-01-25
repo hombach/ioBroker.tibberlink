@@ -5,6 +5,9 @@ option = {
 	backgroundColor: "rgb(232, 232, 232)",
 	title: {
 		text: "Tibber Price",
+		textStyle: {
+			color: "#ffffff"
+		}
 	},
 	tooltip: {
 		trigger: "axis",
