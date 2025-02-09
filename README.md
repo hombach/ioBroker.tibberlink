@@ -160,7 +160,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### 4.3.0 (2025-01-xx) WORK in PROGRESS
+### 4.3.0 (2025-02-09)
 
 - (HombachC) added ioBroker.FlexCharts - JSON
 - (HombachC) Update tibber-api to 5.2.1 - handle obsolete data as default, remove option
