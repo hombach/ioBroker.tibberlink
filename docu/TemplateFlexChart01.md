@@ -1,7 +1,7 @@
 ## Template 01 for FlexCharts
 
 ```typescript
-option = {
+{
 	backgroundColor: "rgb(232, 232, 232)",
 	title: {
 		text: "Tibber Price",
