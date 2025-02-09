@@ -13,16 +13,16 @@ on:
 
 jobs:
     build:
-        name: test-build on node.js ${{ matrix.node_version }}
+        name: test-build on node.js ${{ matrix.node-version }}
         runs-on: ubuntu-latest
         strategy:
             matrix:
-                node_version: ["22", "20", "18"]
+                node-version: [18.x, 20.x, 22.x]
         steps:
-            - uses: actions/checkout@v4
-            - uses: actions/setup-node@v4.2.0
+            - uses: ioBroker/testing-action-adapter@v1
               with:
-                  node-version: ${{ matrix.node_version }}
+                  node-version: ${{ matrix.node-version }}
+                  os: ubuntu-latest
             - name: npm install, build and test
               run: |
                   # npm install
