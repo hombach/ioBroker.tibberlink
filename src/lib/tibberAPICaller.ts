@@ -389,7 +389,7 @@ export class TibberAPICaller extends ProjectUtils {
 				];
 				for (const { type, state, numCons, description } of resolutions) {
 					if (numCons && numCons > 0) {
-						/*
+						/* Obsolete stats again part of tibber-api
 						let consumption: IConsumption[];
 						if (this.adapter.config.UseObsoleteStats) {
 							consumption = await this.getConsumptionObs(type, numCons, homeID);
@@ -403,6 +403,7 @@ export class TibberAPICaller extends ProjectUtils {
 							`Homes.${homeID}.Consumption.${state}`,
 							JSON.stringify(consumption),
 							`Historical consumption last ${description}s as json)`,
+							`json`,
 						);
 					} else {
 						void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, `[]`);
