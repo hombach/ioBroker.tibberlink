@@ -89,5 +89,6 @@
     "LBL_item_tibberPulseLocalNodeId": "Pulse NodeID",
     "TTIP_item_tibberPulseLocalNodeId": "Ідентифікатор вузла, де ваш Pulse зареєстровано на Bridge.",
     "LBL_item_tibberBridgeRawDataInterval": "Інтервал опитування",
-    "TTIP_item_tibberBridgeRawDataInterval": "Інтервал, у мілісекундах, для опитування вашого Bridge для даних Pulse."
+    "TTIP_item_tibberBridgeRawDataInterval": "Інтервал, у мілісекундах, для опитування вашого Bridge для даних Pulse.",
+    "LBL_templateFlexGraph01": "Ви можете використовувати цей демо -шаблон для Flexcharts - просто скопіюйте вставте код до редактора"
 }

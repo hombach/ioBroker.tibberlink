@@ -485,18 +485,6 @@
 			"label": "LBL_GraphsTab",
 			"hidden": "!data.TibberAPIToken",
 			"items": {
-				"_jsonWarning": {
-					"type": "staticText",
-					"text": "Functionality of JSON graph elements currently WORK in PROGRESS",
-					"style": {
-						"color": "red"
-					},
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 6,
-					"xl": 6
-				},
 				"FlexGraphJSON": {
 					"type": "jsonEditor",
 					"label": "Configure template to create a data string to be used in graphs - e.g. ioBroker FlexCharts",
@@ -515,7 +503,7 @@
 					"button": true,
 					"variant": "outlined",
 					"icon": "info",
-					"label": "You could use this demo template for FlexCharts - just copy paste the code to the editor",
+					"label": "LBL_templateFlexGraph01",
 					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/docu/TemplateFlexChart01.md",
 					"xs": 12,
 					"sm": 12,
@@ -527,7 +515,7 @@
 				"_echartsLink": {
 					"type": "staticLink",
 					"button": true,
-					"variant": "contained",
+					"variant": "outlined",
 					"icon": "info",
 					"label": "LBL_EChartsLink",
 					"href": "https://echarts.apache.org/examples/en/index.html",
@@ -541,10 +529,24 @@
 				"_flexchartsLink": {
 					"type": "staticLink",
 					"button": true,
-					"variant": "text",
+					"variant": "outlined",
 					"icon": "help",
 					"label": "LBL_FlexChartsLink",
 					"href": "https://github.com/MyHomeMyData/ioBroker.flexcharts",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_helpLink": {
+					"type": "staticLink",
+					"button": true,
+					"variant": "contained",
+					"icon": "info",
+					"label": "LBL_helpLink",
+					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/README.md",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,

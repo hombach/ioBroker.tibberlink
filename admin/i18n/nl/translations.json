@@ -89,5 +89,6 @@
     "TTIP_item_tibberBridgeRawDataInterval": "Het interval, in milliseconden, voor het opvragen van uw Bridge for Pulse-gegevens.",
     "LBL_EChartsLink": "Voor informatie over het gebruik van ECharts, zie deze link",
     "LBL_FlexChartsLink": "Zie deze link voor informatie over het gebruik van ioBroker FlexCharts",
-    "LBL_GraphsTab": "Instellingen voor grafiekuitvoer"
+    "LBL_GraphsTab": "Instellingen voor grafiekuitvoer",
+    "LBL_templateFlexGraph01": "U kunt deze demo -sjabloon voor FlexCarts gebruiken - Kopieer gewoon de code plakken in de editor"
 }

@@ -89,5 +89,6 @@
     "LBL_item_tibberPulseLocalNodeId": "脉冲节点ID",
     "TTIP_item_tibberPulseLocalNodeId": "您的 Pulse 在网桥上注册的节点 ID。",
     "LBL_item_tibberBridgeRawDataInterval": "轮询间隔",
-    "TTIP_item_tibberBridgeRawDataInterval": "轮询 Bridge 获取脉冲数据的时间间隔（以毫秒为单位）。"
+    "TTIP_item_tibberBridgeRawDataInterval": "轮询 Bridge 获取脉冲数据的时间间隔（以毫秒为单位）。",
+    "LBL_templateFlexGraph01": "您可以将此演示模板用于FlexCharts-只需将代码粘贴复制到编辑器"
 }

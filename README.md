@@ -74,11 +74,59 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Graph Output Configuration
 
-The adapter tries to support you with data for graphical price output - SOON
+The adapter helps visualize price trends and calculator results. It provides three levels of complexity, each offering different options.
+These three methods provide various options for visualizing price trends and calculator results. Depending on your requirements, you can choose from a simple JSON-based approach to a fully customized JavaScript solution.
 
-### Hints
+### 1. **(Under Development) Visualization using the "E-Charts" Adapter**
 
-#### Inverse Usage
+This method requires the "E-Charts" adapter to be installed separately.
+
+- JSON data can be used, generated in the Calculator States section as `Output-E-Charts`.
+- The capabilities are limited by the constraints of the E-Charts adapter.
+
+### 2. **Using the "FlexCharts" (or "Fully Featured eCharts") Adapter with JSON**
+
+This method requires the "FlexCharts" adapter to be installed separately.
+
+- The TibberLink adapter creates a state called `jsonFlexCharts`.
+
+    ![jsonFlexChartsState.png](docu/jsonFlexChartsState.png)
+
+- The FlexCharts adapter renders this state via the following URL:
+    ```
+    http://[YOUR IP of FLEXCHARTS]:8082/flexcharts/echarts.html?source=state&id=tibberlink.0.Homes.[TIBBER-HOME-ID].PricesTotal.jsonFlexCharts
+    ```
+- Refer to the [FlexCharts adapter documentation](https://github.com/MyHomeMyData/ioBroker.flexcharts) for more details.
+
+#### **JSON Template Usage**
+
+- The `jsonFlexCharts` state is generated based on a template configured via the JSON editor in the adapter settings.
+- **Important:** The built-in JSON editor in ioBroker.Admin does not support JSON5, which may cause false error messages.
+- A sample template can be downloaded from: [TemplateFlexChart01.md](docu/TemplateFlexChart01.md).
+- Copy and paste the template into the JSON editor.
+- The template contains the placeholders:
+    - `%%xAxisData%%` and `%%yAxisData%%` (populated with price information at runtime).
+    - `%%CalcChannelsData%%` (populated with selected calculator channel data).
+- The rest of the template follows the Apache ECharts configuration. For reference, see [Apache ECharts Examples](https://echarts.apache.org/examples/en/index.html).
+- **Recommendation:** Test the TibberLink adapter without a real template using the default string:
+    ```
+    %%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%
+    ```
+    This helps understand its functionality.
+- Template adjustments can be tested on Apache ECharts examples pages using the "Output-E-Charts" state data.
+- Good templates will be shared within the TibberLink adapter community.
+
+### 3. **Using "FlexCharts" with Custom JavaScript Code**
+
+For maximum flexibility and customization, the FlexCharts adapter can be used with custom JavaScript.
+
+- Both the "FlexCharts" and "JavaScript" adapters need to be installed separately.
+- This approach allows the creation of multiple customized graphs.
+- For more details, refer to the [FlexCharts Adapter Discussion](https://github.com/MyHomeMyData/ioBroker.flexcharts/discussions/67).
+
+## Hints
+
+### Inverse Usage
 
 To obtain, for example, peak hours instead of optimal hours, simply invert the usage and parameters:
 ![Calculator States Inverse](docu/calculatorStatesInverse.png)
@@ -86,7 +134,7 @@ By swapping true <-> false, you will receive a true at a low cost in the first l
 
 Attention: For peak single hours, such as in the example, you also need to adjust the number of hours. Original: 5 -> Inverse (24-5) = 19 -> You will obtain a true result during the 5 peak hours.
 
-#### LTF channels
+### LTF channels
 
 The calculation is performed for "multiday" data. As we only have information for "today" and "tomorrow" (available after approximately 13:00), the time scope is effectively limited to a maximum of 35 hours. However, it's crucial to be mindful of this behavior because the calculated result may/will change around 13:00 when new data for tomorrow's prices becomes available.
 
@@ -204,138 +252,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) fix error in SML decoder
 - (HombachC) add 2 new SML scale factor codes (#535)
 - (HombachC) dependency updates
-
-### 3.4.10 (2024-09-16)
-
-- (HombachC) add verification of poll interval (#518)
-- (HombachC) bumb date-fns to 4.0.0
-
-### 3.4.9 (2024-09-15)
-
-- (HombachC) add adjustable Bridge poll intervall (#518)
-- (HombachC) add node.js 22 to the adapter testing (#519)
-- (HombachC) add docu link to config screen (#504)
-- (HombachC) repository cleanup
-- (HombachC) dependency updates
-
-### 3.4.8 (2024-08-16)
-
-- (HombachC) updated axios because of vulnerability
-- (HombachC) added tests for Node.js 22
-
-### 3.4.7 (2024-08-10)
-
-- (HombachC) adapter checker detected optimizations (#493)
-- (HombachC) improved error message (#490)
-
-### 3.4.6 (2024-08-07)
-
-- (HombachC) Catch wrong OBIS Codes, probably caused by Pulse communication errors
-- (HombachC) code cleanup
-
-### 3.4.5 (2024-07-31)
-
-- (HombachC) decode meter mode 4 for local Tipper Pulse poll (#477)
-- (HombachC) decode meter mode 1 for local Tipper Pulse poll (#478)
-- (HombachC) fixed wrong Pulse local status names (voltage)
-- (HombachC) add docu on local Pulse poll config screen (#479)
-- (HombachC) code cleanup
-- (HombachC) bump dependencies
-
-### 3.4.4 (2024-07-28)
-
-- (HombachC) local poll of data - change units Wh to kWh and round to 0,1kWh (#469)
-
-### 3.4.3 (2024-07-14)
-
-- (HombachC) added unit to Pulse temperature and round to 0,1°C
-- (HombachC) added unit to Pulse battery voltage and round to 100mV
-- (HombachC) added unit to Pulse uptime
-- (HombachC) added state with Pulse uptime as human readable string
-- (HombachC) reinitialize some TibberLocal states upon adapter startup
-- (HombachC) code optimisation
-- (HombachC) bump dependencies
-
-### 3.4.2 (2024-07-13)
-
-- (HombachC) fix typos in units
-- (HombachC) fix type mismatch for state objects (#455)
-- (HombachC) code optimisation
-
-### 3.4.1 (2024-07-13)
-
-- (HombachC) fix logging error
-- (HombachC) bump dependencies
-
-### 3.4.0 (2024-07-12)
-
-- (HombachC) add mode for local poll of Pulse data (#201)
-
-### 3.3.3 (2024-07-04)
-
-- (HombachC) fix sentry notified possible error
-- (HombachC) try to fix startup error (#444)
-
-### 3.3.2 (2024-06-21)
-
-- (HombachC) fix 2 security issues in dependencies
-- (HombachC) fix sentry notified possible error
-
-### 3.3.1 (2024-06-13)
-
-- (HombachC) fix small sentry discovered error (#418)
-- (HombachC) added note for multihomes to documentation (#422)
-
-### 3.3.0 (2024-06-05)
-
-- (HombachC) implements optional, obsolete api call for total historical cost, incl. grid fees (#405)
-- (HombachC) Updates @iobroker/adapter-core from 3.1.6
-- (HombachC) Updates @iobroker/types from 5.0.19 to 6.0.0
-
-### 3.2.1 (2024-06-03)
-
-- (HombachC) added unique endpoint string
-
-### 3.2.0 (2024-06-03)
-
-- (HombachC) IMPORTANT: adapter components had been blocked by Tibber - you have to update!
-- (HombachC) bump base dependencies
-- (HombachC) adapter will use internal output states for calculator if none defined in configuration (#325)
-- (HombachC) implement first run mode in calculator to reduce system load
-- (HombachC) internal optimisations
-
-### 3.1.2 (2024-05-20)
-
-- (HombachC) deleting unused temp home objects after adapter config (#393)
-- (HombachC) bump dependencies
-
-### 3.1.1 (2024-05-16)
-
-- (HombachC) throttle down reconnection speed
-- (HombachC) logging optimizations (#396; #217)
-- (HombachC) adaptations to newer environment (#394; #395)
-
-### 3.1.0 (2024-05-07)
-
-- (HombachC) enable manual control of configured outputs when automation is deactivated (#334)
-- (HombachC) fix not working LTF Channel when using too short LTF (#383)
-- (HombachC) code optimisations
-- (HombachC) update adapter-core to 3.1.4
-- (HombachC) bump dependencies
-
-### 3.0.1 (2024-04-20)
-
-- (HombachC) updated adapter testing
-- (HombachC) bump dependencies
-
-### 3.0.0 (2024-04-15)
-
-- (HombachC) BREAKING: dropped support for node.js 16 (#368)
-- (HombachC) BREAKING: js-controller >= 5 is required
-- (HombachC) changed to tier 2 as data provider
-- (HombachC) corrected io-package.json according to new schema (#368)
-- (HombachC) update typescript to 5.4.5
-- (HombachC) update adapter-core to 3.0.6
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
