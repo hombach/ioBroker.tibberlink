@@ -81,7 +81,7 @@ export class TibberCharts extends ProjectUtils {
 					const filteredEntries = this.adapter.config.CalculatorList.filter(
 						entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
 					);
-					let calcsValues = "";
+					let calcChannelsData = "";
 					if (filteredEntries.length > 0) {
 						for (const entry of filteredEntries) {
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
@@ -100,23 +100,25 @@ export class TibberCharts extends ProjectUtils {
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
-											calcsValues += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
-											calcsValues += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
 											break;
 										default:
-											calcsValues += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
 									}
 									startIndex = i; // start next group
 								}
 							}
 						}
 					}
-					if (calcsValues == "") {
-						calcsValues = `[{xAxis: ""}, {xAxis: ""}]`;
+					if (calcChannelsData == "") {
+						calcChannelsData = `[{xAxis: ""}, {xAxis: ""}]`;
 					}
-					jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
+					jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcChannelsData);
+				} else if (jsonFlexCharts.includes("%%CalcChannelsData%%")) {
+					jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", `[{xAxis: ""}, {xAxis: ""}]`);
 				}
 			}
 

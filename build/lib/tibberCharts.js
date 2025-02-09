@@ -71,7 +71,7 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
                         projectUtils_1.enCalcType.SmartBatteryBuffer,
                     ]; // list of supported channel types
                     const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
-                    let calcsValues = "";
+                    let calcChannelsData = "";
                     if (filteredEntries.length > 0) {
                         for (const entry of filteredEntries) {
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
@@ -89,23 +89,26 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
                                     switch (entry.chType) {
                                         case projectUtils_1.enCalcType.BestCost:
                                         case projectUtils_1.enCalcType.BestCostLTF:
-                                            calcsValues += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
                                             break;
                                         case projectUtils_1.enCalcType.SmartBatteryBuffer:
-                                            calcsValues += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
                                             break;
                                         default:
-                                            calcsValues += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
                                     }
                                     startIndex = i; // start next group
                                 }
                             }
                         }
                     }
-                    if (calcsValues == "") {
-                        calcsValues = `[{xAxis: ""}, {xAxis: ""}]`;
+                    if (calcChannelsData == "") {
+                        calcChannelsData = `[{xAxis: ""}, {xAxis: ""}]`;
                     }
-                    jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcsValues);
+                    jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", calcChannelsData);
+                }
+                else if (jsonFlexCharts.includes("%%CalcChannelsData%%")) {
+                    jsonFlexCharts = jsonFlexCharts.replace("%%CalcChannelsData%%", `[{xAxis: ""}, {xAxis: ""}]`);
                 }
             }
             void this.checkAndSetValue(`Homes.${homeID}.PricesTotal.jsonFlexCharts`, jsonFlexCharts, "JSON string to be used for FlexCharts adapter for Apache ECharts", "json");
