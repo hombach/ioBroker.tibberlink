@@ -183,34 +183,39 @@ class ProjectUtils {
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
     async checkAndSetValue(stateName, value, description = "-", role = "text", writeable = false, dontUpdate = false, forceMode = false) {
-        if (value != undefined) {
-            if (value.trim().length > 0) {
-                const commonObj = {
-                    name: stateName.split(".").pop(),
-                    type: "string",
-                    role: role,
-                    desc: description,
-                    read: true,
-                    write: writeable,
-                };
-                if (!forceMode) {
-                    await this.adapter.setObjectNotExistsAsync(stateName, {
-                        type: "state",
-                        common: commonObj,
-                        native: {},
-                    });
-                }
-                else {
-                    await this.adapter.setObjectAsync(stateName, {
-                        type: "state",
-                        common: commonObj,
-                        native: {},
-                    });
-                }
-                if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
-                    await this.adapter.setState(stateName, { val: value, ack: true });
-                }
+        if (value?.trim()?.length) {
+            //if (value != undefined) { if (value.trim().length > 0) {
+            const commonObj = {
+                name: stateName.split(".").pop() ?? stateName,
+                //name: stateName.split(".").pop(),
+                type: "string",
+                role: role,
+                desc: description,
+                read: true,
+                write: writeable,
+            };
+            await (forceMode
+                ? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+                : this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+            /*if (!forceMode) {
+                await this.adapter.setObjectNotExistsAsync(stateName, {
+                    type: "state",
+                    common: commonObj,
+                    native: {},
+                });
+            } else {
+                await this.adapter.setObject(stateName, {
+                    //await this.adapter.setObjectAsync(stateName, {
+                    type: "state",
+                    common: commonObj,
+                    native: {},
+                });
+            }*/
+            if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
+                //if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+                await this.adapter.setState(stateName, { val: value, ack: true });
             }
+            //}
         }
     }
     /**
@@ -229,7 +234,8 @@ class ProjectUtils {
     async checkAndSetValueNumber(stateName, value, description = "-", unit, role = "value", writeable = false, dontUpdate = false, forceMode = false) {
         if (value !== undefined) {
             const commonObj = {
-                name: stateName.split(".").pop(),
+                name: stateName.split(".").pop() ?? stateName,
+                //name: stateName.split(".").pop(),
                 type: "number",
                 role: role,
                 desc: description,
@@ -240,21 +246,25 @@ class ProjectUtils {
             if (unit !== null && unit !== undefined) {
                 commonObj.unit = unit;
             }
-            if (!forceMode) {
+            await (forceMode
+                ? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+                : this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+            /*if (!forceMode) {
                 await this.adapter.setObjectNotExistsAsync(stateName, {
                     type: "state",
                     common: commonObj,
                     native: {},
                 });
-            }
-            else {
-                await this.adapter.setObjectAsync(stateName, {
+            } else {
+                await this.adapter.setObject(stateName, {
+                    //await this.adapter.setObjectAsync(stateName, {
                     type: "state",
                     common: commonObj,
                     native: {},
                 });
-            }
-            if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+            }*/
+            if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
+                //if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
                 await this.adapter.setState(stateName, { val: value, ack: true });
             }
         }
@@ -274,28 +284,33 @@ class ProjectUtils {
     async checkAndSetValueBoolean(stateName, value, description = "-", role = "indicator", writeable = false, dontUpdate = false, forceMode = false) {
         if (value !== undefined && value !== null) {
             const commonObj = {
-                name: stateName.split(".").pop(),
+                name: stateName.split(".").pop() ?? stateName,
+                //name: stateName.split(".").pop(),
                 type: "boolean",
                 role: role,
                 desc: description,
                 read: true,
                 write: writeable,
             };
-            if (!forceMode) {
+            await (forceMode
+                ? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+                : this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+            /*if (!forceMode) {
                 await this.adapter.setObjectNotExistsAsync(stateName, {
                     type: "state",
                     common: commonObj,
                     native: {},
                 });
-            }
-            else {
-                await this.adapter.setObjectAsync(stateName, {
+            } else {
+                await this.adapter.setObject(stateName, {
+                    //await this.adapter.setObjectAsync(stateName, {
                     type: "state",
                     common: commonObj,
                     native: {},
                 });
-            }
-            if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+            }*/
+            if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
+                //if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
                 await this.adapter.setState(stateName, { val: value, ack: true });
             }
         }

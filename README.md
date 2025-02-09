@@ -114,7 +114,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) Update tibber-api to 5.2.1 - handle obsolete data as default, remove option
 - (HombachC) Calculate outputJSON prior to time frame for channels of type 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' and their LTF variants (#592)
 - (HombachC) add outputJSON and outputJSON2 for 'SmartBatteryBuffer' channels (#592)
-- (HombachC) calculator code optimizations
+- (HombachC) calculator and projectUtils code optimizations
 - (HombachC) correct role of stats states to json
 
 ### 4.2.3 (2025-01-14)

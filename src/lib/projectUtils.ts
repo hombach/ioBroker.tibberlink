@@ -209,33 +209,40 @@ export class ProjectUtils {
 		dontUpdate = false,
 		forceMode = false,
 	): Promise<void> {
-		if (value != undefined) {
-			if (value.trim().length > 0) {
-				const commonObj: ioBroker.StateCommon = {
-					name: stateName.split(".").pop(),
-					type: "string",
-					role: role,
-					desc: description,
-					read: true,
-					write: writeable,
-				};
-				if (!forceMode) {
-					await this.adapter.setObjectNotExistsAsync(stateName, {
-						type: "state",
-						common: commonObj,
-						native: {},
-					});
-				} else {
-					await this.adapter.setObjectAsync(stateName, {
-						type: "state",
-						common: commonObj,
-						native: {},
-					});
-				}
-				if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
-					await this.adapter.setState(stateName, { val: value, ack: true });
-				}
+		if (value?.trim()?.length) {
+			//if (value != undefined) { if (value.trim().length > 0) {
+			const commonObj: ioBroker.StateCommon = {
+				name: stateName.split(".").pop() ?? stateName,
+				//name: stateName.split(".").pop(),
+				type: "string",
+				role: role,
+				desc: description,
+				read: true,
+				write: writeable,
+			};
+			await (forceMode
+				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+			/*if (!forceMode) {
+				await this.adapter.setObjectNotExistsAsync(stateName, {
+					type: "state",
+					common: commonObj,
+					native: {},
+				});
+			} else {
+				await this.adapter.setObject(stateName, {
+					//await this.adapter.setObjectAsync(stateName, {
+					type: "state",
+					common: commonObj,
+					native: {},
+				});
+			}*/
+
+			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
+				//if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+				await this.adapter.setState(stateName, { val: value, ack: true });
 			}
+			//}
 		}
 	}
 
@@ -264,7 +271,8 @@ export class ProjectUtils {
 	): Promise<void> {
 		if (value !== undefined) {
 			const commonObj: ioBroker.StateCommon = {
-				name: stateName.split(".").pop(),
+				name: stateName.split(".").pop() ?? stateName,
+				//name: stateName.split(".").pop(),
 				type: "number",
 				role: role,
 				desc: description,
@@ -275,21 +283,27 @@ export class ProjectUtils {
 			if (unit !== null && unit !== undefined) {
 				commonObj.unit = unit;
 			}
-			if (!forceMode) {
+
+			await (forceMode
+				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+			/*if (!forceMode) {
 				await this.adapter.setObjectNotExistsAsync(stateName, {
 					type: "state",
 					common: commonObj,
 					native: {},
 				});
 			} else {
-				await this.adapter.setObjectAsync(stateName, {
+				await this.adapter.setObject(stateName, {
+					//await this.adapter.setObjectAsync(stateName, {
 					type: "state",
 					common: commonObj,
 					native: {},
 				});
-			}
+			}*/
 
-			if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
+				//if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
 				await this.adapter.setState(stateName, { val: value, ack: true });
 			}
 		}
@@ -318,7 +332,8 @@ export class ProjectUtils {
 	): Promise<void> {
 		if (value !== undefined && value !== null) {
 			const commonObj: ioBroker.StateCommon = {
-				name: stateName.split(".").pop(),
+				name: stateName.split(".").pop() ?? stateName,
+				//name: stateName.split(".").pop(),
 				type: "boolean",
 				role: role,
 				desc: description,
@@ -326,21 +341,26 @@ export class ProjectUtils {
 				write: writeable,
 			};
 
-			if (!forceMode) {
+			await (forceMode
+				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+			/*if (!forceMode) {
 				await this.adapter.setObjectNotExistsAsync(stateName, {
 					type: "state",
 					common: commonObj,
 					native: {},
 				});
 			} else {
-				await this.adapter.setObjectAsync(stateName, {
+				await this.adapter.setObject(stateName, {
+					//await this.adapter.setObjectAsync(stateName, {
 					type: "state",
 					common: commonObj,
 					native: {},
 				});
-			}
+			}*/
 
-			if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
+				//if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
 				await this.adapter.setState(stateName, { val: value, ack: true });
 			}
 		}
