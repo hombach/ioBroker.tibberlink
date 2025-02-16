@@ -74,6 +74,10 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
                     let calcChannelsData = "";
                     if (filteredEntries.length > 0) {
                         for (const entry of filteredEntries) {
+                            if (!entry.chGraphEnabled) {
+                                // should this channel be processed for charts JSON?
+                                break;
+                            }
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
                             const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
                             let startIndex = 0;

@@ -55,6 +55,8 @@
 	"TTIP_item_chValueOn2": "The values to be written to the second output state can be defined as 'value YES 2' and 'value NO 2', for example, 'true' for boolean states, or a number or text to be written.",
 	"LBL_item_chValueOff2": "Value NO 2",
 	"TTIP_item_chValueOff2": "The values to be written to the second output state can be defined as 'value YES 2' and 'value NO 2', for example, 'true' for boolean states, or a number or text to be written.",
+	"LBL_chGraphEnabled": "JSON for graph generated",
+	"TTIP_chGraphEnabled": "Wether JSON outputs graphics like FlexCharts will be generated for this calculator channel",
 	"LBL_calculatorhelp1": "Channels can be activated or deactivated based on a corresponding named state.",
 	"LBL_calculatorhelp2": "All states of a calculator channel are positioned near the home states and are labeled with the channel number.",
 	"LBL_calculatorhelp3": "The behavior of a channel is determined by its type: 'Best Cost,' 'Best Single Hours,' 'Best Hours Block,' or 'Smart Battery Buffer.'",

@@ -180,6 +180,19 @@
 					"lg": 6,
 					"xl": 6,
 					"hidden": "data.chType !== 7"
+				},
+				{
+					"type": "checkbox",
+					"label": "LBL_chGraphEnabled",
+					"tooltip": "TTIP_chGraphEnabled",
+					"attr": "chGraphEnabled",
+					"default": "false",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
+					"newLine": true
 				}
 			]
 		},

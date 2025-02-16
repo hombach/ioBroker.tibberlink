@@ -64,6 +64,9 @@ declare global {
 					chRepeatDays: number;
 					chEfficiencyLoss: number;
 					chPercentage: number;
+					chGraphEnabled: boolean;
+					chGraphPastCutoff: number;
+					chGraphFutureCutOff: number;
 				},
 			];
 			PulseList: [

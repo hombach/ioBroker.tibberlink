@@ -160,6 +160,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### 4.3.1 (2025-02-xx)
+
+- (HombachC) add option to enable/disable FlexCharts-JSON for each channel (#642)
+
 ### 4.3.0 (2025-02-09)
 
 - (HombachC) added ioBroker.FlexCharts - JSON
