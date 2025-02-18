@@ -160,7 +160,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### 4.3.1 (2025-02-xx)
+### 4.3.1 (2025-02-xx) WORK in PROGRESS
 
 - (HombachC) add option to enable/disable FlexCharts-JSON for each channel (#642)
 
