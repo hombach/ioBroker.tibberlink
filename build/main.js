@@ -283,21 +283,15 @@ class Tibberlink extends utils.Adapter {
                     if (!this.homeInfoList.some(homeInfo => homeInfo.ID == `None available - restart adapter after entering token`)) {
                         await this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true });
                     }
-                    // // eslint-disable-next-line @typescript-eslint/no-for-in-array
                     this.homeInfoList.forEach((homeInfo, index) => {
-                        // for (const index in this.homeInfoList) {
                         if (!homeInfo.ID || !homeInfo.RealTime) {
-                            // if (!this.homeInfoList[index].FeedActive || !this.homeInfoList[index].RealTime) {
                             this.log.warn(`skipping feed of live data - no Pulse configured for this home ${homeInfo.ID} according to Tibber server`);
                             return;
-                            //continue;
                         }
                         this.log.debug(`Trying to establish feed of live data for home: ${homeInfo.ID}`);
-                        //this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
                         try {
                             // define the fields for datafeed
                             tibberFeedConfigs[index].homeId = homeInfo.ID;
-                            //tibberFeedConfigs[index].homeId = this.homeInfoList[index].ID;
                             tibberFeedConfigs[index].power = true;
                             if (this.config.FeedConfigLastMeterConsumption) {
                                 tibberFeedConfigs[index].lastMeterConsumption = true;
