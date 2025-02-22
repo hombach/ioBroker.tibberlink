@@ -32,7 +32,7 @@
 		"tibber-api": "^5.2.1"
 	},
 	"devDependencies": {
-		"@iobroker/adapter-dev": "^1.3.0",
+		"@iobroker/adapter-dev": "^1.4.0",
 		"@iobroker/eslint-config": "^1.0.0",
 		"@iobroker/testing": "^5.0.3",
 		"@iobroker/types": "^7.0.6",
