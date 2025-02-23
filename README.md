@@ -160,6 +160,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+## **WORK IN PROGRESS**
+
+- (HombachC) Bump cron to 4.0.0 (#648)
+
 ### 4.3.1 (2025-02-23)
 
 - (HombachC) Bump "@iobroker/adapter-dev" to 1.4.0 (#653)
