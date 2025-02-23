@@ -160,7 +160,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### **WORK IN PROGRESS**
+### 4.3.1 (2025-02-23)
 
 - (HombachC) Bump "@iobroker/adapter-dev" to 1.4.0 (#653)
 - (HombachC) start using "@alcalzone/release-script" (#650)
@@ -187,78 +187,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 4.2.1 (2025-01-08)
 
 - (HombachC) fix missing translation
-
-### 4.2.0 (2025-01-08)
-
-- (HombachC) fix error in BestHoursBlock LTF intruduced in 4.x (#618)
-- (HombachC) add new calculator channels 'BestPercentage' and 'BestPercentageLTF' (#616)
-- (HombachC) add outputJSON for 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' and their LTF variants (#592)
-- (HombachC) fixed some i18n translations
-- (HombachC) year 2025 changes
-- (HombachC) code optimization
-
-### 4.1.1 (2024-12-21)
-
-- (HombachC) code cleanup
-- (HombachC) fix translations
-- (HombachC) fix chai-as-promised
-
-### 4.1.0 (2024-12-15)
-
-- (HombachC) enable local poll also without Token (#613)
-- (HombachC) split jsonConfig.json to multiple files
-- (HombachC) fix typo in translation handling
-- (HombachC) bump cron
-
-### 4.0.0 (2024-12-08)
-
-- (HombachC) BREAKING: dropped support for ioBroker.admin < 7.0.0 because of ioBroker Responsive Design Initiative (#544)
-- (HombachC) redesigned admin tab for calculator
-- (HombachC) optimize translations, added more tooltips
-- (HombachC) fix repeated calculation of LTF channels (#593)
-- (HombachC) added BlockStart / BlockEnd as date string (#516)
-- (HombachC) throttle sentry messaging
-- (HombachC) add prices yesterday (#600)
-
-### 3.5.4 (2024-12-01)
-
-- (HombachC) add warning when LTF stop time isn't same or next day and provide docu
-- (HombachC) fix error in calculator channel 'best single hours' (#594)
-- (HombachC) intruduce 'iobroker/eslint-config' (#591)
-- (HombachC) performance optimizations
-- (HombachC) dependency updates
-
-### 3.5.3 (2024-11-23)
-
-- (HombachC) fix edge case in output state setup and usage
-- (HombachC) optimzed state subscription
-- (HombachC) update deprecated state calls
-- (HombachC) add await to delObjectAsync
-- (HombachC) harmonize project tools
-- (HombachC) dependency updates
-
-### 3.5.2 (2024-10-30)
-
-- (HombachC) add verification for YES/NO 2 values in calculator (#547)
-- (HombachC) optimized responsive design (#544)
-- (HombachC) migrate eslint to >9.x
-- (HombachC) switch to ES2022 code
-- (HombachC) adapted to new API constraints (#546)
-- (HombachC) replace deprecated setStateAsync by setState
-
-### 3.5.1 (2024-10-05)
-
-- (HombachC) changed to less feed disconnection warnings in log (#445)
-- (HombachC) fix error in output2 of smart battery buffer (#538)
-- (HombachC) update deprecated state calls
-- (HombachC) dependency updates
-
-### 3.5.0 (2024-10-02)
-
-- (HombachC) update adapter core
-- (HombachC) fix error in SML decoder
-- (HombachC) add 2 new SML scale factor codes (#535)
-- (HombachC) dependency updates
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
