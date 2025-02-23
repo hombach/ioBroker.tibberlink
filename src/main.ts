@@ -4,11 +4,11 @@ import { CronJob } from "cron";
 import { addDays, format, isSameDay } from "date-fns";
 import type { IConfig } from "tibber-api";
 import type { IHomeInfo } from "./lib/projectUtils";
-import { TibberAPICaller } from "./lib/tibberAPICaller";
-import { TibberCalculator } from "./lib/tibberCalculator";
-import { TibberCharts } from "./lib/tibberCharts";
-import { TibberLocal } from "./lib/tibberLocal";
-import { TibberPulse } from "./lib/tibberPulse";
+import { TibberAPICaller } from "./lib/tibberAPICaller.js";
+import { TibberCalculator } from "./lib/tibberCalculator.js";
+import { TibberCharts } from "./lib/tibberCharts.js";
+import { TibberLocal } from "./lib/tibberLocal.js";
+import { TibberPulse } from "./lib/tibberPulse.js";
 
 class Tibberlink extends utils.Adapter {
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
