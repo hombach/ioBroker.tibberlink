@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberAPICaller = void 0;
 const tibber_api_1 = require("tibber-api");
-const EnergyResolution_1 = require("tibber-api/lib/src/models/enums/EnergyResolution");
+const EnergyResolution_js_1 = require("tibber-api/lib/src/models/enums/EnergyResolution.js");
 const projectUtils_1 = require("./projectUtils");
 /**
  * TibberAPICaller
@@ -334,11 +334,11 @@ class TibberAPICaller extends projectUtils_1.ProjectUtils {
                 }
                 const homeID = home.homeID;
                 const resolutions = [
-                    { type: EnergyResolution_1.EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
-                    { type: EnergyResolution_1.EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
-                    { type: EnergyResolution_1.EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
-                    { type: EnergyResolution_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
-                    { type: EnergyResolution_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
+                    { type: EnergyResolution_js_1.EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
+                    { type: EnergyResolution_js_1.EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
+                    { type: EnergyResolution_js_1.EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
+                    { type: EnergyResolution_js_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
+                    { type: EnergyResolution_js_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
                 ];
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
