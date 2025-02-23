@@ -166,6 +166,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) start using "@alcalzone/release-script" (#650)
 - (HombachC) add option to enable/disable FlexCharts-JSON for each channel (#642)
 - (HombachC) fix logging for multiple homes (#647)
+- (HombachC) fix encrypted element "tibberBridgePassword" (#652)
 
 ### 4.3.0 (2025-02-09)
 
