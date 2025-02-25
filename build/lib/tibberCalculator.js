@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberCalculator = void 0;
 const date_fns_1 = require("date-fns");
-const projectUtils_1 = require("./projectUtils");
+const projectUtils_js_1 = require("./projectUtils.js");
 /**
  * TibberCalculator
  */
-class TibberCalculator extends projectUtils_1.ProjectUtils {
+class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     numBestCost;
     numBestSingleHours;
     numBestHoursBlock;
@@ -47,31 +47,31 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
     }
     increaseStatsValueByOne(type) {
         switch (type) {
-            case projectUtils_1.enCalcType.BestCost:
+            case projectUtils_js_1.enCalcType.BestCost:
                 this.numBestCost++;
                 break;
-            case projectUtils_1.enCalcType.BestSingleHours:
+            case projectUtils_js_1.enCalcType.BestSingleHours:
                 this.numBestSingleHours++;
                 break;
-            case projectUtils_1.enCalcType.BestHoursBlock:
+            case projectUtils_js_1.enCalcType.BestHoursBlock:
                 this.numBestHoursBlock++;
                 break;
-            case projectUtils_1.enCalcType.BestCostLTF:
+            case projectUtils_js_1.enCalcType.BestCostLTF:
                 this.numBestCostLTF++;
                 break;
-            case projectUtils_1.enCalcType.BestSingleHoursLTF:
+            case projectUtils_js_1.enCalcType.BestSingleHoursLTF:
                 this.numBestSingleHoursLTF++;
                 break;
-            case projectUtils_1.enCalcType.BestHoursBlockLTF:
+            case projectUtils_js_1.enCalcType.BestHoursBlockLTF:
                 this.numBestHoursBlockLTF++;
                 break;
-            case projectUtils_1.enCalcType.SmartBatteryBuffer:
+            case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                 this.numSmartBatteryBuffer++;
                 break;
-            case projectUtils_1.enCalcType.BestPercentage:
+            case projectUtils_js_1.enCalcType.BestPercentage:
                 this.numBestPercentage++;
                 break;
-            case projectUtils_1.enCalcType.BestPercentageLTF:
+            case projectUtils_js_1.enCalcType.BestPercentageLTF:
                 this.numBestPercentageLTF++;
         }
     }
@@ -87,7 +87,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 channelConfig.chName = `Channel Name`;
             }
             //#region *** setup calculation channels folder ***
-            const typeDesc = (0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType);
+            const typeDesc = (0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType);
             await this.adapter.setObject(`Homes.${homeId}.Calculations.${channel}`, {
                 type: "channel",
                 common: {
@@ -132,7 +132,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                                         | Output state: "Output", "OutputJSON"
             */
             switch (channelConfig.chType) {
-                case projectUtils_1.enCalcType.BestCost:
+                case projectUtils_js_1.enCalcType.BestCost:
                     await this.deleteLTFInputs(homeId, channel); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
@@ -148,7 +148,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chOutput(homeId, channel);
                     this.setup_chOutputJSON(homeId, channel);
                     break;
-                case projectUtils_1.enCalcType.BestSingleHours:
+                case projectUtils_js_1.enCalcType.BestSingleHours:
                     await this.deleteLTFInputs(homeId, channel); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
@@ -164,7 +164,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chOutput(homeId, channel);
                     this.setup_chOutputJSON(homeId, channel);
                     break;
-                case projectUtils_1.enCalcType.BestHoursBlock:
+                case projectUtils_js_1.enCalcType.BestHoursBlock:
                     await this.deleteLTFInputs(homeId, channel); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
@@ -180,7 +180,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chOutput(homeId, channel);
                     this.setup_chOutputJSON(homeId, channel);
                     break;
-                case projectUtils_1.enCalcType.BestCostLTF:
+                case projectUtils_js_1.enCalcType.BestCostLTF:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AmountHours`); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
@@ -194,7 +194,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chOutput(homeId, channel);
                     this.setup_chOutputJSON(homeId, channel);
                     break;
-                case projectUtils_1.enCalcType.BestSingleHoursLTF:
+                case projectUtils_js_1.enCalcType.BestSingleHoursLTF:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
@@ -208,7 +208,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chOutput(homeId, channel);
                     this.setup_chOutputJSON(homeId, channel);
                     break;
-                case projectUtils_1.enCalcType.BestHoursBlockLTF:
+                case projectUtils_js_1.enCalcType.BestHoursBlockLTF:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
@@ -224,7 +224,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chOutput(homeId, channel);
                     this.setup_chOutputJSON(homeId, channel);
                     break;
-                case projectUtils_1.enCalcType.SmartBatteryBuffer:
+                case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                     await this.deleteLTFInputs(homeId, channel); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
@@ -240,7 +240,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     this.setup_chOutputJSON(homeId, channel);
                     this.setup_chOutputJSON2(homeId, channel);
                     break;
-                case projectUtils_1.enCalcType.BestPercentage:
+                case projectUtils_js_1.enCalcType.BestPercentage:
                     await this.deleteLTFInputs(homeId, channel); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
@@ -256,7 +256,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     await this.setup_chOutput(homeId, channel);
                     this.setup_chOutputJSON(homeId, channel);
                     break;
-                case projectUtils_1.enCalcType.BestPercentageLTF:
+                case projectUtils_js_1.enCalcType.BestPercentageLTF:
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AmountHours`); // INPUTS
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
                     await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
@@ -593,7 +593,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     continue; // skip channel
                 }
                 //checks for SmartBatteryBuffer only...
-                if (this.adapter.config.CalculatorList[channel].chType === projectUtils_1.enCalcType.SmartBatteryBuffer) {
+                if (this.adapter.config.CalculatorList[channel].chType === projectUtils_js_1.enCalcType.SmartBatteryBuffer) {
                     if (!this.adapter.config.CalculatorList[channel] ||
                         !this.adapter.config.CalculatorList[channel].chTargetState2 ||
                         !this.adapter.config.CalculatorList[channel].chTargetState2.trim()) {
@@ -632,31 +632,31 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                     // If Active=false been set just now - or still active then act - else just produce debug log in the following runs
                     switch (this.adapter.config.CalculatorList[channel].chType) {
-                        case projectUtils_1.enCalcType.BestCost:
+                        case projectUtils_js_1.enCalcType.BestCost:
                             void this.executeCalculatorBestCost(parseInt(channel));
                             break;
-                        case projectUtils_1.enCalcType.BestSingleHours:
+                        case projectUtils_js_1.enCalcType.BestSingleHours:
                             void this.executeCalculatorBestSingleHours(parseInt(channel));
                             break;
-                        case projectUtils_1.enCalcType.BestHoursBlock:
+                        case projectUtils_js_1.enCalcType.BestHoursBlock:
                             void this.executeCalculatorBestHoursBlock(parseInt(channel));
                             break;
-                        case projectUtils_1.enCalcType.BestCostLTF:
+                        case projectUtils_js_1.enCalcType.BestCostLTF:
                             void this.executeCalculatorBestCost(parseInt(channel), true);
                             break;
-                        case projectUtils_1.enCalcType.BestSingleHoursLTF:
+                        case projectUtils_js_1.enCalcType.BestSingleHoursLTF:
                             void this.executeCalculatorBestSingleHours(parseInt(channel), true);
                             break;
-                        case projectUtils_1.enCalcType.BestHoursBlockLTF:
+                        case projectUtils_js_1.enCalcType.BestHoursBlockLTF:
                             void this.executeCalculatorBestHoursBlock(parseInt(channel), true);
                             break;
-                        case projectUtils_1.enCalcType.SmartBatteryBuffer:
+                        case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                             void this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
                             break;
-                        case projectUtils_1.enCalcType.BestPercentage:
+                        case projectUtils_js_1.enCalcType.BestPercentage:
                             void this.executeCalculatorBestPercentage(parseInt(channel));
                             break;
-                        case projectUtils_1.enCalcType.BestPercentageLTF:
+                        case projectUtils_js_1.enCalcType.BestPercentageLTF:
                             void this.executeCalculatorBestPercentage(parseInt(channel), true);
                             break;
                         default:
@@ -664,7 +664,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                     }
                 }
                 else {
-                    this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`);
+                    this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`);
                 }
             }
             catch (error) {
@@ -742,7 +742,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
     async executeCalculatorBestSingleHours(channel, modeLTF = false) {
@@ -808,7 +808,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
     async executeCalculatorBestHoursBlock(channel, modeLTF = false) {
@@ -916,7 +916,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
     async executeCalculatorSmartBatteryBuffer(channel) {
@@ -1049,7 +1049,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet, valueToSet2);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
     async executeCalculatorBestPercentage(channel, modeLTF = false) {
@@ -1118,7 +1118,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             this.setChannelOutStates(channel, valueToSet);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
     /**
@@ -1149,7 +1149,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
             sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
             void this.adapter.setState(sOutState, convertValue(valueToSet), true);
         }
-        this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`);
+        this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`);
         if (valueToSet2 != `EMPTY`) {
             sOutState = ``; // reinit for output 2
             if (channelConfig?.chTargetState2 &&
@@ -1162,7 +1162,7 @@ class TibberCalculator extends projectUtils_1.ProjectUtils {
                 sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output2`;
                 void this.adapter.setState(sOutState, convertValue(valueToSet2), true);
             }
-            this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_1.getCalcTypeDescription)(channelConfig.chType)}; setting state 2: ${sOutState} to ${valueToSet2}`);
+            this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)}; setting state 2: ${sOutState} to ${valueToSet2}`);
         }
     }
     /**
