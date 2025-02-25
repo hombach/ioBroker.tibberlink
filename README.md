@@ -164,6 +164,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) Bump cron to 4.0.0 (#648)
 - (HombachC) Set admin to minimum 7.4.10 as recommended by ioBroker (#651)
+- (HombachC) Code optimisations
 
 ### 4.3.1 (2025-02-23)
 
