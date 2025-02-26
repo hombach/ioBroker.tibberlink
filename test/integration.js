@@ -1,6 +1,15 @@
 const path = require("path");
 const { tests } = require("@iobroker/testing");
 
+/* ESM
+import { join } from "path";
+import { tests } from "@iobroker/testing";
+
+tests.integration(process.cwd(), {
+	allowedExitCodes: [0],
+});
+*/
+
 // Run integration tests - See https://github.com/ioBroker/testing for a detailed explanation and further options
 tests.integration(path.join(__dirname, ".."), {
 	//            ~~~~~~~~~~~~~~~~~~~~~~~~~
