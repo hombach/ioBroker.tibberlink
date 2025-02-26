@@ -3,7 +3,7 @@ import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
 import { addDays, format, isSameDay } from "date-fns";
 import type { IConfig } from "tibber-api";
-import type { IHomeInfo } from "./lib/projectUtils";
+import type { IHomeInfo } from "./lib/projectUtils.js";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
 import { TibberCharts } from "./lib/tibberCharts.js";
