@@ -330,11 +330,11 @@ export class TibberAPICaller extends ProjectUtils {
                 }
                 const homeID = home.homeID;
                 const resolutions = [
-                    { type: EnergyResolution_js_1.EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
-                    { type: EnergyResolution_js_1.EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
-                    { type: EnergyResolution_js_1.EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
-                    { type: EnergyResolution_js_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
-                    { type: EnergyResolution_js_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
+                    { type: EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
+                    { type: EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
+                    { type: EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
+                    { type: EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
+                    { type: EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
                 ];
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {

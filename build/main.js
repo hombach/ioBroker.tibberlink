@@ -4,6 +4,7 @@ import { CronJob } from "cron";
 import { addDays, format, isSameDay } from "date-fns";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
+import { TibberCharts } from "./lib/tibberCharts.js";
 import { TibberLocal } from "./lib/tibberLocal.js";
 import { TibberPulse } from "./lib/tibberPulse.js";
 /**
@@ -32,8 +33,8 @@ class Tibberlink extends utils.Adapter {
     cronList;
     homeInfoList = [];
     queryUrl = "";
-    tibberCalculator = new tibberCalculator_js_1.TibberCalculator(this);
-    tibberCharts = new tibberCharts_js_1.TibberCharts(this);
+    tibberCalculator = new TibberCalculator(this);
+    tibberCharts = new TibberCharts(this);
     /**
      * Is called when databases are connected and adapter received configuration.
      */
@@ -47,7 +48,7 @@ class Tibberlink extends utils.Adapter {
         // Local Bridge Call ... could be used without Tibber contract
         if (this.config.UseLocalPulseData) {
             // Set up Pulse local polls if configured
-            const tibberLocal = new tibberLocal_js_1.TibberLocal(this);
+            const tibberLocal = new TibberLocal(this);
             try {
                 this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
                 for (const pulse in this.config.PulseList) {
@@ -69,7 +70,7 @@ class Tibberlink extends utils.Adapter {
                 },
             };
             // Now read homes list from API
-            const tibberAPICaller = new tibberAPICaller_js_1.TibberAPICaller(tibberConfigAPI, this);
+            const tibberAPICaller = new TibberAPICaller(tibberConfigAPI, this);
             try {
                 this.homeInfoList = await tibberAPICaller.updateHomesFromAPI();
                 if (this.config.HomesList.length > 0) {
@@ -157,7 +158,7 @@ class Tibberlink extends utils.Adapter {
             // if there are any homes the adapter will do something
             // Init load data and calculator for all homes
             if (this.homeInfoList.length > 0) {
-                const tibberCalculator = new tibberCalculator_js_1.TibberCalculator(this);
+                const tibberCalculator = new TibberCalculator(this);
                 // Set up calculation channel states if configured
                 if (this.config.UseCalculator) {
                     try {
@@ -178,7 +179,7 @@ class Tibberlink extends utils.Adapter {
                 // Get consumption data for the first time
                 void tibberAPICaller.updateConsumptionAllHomes();
                 void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
-                const jobCurrentPrice = cron_1.CronJob.from({
+                const jobCurrentPrice = CronJob.from({
                     cronTime: "20 57 * * * *", //"20 58 * * * *" = 2 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
                     onTick: async () => {
                         let okPrice = false;
@@ -334,7 +335,7 @@ class Tibberlink extends utils.Adapter {
                             if (this.config.FeedConfigSignalStrength) {
                                 tibberFeedConfigs[index].signalStrength = true;
                             }
-                            tibberPulseInstances[index] = new tibberPulse_js_1.TibberPulse(tibberFeedConfigs[index], this); // add new instance to array
+                            tibberPulseInstances[index] = new TibberPulse(tibberFeedConfigs[index], this); // add new instance to array
                             tibberPulseInstances[index].ConnectPulseStream();
                         }
                         catch (error) {
@@ -555,8 +556,8 @@ class Tibberlink extends utils.Adapter {
                                                     this.log.warn(`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`);
                                                 }
                                                 // STOP
-                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
-                                                void this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
+                                                void this.setState(id, format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
                                             else {
                                                 this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStopTime: ${state.val}`);

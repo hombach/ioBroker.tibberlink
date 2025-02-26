@@ -9,13 +9,13 @@ export var enCalcType;
     enCalcType[enCalcType["SmartBatteryBuffer"] = 7] = "SmartBatteryBuffer";
     enCalcType[enCalcType["BestPercentage"] = 8] = "BestPercentage";
     enCalcType[enCalcType["BestPercentageLTF"] = 9] = "BestPercentageLTF";
-})(enCalcType || (exports.enCalcType = enCalcType = {}));
+})(enCalcType || (enCalcType = {}));
 /**
  * getCalcTypeDescription
  *
  * @param calcType - ID of calculator channel type
  */
-function getCalcTypeDescription(calcType) {
+export function getCalcTypeDescription(calcType) {
     const descriptions = {
         [enCalcType.BestCost]: `best cost`,
         [enCalcType.BestSingleHours]: `best single hours`,
