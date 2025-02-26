@@ -1,7 +1,7 @@
 import type * as utils from "@iobroker/adapter-core";
 import { addHours, differenceInHours, format, parseISO } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils";
+import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
 // https://echarts.apache.org/examples/en/index.html
 // https://github.com/MyHomeMyData/ioBroker.flexcharts

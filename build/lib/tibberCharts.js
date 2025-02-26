@@ -1,5 +1,5 @@
 import { addHours, differenceInHours, format, parseISO } from "date-fns";
-import { enCalcType, ProjectUtils } from "./projectUtils";
+import { enCalcType, ProjectUtils } from "./projectUtils.js";
 // https://echarts.apache.org/examples/en/index.html
 // https://github.com/MyHomeMyData/ioBroker.flexcharts
 /**
