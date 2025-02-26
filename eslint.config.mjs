@@ -7,12 +7,22 @@ export default [
 
 	{
 		// specify files to exclude from linting here
-		ignores: ["*.test.js", "test/**/*.js", "*.config.mjs", "build", "admin/build", "admin/words.js", "admin/admin.d.ts", "**/adapter-config.d.ts"],
+		ignores: [
+			"*.test.js",
+			"test/**/*.js",
+			"*.config.mjs",
+			"build",
+			"admin/build",
+			"admin/words.js",
+			"admin/admin.d.ts",
+			"**/adapter-config.d.ts",
+			".dev-server/**",
+		],
 	},
 
 	{
 		// you may disable some 'jsdoc' warnings - but using jsdoc is highly recommended
-		// as this improves maintainability. jsdoc warnings will not block buiuld process.
+		// as this improves maintainability. jsdoc warnings will not block build process.
 		rules: {
 			// 'jsdoc/require-jsdoc': 'off',
 		},

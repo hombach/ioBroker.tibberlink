@@ -6,6 +6,7 @@ import type { IConfig } from "tibber-api";
 import type { IHomeInfo } from "./lib/projectUtils.js";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
+import { TibberCharts } from "./lib/tibberCharts.js";
 import { TibberLocal } from "./lib/tibberLocal.js";
 import { TibberPulse } from "./lib/tibberPulse.js";
 
@@ -37,17 +38,33 @@ class Tibberlink extends utils.Adapter {
 	private homeInfoList: IHomeInfo[] = [];
 	private queryUrl = "";
 	private tibberCalculator = new TibberCalculator(this);
-
+	private tibberCharts = new TibberCharts(this);
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
 	private async onReady(): Promise<void> {
 		// Reset the connection indicator during startup;
-		if (!this.config.TibberAPIToken) {
+		if (!this.config.TibberAPIToken && !this.config.UseLocalPulseData) {
 			// No Token defined in configuration
 			this.log.error(`Missing API Token - please check configuration`);
 			void this.setState(`info.connection`, false, true);
-		} else {
+		}
+
+		// Local Bridge Call ... could be used without Tibber contract
+		if (this.config.UseLocalPulseData) {
+			// Set up Pulse local polls if configured
+			const tibberLocal = new TibberLocal(this);
+			try {
+				this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
+				for (const pulse in this.config.PulseList) {
+					tibberLocal.setupOnePulseLocal(parseInt(pulse));
+				}
+			} catch (error: unknown) {
+				this.log.warn(`Error in setup of local Pulse data poll: ${error as Error}`);
+			}
+		}
+
+		if (this.config.TibberAPIToken) {
 			// Need 2 configs - API and Feed (feed changed query url)
 			const tibberConfigAPI: IConfig = {
 				active: true,
@@ -92,14 +109,6 @@ class Tibberlink extends utils.Adapter {
 								`Price Poll Config for Home: ${homeInfo.NameInApp} (${homeInfo.ID}) - poll configured as active: ${homeInfo.PriceDataPollActive}`,
 							);
 						}
-						/*for (const index in this.homeInfoList) {
-							this.log.debug(
-								`Feed Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - realtime data available: ${this.homeInfoList[index].RealTime} - feed configured as active: ${this.homeInfoList[index].FeedActive}`,
-							);
-							this.log.debug(
-								`Price Poll Config for Home: ${this.homeInfoList[index].NameInApp} (${this.homeInfoList[index].ID}) - poll configured as active: ${this.homeInfoList[index].PriceDataPollActive}`,
-							);
-						}*/
 					}
 				} else {
 					this.log.warn(
@@ -127,7 +136,10 @@ class Tibberlink extends utils.Adapter {
 				const today = new Date();
 				const last = await this.getStateAsync("info.LastSentryLogDay");
 				const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
-				if (last?.val != today.getDate()) {
+
+				// Verify if 3 or more days in the past
+				if ((Number(last?.val) || 0) < today.getDate() + 3) {
+					// WiP 4.0.0 if (last?.val != today.getDate()) {
 					this.tibberCalculator.updateCalculatorUsageStats();
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
@@ -144,6 +156,8 @@ class Tibberlink extends utils.Adapter {
 								scope.setTag("numBestSingleHours", this.tibberCalculator.numBestSingleHours);
 								scope.setTag("numBestSingleHoursLTF", this.tibberCalculator.numBestSingleHoursLTF);
 								scope.setTag("numSmartBatteryBuffer", this.tibberCalculator.numSmartBatteryBuffer);
+								scope.setTag("numBestPercentage", this.tibberCalculator.numBestPercentage);
+								scope.setTag("numBestPercentageLTF", this.tibberCalculator.numBestPercentageLTF);
 								Sentry.captureMessage("Adapter TibberLink started", "info");
 							});
 					}
@@ -174,21 +188,6 @@ class Tibberlink extends utils.Adapter {
 					}
 				}
 
-				// Local Bridge Call - WiP move this... could be used without Tibber contract
-				// Set up Pulse local polls if configured
-				const tibberLocal = new TibberLocal(this);
-				if (this.config.UseLocalPulseData) {
-					try {
-						this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
-						for (const pulse in this.config.PulseList) {
-							tibberLocal.setupOnePulseLocal(parseInt(pulse));
-						}
-					} catch (error: unknown) {
-						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of local Pulse data poll`));
-					}
-				}
-				//Local Bridge Call
-
 				// (force) get current prices and start calculator tasks once for the FIRST time
 				await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
 
@@ -197,6 +196,7 @@ class Tibberlink extends utils.Adapter {
 				void tibberCalculator.startCalculatorTasks(false, true);
 				// Get consumption data for the first time
 				void tibberAPICaller.updateConsumptionAllHomes();
+				void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 
 				const jobCurrentPrice = CronJob.from({
 					cronTime: "20 57 * * * *", //"20 58 * * * *" = 2 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
@@ -209,6 +209,7 @@ class Tibberlink extends utils.Adapter {
 						} while (!okPrice);
 						void tibberCalculator.startCalculatorTasks();
 						void tibberAPICaller.updateConsumptionAllHomes();
+						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
 					timeZone: "system",
@@ -229,6 +230,7 @@ class Tibberlink extends utils.Adapter {
 							this.log.debug(`Cron job PricesToday - okPrice: ${okPrice}`);
 						} while (!okPrice);
 						void tibberCalculator.startCalculatorTasks();
+						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
 					timeZone: "system",
@@ -248,6 +250,7 @@ class Tibberlink extends utils.Adapter {
 							this.log.debug(`Cron job PricesTomorrow - okPrice: ${okPrice}`);
 						} while (!okPrice);
 						void tibberCalculator.startCalculatorTasks();
+						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
 					timeZone: "system",
@@ -277,16 +280,15 @@ class Tibberlink extends utils.Adapter {
 						await this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true });
 					}
 
-					// eslint-disable-next-line @typescript-eslint/no-for-in-array
-					for (const index in this.homeInfoList) {
-						if (!this.homeInfoList[index].FeedActive || !this.homeInfoList[index].RealTime) {
-							this.log.warn(`skipping feed of live data - no Pulse configured for this home according to Tibber server`);
-							continue;
+					this.homeInfoList.forEach((homeInfo, index) => {
+						if (!homeInfo.ID || !homeInfo.RealTime) {
+							this.log.warn(`skipping feed of live data - no Pulse configured for this home ${homeInfo.ID} according to Tibber server`);
+							return;
 						}
-						this.log.debug(`Trying to establish feed of live data for home: ${this.homeInfoList[index].ID}`);
+						this.log.debug(`Trying to establish feed of live data for home: ${homeInfo.ID}`);
 						try {
 							// define the fields for datafeed
-							tibberFeedConfigs[index].homeId = this.homeInfoList[index].ID;
+							tibberFeedConfigs[index].homeId = homeInfo.ID;
 							tibberFeedConfigs[index].power = true;
 							if (this.config.FeedConfigLastMeterConsumption) {
 								tibberFeedConfigs[index].lastMeterConsumption = true;
@@ -362,7 +364,8 @@ class Tibberlink extends utils.Adapter {
 						} catch (error) {
 							this.log.warn((error as Error).message);
 						}
-					}
+						//}
+					});
 				}
 				//#endregion
 			}
@@ -382,7 +385,6 @@ class Tibberlink extends utils.Adapter {
 			await this.delay(this.getRandomDelay(4, 6));
 		} while (!okPrice);
 	}
-
 	/**
 	 * subfunction to loop till prices tomorrow for all homes are got from server - adapter startup-phase
 	 *
@@ -587,7 +589,7 @@ class Tibberlink extends utils.Adapter {
 												dateWithTimeZone.setMinutes(0, 0, 0);
 												this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
 
-												// WIP 3.5.4 START Warn long LTF
+												// START Warn long LTF
 												// Get StartTime directly as a Date object
 												const startTime = this.config.CalculatorList[calcChannel].chStartTime;
 												// Check if StopTime is not the same day or the next day as StartTime
@@ -599,7 +601,7 @@ class Tibberlink extends utils.Adapter {
 														`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`,
 													);
 												}
-												// WIP 3.5.4 STOP
+												// STOP
 
 												this.log.debug(
 													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${format(
@@ -641,10 +643,23 @@ class Tibberlink extends utils.Adapter {
 											this.log.warn(`Wrong type for channel: ${calcChannel} - chEfficiencyLoss: ${state.val}`);
 										}
 										break;
+									case "Percentage":
+										// Update .chPercentage based on state.val if it's a number
+										if (typeof state.val === "number") {
+											this.config.CalculatorList[calcChannel].chPercentage = state.val;
+											this.log.debug(
+												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to Percentage: ${this.config.CalculatorList[calcChannel].chPercentage}`,
+											);
+											void this.setState(id, state.val, true);
+										} else {
+											this.log.warn(`Wrong type for channel: ${calcChannel} - chPercentage: ${state.val}`);
+										}
+										break;
 									default:
 										this.log.debug(`unknown value for setting type: ${settingType}`);
 								}
 								void this.tibberCalculator.startCalculatorTasks(true);
+								void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 							} else {
 								this.log.debug(`wrong index values in state ID or missing value for settingType`);
 							}

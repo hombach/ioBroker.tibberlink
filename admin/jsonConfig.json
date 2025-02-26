@@ -12,7 +12,7 @@
 				"TibberAPIToken": {
 					"type": "text",
 					"label": "LBL_TibberAPIToken",
-					"maxLength": 60,
+					"maxLength": 80,
 					"xs": 12,
 					"sm": 12,
 					"md": 8,
@@ -477,370 +477,34 @@
 			"md": 12,
 			"lg": 12,
 			"xl": 12,
-			"items": {
-				"UseCalculator": {
-					"type": "checkbox",
-					"label": "LBL_UseCalculator",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12
-				},
-
-				"CalculatorList": {
-					"type": "accordion",
-					"titleAttr": "chName",
-					"label": "LBL_CalculatorList",
-					"hidden": "!data.UseCalculator",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"items": [
-						{
-							"type": "selectSendTo",
-							"label": "LBL_item_chHomeID",
-							"tooltip": "TTIP_item_chHomeID",
-							"attr": "chHomeID",
-							"default": "No Home selected",
-							"command": "HomesForCalculator",
-							"xs": 12,
-							"sm": 12,
-							"md": 6,
-							"lg": 6,
-							"xl": 6
-						},
-						{
-							"type": "select",
-							"label": "LBL_item_chType",
-							"tooltip": "TTIP_item_chType",
-							"attr": "chType",
-							"options": [
-								{
-									"label": "LBL_item_chType_option_1",
-									"value": 1
-								},
-								{
-									"label": "LBL_item_chType_option_2",
-									"value": 2
-								},
-								{
-									"label": "LBL_item_chType_option_3",
-									"value": 3
-								},
-								{
-									"label": "LBL_item_chType_option_4",
-									"value": 4
-								},
-								{
-									"label": "LBL_item_chType_option_5",
-									"value": 5
-								},
-								{
-									"label": "LBL_item_chType_option_6",
-									"value": 6
-								},
-								{
-									"label": "LBL_item_chType_option_7",
-									"value": 7
-								}
-							],
-							"xs": 12,
-							"sm": 12,
-							"md": 6,
-							"lg": 6,
-							"xl": 6
-						},
-
-						{
-							"type": "text",
-							"label": "LBL_item_chName",
-							"tooltip": "TTIP_item_chName",
-							"maxLength": 25,
-							"attr": "chName",
-							"validator": "if(data.name === '' || data.name === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.name);}",
-							"validatorNoSaveOnError": true,
-							"default": "channel name",
-							"xs": 12,
-							"sm": 12,
-							"md": 12,
-							"lg": 12,
-							"xl": 12
-						},
-
-						{
-							"type": "objectId",
-							"label": "LBL_item_chTargetState",
-							"tooltip": "TTIP_item_chTargetState",
-							"attr": "chTargetState",
-							"default": "",
-							"xs": 12,
-							"sm": 12,
-							"md": 12,
-							"lg": 12,
-							"xl": 12
-						},
-
-						{
-							"type": "text",
-							"label": "LBL_item_chValueOn",
-							"tooltip": "TTIP_item_chValueOn",
-							"maxLength": 20,
-							"attr": "chValueOn",
-							"default": "true",
-							"xs": 12,
-							"sm": 12,
-							"md": 6,
-							"lg": 6,
-							"xl": 6
-						},
-						{
-							"type": "text",
-							"label": "LBL_item_chValueOff",
-							"tooltip": "TTIP_item_chValueOff",
-							"maxLength": 20,
-							"attr": "chValueOff",
-							"default": "false",
-							"xs": 12,
-							"sm": 12,
-							"md": 6,
-							"lg": 6,
-							"xl": 6
-						},
-
-						{
-							"type": "objectId",
-							"label": "LBL_item_chTargetState2",
-							"tooltip": "TTIP_item_chTargetState2",
-							"attr": "chTargetState2",
-							"hidden": "data.chType !== 7",
-							"xs": 12,
-							"sm": 12,
-							"md": 12,
-							"lg": 12,
-							"xl": 12
-						},
-
-						{
-							"type": "text",
-							"label": "LBL_item_chValueOn2",
-							"tooltip": "TTIP_item_chValueOn2",
-							"maxLength": 20,
-							"attr": "chValueOn2",
-							"default": "true",
-							"xs": 12,
-							"sm": 12,
-							"md": 6,
-							"lg": 6,
-							"xl": 6,
-							"hidden": "data.chType !== 7"
-						},
-						{
-							"type": "text",
-							"label": "LBL_item_chValueOff2",
-							"tooltip": "TTIP_item_chValueOff2",
-							"maxLength": 20,
-							"attr": "chValueOff2",
-							"default": "false",
-							"xs": 12,
-							"sm": 12,
-							"md": 6,
-							"lg": 6,
-							"xl": 6,
-							"hidden": "data.chType !== 7"
-						}
-					]
-				},
-
-				"_calculatorhelp1": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp1",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp2": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp2",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp3": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp3",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp4": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp4",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp5": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp5",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp6": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp6",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp7": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp7",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp8": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp8",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp9": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp9",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp10": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp10",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp11": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp11",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp12": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp12",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp13": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp13",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp14": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp14",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp15": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp15",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_calculatorhelp16": {
-					"type": "staticText",
-					"hidden": "!data.UseCalculator",
-					"label": "LBL_calculatorhelp16",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				}
-			}
+			"#include": "CalculatorTab.jsonConfig.json"
 		},
 
-		"_SpecialsTab": {
+		"_GraphsTab": {
 			"type": "panel",
-			"label": "LBL_SpecialsTab",
+			"label": "LBL_GraphsTab",
 			"hidden": "!data.TibberAPIToken",
 			"items": {
-				"UseObsoleteStats": {
-					"type": "checkbox",
-					"label": "LBL_UseObsoleteStats",
+				"FlexGraphJSON": {
+					"type": "jsonEditor",
+					"label": "Configure template to create a data string to be used in graphs - e.g. ioBroker FlexCharts",
+					"validateJson": false,
+					"delimiter": ";",
+					"newLine": true,
+					"default": "%%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 6,
+					"xl": 6
+				},
+				"_templateFlexGraph01": {
+					"type": "staticLink",
+					"button": true,
+					"variant": "outlined",
+					"icon": "info",
+					"label": "LBL_templateFlexGraph01",
+					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/docu/TemplateFlexChart01.md",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -848,10 +512,41 @@
 					"xl": 12,
 					"newLine": true
 				},
-
-				"_specialshelp1": {
-					"type": "staticText",
-					"label": "LBL_specialshelp1",
+				"_echartsLink": {
+					"type": "staticLink",
+					"button": true,
+					"variant": "outlined",
+					"icon": "info",
+					"label": "LBL_EChartsLink",
+					"href": "https://echarts.apache.org/examples/en/index.html",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_flexchartsLink": {
+					"type": "staticLink",
+					"button": true,
+					"variant": "outlined",
+					"icon": "help",
+					"label": "LBL_FlexChartsLink",
+					"href": "https://github.com/MyHomeMyData/ioBroker.flexcharts",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_helpLink": {
+					"type": "staticLink",
+					"button": true,
+					"variant": "contained",
+					"icon": "info",
+					"label": "LBL_helpLink",
+					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/README.md",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -865,118 +560,7 @@
 		"_LocalPulseTab": {
 			"type": "panel",
 			"label": "LBL_LocalPulseTab",
-			"items": {
-				"UseLocalPulseData": {
-					"type": "checkbox",
-					"label": "LBL_item_UseLocalPulseData",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_localpulsehelp1": {
-					"type": "staticText",
-					"label": "LBL_item_localpulsehelp1",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_localpulsehelp2": {
-					"type": "staticText",
-					"label": "LBL_item_localpulsehelp2",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_localpulsehelp3": {
-					"type": "staticText",
-					"label": "LBL_item_localpulsehelp3",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_localpulsehelp4": {
-					"type": "staticLink",
-					"label": "LBL_item_localpulsehelp4",
-					"href": "https://github.com/marq24/ha-tibber-pulse-local",
-					"button": false,
-					"variant": "text",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": false
-				},
-
-				"PulseList": {
-					"type": "table",
-					"label": "LBL_PulseList",
-					"hidden": "!data.UseLocalPulseData",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"items": [
-						{
-							"type": "text",
-							"label": "LBL_item_tibberBridgeUrl",
-							"tooltip": "TTIP_item_tibberBridgeUrl",
-							"maxLength": 30,
-							"attr": "tibberBridgeUrl",
-							"filter": false,
-							"sort": false,
-							"width": "40%",
-							"default": "tibber-host"
-						},
-						{
-							"type": "text",
-							"label": "LBL_item_tibberBridgePassword",
-							"tooltip": "TTIP_item_tibberBridgePassword",
-							"maxLength": 20,
-							"attr": "tibberBridgePassword",
-							"filter": false,
-							"sort": false,
-							"width": "40%",
-							"default": "xxxx-xxxx"
-						},
-						{
-							"type": "number",
-							"label": "LBL_item_tibberBridgePassword",
-							"tooltip": "TTIP_item_tibberBridgePassword",
-							"attr": "tibberPulseLocalNodeId",
-							"min": 0,
-							"max": 99,
-							"step": 1,
-							"width": "10%",
-							"default": 1
-						},
-						{
-							"type": "number",
-							"label": "LBL_item_tibberBridgeRawDataInterval",
-							"tooltip": "TTIP_item_tibberBridgeRawDataInterval",
-							"attr": "tibberBridgeRawDataInterval",
-							"min": 1000,
-							"max": 100000,
-							"step": 100,
-							"width": "10%",
-							"default": 2000
-						}
-					]
-				}
-			}
+			"#include": "LocalPulseTab.jsonConfig.json"
 		}
 	}
 }

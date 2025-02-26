@@ -7,34 +7,27 @@ export var enCalcType;
     enCalcType[enCalcType["BestSingleHoursLTF"] = 5] = "BestSingleHoursLTF";
     enCalcType[enCalcType["BestHoursBlockLTF"] = 6] = "BestHoursBlockLTF";
     enCalcType[enCalcType["SmartBatteryBuffer"] = 7] = "SmartBatteryBuffer";
-    //BestCostMaxHours = 8,
-})(enCalcType || (enCalcType = {}));
+    enCalcType[enCalcType["BestPercentage"] = 8] = "BestPercentage";
+    enCalcType[enCalcType["BestPercentageLTF"] = 9] = "BestPercentageLTF";
+})(enCalcType || (exports.enCalcType = enCalcType = {}));
 /**
  * getCalcTypeDescription
  *
  * @param calcType - ID of calculator channel type
  */
-export function getCalcTypeDescription(calcType) {
-    switch (calcType) {
-        case enCalcType.BestCost:
-            return `best cost`;
-        case enCalcType.BestSingleHours:
-            return `best single hours`;
-        case enCalcType.BestHoursBlock:
-            return `best hours block`;
-        case enCalcType.BestCostLTF:
-            return `best cost LTF`;
-        case enCalcType.BestSingleHoursLTF:
-            return `best single hours LTF`;
-        case enCalcType.BestHoursBlockLTF:
-            return `best hours block LTF`;
-        case enCalcType.SmartBatteryBuffer:
-            return `smart battery buffer`;
-        //case enCalcType.BestCostMaxHours:
-        //return "best cost max hours";
-        default:
-            return "Unknown";
-    }
+function getCalcTypeDescription(calcType) {
+    const descriptions = {
+        [enCalcType.BestCost]: `best cost`,
+        [enCalcType.BestSingleHours]: `best single hours`,
+        [enCalcType.BestHoursBlock]: `best hours block`,
+        [enCalcType.BestCostLTF]: `best cost LTF`,
+        [enCalcType.BestSingleHoursLTF]: `best single hours LTF`,
+        [enCalcType.BestHoursBlockLTF]: `best hours block LTF`,
+        [enCalcType.SmartBatteryBuffer]: `smart battery buffer`,
+        [enCalcType.BestPercentage]: `best percentage`,
+        [enCalcType.BestPercentageLTF]: `best percentage LTF`,
+    };
+    return descriptions[calcType] || `Unknown`;
 }
 /**
  * ProjectUtils
@@ -179,39 +172,27 @@ export class ProjectUtils {
      * @param stateName - A string representing the name of the state.
      * @param value - The string value to set for the state.
      * @param description - Optional description for the state (default is "-").
+     * @param role - Optional role type for the state (default is "text").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValue(stateName, value, description = "-", writeable = false, dontUpdate = false, forceMode = false) {
-        if (value != undefined) {
-            if (value.trim().length > 0) {
-                const commonObj = {
-                    name: stateName.split(".").pop(),
-                    type: "string",
-                    role: "text",
-                    desc: description,
-                    read: true,
-                    write: writeable,
-                };
-                if (!forceMode) {
-                    await this.adapter.setObjectNotExistsAsync(stateName, {
-                        type: "state",
-                        common: commonObj,
-                        native: {},
-                    });
-                }
-                else {
-                    await this.adapter.setObjectAsync(stateName, {
-                        type: "state",
-                        common: commonObj,
-                        native: {},
-                    });
-                }
-                if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
-                    await this.adapter.setState(stateName, { val: value, ack: true });
-                }
+    async checkAndSetValue(stateName, value, description = "-", role = "text", writeable = false, dontUpdate = false, forceMode = false) {
+        if (value?.trim()?.length) {
+            const commonObj = {
+                name: stateName.split(".").pop() ?? stateName,
+                type: "string",
+                role: role,
+                desc: description,
+                read: true,
+                write: writeable,
+            };
+            await (forceMode
+                ? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+                : this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+            if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
+                await this.adapter.setState(stateName, { val: value, ack: true });
             }
         }
     }
@@ -222,17 +203,18 @@ export class ProjectUtils {
      * @param value - The number value to set for the state.
      * @param description - Optional description for the state (default is "-").
      * @param unit - Optional unit string to set for the state (default is undefined).
+     * @param role - Optional role type for the state (default is "value").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueNumber(stateName, value, description = "-", unit, writeable = false, dontUpdate = false, forceMode = false) {
+    async checkAndSetValueNumber(stateName, value, description = "-", unit, role = "value", writeable = false, dontUpdate = false, forceMode = false) {
         if (value !== undefined) {
             const commonObj = {
-                name: stateName.split(".").pop(),
+                name: stateName.split(".").pop() ?? stateName,
                 type: "number",
-                role: "value",
+                role: role,
                 desc: description,
                 read: true,
                 write: writeable,
@@ -241,21 +223,10 @@ export class ProjectUtils {
             if (unit !== null && unit !== undefined) {
                 commonObj.unit = unit;
             }
-            if (!forceMode) {
-                await this.adapter.setObjectNotExistsAsync(stateName, {
-                    type: "state",
-                    common: commonObj,
-                    native: {},
-                });
-            }
-            else {
-                await this.adapter.setObjectAsync(stateName, {
-                    type: "state",
-                    common: commonObj,
-                    native: {},
-                });
-            }
-            if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+            await (forceMode
+                ? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+                : this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+            if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
                 await this.adapter.setState(stateName, { val: value, ack: true });
             }
         }
@@ -266,36 +237,26 @@ export class ProjectUtils {
      * @param stateName - A string representing the name of the state.
      * @param value - The boolean value to set for the state.
      * @param description - Optional description for the state (default is "-").
+     * @param role - Optional role type for the state (default is "indicator").
      * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
      * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
      * @param forceMode - Optional boolean indicating if the state should be overwritten if it already exists (default is false).
      * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
      */
-    async checkAndSetValueBoolean(stateName, value, description = "-", writeable = false, dontUpdate = false, forceMode = false) {
+    async checkAndSetValueBoolean(stateName, value, description = "-", role = "indicator", writeable = false, dontUpdate = false, forceMode = false) {
         if (value !== undefined && value !== null) {
             const commonObj = {
-                name: stateName.split(".").pop(),
+                name: stateName.split(".").pop() ?? stateName,
                 type: "boolean",
-                role: "indicator",
+                role: role,
                 desc: description,
                 read: true,
                 write: writeable,
             };
-            if (!forceMode) {
-                await this.adapter.setObjectNotExistsAsync(stateName, {
-                    type: "state",
-                    common: commonObj,
-                    native: {},
-                });
-            }
-            else {
-                await this.adapter.setObjectAsync(stateName, {
-                    type: "state",
-                    common: commonObj,
-                    native: {},
-                });
-            }
-            if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+            await (forceMode
+                ? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+                : this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+            if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
                 await this.adapter.setState(stateName, { val: value, ack: true });
             }
         }

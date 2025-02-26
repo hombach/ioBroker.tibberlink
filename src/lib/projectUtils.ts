@@ -8,7 +8,8 @@ export enum enCalcType {
 	BestSingleHoursLTF = 5,
 	BestHoursBlockLTF = 6,
 	SmartBatteryBuffer = 7,
-	//BestCostMaxHours = 8,
+	BestPercentage = 8,
+	BestPercentageLTF = 9,
 }
 
 /**
@@ -17,26 +18,18 @@ export enum enCalcType {
  * @param calcType - ID of calculator channel type
  */
 export function getCalcTypeDescription(calcType: enCalcType): string {
-	switch (calcType) {
-		case enCalcType.BestCost:
-			return `best cost`;
-		case enCalcType.BestSingleHours:
-			return `best single hours`;
-		case enCalcType.BestHoursBlock:
-			return `best hours block`;
-		case enCalcType.BestCostLTF:
-			return `best cost LTF`;
-		case enCalcType.BestSingleHoursLTF:
-			return `best single hours LTF`;
-		case enCalcType.BestHoursBlockLTF:
-			return `best hours block LTF`;
-		case enCalcType.SmartBatteryBuffer:
-			return `smart battery buffer`;
-		//case enCalcType.BestCostMaxHours:
-		//return "best cost max hours";
-		default:
-			return "Unknown";
-	}
+	const descriptions: Record<enCalcType, string> = {
+		[enCalcType.BestCost]: `best cost`,
+		[enCalcType.BestSingleHours]: `best single hours`,
+		[enCalcType.BestHoursBlock]: `best hours block`,
+		[enCalcType.BestCostLTF]: `best cost LTF`,
+		[enCalcType.BestSingleHoursLTF]: `best single hours LTF`,
+		[enCalcType.BestHoursBlockLTF]: `best hours block LTF`,
+		[enCalcType.SmartBatteryBuffer]: `smart battery buffer`,
+		[enCalcType.BestPercentage]: `best percentage`,
+		[enCalcType.BestPercentageLTF]: `best percentage LTF`,
+	};
+	return descriptions[calcType] || `Unknown`;
 }
 
 /**
@@ -201,6 +194,7 @@ export class ProjectUtils {
 	 * @param stateName - A string representing the name of the state.
 	 * @param value - The string value to set for the state.
 	 * @param description - Optional description for the state (default is "-").
+	 * @param role - Optional role type for the state (default is "text").
 	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
 	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
 	 * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
@@ -210,36 +204,26 @@ export class ProjectUtils {
 		stateName: string,
 		value: string,
 		description = "-",
+		role = "text",
 		writeable = false,
 		dontUpdate = false,
 		forceMode = false,
 	): Promise<void> {
-		if (value != undefined) {
-			if (value.trim().length > 0) {
-				const commonObj: ioBroker.StateCommon = {
-					name: stateName.split(".").pop(),
-					type: "string",
-					role: "text",
-					desc: description,
-					read: true,
-					write: writeable,
-				};
-				if (!forceMode) {
-					await this.adapter.setObjectNotExistsAsync(stateName, {
-						type: "state",
-						common: commonObj,
-						native: {},
-					});
-				} else {
-					await this.adapter.setObjectAsync(stateName, {
-						type: "state",
-						common: commonObj,
-						native: {},
-					});
-				}
-				if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
-					await this.adapter.setState(stateName, { val: value, ack: true });
-				}
+		if (value?.trim()?.length) {
+			const commonObj: ioBroker.StateCommon = {
+				name: stateName.split(".").pop() ?? stateName,
+				type: "string",
+				role: role,
+				desc: description,
+				read: true,
+				write: writeable,
+			};
+			await (forceMode
+				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+
+			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
+				await this.adapter.setState(stateName, { val: value, ack: true });
 			}
 		}
 	}
@@ -251,6 +235,7 @@ export class ProjectUtils {
 	 * @param value - The number value to set for the state.
 	 * @param description - Optional description for the state (default is "-").
 	 * @param unit - Optional unit string to set for the state (default is undefined).
+	 * @param role - Optional role type for the state (default is "value").
 	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
 	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
 	 * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
@@ -261,15 +246,16 @@ export class ProjectUtils {
 		value: number,
 		description = "-",
 		unit?: string,
+		role = "value",
 		writeable = false,
 		dontUpdate = false,
 		forceMode = false,
 	): Promise<void> {
 		if (value !== undefined) {
 			const commonObj: ioBroker.StateCommon = {
-				name: stateName.split(".").pop(),
+				name: stateName.split(".").pop() ?? stateName,
 				type: "number",
-				role: "value",
+				role: role,
 				desc: description,
 				read: true,
 				write: writeable,
@@ -278,21 +264,12 @@ export class ProjectUtils {
 			if (unit !== null && unit !== undefined) {
 				commonObj.unit = unit;
 			}
-			if (!forceMode) {
-				await this.adapter.setObjectNotExistsAsync(stateName, {
-					type: "state",
-					common: commonObj,
-					native: {},
-				});
-			} else {
-				await this.adapter.setObjectAsync(stateName, {
-					type: "state",
-					common: commonObj,
-					native: {},
-				});
-			}
 
-			if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+			await (forceMode
+				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
+
+			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
 				await this.adapter.setState(stateName, { val: value, ack: true });
 			}
 		}
@@ -304,6 +281,7 @@ export class ProjectUtils {
 	 * @param stateName - A string representing the name of the state.
 	 * @param value - The boolean value to set for the state.
 	 * @param description - Optional description for the state (default is "-").
+	 * @param role - Optional role type for the state (default is "indicator").
 	 * @param writeable - Optional boolean indicating if the state should be writeable (default is false).
 	 * @param dontUpdate - Optional boolean indicating if the state should not be updated if it already exists (default is false).
 	 * @param forceMode - Optional boolean indicating if the state should be overwritten if it already exists (default is false).
@@ -313,35 +291,26 @@ export class ProjectUtils {
 		stateName: string,
 		value: boolean,
 		description = "-",
+		role = "indicator",
 		writeable = false,
 		dontUpdate = false,
 		forceMode = false,
 	): Promise<void> {
 		if (value !== undefined && value !== null) {
 			const commonObj: ioBroker.StateCommon = {
-				name: stateName.split(".").pop(),
+				name: stateName.split(".").pop() ?? stateName,
 				type: "boolean",
-				role: "indicator",
+				role: role,
 				desc: description,
 				read: true,
 				write: writeable,
 			};
 
-			if (!forceMode) {
-				await this.adapter.setObjectNotExistsAsync(stateName, {
-					type: "state",
-					common: commonObj,
-					native: {},
-				});
-			} else {
-				await this.adapter.setObjectAsync(stateName, {
-					type: "state",
-					common: commonObj,
-					native: {},
-				});
-			}
+			await (forceMode
+				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
 
-			if (!dontUpdate || (await this.adapter.getStateAsync(stateName)) === null) {
+			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
 				await this.adapter.setState(stateName, { val: value, ack: true });
 			}
 		}

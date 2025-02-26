@@ -19,6 +19,10 @@ import chaiAsPromised from "chai-as-promised";
 import { should, use } from "chai";
 
 should();
-// @ts-ignore
 use(sinonChai);
-use(chaiAsPromised);
+
+// Dynamischer Import für ES-Module
+(async () => {
+	const chaiAsPromised = await import("chai-as-promised");
+	use(chaiAsPromised.default);
+})();

@@ -1,5 +1,5 @@
 // This file extends the AdapterConfig type from "@types/iobroker"
-import { enCalcType } from "./lib/tibberHelper";
+import { enCalcType } from "./lib/projectUtils";
 
 // Augment the globally declared type ioBroker.AdapterConfig
 declare global {
@@ -43,11 +43,11 @@ declare global {
 			FeedConfigCurrentL3: boolean;
 			FeedConfigSignalStrength: boolean;
 			UseCalculator: boolean;
-			UseObsoleteStats: boolean;
 			UseLocalPulseData: boolean;
 			CalculatorList: [
 				{
 					chHomeID: string;
+					chChannelID: string;
 					chType: enCalcType;
 					chName: string;
 					chActive: boolean;
@@ -63,6 +63,10 @@ declare global {
 					chStopTime: Date;
 					chRepeatDays: number;
 					chEfficiencyLoss: number;
+					chPercentage: number;
+					chGraphEnabled: boolean;
+					chGraphPastCutoff: number;
+					chGraphFutureCutOff: number;
 				},
 			];
 			PulseList: [
@@ -74,6 +78,7 @@ declare global {
 					tibberBridgeRawDataInterval: number;
 				},
 			];
+			FlexGraphJSON: string;
 		}
 	}
 }
