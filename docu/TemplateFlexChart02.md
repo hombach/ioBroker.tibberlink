@@ -4,11 +4,20 @@
 {
 	backgroundColor: "rgb(0, 0, 0)",
 	title: {
-		text: "Tibber Preis",
+		text: "Tibber Price",
 		textStyle: {
 			color: "#ffffff"
 		}
 	},
+	dataZoom: [
+		{
+			"show": true,
+			"start": 0,
+			"end": 100,
+			"bottom": "3%",
+			"height": "7%"
+		}
+	],
 	tooltip: {
 		trigger: "axis",
 		axisPointer: {
