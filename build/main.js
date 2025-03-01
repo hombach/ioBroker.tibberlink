@@ -337,7 +337,7 @@ class Tibberlink extends utils.Adapter {
                                 tibberFeedConfigs[index].signalStrength = true;
                             }
                             tibberPulseInstances[index] = new tibberPulse_js_1.TibberPulse(tibberFeedConfigs[index], this);
-                            tibberPulseInstances[index].ConnectPulseStream();
+                            tibberPulseInstances[index].connectPulseStream();
                         }
                         catch (error) {
                             this.log.warn(error.message);

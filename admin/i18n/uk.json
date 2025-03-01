@@ -92,5 +92,9 @@
     "TTIP_item_tibberBridgePassword": "Пароль для вашого локального Tibber Bridge, як зазначено на апаратному забезпеченні.",
     "TTIP_item_tibberBridgeRawDataInterval": "Інтервал, у мілісекундах, для опитування вашого Bridge для даних Pulse.",
     "TTIP_item_tibberBridgeUrl": "Ім'я вашого Bridge або його IP-адреса (за замовчуванням \"tibber-host\").",
-    "TTIP_item_tibberPulseLocalNodeId": "Ідентифікатор вузла, де ваш Pulse зареєстровано на Bridge."
+    "TTIP_item_tibberPulseLocalNodeId": "Ідентифікатор вузла, де ваш Pulse зареєстровано на Bridge.",
+    "LBL_FlexGraphPastCutOff": "Flexgraph минулі години відрізані",
+    "TTIP_FlexGraphPastCutOff": "кількість годин, які будуть показані в минулому",
+    "LBL_FlexGraphFutureCutOff": "Flexgraph майбутні години відрізані",
+    "TTIP_FlexGraphFutureCutOff": "кількість годин, які будуть показані в майбутньому"
 }

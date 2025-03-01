@@ -92,5 +92,9 @@
     "TTIP_item_tibberBridgePassword": "硬件上提供的本地 Tibber Bridge 的密码。",
     "TTIP_item_tibberBridgeRawDataInterval": "轮询 Bridge 获取脉冲数据的时间间隔（以毫秒为单位）。",
     "TTIP_item_tibberBridgeUrl": "您的网桥名称或其 IP 地址（默认为“tibber-host”）。",
-    "TTIP_item_tibberPulseLocalNodeId": "您的 Pulse 在网桥上注册的节点 ID。"
+    "TTIP_item_tibberPulseLocalNodeId": "您的 Pulse 在网桥上注册的节点 ID。",
+    "LBL_FlexGraphPastCutOff": "弹性过去的时间切断了",
+    "TTIP_FlexGraphPastCutOff": "过去要显示的小时数",
+    "LBL_FlexGraphFutureCutOff": "Flexgraph Future Birs切断",
+    "TTIP_FlexGraphFutureCutOff": "将来要显示的小时数"
 }

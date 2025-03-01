@@ -92,5 +92,9 @@
     "TTIP_item_tibberBridgePassword": "La password per il tuo Tibber Bridge locale, come fornita sull'hardware.",
     "TTIP_item_tibberBridgeRawDataInterval": "L'intervallo, in millisecondi, per il polling dei dati Bridge for Pulse.",
     "TTIP_item_tibberBridgeUrl": "Nome del tuo Bridge o relativo indirizzo IP (il valore predefinito è \"tibber-host\").",
-    "TTIP_item_tibberPulseLocalNodeId": "L'ID del nodo in cui è registrato il tuo Pulse sul Bridge."
+    "TTIP_item_tibberPulseLocalNodeId": "L'ID del nodo in cui è registrato il tuo Pulse sul Bridge.",
+    "LBL_FlexGraphPastCutOff": "Flexgraph Ore passate tagliate fuori",
+    "TTIP_FlexGraphPastCutOff": "Numero di ore da mostrare in passato",
+    "LBL_FlexGraphFutureCutOff": "Flexgraph Hours Future Tagliate",
+    "TTIP_FlexGraphFutureCutOff": "Numero di ore da mostrare in futuro"
 }
