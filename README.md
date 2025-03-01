@@ -160,7 +160,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### **WORK IN PROGRESS**
+### 4.4.0 (2025-03-01)
 
 - (HombachC) add generation time cutoffs for graph outputs (#643)
 - (HombachC) set admin to minimum 7.4.10 as recommended by ioBroker (#651)
@@ -192,10 +192,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 4.2.2 (2025-01-14)
 
 - (HombachC) max API-Token lenght now 80 to meet newest Tibber accounts (#627)
-
-### 4.2.1 (2025-01-08)
-
-- (HombachC) fix missing translation
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
