@@ -162,10 +162,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## **WORK IN PROGRESS**
 
-- (HombachC) bump cron to 4.0.0 (#648)
 - (HombachC) add generation time cutoffs for graph outputs (#643)
 - (HombachC) set admin to minimum 7.4.10 as recommended by ioBroker (#651)
 - (HombachC) Code optimisations, preparations to switch to ESM module
+- (HombachC) bump cron to 4.x.x (#648)
+- (HombachC) bump axios from 1.8.x (#664)
 
 ### 4.3.1 (2025-02-23)
 
