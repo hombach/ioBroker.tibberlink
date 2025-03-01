@@ -23,7 +23,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
             if (exPricesTomorrow.length !== 0) {
                 mergedPrices = [...exPricesToday, ...exPricesTomorrow];
             }
-            if (this.adapter.config.FlexGraphPastCutOff && this.adapter.config.FlexGraphFutureCutOff) {
+            if (typeof this.adapter.config.FlexGraphPastCutOff === "number" && typeof this.adapter.config.FlexGraphFutureCutOff === "number") {
                 const now = new Date();
                 const pastCutoff = (0, date_fns_1.subHours)(now, this.adapter.config.FlexGraphPastCutOff + 1);
                 const futureCutoff = (0, date_fns_1.addHours)(now, this.adapter.config.FlexGraphFutureCutOff - 1);

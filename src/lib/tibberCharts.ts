@@ -46,7 +46,7 @@ export class TibberCharts extends ProjectUtils {
 			}
 
 			// WIP add FlexGraphPastCutOff and FlexGraphFutureCutOff
-			if (this.adapter.config.FlexGraphPastCutOff && this.adapter.config.FlexGraphFutureCutOff) {
+			if (typeof this.adapter.config.FlexGraphPastCutOff === "number" && typeof this.adapter.config.FlexGraphFutureCutOff === "number") {
 				const now = new Date();
 				const pastCutoff = subHours(now, this.adapter.config.FlexGraphPastCutOff + 1);
 				const futureCutoff = addHours(now, this.adapter.config.FlexGraphFutureCutOff - 1);

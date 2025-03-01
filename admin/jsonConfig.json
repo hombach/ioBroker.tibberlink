@@ -507,10 +507,23 @@
 					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/docu/TemplateFlexChart01.md",
 					"xs": 12,
 					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
+					"md": 6,
+					"lg": 6,
+					"xl": 6,
 					"newLine": true
+				},
+				"_templateFlexGraph02": {
+					"type": "staticLink",
+					"button": true,
+					"variant": "outlined",
+					"icon": "info",
+					"label": "LBL_templateFlexGraph01",
+					"href": "https://github.com/hombach/ioBroker.tibberlink/blob/master/docu/TemplateFlexChart02.md",
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 6,
+					"xl": 6
 				},
 
 				"FlexGraphPastCutOff": {
