@@ -3,9 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberPulse = void 0;
 const tibber_api_1 = require("tibber-api");
 const projectUtils_js_1 = require("./projectUtils.js");
-/**
- * TibberPulse
- */
 class TibberPulse extends projectUtils_js_1.ProjectUtils {
     tibberConfig;
     tibberQuery;
@@ -16,12 +13,6 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
     countedFeedDisconnects = 0;
     lastFeedWarningTime = null;
     deltaFeedWarningTime = 0;
-    /**
-     * constructor
-     *
-     * @param tibberConfig - The Tibber config object
-     * @param adapter - ioBroker adapter instance
-     */
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.tibberConfig = tibberConfig;
@@ -30,9 +21,6 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
         this.httpQueryUrl = tibberConfig.apiEndpoint.queryUrl;
         this.addEventHandlerOnFeed(this.tibberFeed);
     }
-    /**
-     * connectPulseStream
-     */
     async connectPulseStream() {
         try {
             await this.tibberFeed.connect();
@@ -41,9 +29,6 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.warn(`Error in connectPulseStream: ${error.message}`);
         }
     }
-    /**
-     * disconnectPulseStream
-     */
     disconnectPulseStream() {
         try {
             this.tibberFeed.close();
@@ -51,39 +36,18 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
         catch (error) {
             this.adapter.log.warn(`Error on feed close: ${error.message}`);
         }
-        // Reinitialize TibberFeed
         this.tibberFeed = new tibber_api_1.TibberFeed(new tibber_api_1.TibberQuery(this.tibberConfig));
     }
     addEventHandlerOnFeed(currentFeed) {
-        // Set info.connection state for event "connected"
         currentFeed.on("connected", data => {
             this.adapter.log.debug(`Tibber feed connected: ${data.toString()}`);
             void this.adapter.setState("info.connection", true, true);
         });
-        /**
-         * Handles the disconnection of a data feed and manages reconnection attempts with incremental delays.
-         *
-         * This method is triggered when the data feed gets disconnected. It updates the connection state (`info.connection` to `false`) and monitors the frequency of disconnection attempts to avoid excessive reconnections.
-         *
-         * The following logic is applied:
-         * - **Disconnection count (`countedFeedDisconnects`)**: Tracks the number of disconnections. Warnings are logged when the feed disconnects 5 or 25 times. At 25 disconnections, an error is logged instead of a warning.
-         * - **Warning time interval (`deltaFeedWarningTime`)**: Measures the time (in minutes) since the last disconnection warning. If more than 60 minutes have passed, the warning counter resets.
-         * - If the feed disconnects frequently within a **30-minute window**, it logs a warning and resets the disconnection counter.
-         * - After each disconnection, the system tries to reconnect, logging the result. If disconnections occur too often, warnings or errors are logged based on the number of reconnection attempts.
-         *
-         * @param data - The error message sent by Tibber upon disconnection, which is logged for diagnostic purposes.
-         */
         currentFeed.on("disconnected", data => {
             void this.adapter.setState("info.connection", false, true);
             if (!this.adapter.config.HomesList.some(info => info.feedActive)) {
                 return;
             }
-            // WiP if (this.adapter.config.HomesList.some(info => info.feedActive)) {
-            /* WiP
-                this.deltaFeedWarningTime = 0;
-                if (this.lastFeedWarningTime !== null) {
-                    this.deltaFeedWarningTime = (new Date().getTime() - this.lastFeedWarningTime.getTime()) / 1000 / 60; // timedifference in minutes
-                } */
             this.deltaFeedWarningTime = this.lastFeedWarningTime ? (Date.now() - this.lastFeedWarningTime.getTime()) / 60_000 : 0;
             if (this.countedFeedDisconnects < 25 && this.deltaFeedWarningTime > 60) {
                 this.countedFeedDisconnects = 0;
@@ -110,9 +74,7 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
                 }
             }
             void this.reconnect();
-            // WiP }
         });
-        // Add error handler on connection
         currentFeed.on("error", error => {
             let errorMessage = "";
             if (error instanceof Error) {
@@ -134,7 +96,6 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
             }
             this.adapter.log.warn(`Error on Tibber feed: ${errorMessage}`);
         });
-        // Add data receiver
         currentFeed.on("data", data => {
             const receivedData = data;
             this.fetchLiveMeasurement("LiveMeasurement", receivedData);
@@ -144,15 +105,13 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
         let power = 0;
         if (liveMeasurement.powerProduction === undefined || liveMeasurement.powerProduction === null) {
             liveMeasurement.powerProduction = 0;
-        } // fix wrong data from Tibber in edge cases
+        }
         if (liveMeasurement.power > 0) {
             power = liveMeasurement.power;
         }
         else if (liveMeasurement.powerProduction > 0) {
             power = liveMeasurement.powerProduction * -1;
         }
-        // "minpower" should be called "minpowerConsumption" - in fact there is no correct minpower yet,
-        // when we think about minpower and maxpower should be linked to "power" (positive and negative power)
         if (this.tibberConfig.homeId !== undefined) {
             const basePath = `Homes.${this.tibberConfig.homeId}.${objectDestination}`;
             void this.checkAndSetValue(`${basePath}.timestamp`, liveMeasurement.timestamp, "Timestamp when usage occurred");
@@ -185,14 +144,8 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
             void this.checkAndSetValueNumber(`${basePath}.currentL3`, liveMeasurement.currentL3, "Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps", "A");
         }
     }
-    /**
-     * Tries to reconnect to TibberFeed in a loop, with incremental delay between attempts,
-     * and generates a formatted error message if unsuccessful.
-     *
-     * @returns A Promise that resolves when reconnection is successful, or rejects with an error message.
-     */
     async reconnect() {
-        this.reconnectTime = 6000; // reinit
+        this.reconnectTime = 6000;
         do {
             this.adapter.log.debug(`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`);
             await this.adapter.delay(this.reconnectTime);

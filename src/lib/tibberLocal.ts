@@ -1,7 +1,7 @@
 import type * as utils from "@iobroker/adapter-core";
 import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { format, formatDuration, intervalToDuration } from "date-fns";
-import { ProjectUtils } from "./projectUtils";
+import { ProjectUtils } from "./projectUtils.js";
 
 /**
  * TibberLocal

@@ -512,6 +512,37 @@
 					"xl": 12,
 					"newLine": true
 				},
+
+				"FlexGraphPastCutOff": {
+					"type": "number",
+					"label": "LBL_FlexGraphPastCutOff",
+					"tooltip": "TTIP_FlexGraphPastCutOff",
+					"default": 24,
+					"min": 0,
+					"max": 48,
+					"step": 1,
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 6,
+					"xl": 6,
+					"newLine": true
+				},
+				"FlexGraphFutureCutOff": {
+					"type": "number",
+					"label": "LBL_FlexGraphFutureCutOff",
+					"tooltip": "TTIP_FlexGraphFutureCutOff",
+					"default": 36,
+					"min": 0,
+					"max": 36,
+					"step": 1,
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 6,
+					"xl": 6
+				},
+
 				"_echartsLink": {
 					"type": "staticLink",
 					"button": true,

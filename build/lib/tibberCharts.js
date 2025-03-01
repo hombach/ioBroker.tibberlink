@@ -2,27 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberCharts = void 0;
 const date_fns_1 = require("date-fns");
-const projectUtils_1 = require("./projectUtils");
-// https://echarts.apache.org/examples/en/index.html
-// https://github.com/MyHomeMyData/ioBroker.flexcharts
-/**
- * TibberCalculator
- */
-class TibberCharts extends projectUtils_1.ProjectUtils {
-    /**
-     * constructor
-     *
-     * @param adapter - ioBroker adapter instance
-     */
+const projectUtils_js_1 = require("./projectUtils.js");
+class TibberCharts extends projectUtils_js_1.ProjectUtils {
     constructor(adapter) {
         super(adapter);
     }
-    /**
-     * updates FlexChart JSONs of all homes
-     *
-     * @param homeInfoList - homeInfo list object
-     * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
-     */
     async generateFlexChartJSONAllHomes(homeInfoList) {
         for (const curHomeInfo of homeInfoList) {
             if (!curHomeInfo.PriceDataPollActive) {
@@ -39,7 +23,15 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
             if (exPricesTomorrow.length !== 0) {
                 mergedPrices = [...exPricesToday, ...exPricesTomorrow];
             }
-            // double last item and raise hour by one
+            if (this.adapter.config.FlexGraphPastCutOff && this.adapter.config.FlexGraphFutureCutOff) {
+                const now = new Date();
+                const pastCutoff = (0, date_fns_1.subHours)(now, this.adapter.config.FlexGraphPastCutOff);
+                const futureCutoff = (0, date_fns_1.addHours)(now, this.adapter.config.FlexGraphFutureCutOff);
+                mergedPrices = mergedPrices.filter(price => {
+                    const priceTime = (0, date_fns_1.parseISO)(price.startsAt);
+                    return (0, date_fns_1.isAfter)(priceTime, pastCutoff) && (0, date_fns_1.isBefore)(priceTime, futureCutoff);
+                });
+            }
             const lastItem = mergedPrices[mergedPrices.length - 1];
             const lastStartsAt = new Date(lastItem.startsAt);
             const newStartsAt = (0, date_fns_1.addHours)(lastStartsAt, 1);
@@ -48,7 +40,6 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
                 startsAt: newStartsAt.toISOString(),
             };
             mergedPrices.push(duplicatedItem);
-            // build data-rows
             const totalValues = mergedPrices.map(item => item.total);
             const startsAtValues = mergedPrices.map(item => {
                 const date = new Date(item.startsAt);
@@ -60,48 +51,45 @@ class TibberCharts extends projectUtils_1.ProjectUtils {
                 jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
                 if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
                     const allowedTypes = [
-                        projectUtils_1.enCalcType.BestCost,
-                        projectUtils_1.enCalcType.BestCostLTF,
-                        projectUtils_1.enCalcType.BestSingleHours,
-                        projectUtils_1.enCalcType.BestSingleHoursLTF,
-                        projectUtils_1.enCalcType.BestHoursBlock,
-                        projectUtils_1.enCalcType.BestHoursBlockLTF,
-                        projectUtils_1.enCalcType.BestPercentage,
-                        projectUtils_1.enCalcType.BestPercentageLTF,
-                        projectUtils_1.enCalcType.SmartBatteryBuffer,
-                    ]; // list of supported channel types
+                        projectUtils_js_1.enCalcType.BestCost,
+                        projectUtils_js_1.enCalcType.BestCostLTF,
+                        projectUtils_js_1.enCalcType.BestSingleHours,
+                        projectUtils_js_1.enCalcType.BestSingleHoursLTF,
+                        projectUtils_js_1.enCalcType.BestHoursBlock,
+                        projectUtils_js_1.enCalcType.BestHoursBlockLTF,
+                        projectUtils_js_1.enCalcType.BestPercentage,
+                        projectUtils_js_1.enCalcType.BestPercentageLTF,
+                        projectUtils_js_1.enCalcType.SmartBatteryBuffer,
+                    ];
                     const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
                     let calcChannelsData = "";
                     if (filteredEntries.length > 0) {
                         for (const entry of filteredEntries) {
                             if (!entry.chGraphEnabled) {
-                                // should this channel be processed for charts JSON?
                                 break;
                             }
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
-                            const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
+                            const filteredData = jsonOutput.filter(entry => entry.output);
                             let startIndex = 0;
                             for (let i = 1; i <= filteredData.length; i++) {
-                                // check: connected hours?
                                 const current = filteredData[i - 1];
                                 const next = filteredData[i];
                                 const isContinuous = next && (0, date_fns_1.differenceInHours)((0, date_fns_1.parseISO)(next.startsAt), (0, date_fns_1.parseISO)(current.startsAt)) === 1;
                                 if (!isContinuous || i === filteredData.length) {
-                                    // end of block or last iteration
                                     const startTime = (0, date_fns_1.parseISO)(filteredData[startIndex].startsAt);
                                     const endTime = (0, date_fns_1.addHours)((0, date_fns_1.parseISO)(current.startsAt), 1);
                                     switch (entry.chType) {
-                                        case projectUtils_1.enCalcType.BestCost:
-                                        case projectUtils_1.enCalcType.BestCostLTF:
+                                        case projectUtils_js_1.enCalcType.BestCost:
+                                        case projectUtils_js_1.enCalcType.BestCostLTF:
                                             calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
                                             break;
-                                        case projectUtils_1.enCalcType.SmartBatteryBuffer:
+                                        case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                                             calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
                                             break;
                                         default:
                                             calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
                                     }
-                                    startIndex = i; // start next group
+                                    startIndex = i;
                                 }
                             }
                         }

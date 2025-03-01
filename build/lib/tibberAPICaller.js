@@ -4,26 +4,14 @@ exports.TibberAPICaller = void 0;
 const tibber_api_1 = require("tibber-api");
 const EnergyResolution_js_1 = require("tibber-api/lib/src/models/enums/EnergyResolution.js");
 const projectUtils_js_1 = require("./projectUtils.js");
-/**
- * TibberAPICaller
- */
 class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
     tibberConfig;
     tibberQuery;
-    /**
-     * constructor
-     *
-     * @param tibberConfig - the Tibber configuration object
-     * @param adapter - ioBroker adapter instance
-     */
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.tibberConfig = tibberConfig;
         this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig, 60000);
     }
-    /**
-     * updateHomesFromAPI
-     */
     async updateHomesFromAPI() {
         try {
             const Homes = await this.tibberQuery.getHomes();
@@ -37,19 +25,14 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     FeedActive: false,
                     PriceDataPollActive: true,
                 });
-                // Set HomeId in tibberConfig for further API Calls
                 this.tibberConfig.homeId = currentHome.id;
                 const basePath = `Homes.${currentHome.id}`;
-                // Home GENERAL
                 void this.checkAndSetValue(`${basePath}.General.Id`, currentHome.id, "ID of your home");
                 void this.checkAndSetValue(`${basePath}.General.Timezone`, currentHome.timeZone, "The time zone the home resides in");
                 void this.checkAndSetValue(`${basePath}.General.NameInApp`, currentHome.appNickname, "The nickname given to the home");
                 void this.checkAndSetValue(`${basePath}.General.AvatarInApp`, currentHome.appAvatar, "The chosen app avatar for the home");
-                // Values: APARTMENT, ROWHOUSE, FLOORHOUSE1, FLOORHOUSE2, FLOORHOUSE3, COTTAGE, CASTLE
                 void this.checkAndSetValue(`${basePath}.General.Type`, currentHome.type, "The type of home.");
-                // Values: APARTMENT, ROWHOUSE, HOUSE, COTTAGE
                 void this.checkAndSetValue(`${basePath}.General.PrimaryHeatingSource`, currentHome.primaryHeatingSource, "The primary form of heating in the home");
-                // Values: AIR2AIR_HEATPUMP, ELECTRICITY, GROUND, DISTRICT_HEATING, ELECTRIC_BOILER, AIR2WATER_HEATPUMP, OTHER
                 void this.checkAndSetValueNumber(`${basePath}.General.Size`, currentHome.size, "The size of the home in square meters");
                 void this.checkAndSetValueNumber(`${basePath}.General.NumberOfResidents`, currentHome.numberOfResidents, "The number of people living in the home");
                 void this.checkAndSetValueNumber(`${basePath}.General.MainFuseSize`, currentHome.mainFuseSize, "The main fuse size");
@@ -65,13 +48,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             return [];
         }
     }
-    /**
-     * updates current prices of all homes
-     *
-     * @param homeInfoList - homeInfo list object
-     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
-     * @returns okprice - got correct data
-     */
     async updateCurrentPriceAllHomes(homeInfoList, forceUpdate = false) {
         let okprice = true;
         for (const curHomeInfo of homeInfoList) {
@@ -80,17 +56,10 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             }
             if (!(await this.updateCurrentPrice(curHomeInfo.ID, forceUpdate))) {
                 okprice = false;
-            } // single fault sets all false
+            }
         }
         return okprice;
     }
-    /**
-     * updates current price of one home
-     *
-     * @param homeId - homeId string
-     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
-     * @returns okprice - got new data
-     */
     async updateCurrentPrice(homeId, forceUpdate = false) {
         try {
             if (homeId) {
@@ -101,7 +70,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
                     pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
                 }
-                // update remaining average
                 if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
                     const exDateToday = new Date(pricesToday[2].startsAt);
                     if (now.getDate == exDateToday.getDate) {
@@ -140,13 +108,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         return false;
     }
-    /**
-     * updates lists of todays prices of all homes
-     *
-     * @param homeInfoList - homeInfo list object
-     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
-     * @returns okprice - got correct data
-     */
     async updatePricesTodayAllHomes(homeInfoList, forceUpdate = false) {
         let okprice = true;
         for (const curHomeInfo of homeInfoList) {
@@ -163,13 +124,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         return okprice;
     }
-    /**
-     * updates list of todays prices of one home
-     *
-     * @param homeId - homeId string
-     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
-     * @returns okprice - got correct data
-     */
     async updatePricesToday(homeId, forceUpdate = false) {
         try {
             let exDate = null;
@@ -181,14 +135,14 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 exDate = new Date(exPricesToday[2].startsAt);
             }
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // sets clock to 0:00
+            today.setHours(0, 0, 0, 0);
             if (!exDate || exDate <= today || forceUpdate) {
                 const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
                 if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2] && pricesToday[2].total)) {
                     throw new Error(`Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
                 }
                 this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
-                void this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(pricesToday), "The prices today as json"); // write also it might be empty
+                void this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(pricesToday), "The prices today as json");
                 void this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.json`, JSON.stringify(exPricesToday), "The prices yesterday as json");
                 this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
                 this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
@@ -199,7 +153,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
                 }
                 if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
-                    // Got valid pricesToday
                     void this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
                     exDate = new Date(pricesToday[2].startsAt);
                     if (exDate && exDate >= today) {
@@ -207,7 +160,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     }
                 }
                 else {
-                    // Handle the case when pricesToday is not an array, it's empty!, so just don't sort and write
                     void this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify(pricesToday), "prices sorted by cost ascending as json");
                     return false;
                 }
@@ -228,13 +180,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         return false;
     }
-    /**
-     * updates lists of tomorrows prices of all homes
-     *
-     * @param homeInfoList - homeInfo list object
-     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
-     * @returns okprice - got correct data
-     */
     async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate = false) {
         let okprice = true;
         for (const curHomeInfo of homeInfoList) {
@@ -242,7 +187,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 continue;
             }
             if (!(await this.updatePricesTomorrow(curHomeInfo.ID, forceUpdate))) {
-                okprice = false; // single fault sets all false
+                okprice = false;
             }
             else {
                 const now = new Date();
@@ -251,13 +196,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         return okprice;
     }
-    /**
-     * updates list of tomorrows prices of one home
-     *
-     * @param homeId - homeId string
-     * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
-     * @returns okprice - got new data
-     */
     async updatePricesTomorrow(homeId, forceUpdate = false) {
         try {
             let exDate = null;
@@ -270,13 +208,12 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             }
             const morgen = new Date();
             morgen.setDate(morgen.getDate() + 1);
-            morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
+            morgen.setHours(0, 0, 0, 0);
             if (!exDate || exDate < morgen || forceUpdate) {
                 const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
                 this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
-                void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); // write also it might be empty
+                void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
                 if (pricesTomorrow.length === 0) {
-                    // pricing not known, before about 13:00 - delete all the states
                     this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
                     for (let hour = 0; hour < 24; hour++) {
                         this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
@@ -288,7 +225,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     return false;
                 }
                 else if (Array.isArray(pricesTomorrow)) {
-                    // pricing known, after about 13:00 - write the states
                     for (const price of pricesTomorrow) {
                         const hour = new Date(price.startsAt.substr(0, 19)).getHours();
                         await this.fetchPrice(homeId, `PricesTomorrow.${hour}`, price);
@@ -320,11 +256,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             return false;
         }
     }
-    /**
-     * updates historical consumption data of all homes
-     *
-     * @returns void - data will be written to ioBroker objects as JSON
-     */
     async updateConsumptionAllHomes() {
         try {
             for (const home of this.adapter.config.HomesList) {
@@ -341,14 +272,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 ];
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
-                        /* Obsolete stats again part of tibber-api
-                        let consumption: IConsumption[];
-                        if (this.adapter.config.UseObsoleteStats) {
-                            consumption = await this.getConsumptionObs(type, numCons, homeID);
-                        } else {
-                            consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
-                        }
-                        */
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
                     }
@@ -363,21 +286,12 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
         }
     }
-    /**
-     * Updates the list of tomorrow's prices for one home.
-     *
-     * @param homeId - The unique identifier of the home.
-     * @param objectDestination - The destination object for storing price data.
-     * @param price - The price object containing price information.
-     * @returns Promise<void> - Resolves when the price data is successfully fetched and updated.
-     */
     async fetchPrice(homeId, objectDestination, price) {
         const basePath = `Homes.${homeId}.${objectDestination}`;
         await this.checkAndSetValueNumber(`${basePath}.total`, price.total, "Total price (energy + taxes)");
         void this.checkAndSetValueNumber(`${basePath}.energy`, price.energy, "Spotmarket energy price");
         void this.checkAndSetValueNumber(`${basePath}.tax`, price.tax, "Tax part of the price (energy, tax, VAT...)");
         void this.checkAndSetValue(`${basePath}.startsAt`, price.startsAt, "Start time of the price");
-        //void this.checkAndSetValue(`${basePath}.currency`, price.currency, "The price currency");
         void this.checkAndSetValue(`${basePath}.level`, price.level, "Price level compared to recent price values");
     }
     fetchPriceAverage(homeId, objectDestination, price) {
@@ -395,9 +309,8 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (taxSum / price.length)) / 1000, "Todays average tax price");
     }
     fetchPriceRemainingAverage(homeId, objectDestination, price) {
-        const now = new Date(); // current time
+        const now = new Date();
         const currentHour = now.getHours();
-        // filter to prices of current and later hours
         const filteredPrices = price.filter(item => {
             const itemHour = new Date(item.startsAt).getHours();
             return itemHour >= currentHour;
@@ -417,8 +330,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
     }
     fetchPriceMaximum(homeId, objectDestination, price) {
         if (!price || typeof price[23].total !== "number") {
-            // possible exit 1.4.3 - Sentry discovered possible error in 1.4.1
-            // return;
         }
         const basePath = `Homes.${homeId}.${objectDestination}`;
         void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * price[23].total) / 1000, "Todays total price maximum");

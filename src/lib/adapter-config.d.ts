@@ -65,8 +65,6 @@ declare global {
 					chEfficiencyLoss: number;
 					chPercentage: number;
 					chGraphEnabled: boolean;
-					chGraphPastCutoff: number;
-					chGraphFutureCutOff: number;
 				},
 			];
 			PulseList: [
@@ -79,6 +77,8 @@ declare global {
 				},
 			];
 			FlexGraphJSON: string;
+			FlexGraphPastCutOff: number;
+			FlexGraphFutureCutOff: number;
 		}
 	}
 }

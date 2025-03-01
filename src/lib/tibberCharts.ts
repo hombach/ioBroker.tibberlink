@@ -1,7 +1,9 @@
 import type * as utils from "@iobroker/adapter-core";
-import { addHours, differenceInHours, format, parseISO } from "date-fns";
+//WiP import { addHours, differenceInHours, format, parseISO } from "date-fns";
+import { addHours, differenceInHours, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
+
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils";
+import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
 // https://echarts.apache.org/examples/en/index.html
 // https://github.com/MyHomeMyData/ioBroker.flexcharts
@@ -41,6 +43,18 @@ export class TibberCharts extends ProjectUtils {
 			let mergedPrices: IPrice[] = exPricesToday;
 			if (exPricesTomorrow.length !== 0) {
 				mergedPrices = [...exPricesToday, ...exPricesTomorrow];
+			}
+
+			// WIP add FlexGraphPastCutOff and FlexGraphFutureCutOff
+			if (this.adapter.config.FlexGraphPastCutOff && this.adapter.config.FlexGraphFutureCutOff) {
+				const now = new Date();
+				const pastCutoff = subHours(now, this.adapter.config.FlexGraphPastCutOff);
+				const futureCutoff = addHours(now, this.adapter.config.FlexGraphFutureCutOff);
+
+				mergedPrices = mergedPrices.filter(price => {
+					const priceTime = parseISO(price.startsAt);
+					return isAfter(priceTime, pastCutoff) && isBefore(priceTime, futureCutoff);
+				});
 			}
 
 			// double last item and raise hour by one

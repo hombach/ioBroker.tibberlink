@@ -162,9 +162,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## **WORK IN PROGRESS**
 
-- (HombachC) Bump cron to 4.0.0 (#648)
-- (HombachC) Set admin to minimum 7.4.10 as recommended by ioBroker (#651)
-- (HombachC) Code optimisations
+- (HombachC) bump cron to 4.0.0 (#648)
+- (HombachC) add generation time cutoffs for graph outputs (#643)
+- (HombachC) set admin to minimum 7.4.10 as recommended by ioBroker (#651)
+- (HombachC) Code optimisations, preparations to switch to ESM module
 
 ### 4.3.1 (2025-02-23)
 
