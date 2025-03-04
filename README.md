@@ -160,6 +160,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- (HombachC) add channel 'smart battery buffer LTF' (#668)
+
 ### 4.4.0 (2025-03-01)
 
 - (HombachC) add generation time cutoffs for graph outputs (#643)

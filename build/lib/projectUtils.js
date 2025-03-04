@@ -13,6 +13,7 @@ var enCalcType;
     enCalcType[enCalcType["SmartBatteryBuffer"] = 7] = "SmartBatteryBuffer";
     enCalcType[enCalcType["BestPercentage"] = 8] = "BestPercentage";
     enCalcType[enCalcType["BestPercentageLTF"] = 9] = "BestPercentageLTF";
+    enCalcType[enCalcType["SmartBatteryBufferLTF"] = 10] = "SmartBatteryBufferLTF";
 })(enCalcType || (exports.enCalcType = enCalcType = {}));
 function getCalcTypeDescription(calcType) {
     const descriptions = {
@@ -25,6 +26,7 @@ function getCalcTypeDescription(calcType) {
         [enCalcType.SmartBatteryBuffer]: `smart battery buffer`,
         [enCalcType.BestPercentage]: `best percentage`,
         [enCalcType.BestPercentageLTF]: `best percentage LTF`,
+        [enCalcType.SmartBatteryBufferLTF]: `smart battery buffer LTF`,
     };
     return descriptions[calcType] || `Unknown`;
 }

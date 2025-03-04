@@ -16,6 +16,7 @@ export class TibberCalculator extends ProjectUtils {
 	numSmartBatteryBuffer: number;
 	numBestPercentage: number;
 	numBestPercentageLTF: number;
+	numSmartBatteryBufferLTF: number;
 
 	/**
 	 * constructor
@@ -31,6 +32,9 @@ export class TibberCalculator extends ProjectUtils {
 		this.numBestSingleHoursLTF = 0;
 		this.numBestHoursBlockLTF = 0;
 		this.numSmartBatteryBuffer = 0;
+		this.numBestPercentage = 0;
+		this.numBestPercentageLTF = 0;
+		this.numSmartBatteryBufferLTF = 0;
 	}
 
 	/**
@@ -46,6 +50,7 @@ export class TibberCalculator extends ProjectUtils {
 		this.numSmartBatteryBuffer = 0;
 		this.numBestPercentage = 0;
 		this.numBestPercentageLTF = 0;
+		this.numSmartBatteryBufferLTF = 0;
 	}
 
 	private increaseStatsValueByOne(type: enCalcType): void {
@@ -76,6 +81,9 @@ export class TibberCalculator extends ProjectUtils {
 				break;
 			case enCalcType.BestPercentageLTF:
 				this.numBestPercentageLTF++;
+				break;
+			case enCalcType.SmartBatteryBufferLTF:
+				this.numSmartBatteryBufferLTF++;
 		}
 	}
 
@@ -145,6 +153,8 @@ export class TibberCalculator extends ProjectUtils {
 										| Output state: "Output", "OutputJSON"
 				"best percentage LTF" 	| Input state: "Percentage", ["StartTime", "StopTime", "RepeatDays"]
 										| Output state: "Output", "OutputJSON"
+				"smart battery buffer"	| Input state: "AmountHours", "EfficiencyLoss", ["StartTime", "StopTime", "RepeatDays"]
+										| Output state: "Output", "Output2", "OutputJSON", "OutputJSON2"
 			*/
 			switch (channelConfig.chType) {
 				case enCalcType.BestCost:
@@ -284,6 +294,22 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON2`);
 					await this.setup_chOutput(homeId, channel);
 					this.setup_chOutputJSON(homeId, channel);
+					break;
+				case enCalcType.SmartBatteryBufferLTF:
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`); // INPUTS
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStartTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
+					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
+					await this.setupLTFInputs(homeId, channel);
+					await this.setup_chAmountHours(homeId, channel);
+					await this.setup_chEfficiencyLoss(homeId, channel);
+					await this.setup_chOutput(homeId, channel); // OUTPUTS
+					await this.setup_chOutput2(homeId, channel);
+					this.setup_chOutputJSON(homeId, channel);
+					this.setup_chOutputJSON2(homeId, channel);
 					break;
 				default:
 					this.adapter.log.error(`Calculator Type for channel ${channel} not set, please do!`);
@@ -719,8 +745,11 @@ export class TibberCalculator extends ProjectUtils {
 					continue; // skip channel
 				}
 
-				//checks for SmartBatteryBuffer only...
-				if (this.adapter.config.CalculatorList[channel].chType === enCalcType.SmartBatteryBuffer) {
+				//checks for SmartBatteryBuffer (LTF) only...
+				if (
+					this.adapter.config.CalculatorList[channel].chType === enCalcType.SmartBatteryBuffer ||
+					this.adapter.config.CalculatorList[channel].chType === enCalcType.SmartBatteryBufferLTF
+				) {
 					if (
 						!this.adapter.config.CalculatorList[channel] ||
 						!this.adapter.config.CalculatorList[channel].chTargetState2 ||
@@ -798,6 +827,9 @@ export class TibberCalculator extends ProjectUtils {
 							break;
 						case enCalcType.BestPercentageLTF:
 							void this.executeCalculatorBestPercentage(parseInt(channel), true);
+							break;
+						case enCalcType.SmartBatteryBufferLTF:
+							void this.executeCalculatorSmartBatteryBuffer(parseInt(channel), true);
 							break;
 						default:
 							this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
@@ -1078,9 +1110,8 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	private async executeCalculatorSmartBatteryBuffer(channel: number): Promise<void> {
-		//#region *** SPECIFICATION ***
-		/*
+	//#region *** SPECIFICATION ***
+	/*
 		Summary:
 			Develop a channel that categorizes hourly energy prices into three groups—cheap, normal, and expensive.
 			The categorization is based on the total price of each hour, considering a efficiency loss of a battery system.
@@ -1108,18 +1139,21 @@ export class TibberCalculator extends ProjectUtils {
 			- Normal Hours - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2)
 			- Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
 		*/
-		//#endregion
+	//#endregion
+	private async executeCalculatorSmartBatteryBuffer(channel: number, modeLTF = false): Promise<void> {
+		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
 		let valueToSet = channelConfig.chValueOff;
 		let valueToSet2 = channelConfig.chValueOff2;
 		try {
 			if (!channelConfig.chActive) {
-				// Not Active - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2) - not by channel!!
+				// not active - disable battery charging (OFF-1) and also disable feed into home energy system (OFF-2) - not by channel!!
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, `[]`, true);
-			} else {
-				// chActive -> choose desired values
-				const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
+			} else if (modeLTF && now < channelConfig.chStartTime) {
+				// chActive but before LTF -> choose chValueOff, but calculate results
+				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
+				// WiP const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
 				const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
 				const cheapHours: IPrice[] = [];
@@ -1130,11 +1164,11 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total price
-				pricesToday.sort((a, b) => a.total - b.total);
+				filteredPrices.sort((a, b) => a.total - b.total);
 
-				while (cheapIndex < pricesToday.length && cheapHours.length < maxCheapCount) {
-					const currentHour = pricesToday[cheapIndex];
-					if (currentHour.total < pricesToday[pricesToday.length - 1].total - minDelta) {
+				while (cheapIndex < filteredPrices.length && cheapHours.length < maxCheapCount) {
+					const currentHour = filteredPrices[cheapIndex];
+					if (currentHour.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
 						cheapHours.push(currentHour);
 						minDelta = calculateMinDelta(cheapHours, efficiencyLoss);
 					} else {
@@ -1145,7 +1179,79 @@ export class TibberCalculator extends ProjectUtils {
 
 				const maxCheapTotal = Math.max(...cheapHours.map(hour => hour.total));
 
-				for (const hour of pricesToday) {
+				for (const hour of filteredPrices) {
+					if (!cheapHours.includes(hour)) {
+						if (hour.total > minDelta + maxCheapTotal) {
+							expensiveHours.push(hour);
+						} else {
+							normalHours.push(hour);
+						}
+					}
+				}
+
+				this.adapter.log.debug(`calculator channel ${channel} SBB-type result - cheap hours: ${cheapHours.map(hour => hour.total).join(", ")}`);
+				this.adapter.log.debug(`calculator channel ${channel} SBB-type result - normal hours: ${normalHours.map(hour => hour.total).join(", ")}`);
+				this.adapter.log.debug(`calculator channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.total).join(", ")}`);
+				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
+				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
+				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
+				//#endregion
+
+				//#region *** Mark the entries with the result and create JSON output ***
+				const jsonOutput = filteredPrices
+					.map((entry: IPrice, index: number) => ({
+						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						startsAt: entry.startsAt,
+						total: entry.total,
+						output: resultCheap[index] !== undefined ? true : false, // Check if resultCheap[index] is defined
+					}))
+					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
+				const jsonOutput2 = filteredPrices
+					.map((entry: IPrice, index: number) => ({
+						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						startsAt: entry.startsAt,
+						total: entry.total,
+						output: resultExpensive[index] !== undefined ? true : false, // Check if resultCheap[index] is defined
+					}))
+					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
+				//#endregion
+			} else if (modeLTF && now > channelConfig.chStopTime) {
+				// chActive but after LTF -> choose chValueOff, channelOff2 and disable channels or generate new running period
+				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
+				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, `[]`, true);
+				this.handleAfterLTF(channel);
+			} else {
+				// chActive and inside LTF -> choose desired value
+				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
+				// WiP const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
+				const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
+				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
+				const cheapHours: IPrice[] = [];
+				const normalHours: IPrice[] = [];
+				const expensiveHours: IPrice[] = [];
+				let cheapIndex = 0;
+				let minDelta = 0;
+
+				//#region *** Find channel result ***
+				// sort by total price
+				filteredPrices.sort((a, b) => a.total - b.total);
+
+				while (cheapIndex < filteredPrices.length && cheapHours.length < maxCheapCount) {
+					const currentHour = filteredPrices[cheapIndex];
+					if (currentHour.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+						cheapHours.push(currentHour);
+						minDelta = calculateMinDelta(cheapHours, efficiencyLoss);
+					} else {
+						break;
+					}
+					cheapIndex++;
+				}
+
+				const maxCheapTotal = Math.max(...cheapHours.map(hour => hour.total));
+
+				for (const hour of filteredPrices) {
 					if (!cheapHours.includes(hour)) {
 						if (hour.total > minDelta + maxCheapTotal) {
 							expensiveHours.push(hour);
@@ -1163,7 +1269,7 @@ export class TibberCalculator extends ProjectUtils {
 				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
 				//#endregion
 
-				// identify if an element is true and generate output
+				//#region *** identify if an element is true and generate output
 				if (resultCheap.some(value => value)) {
 					// Cheap Hours - enable battery charging (ON-1) and disable feed into home energy system (OFF-2)
 					valueToSet = channelConfig.chValueOn;
@@ -1181,9 +1287,10 @@ export class TibberCalculator extends ProjectUtils {
 						this.generateErrorMessage(`no result found for SBB`, `execute calculator for smart battery buffer in channel ${channel}`),
 					);
 				}
+				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
-				const jsonOutput = pricesToday
+				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
@@ -1192,7 +1299,7 @@ export class TibberCalculator extends ProjectUtils {
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
-				const jsonOutput2 = pricesToday
+				const jsonOutput2 = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
@@ -1202,13 +1309,14 @@ export class TibberCalculator extends ProjectUtils {
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
 				//#endregion
-
-				function calculateMinDelta(cheapHours: IPrice[], efficiencyLoss: number): number {
-					const cheapTotalSum = cheapHours.reduce((sum, hour) => sum + hour.total, 0);
-					const cheapAverage = cheapTotalSum / cheapHours.length;
-					return cheapAverage * efficiencyLoss;
-				}
 			}
+
+			function calculateMinDelta(cheapHours: IPrice[], efficiencyLoss: number): number {
+				const cheapTotalSum = cheapHours.reduce((sum, hour) => sum + hour.total, 0);
+				const cheapAverage = cheapTotalSum / cheapHours.length;
+				return cheapAverage * efficiencyLoss;
+			}
+
 			this.setChannelOutStates(channel, valueToSet, valueToSet2);
 		} catch (error) {
 			this.adapter.log.warn(

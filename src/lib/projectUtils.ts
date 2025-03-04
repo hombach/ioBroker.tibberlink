@@ -10,6 +10,7 @@ export enum enCalcType {
 	SmartBatteryBuffer = 7,
 	BestPercentage = 8,
 	BestPercentageLTF = 9,
+	SmartBatteryBufferLTF = 10,
 }
 
 /**
@@ -28,6 +29,7 @@ export function getCalcTypeDescription(calcType: enCalcType): string {
 		[enCalcType.SmartBatteryBuffer]: `smart battery buffer`,
 		[enCalcType.BestPercentage]: `best percentage`,
 		[enCalcType.BestPercentageLTF]: `best percentage LTF`,
+		[enCalcType.SmartBatteryBufferLTF]: `smart battery buffer LTF`,
 	};
 	return descriptions[calcType] || `Unknown`;
 }
