@@ -96,5 +96,6 @@
     "LBL_FlexGraphPastCutOff": "弹性过去的时间切断了",
     "TTIP_FlexGraphPastCutOff": "过去要显示的小时数",
     "LBL_FlexGraphFutureCutOff": "Flexgraph Future Birs切断",
-    "TTIP_FlexGraphFutureCutOff": "将来要显示的小时数"
+    "TTIP_FlexGraphFutureCutOff": "将来要显示的小时数",
+    "LBL_item_chType_option_10": "智能电池缓冲ltf"
 }

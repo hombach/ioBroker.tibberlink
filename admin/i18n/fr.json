@@ -96,5 +96,6 @@
     "LBL_FlexGraphPastCutOff": "Flexgraph passés passés coupés",
     "TTIP_FlexGraphPastCutOff": "nombre d'heures à montrer dans le passé",
     "LBL_FlexGraphFutureCutOff": "Flexgraph Future Hours Coupé",
-    "TTIP_FlexGraphFutureCutOff": "nombre d'heures à montrer à l'avenir"
+    "TTIP_FlexGraphFutureCutOff": "nombre d'heures à montrer à l'avenir",
+    "LBL_item_chType_option_10": "Tampon de batterie intelligent LTF"
 }

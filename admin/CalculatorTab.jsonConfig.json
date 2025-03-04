@@ -45,28 +45,24 @@
 							"value": 1
 						},
 						{
-							"label": "LBL_item_chType_option_2",
-							"value": 2
-						},
-						{
-							"label": "LBL_item_chType_option_3",
-							"value": 3
-						},
-						{
 							"label": "LBL_item_chType_option_4",
 							"value": 4
+						},
+						{
+							"label": "LBL_item_chType_option_2",
+							"value": 2
 						},
 						{
 							"label": "LBL_item_chType_option_5",
 							"value": 5
 						},
 						{
-							"label": "LBL_item_chType_option_6",
-							"value": 6
+							"label": "LBL_item_chType_option_3",
+							"value": 3
 						},
 						{
-							"label": "LBL_item_chType_option_7",
-							"value": 7
+							"label": "LBL_item_chType_option_6",
+							"value": 6
 						},
 						{
 							"label": "LBL_item_chType_option_8",
@@ -75,6 +71,14 @@
 						{
 							"label": "LBL_item_chType_option_9",
 							"value": 9
+						},
+						{
+							"label": "LBL_item_chType_option_7",
+							"value": 7
+						},
+						{
+							"label": "LBL_item_chType_option_10",
+							"value": 10
 						}
 					],
 					"xs": 12,

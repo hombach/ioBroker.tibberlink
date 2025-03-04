@@ -96,5 +96,6 @@
     "LBL_FlexGraphPastCutOff": "Flexgraph afgelopen uren afgesneden",
     "TTIP_FlexGraphPastCutOff": "aantal uren dat in het verleden moet worden getoond",
     "LBL_FlexGraphFutureCutOff": "FlexGraph toekomstige uren afgesneden",
-    "TTIP_FlexGraphFutureCutOff": "aantal uren dat in de toekomst moet worden getoond"
+    "TTIP_FlexGraphFutureCutOff": "aantal uren dat in de toekomst moet worden getoond",
+    "LBL_item_chType_option_10": "Smart Battery Buffer LTF"
 }

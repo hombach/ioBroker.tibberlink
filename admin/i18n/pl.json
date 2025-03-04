@@ -96,5 +96,6 @@
     "LBL_FlexGraphPastCutOff": "FlexGraph w przeszłości odcięty",
     "TTIP_FlexGraphPastCutOff": "liczba godzin do pokazania w przeszłości",
     "LBL_FlexGraphFutureCutOff": "Flexgraph Przyszłe godziny odcięte",
-    "TTIP_FlexGraphFutureCutOff": "liczba godzin do pokazania w przyszłości"
+    "TTIP_FlexGraphFutureCutOff": "liczba godzin do pokazania w przyszłości",
+    "LBL_item_chType_option_10": "inteligentny bufor baterii LTF"
 }

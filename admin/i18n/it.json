@@ -96,5 +96,6 @@
     "LBL_FlexGraphPastCutOff": "Flexgraph Ore passate tagliate fuori",
     "TTIP_FlexGraphPastCutOff": "Numero di ore da mostrare in passato",
     "LBL_FlexGraphFutureCutOff": "Flexgraph Hours Future Tagliate",
-    "TTIP_FlexGraphFutureCutOff": "Numero di ore da mostrare in futuro"
+    "TTIP_FlexGraphFutureCutOff": "Numero di ore da mostrare in futuro",
+    "LBL_item_chType_option_10": "smart batteria tampone ltf"
 }

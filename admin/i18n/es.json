@@ -96,5 +96,6 @@
     "LBL_FlexGraphPastCutOff": "Flexgraph Horas pasadas cortadas",
     "TTIP_FlexGraphPastCutOff": "número de horas que se muestran en el pasado",
     "LBL_FlexGraphFutureCutOff": "Flexgraph Horas futuras cortadas",
-    "TTIP_FlexGraphFutureCutOff": "número de horas que se muestran en el futuro"
+    "TTIP_FlexGraphFutureCutOff": "número de horas que se muestran en el futuro",
+    "LBL_item_chType_option_10": "Smart Battery Buffer LTF"
 }

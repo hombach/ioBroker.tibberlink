@@ -96,5 +96,6 @@
     "LBL_FlexGraphPastCutOff": "Flexgraph в прошлые часы отключено",
     "TTIP_FlexGraphPastCutOff": "количество часов будет показано в прошлом",
     "LBL_FlexGraphFutureCutOff": "Flexgraph в будущие часы отключены",
-    "TTIP_FlexGraphFutureCutOff": "количество часов будет показано в будущем"
+    "TTIP_FlexGraphFutureCutOff": "количество часов будет показано в будущем",
+    "LBL_item_chType_option_10": "Smart Actule Buffer LTF"
 }

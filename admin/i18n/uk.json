@@ -96,5 +96,6 @@
     "LBL_FlexGraphPastCutOff": "Flexgraph минулі години відрізані",
     "TTIP_FlexGraphPastCutOff": "кількість годин, які будуть показані в минулому",
     "LBL_FlexGraphFutureCutOff": "Flexgraph майбутні години відрізані",
-    "TTIP_FlexGraphFutureCutOff": "кількість годин, які будуть показані в майбутньому"
+    "TTIP_FlexGraphFutureCutOff": "кількість годин, які будуть показані в майбутньому",
+    "LBL_item_chType_option_10": "розумний буфер акумулятора LTF"
 }
