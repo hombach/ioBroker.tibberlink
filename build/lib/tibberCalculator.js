@@ -94,10 +94,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const valueActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
             if (typeof valueActive === "boolean") {
                 channelConfig.chActive = valueActive;
-                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to Active: ${channelConfig.chActive}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to Active: ${channelConfig.chActive}`);
             }
             else {
-                this.adapter.log.debug(`Wrong type for chActive: ${valueActive}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chActive: ${valueActive}`);
             }
             switch (channelConfig.chType) {
                 case projectUtils_js_1.enCalcType.BestCost:
@@ -282,10 +282,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const valueStartTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StartTime`);
             if (typeof valueStartTime === "string") {
                 channelConfig.chStartTime.setTime(Date.parse(valueStartTime));
-                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to StartTime: ${channelConfig.chStartTime.toISOString()}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to StartTime: ${channelConfig.chStartTime.toISOString()}`);
             }
             else {
-                this.adapter.log.debug(`Wrong type for chStartTime: ${valueStartTime}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chStartTime: ${valueStartTime}`);
             }
         }
         catch (error) {
@@ -301,10 +301,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const valueStopTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StopTime`);
             if (typeof valueStopTime === "string") {
                 channelConfig.chStopTime.setTime(Date.parse(valueStopTime));
-                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to StopTime: ${channelConfig.chStopTime.toISOString()}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to StopTime: ${channelConfig.chStopTime.toISOString()}`);
             }
             else {
-                this.adapter.log.debug(`Wrong type for chStopTime: ${valueStopTime}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chStopTime: ${valueStopTime}`);
             }
         }
         catch (error) {
@@ -318,10 +318,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const valueRepeatDays = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
             if (typeof valueRepeatDays === "number") {
                 channelConfig.chRepeatDays = valueRepeatDays;
-                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to RepeatDays: ${channelConfig.chRepeatDays}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to RepeatDays: ${channelConfig.chRepeatDays}`);
             }
             else {
-                this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueRepeatDays}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chTriggerPrice: ${valueRepeatDays}`);
             }
         }
         catch (error) {
@@ -368,7 +368,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const channelConfig = this.adapter.config.CalculatorList[channel];
             void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.OutputJSON`, `[]`, `JSON output to see the schedule the channel will follow`, `json`, false, true);
             if (!delMode) {
-                this.adapter.log.debug(`setup calculator output state OutputJSON in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup output state OutputJSON in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
         }
         catch (error) {
@@ -380,7 +380,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const channelConfig = this.adapter.config.CalculatorList[channel];
             void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.OutputJSON2`, `[]`, `JSON output 2 to see the schedule the channel will follow`, `json`, false, true);
             if (!delMode) {
-                this.adapter.log.debug(`setup calculator output state OutputJSON2 in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup output state OutputJSON2 in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
         }
         catch (error) {
@@ -397,10 +397,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             if (typeof valueTriggerPrice === "number") {
                 channelConfig.chTriggerPrice = valueTriggerPrice;
-                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to TriggerPrice: ${channelConfig.chTriggerPrice}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to TriggerPrice: ${channelConfig.chTriggerPrice}`);
             }
             else {
-                this.adapter.log.debug(`Wrong type for chTriggerPrice: ${valueTriggerPrice}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chTriggerPrice: ${valueTriggerPrice}`);
             }
         }
         catch (error) {
@@ -417,10 +417,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
             if (typeof valueAmountHours === "number") {
                 channelConfig.chAmountHours = valueAmountHours;
-                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to AmountHours: ${channelConfig.chAmountHours}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to AmountHours: ${channelConfig.chAmountHours}`);
             }
             else {
-                this.adapter.log.debug(`Wrong type for chAmountHours: ${valueAmountHours}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chAmountHours: ${valueAmountHours}`);
             }
         }
         catch (error) {
@@ -437,10 +437,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const valuePercentage = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Percentage`);
             if (typeof valuePercentage === "number") {
                 channelConfig.chPercentage = valuePercentage;
-                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to percentage: ${channelConfig.chPercentage}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to percentage: ${channelConfig.chPercentage}`);
             }
             else {
-                this.adapter.log.debug(`Wrong type for chPercentage: ${valuePercentage}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chPercentage: ${valuePercentage}`);
             }
         }
         catch (error) {
@@ -457,10 +457,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
             if (typeof valueEfficiencyLoss === "number") {
                 channelConfig.chAmountHours = valueEfficiencyLoss;
-                this.adapter.log.debug(`setup calculator settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to EfficiencyLoss: ${channelConfig.chEfficiencyLoss}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to EfficiencyLoss: ${channelConfig.chEfficiencyLoss}`);
             }
             else {
-                this.adapter.log.debug(`Wrong type for chEfficiencyLoss: ${valueEfficiencyLoss}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chEfficiencyLoss: ${valueEfficiencyLoss}`);
             }
         }
         catch (error) {
@@ -471,7 +471,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
             void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AverageTotalCost`, 0, `average total cost in determined block`, undefined, `value`, false, false);
-            this.adapter.log.debug(`setup calculator output state AverageTotalCost in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+            this.adapter.log.debug(`[tibberCalculator]: setup output state AverageTotalCost in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
         }
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AverageTotalCost for calculator`));
@@ -482,7 +482,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const channelConfig = this.adapter.config.CalculatorList[channel];
             void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStartFullHour`, `-`, `first hour of determined block`, `value`, false, false);
             if (!delMode) {
-                this.adapter.log.debug(`setup calculator output state BlockStartFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup output state BlockStartFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
         }
         catch (error) {
@@ -494,7 +494,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const channelConfig = this.adapter.config.CalculatorList[channel];
             void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end hour of determined block`, `value`, false, false);
             if (!delMode) {
-                this.adapter.log.debug(`setup calculator output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
         }
         catch (error) {
@@ -506,7 +506,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const channelConfig = this.adapter.config.CalculatorList[channel];
             void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStart`, `-`, `start date string of determined block`, `date`, false, false);
             if (!delMode) {
-                this.adapter.log.debug(`setup calculator output state BlockStart in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup output state BlockStart in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
         }
         catch (error) {
@@ -518,7 +518,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             const channelConfig = this.adapter.config.CalculatorList[channel];
             void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEnd`, `-`, `stop date string of determined block`, `date`, false, false);
             if (!delMode) {
-                this.adapter.log.debug(`setup calculator output state BlockEnd in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
+                this.adapter.log.debug(`[tibberCalculator]: setup output state BlockEnd in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
         }
         catch (error) {
@@ -554,7 +554,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     }
                 }
                 else {
-                    this.adapter.log.debug(`chTargetState is null or undefined in calculator channel ${channel}. Skipping channel execution.`);
+                    this.adapter.log.debug(`[tibberCalculator]: chTargetState is null or undefined in channel ${channel}. Skipping channel execution.`);
                     continue;
                 }
                 if (this.adapter.config.CalculatorList[channel].chType === projectUtils_js_1.enCalcType.SmartBatteryBuffer ||
@@ -580,7 +580,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         }
                     }
                     else {
-                        this.adapter.log.debug(`chTargetState2 is null or undefined in calculator channel ${channel}. Skipping channel execution.`);
+                        this.adapter.log.debug(`[tibberCalculator]: chTargetState2 is null or undefined in channel ${channel}. Skipping channel execution.`);
                         continue;
                     }
                     if (this.adapter.config.CalculatorList[channel].chValueOn2 == null ||
@@ -626,11 +626,11 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                             void this.executeCalculatorSmartBatteryBuffer(parseInt(channel), true);
                             break;
                         default:
-                            this.adapter.log.debug(`unknown value for calculator type: ${this.adapter.config.CalculatorList[channel].chType}`);
+                            this.adapter.log.debug(`[tibberCalculator]: unknown value for type: ${this.adapter.config.CalculatorList[channel].chType}`);
                     }
                 }
                 else {
-                    this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`);
+                    this.adapter.log.debug(`[tibberCalculator]: channel ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(this.adapter.config.CalculatorList[channel].chType)}; execution skipped because channel not set to active in channel states`);
                 }
             }
             catch (error) {
@@ -648,7 +648,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 this.increaseStatsValueByOne(this.adapter.config.CalculatorList[channel].chType);
             }
             catch (error) {
-                this.adapter.log.debug(`unhandled error ${error} in calculator usage scan for channel ${channel}`);
+                this.adapter.log.debug(`[tibberCalculator]: unhandled error ${error} in calculator usage scan for channel ${channel}`);
             }
         }
     }
@@ -881,9 +881,9 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         }
                     }
                 }
-                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - cheap hours: ${cheapHours.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - normal hours: ${normalHours.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap: ${cheapHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`);
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
                 const jsonOutput = filteredPrices
@@ -942,9 +942,9 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         }
                     }
                 }
-                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - cheap hours: ${cheapHours.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - normal hours: ${normalHours.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.debug(`calculator channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap hours: ${cheapHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal hours: ${normalHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.total).join(", ")}`);
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultNormal = normalHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
@@ -1058,7 +1058,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output`;
             void this.adapter.setState(sOutState, convertValue(valueToSet), true);
         }
-        this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`);
+        this.adapter.log.debug(`[tibberCalculator]: channel ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`);
         if (valueToSet2 != `EMPTY`) {
             sOutState = ``;
             if (channelConfig?.chTargetState2 &&
@@ -1071,7 +1071,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 sOutState = `Homes.${channelConfig.chHomeID}.Calculations.${channel}.Output2`;
                 void this.adapter.setState(sOutState, convertValue(valueToSet2), true);
             }
-            this.adapter.log.debug(`calculator channel: ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)}; setting state 2: ${sOutState} to ${valueToSet2}`);
+            this.adapter.log.debug(`[tibberCalculator]: channel ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)}; setting state 2: ${sOutState} to ${valueToSet2}`);
         }
     }
     async getPricesLTF(channel, modeLTF, modeTwoDays = false) {

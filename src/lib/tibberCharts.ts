@@ -98,11 +98,13 @@ export class TibberCharts extends ProjectUtils {
 					if (filteredEntries.length > 0) {
 						this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
 						for (const entry of filteredEntries) {
+							//WiP
+							this.adapter.log.debug(`[tibberCharts]: test channel ${entry.chName} for GraphEnabled: ${entry.chGraphEnabled}`);
 							if (!entry.chGraphEnabled) {
 								// should this channel be processed for charts JSON?
 								break;
 							}
-							this.adapter.log.debug(`[tibberCharts]: found calc channel ${entry.chName} to draw FlexCharts`);
+							this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
 
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
