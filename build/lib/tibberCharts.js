@@ -65,12 +65,12 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                     const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
                     let calcChannelsData = "";
                     if (filteredEntries.length > 0) {
-                        this.adapter.log.debug(`Found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
+                        this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
                         for (const entry of filteredEntries) {
                             if (!entry.chGraphEnabled) {
                                 break;
                             }
-                            this.adapter.log.debug(`Found channel ${entry.chName} to draw FlexCharts`);
+                            this.adapter.log.debug(`[tibberCharts]: found calc channel ${entry.chName} to draw FlexCharts`);
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
                             const filteredData = jsonOutput.filter(entry => entry.output);
                             let startIndex = 0;
