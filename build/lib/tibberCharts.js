@@ -60,14 +60,17 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                         projectUtils_js_1.enCalcType.BestPercentage,
                         projectUtils_js_1.enCalcType.BestPercentageLTF,
                         projectUtils_js_1.enCalcType.SmartBatteryBuffer,
+                        projectUtils_js_1.enCalcType.SmartBatteryBufferLTF,
                     ];
                     const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
                     let calcChannelsData = "";
                     if (filteredEntries.length > 0) {
+                        this.adapter.log.debug(`Found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
                         for (const entry of filteredEntries) {
                             if (!entry.chGraphEnabled) {
                                 break;
                             }
+                            this.adapter.log.debug(`Found channel ${entry.chName} to draw FlexCharts`);
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
                             const filteredData = jsonOutput.filter(entry => entry.output);
                             let startIndex = 0;
@@ -84,6 +87,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                             calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
                                             break;
                                         case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
+                                        case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
                                             calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
                                             break;
                                         default:

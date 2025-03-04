@@ -91,17 +91,20 @@ export class TibberCharts extends ProjectUtils {
 						enCalcType.BestPercentage,
 						enCalcType.BestPercentageLTF,
 						enCalcType.SmartBatteryBuffer,
+						enCalcType.SmartBatteryBufferLTF,
 					]; // list of supported channel types
 					const filteredEntries = this.adapter.config.CalculatorList.filter(
 						entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
 					);
 					let calcChannelsData = "";
 					if (filteredEntries.length > 0) {
+						this.adapter.log.debug(`Found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
 						for (const entry of filteredEntries) {
 							if (!entry.chGraphEnabled) {
 								// should this channel be processed for charts JSON?
 								break;
 							}
+							this.adapter.log.debug(`Found channel ${entry.chName} to draw FlexCharts`);
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
 
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
@@ -121,6 +124,7 @@ export class TibberCharts extends ProjectUtils {
 											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
+										case enCalcType.SmartBatteryBufferLTF:
 											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
 											break;
 										default:

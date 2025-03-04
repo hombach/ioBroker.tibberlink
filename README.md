@@ -162,7 +162,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
-- (HombachC) add channel 'smart battery buffer LTF' (#668)
+- (HombachC) add calculator channel 'smart battery buffer LTF' (#668)
+- (HombachC) rearrange calculator channels in configuration
 
 ### 4.4.0 (2025-03-01)
 
