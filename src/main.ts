@@ -666,7 +666,7 @@ class Tibberlink extends utils.Adapter {
 								this.tibberCalculator
 									.startCalculatorTasks(true)
 									.then(() => this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList))
-									.catch(error => this.log.debug(`unknown error calling tasks after parameter update: ${error}`));
+									.catch(error => this.log.error(`unknown error calling tasks after parameter update: ${error}`));
 								// WiP void this.tibberCalculator.startCalculatorTasks(true);
 								// WiP void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 							} else {

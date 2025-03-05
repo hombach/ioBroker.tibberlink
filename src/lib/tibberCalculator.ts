@@ -703,7 +703,7 @@ export class TibberCalculator extends ProjectUtils {
 	 * @param onStateChange - Optional onStateChange mode (default = false)
 	 * @param firstRun - Optional firstRun mode (default = false)
 	 */
-	startCalculatorTasks(onStateChange = false, firstRun = false): Promise<void> {
+	async startCalculatorTasks(onStateChange = false, firstRun = false): Promise<void> {
 		if (!this.adapter.config.UseCalculator) {
 			return;
 		}
@@ -804,34 +804,34 @@ export class TibberCalculator extends ProjectUtils {
 					// If Active=false been set just now - or still active then act - else just produce debug log in the following runs
 					switch (this.adapter.config.CalculatorList[channel].chType) {
 						case enCalcType.BestCost:
-							void this.executeCalculatorBestCost(parseInt(channel));
+							await this.executeCalculatorBestCost(parseInt(channel));
 							break;
 						case enCalcType.BestSingleHours:
-							void this.executeCalculatorBestSingleHours(parseInt(channel));
+							await this.executeCalculatorBestSingleHours(parseInt(channel));
 							break;
 						case enCalcType.BestHoursBlock:
-							void this.executeCalculatorBestHoursBlock(parseInt(channel));
+							await this.executeCalculatorBestHoursBlock(parseInt(channel));
 							break;
 						case enCalcType.BestCostLTF:
-							void this.executeCalculatorBestCost(parseInt(channel), true);
+							await this.executeCalculatorBestCost(parseInt(channel), true);
 							break;
 						case enCalcType.BestSingleHoursLTF:
-							void this.executeCalculatorBestSingleHours(parseInt(channel), true);
+							await this.executeCalculatorBestSingleHours(parseInt(channel), true);
 							break;
 						case enCalcType.BestHoursBlockLTF:
-							void this.executeCalculatorBestHoursBlock(parseInt(channel), true);
+							await this.executeCalculatorBestHoursBlock(parseInt(channel), true);
 							break;
 						case enCalcType.SmartBatteryBuffer:
-							void this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
+							await this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
 							break;
 						case enCalcType.BestPercentage:
-							void this.executeCalculatorBestPercentage(parseInt(channel));
+							await this.executeCalculatorBestPercentage(parseInt(channel));
 							break;
 						case enCalcType.BestPercentageLTF:
-							void this.executeCalculatorBestPercentage(parseInt(channel), true);
+							await this.executeCalculatorBestPercentage(parseInt(channel), true);
 							break;
 						case enCalcType.SmartBatteryBufferLTF:
-							void this.executeCalculatorSmartBatteryBuffer(parseInt(channel), true);
+							await this.executeCalculatorSmartBatteryBuffer(parseInt(channel), true);
 							break;
 						default:
 							this.adapter.log.debug(`[tibberCalculator]: unknown value for type: ${this.adapter.config.CalculatorList[channel].chType}`);

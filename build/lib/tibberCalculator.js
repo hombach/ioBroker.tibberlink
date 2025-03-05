@@ -525,7 +525,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEnd for calculator`));
         }
     }
-    startCalculatorTasks(onStateChange = false, firstRun = false) {
+    async startCalculatorTasks(onStateChange = false, firstRun = false) {
         if (!this.adapter.config.UseCalculator) {
             return;
         }
@@ -596,34 +596,34 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 if (this.adapter.config.CalculatorList[channel].chActive || onStateChange) {
                     switch (this.adapter.config.CalculatorList[channel].chType) {
                         case projectUtils_js_1.enCalcType.BestCost:
-                            void this.executeCalculatorBestCost(parseInt(channel));
+                            await this.executeCalculatorBestCost(parseInt(channel));
                             break;
                         case projectUtils_js_1.enCalcType.BestSingleHours:
-                            void this.executeCalculatorBestSingleHours(parseInt(channel));
+                            await this.executeCalculatorBestSingleHours(parseInt(channel));
                             break;
                         case projectUtils_js_1.enCalcType.BestHoursBlock:
-                            void this.executeCalculatorBestHoursBlock(parseInt(channel));
+                            await this.executeCalculatorBestHoursBlock(parseInt(channel));
                             break;
                         case projectUtils_js_1.enCalcType.BestCostLTF:
-                            void this.executeCalculatorBestCost(parseInt(channel), true);
+                            await this.executeCalculatorBestCost(parseInt(channel), true);
                             break;
                         case projectUtils_js_1.enCalcType.BestSingleHoursLTF:
-                            void this.executeCalculatorBestSingleHours(parseInt(channel), true);
+                            await this.executeCalculatorBestSingleHours(parseInt(channel), true);
                             break;
                         case projectUtils_js_1.enCalcType.BestHoursBlockLTF:
-                            void this.executeCalculatorBestHoursBlock(parseInt(channel), true);
+                            await this.executeCalculatorBestHoursBlock(parseInt(channel), true);
                             break;
                         case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
-                            void this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
+                            await this.executeCalculatorSmartBatteryBuffer(parseInt(channel));
                             break;
                         case projectUtils_js_1.enCalcType.BestPercentage:
-                            void this.executeCalculatorBestPercentage(parseInt(channel));
+                            await this.executeCalculatorBestPercentage(parseInt(channel));
                             break;
                         case projectUtils_js_1.enCalcType.BestPercentageLTF:
-                            void this.executeCalculatorBestPercentage(parseInt(channel), true);
+                            await this.executeCalculatorBestPercentage(parseInt(channel), true);
                             break;
                         case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
-                            void this.executeCalculatorSmartBatteryBuffer(parseInt(channel), true);
+                            await this.executeCalculatorSmartBatteryBuffer(parseInt(channel), true);
                             break;
                         default:
                             this.adapter.log.debug(`[tibberCalculator]: unknown value for type: ${this.adapter.config.CalculatorList[channel].chType}`);
