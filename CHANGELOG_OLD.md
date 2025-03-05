@@ -18,6 +18,10 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 4.2.2 (2025-01-14)
+
+- (HombachC) max API-Token lenght now 80 to meet newest Tibber accounts (#627)
+
 ### 4.2.1 (2025-01-08)
 
 - (HombachC) fix missing translation
