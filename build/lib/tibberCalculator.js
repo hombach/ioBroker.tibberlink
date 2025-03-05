@@ -643,14 +643,14 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             return;
         }
         this.initStats();
-        for (const channel in this.adapter.config.CalculatorList) {
+        this.adapter.config.CalculatorList.forEach(channel => {
             try {
-                this.increaseStatsValueByOne(this.adapter.config.CalculatorList[channel].chType);
+                this.increaseStatsValueByOne(channel.chType);
             }
             catch (error) {
-                this.adapter.log.debug(`[tibberCalculator]: unhandled error ${error} in calculator usage scan for channel ${channel}`);
+                this.adapter.log.debug(`[tibberCalculator]: unhandled error ${error} in calculator usage scan`);
             }
-        }
+        });
     }
     async executeCalculatorBestCost(channel, modeLTF = false) {
         const now = new Date();

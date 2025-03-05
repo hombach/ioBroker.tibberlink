@@ -709,13 +709,11 @@ export class TibberCalculator extends ProjectUtils {
 		}
 
 		const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
-
 		for (const channel in this.adapter.config.CalculatorList) {
 			//#region *** first run checks ***
 			if (firstRun) {
-				//WIP assign channel ID - needed in graph output, because of sorted and filtered channels
+				//reassign channel ID - needed in graph output, because of sorted and filtered channels
 				this.adapter.config.CalculatorList[channel].chChannelID = channel;
-				//WIP
 				if (
 					!this.adapter.config.CalculatorList[channel] ||
 					!this.adapter.config.CalculatorList[channel].chTargetState ||
@@ -852,7 +850,7 @@ export class TibberCalculator extends ProjectUtils {
 	/**
 	 * updateCalculatorUsageStats
 	 */
-	updateCalculatorUsageStats(): void {
+	/* WiP updateCalculatorUsageStats(): void {
 		if (!this.adapter.config.UseCalculator) {
 			return;
 		}
@@ -864,6 +862,26 @@ export class TibberCalculator extends ProjectUtils {
 				this.adapter.log.debug(`[tibberCalculator]: unhandled error ${error} in calculator usage scan for channel ${channel}`);
 			}
 		}
+	}
+	*/
+	/**
+	 * Updates the usage statistics of the calculator.
+	 * If calculator is enabled (`UseCalculator`), it initializes the statistics and iterates over the `CalculatorList`
+	 * to increment the statistics values for each entry.
+	 * Errors encountered during iteration are caught and logged as debug messages.
+	 */
+	updateCalculatorUsageStats(): void {
+		if (!this.adapter.config.UseCalculator) {
+			return;
+		}
+		this.initStats();
+		this.adapter.config.CalculatorList.forEach(channel => {
+			try {
+				this.increaseStatsValueByOne(channel.chType);
+			} catch (error) {
+				this.adapter.log.debug(`[tibberCalculator]: unhandled error ${error} in calculator usage scan`);
+			}
+		});
 	}
 
 	private async executeCalculatorBestCost(channel: number, modeLTF = false): Promise<void> {

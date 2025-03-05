@@ -48,9 +48,16 @@ class Tibberlink extends utils.Adapter {
 			const tibberLocal = new TibberLocal(this);
 			try {
 				this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
+
+				this.config.PulseList.forEach((_pulse, index) => {
+					tibberLocal.setupOnePulseLocal(index);
+				});
+
+				/* WiP
 				for (const pulse in this.config.PulseList) {
 					tibberLocal.setupOnePulseLocal(parseInt(pulse));
 				}
+				*/ // WiP
 			} catch (error: unknown) {
 				this.log.warn(`Error in setup of local Pulse data poll: ${error as Error}`);
 			}
@@ -172,9 +179,15 @@ class Tibberlink extends utils.Adapter {
 				if (this.config.UseCalculator) {
 					try {
 						this.log.info(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
+
+						this.config.CalculatorList.forEach(async channel => {
+							await tibberCalculator.setupCalculatorStates(channel.chHomeID, parseInt(channel.chChannelID));
+						});
+						/* WiP
 						for (const channel in this.config.CalculatorList) {
 							await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[channel].chHomeID, parseInt(channel));
 						}
+						*/
 					} catch (error: unknown) {
 						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
 					}
@@ -650,8 +663,12 @@ class Tibberlink extends utils.Adapter {
 									default:
 										this.log.debug(`unknown value for setting type: ${settingType}`);
 								}
-								void this.tibberCalculator.startCalculatorTasks(true);
-								void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
+								this.tibberCalculator
+									.startCalculatorTasks(true)
+									.then(() => this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList))
+									.catch(error => this.log.debug(`unknown error calling tasks after parameter update: ${error}`));
+								// WiP void this.tibberCalculator.startCalculatorTasks(true);
+								// WiP void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 							} else {
 								this.log.debug(`wrong index values in state ID or missing value for settingType`);
 							}
