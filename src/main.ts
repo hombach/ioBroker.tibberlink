@@ -48,11 +48,9 @@ class Tibberlink extends utils.Adapter {
 			const tibberLocal = new TibberLocal(this);
 			try {
 				this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
-
 				this.config.PulseList.forEach((_pulse, index) => {
 					tibberLocal.setupOnePulseLocal(index);
 				});
-
 				/* WiP
 				for (const pulse in this.config.PulseList) {
 					tibberLocal.setupOnePulseLocal(parseInt(pulse));
@@ -138,7 +136,6 @@ class Tibberlink extends utils.Adapter {
 
 				// Verify if 3 or more days in the past
 				if ((Number(last?.val) || 0) < today.getDate() + 3) {
-					// WiP 4.0.0 if (last?.val != today.getDate()) {
 					this.tibberCalculator.updateCalculatorUsageStats();
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
@@ -183,11 +180,6 @@ class Tibberlink extends utils.Adapter {
 						this.config.CalculatorList.forEach(async (channel, index) => {
 							await tibberCalculator.setupCalculatorStates(channel.chHomeID, index);
 						});
-						/* WiP
-						for (const channel in this.config.CalculatorList) {
-							await tibberCalculator.setupCalculatorStates(this.config.CalculatorList[channel].chHomeID, parseInt(channel));
-						}
-						*/
 					} catch (error: unknown) {
 						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
 					}
@@ -667,8 +659,6 @@ class Tibberlink extends utils.Adapter {
 									.startCalculatorTasks(true)
 									.then(() => this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList))
 									.catch(error => this.log.error(`unknown error calling tasks after parameter update: ${error}`));
-								// WiP void this.tibberCalculator.startCalculatorTasks(true);
-								// WiP void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 							} else {
 								this.log.debug(`wrong index values in state ID or missing value for settingType`);
 							}
