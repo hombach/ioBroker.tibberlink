@@ -82,12 +82,6 @@ export class TibberPulse extends ProjectUtils {
 				return;
 			}
 
-			// WiP if (this.adapter.config.HomesList.some(info => info.feedActive)) {
-			/* WiP
-				this.deltaFeedWarningTime = 0;
-				if (this.lastFeedWarningTime !== null) {
-					this.deltaFeedWarningTime = (new Date().getTime() - this.lastFeedWarningTime.getTime()) / 1000 / 60; // timedifference in minutes
-				} */
 			this.deltaFeedWarningTime = this.lastFeedWarningTime ? (Date.now() - this.lastFeedWarningTime.getTime()) / 60_000 : 0;
 
 			if (this.countedFeedDisconnects < 25 && this.deltaFeedWarningTime > 60) {
@@ -114,7 +108,6 @@ export class TibberPulse extends ProjectUtils {
 				}
 			}
 			void this.reconnect();
-			// WiP }
 		});
 
 		// Add error handler on connection

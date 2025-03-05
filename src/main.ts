@@ -51,11 +51,6 @@ class Tibberlink extends utils.Adapter {
 				this.config.PulseList.forEach((_pulse, index) => {
 					tibberLocal.setupOnePulseLocal(index);
 				});
-				/* WiP
-				for (const pulse in this.config.PulseList) {
-					tibberLocal.setupOnePulseLocal(parseInt(pulse));
-				}
-				*/ // WiP
 			} catch (error: unknown) {
 				this.log.warn(`Error in setup of local Pulse data poll: ${error as Error}`);
 			}

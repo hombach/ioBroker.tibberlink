@@ -707,8 +707,8 @@ export class TibberCalculator extends ProjectUtils {
 		if (!this.adapter.config.UseCalculator) {
 			return;
 		}
-
 		const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
+
 		for (const channel in this.adapter.config.CalculatorList) {
 			//#region *** first run checks ***
 			if (firstRun) {
@@ -847,23 +847,6 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	/**
-	 * updateCalculatorUsageStats
-	 */
-	/* WiP updateCalculatorUsageStats(): void {
-		if (!this.adapter.config.UseCalculator) {
-			return;
-		}
-		this.initStats();
-		for (const channel in this.adapter.config.CalculatorList) {
-			try {
-				this.increaseStatsValueByOne(this.adapter.config.CalculatorList[channel].chType);
-			} catch (error) {
-				this.adapter.log.debug(`[tibberCalculator]: unhandled error ${error} in calculator usage scan for channel ${channel}`);
-			}
-		}
-	}
-	*/
 	/**
 	 * Updates the usage statistics of the calculator.
 	 * If calculator is enabled (`UseCalculator`), it initializes the statistics and iterates over the `CalculatorList`
@@ -1175,7 +1158,6 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now < channelConfig.chStartTime) {
 				// chActive but before LTF -> choose chValueOff, but calculate results
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-				// WiP const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
 				const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
 				const cheapHours: IPrice[] = [];
@@ -1249,7 +1231,6 @@ export class TibberCalculator extends ProjectUtils {
 			} else {
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-				// WiP const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${channelConfig.chHomeID}.PricesToday.json`));
 				const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
 				const cheapHours: IPrice[] = [];

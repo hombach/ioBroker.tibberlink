@@ -1,5 +1,4 @@
 import type * as utils from "@iobroker/adapter-core";
-//WiP import { addHours, differenceInHours, format, parseISO } from "date-fns";
 import { addHours, differenceInHours, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
 
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
