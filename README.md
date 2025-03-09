@@ -163,6 +163,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) enable JSON5 parsing starting with admin 7.5.3
+- (HombachC) fix vulnerability in axios <1.8.2 (#673)
 
 ### 4.5.0 (2025-03-05)
 
