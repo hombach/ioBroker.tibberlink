@@ -489,6 +489,7 @@
 					"type": "jsonEditor",
 					"label": "Configure template to create a data string to be used in graphs - e.g. ioBroker FlexCharts",
 					"validateJson": false,
+					"json5": true,
 					"delimiter": ";",
 					"newLine": true,
 					"default": "%%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%",

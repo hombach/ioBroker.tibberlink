@@ -160,6 +160,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- (HombachC) enable JSON5 parsing starting with admin 7.5.3
+
 ### 4.5.0 (2025-03-05)
 
 - (HombachC) add calculator channel 'smart battery buffer LTF' (#668)
