@@ -947,7 +947,6 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultNormal = normalHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
-                this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type resultexpensive: ${resultExpensive.join(", ")}`);
                 if (resultCheap.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                     valueToSet2 = channelConfig.chValueOff2;
@@ -973,11 +972,11 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
                 const jsonOutput2 = filteredPrices
-                    .map((entry, index) => ({
+                    .map((entry) => ({
                     hour: new Date(entry.startsAt).getHours(),
                     startsAt: entry.startsAt,
                     total: entry.total,
-                    output: resultExpensive[index] !== undefined ? true : false,
+                    output: expensiveHours.some((expensive) => expensive.startsAt === entry.startsAt),
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
