@@ -743,8 +743,10 @@ export class TibberCalculator extends ProjectUtils {
 						continue; // skip channel
 					}
 				} else {
-					this.adapter.log.debug(`[tibberCalculator]: chTargetState is null or undefined in channel ${channel}. Skipping channel execution.`);
-					continue; // skip channel
+					this.adapter.log.debug(
+						`[tibberCalculator]: chTargetState is null or undefined in channel ${channel}. Skipping channel output verification.`,
+					);
+					//WiP - shouldn't be skipped continue; // skip channel
 				}
 
 				//checks for SmartBatteryBuffer (LTF) only...
@@ -781,8 +783,10 @@ export class TibberCalculator extends ProjectUtils {
 							continue; //skip channel
 						}
 					} else {
-						this.adapter.log.debug(`[tibberCalculator]: chTargetState2 is null or undefined in channel ${channel}. Skipping channel execution.`);
-						continue; // skip channel
+						this.adapter.log.debug(
+							`[tibberCalculator]: chTargetState2 is null or undefined in channel ${channel}. Skipping channel output verification.`,
+						);
+						//WiP - shouldn't be skipped continue; // skip channel
 					}
 					if (
 						this.adapter.config.CalculatorList[channel].chValueOn2 == null ||
@@ -1202,7 +1206,7 @@ export class TibberCalculator extends ProjectUtils {
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
 				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
 				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
-				this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type resultexpensive: ${resultExpensive.join(", ")}`); //WiP
+				this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type resultexpensive: ${resultExpensive.join(", ")}`); //WiP
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1220,7 +1224,7 @@ export class TibberCalculator extends ProjectUtils {
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
-						output2: resultExpensive[index] !== undefined ? true : false, // Check if resultExpensive[index] is defined
+						output: resultExpensive[index] !== undefined ? true : false, // Check if resultExpensive[index] is defined
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);

@@ -554,8 +554,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     }
                 }
                 else {
-                    this.adapter.log.debug(`[tibberCalculator]: chTargetState is null or undefined in channel ${channel}. Skipping channel execution.`);
-                    continue;
+                    this.adapter.log.debug(`[tibberCalculator]: chTargetState is null or undefined in channel ${channel}. Skipping channel output verification.`);
                 }
                 if (this.adapter.config.CalculatorList[channel].chType === projectUtils_js_1.enCalcType.SmartBatteryBuffer ||
                     this.adapter.config.CalculatorList[channel].chType === projectUtils_js_1.enCalcType.SmartBatteryBufferLTF) {
@@ -580,8 +579,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         }
                     }
                     else {
-                        this.adapter.log.debug(`[tibberCalculator]: chTargetState2 is null or undefined in channel ${channel}. Skipping channel execution.`);
-                        continue;
+                        this.adapter.log.debug(`[tibberCalculator]: chTargetState2 is null or undefined in channel ${channel}. Skipping channel output verification.`);
                     }
                     if (this.adapter.config.CalculatorList[channel].chValueOn2 == null ||
                         this.adapter.config.CalculatorList[channel].chValueOn2 === "" ||
@@ -886,7 +884,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`);
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
-                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type resultexpensive: ${resultExpensive.join(", ")}`);
+                this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type resultexpensive: ${resultExpensive.join(", ")}`);
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(),
@@ -901,7 +899,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     hour: new Date(entry.startsAt).getHours(),
                     startsAt: entry.startsAt,
                     total: entry.total,
-                    output2: resultExpensive[index] !== undefined ? true : false,
+                    output: resultExpensive[index] !== undefined ? true : false,
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
