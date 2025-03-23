@@ -1272,13 +1272,16 @@ export class TibberCalculator extends ProjectUtils {
 				}
 
 				this.adapter.log.debug(
-					`[tibberCalculator]: channel ${channel} SBB-type result - cheap hours: ${cheapHours.map(hour => hour.total).join(", ")}`,
+					`[tibberCalculator]: channel ${channel} SBB-type result - cheap prices: ${cheapHours.map(hour => hour.total).join(", ")}`,
 				);
 				this.adapter.log.debug(
-					`[tibberCalculator]: channel ${channel} SBB-type result - normal hours: ${normalHours.map(hour => hour.total).join(", ")}`,
+					`[tibberCalculator]: channel ${channel} SBB-type result - normal prices: ${normalHours.map(hour => hour.total).join(", ")}`,
 				);
 				this.adapter.log.warn(
-					`[tibberCalculator]: channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.total).join(", ")}`,
+					`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveHours.map(hour => hour.total).join(", ")}`,
+				); // WiP hier passt es noch
+				this.adapter.log.warn(
+					`[tibberCalculator]: channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.startsAt).join(", ")}`,
 				); // WiP hier passt es noch
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
 				const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));

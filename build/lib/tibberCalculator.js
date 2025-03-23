@@ -940,9 +940,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         }
                     }
                 }
-                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap hours: ${cheapHours.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal hours: ${normalHours.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap prices: ${cheapHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal prices: ${normalHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.startsAt).join(", ")}`);
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultNormal = normalHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
