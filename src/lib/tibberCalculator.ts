@@ -1201,11 +1201,11 @@ export class TibberCalculator extends ProjectUtils {
 				this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalHours.map(hour => hour.total).join(", ")}`);
 				this.adapter.log.debug(
 					`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`,
-				); // WiP hier passt es noch
+				);
 
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
 				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
-				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
+				//const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1219,11 +1219,11 @@ export class TibberCalculator extends ProjectUtils {
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				const jsonOutput2 = filteredPrices
-					.map((entry: IPrice, index: number) => ({
+					.map((entry: IPrice) => ({
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
-						output: resultExpensive[index] !== undefined ? true : false, // Check if resultExpensive[index] is defined
+						output: expensiveHours.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
@@ -1277,12 +1277,9 @@ export class TibberCalculator extends ProjectUtils {
 				this.adapter.log.debug(
 					`[tibberCalculator]: channel ${channel} SBB-type result - normal prices: ${normalHours.map(hour => hour.total).join(", ")}`,
 				);
-				this.adapter.log.warn(
+				this.adapter.log.debug(
 					`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveHours.map(hour => hour.total).join(", ")}`,
-				); // WiP hier passt es noch
-				this.adapter.log.warn(
-					`[tibberCalculator]: channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.startsAt).join(", ")}`,
-				); // WiP hier passt es noch
+				);
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
 				const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
 				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
@@ -1327,17 +1324,6 @@ export class TibberCalculator extends ProjectUtils {
 						output: expensiveHours.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
-
-				/* WiP
-				const jsonOutput2 = filteredPrices
-					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
-						startsAt: entry.startsAt,
-						total: entry.total,
-						output: resultExpensive[index] !== undefined ? true : false, // Check if resultExpensive[index] is defined
-					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
-				*/
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
 				//#endregion
 			}

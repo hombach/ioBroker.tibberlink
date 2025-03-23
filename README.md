@@ -162,6 +162,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) fix Smart Battery Buffer JSON2 (#676)
 - (HombachC) fix not visible SBB LTF output 2 (#681)
 - (HombachC) enable JSON5 parsing starting with admin 7.5.3
 - (HombachC) fix vulnerability in axios <1.8.2 (#673)

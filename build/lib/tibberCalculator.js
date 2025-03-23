@@ -883,7 +883,6 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalHours.map(hour => hour.total).join(", ")}`);
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`);
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
-                const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(),
@@ -894,11 +893,11 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
                 const jsonOutput2 = filteredPrices
-                    .map((entry, index) => ({
+                    .map((entry) => ({
                     hour: new Date(entry.startsAt).getHours(),
                     startsAt: entry.startsAt,
                     total: entry.total,
-                    output: resultExpensive[index] !== undefined ? true : false,
+                    output: expensiveHours.some((expensive) => expensive.startsAt === entry.startsAt),
                 }))
                     .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime());
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
@@ -942,8 +941,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 }
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap prices: ${cheapHours.map(hour => hour.total).join(", ")}`);
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal prices: ${normalHours.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveHours.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type result - expensive hours: ${expensiveHours.map(hour => hour.startsAt).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveHours.map(hour => hour.total).join(", ")}`);
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultNormal = normalHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
