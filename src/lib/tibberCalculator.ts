@@ -1115,7 +1115,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	//#region *** SPECIFICATION ***
+	//#region *** SPECIFICATION Smart Battery Buffer ***
 	/*
 		Summary:
 			Develop a channel that categorizes hourly energy prices into three groups—cheap, normal, and expensive.
@@ -1197,10 +1197,12 @@ export class TibberCalculator extends ProjectUtils {
 				this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalHours.map(hour => hour.total).join(", ")}`);
 				this.adapter.log.debug(
 					`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`,
-				);
+				); // WiP hier passt es noch
+
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
 				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
 				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
+				this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type resultexpensive: ${resultExpensive.join(", ")}`); //WiP
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1218,7 +1220,7 @@ export class TibberCalculator extends ProjectUtils {
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
-						output: resultExpensive[index] !== undefined ? true : false, // Check if resultCheap[index] is defined
+						output2: resultExpensive[index] !== undefined ? true : false, // Check if resultExpensive[index] is defined
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
