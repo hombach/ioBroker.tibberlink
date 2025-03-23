@@ -882,6 +882,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap: ${cheapHours.map(hour => hour.total).join(", ")}`);
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalHours.map(hour => hour.total).join(", ")}`);
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`);
                 const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
                 const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
                 this.adapter.log.warn(`[tibberCalculator]: channel ${channel} SBB-type resultexpensive: ${resultExpensive.join(", ")}`);

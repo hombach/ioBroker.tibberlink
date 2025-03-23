@@ -1202,6 +1202,9 @@ export class TibberCalculator extends ProjectUtils {
 				this.adapter.log.debug(
 					`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`,
 				); // WiP hier passt es noch
+				this.adapter.log.warn(
+					`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`,
+				); // WiP hier passt es noch
 
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
 				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
