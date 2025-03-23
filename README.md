@@ -159,6 +159,7 @@ This adapter employs Sentry libraries to automatically report exceptions and cod
 If you enjoyed this project — or just feeling generous, consider buying me a beer. Cheers! :beers:
 
 ## Changelog
+
 ### 4.5.1 (2025-03-23)
 
 - (HombachC) fix Smart Battery Buffer JSON2 (#676)
@@ -197,6 +198,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) add outputJSON and outputJSON2 for 'SmartBatteryBuffer' channels (#592)
 - (HombachC) calculator and projectUtils code optimizations
 - (HombachC) correct role of stats states to json
+
+### 4.2.3 (2025-01-14)
+
+- (HombachC) bump cron to 3.5
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
