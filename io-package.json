@@ -1,278 +1,294 @@
 {
-	"common": {
-		"name": "tibberlink",
-		"version": "4.5.0",
-		"news": {
-			"4.5.0": {
-				"en": "add calculator channel 'smart battery buffer LTF' (#668)\nrearrange calculator channels in configuration\nimprove debugging messages, code optimisations\nfix 2 errors in enable/disable FlexCharts",
-				"de": "hinzufügen von Rechnerkanal 'smart Akkupuffer LTF' (#668)\nNeuanordnung Rechnerkanäle in Konfiguration\nVerbesserung von Debugging-Nachrichten, Code Optimierungen\n2 Fehler in Aktivieren/Deaktivieren von FlexCharts behoben",
-				"ru": "добавить калькуляторный канал «умный аккумуляторный буфер LTF» (#668)\nпереставлять каналы калькулятора в конфигурации\nулучшение отладки сообщений, оптимизация кода\nисправить 2 ошибки при включении/отключении FlexCharts",
-				"pt": "adicionar calculadora canal 'smart bateria buffer LTF' (#668)\ncanais de calculadora de rearranjo na configuração\nmelhorar mensagens de depuração, otimizações de código\ncorrigir 2 erros em ativar/desativar FlexCharts",
-				"nl": "calculatorkanaal 'slimme batterijbuffer LTF' toevoegen (#668)\ncalculatorkanalen herschikken in configuratie\ndebugberichten verbeteren, codeoptimalisaties\nfix 2 fouten in in-/uitschakelen FlexCharts",
-				"fr": "ajouter le canal calculatrice 'Smart batterie tampon LTF' (#668)\nréorganiser les canaux calculateurs en configuration\naméliorer le débogage des messages, l'optimisation des codes\ncorriger 2 erreurs dans les FlexCharts activés/désactivables",
-				"it": "aggiungere il canale calcolatrice 'Smart Battery buffer LTF' (#668)\nriordinare i canali di calcolo in configurazione\nmigliorare i messaggi di debug, ottimizzazioni dei codici\ncorreggere 2 errori in abilitare / disabilitare FlexCharts",
-				"es": "añadir canal de calculadora 'smart batería buffer LTF' (#668)\ncanales de cálculo de reorganización en configuración\nmejorar mensajes de depuración, optimizaciones de código\ncorregir 2 errores en FlexCharts habilitados",
-				"pl": "dodaj kanał kalkulatora 'smart bateria bufor LTF' (# 668)\nprzegrupowanie kanałów kalkulacyjnych w konfiguracji\nulepszenie komunikatów debugujących, optymalizacja kodów\nnaprawić 2 błędy w włącza / wyłącza FlexCharts",
-				"uk": "додати калькулятор канал \"розумний буфер батареї LTF\" (#668)\nрезервний калькулятор каналів в конфігурації\nпокращувати повідомлення про відключення, оптимізація коду\nвиправити 2 помилки у ввімкненні / відключені FlexCharts",
-				"zh-cn": "添加计算通道“ 智能电池缓冲 LTF” (# 668)\n配置中的重排计算通道\n改进调试信件、 代码优化\n修正启用/ 残缺的弹性图中的 2 个错误"
-			},
-			"4.4.0": {
-				"en": "add generation time cutoffs for graph outputs (#643)\nset admin to minimum 7.4.10 as recommended by ioBroker (#651)\nCode optimisations, preparations to switch to ESM module\nbump cron to 4.x.x (#648)\nbump axios from 1.8.x (#664)",
-				"de": "erzeugungszeitabschaltungen für graphausgänge hinzufügen (#643)\nset admin to minimum 7.4.10 wie von ioBroker empfohlen (#651)\nCode-Optimierungen, Vorbereitungen zum ESM-Modul\nbump cron zu 4.x.x (#648)\nstoßaxios von 1.8.x (#664)",
-				"ru": "добавить временные ограничения генерации для выводов графов (#643)\nустановить админ до минимума 7.4.10, как рекомендовано ioBroker (#651)\nОптимизация кода, подготовка к переходу на модуль ESM\nbump cron to 4.x.x (#648)\nбамп аксиос от 1.8.x (#664)",
-				"pt": "adicionar cortes de tempo de geração para saídas de gráficos (#643)\nset admin to minimal 7.4.10 como recomendado por ioBroker (#651)\nOtimizações de código, preparações para mudar para o módulo ESM\ncron de choque para 4.x.x (#648)\naxios de choque de 1.8.x (#664)",
-				"nl": "aanmaaktijd voor grafiekuitvoeren toevoegen (#643)\nstel de toediening op minimum 7.4.10 zoals aanbevolen door ioBroker (#651)\nCodeoptimalisaties, voorbereidingen om over te stappen op ESM-module\nbump cron naar 4.x.x (#648)\nbump axios van 1.8.x (#664)",
-				"fr": "ajouter des seuils de temps de génération pour les sorties graphiques (#643)\ndéfinir admin au minimum 7.4.10 comme recommandé par ioBroker (#651)\nOptimisations du code, préparations pour passer au module MES\ncron de bosse à 4.x.x (#648)\naxios de bosse de 1,8.x (#664)",
-				"it": "aggiungere tempi di generazione per le uscite dei grafici (#643)\nimpostare admin al minimo 7.4.10 come raccomandato da ioBroker (#651)\nOttimizzazione del codice, preparati per passare al modulo ESM\nurto cron a 4.x.x (#648)\nparaurti da 1.8.x (#664)",
-				"es": "añadir cortes de tiempo de generación para salidas de gráficos (#643)\nset admin al mínimo 7.4.10 como recomendado por ioBroker (#651)\nOptimizaciones de código, preparaciones para cambiar al módulo ESM\nparachoques cron a 4.x.x (#648)\naxios de protuberancia de 1.8.x (#664)",
-				"pl": "dodaj skróty czasu generacji dla wyjść graficznych (# 643)\nustawić admin na minimum 7.4.10 zgodnie z zaleceniami jOBrokera (# 651)\nOptymalizacja kodu, przygotowania do przejścia na moduł ESM\nbump cron do 4.x.x (# 648)\naxios bump od 1.8.x (# 664)",
-				"uk": "додавати час відключення покоління для графічних виходів (#643)\nвстановити admin до мінімуму 7.4.10 як рекомендується ioBroker (#651)\nОптимізація коду, підготовка до переходу до модуля ESM\nenglish, українська, français..\nbump axios від 1.8.x (#664)",
-				"zh-cn": "添加图形输出的生成时间截止(# 643)\n根据ioBroker(# 651)的建议,将管理设置到最低点7.4.10\n守则优化,准备切换到无害环境管理模块\n凸至4.x.x(# 648)\n从 1.8.x (# 664) 的凸起轴"
-			},
-			"4.3.1": {
-				"en": "Bump \"@iobroker/adapter-dev\" to 1.4.0 (#653)\nstart using \"@alcalzone/release-script\" (#650)\nadd option to enable/disable FlexCharts-JSON for each channel (#642)\nfix logging for multiple homes (#647)\nfix encrypted element \"tibberBridgePassword\" (#652)",
-				"de": "Beule \"@iobroker/adapter-dev\" auf 1.4.0 (#653)\nBeginnen Sie mit \"@alcalzone/Release-Script\" (#650)\nFügen Sie die Option zum Aktivieren/Deaktivieren von Flexcharts-json für jeden Kanal hinzu (#642)\nBeheben Sie die Protokollierung für mehrere Häuser (#647)\nFix verschlüsseltes Element \"TibberbridgePassword\" (#652)",
-				"ru": "Bump \"@Iobroker/Adapter-Dev\" до 1.4.0 (#653)\nНачните использовать \"@alcalzone/release-script\" (#650)\nДобавьте опцию, чтобы включить/отключить FlexCharts-JSON для каждого канала (#642)\nИсправьте журнал для нескольких домов (#647)\nИсправить зашифрованный элемент \"TibberbridgePassword\" (#652)",
-				"pt": "Bump \"@iobroker/adaptador-dev\" para 1.4.0 (#653)\nComece a usar \"@alcalzone/release-script\" (#650)\nAdicionar opção para ativar/desativar o FlexCharts-JSON para cada canal (#642)\nCorrija o registro para várias casas (#647)\nCorrija o elemento criptografado \"TibberbridgePassword\" (#652)",
-				"nl": "Bump \"@IOBROKER/ADAPTER-DEV\" tot 1.4.0 (#653)\nBegin met het gebruik van \"@alcalzone/release-script\" (#650)\nOptie toevoegen om FlexCarts-JSON in te schakelen/uit te schakelen voor elk kanaal (#642)\nLogboekregistratie voor meerdere huizen repareren (#647)\nFix Codeed Element \"TibberbridgePassword\" (#652)",
-				"fr": "Bosse \"@ iobroker / adapter-dev\" à 1.4.0 (# 653)\nCommencez à utiliser \"@ Alcalzone / Release-Script\" (# 650)\nAjouter une option pour activer / désactiver FlexCharts-Json pour chaque canal (# 642)\nCorrection de la journalisation pour plusieurs maisons (# 647)\nCorrection de l'élément chiffré \"Tibberbridgepassword\" (# 652)",
-				"it": "Bump \"@iobroker/adattatore-dev\" a 1.4.0 (#653)\nInizia a usare \"@alcalzone/rilascio\" (#650)\nAggiungi opzione per abilitare/disabilitare FlexCharts-Json per ciascun canale (#642)\nCorreggi la registrazione per più case (#647)\nCorreggi l'elemento crittografato \"TibberBridgePassword\" (#652)",
-				"es": "Bump \"@Iobroker/Adapter-Dev\" a 1.4.0 (#653)\nComience a usar \"@Alcalzone/Release-Script\" (#650)\nAgregar opción para habilitar/deshabilitar FlexCharts-Json para cada canal (#642)\nArreglar el registro para múltiples casas (#647)\nFIJA el elemento cifrado \"TibberbridgePassword\" (#652)",
-				"pl": "Bump „@iobrook/adapter-dev” do 1.4.0 (#653)\nZacznij używać „@alcalzone/release-script” (#650)\nDodaj opcję Włącz/wyłącz FlexCharts-Json dla każdego kanału (#642)\nPopraw rejestrowanie wielu domów (#647)\nNapraw szyfrowany element „TibberBridgePassword” (#652)",
-				"uk": "Bump \"@iobroker/Adapter-dev\" до 1.4.0 (#653)\nПочніть використовувати \"@alcalzone/випуск-Script\" (#650)\nДодайте можливість включити/вимкнути Flexcharts-Json для кожного каналу (#642)\nВиправити журнал для декількох будинків (#647)\nВиправити зашифрований елемент \"TibberbridgePassword\" (#652)",
-				"zh-cn": "bump“@iobroker/adapter-dev”至1.4.0（＃653）\n开始使用“@Alcalzone/Release-Script”（＃650）\n添加选项以启用/禁用每个频道（＃642）\n修复多个房屋的日志记录（＃647）\n修复加密元素“ TibberbridgePassword”（＃652）"
-			},
-			"4.3.0": {
-				"en": "added ioBroker.FlexCharts - JSON\nUpdate tibber-api to 5.2.1 - handle obsolete data as default, remove option\nCalculate outputJSON prior to time frame for channels of type 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' and their LTF variants (#592)\nadd outputJSON and outputJSON2 for 'SmartBatteryBuffer' channels (#592)\ncalculator code optimizations\ncorrect role of stats states to json",
-				"de": "ioBroker.FlexCharts - JSON hinzugefügt\nAktualisieren Sie Tibber -API auf 5.2.1 - Behandeln Sie veraltete Daten nach Standardeinstellung, entfernen Sie die Option\nBerechnen Sie OutputJson vor dem Zeitrahmen für Kanäle vom Typ \"BestSingleHours\", \"BESTHOURSBLOCK\", \"Bestpercentage\", \"BestCost\" und der LTF -Varianten (#592)\nFügen Sie OutputJson und OutputJson2 für \"SmartbatteryBuffer\" -Kanäle (#592) hinzu.\nCalculator -Code -Optimierungen\nRichtige Rolle von Statistiken zu JSON",
-				"ru": "Добавлен iobroker.flexcharts - json\nОбновите Tibber -API до 5.2.1 - обрабатывать устаревшие данные по умолчанию, удалить опцию\nРассчитайте outputJson до временного рамка для каналов типа «Bestsinglehours», «Besthoursblock», «Bestpercentage», «Bestcost» и их варианты LTF (#592)\nДобавить outputJson и outputJson2 для каналов «SmartBatteryBuffer» (#592)\nОптимизация кода калькулятора\nПравильная роль статистических штатов для JSON",
-				"pt": "Adicionado iobroker.flexcharts - JSON\nAtualize o Tibber -API para 5.2.1 - Lidar com dados obsoletos como padrão, remova a opção\nCalcule o outputjson antes do período de tempo para canais do tipo 'bestsinglehours', 'besthoursblock', 'bestPorcentage', 'BestCost' e suas variantes de LTF (#592)\nAdicione o outputjson e o outputJson2 para os canais 'SmartBatteryBuffer' (#592)\nOtimizações de código da calculadora\nPapel correto dos estados estatais para JSON",
-				"nl": "IoBRoker.FlexCarts toegevoegd - JSON\nUpdate Tibber -API naar 5.2.1 - Herk over verouderde gegevens bij als standaard, verwijder de optie\nBereken outputjson voorafgaand aan het tijdsbestek voor kanalen van het type 'BestsingleHours', 'BestHourSblock', 'BestPerCentage', 'BestCost' en hun LTF -varianten (#592)\nOutputjson en outputjson2 toevoegen voor 'SmartBatteryBuffer' -kanalen (#592)\nOptimalisaties van calculatorcode\ncorrecte rol van statistieken staten aan JSON",
-				"fr": "Ajout d'iobroker.flexCharts - JSON\nMettez à jour Tibber-API à 5.2.1 - Gérez les données obsolètes par défaut, supprimez l'option\nCalculez OutputJson avant le délai pour les canaux de type «bestsinglehours», «besthoursblock», «bestpercentage», «bestcost» et leurs variantes LTF (# 592)\nAjouter OutputJson et Outputjson2 pour les canaux «SmartBatteryBuffer» (# 592)\nOptimisations du code de la calculatrice\nRôle correct des états de statistiques à JSON",
-				"it": "Aggiunto IoBroker.FlexCharts - JSON\nAggiorna Tibber -API su 5.2.1 - Gestisci i dati obsoleti come predefinito, rimuovi l'opzione\nCalcola outputjson prima del lasso di tempo per i canali di tipo \"bestinglehours\", \"bestoursblock\", \"bestpercentage\", \"bestcost\" e le loro varianti LTF (#592)\nAggiungi outputjson e outputjson2 per i canali \"SmartBatteryBuffer\" (#592)\nOttimizzazioni del codice calcolatore\nRuolo corretto degli stati delle statistiche a JSON",
-				"es": "Se agregó iobroker.flexCharts - JSON\nActualizar Tibber -API a 5.2.1: maneje los datos obsoletos como predeterminado, eliminar la opción\nCalcule la salida de salida antes del marco de tiempo para canales de tipo 'bestsinglehours', 'bestHourSblock', 'bestpergcentage', 'bestcost' y sus variantes LTF (#592)\nAgregue OutputJson y Outputjson2 para los canales 'SmartBatteryBuffer' (#592)\nOptimizaciones del código de calculadora\nRol de estadísticas correcto a JSON",
-				"pl": "Dodano Iobres.flexcharts - JSON\nZaktualizuj TIBBER -API do 5.2.1 - Obsługuj przestarzałe dane jako domyślne, usuń opcję\nOblicz OutputJson przed ramkami dla kanałów typu „bestsinglehours”, „besthoursblock”, „bestpercentage”, „bestcost” i ich warianty LTF (#592)\nDodaj OutputJson i OutputJson2 dla kanałów „SmartBatteryBuffer” (#592)\nOptymalizacje kodu kalkulatora\nPrawidłowa rola stanów statystyk do JSON",
-				"uk": "Додано iobroker.flexcharts - json\nОновіть tibber -api до 5.2.1 - обробіть застарілі дані як за замовчуванням, видаляти опцію\nОбчисліть OutputJson перед часовими рамками для каналів типу \"BestSingleHours\", \"BestHoursBlock\", \"BestPercentage\", \"BestCost\" та їх варіанти LTF (#592)\nДодайте outputJson і OutputJson2 для каналів \"smartbatterybuffer\" (№ 592)\nОптимізація коду калькулятора\nПравильна роль статистики держави для JSON",
-				"zh-cn": "添加了iobroker.flexcharts -json\n将tibber -api更新为5.2.1-将过时数据处理为默认，删除选项\n计算“ BestsingleHours”，“ BestHoursBlock”，“ BestPercentage”，“ BestCost”及其LTF变体的类型频道之前计算outperjson的时间范围（＃592）\n为“ smartbatterybuffer”频道添加outputjson和outputjson2（＃592）\n计算器代码优化\n统计数据对JSON的正确作用"
-			},
-			"4.2.3": {
-				"en": "bump cron to 3.5",
-				"de": "Cron auf 3.5 erhöhen",
-				"ru": "увеличить cron до 3,5",
-				"pt": "aumente o cron para 3,5",
-				"nl": "verplaats cron naar 3.5",
-				"fr": "passer cron à 3.5",
-				"it": "porta cron a 3.5",
-				"es": "aumentar el cron a 3.5",
-				"pl": "podbij crona do wersji 3.5",
-				"uk": "збільшити cron до 3.5",
-				"zh-cn": "将 cron 提升至 3.5"
-			},
-			"4.2.2": {
-				"en": "max API-Token lenght now 80 to meet newest Tibber accounts (#627)",
-				"de": "Maximale API-Token-Länge jetzt 80, um den neuesten Tibber-Konten gerecht zu werden (#627)",
-				"ru": "максимальная длина API-токена теперь равна 80 для соответствия новейшим учетным записям Tibber (#627).",
-				"pt": "comprimento máximo do API-Token agora 80 para atender às contas Tibber mais recentes (#627)",
-				"nl": "maximale API-tokenlengte nu 80 om te voldoen aan de nieuwste Tibber-accounts (#627)",
-				"fr": "La longueur maximale du jeton API est désormais de 80 pour répondre aux comptes Tibber les plus récents (#627)",
-				"it": "La lunghezza massima del token API ora è 80 per soddisfare i nuovi account Tibber (#627)",
-				"es": "La longitud máxima del API-Token ahora es 80 para cumplir con las cuentas más nuevas de Tibber (#627)",
-				"pl": "maksymalna długość tokena API wynosi teraz 80, aby sprostać najnowszym kontom Tibber (nr 627)",
-				"uk": "максимальна довжина API-токена тепер 80, щоб відповідати найновішим обліковим записам Tibber (#627)",
-				"zh-cn": "最大 API 令牌长度现在为 80，以满足最新的 Tibber 帐户 (#627)"
-			},
-			"4.2.0": {
-				"en": "fix error in BestHoursBlock LTF intruduced in 4.x (#618)\nadd new calculator channels 'BestPercentage' and 'BestPercentageLTF' (#616)\nadd outputJSON for 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' and their LTF variants (#592)\nfixed some i18n translations\nyear 2025 changes\ncode optimization",
-				"de": "Fehler in BestHoursBlock LTF behoben, der in 4.x eingeführt wurde (#618)\nneue Rechnerkanäle „BestPercentage“ und „BestPercentageLTF“ hinzufügen (#616)\nOutputJSON für „BestSingleHours“, „BestHoursBlock“, „BestPercentage“, „BestCost“ und deren LTF-Varianten hinzufügen (#592)\nEinige i18n-Übersetzungen wurden korrigiert\nDas Jahr 2025 ändert sich\nCodeoptimierung",
-				"ru": "исправить ошибку в BestHoursBlock LTF, появившуюся в версии 4.x (#618)\nдобавить новые каналы калькулятора BestPercentage и BestPercentageLTF (#616)\nдобавить выходной JSON для BestSingleHours, BestHoursBlock, BestPercentage, BestCost и их вариантов LTF (#592).\nисправлены некоторые переводы i18n\nизменения 2025 года\nоптимизация кода",
-				"pt": "corrigir erro no BestHoursBlock LTF introduzido em 4.x (# 618)\nadicionar novos canais de calculadora 'BestPercentage' e 'BestPercentageLTF' (#616)\nadicione outputJSON para 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' e suas variantes LTF (#592)\ncorrigiu algumas traduções do i18n\nmudanças no ano de 2025\notimização de código",
-				"nl": "fout in BestHoursBlock LTF opgelost in 4.x (#618)\nnieuwe rekenmachinekanalen 'BestPercentage' en 'BestPercentageLTF' (#616) toevoegen\nvoeg outputJSON toe voor 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' en hun LTF-varianten (#592)\nenkele i18n-vertalingen gerepareerd\njaar 2025 verandert\ncode-optimalisatie",
-				"fr": "correction d'une erreur dans BestHoursBlock LTF introduite dans 4.x (#618)\najouter de nouveaux canaux de calculatrice 'BestPercentage' et 'BestPercentageLTF' (#616)\najoutez outputJSON pour 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' et leurs variantes LTF (#592)\ncorrection de quelques traductions i18n\nchangements en 2025\noptimisation du code",
-				"it": "corretto l'errore in BestHoursBlock LTF introdotto nella 4.x (#618).\naggiungi nuovi canali calcolatrice \"BestPercentage\" e \"BestPercentageLTF\" (#616)\naggiungi outputJSON per \"BestSingleHours\", \"BestHoursBlock\", \"BestPercentage\", \"BestCost\" e le relative varianti LTF (#592)\ncorrette alcune traduzioni i18n\nanno 2025 cambia\nottimizzazione del codice",
-				"es": "corregir error en BestHoursBlock LTF introducido en 4.x (#618)\nagregue nuevos canales de calculadora 'BestPercentage' y 'BestPercentageLTF' (#616)\nagregue outputJSON para 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' y sus variantes LTF (#592)\nSe corrigieron algunas traducciones i18n.\ncambios del año 2025\noptimización de código",
-				"pl": "napraw błąd w BestHoursBlock LTF wprowadzony w wersji 4.x (#618)\ndodaj nowe kanały kalkulatora „BestPercentage” i „BestPercentageLTF” (#616)\ndodaj wyjścieJSON dla „BestSingleHours”, „BestHoursBlock”, „BestPercentage”, „BestCost” i ich wariantów LTF (#592)\nnaprawiono niektóre tłumaczenia i18n\nzmiany roku 2025\noptymalizacja kodu",
-				"uk": "виправлена ​​помилка в BestHoursBlock LTF, яка з’явилася в 4.x (#618)\nдодати нові канали калькулятора «BestPercentage» і «BestPercentageLTF» (#616)\nдодати вихід JSON для «BestSingleHours», «BestHoursBlock», «BestPercentage», «BestCost» та їхніх варіантів LTF (#592)\nвиправлено деякі переклади i18n\n2025 рік зміни\nоптимізація коду",
-				"zh-cn": "修复 4.x 中引入的 BestHoursBlock LTF 中的错误 (#618)\n添加新的计算器通道“BestPercentage”和“BestPercentageLTF”(#616)\n为 'BestSingleHours'、'BestHoursBlock'、'BestPercentage'、'BestCost' 及其 LTF 变体添加 outputJSON (#592)\n修复了一些 i18n 翻译\n2025年的变化\n代码优化"
-			}
-		},
-		"messages": [
-			{
-				"condition": {
-					"operand": "and",
-					"rules": ["oldVersion<2.3.0", "newVersion>=2.3.0"]
-				},
-				"title": {
-					"en": "Important notice!",
-					"de": "Wichtiger Hinweis!",
-					"ru": "Важное замечание!",
-					"pt": "Notícia importante!",
-					"nl": "Belangrijke mededeling!",
-					"fr": "Avis important!",
-					"it": "Avviso IMPORTANTE!",
-					"es": "Noticia importante!",
-					"pl": "Ważna uwaga!",
-					"uk": "Погода!",
-					"zh-cn": "重要通知!"
-				},
-				"text": {
-					"en": "The behavior of the adapter has changed! Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false.",
-					"de": "Das Verhalten des Adapters hat sich geändert! Rechnerkanäle des Typs 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde.",
-					"ru": "Поведение адаптера изменилось! Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false.",
-					"pt": "O comportamento do adaptador mudou! Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false.",
-					"nl": "Het gedrag van de adapter is veranderd! Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false.",
-					"fr": "Le comportement de l'adaptateur a changé ! Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false.",
-					"it": "Il comportamento dell'adattatore è cambiato! I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false.",
-					"es": "¡El comportamiento del adaptador ha cambiado! Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false.",
-					"pl": "Zachowanie adaptera zmieniło się! Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false.",
-					"uk": "Поведінка адаптера змінилась! Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false.",
-					"zh-cn": "适配器行为已更改！'智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭”。"
-				},
-				"level": "warn",
-				"buttons": ["agree", "cancel"]
-			}
-		],
-		"titleLang": {
-			"en": "Tibber Link",
-			"de": "Tibber Link",
-			"ru": "Тиббер Ссылка",
-			"pt": "Tibber Link",
-			"nl": "Tibber Link",
-			"fr": "Tibber Link",
-			"it": "Tibber Link",
-			"es": "Tibber Link",
-			"pl": "Tibber Link",
-			"uk": "Посилання",
-			"zh-cn": "网络联系"
-		},
-		"desc": {
-			"en": "Links Tibber API data to be used in ioBroker",
-			"de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
-			"ru": "Ссылки на данные Tibber API для использования в ioBroker",
-			"pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
-			"nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
-			"fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
-			"it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
-			"es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
-			"pl": "Łączy dane z API Tibber do użycia w ioBroker",
-			"uk": "Посилання на дані Tibber API для використання в ioBroker",
-			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
-		},
-		"authors": ["Hombach <TibberLink@homba.ch>"],
-		"keywords": ["power", "energy", "Tibber"],
-		"licenseInformation": {
-			"license": "GPL-3.0-only",
-			"type": "free"
-		},
-		"platform": "Javascript/Node.js",
-		"icon": "tibberlink.png",
-		"enabled": true,
-		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
-		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
-		"loglevel": "info",
-		"tier": 2,
-		"mode": "daemon",
-		"messagebox": true,
-		"allowInit": true,
-		"type": "energy",
-		"compact": true,
-		"connectionType": "cloud",
-		"dataSource": "poll",
-		"adminUI": {
-			"config": "json"
-		},
-		"dependencies": [
-			{
-				"js-controller": ">=5.0.19"
-			}
-		],
-		"globalDependencies": [
-			{
-				"admin": ">=7.4.10"
-			}
-		],
-		"plugins": {
-			"sentry": {
-				"dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
-			}
-		}
-	},
-	"encryptedNative": ["TibberAPIToken"],
-	"protectedNative": ["TibberAPIToken"],
-	"native": {
-		"TibberAPIToken": "",
-		"HomesList": [
-			{
-				"feedActive": "false",
-				"priceDataPollActive": "true",
-				"homeID": "None available - restart adapter after entering token",
-				"statsActive": "false",
-				"numberConsHourly": 24,
-				"numberConsDaily": 7,
-				"numberConsWeekly": 4,
-				"numberConsMonthly": 4,
-				"numberConsAnnual": 2
-			}
-		],
-		"CalculatorList": [
-			{
-				"chHomeID": "None available - restart adapter after entering token",
-				"chType": "best cost",
-				"chName": "Channel Name",
-				"chActive": "false",
-				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
-				"chValueOn": "true",
-				"chValueOff": "false",
-				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
-				"chValueOn2": "true",
-				"chValueOff2": "false"
-			}
-		],
-		"PulseList": [
-			{
-				"puName": "Pulse Local",
-				"tibberBridgeUrl": "tibber-host",
-				"tibberBridgePassword": "xxxx-xxxx",
-				"tibberPulseLocalNodeId": 1,
-				"tibberBridgeRawDataInterval": 2000
-			}
-		]
-	},
-	"objects": [],
-	"instanceObjects": [
-		{
-			"_id": "info",
-			"type": "channel",
-			"common": {
-				"name": "Information"
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.connection",
-			"type": "state",
-			"common": {
-				"role": "indicator.connected",
-				"name": "Device or service connected",
-				"type": "boolean",
-				"read": true,
-				"write": false,
-				"def": false
-			},
-			"native": {}
-		},
-		{
-			"_id": "info.LastSentryLogDay",
-			"type": "state",
-			"common": {
-				"role": "value",
-				"name": "Last day of month for Sentry log",
-				"type": "number",
-				"unit": "",
-				"read": true,
-				"write": false,
-				"def": 0
-			},
-			"native": {}
-		}
-	]
+  "common": {
+    "name": "tibberlink",
+    "version": "4.5.1",
+    "news": {
+      "4.5.1": {
+        "en": "fix Smart Battery Buffer JSON2 (#676)\nfix not visible SBB LTF output 2 (#681)\nenable JSON5 parsing starting with admin 7.5.3\nfix vulnerability in axios <1.8.2 (#673)",
+        "de": "smart Battery Buffer JSON2 reparieren (#676)\nnicht sichtbare SBB LTF Ausgabe 2 (#681)\njSON5 Parsing ab admin 7.5.3 aktivieren\nschwachstelle in axios <1.8.2 (#673) beheben",
+        "ru": "ремонт Smart Battery Buffer JSON2 (#676)\nне видимый выход SBB LTF 2 (#681)\nвключить JSON5 парсинг, начиная с admin 7.5.3\nисправление уязвимости в аксиосе <1.8.2 (#673)",
+        "pt": "corrigir o amortecedor de bateria inteligente JSON2 (#676)\ncorrigir não visível saída SBB LTF 2 (#681)\nativar a análise JSON5 começando com admin 7.5.3\ncorrigir vulnerabilidade no axios <1.8.2 (#673)",
+        "nl": "fix Smart Battery Buffer JSON2 (#676)\nfix niet zichtbaar SBB LTF uitgang 2 (#681)\nlaat JSON5 ontleden beginnend met admin 7.5.3\nfix kwetsbaarheid in axio's <1,8.2 (#673)",
+        "fr": "correction du tampon de batterie intelligent JSON2 (#676)\ncorrection non visible CFF LTF sortie 2 (#681)\nactive l'analyse JSON5 en commençant par admin 7.5.3\ncorriger la vulnérabilité dans axios <1.8.2 (#673)",
+        "it": "fix Smart Battery Buffer JSON2 (#676)\nfix non visibile uscita SBB LTF 2 (#681)\nabilitare la parsing JSON5 a partire da admin 7.5.3\ncorreggere la vulnerabilità nell'assios <1.8.2 (#673)",
+        "es": "fijación Smart Battery Buffer JSON2 (#676)\nfijación no visible SBB LTF salida 2 (#681)\nhabilitar JSON5 paresing empezando con admin 7.5.3\nfijar vulnerabilidad en axios",
+        "pl": "fix Smart Battery Buffer JSON2 (# 676)\nniewidoczne wyjście SBB LTF 2 (# 681)\nwłączyć parsowanie JSON5 zaczynając od admin 7.5.3\nfix wrażliwość w osiach < 1.8.2 (# 673)",
+        "uk": "виправити Смарт Батарея JSON2 (#676)\nне видно SBB LTF вихід 2 (#681)\nувімкніть JSON5 пароізоляція від адміністратора 7.5.3\nвиправити вразливість в axios <1.8.2 (#673)",
+        "zh-cn": "修复智能电池缓冲 JSON2(# 676)\n固定不可见的 SBB LTF 输出 2 (# 681)\n启用 JSON5 解析程序,从 admin 7.5.3 开始\n在轴中固定脆弱性 < 1.8.2 (# 673)"
+      },
+      "4.5.0": {
+        "en": "add calculator channel 'smart battery buffer LTF' (#668)\nrearrange calculator channels in configuration\nimprove debugging messages, code optimisations\nfix 2 errors in enable/disable FlexCharts",
+        "de": "hinzufügen von Rechnerkanal 'smart Akkupuffer LTF' (#668)\nNeuanordnung Rechnerkanäle in Konfiguration\nVerbesserung von Debugging-Nachrichten, Code Optimierungen\n2 Fehler in Aktivieren/Deaktivieren von FlexCharts behoben",
+        "ru": "добавить калькуляторный канал «умный аккумуляторный буфер LTF» (#668)\nпереставлять каналы калькулятора в конфигурации\nулучшение отладки сообщений, оптимизация кода\nисправить 2 ошибки при включении/отключении FlexCharts",
+        "pt": "adicionar calculadora canal 'smart bateria buffer LTF' (#668)\ncanais de calculadora de rearranjo na configuração\nmelhorar mensagens de depuração, otimizações de código\ncorrigir 2 erros em ativar/desativar FlexCharts",
+        "nl": "calculatorkanaal 'slimme batterijbuffer LTF' toevoegen (#668)\ncalculatorkanalen herschikken in configuratie\ndebugberichten verbeteren, codeoptimalisaties\nfix 2 fouten in in-/uitschakelen FlexCharts",
+        "fr": "ajouter le canal calculatrice 'Smart batterie tampon LTF' (#668)\nréorganiser les canaux calculateurs en configuration\naméliorer le débogage des messages, l'optimisation des codes\ncorriger 2 erreurs dans les FlexCharts activés/désactivables",
+        "it": "aggiungere il canale calcolatrice 'Smart Battery buffer LTF' (#668)\nriordinare i canali di calcolo in configurazione\nmigliorare i messaggi di debug, ottimizzazioni dei codici\ncorreggere 2 errori in abilitare / disabilitare FlexCharts",
+        "es": "añadir canal de calculadora 'smart batería buffer LTF' (#668)\ncanales de cálculo de reorganización en configuración\nmejorar mensajes de depuración, optimizaciones de código\ncorregir 2 errores en FlexCharts habilitados",
+        "pl": "dodaj kanał kalkulatora 'smart bateria bufor LTF' (# 668)\nprzegrupowanie kanałów kalkulacyjnych w konfiguracji\nulepszenie komunikatów debugujących, optymalizacja kodów\nnaprawić 2 błędy w włącza / wyłącza FlexCharts",
+        "uk": "додати калькулятор канал \"розумний буфер батареї LTF\" (#668)\nрезервний калькулятор каналів в конфігурації\nпокращувати повідомлення про відключення, оптимізація коду\nвиправити 2 помилки у ввімкненні / відключені FlexCharts",
+        "zh-cn": "添加计算通道“ 智能电池缓冲 LTF” (# 668)\n配置中的重排计算通道\n改进调试信件、 代码优化\n修正启用/ 残缺的弹性图中的 2 个错误"
+      },
+      "4.4.0": {
+        "en": "add generation time cutoffs for graph outputs (#643)\nset admin to minimum 7.4.10 as recommended by ioBroker (#651)\nCode optimisations, preparations to switch to ESM module\nbump cron to 4.x.x (#648)\nbump axios from 1.8.x (#664)",
+        "de": "erzeugungszeitabschaltungen für graphausgänge hinzufügen (#643)\nset admin to minimum 7.4.10 wie von ioBroker empfohlen (#651)\nCode-Optimierungen, Vorbereitungen zum ESM-Modul\nbump cron zu 4.x.x (#648)\nstoßaxios von 1.8.x (#664)",
+        "ru": "добавить временные ограничения генерации для выводов графов (#643)\nустановить админ до минимума 7.4.10, как рекомендовано ioBroker (#651)\nОптимизация кода, подготовка к переходу на модуль ESM\nbump cron to 4.x.x (#648)\nбамп аксиос от 1.8.x (#664)",
+        "pt": "adicionar cortes de tempo de geração para saídas de gráficos (#643)\nset admin to minimal 7.4.10 como recomendado por ioBroker (#651)\nOtimizações de código, preparações para mudar para o módulo ESM\ncron de choque para 4.x.x (#648)\naxios de choque de 1.8.x (#664)",
+        "nl": "aanmaaktijd voor grafiekuitvoeren toevoegen (#643)\nstel de toediening op minimum 7.4.10 zoals aanbevolen door ioBroker (#651)\nCodeoptimalisaties, voorbereidingen om over te stappen op ESM-module\nbump cron naar 4.x.x (#648)\nbump axios van 1.8.x (#664)",
+        "fr": "ajouter des seuils de temps de génération pour les sorties graphiques (#643)\ndéfinir admin au minimum 7.4.10 comme recommandé par ioBroker (#651)\nOptimisations du code, préparations pour passer au module MES\ncron de bosse à 4.x.x (#648)\naxios de bosse de 1,8.x (#664)",
+        "it": "aggiungere tempi di generazione per le uscite dei grafici (#643)\nimpostare admin al minimo 7.4.10 come raccomandato da ioBroker (#651)\nOttimizzazione del codice, preparati per passare al modulo ESM\nurto cron a 4.x.x (#648)\nparaurti da 1.8.x (#664)",
+        "es": "añadir cortes de tiempo de generación para salidas de gráficos (#643)\nset admin al mínimo 7.4.10 como recomendado por ioBroker (#651)\nOptimizaciones de código, preparaciones para cambiar al módulo ESM\nparachoques cron a 4.x.x (#648)\naxios de protuberancia de 1.8.x (#664)",
+        "pl": "dodaj skróty czasu generacji dla wyjść graficznych (# 643)\nustawić admin na minimum 7.4.10 zgodnie z zaleceniami jOBrokera (# 651)\nOptymalizacja kodu, przygotowania do przejścia na moduł ESM\nbump cron do 4.x.x (# 648)\naxios bump od 1.8.x (# 664)",
+        "uk": "додавати час відключення покоління для графічних виходів (#643)\nвстановити admin до мінімуму 7.4.10 як рекомендується ioBroker (#651)\nОптимізація коду, підготовка до переходу до модуля ESM\nenglish, українська, français..\nbump axios від 1.8.x (#664)",
+        "zh-cn": "添加图形输出的生成时间截止(# 643)\n根据ioBroker(# 651)的建议,将管理设置到最低点7.4.10\n守则优化,准备切换到无害环境管理模块\n凸至4.x.x(# 648)\n从 1.8.x (# 664) 的凸起轴"
+      },
+      "4.3.1": {
+        "en": "Bump \"@iobroker/adapter-dev\" to 1.4.0 (#653)\nstart using \"@alcalzone/release-script\" (#650)\nadd option to enable/disable FlexCharts-JSON for each channel (#642)\nfix logging for multiple homes (#647)\nfix encrypted element \"tibberBridgePassword\" (#652)",
+        "de": "Beule \"@iobroker/adapter-dev\" auf 1.4.0 (#653)\nBeginnen Sie mit \"@alcalzone/Release-Script\" (#650)\nFügen Sie die Option zum Aktivieren/Deaktivieren von Flexcharts-json für jeden Kanal hinzu (#642)\nBeheben Sie die Protokollierung für mehrere Häuser (#647)\nFix verschlüsseltes Element \"TibberbridgePassword\" (#652)",
+        "ru": "Bump \"@Iobroker/Adapter-Dev\" до 1.4.0 (#653)\nНачните использовать \"@alcalzone/release-script\" (#650)\nДобавьте опцию, чтобы включить/отключить FlexCharts-JSON для каждого канала (#642)\nИсправьте журнал для нескольких домов (#647)\nИсправить зашифрованный элемент \"TibberbridgePassword\" (#652)",
+        "pt": "Bump \"@iobroker/adaptador-dev\" para 1.4.0 (#653)\nComece a usar \"@alcalzone/release-script\" (#650)\nAdicionar opção para ativar/desativar o FlexCharts-JSON para cada canal (#642)\nCorrija o registro para várias casas (#647)\nCorrija o elemento criptografado \"TibberbridgePassword\" (#652)",
+        "nl": "Bump \"@IOBROKER/ADAPTER-DEV\" tot 1.4.0 (#653)\nBegin met het gebruik van \"@alcalzone/release-script\" (#650)\nOptie toevoegen om FlexCarts-JSON in te schakelen/uit te schakelen voor elk kanaal (#642)\nLogboekregistratie voor meerdere huizen repareren (#647)\nFix Codeed Element \"TibberbridgePassword\" (#652)",
+        "fr": "Bosse \"@ iobroker / adapter-dev\" à 1.4.0 (# 653)\nCommencez à utiliser \"@ Alcalzone / Release-Script\" (# 650)\nAjouter une option pour activer / désactiver FlexCharts-Json pour chaque canal (# 642)\nCorrection de la journalisation pour plusieurs maisons (# 647)\nCorrection de l'élément chiffré \"Tibberbridgepassword\" (# 652)",
+        "it": "Bump \"@iobroker/adattatore-dev\" a 1.4.0 (#653)\nInizia a usare \"@alcalzone/rilascio\" (#650)\nAggiungi opzione per abilitare/disabilitare FlexCharts-Json per ciascun canale (#642)\nCorreggi la registrazione per più case (#647)\nCorreggi l'elemento crittografato \"TibberBridgePassword\" (#652)",
+        "es": "Bump \"@Iobroker/Adapter-Dev\" a 1.4.0 (#653)\nComience a usar \"@Alcalzone/Release-Script\" (#650)\nAgregar opción para habilitar/deshabilitar FlexCharts-Json para cada canal (#642)\nArreglar el registro para múltiples casas (#647)\nFIJA el elemento cifrado \"TibberbridgePassword\" (#652)",
+        "pl": "Bump „@iobrook/adapter-dev” do 1.4.0 (#653)\nZacznij używać „@alcalzone/release-script” (#650)\nDodaj opcję Włącz/wyłącz FlexCharts-Json dla każdego kanału (#642)\nPopraw rejestrowanie wielu domów (#647)\nNapraw szyfrowany element „TibberBridgePassword” (#652)",
+        "uk": "Bump \"@iobroker/Adapter-dev\" до 1.4.0 (#653)\nПочніть використовувати \"@alcalzone/випуск-Script\" (#650)\nДодайте можливість включити/вимкнути Flexcharts-Json для кожного каналу (#642)\nВиправити журнал для декількох будинків (#647)\nВиправити зашифрований елемент \"TibberbridgePassword\" (#652)",
+        "zh-cn": "bump“@iobroker/adapter-dev”至1.4.0（＃653）\n开始使用“@Alcalzone/Release-Script”（＃650）\n添加选项以启用/禁用每个频道（＃642）\n修复多个房屋的日志记录（＃647）\n修复加密元素“ TibberbridgePassword”（＃652）"
+      },
+      "4.3.0": {
+        "en": "added ioBroker.FlexCharts - JSON\nUpdate tibber-api to 5.2.1 - handle obsolete data as default, remove option\nCalculate outputJSON prior to time frame for channels of type 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' and their LTF variants (#592)\nadd outputJSON and outputJSON2 for 'SmartBatteryBuffer' channels (#592)\ncalculator code optimizations\ncorrect role of stats states to json",
+        "de": "ioBroker.FlexCharts - JSON hinzugefügt\nAktualisieren Sie Tibber -API auf 5.2.1 - Behandeln Sie veraltete Daten nach Standardeinstellung, entfernen Sie die Option\nBerechnen Sie OutputJson vor dem Zeitrahmen für Kanäle vom Typ \"BestSingleHours\", \"BESTHOURSBLOCK\", \"Bestpercentage\", \"BestCost\" und der LTF -Varianten (#592)\nFügen Sie OutputJson und OutputJson2 für \"SmartbatteryBuffer\" -Kanäle (#592) hinzu.\nCalculator -Code -Optimierungen\nRichtige Rolle von Statistiken zu JSON",
+        "ru": "Добавлен iobroker.flexcharts - json\nОбновите Tibber -API до 5.2.1 - обрабатывать устаревшие данные по умолчанию, удалить опцию\nРассчитайте outputJson до временного рамка для каналов типа «Bestsinglehours», «Besthoursblock», «Bestpercentage», «Bestcost» и их варианты LTF (#592)\nДобавить outputJson и outputJson2 для каналов «SmartBatteryBuffer» (#592)\nОптимизация кода калькулятора\nПравильная роль статистических штатов для JSON",
+        "pt": "Adicionado iobroker.flexcharts - JSON\nAtualize o Tibber -API para 5.2.1 - Lidar com dados obsoletos como padrão, remova a opção\nCalcule o outputjson antes do período de tempo para canais do tipo 'bestsinglehours', 'besthoursblock', 'bestPorcentage', 'BestCost' e suas variantes de LTF (#592)\nAdicione o outputjson e o outputJson2 para os canais 'SmartBatteryBuffer' (#592)\nOtimizações de código da calculadora\nPapel correto dos estados estatais para JSON",
+        "nl": "IoBRoker.FlexCarts toegevoegd - JSON\nUpdate Tibber -API naar 5.2.1 - Herk over verouderde gegevens bij als standaard, verwijder de optie\nBereken outputjson voorafgaand aan het tijdsbestek voor kanalen van het type 'BestsingleHours', 'BestHourSblock', 'BestPerCentage', 'BestCost' en hun LTF -varianten (#592)\nOutputjson en outputjson2 toevoegen voor 'SmartBatteryBuffer' -kanalen (#592)\nOptimalisaties van calculatorcode\ncorrecte rol van statistieken staten aan JSON",
+        "fr": "Ajout d'iobroker.flexCharts - JSON\nMettez à jour Tibber-API à 5.2.1 - Gérez les données obsolètes par défaut, supprimez l'option\nCalculez OutputJson avant le délai pour les canaux de type «bestsinglehours», «besthoursblock», «bestpercentage», «bestcost» et leurs variantes LTF (# 592)\nAjouter OutputJson et Outputjson2 pour les canaux «SmartBatteryBuffer» (# 592)\nOptimisations du code de la calculatrice\nRôle correct des états de statistiques à JSON",
+        "it": "Aggiunto IoBroker.FlexCharts - JSON\nAggiorna Tibber -API su 5.2.1 - Gestisci i dati obsoleti come predefinito, rimuovi l'opzione\nCalcola outputjson prima del lasso di tempo per i canali di tipo \"bestinglehours\", \"bestoursblock\", \"bestpercentage\", \"bestcost\" e le loro varianti LTF (#592)\nAggiungi outputjson e outputjson2 per i canali \"SmartBatteryBuffer\" (#592)\nOttimizzazioni del codice calcolatore\nRuolo corretto degli stati delle statistiche a JSON",
+        "es": "Se agregó iobroker.flexCharts - JSON\nActualizar Tibber -API a 5.2.1: maneje los datos obsoletos como predeterminado, eliminar la opción\nCalcule la salida de salida antes del marco de tiempo para canales de tipo 'bestsinglehours', 'bestHourSblock', 'bestpergcentage', 'bestcost' y sus variantes LTF (#592)\nAgregue OutputJson y Outputjson2 para los canales 'SmartBatteryBuffer' (#592)\nOptimizaciones del código de calculadora\nRol de estadísticas correcto a JSON",
+        "pl": "Dodano Iobres.flexcharts - JSON\nZaktualizuj TIBBER -API do 5.2.1 - Obsługuj przestarzałe dane jako domyślne, usuń opcję\nOblicz OutputJson przed ramkami dla kanałów typu „bestsinglehours”, „besthoursblock”, „bestpercentage”, „bestcost” i ich warianty LTF (#592)\nDodaj OutputJson i OutputJson2 dla kanałów „SmartBatteryBuffer” (#592)\nOptymalizacje kodu kalkulatora\nPrawidłowa rola stanów statystyk do JSON",
+        "uk": "Додано iobroker.flexcharts - json\nОновіть tibber -api до 5.2.1 - обробіть застарілі дані як за замовчуванням, видаляти опцію\nОбчисліть OutputJson перед часовими рамками для каналів типу \"BestSingleHours\", \"BestHoursBlock\", \"BestPercentage\", \"BestCost\" та їх варіанти LTF (#592)\nДодайте outputJson і OutputJson2 для каналів \"smartbatterybuffer\" (№ 592)\nОптимізація коду калькулятора\nПравильна роль статистики держави для JSON",
+        "zh-cn": "添加了iobroker.flexcharts -json\n将tibber -api更新为5.2.1-将过时数据处理为默认，删除选项\n计算“ BestsingleHours”，“ BestHoursBlock”，“ BestPercentage”，“ BestCost”及其LTF变体的类型频道之前计算outperjson的时间范围（＃592）\n为“ smartbatterybuffer”频道添加outputjson和outputjson2（＃592）\n计算器代码优化\n统计数据对JSON的正确作用"
+      },
+      "4.2.3": {
+        "en": "bump cron to 3.5",
+        "de": "Cron auf 3.5 erhöhen",
+        "ru": "увеличить cron до 3,5",
+        "pt": "aumente o cron para 3,5",
+        "nl": "verplaats cron naar 3.5",
+        "fr": "passer cron à 3.5",
+        "it": "porta cron a 3.5",
+        "es": "aumentar el cron a 3.5",
+        "pl": "podbij crona do wersji 3.5",
+        "uk": "збільшити cron до 3.5",
+        "zh-cn": "将 cron 提升至 3.5"
+      },
+      "4.2.2": {
+        "en": "max API-Token lenght now 80 to meet newest Tibber accounts (#627)",
+        "de": "Maximale API-Token-Länge jetzt 80, um den neuesten Tibber-Konten gerecht zu werden (#627)",
+        "ru": "максимальная длина API-токена теперь равна 80 для соответствия новейшим учетным записям Tibber (#627).",
+        "pt": "comprimento máximo do API-Token agora 80 para atender às contas Tibber mais recentes (#627)",
+        "nl": "maximale API-tokenlengte nu 80 om te voldoen aan de nieuwste Tibber-accounts (#627)",
+        "fr": "La longueur maximale du jeton API est désormais de 80 pour répondre aux comptes Tibber les plus récents (#627)",
+        "it": "La lunghezza massima del token API ora è 80 per soddisfare i nuovi account Tibber (#627)",
+        "es": "La longitud máxima del API-Token ahora es 80 para cumplir con las cuentas más nuevas de Tibber (#627)",
+        "pl": "maksymalna długość tokena API wynosi teraz 80, aby sprostać najnowszym kontom Tibber (nr 627)",
+        "uk": "максимальна довжина API-токена тепер 80, щоб відповідати найновішим обліковим записам Tibber (#627)",
+        "zh-cn": "最大 API 令牌长度现在为 80，以满足最新的 Tibber 帐户 (#627)"
+      }
+    },
+    "messages": [
+      {
+        "condition": {
+          "operand": "and",
+          "rules": [
+            "oldVersion<2.3.0",
+            "newVersion>=2.3.0"
+          ]
+        },
+        "title": {
+          "en": "Important notice!",
+          "de": "Wichtiger Hinweis!",
+          "ru": "Важное замечание!",
+          "pt": "Notícia importante!",
+          "nl": "Belangrijke mededeling!",
+          "fr": "Avis important!",
+          "it": "Avviso IMPORTANTE!",
+          "es": "Noticia importante!",
+          "pl": "Ważna uwaga!",
+          "uk": "Погода!",
+          "zh-cn": "重要通知!"
+        },
+        "text": {
+          "en": "The behavior of the adapter has changed! Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false.",
+          "de": "Das Verhalten des Adapters hat sich geändert! Rechnerkanäle des Typs 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde.",
+          "ru": "Поведение адаптера изменилось! Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false.",
+          "pt": "O comportamento do adaptador mudou! Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false.",
+          "nl": "Het gedrag van de adapter is veranderd! Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false.",
+          "fr": "Le comportement de l'adaptateur a changé ! Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false.",
+          "it": "Il comportamento dell'adattatore è cambiato! I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false.",
+          "es": "¡El comportamiento del adaptador ha cambiado! Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false.",
+          "pl": "Zachowanie adaptera zmieniło się! Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false.",
+          "uk": "Поведінка адаптера змінилась! Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false.",
+          "zh-cn": "适配器行为已更改！'智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭”。"
+        },
+        "level": "warn",
+        "buttons": [
+          "agree",
+          "cancel"
+        ]
+      }
+    ],
+    "titleLang": {
+      "en": "Tibber Link",
+      "de": "Tibber Link",
+      "ru": "Тиббер Ссылка",
+      "pt": "Tibber Link",
+      "nl": "Tibber Link",
+      "fr": "Tibber Link",
+      "it": "Tibber Link",
+      "es": "Tibber Link",
+      "pl": "Tibber Link",
+      "uk": "Посилання",
+      "zh-cn": "网络联系"
+    },
+    "desc": {
+      "en": "Links Tibber API data to be used in ioBroker",
+      "de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
+      "ru": "Ссылки на данные Tibber API для использования в ioBroker",
+      "pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
+      "nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
+      "fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
+      "it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
+      "es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
+      "pl": "Łączy dane z API Tibber do użycia w ioBroker",
+      "uk": "Посилання на дані Tibber API для використання в ioBroker",
+      "zh-cn": "连接Tibber API数据以在ioBroker中使用"
+    },
+    "authors": [
+      "Hombach <TibberLink@homba.ch>"
+    ],
+    "keywords": [
+      "power",
+      "energy",
+      "Tibber"
+    ],
+    "licenseInformation": {
+      "license": "GPL-3.0-only",
+      "type": "free"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "tibberlink.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
+    "readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
+    "loglevel": "info",
+    "tier": 2,
+    "mode": "daemon",
+    "messagebox": true,
+    "allowInit": true,
+    "type": "energy",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "poll",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=5.0.19"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.4.10"
+      }
+    ],
+    "plugins": {
+      "sentry": {
+        "dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
+      }
+    }
+  },
+  "encryptedNative": [
+    "TibberAPIToken"
+  ],
+  "protectedNative": [
+    "TibberAPIToken"
+  ],
+  "native": {
+    "TibberAPIToken": "",
+    "HomesList": [
+      {
+        "feedActive": "false",
+        "priceDataPollActive": "true",
+        "homeID": "None available - restart adapter after entering token",
+        "statsActive": "false",
+        "numberConsHourly": 24,
+        "numberConsDaily": 7,
+        "numberConsWeekly": 4,
+        "numberConsMonthly": 4,
+        "numberConsAnnual": 2
+      }
+    ],
+    "CalculatorList": [
+      {
+        "chHomeID": "None available - restart adapter after entering token",
+        "chType": "best cost",
+        "chName": "Channel Name",
+        "chActive": "false",
+        "chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
+        "chValueOn": "true",
+        "chValueOff": "false",
+        "chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
+        "chValueOn2": "true",
+        "chValueOff2": "false"
+      }
+    ],
+    "PulseList": [
+      {
+        "puName": "Pulse Local",
+        "tibberBridgeUrl": "tibber-host",
+        "tibberBridgePassword": "xxxx-xxxx",
+        "tibberPulseLocalNodeId": 1,
+        "tibberBridgeRawDataInterval": 2000
+      }
+    ]
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.LastSentryLogDay",
+      "type": "state",
+      "common": {
+        "role": "value",
+        "name": "Last day of month for Sentry log",
+        "type": "number",
+        "unit": "",
+        "read": true,
+        "write": false,
+        "def": 0
+      },
+      "native": {}
+    }
+  ]
 }
