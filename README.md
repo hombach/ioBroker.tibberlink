@@ -160,6 +160,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- (HombachC) fix jsonConfig error (#686)
+- (HombachC) bump dependencies
+
 ### 4.5.1 (2025-03-23)
 
 - (HombachC) fix Smart Battery Buffer JSON2 (#676)
