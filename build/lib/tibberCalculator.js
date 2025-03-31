@@ -335,7 +335,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     }
     async setup_chOutput(homeId, channel) {
         const channelConfig = this.adapter.config.CalculatorList[channel];
-        if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+        if (channelConfig?.chTargetState?.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
             await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output`);
         }
         else {
@@ -349,9 +349,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     }
     async setup_chOutput2(homeId, channel) {
         const channelConfig = this.adapter.config.CalculatorList[channel];
-        if (channelConfig?.chTargetState2 &&
-            channelConfig.chTargetState2.length > 10 &&
-            !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
+        if (channelConfig?.chTargetState2?.length > 10 && !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
             await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`);
         }
         else {
@@ -1047,7 +1045,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     setChannelOutStates(channel, valueToSet, valueToSet2 = `EMPTY`) {
         let sOutState = ``;
         const channelConfig = this.adapter.config.CalculatorList[channel];
-        if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+        if (channelConfig?.chTargetState?.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
             sOutState = channelConfig.chTargetState;
             void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
         }
@@ -1058,9 +1056,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
         this.adapter.log.debug(`[tibberCalculator]: channel ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)}; setting state: ${sOutState} to ${valueToSet}`);
         if (valueToSet2 != `EMPTY`) {
             sOutState = ``;
-            if (channelConfig?.chTargetState2 &&
-                channelConfig.chTargetState2.length > 10 &&
-                !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
+            if (channelConfig?.chTargetState2?.length > 10 && !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
                 sOutState = channelConfig.chTargetState2;
                 void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
             }

@@ -127,7 +127,7 @@ export class TibberAPICaller extends ProjectUtils {
 					pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
 				}
 				// update remaining average
-				if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
+				if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
 					const exDateToday: Date = new Date(pricesToday[2].startsAt);
 					if (now.getDate == exDateToday.getDate) {
 						this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
@@ -200,14 +200,14 @@ export class TibberAPICaller extends ProjectUtils {
 			if (!forceUpdate) {
 				exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
 			}
-			if (Array.isArray(exPricesToday) && exPricesToday[2] && exPricesToday[2].startsAt) {
+			if (Array.isArray(exPricesToday) && exPricesToday[2]?.startsAt) {
 				exDate = new Date(exPricesToday[2].startsAt);
 			}
 			const today = new Date();
 			today.setHours(0, 0, 0, 0); // sets clock to 0:00
 			if (!exDate || exDate <= today || forceUpdate) {
 				const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
-				if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2] && pricesToday[2].total)) {
+				if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2]?.total)) {
 					throw new Error(`Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
 				}
 				this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
@@ -229,7 +229,7 @@ export class TibberAPICaller extends ProjectUtils {
 					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
 					await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
 				}
-				if (Array.isArray(pricesToday) && pricesToday[2] && pricesToday[2].startsAt) {
+				if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
 					// Got valid pricesToday
 					void this.checkAndSetValue(
 						`Homes.${homeId}.PricesToday.jsonBYpriceASC`,
@@ -300,7 +300,7 @@ export class TibberAPICaller extends ProjectUtils {
 			if (!forceUpdate) {
 				exPricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`));
 			}
-			if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2] && exPricesTomorrow[2].startsAt) {
+			if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2]?.startsAt) {
 				exDate = new Date(exPricesTomorrow[2].startsAt);
 			}
 			const morgen = new Date();
@@ -607,7 +607,7 @@ export class TibberAPICaller extends ProjectUtils {
 
 		const variables = { homeId, resolution, lastCount };
 		const result = await this.tibberQuery.query(gqlHomeConsumptionObs, variables);
-		if (result && result.viewer && result.viewer.home) {
+		if (result?.viewer && result.viewer.home) {
 			const home: IHome = result.viewer.home;
 			return Object.assign([] as IConsumption[], home.consumption ? home.consumption.nodes : []);
 		}

@@ -135,7 +135,7 @@ class ProjectUtils {
             }
         }
     }
-    async checkAndSetValueNumber(stateName, value, description = "-", unit, role = "value", writeable = false, dontUpdate = false, forceMode = false) {
+    async checkAndSetValueNumber(stateName, value, description = "-", unit, role = "value", writeable = false, dontUpdate = false, forceMode = false, min, max, step) {
         if (value !== undefined) {
             const commonObj = {
                 name: stateName.split(".").pop() ?? stateName,
@@ -144,10 +144,11 @@ class ProjectUtils {
                 desc: description,
                 read: true,
                 write: writeable,
+                ...((unit ?? undefined) ? { unit } : {}),
+                ...((min ?? undefined) ? { min } : {}),
+                ...((max ?? undefined) ? { max } : {}),
+                ...((step ?? undefined) ? { step } : {}),
             };
-            if (unit !== null && unit !== undefined) {
-                commonObj.unit = unit;
-            }
             await (forceMode
                 ? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
                 : this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));

@@ -342,6 +342,7 @@ export class TibberCalculator extends ProjectUtils {
 				today.setHours(0, 0, 0, 0); // sets clock to 0:00
 				channelConfig.chStartTime = today;
 			}
+
 			void this.checkAndSetValue(
 				`Homes.${homeId}.Calculations.${channel}.StartTime`,
 				channelConfig.chStartTime.toISOString(),
@@ -426,7 +427,7 @@ export class TibberCalculator extends ProjectUtils {
 
 	private async setup_chOutput(homeId: string, channel: number): Promise<void> {
 		const channelConfig = this.adapter.config.CalculatorList[channel];
-		if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+		if (channelConfig?.chTargetState?.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
 			await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output`);
 		} else {
 			try {
@@ -445,11 +446,7 @@ export class TibberCalculator extends ProjectUtils {
 	}
 	private async setup_chOutput2(homeId: string, channel: number): Promise<void> {
 		const channelConfig = this.adapter.config.CalculatorList[channel];
-		if (
-			channelConfig?.chTargetState2 &&
-			channelConfig.chTargetState2.length > 10 &&
-			!channelConfig.chTargetState2.startsWith("choose your state to drive")
-		) {
+		if (channelConfig?.chTargetState2?.length > 10 && !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
 			await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`);
 		} else {
 			try {
@@ -1435,7 +1432,7 @@ export class TibberCalculator extends ProjectUtils {
 	private setChannelOutStates(channel: number, valueToSet: string, valueToSet2 = `EMPTY`): void {
 		let sOutState = ``;
 		const channelConfig = this.adapter.config.CalculatorList[channel];
-		if (channelConfig?.chTargetState && channelConfig.chTargetState.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
+		if (channelConfig?.chTargetState?.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
 			sOutState = channelConfig.chTargetState;
 			void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet));
 		} else {
@@ -1447,11 +1444,7 @@ export class TibberCalculator extends ProjectUtils {
 		);
 		if (valueToSet2 != `EMPTY`) {
 			sOutState = ``; // reinit for output 2
-			if (
-				channelConfig?.chTargetState2 &&
-				channelConfig.chTargetState2.length > 10 &&
-				!channelConfig.chTargetState2.startsWith("choose your state to drive")
-			) {
+			if (channelConfig?.chTargetState2?.length > 10 && !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
 				sOutState = channelConfig.chTargetState2;
 				void this.adapter.setForeignStateAsync(sOutState, convertValue(valueToSet2));
 			} else {

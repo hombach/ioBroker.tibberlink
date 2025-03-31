@@ -164,6 +164,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) fix jsonConfig error (#686)
 - (HombachC) bump dependencies
+- (HombachC) add statevalue range to projectUtils
+- (HombachC) code optimizations
 
 ### 4.5.1 (2025-03-23)
 
