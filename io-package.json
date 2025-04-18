@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "4.5.1",
+    "version": "4.5.2",
     "news": {
+      "4.5.2": {
+        "en": "fix jsonConfig error (#686)\nbump dependencies\nadd statevalue range to projectUtils\ncode optimizations",
+        "de": "jsonConfig-Fehler beheben (#686)\nbumpabhängigkeiten\nzustandswertbereich zum Projekt hinzufügen Utils\ncodeoptimierungen",
+        "ru": "исправление ошибки jsonConfig (#686)\nбамп зависимости\nдобавить диапазон значений состояния в проект утиль\nоптимизация кода",
+        "pt": "corrigir erro jsonConfig (#686)\ndependências de choque\nadicionar intervalo de valor de estado ao projeto Utilidades\notimizações de código",
+        "nl": "fix jsonConfig fout (#686)\nbump afhankelijkheden\nstatuswaardebereik toevoegen aan project Utils\ncode optimalisaties",
+        "fr": "correction de l'erreur jsonConfig (#686)\ndépendances des bosses\najouter une plage de valeur d'état au projet Utilisation\noptimisation des codes",
+        "it": "correzione errore jsonConfig (#686)\nindipendenza urto\naggiungere la gamma di valore di stato al progetto Utili\nottimizzazioni del codice",
+        "es": "error jsonConfig (#686)\ndependencia de los gastos\nañadir rango de valor estatal al proyecto Utils\noptimizaciones de código",
+        "pl": "naprawić błąd jsonConfig (# 686)\nuzależnienia od guza\ndodaj zakres stanu do projektu Przyrządy\noptymalizacja kodu",
+        "uk": "виправлено помилку(#686)\nbump залежності\nдодати діапазон державного значення для проекту Утили\nоптимізація коду",
+        "zh-cn": "修复jsonconfig 错误 (# 686)\n意外依赖\n为工程添加状态值范围 UTIs 数字\n代码优化"
+      },
       "4.5.1": {
         "en": "fix Smart Battery Buffer JSON2 (#676)\nfix not visible SBB LTF output 2 (#681)\nenable JSON5 parsing starting with admin 7.5.3\nfix vulnerability in axios <1.8.2 (#673)",
         "de": "smart Battery Buffer JSON2 reparieren (#676)\nnicht sichtbare SBB LTF Ausgabe 2 (#681)\njSON5 Parsing ab admin 7.5.3 aktivieren\nschwachstelle in axios <1.8.2 (#673) beheben",
@@ -80,19 +93,6 @@
         "pl": "podbij crona do wersji 3.5",
         "uk": "збільшити cron до 3.5",
         "zh-cn": "将 cron 提升至 3.5"
-      },
-      "4.2.2": {
-        "en": "max API-Token lenght now 80 to meet newest Tibber accounts (#627)",
-        "de": "Maximale API-Token-Länge jetzt 80, um den neuesten Tibber-Konten gerecht zu werden (#627)",
-        "ru": "максимальная длина API-токена теперь равна 80 для соответствия новейшим учетным записям Tibber (#627).",
-        "pt": "comprimento máximo do API-Token agora 80 para atender às contas Tibber mais recentes (#627)",
-        "nl": "maximale API-tokenlengte nu 80 om te voldoen aan de nieuwste Tibber-accounts (#627)",
-        "fr": "La longueur maximale du jeton API est désormais de 80 pour répondre aux comptes Tibber les plus récents (#627)",
-        "it": "La lunghezza massima del token API ora è 80 per soddisfare i nuovi account Tibber (#627)",
-        "es": "La longitud máxima del API-Token ahora es 80 para cumplir con las cuentas más nuevas de Tibber (#627)",
-        "pl": "maksymalna długość tokena API wynosi teraz 80, aby sprostać najnowszym kontom Tibber (nr 627)",
-        "uk": "максимальна довжина API-токена тепер 80, щоб відповідати найновішим обліковим записам Tibber (#627)",
-        "zh-cn": "最大 API 令牌长度现在为 80，以满足最新的 Tibber 帐户 (#627)"
       }
     },
     "messages": [

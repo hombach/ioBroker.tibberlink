@@ -18,6 +18,19 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+## 4.3.0 (2025-02-09)
+
+- (HombachC) added ioBroker.FlexCharts - JSON
+- (HombachC) Update tibber-api to 5.2.1 - handle obsolete data as default, remove option
+- (HombachC) Calculate outputJSON prior to time frame for channels of type 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' and their LTF variants (#592)
+- (HombachC) add outputJSON and outputJSON2 for 'SmartBatteryBuffer' channels (#592)
+- (HombachC) calculator and projectUtils code optimizations
+- (HombachC) correct role of stats states to json
+
+## 4.2.3 (2025-01-14)
+
+- (HombachC) bump cron to 3.5
+
 ### 4.2.3 (2025-01-14)
 
 - (HombachC) bump cron to 3.5
