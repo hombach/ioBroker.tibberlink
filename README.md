@@ -162,7 +162,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
-- (HombachC) WiP
+- (HombachC) Update tibber-api
 
 ### 4.5.2 (2025-04-18)
 
