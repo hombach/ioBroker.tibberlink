@@ -163,6 +163,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) Update tibber-api
+- (HombachC) bump dependencies
 
 ### 4.5.2 (2025-04-18)
 
