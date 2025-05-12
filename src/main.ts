@@ -31,6 +31,7 @@ class Tibberlink extends utils.Adapter {
 	private queryUrl = "";
 	private tibberCalculator = new TibberCalculator(this);
 	private tibberCharts = new TibberCharts(this);
+	private tibberLocal = new TibberLocal(this); // WiP 707
 	/**
 	 * Is called when databases are connected and adapter received configuration.
 	 */
@@ -45,11 +46,11 @@ class Tibberlink extends utils.Adapter {
 		// Local Bridge Call ... could be used without Tibber contract
 		if (this.config.UseLocalPulseData) {
 			// Set up Pulse local polls if configured
-			const tibberLocal = new TibberLocal(this);
+			// WiP 707 const tibberLocal = new TibberLocal(this);
 			try {
 				this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
 				this.config.PulseList.forEach((_pulse, index) => {
-					tibberLocal.setupOnePulseLocal(index);
+					this.tibberLocal.setupOnePulseLocal(index); // WiP 707
 				});
 			} catch (error: unknown) {
 				this.log.warn(`Error in setup of local Pulse data poll: ${error as Error}`);
@@ -468,16 +469,17 @@ class Tibberlink extends utils.Adapter {
 	 *
 	 * @param callback - void
 	 */
-	private onUnload(callback: () => void): void {
+	private async onUnload(callback: () => void): Promise<void> {
 		try {
 			// Here you must clear all timeouts or intervals that may still be active
 			for (const cronJob of this.cronList) {
-				cronJob.stop();
+				await cronJob.stop();
 			}
 			if (this.config.UseLocalPulseData) {
-				//WiP call shutdown in tibberLocal
+				//WiP call clearIntervals in tibberLocal // WiP 707
+				this.tibberLocal.clearIntervals();
 			}
-			void this.setState("info.connection", false, true);
+			await this.setState("info.connection", false, true);
 			callback();
 		} catch (e) {
 			this.log.warn((e as Error).message);

@@ -60,17 +60,17 @@ class Tibberlink extends utils.Adapter {
     queryUrl = "";
     tibberCalculator = new tibberCalculator_js_1.TibberCalculator(this);
     tibberCharts = new tibberCharts_js_1.TibberCharts(this);
+    tibberLocal = new tibberLocal_js_1.TibberLocal(this);
     async onReady() {
         if (!this.config.TibberAPIToken && !this.config.UseLocalPulseData) {
             this.log.error(`Missing API Token - please check configuration`);
             void this.setState(`info.connection`, false, true);
         }
         if (this.config.UseLocalPulseData) {
-            const tibberLocal = new tibberLocal_js_1.TibberLocal(this);
             try {
                 this.log.info(`Setting up local poll of consumption data for ${this.config.PulseList.length} pulse module(s)`);
                 this.config.PulseList.forEach((_pulse, index) => {
-                    tibberLocal.setupOnePulseLocal(index);
+                    this.tibberLocal.setupOnePulseLocal(index);
                 });
             }
             catch (error) {
@@ -414,14 +414,15 @@ class Tibberlink extends utils.Adapter {
             }
         }
     }
-    onUnload(callback) {
+    async onUnload(callback) {
         try {
             for (const cronJob of this.cronList) {
-                cronJob.stop();
+                await cronJob.stop();
             }
             if (this.config.UseLocalPulseData) {
+                this.tibberLocal.clearIntervals();
             }
-            void this.setState("info.connection", false, true);
+            await this.setState("info.connection", false, true);
             callback();
         }
         catch (e) {
