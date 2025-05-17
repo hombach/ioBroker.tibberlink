@@ -160,7 +160,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### **WORK IN PROGRESS**
+### 4.5.3 (2025-05-17)
 
 - (HombachC) optimize shutdown-logic (#707)
 - (HombachC) update tibber-api
@@ -194,14 +194,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) Code optimisations, preparations to switch to ESM module
 - (HombachC) bump cron to 4.x.x (#648)
 - (HombachC) bump axios from 1.8.x (#664)
-
-### 4.3.1 (2025-02-23)
-
-- (HombachC) Bump "@iobroker/adapter-dev" to 1.4.0 (#653)
-- (HombachC) start using "@alcalzone/release-script" (#650)
-- (HombachC) add option to enable/disable FlexCharts-JSON for each channel (#642)
-- (HombachC) fix logging for multiple homes (#647)
-- (HombachC) fix encrypted element "tibberBridgePassword" (#652)
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

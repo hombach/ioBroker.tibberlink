@@ -18,7 +18,15 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
-## 4.3.0 (2025-02-09)
+### 4.3.1 (2025-02-23)
+
+- (HombachC) Bump "@iobroker/adapter-dev" to 1.4.0 (#653)
+- (HombachC) start using "@alcalzone/release-script" (#650)
+- (HombachC) add option to enable/disable FlexCharts-JSON for each channel (#642)
+- (HombachC) fix logging for multiple homes (#647)
+- (HombachC) fix encrypted element "tibberBridgePassword" (#652)
+
+### 4.3.0 (2025-02-09)
 
 - (HombachC) added ioBroker.FlexCharts - JSON
 - (HombachC) Update tibber-api to 5.2.1 - handle obsolete data as default, remove option
@@ -27,7 +35,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) calculator and projectUtils code optimizations
 - (HombachC) correct role of stats states to json
 
-## 4.2.3 (2025-01-14)
+### 4.2.3 (2025-01-14)
 
 - (HombachC) bump cron to 3.5
 

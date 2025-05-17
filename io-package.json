@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "4.5.2",
+    "version": "4.5.3",
     "news": {
+      "4.5.3": {
+        "en": "optimize shutdown-logic (#707)\nupdate tibber-api\nbump dependencies",
+        "de": "optimierte abschaltlogik (#707)\naktualisierung tibber-api\nbumpabhängigkeiten",
+        "ru": "оптимизация логики отключения (#707)\nобновление tibber-api\nбамп зависимости",
+        "pt": "otimizar o desligamento-lógico (#707)\natualizar tibber-api\ndependências de choque",
+        "nl": "optimalisatie shutdown-logic (#707)\ntibber-api bijwerken\nbump afhankelijkheden",
+        "fr": "optimiser l'arrêt-logique (#707)\nmettre à jour le tibber-api\ndépendances des bosses",
+        "it": "ottimizzare shutdown-logic (#707)\naggiornamento tibber-api\nindipendenza urto",
+        "es": "optimización de cierre-lógica (#707)\nactualización tibber-api\ndependencia de los gastos",
+        "pl": "optymalizacja logiki zamykania (# 707)\nupdate tibber- api\nuzależnienia od guza",
+        "uk": "оптимізація відключення (#707)\nоновлення tibber-api\nbump залежності",
+        "zh-cn": "优化关闭日志(# 707)\n更新 - api\n意外依赖"
+      },
       "4.5.2": {
         "en": "fix jsonConfig error (#686)\nbump dependencies\nadd statevalue range to projectUtils\ncode optimizations",
         "de": "jsonConfig-Fehler beheben (#686)\nbumpabhängigkeiten\nzustandswertbereich zum Projekt hinzufügen Utils\ncodeoptimierungen",
@@ -80,19 +93,6 @@
         "pl": "Dodano Iobres.flexcharts - JSON\nZaktualizuj TIBBER -API do 5.2.1 - Obsługuj przestarzałe dane jako domyślne, usuń opcję\nOblicz OutputJson przed ramkami dla kanałów typu „bestsinglehours”, „besthoursblock”, „bestpercentage”, „bestcost” i ich warianty LTF (#592)\nDodaj OutputJson i OutputJson2 dla kanałów „SmartBatteryBuffer” (#592)\nOptymalizacje kodu kalkulatora\nPrawidłowa rola stanów statystyk do JSON",
         "uk": "Додано iobroker.flexcharts - json\nОновіть tibber -api до 5.2.1 - обробіть застарілі дані як за замовчуванням, видаляти опцію\nОбчисліть OutputJson перед часовими рамками для каналів типу \"BestSingleHours\", \"BestHoursBlock\", \"BestPercentage\", \"BestCost\" та їх варіанти LTF (#592)\nДодайте outputJson і OutputJson2 для каналів \"smartbatterybuffer\" (№ 592)\nОптимізація коду калькулятора\nПравильна роль статистики держави для JSON",
         "zh-cn": "添加了iobroker.flexcharts -json\n将tibber -api更新为5.2.1-将过时数据处理为默认，删除选项\n计算“ BestsingleHours”，“ BestHoursBlock”，“ BestPercentage”，“ BestCost”及其LTF变体的类型频道之前计算outperjson的时间范围（＃592）\n为“ smartbatterybuffer”频道添加outputjson和outputjson2（＃592）\n计算器代码优化\n统计数据对JSON的正确作用"
-      },
-      "4.2.3": {
-        "en": "bump cron to 3.5",
-        "de": "Cron auf 3.5 erhöhen",
-        "ru": "увеличить cron до 3,5",
-        "pt": "aumente o cron para 3,5",
-        "nl": "verplaats cron naar 3.5",
-        "fr": "passer cron à 3.5",
-        "it": "porta cron a 3.5",
-        "es": "aumentar el cron a 3.5",
-        "pl": "podbij crona do wersji 3.5",
-        "uk": "збільшити cron до 3.5",
-        "zh-cn": "将 cron 提升至 3.5"
       }
     },
     "messages": [
