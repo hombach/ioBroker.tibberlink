@@ -460,7 +460,8 @@ export class TibberLocal extends ProjectUtils {
 				this.adapter.log.info(result.name);
 				continue;
 			}
-			result.value = parseSignedHex(match[5]);
+			//result.value = parseSignedHex(match[5]); // #704
+			result.value = match[1] === "0100020800ff" ? parseInt(match[5], 16) : parseSignedHex(match[5]); // code 208 always unsigned !! #704
 			const decimalCode = parseInt(match[2], 16);
 			result.unit = findDlmsUnitByCode(decimalCode);
 

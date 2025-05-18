@@ -162,7 +162,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
-- (HombachC) WiP
+- (HombachC) Fix edge case with local export values (#704)
+- (HombachC) remove tests for node.js 18
 
 ### 4.5.3 (2025-05-17)
 

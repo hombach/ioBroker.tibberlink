@@ -249,7 +249,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                 this.adapter.log.info(result.name);
                 continue;
             }
-            result.value = parseSignedHex(match[5]);
+            result.value = match[1] === "0100020800ff" ? parseInt(match[5], 16) : parseSignedHex(match[5]);
             const decimalCode = parseInt(match[2], 16);
             result.unit = findDlmsUnitByCode(decimalCode);
             const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 };
