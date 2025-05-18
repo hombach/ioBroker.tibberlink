@@ -18,6 +18,14 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 4.4.0 (2025-03-01)
+
+- (HombachC) add generation time cutoffs for graph outputs (#643)
+- (HombachC) set admin to minimum 7.4.10 as recommended by ioBroker (#651)
+- (HombachC) Code optimisations, preparations to switch to ESM module
+- (HombachC) bump cron to 4.x.x (#648)
+- (HombachC) bump axios from 1.8.x (#664)
+
 ### 4.3.1 (2025-02-23)
 
 - (HombachC) Bump "@iobroker/adapter-dev" to 1.4.0 (#653)

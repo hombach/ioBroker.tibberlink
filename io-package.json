@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "4.5.3",
+    "version": "4.5.4",
     "news": {
+      "4.5.4": {
+        "en": "fix special cases of local export value (#704)\nremove tests for node.js 18\noptimize asynchron code",
+        "de": "sonderfälle des lokalen exportwerts festsetzen (#704)\ntests für node.js 18 entfernen\nasynchron-code optimieren",
+        "ru": "фиксировать особые случаи местной экспортной стоимости (#704)\nудалить тесты для node.js 18\nоптимизация асинхронного кода",
+        "pt": "corrigir casos especiais de valor de exportação local (#704)\nremover testes para node.js 18\notimizar o código de assíncrono",
+        "nl": "vast te stellen bijzondere gevallen van lokale uitvoerwaarde (#704)\ntest voor node.js 18 verwijderen\nasynchroncode optimaliseren",
+        "fr": "fixer des cas particuliers de valeur à l'exportation locale (#704)\nsupprimer les tests pour node.js 18\noptimiser le code asynchrone",
+        "it": "fissare casi speciali di valore di esportazione locale (#704)\nrimuovere i test per node.js 18\nottimizzare il codice asincrono",
+        "es": "fijar casos especiales de valor de exportación local (#704)\neliminar las pruebas para node.js 18\noptimizar el código asincrónico",
+        "pl": "ustalić specjalne przypadki o lokalnej wartości eksportowej (# 704)\nusunąć testy na node.js 18\noptymalizacja kodu asynchronu",
+        "uk": "виправити спеціальні випадки місцевого експортного значення (#704)\nвидалити тести для node.js 18\nоптимізація коду asynchron",
+        "zh-cn": "固定本地出口值的特殊情况(# 704)\n取消节点测试。 js 18\n优化同步代码"
+      },
       "4.5.3": {
         "en": "optimize shutdown-logic (#707)\nupdate tibber-api\nbump dependencies",
         "de": "optimierte abschaltlogik (#707)\naktualisierung tibber-api\nbumpabhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "Bump „@iobrook/adapter-dev” do 1.4.0 (#653)\nZacznij używać „@alcalzone/release-script” (#650)\nDodaj opcję Włącz/wyłącz FlexCharts-Json dla każdego kanału (#642)\nPopraw rejestrowanie wielu domów (#647)\nNapraw szyfrowany element „TibberBridgePassword” (#652)",
         "uk": "Bump \"@iobroker/Adapter-dev\" до 1.4.0 (#653)\nПочніть використовувати \"@alcalzone/випуск-Script\" (#650)\nДодайте можливість включити/вимкнути Flexcharts-Json для кожного каналу (#642)\nВиправити журнал для декількох будинків (#647)\nВиправити зашифрований елемент \"TibberbridgePassword\" (#652)",
         "zh-cn": "bump“@iobroker/adapter-dev”至1.4.0（＃653）\n开始使用“@Alcalzone/Release-Script”（＃650）\n添加选项以启用/禁用每个频道（＃642）\n修复多个房屋的日志记录（＃647）\n修复加密元素“ TibberbridgePassword”（＃652）"
-      },
-      "4.3.0": {
-        "en": "added ioBroker.FlexCharts - JSON\nUpdate tibber-api to 5.2.1 - handle obsolete data as default, remove option\nCalculate outputJSON prior to time frame for channels of type 'BestSingleHours', 'BestHoursBlock', 'BestPercentage', 'BestCost' and their LTF variants (#592)\nadd outputJSON and outputJSON2 for 'SmartBatteryBuffer' channels (#592)\ncalculator code optimizations\ncorrect role of stats states to json",
-        "de": "ioBroker.FlexCharts - JSON hinzugefügt\nAktualisieren Sie Tibber -API auf 5.2.1 - Behandeln Sie veraltete Daten nach Standardeinstellung, entfernen Sie die Option\nBerechnen Sie OutputJson vor dem Zeitrahmen für Kanäle vom Typ \"BestSingleHours\", \"BESTHOURSBLOCK\", \"Bestpercentage\", \"BestCost\" und der LTF -Varianten (#592)\nFügen Sie OutputJson und OutputJson2 für \"SmartbatteryBuffer\" -Kanäle (#592) hinzu.\nCalculator -Code -Optimierungen\nRichtige Rolle von Statistiken zu JSON",
-        "ru": "Добавлен iobroker.flexcharts - json\nОбновите Tibber -API до 5.2.1 - обрабатывать устаревшие данные по умолчанию, удалить опцию\nРассчитайте outputJson до временного рамка для каналов типа «Bestsinglehours», «Besthoursblock», «Bestpercentage», «Bestcost» и их варианты LTF (#592)\nДобавить outputJson и outputJson2 для каналов «SmartBatteryBuffer» (#592)\nОптимизация кода калькулятора\nПравильная роль статистических штатов для JSON",
-        "pt": "Adicionado iobroker.flexcharts - JSON\nAtualize o Tibber -API para 5.2.1 - Lidar com dados obsoletos como padrão, remova a opção\nCalcule o outputjson antes do período de tempo para canais do tipo 'bestsinglehours', 'besthoursblock', 'bestPorcentage', 'BestCost' e suas variantes de LTF (#592)\nAdicione o outputjson e o outputJson2 para os canais 'SmartBatteryBuffer' (#592)\nOtimizações de código da calculadora\nPapel correto dos estados estatais para JSON",
-        "nl": "IoBRoker.FlexCarts toegevoegd - JSON\nUpdate Tibber -API naar 5.2.1 - Herk over verouderde gegevens bij als standaard, verwijder de optie\nBereken outputjson voorafgaand aan het tijdsbestek voor kanalen van het type 'BestsingleHours', 'BestHourSblock', 'BestPerCentage', 'BestCost' en hun LTF -varianten (#592)\nOutputjson en outputjson2 toevoegen voor 'SmartBatteryBuffer' -kanalen (#592)\nOptimalisaties van calculatorcode\ncorrecte rol van statistieken staten aan JSON",
-        "fr": "Ajout d'iobroker.flexCharts - JSON\nMettez à jour Tibber-API à 5.2.1 - Gérez les données obsolètes par défaut, supprimez l'option\nCalculez OutputJson avant le délai pour les canaux de type «bestsinglehours», «besthoursblock», «bestpercentage», «bestcost» et leurs variantes LTF (# 592)\nAjouter OutputJson et Outputjson2 pour les canaux «SmartBatteryBuffer» (# 592)\nOptimisations du code de la calculatrice\nRôle correct des états de statistiques à JSON",
-        "it": "Aggiunto IoBroker.FlexCharts - JSON\nAggiorna Tibber -API su 5.2.1 - Gestisci i dati obsoleti come predefinito, rimuovi l'opzione\nCalcola outputjson prima del lasso di tempo per i canali di tipo \"bestinglehours\", \"bestoursblock\", \"bestpercentage\", \"bestcost\" e le loro varianti LTF (#592)\nAggiungi outputjson e outputjson2 per i canali \"SmartBatteryBuffer\" (#592)\nOttimizzazioni del codice calcolatore\nRuolo corretto degli stati delle statistiche a JSON",
-        "es": "Se agregó iobroker.flexCharts - JSON\nActualizar Tibber -API a 5.2.1: maneje los datos obsoletos como predeterminado, eliminar la opción\nCalcule la salida de salida antes del marco de tiempo para canales de tipo 'bestsinglehours', 'bestHourSblock', 'bestpergcentage', 'bestcost' y sus variantes LTF (#592)\nAgregue OutputJson y Outputjson2 para los canales 'SmartBatteryBuffer' (#592)\nOptimizaciones del código de calculadora\nRol de estadísticas correcto a JSON",
-        "pl": "Dodano Iobres.flexcharts - JSON\nZaktualizuj TIBBER -API do 5.2.1 - Obsługuj przestarzałe dane jako domyślne, usuń opcję\nOblicz OutputJson przed ramkami dla kanałów typu „bestsinglehours”, „besthoursblock”, „bestpercentage”, „bestcost” i ich warianty LTF (#592)\nDodaj OutputJson i OutputJson2 dla kanałów „SmartBatteryBuffer” (#592)\nOptymalizacje kodu kalkulatora\nPrawidłowa rola stanów statystyk do JSON",
-        "uk": "Додано iobroker.flexcharts - json\nОновіть tibber -api до 5.2.1 - обробіть застарілі дані як за замовчуванням, видаляти опцію\nОбчисліть OutputJson перед часовими рамками для каналів типу \"BestSingleHours\", \"BestHoursBlock\", \"BestPercentage\", \"BestCost\" та їх варіанти LTF (#592)\nДодайте outputJson і OutputJson2 для каналів \"smartbatterybuffer\" (№ 592)\nОптимізація коду калькулятора\nПравильна роль статистики держави для JSON",
-        "zh-cn": "添加了iobroker.flexcharts -json\n将tibber -api更新为5.2.1-将过时数据处理为默认，删除选项\n计算“ BestsingleHours”，“ BestHoursBlock”，“ BestPercentage”，“ BestCost”及其LTF变体的类型频道之前计算outperjson的时间范围（＃592）\n为“ smartbatterybuffer”频道添加outputjson和outputjson2（＃592）\n计算器代码优化\n统计数据对JSON的正确作用"
       }
     },
     "messages": [

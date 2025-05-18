@@ -160,7 +160,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### **WORK IN PROGRESS**
+### 4.5.4 (2025-05-18)
 
 - (HombachC) fix special cases of local export value (#704)
 - (HombachC) remove tests for node.js 18
@@ -192,14 +192,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) rearrange calculator channels in configuration
 - (HombachC) improve debugging messages, code optimisations
 - (HombachC) fix 2 errors in enable/disable FlexCharts
-
-### 4.4.0 (2025-03-01)
-
-- (HombachC) add generation time cutoffs for graph outputs (#643)
-- (HombachC) set admin to minimum 7.4.10 as recommended by ioBroker (#651)
-- (HombachC) Code optimisations, preparations to switch to ESM module
-- (HombachC) bump cron to 4.x.x (#648)
-- (HombachC) bump axios from 1.8.x (#664)
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
