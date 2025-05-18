@@ -129,7 +129,7 @@ export class TibberAPICaller extends ProjectUtils {
 				// update remaining average
 				if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
 					const exDateToday: Date = new Date(pricesToday[2].startsAt);
-					if (now.getDate == exDateToday.getDate) {
+					if (now.getDate() == exDateToday.getDate()) {
 						this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
 					}
 				}

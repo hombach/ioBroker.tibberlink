@@ -162,8 +162,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
-- (HombachC) Fix edge case with local export values (#704)
+- (HombachC) fix special cases of local export value (#704)
 - (HombachC) remove tests for node.js 18
+- (HombachC) optimize asynchron code
 
 ### 4.5.3 (2025-05-17)
 

@@ -160,8 +160,8 @@ class Tibberlink extends utils.Adapter {
                 }
             }
             if (this.homeInfoList.length === 0) {
-                this.log.warn(`Got no homes in your account - probably by a Tibber Server Error - adapter restarts in 2 minutes`);
-                await this.delay(2 * 60 * 1000);
+                this.log.warn(`Got no homes in your account - probably by a Tibber Server Error - adapter restarts in 5 minutes`);
+                await this.delay(5 * 60000);
                 this.restart();
             }
             if (this.homeInfoList.length > 0) {
@@ -192,8 +192,8 @@ class Tibberlink extends utils.Adapter {
                             okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
                             this.log.debug(`Cron job CurrentPrice - okPrice: ${okPrice}`);
                         } while (!okPrice);
-                        void tibberCalculator.startCalculatorTasks();
                         void tibberAPICaller.updateConsumptionAllHomes();
+                        await tibberCalculator.startCalculatorTasks();
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,

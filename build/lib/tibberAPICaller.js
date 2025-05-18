@@ -72,7 +72,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 }
                 if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
                     const exDateToday = new Date(pricesToday[2].startsAt);
-                    if (now.getDate == exDateToday.getDate) {
+                    if (now.getDate() == exDateToday.getDate()) {
                         this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
                     }
                 }

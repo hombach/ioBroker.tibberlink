@@ -19,9 +19,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
     }
     setupOnePulseLocal(pulse) {
         try {
-            if (this.adapter.config.PulseList[pulse].puName === undefined) {
-                this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
-            }
+            this.adapter.config.PulseList[pulse].puName ??= `Pulse Local`;
             const interval = this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval;
             if (interval === undefined || interval === null || isNaN(interval) || interval < 1000) {
                 this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval = 2000;
@@ -82,7 +80,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                 }
             }
             else {
-                this.adapter.log.error(`RUNNING IN TEST MODE`);
+                this.adapter.log.error(`tibberLocal RUNNING IN TEST MODE`);
                 const parsedMessages = void this.extractAndParseSMLMessages(0, this.TestData);
                 this.adapter.log.warn(`Parsed messages from test data ${parsedMessages}`);
             }

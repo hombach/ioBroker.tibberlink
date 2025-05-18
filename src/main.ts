@@ -158,8 +158,8 @@ class Tibberlink extends utils.Adapter {
 
 			// if no homeIDs available - adapter can't do that much and restarts
 			if (this.homeInfoList.length === 0) {
-				this.log.warn(`Got no homes in your account - probably by a Tibber Server Error - adapter restarts in 2 minutes`);
-				await this.delay(2 * 60 * 1000);
+				this.log.warn(`Got no homes in your account - probably by a Tibber Server Error - adapter restarts in 5 minutes`);
+				await this.delay(5 * 60000);
 				this.restart();
 			}
 
@@ -191,7 +191,7 @@ class Tibberlink extends utils.Adapter {
 				void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 
 				const jobCurrentPrice = CronJob.from({
-					cronTime: "20 57 * * * *", //"20 58 * * * *" = 2 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
+					cronTime: "20 57 * * * *", //"20 57 * * * *" = 3 minutes before 00:00:20 jede Stunde => 00:01:20 - 00:03:20
 					onTick: async () => {
 						let okPrice = false;
 						do {
@@ -199,8 +199,8 @@ class Tibberlink extends utils.Adapter {
 							okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
 							this.log.debug(`Cron job CurrentPrice - okPrice: ${okPrice}`);
 						} while (!okPrice);
-						void tibberCalculator.startCalculatorTasks();
 						void tibberAPICaller.updateConsumptionAllHomes();
+						await tibberCalculator.startCalculatorTasks(); // WiP 4.5.4
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
