@@ -160,6 +160,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- (HombachC) WiP
+
 ### 4.5.3 (2025-05-17)
 
 - (HombachC) optimize shutdown-logic (#707)
