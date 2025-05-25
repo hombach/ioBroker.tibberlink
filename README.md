@@ -160,6 +160,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- (HombachC) BREAKING: dropped node.js 18 support
+- (HombachC) update tibber-api
+
 ### 4.5.4 (2025-05-18)
 
 - (HombachC) fix special cases of local export value (#704)
