@@ -162,7 +162,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
-- (HombachC) BREAKING: dropped node.js 18 support
+- (HombachC) BREAKING: dropped node.js 18 support (#703)
+- (HombachC) BREAKING: dropped js-controller 5 support (#703)
 - (HombachC) update tibber-api
 
 ### 4.5.4 (2025-05-18)
