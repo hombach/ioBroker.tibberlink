@@ -160,7 +160,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
-### **WORK IN PROGRESS**
+### 5.0.0 (2025-05-30)
 
 - (HombachC) BREAKING: dropped node.js 18 support (#703)
 - (HombachC) BREAKING: dropped js-controller 5 support (#703)
@@ -191,13 +191,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) fix not visible SBB LTF output 2 (#681)
 - (HombachC) enable JSON5 parsing starting with admin 7.5.3
 - (HombachC) fix vulnerability in axios <1.8.2 (#673)
-
-### 4.5.0 (2025-03-05)
-
-- (HombachC) add calculator channel 'smart battery buffer LTF' (#668)
-- (HombachC) rearrange calculator channels in configuration
-- (HombachC) improve debugging messages, code optimisations
-- (HombachC) fix 2 errors in enable/disable FlexCharts
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

@@ -18,6 +18,13 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 4.5.0 (2025-03-05)
+
+- (HombachC) add calculator channel 'smart battery buffer LTF' (#668)
+- (HombachC) rearrange calculator channels in configuration
+- (HombachC) improve debugging messages, code optimisations
+- (HombachC) fix 2 errors in enable/disable FlexCharts
+
 ### 4.4.0 (2025-03-01)
 
 - (HombachC) add generation time cutoffs for graph outputs (#643)
