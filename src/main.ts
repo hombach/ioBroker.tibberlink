@@ -125,19 +125,32 @@ class Tibberlink extends utils.Adapter {
 			// sentry.io ping
 			if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
 				const sentryInstance = this.getPluginInstance("sentry");
-				const today = new Date();
-				const last = await this.getStateAsync("info.LastSentryLogDay");
 				const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
 
-				// Verify if 3 or more days in the past
-				if ((Number(last?.val) || 0) < today.getDate() + 3) {
+				// Fetch the last logged day from state
+				const last = await this.getStateAsync("info.LastSentryLogDay");
+				const lastDay = Number(last?.val) || 0;
+				const today = new Date();
+				const todayDay = today.getDate();
+
+				// Check if a month transition has occurred (today < lastDay, e.g., today 1, last 31)
+				const isMonthTransition = todayDay < lastDay;
+
+				// If no month transition, check normal difference
+				// If month transition, check if difference is >= 3 days
+				if (
+					(!isMonthTransition && lastDay < todayDay + 3) || // Normal case: same month
+					(isMonthTransition && todayDay + 30 - lastDay >= 3) // Month transition: rough estimate
+				) {
+					// Verify if 3 or more days in the past
+					//WiP 5.0.0 if ((Number(last?.val) || 0) < today.getDate() + 3) {
 					this.tibberCalculator.updateCalculatorUsageStats();
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
 						Sentry &&
 							Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void }) => {
 								scope.setLevel("info");
-								scope.setTag("SentryDay", today.getDate());
+								scope.setTag("SentryDay", todayDay);
 								scope.setTag("HomeIDs", this.homeInfoList.length);
 								scope.setTag("LocalPulse", pulseLocal);
 								scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
@@ -152,7 +165,7 @@ class Tibberlink extends utils.Adapter {
 								Sentry.captureMessage("Adapter TibberLink started", "info");
 							});
 					}
-					void this.setState("info.LastSentryLogDay", { val: today.getDate(), ack: true });
+					void this.setState("info.LastSentryLogDay", { val: todayDay, ack: true });
 				}
 			}
 

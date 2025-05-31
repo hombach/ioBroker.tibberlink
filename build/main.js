@@ -131,17 +131,21 @@ class Tibberlink extends utils.Adapter {
             }
             if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
                 const sentryInstance = this.getPluginInstance("sentry");
-                const today = new Date();
-                const last = await this.getStateAsync("info.LastSentryLogDay");
                 const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
-                if ((Number(last?.val) || 0) < today.getDate() + 3) {
+                const last = await this.getStateAsync("info.LastSentryLogDay");
+                const lastDay = Number(last?.val) || 0;
+                const today = new Date();
+                const todayDay = today.getDate();
+                const isMonthTransition = todayDay < lastDay;
+                if ((!isMonthTransition && lastDay < todayDay + 3) ||
+                    (isMonthTransition && todayDay + 30 - lastDay >= 3)) {
                     this.tibberCalculator.updateCalculatorUsageStats();
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
                         Sentry &&
                             Sentry.withScope((scope) => {
                                 scope.setLevel("info");
-                                scope.setTag("SentryDay", today.getDate());
+                                scope.setTag("SentryDay", todayDay);
                                 scope.setTag("HomeIDs", this.homeInfoList.length);
                                 scope.setTag("LocalPulse", pulseLocal);
                                 scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
@@ -156,7 +160,7 @@ class Tibberlink extends utils.Adapter {
                                 Sentry.captureMessage("Adapter TibberLink started", "info");
                             });
                     }
-                    void this.setState("info.LastSentryLogDay", { val: today.getDate(), ack: true });
+                    void this.setState("info.LastSentryLogDay", { val: todayDay, ack: true });
                 }
             }
             if (this.homeInfoList.length === 0) {
