@@ -143,7 +143,6 @@ class Tibberlink extends utils.Adapter {
 					(isMonthTransition && todayDay + 30 - lastDay >= 3) // Month transition: rough estimate
 				) {
 					// Verify if 3 or more days in the past
-					//WiP 5.0.0 if ((Number(last?.val) || 0) < today.getDate() + 3) {
 					this.tibberCalculator.updateCalculatorUsageStats();
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
@@ -165,7 +164,7 @@ class Tibberlink extends utils.Adapter {
 								Sentry.captureMessage("Adapter TibberLink started", "info");
 							});
 					}
-					void this.setState("info.LastSentryLogDay", { val: todayDay, ack: true });
+					await this.setState("info.LastSentryLogDay", { val: todayDay, ack: true });
 				}
 			}
 

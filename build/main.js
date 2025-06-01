@@ -160,7 +160,7 @@ class Tibberlink extends utils.Adapter {
                                 Sentry.captureMessage("Adapter TibberLink started", "info");
                             });
                     }
-                    void this.setState("info.LastSentryLogDay", { val: todayDay, ack: true });
+                    await this.setState("info.LastSentryLogDay", { val: todayDay, ack: true });
                 }
             }
             if (this.homeInfoList.length === 0) {
