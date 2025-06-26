@@ -160,6 +160,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+### **WORK IN PROGRESS**
+
+- (HombachC) add decoder for IMSys
+
 ### 5.0.0 (2025-05-30)
 
 - (HombachC) BREAKING: dropped node.js 18 support (#703)
