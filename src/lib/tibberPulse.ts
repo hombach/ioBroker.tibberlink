@@ -159,40 +159,52 @@ export class TibberPulse extends ProjectUtils {
 				"Latest consumption meter state",
 				"kWh",
 			);
-			void this.checkAndSetValueNumber(
-				`${basePath}.accumulatedConsumption`,
-				Math.round(1000 * liveMeasurement.accumulatedConsumption) / 1000,
-				"Energy consumed since midnight",
-				"kWh",
-			);
-			void this.checkAndSetValueNumber(
-				`${basePath}.accumulatedProduction`,
-				Math.round(1000 * liveMeasurement.accumulatedProduction) / 1000,
-				"Energy feed into grid since midnight",
-				"kWh",
-			);
-			void this.checkAndSetValueNumber(
-				`${basePath}.accumulatedConsumptionLastHour`,
-				Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour) / 1000,
-				"Energy consumed since since last hour shift",
-				"kWh",
-			);
-			void this.checkAndSetValueNumber(
-				`${basePath}.accumulatedProductionLastHour`,
-				Math.round(1000 * liveMeasurement.accumulatedProductionLastHour) / 1000,
-				"Energy produced since last hour shift",
-				"kWh",
-			);
-			void this.checkAndSetValueNumber(
-				`${basePath}.accumulatedCost`,
-				liveMeasurement.accumulatedCost,
-				"Accumulated cost since midnight; requires active Tibber power deal",
-			);
-			void this.checkAndSetValueNumber(
-				`${basePath}.accumulatedReward`,
-				liveMeasurement.accumulatedReward,
-				"Accumulated reward since midnight; requires active Tibber power deal",
-			);
+			if (this.adapter.config.FeedConfigAccumulatedConsumption) {
+				void this.checkAndSetValueNumber(
+					`${basePath}.accumulatedConsumption`,
+					Math.round(1000 * liveMeasurement.accumulatedConsumption) / 1000,
+					"Energy consumed since midnight",
+					"kWh",
+				);
+			}
+			if (this.adapter.config.FeedConfigAccumulatedProduction) {
+				void this.checkAndSetValueNumber(
+					`${basePath}.accumulatedProduction`,
+					Math.round(1000 * liveMeasurement.accumulatedProduction) / 1000,
+					"Energy feed into grid since midnight",
+					"kWh",
+				);
+			}
+			if (this.adapter.config.FeedConfigAccumulatedConsumptionLastHour) {
+				void this.checkAndSetValueNumber(
+					`${basePath}.accumulatedConsumptionLastHour`,
+					Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour) / 1000,
+					"Energy consumed since since last hour shift",
+					"kWh",
+				);
+			}
+			if (this.adapter.config.FeedConfigAccumulatedProductionLastHour) {
+				void this.checkAndSetValueNumber(
+					`${basePath}.accumulatedProductionLastHour`,
+					Math.round(1000 * liveMeasurement.accumulatedProductionLastHour) / 1000,
+					"Energy produced since last hour shift",
+					"kWh",
+				);
+			}
+			if (this.adapter.config.FeedConfigAccumulatedCost) {
+				void this.checkAndSetValueNumber(
+					`${basePath}.accumulatedCost`,
+					liveMeasurement.accumulatedCost,
+					"Accumulated cost since midnight; requires active Tibber power deal",
+				);
+			}
+			if (this.adapter.config.FeedConfigAccumulatedReward) {
+				void this.checkAndSetValueNumber(
+					`${basePath}.accumulatedReward`,
+					liveMeasurement.accumulatedReward,
+					"Accumulated reward since midnight; requires active Tibber power deal",
+				);
+			}
 			void this.checkAndSetValue(`${basePath}.currency`, liveMeasurement.currency, "Currency of displayed cost; requires active Tibber power deal");
 			void this.checkAndSetValueNumber(`${basePath}.minPower`, liveMeasurement.minPower, "Min consumption since midnight", "W");
 			void this.checkAndSetValueNumber(`${basePath}.averagePower`, liveMeasurement.averagePower, "Average consumption since midnight", "W");
