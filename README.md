@@ -162,7 +162,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
-- (HombachC) add decoder for IMSys
+- (HombachC) add decoder for EMH eHZB IMSys
 
 ### 5.0.0 (2025-05-30)
 
