@@ -164,6 +164,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) add decoder for EMH eHZB IMSys
 - (HombachC) remove creation of not feeded states
+- (HombachC) fixed typo in error message (#731)
+- (HombachC) bump dependencies
 
 ### 5.0.0 (2025-05-30)
 
