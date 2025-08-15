@@ -271,6 +271,7 @@ class Tibberlink extends utils.Adapter {
                         try {
                             tibberFeedConfigs[index].homeId = homeInfo.ID;
                             tibberFeedConfigs[index].power = true;
+                            tibberFeedConfigs[index].powerProduction = true;
                             if (this.config.FeedConfigLastMeterConsumption) {
                                 tibberFeedConfigs[index].lastMeterConsumption = true;
                             }
@@ -303,9 +304,6 @@ class Tibberlink extends utils.Adapter {
                             }
                             if (this.config.FeedConfigMaxPower) {
                                 tibberFeedConfigs[index].maxPower = true;
-                            }
-                            if (this.config.FeedConfigPowerProduction) {
-                                tibberFeedConfigs[index].powerProduction = true;
                             }
                             if (this.config.FeedConfigMinPowerProduction) {
                                 tibberFeedConfigs[index].minPowerProduction = true;
