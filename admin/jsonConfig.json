@@ -311,6 +311,7 @@
 					"xl": 4,
 					"newLine": true
 				},
+
 				"FeedConfigMinPowerProduction": {
 					"type": "checkbox",
 					"noTranslation": true,
@@ -320,7 +321,8 @@
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
-					"xl": 4
+					"xl": 4,
+					"newLine": true
 				},
 				"FeedConfigMaxPowerProduction": {
 					"type": "checkbox",
@@ -333,7 +335,6 @@
 					"lg": 4,
 					"xl": 4
 				},
-
 				"FeedConfigPowerFactor": {
 					"type": "checkbox",
 					"noTranslation": true,
@@ -343,9 +344,9 @@
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
-					"xl": 4,
-					"newLine": true
+					"xl": 4
 				},
+
 				"FeedConfigSignalStrength": {
 					"type": "checkbox",
 					"noTranslation": true,
@@ -355,7 +356,8 @@
 					"sm": 12,
 					"md": 6,
 					"lg": 4,
-					"xl": 4
+					"xl": 4,
+					"newLine": true
 				},
 
 				"_phases": {

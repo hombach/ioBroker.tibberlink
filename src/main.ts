@@ -294,9 +294,9 @@ class Tibberlink extends utils.Adapter {
 							// define the fields for datafeed
 							tibberFeedConfigs[index].homeId = homeInfo.ID;
 							tibberFeedConfigs[index].power = true;
-							if (this.config.FeedConfigPowerProduction) {
-								tibberFeedConfigs[index].powerProduction = true;
-							}
+							//5.0.1 remove - if (this.config.FeedConfigPowerProduction) {
+							tibberFeedConfigs[index].powerProduction = true;
+							//5.0.1 remove - }
 
 							if (this.config.FeedConfigLastMeterConsumption) {
 								tibberFeedConfigs[index].lastMeterConsumption = true;

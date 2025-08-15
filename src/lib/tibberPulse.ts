@@ -210,9 +210,9 @@ export class TibberPulse extends ProjectUtils {
 			void this.checkAndSetValueNumber(`${basePath}.averagePower`, liveMeasurement.averagePower, "Average consumption since midnight", "W");
 			void this.checkAndSetValueNumber(`${basePath}.maxPower`, liveMeasurement.maxPower, "Peak consumption since midnight", "W");
 			void this.checkAndSetValueNumber(`${basePath}.powerConsumption`, liveMeasurement.power, "Net consumption (A+) at the moment", "W");
-			if (this.adapter.config.FeedConfigPowerProduction) {
-				void this.checkAndSetValueNumber(`${basePath}.powerProduction`, liveMeasurement.powerProduction, "Net grid feed-in (A-) at the moment", "W");
-			}
+			//5.0.1 remove - if (this.adapter.config.FeedConfigPowerProduction) {
+			void this.checkAndSetValueNumber(`${basePath}.powerProduction`, liveMeasurement.powerProduction, "Net grid feed-in (A-) at the moment", "W");
+			//5.0.1 remove - }
 			void this.checkAndSetValueNumber(`${basePath}.minPowerProduction`, liveMeasurement.minPowerProduction, "Min net grid feed-in since midnight", "W");
 			void this.checkAndSetValueNumber(`${basePath}.maxPowerProduction`, liveMeasurement.maxPowerProduction, "Max net grid feed-in since midnight", "W");
 			void this.checkAndSetValueNumber(

@@ -171,6 +171,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) remove creation of not feeded states
 - (HombachC) fix typo in error message (#731)
 - (HombachC) fix vulnerability
+- (HombachC) change power production to be polled by default (#721)
 - (HombachC) bump dependencies
 
 ### 5.0.0 (2025-05-30)
