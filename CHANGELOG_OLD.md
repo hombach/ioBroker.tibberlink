@@ -18,6 +18,13 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 4.5.1 (2025-03-23)
+
+- (HombachC) fix Smart Battery Buffer JSON2 (#676)
+- (HombachC) fix not visible SBB LTF output 2 (#681)
+- (HombachC) enable JSON5 parsing starting with admin 7.5.3
+- (HombachC) fix vulnerability in axios <1.8.2 (#673)
+
 ### 4.5.0 (2025-03-05)
 
 - (HombachC) add calculator channel 'smart battery buffer LTF' (#668)
@@ -104,7 +111,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) fix error in calculator channel 'best single hours' (#594)
 - (HombachC) intruduce 'iobroker/eslint-config' (#591)
 - (HombachC) performance optimizations
-- (HombachC) dependency updates
 
 ### 3.5.3 (2024-11-23)
 
@@ -113,7 +119,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) update deprecated state calls
 - (HombachC) add await to delObjectAsync
 - (HombachC) harmonize project tools
-- (HombachC) dependency updates
 
 ### 3.5.2 (2024-10-30)
 
@@ -129,14 +134,12 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) changed to less feed disconnection warnings in log (#445)
 - (HombachC) fix error in output2 of smart battery buffer (#538)
 - (HombachC) update deprecated state calls
-- (HombachC) dependency updates
 
 ### 3.5.0 (2024-10-02)
 
 - (HombachC) update adapter core
 - (HombachC) fix error in SML decoder
 - (HombachC) add 2 new SML scale factor codes (#535)
-- (HombachC) dependency updates
 
 ### 3.4.10 (2024-09-16)
 
@@ -149,7 +152,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) add node.js 22 to the adapter testing (#519)
 - (HombachC) add docu link to config screen (#504)
 - (HombachC) repository cleanup
-- (HombachC) dependency updates
 
 ### 3.4.8 (2024-08-16)
 
@@ -173,7 +175,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) fixed wrong Pulse local status names (voltage)
 - (HombachC) add docu on local Pulse poll config screen (#479)
 - (HombachC) code cleanup
-- (HombachC) bump dependencies
 
 ### 3.4.4 (2024-07-28)
 
@@ -187,7 +188,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) added state with Pulse uptime as human readable string
 - (HombachC) reinitialize some TibberLocal states upon adapter startup
 - (HombachC) code optimisation
-- (HombachC) bump dependencies
 
 ### 3.4.2 (2024-07-13)
 
@@ -198,7 +198,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 ### 3.4.1 (2024-07-13)
 
 - (HombachC) fix logging error
-- (HombachC) bump dependencies
 
 ### 3.4.0 (2024-07-12)
 
@@ -232,7 +231,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 ### 3.2.0 (2024-06-03)
 
 - (HombachC) IMPORTANT: adapter components had been blocked by Tibber - you have to update!
-- (HombachC) bump base dependencies
 - (HombachC) adapter will use internal output states for calculator if none defined in configuration (#325)
 - (HombachC) implement first run mode in calculator to reduce system load
 - (HombachC) internal optimisations
@@ -240,7 +238,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 ### 3.1.2 (2024-05-20)
 
 - (HombachC) deleting unused temp home objects after adapter config (#393)
-- (HombachC) bump dependencies
 
 ### 3.1.1 (2024-05-16)
 
@@ -254,12 +251,10 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) fix not working LTF Channel when using too short LTF (#383)
 - (HombachC) code optimisations
 - (HombachC) update adapter-core to 3.1.4
-- (HombachC) bump dependencies
 
 ### 3.0.1 (2024-04-20)
 
 - (HombachC) updated adapter testing
-- (HombachC) bump dependencies
 
 ### 3.0.0 (2024-04-15)
 
@@ -276,7 +271,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) fix undefined force mode (#349)
 - (HombachC) fix poll of not existing current price state (#348)
 - (HombachC) fix current price poll when configured as not to poll (#350)
-- (HombachC) bump dependencies
 
 ### 2.3.1 (2024-03-10)
 
@@ -284,7 +278,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) Fixed error in jsonConfig.json (#329)
 - (HombachC) deleted feed disconnect debug-message, cause warn message already exists
 - (HombachC) bump typescript-eslint to gen 7
-- (HombachC) bump dependencies
 
 ### 2.2.2 (2024-02-19)
 
@@ -296,7 +289,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 ### 2.2.1 (2024-02-08)
 
 - (HombachC) fix edge case problems with defect feed data from Tibber server (#312)
-- (HombachC) bump dependencies
 
 ### 2.2.0 (2024-02-04)
 
@@ -304,7 +296,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) fixed wrong error message texts
 - (HombachC) fix some possible edge cases in internal support functions
 - (HombachC) internal code docu optimization
-- (HombachC) bump dependencies
 
 ### 2.1.1 (2024-01-27)
 
@@ -320,7 +311,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 ### 2.0.1 (2024-01-15)
 
 - (HombachC) modify timing in Tibber Pulse feed connect (#271)
-- (HombachC) bump dependencies
 
 ### 2.0.0 (2023-12-23)
 
@@ -330,7 +320,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) add 2 data points for last successfull update of today and tomorrow prices (#261)
 - (HombachC) year 2024 changes
 - (HombachC) fix small error in dynamic feed timing
-- (HombachC) bump dependencies
 
 ### 1.8.1 (2023-12-16)
 
@@ -355,7 +344,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) added hint for consumption data in documentation (#223)
 - (HombachC) mitigate error handling (#217)
 - (HombachC) added description to object Features/RealTimeConsumptionEnabled (#224)
-- (HombachC) bump dependencies
 
 ### 1.7.0 (2023-11-30)
 
@@ -377,7 +365,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) added some documentation for inverse use of channels (#202)
 - (HombachC) added Sentry statistics
 - (HombachC) optimize translation handling
-- (HombachC) bump dependencies
 
 ### 1.5.0 (2023-11-13)
 
@@ -393,7 +380,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) change state object description of production values (#167)
 - (HombachC) optimize pulse feed error message in case of error as object (#176)
 - (HombachC) preparations for calculator object names (#186)
-- (HombachC) bump dependencies
 
 ### 1.4.2 (2023-11-03)
 
@@ -538,7 +524,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ### 0.1.8 (2023-08-12)
 
-- (HombachC) bump dev-dependencies, fix eslint/prettier issue
+- (HombachC) fix eslint/prettier issue
 
 ### 0.1.7 (2023-08-11)
 

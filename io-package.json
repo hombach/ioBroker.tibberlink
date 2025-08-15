@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "5.0.0",
+    "version": "5.0.1",
     "news": {
+      "5.0.1": {
+        "en": "add decoder for EMH eHZB IMSys\nremove creation of not feeded states\nfix typo in error message (#731)\nfix vulnerability\nchange power production to be polled by default (#721)\nbump dependencies",
+        "de": "dekoder für EMH eHZB IMSys hinzufügen\ndie schaffung nicht gefütterter staaten entfernen\nfix typo in fehlermeldung (#731)\nfehlerbehebung\nänderung der stromproduktion, die standardmäßig abgefragt werden soll (#721)\nbumpabhängigkeiten",
+        "ru": "добавить декодер для EMH eHZB IMSys\nустранить создание некормленных государств\nисправить опечатку в сообщении об ошибке (#731)\nисправить уязвимость\nизменение производства электроэнергии для голосования по умолчанию (#721)\nбамп зависимости",
+        "pt": "adicionar decodificador para EMH eHZB IMSys\nremover a criação de estados não alimentados\ncorrigir erro na mensagem de erro (# 731)\ncorrigir vulnerabilidade\nmudar a produção de energia a ser pesquisada por padrão (# 721)\ndependências de colisão",
+        "nl": "decoder toevoegen voor EMH eHZB IMSys\nhet aanmaken van niet-gevoede staten verwijderen\nfix typefout in foutmelding (#731)\nkwetsbaarheid herstellen\nde stroomproductie moet standaard worden ondervraagd (#721)\nbump afhankelijkheden",
+        "fr": "ajouter un décodeur pour EMH eHZB IMSys\nsupprimer la création d'états non nourris\ncorrection du typo dans le message d'erreur (#731)\nfixer la vulnérabilité\nmodifier la production d'électricité à sonder par défaut (#721)\ndépendances des bosses",
+        "it": "aggiungere decoder per EMH eHZB IMSys\nrimuovere la creazione di stati non alimentati\ncorrezione del tipo nel messaggio di errore (#731)\ncorrezione della vulnerabilità\nmodifica la produzione di potenza da inquinare per impostazione predefinita (#721)\nindipendenza urto",
+        "es": "añadir decodificador para EMH eHZB IMSys\neliminar la creación de estados no alimentados\nfix typo in error message (#731)\ncorrección de vulnerabilidad\ncambiar la producción de potencia para ser encuestado por defecto (#721)\ndependencia de los gastos",
+        "pl": "dodaj dekoder dla EMH eHZB IMSys\nusunięcie tworzenia państw, które nie zostały objęte zwolnieniem\nfix typo w komunikacie błędu (# 731)\nnaprawić podatność\nzmiana produkcji energii, która ma być sprawdzana domyślnie (# 721)\nuzależnienia od guza",
+        "uk": "додати декодер для EMH eHZB IMSys\nвидалення створення негодованих держав\nфіксувати типо повідомлення про помилку (#731)\nвиправити вразливість\nзмінити виробництво електроенергії, щоб бути опитані за замовчуванням (#721)\nbump залежності",
+        "zh-cn": "为 EMH eHZB IMSys 添加解码器\n删除未种子状态的创建\n在错误消息中修正类型 (# 731)\n消除脆弱性\n变电生产默认进行投票(# 721)\n意外依赖"
+      },
       "5.0.0": {
         "en": "BREAKING: dropped node.js 18 support (#703)\nBREAKING: dropped js-controller 5 support (#703)\nadd tests for node.js 24 (#717)",
         "de": "BREAKING: drop node.js 18 support (#703)\nBREAKING: Dropd js-controller 5 Unterstützung (#703)\ntests für node.js 24 hinzufügen (#717)",
@@ -80,19 +93,6 @@
         "pl": "dodaj kanał kalkulatora 'smart bateria bufor LTF' (# 668)\nprzegrupowanie kanałów kalkulacyjnych w konfiguracji\nulepszenie komunikatów debugujących, optymalizacja kodów\nnaprawić 2 błędy w włącza / wyłącza FlexCharts",
         "uk": "додати калькулятор канал \"розумний буфер батареї LTF\" (#668)\nрезервний калькулятор каналів в конфігурації\nпокращувати повідомлення про відключення, оптимізація коду\nвиправити 2 помилки у ввімкненні / відключені FlexCharts",
         "zh-cn": "添加计算通道“ 智能电池缓冲 LTF” (# 668)\n配置中的重排计算通道\n改进调试信件、 代码优化\n修正启用/ 残缺的弹性图中的 2 个错误"
-      },
-      "4.4.0": {
-        "en": "add generation time cutoffs for graph outputs (#643)\nset admin to minimum 7.4.10 as recommended by ioBroker (#651)\nCode optimisations, preparations to switch to ESM module\nbump cron to 4.x.x (#648)\nbump axios from 1.8.x (#664)",
-        "de": "erzeugungszeitabschaltungen für graphausgänge hinzufügen (#643)\nset admin to minimum 7.4.10 wie von ioBroker empfohlen (#651)\nCode-Optimierungen, Vorbereitungen zum ESM-Modul\nbump cron zu 4.x.x (#648)\nstoßaxios von 1.8.x (#664)",
-        "ru": "добавить временные ограничения генерации для выводов графов (#643)\nустановить админ до минимума 7.4.10, как рекомендовано ioBroker (#651)\nОптимизация кода, подготовка к переходу на модуль ESM\nbump cron to 4.x.x (#648)\nбамп аксиос от 1.8.x (#664)",
-        "pt": "adicionar cortes de tempo de geração para saídas de gráficos (#643)\nset admin to minimal 7.4.10 como recomendado por ioBroker (#651)\nOtimizações de código, preparações para mudar para o módulo ESM\ncron de choque para 4.x.x (#648)\naxios de choque de 1.8.x (#664)",
-        "nl": "aanmaaktijd voor grafiekuitvoeren toevoegen (#643)\nstel de toediening op minimum 7.4.10 zoals aanbevolen door ioBroker (#651)\nCodeoptimalisaties, voorbereidingen om over te stappen op ESM-module\nbump cron naar 4.x.x (#648)\nbump axios van 1.8.x (#664)",
-        "fr": "ajouter des seuils de temps de génération pour les sorties graphiques (#643)\ndéfinir admin au minimum 7.4.10 comme recommandé par ioBroker (#651)\nOptimisations du code, préparations pour passer au module MES\ncron de bosse à 4.x.x (#648)\naxios de bosse de 1,8.x (#664)",
-        "it": "aggiungere tempi di generazione per le uscite dei grafici (#643)\nimpostare admin al minimo 7.4.10 come raccomandato da ioBroker (#651)\nOttimizzazione del codice, preparati per passare al modulo ESM\nurto cron a 4.x.x (#648)\nparaurti da 1.8.x (#664)",
-        "es": "añadir cortes de tiempo de generación para salidas de gráficos (#643)\nset admin al mínimo 7.4.10 como recomendado por ioBroker (#651)\nOptimizaciones de código, preparaciones para cambiar al módulo ESM\nparachoques cron a 4.x.x (#648)\naxios de protuberancia de 1.8.x (#664)",
-        "pl": "dodaj skróty czasu generacji dla wyjść graficznych (# 643)\nustawić admin na minimum 7.4.10 zgodnie z zaleceniami jOBrokera (# 651)\nOptymalizacja kodu, przygotowania do przejścia na moduł ESM\nbump cron do 4.x.x (# 648)\naxios bump od 1.8.x (# 664)",
-        "uk": "додавати час відключення покоління для графічних виходів (#643)\nвстановити admin до мінімуму 7.4.10 як рекомендується ioBroker (#651)\nОптимізація коду, підготовка до переходу до модуля ESM\nenglish, українська, français..\nbump axios від 1.8.x (#664)",
-        "zh-cn": "添加图形输出的生成时间截止(# 643)\n根据ioBroker(# 651)的建议,将管理设置到最低点7.4.10\n守则优化,准备切换到无害环境管理模块\n凸至4.x.x(# 648)\n从 1.8.x (# 664) 的凸起轴"
       }
     },
     "messages": [

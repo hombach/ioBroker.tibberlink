@@ -165,7 +165,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 5.0.1 (2025-08-15)
 
 - (HombachC) add decoder for EMH eHZB IMSys
 - (HombachC) remove creation of not feeded states
@@ -198,13 +198,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) bump dependencies
 - (HombachC) add statevalue range to projectUtils
 - (HombachC) code optimizations
-
-### 4.5.1 (2025-03-23)
-
-- (HombachC) fix Smart Battery Buffer JSON2 (#676)
-- (HombachC) fix not visible SBB LTF output 2 (#681)
-- (HombachC) enable JSON5 parsing starting with admin 7.5.3
-- (HombachC) fix vulnerability in axios <1.8.2 (#673)
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
