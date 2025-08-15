@@ -30,7 +30,6 @@ declare global {
 			FeedConfigMinPower: boolean;
 			FeedConfigAveragePower: boolean;
 			FeedConfigMaxPower: boolean;
-			FeedConfigPowerProduction: boolean;
 			FeedConfigMinPowerProduction: boolean;
 			FeedConfigMaxPowerProduction: boolean;
 			FeedConfigLastMeterProduction: boolean;

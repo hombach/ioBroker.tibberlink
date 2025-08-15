@@ -299,19 +299,6 @@
 					"xl": 4
 				},
 
-				"FeedConfigPowerProduction": {
-					"type": "checkbox",
-					"noTranslation": true,
-					"label": "PowerProduction",
-					"hidden": "!data.TibberAPIToken",
-					"xs": 12,
-					"sm": 12,
-					"md": 6,
-					"lg": 4,
-					"xl": 4,
-					"newLine": true
-				},
-
 				"FeedConfigMinPowerProduction": {
 					"type": "checkbox",
 					"noTranslation": true,
