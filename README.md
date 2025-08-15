@@ -160,11 +160,17 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ## Changelog
 
+<!--
+  Placeholder for the next version (at the beginning of the line):
+  ### **WORK IN PROGRESS**
+-->
+
 ### **WORK IN PROGRESS**
 
 - (HombachC) add decoder for EMH eHZB IMSys
 - (HombachC) remove creation of not feeded states
-- (HombachC) fixed typo in error message (#731)
+- (HombachC) fix typo in error message (#731)
+- (HombachC) fix vulnerability
 - (HombachC) bump dependencies
 
 ### 5.0.0 (2025-05-30)
