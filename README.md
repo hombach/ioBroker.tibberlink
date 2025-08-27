@@ -167,6 +167,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) update adapter-core
 - (HombachC) bump dependencies
 
 ### 5.0.1 (2025-08-15)
