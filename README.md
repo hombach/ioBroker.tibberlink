@@ -164,8 +164,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 5.0.2 (2025-08-29)
 
 - (HombachC) min admin 7.6.17 as recommended (#754)
 - (HombachC) update adapter-core
@@ -198,13 +197,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) optimize shutdown-logic (#707)
 - (HombachC) update tibber-api
 - (HombachC) bump dependencies
-
-### 4.5.2 (2025-04-18)
-
-- (HombachC) fix jsonConfig error (#686)
-- (HombachC) bump dependencies
-- (HombachC) add statevalue range to projectUtils
-- (HombachC) code optimizations
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

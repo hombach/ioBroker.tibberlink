@@ -18,6 +18,12 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 4.5.2 (2025-04-18)
+
+- (HombachC) fix jsonConfig error (#686)
+- (HombachC) add statevalue range to projectUtils
+- (HombachC) code optimizations
+
 ### 4.5.1 (2025-03-23)
 
 - (HombachC) fix Smart Battery Buffer JSON2 (#676)
@@ -56,10 +62,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) add outputJSON and outputJSON2 for 'SmartBatteryBuffer' channels (#592)
 - (HombachC) calculator and projectUtils code optimizations
 - (HombachC) correct role of stats states to json
-
-### 4.2.3 (2025-01-14)
-
-- (HombachC) bump cron to 3.5
 
 ### 4.2.3 (2025-01-14)
 
