@@ -167,6 +167,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) min admin 7.6.17 as recommended
 - (HombachC) update adapter-core
 - (HombachC) bump typescript
 - (HombachC) bump dependencies

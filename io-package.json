@@ -1,294 +1,278 @@
 {
-  "common": {
-    "name": "tibberlink",
-    "version": "5.0.1",
-    "news": {
-      "5.0.1": {
-        "en": "add decoder for EMH eHZB IMSys\nremove creation of not feeded states\nfix typo in error message (#731)\nfix vulnerability\nchange power production to be polled by default (#721)\nbump dependencies",
-        "de": "dekoder für EMH eHZB IMSys hinzufügen\ndie schaffung nicht gefütterter staaten entfernen\nfix typo in fehlermeldung (#731)\nfehlerbehebung\nänderung der stromproduktion, die standardmäßig abgefragt werden soll (#721)\nbumpabhängigkeiten",
-        "ru": "добавить декодер для EMH eHZB IMSys\nустранить создание некормленных государств\nисправить опечатку в сообщении об ошибке (#731)\nисправить уязвимость\nизменение производства электроэнергии для голосования по умолчанию (#721)\nбамп зависимости",
-        "pt": "adicionar decodificador para EMH eHZB IMSys\nremover a criação de estados não alimentados\ncorrigir erro na mensagem de erro (# 731)\ncorrigir vulnerabilidade\nmudar a produção de energia a ser pesquisada por padrão (# 721)\ndependências de colisão",
-        "nl": "decoder toevoegen voor EMH eHZB IMSys\nhet aanmaken van niet-gevoede staten verwijderen\nfix typefout in foutmelding (#731)\nkwetsbaarheid herstellen\nde stroomproductie moet standaard worden ondervraagd (#721)\nbump afhankelijkheden",
-        "fr": "ajouter un décodeur pour EMH eHZB IMSys\nsupprimer la création d'états non nourris\ncorrection du typo dans le message d'erreur (#731)\nfixer la vulnérabilité\nmodifier la production d'électricité à sonder par défaut (#721)\ndépendances des bosses",
-        "it": "aggiungere decoder per EMH eHZB IMSys\nrimuovere la creazione di stati non alimentati\ncorrezione del tipo nel messaggio di errore (#731)\ncorrezione della vulnerabilità\nmodifica la produzione di potenza da inquinare per impostazione predefinita (#721)\nindipendenza urto",
-        "es": "añadir decodificador para EMH eHZB IMSys\neliminar la creación de estados no alimentados\nfix typo in error message (#731)\ncorrección de vulnerabilidad\ncambiar la producción de potencia para ser encuestado por defecto (#721)\ndependencia de los gastos",
-        "pl": "dodaj dekoder dla EMH eHZB IMSys\nusunięcie tworzenia państw, które nie zostały objęte zwolnieniem\nfix typo w komunikacie błędu (# 731)\nnaprawić podatność\nzmiana produkcji energii, która ma być sprawdzana domyślnie (# 721)\nuzależnienia od guza",
-        "uk": "додати декодер для EMH eHZB IMSys\nвидалення створення негодованих держав\nфіксувати типо повідомлення про помилку (#731)\nвиправити вразливість\nзмінити виробництво електроенергії, щоб бути опитані за замовчуванням (#721)\nbump залежності",
-        "zh-cn": "为 EMH eHZB IMSys 添加解码器\n删除未种子状态的创建\n在错误消息中修正类型 (# 731)\n消除脆弱性\n变电生产默认进行投票(# 721)\n意外依赖"
-      },
-      "5.0.0": {
-        "en": "BREAKING: dropped node.js 18 support (#703)\nBREAKING: dropped js-controller 5 support (#703)\nadd tests for node.js 24 (#717)",
-        "de": "BREAKING: drop node.js 18 support (#703)\nBREAKING: Dropd js-controller 5 Unterstützung (#703)\ntests für node.js 24 hinzufügen (#717)",
-        "ru": "Скачать node.js 18 support (#703)\nСкачать js-контроллер 5 (#703)\nдобавить тесты для node.js 24 (#717)",
-        "pt": "BREAKING: caiu node.js 18 apoio (#703)\nBREAKING: suporte lançado js-controller 5 (#703)\nadicionar testes para node.js 24 (#717)",
-        "nl": "Breaking: gedaald node.js 18 ondersteuning (#703)\nBreaking: dropped js-controller 5 support (#703)\ntests voor node.js 24 (#717) toevoegen",
-        "fr": "BREAKING: Lâche le support node.js 18 (#703)\nBREAKING: support js-controller 5 abandonné (#703)\najouter des tests pour node.js 24 (#717)",
-        "it": "BREAKING: supporto n° 18 caduto (#703)\nBREAKING: supporto js-controller 5 (#703)\naggiungere test per node.js 24 (#717)",
-        "es": "BREAKING: drop node.js 18 support (#703)\nBREAKING: soporte lanzado js-controller 5 (#703)\nañadir pruebas para node.js 24 (#717)",
-        "pl": "BREAKING: upuszczony node.js 18 wsparcia (# 703)\nBREAKING: upuszczony kontroler js- 5 wsparcia (# 703)\ndodać testy dla node.js 24 (# 717)",
-        "uk": "BREAKING: скидати node.js 18 support (#703)\nBREAKING: скидати js-controller 5 підтримки (#703)\njavascript licenses api веб-сайт go1.13.8",
-        "zh-cn": "中断: 放弃了节点.js 18支持(#703)\n中断 : 放弃 js 控制器 5 支持 (# 703)\n添加节点24(# 717) 的测试"
-      },
-      "4.5.4": {
-        "en": "fix special cases of local export value (#704)\nremove tests for node.js 18\noptimize asynchron code",
-        "de": "sonderfälle des lokalen exportwerts festsetzen (#704)\ntests für node.js 18 entfernen\nasynchron-code optimieren",
-        "ru": "фиксировать особые случаи местной экспортной стоимости (#704)\nудалить тесты для node.js 18\nоптимизация асинхронного кода",
-        "pt": "corrigir casos especiais de valor de exportação local (#704)\nremover testes para node.js 18\notimizar o código de assíncrono",
-        "nl": "vast te stellen bijzondere gevallen van lokale uitvoerwaarde (#704)\ntest voor node.js 18 verwijderen\nasynchroncode optimaliseren",
-        "fr": "fixer des cas particuliers de valeur à l'exportation locale (#704)\nsupprimer les tests pour node.js 18\noptimiser le code asynchrone",
-        "it": "fissare casi speciali di valore di esportazione locale (#704)\nrimuovere i test per node.js 18\nottimizzare il codice asincrono",
-        "es": "fijar casos especiales de valor de exportación local (#704)\neliminar las pruebas para node.js 18\noptimizar el código asincrónico",
-        "pl": "ustalić specjalne przypadki o lokalnej wartości eksportowej (# 704)\nusunąć testy na node.js 18\noptymalizacja kodu asynchronu",
-        "uk": "виправити спеціальні випадки місцевого експортного значення (#704)\nвидалити тести для node.js 18\nоптимізація коду asynchron",
-        "zh-cn": "固定本地出口值的特殊情况(# 704)\n取消节点测试。 js 18\n优化同步代码"
-      },
-      "4.5.3": {
-        "en": "optimize shutdown-logic (#707)\nupdate tibber-api\nbump dependencies",
-        "de": "optimierte abschaltlogik (#707)\naktualisierung tibber-api\nbumpabhängigkeiten",
-        "ru": "оптимизация логики отключения (#707)\nобновление tibber-api\nбамп зависимости",
-        "pt": "otimizar o desligamento-lógico (#707)\natualizar tibber-api\ndependências de choque",
-        "nl": "optimalisatie shutdown-logic (#707)\ntibber-api bijwerken\nbump afhankelijkheden",
-        "fr": "optimiser l'arrêt-logique (#707)\nmettre à jour le tibber-api\ndépendances des bosses",
-        "it": "ottimizzare shutdown-logic (#707)\naggiornamento tibber-api\nindipendenza urto",
-        "es": "optimización de cierre-lógica (#707)\nactualización tibber-api\ndependencia de los gastos",
-        "pl": "optymalizacja logiki zamykania (# 707)\nupdate tibber- api\nuzależnienia od guza",
-        "uk": "оптимізація відключення (#707)\nоновлення tibber-api\nbump залежності",
-        "zh-cn": "优化关闭日志(# 707)\n更新 - api\n意外依赖"
-      },
-      "4.5.2": {
-        "en": "fix jsonConfig error (#686)\nbump dependencies\nadd statevalue range to projectUtils\ncode optimizations",
-        "de": "jsonConfig-Fehler beheben (#686)\nbumpabhängigkeiten\nzustandswertbereich zum Projekt hinzufügen Utils\ncodeoptimierungen",
-        "ru": "исправление ошибки jsonConfig (#686)\nбамп зависимости\nдобавить диапазон значений состояния в проект утиль\nоптимизация кода",
-        "pt": "corrigir erro jsonConfig (#686)\ndependências de choque\nadicionar intervalo de valor de estado ao projeto Utilidades\notimizações de código",
-        "nl": "fix jsonConfig fout (#686)\nbump afhankelijkheden\nstatuswaardebereik toevoegen aan project Utils\ncode optimalisaties",
-        "fr": "correction de l'erreur jsonConfig (#686)\ndépendances des bosses\najouter une plage de valeur d'état au projet Utilisation\noptimisation des codes",
-        "it": "correzione errore jsonConfig (#686)\nindipendenza urto\naggiungere la gamma di valore di stato al progetto Utili\nottimizzazioni del codice",
-        "es": "error jsonConfig (#686)\ndependencia de los gastos\nañadir rango de valor estatal al proyecto Utils\noptimizaciones de código",
-        "pl": "naprawić błąd jsonConfig (# 686)\nuzależnienia od guza\ndodaj zakres stanu do projektu Przyrządy\noptymalizacja kodu",
-        "uk": "виправлено помилку(#686)\nbump залежності\nдодати діапазон державного значення для проекту Утили\nоптимізація коду",
-        "zh-cn": "修复jsonconfig 错误 (# 686)\n意外依赖\n为工程添加状态值范围 UTIs 数字\n代码优化"
-      },
-      "4.5.1": {
-        "en": "fix Smart Battery Buffer JSON2 (#676)\nfix not visible SBB LTF output 2 (#681)\nenable JSON5 parsing starting with admin 7.5.3\nfix vulnerability in axios <1.8.2 (#673)",
-        "de": "smart Battery Buffer JSON2 reparieren (#676)\nnicht sichtbare SBB LTF Ausgabe 2 (#681)\njSON5 Parsing ab admin 7.5.3 aktivieren\nschwachstelle in axios <1.8.2 (#673) beheben",
-        "ru": "ремонт Smart Battery Buffer JSON2 (#676)\nне видимый выход SBB LTF 2 (#681)\nвключить JSON5 парсинг, начиная с admin 7.5.3\nисправление уязвимости в аксиосе <1.8.2 (#673)",
-        "pt": "corrigir o amortecedor de bateria inteligente JSON2 (#676)\ncorrigir não visível saída SBB LTF 2 (#681)\nativar a análise JSON5 começando com admin 7.5.3\ncorrigir vulnerabilidade no axios <1.8.2 (#673)",
-        "nl": "fix Smart Battery Buffer JSON2 (#676)\nfix niet zichtbaar SBB LTF uitgang 2 (#681)\nlaat JSON5 ontleden beginnend met admin 7.5.3\nfix kwetsbaarheid in axio's <1,8.2 (#673)",
-        "fr": "correction du tampon de batterie intelligent JSON2 (#676)\ncorrection non visible CFF LTF sortie 2 (#681)\nactive l'analyse JSON5 en commençant par admin 7.5.3\ncorriger la vulnérabilité dans axios <1.8.2 (#673)",
-        "it": "fix Smart Battery Buffer JSON2 (#676)\nfix non visibile uscita SBB LTF 2 (#681)\nabilitare la parsing JSON5 a partire da admin 7.5.3\ncorreggere la vulnerabilità nell'assios <1.8.2 (#673)",
-        "es": "fijación Smart Battery Buffer JSON2 (#676)\nfijación no visible SBB LTF salida 2 (#681)\nhabilitar JSON5 paresing empezando con admin 7.5.3\nfijar vulnerabilidad en axios",
-        "pl": "fix Smart Battery Buffer JSON2 (# 676)\nniewidoczne wyjście SBB LTF 2 (# 681)\nwłączyć parsowanie JSON5 zaczynając od admin 7.5.3\nfix wrażliwość w osiach < 1.8.2 (# 673)",
-        "uk": "виправити Смарт Батарея JSON2 (#676)\nне видно SBB LTF вихід 2 (#681)\nувімкніть JSON5 пароізоляція від адміністратора 7.5.3\nвиправити вразливість в axios <1.8.2 (#673)",
-        "zh-cn": "修复智能电池缓冲 JSON2(# 676)\n固定不可见的 SBB LTF 输出 2 (# 681)\n启用 JSON5 解析程序,从 admin 7.5.3 开始\n在轴中固定脆弱性 < 1.8.2 (# 673)"
-      },
-      "4.5.0": {
-        "en": "add calculator channel 'smart battery buffer LTF' (#668)\nrearrange calculator channels in configuration\nimprove debugging messages, code optimisations\nfix 2 errors in enable/disable FlexCharts",
-        "de": "hinzufügen von Rechnerkanal 'smart Akkupuffer LTF' (#668)\nNeuanordnung Rechnerkanäle in Konfiguration\nVerbesserung von Debugging-Nachrichten, Code Optimierungen\n2 Fehler in Aktivieren/Deaktivieren von FlexCharts behoben",
-        "ru": "добавить калькуляторный канал «умный аккумуляторный буфер LTF» (#668)\nпереставлять каналы калькулятора в конфигурации\nулучшение отладки сообщений, оптимизация кода\nисправить 2 ошибки при включении/отключении FlexCharts",
-        "pt": "adicionar calculadora canal 'smart bateria buffer LTF' (#668)\ncanais de calculadora de rearranjo na configuração\nmelhorar mensagens de depuração, otimizações de código\ncorrigir 2 erros em ativar/desativar FlexCharts",
-        "nl": "calculatorkanaal 'slimme batterijbuffer LTF' toevoegen (#668)\ncalculatorkanalen herschikken in configuratie\ndebugberichten verbeteren, codeoptimalisaties\nfix 2 fouten in in-/uitschakelen FlexCharts",
-        "fr": "ajouter le canal calculatrice 'Smart batterie tampon LTF' (#668)\nréorganiser les canaux calculateurs en configuration\naméliorer le débogage des messages, l'optimisation des codes\ncorriger 2 erreurs dans les FlexCharts activés/désactivables",
-        "it": "aggiungere il canale calcolatrice 'Smart Battery buffer LTF' (#668)\nriordinare i canali di calcolo in configurazione\nmigliorare i messaggi di debug, ottimizzazioni dei codici\ncorreggere 2 errori in abilitare / disabilitare FlexCharts",
-        "es": "añadir canal de calculadora 'smart batería buffer LTF' (#668)\ncanales de cálculo de reorganización en configuración\nmejorar mensajes de depuración, optimizaciones de código\ncorregir 2 errores en FlexCharts habilitados",
-        "pl": "dodaj kanał kalkulatora 'smart bateria bufor LTF' (# 668)\nprzegrupowanie kanałów kalkulacyjnych w konfiguracji\nulepszenie komunikatów debugujących, optymalizacja kodów\nnaprawić 2 błędy w włącza / wyłącza FlexCharts",
-        "uk": "додати калькулятор канал \"розумний буфер батареї LTF\" (#668)\nрезервний калькулятор каналів в конфігурації\nпокращувати повідомлення про відключення, оптимізація коду\nвиправити 2 помилки у ввімкненні / відключені FlexCharts",
-        "zh-cn": "添加计算通道“ 智能电池缓冲 LTF” (# 668)\n配置中的重排计算通道\n改进调试信件、 代码优化\n修正启用/ 残缺的弹性图中的 2 个错误"
-      }
-    },
-    "messages": [
-      {
-        "condition": {
-          "operand": "and",
-          "rules": [
-            "oldVersion<2.3.0",
-            "newVersion>=2.3.0"
-          ]
-        },
-        "title": {
-          "en": "Important notice!",
-          "de": "Wichtiger Hinweis!",
-          "ru": "Важное замечание!",
-          "pt": "Notícia importante!",
-          "nl": "Belangrijke mededeling!",
-          "fr": "Avis important!",
-          "it": "Avviso IMPORTANTE!",
-          "es": "Noticia importante!",
-          "pl": "Ważna uwaga!",
-          "uk": "Погода!",
-          "zh-cn": "重要通知!"
-        },
-        "text": {
-          "en": "The behavior of the adapter has changed! Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false.",
-          "de": "Das Verhalten des Adapters hat sich geändert! Rechnerkanäle des Typs 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde.",
-          "ru": "Поведение адаптера изменилось! Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false.",
-          "pt": "O comportamento do adaptador mudou! Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false.",
-          "nl": "Het gedrag van de adapter is veranderd! Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false.",
-          "fr": "Le comportement de l'adaptateur a changé ! Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false.",
-          "it": "Il comportamento dell'adattatore è cambiato! I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false.",
-          "es": "¡El comportamiento del adaptador ha cambiado! Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false.",
-          "pl": "Zachowanie adaptera zmieniło się! Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false.",
-          "uk": "Поведінка адаптера змінилась! Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false.",
-          "zh-cn": "适配器行为已更改！'智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭”。"
-        },
-        "level": "warn",
-        "buttons": [
-          "agree",
-          "cancel"
-        ]
-      }
-    ],
-    "titleLang": {
-      "en": "Tibber Link",
-      "de": "Tibber Link",
-      "ru": "Тиббер Ссылка",
-      "pt": "Tibber Link",
-      "nl": "Tibber Link",
-      "fr": "Tibber Link",
-      "it": "Tibber Link",
-      "es": "Tibber Link",
-      "pl": "Tibber Link",
-      "uk": "Посилання",
-      "zh-cn": "网络联系"
-    },
-    "desc": {
-      "en": "Links Tibber API data to be used in ioBroker",
-      "de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
-      "ru": "Ссылки на данные Tibber API для использования в ioBroker",
-      "pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
-      "nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
-      "fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
-      "it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
-      "es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
-      "pl": "Łączy dane z API Tibber do użycia w ioBroker",
-      "uk": "Посилання на дані Tibber API для використання в ioBroker",
-      "zh-cn": "连接Tibber API数据以在ioBroker中使用"
-    },
-    "authors": [
-      "Hombach <TibberLink@homba.ch>"
-    ],
-    "keywords": [
-      "power",
-      "energy",
-      "Tibber"
-    ],
-    "licenseInformation": {
-      "license": "GPL-3.0-only",
-      "type": "free"
-    },
-    "platform": "Javascript/Node.js",
-    "icon": "tibberlink.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
-    "readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
-    "loglevel": "info",
-    "tier": 2,
-    "mode": "daemon",
-    "messagebox": true,
-    "allowInit": true,
-    "type": "energy",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=6.0.11"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=7.4.10"
-      }
-    ],
-    "plugins": {
-      "sentry": {
-        "dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
-      }
-    }
-  },
-  "encryptedNative": [
-    "TibberAPIToken"
-  ],
-  "protectedNative": [
-    "TibberAPIToken"
-  ],
-  "native": {
-    "TibberAPIToken": "",
-    "HomesList": [
-      {
-        "feedActive": "false",
-        "priceDataPollActive": "true",
-        "homeID": "None available - restart adapter after entering token",
-        "statsActive": "false",
-        "numberConsHourly": 24,
-        "numberConsDaily": 7,
-        "numberConsWeekly": 4,
-        "numberConsMonthly": 4,
-        "numberConsAnnual": 2
-      }
-    ],
-    "CalculatorList": [
-      {
-        "chHomeID": "None available - restart adapter after entering token",
-        "chType": "best cost",
-        "chName": "Channel Name",
-        "chActive": "false",
-        "chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
-        "chValueOn": "true",
-        "chValueOff": "false",
-        "chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
-        "chValueOn2": "true",
-        "chValueOff2": "false"
-      }
-    ],
-    "PulseList": [
-      {
-        "puName": "Pulse Local",
-        "tibberBridgeUrl": "tibber-host",
-        "tibberBridgePassword": "xxxx-xxxx",
-        "tibberPulseLocalNodeId": 1,
-        "tibberBridgeRawDataInterval": 2000
-      }
-    ]
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Information"
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "role": "indicator.connected",
-        "name": "Device or service connected",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.LastSentryLogDay",
-      "type": "state",
-      "common": {
-        "role": "value",
-        "name": "Last day of month for Sentry log",
-        "type": "number",
-        "unit": "",
-        "read": true,
-        "write": false,
-        "def": 0
-      },
-      "native": {}
-    }
-  ]
+	"common": {
+		"name": "tibberlink",
+		"version": "5.0.1",
+		"news": {
+			"5.0.1": {
+				"en": "add decoder for EMH eHZB IMSys\nremove creation of not feeded states\nfix typo in error message (#731)\nfix vulnerability\nchange power production to be polled by default (#721)\nbump dependencies",
+				"de": "dekoder für EMH eHZB IMSys hinzufügen\ndie schaffung nicht gefütterter staaten entfernen\nfix typo in fehlermeldung (#731)\nfehlerbehebung\nänderung der stromproduktion, die standardmäßig abgefragt werden soll (#721)\nbumpabhängigkeiten",
+				"ru": "добавить декодер для EMH eHZB IMSys\nустранить создание некормленных государств\nисправить опечатку в сообщении об ошибке (#731)\nисправить уязвимость\nизменение производства электроэнергии для голосования по умолчанию (#721)\nбамп зависимости",
+				"pt": "adicionar decodificador para EMH eHZB IMSys\nremover a criação de estados não alimentados\ncorrigir erro na mensagem de erro (# 731)\ncorrigir vulnerabilidade\nmudar a produção de energia a ser pesquisada por padrão (# 721)\ndependências de colisão",
+				"nl": "decoder toevoegen voor EMH eHZB IMSys\nhet aanmaken van niet-gevoede staten verwijderen\nfix typefout in foutmelding (#731)\nkwetsbaarheid herstellen\nde stroomproductie moet standaard worden ondervraagd (#721)\nbump afhankelijkheden",
+				"fr": "ajouter un décodeur pour EMH eHZB IMSys\nsupprimer la création d'états non nourris\ncorrection du typo dans le message d'erreur (#731)\nfixer la vulnérabilité\nmodifier la production d'électricité à sonder par défaut (#721)\ndépendances des bosses",
+				"it": "aggiungere decoder per EMH eHZB IMSys\nrimuovere la creazione di stati non alimentati\ncorrezione del tipo nel messaggio di errore (#731)\ncorrezione della vulnerabilità\nmodifica la produzione di potenza da inquinare per impostazione predefinita (#721)\nindipendenza urto",
+				"es": "añadir decodificador para EMH eHZB IMSys\neliminar la creación de estados no alimentados\nfix typo in error message (#731)\ncorrección de vulnerabilidad\ncambiar la producción de potencia para ser encuestado por defecto (#721)\ndependencia de los gastos",
+				"pl": "dodaj dekoder dla EMH eHZB IMSys\nusunięcie tworzenia państw, które nie zostały objęte zwolnieniem\nfix typo w komunikacie błędu (# 731)\nnaprawić podatność\nzmiana produkcji energii, która ma być sprawdzana domyślnie (# 721)\nuzależnienia od guza",
+				"uk": "додати декодер для EMH eHZB IMSys\nвидалення створення негодованих держав\nфіксувати типо повідомлення про помилку (#731)\nвиправити вразливість\nзмінити виробництво електроенергії, щоб бути опитані за замовчуванням (#721)\nbump залежності",
+				"zh-cn": "为 EMH eHZB IMSys 添加解码器\n删除未种子状态的创建\n在错误消息中修正类型 (# 731)\n消除脆弱性\n变电生产默认进行投票(# 721)\n意外依赖"
+			},
+			"5.0.0": {
+				"en": "BREAKING: dropped node.js 18 support (#703)\nBREAKING: dropped js-controller 5 support (#703)\nadd tests for node.js 24 (#717)",
+				"de": "BREAKING: drop node.js 18 support (#703)\nBREAKING: Dropd js-controller 5 Unterstützung (#703)\ntests für node.js 24 hinzufügen (#717)",
+				"ru": "Скачать node.js 18 support (#703)\nСкачать js-контроллер 5 (#703)\nдобавить тесты для node.js 24 (#717)",
+				"pt": "BREAKING: caiu node.js 18 apoio (#703)\nBREAKING: suporte lançado js-controller 5 (#703)\nadicionar testes para node.js 24 (#717)",
+				"nl": "Breaking: gedaald node.js 18 ondersteuning (#703)\nBreaking: dropped js-controller 5 support (#703)\ntests voor node.js 24 (#717) toevoegen",
+				"fr": "BREAKING: Lâche le support node.js 18 (#703)\nBREAKING: support js-controller 5 abandonné (#703)\najouter des tests pour node.js 24 (#717)",
+				"it": "BREAKING: supporto n° 18 caduto (#703)\nBREAKING: supporto js-controller 5 (#703)\naggiungere test per node.js 24 (#717)",
+				"es": "BREAKING: drop node.js 18 support (#703)\nBREAKING: soporte lanzado js-controller 5 (#703)\nañadir pruebas para node.js 24 (#717)",
+				"pl": "BREAKING: upuszczony node.js 18 wsparcia (# 703)\nBREAKING: upuszczony kontroler js- 5 wsparcia (# 703)\ndodać testy dla node.js 24 (# 717)",
+				"uk": "BREAKING: скидати node.js 18 support (#703)\nBREAKING: скидати js-controller 5 підтримки (#703)\njavascript licenses api веб-сайт go1.13.8",
+				"zh-cn": "中断: 放弃了节点.js 18支持(#703)\n中断 : 放弃 js 控制器 5 支持 (# 703)\n添加节点24(# 717) 的测试"
+			},
+			"4.5.4": {
+				"en": "fix special cases of local export value (#704)\nremove tests for node.js 18\noptimize asynchron code",
+				"de": "sonderfälle des lokalen exportwerts festsetzen (#704)\ntests für node.js 18 entfernen\nasynchron-code optimieren",
+				"ru": "фиксировать особые случаи местной экспортной стоимости (#704)\nудалить тесты для node.js 18\nоптимизация асинхронного кода",
+				"pt": "corrigir casos especiais de valor de exportação local (#704)\nremover testes para node.js 18\notimizar o código de assíncrono",
+				"nl": "vast te stellen bijzondere gevallen van lokale uitvoerwaarde (#704)\ntest voor node.js 18 verwijderen\nasynchroncode optimaliseren",
+				"fr": "fixer des cas particuliers de valeur à l'exportation locale (#704)\nsupprimer les tests pour node.js 18\noptimiser le code asynchrone",
+				"it": "fissare casi speciali di valore di esportazione locale (#704)\nrimuovere i test per node.js 18\nottimizzare il codice asincrono",
+				"es": "fijar casos especiales de valor de exportación local (#704)\neliminar las pruebas para node.js 18\noptimizar el código asincrónico",
+				"pl": "ustalić specjalne przypadki o lokalnej wartości eksportowej (# 704)\nusunąć testy na node.js 18\noptymalizacja kodu asynchronu",
+				"uk": "виправити спеціальні випадки місцевого експортного значення (#704)\nвидалити тести для node.js 18\nоптимізація коду asynchron",
+				"zh-cn": "固定本地出口值的特殊情况(# 704)\n取消节点测试。 js 18\n优化同步代码"
+			},
+			"4.5.3": {
+				"en": "optimize shutdown-logic (#707)\nupdate tibber-api\nbump dependencies",
+				"de": "optimierte abschaltlogik (#707)\naktualisierung tibber-api\nbumpabhängigkeiten",
+				"ru": "оптимизация логики отключения (#707)\nобновление tibber-api\nбамп зависимости",
+				"pt": "otimizar o desligamento-lógico (#707)\natualizar tibber-api\ndependências de choque",
+				"nl": "optimalisatie shutdown-logic (#707)\ntibber-api bijwerken\nbump afhankelijkheden",
+				"fr": "optimiser l'arrêt-logique (#707)\nmettre à jour le tibber-api\ndépendances des bosses",
+				"it": "ottimizzare shutdown-logic (#707)\naggiornamento tibber-api\nindipendenza urto",
+				"es": "optimización de cierre-lógica (#707)\nactualización tibber-api\ndependencia de los gastos",
+				"pl": "optymalizacja logiki zamykania (# 707)\nupdate tibber- api\nuzależnienia od guza",
+				"uk": "оптимізація відключення (#707)\nоновлення tibber-api\nbump залежності",
+				"zh-cn": "优化关闭日志(# 707)\n更新 - api\n意外依赖"
+			},
+			"4.5.2": {
+				"en": "fix jsonConfig error (#686)\nbump dependencies\nadd statevalue range to projectUtils\ncode optimizations",
+				"de": "jsonConfig-Fehler beheben (#686)\nbumpabhängigkeiten\nzustandswertbereich zum Projekt hinzufügen Utils\ncodeoptimierungen",
+				"ru": "исправление ошибки jsonConfig (#686)\nбамп зависимости\nдобавить диапазон значений состояния в проект утиль\nоптимизация кода",
+				"pt": "corrigir erro jsonConfig (#686)\ndependências de choque\nadicionar intervalo de valor de estado ao projeto Utilidades\notimizações de código",
+				"nl": "fix jsonConfig fout (#686)\nbump afhankelijkheden\nstatuswaardebereik toevoegen aan project Utils\ncode optimalisaties",
+				"fr": "correction de l'erreur jsonConfig (#686)\ndépendances des bosses\najouter une plage de valeur d'état au projet Utilisation\noptimisation des codes",
+				"it": "correzione errore jsonConfig (#686)\nindipendenza urto\naggiungere la gamma di valore di stato al progetto Utili\nottimizzazioni del codice",
+				"es": "error jsonConfig (#686)\ndependencia de los gastos\nañadir rango de valor estatal al proyecto Utils\noptimizaciones de código",
+				"pl": "naprawić błąd jsonConfig (# 686)\nuzależnienia od guza\ndodaj zakres stanu do projektu Przyrządy\noptymalizacja kodu",
+				"uk": "виправлено помилку(#686)\nbump залежності\nдодати діапазон державного значення для проекту Утили\nоптимізація коду",
+				"zh-cn": "修复jsonconfig 错误 (# 686)\n意外依赖\n为工程添加状态值范围 UTIs 数字\n代码优化"
+			},
+			"4.5.1": {
+				"en": "fix Smart Battery Buffer JSON2 (#676)\nfix not visible SBB LTF output 2 (#681)\nenable JSON5 parsing starting with admin 7.5.3\nfix vulnerability in axios <1.8.2 (#673)",
+				"de": "smart Battery Buffer JSON2 reparieren (#676)\nnicht sichtbare SBB LTF Ausgabe 2 (#681)\njSON5 Parsing ab admin 7.5.3 aktivieren\nschwachstelle in axios <1.8.2 (#673) beheben",
+				"ru": "ремонт Smart Battery Buffer JSON2 (#676)\nне видимый выход SBB LTF 2 (#681)\nвключить JSON5 парсинг, начиная с admin 7.5.3\nисправление уязвимости в аксиосе <1.8.2 (#673)",
+				"pt": "corrigir o amortecedor de bateria inteligente JSON2 (#676)\ncorrigir não visível saída SBB LTF 2 (#681)\nativar a análise JSON5 começando com admin 7.5.3\ncorrigir vulnerabilidade no axios <1.8.2 (#673)",
+				"nl": "fix Smart Battery Buffer JSON2 (#676)\nfix niet zichtbaar SBB LTF uitgang 2 (#681)\nlaat JSON5 ontleden beginnend met admin 7.5.3\nfix kwetsbaarheid in axio's <1,8.2 (#673)",
+				"fr": "correction du tampon de batterie intelligent JSON2 (#676)\ncorrection non visible CFF LTF sortie 2 (#681)\nactive l'analyse JSON5 en commençant par admin 7.5.3\ncorriger la vulnérabilité dans axios <1.8.2 (#673)",
+				"it": "fix Smart Battery Buffer JSON2 (#676)\nfix non visibile uscita SBB LTF 2 (#681)\nabilitare la parsing JSON5 a partire da admin 7.5.3\ncorreggere la vulnerabilità nell'assios <1.8.2 (#673)",
+				"es": "fijación Smart Battery Buffer JSON2 (#676)\nfijación no visible SBB LTF salida 2 (#681)\nhabilitar JSON5 paresing empezando con admin 7.5.3\nfijar vulnerabilidad en axios",
+				"pl": "fix Smart Battery Buffer JSON2 (# 676)\nniewidoczne wyjście SBB LTF 2 (# 681)\nwłączyć parsowanie JSON5 zaczynając od admin 7.5.3\nfix wrażliwość w osiach < 1.8.2 (# 673)",
+				"uk": "виправити Смарт Батарея JSON2 (#676)\nне видно SBB LTF вихід 2 (#681)\nувімкніть JSON5 пароізоляція від адміністратора 7.5.3\nвиправити вразливість в axios <1.8.2 (#673)",
+				"zh-cn": "修复智能电池缓冲 JSON2(# 676)\n固定不可见的 SBB LTF 输出 2 (# 681)\n启用 JSON5 解析程序,从 admin 7.5.3 开始\n在轴中固定脆弱性 < 1.8.2 (# 673)"
+			},
+			"4.5.0": {
+				"en": "add calculator channel 'smart battery buffer LTF' (#668)\nrearrange calculator channels in configuration\nimprove debugging messages, code optimisations\nfix 2 errors in enable/disable FlexCharts",
+				"de": "hinzufügen von Rechnerkanal 'smart Akkupuffer LTF' (#668)\nNeuanordnung Rechnerkanäle in Konfiguration\nVerbesserung von Debugging-Nachrichten, Code Optimierungen\n2 Fehler in Aktivieren/Deaktivieren von FlexCharts behoben",
+				"ru": "добавить калькуляторный канал «умный аккумуляторный буфер LTF» (#668)\nпереставлять каналы калькулятора в конфигурации\nулучшение отладки сообщений, оптимизация кода\nисправить 2 ошибки при включении/отключении FlexCharts",
+				"pt": "adicionar calculadora canal 'smart bateria buffer LTF' (#668)\ncanais de calculadora de rearranjo na configuração\nmelhorar mensagens de depuração, otimizações de código\ncorrigir 2 erros em ativar/desativar FlexCharts",
+				"nl": "calculatorkanaal 'slimme batterijbuffer LTF' toevoegen (#668)\ncalculatorkanalen herschikken in configuratie\ndebugberichten verbeteren, codeoptimalisaties\nfix 2 fouten in in-/uitschakelen FlexCharts",
+				"fr": "ajouter le canal calculatrice 'Smart batterie tampon LTF' (#668)\nréorganiser les canaux calculateurs en configuration\naméliorer le débogage des messages, l'optimisation des codes\ncorriger 2 erreurs dans les FlexCharts activés/désactivables",
+				"it": "aggiungere il canale calcolatrice 'Smart Battery buffer LTF' (#668)\nriordinare i canali di calcolo in configurazione\nmigliorare i messaggi di debug, ottimizzazioni dei codici\ncorreggere 2 errori in abilitare / disabilitare FlexCharts",
+				"es": "añadir canal de calculadora 'smart batería buffer LTF' (#668)\ncanales de cálculo de reorganización en configuración\nmejorar mensajes de depuración, optimizaciones de código\ncorregir 2 errores en FlexCharts habilitados",
+				"pl": "dodaj kanał kalkulatora 'smart bateria bufor LTF' (# 668)\nprzegrupowanie kanałów kalkulacyjnych w konfiguracji\nulepszenie komunikatów debugujących, optymalizacja kodów\nnaprawić 2 błędy w włącza / wyłącza FlexCharts",
+				"uk": "додати калькулятор канал \"розумний буфер батареї LTF\" (#668)\nрезервний калькулятор каналів в конфігурації\nпокращувати повідомлення про відключення, оптимізація коду\nвиправити 2 помилки у ввімкненні / відключені FlexCharts",
+				"zh-cn": "添加计算通道“ 智能电池缓冲 LTF” (# 668)\n配置中的重排计算通道\n改进调试信件、 代码优化\n修正启用/ 残缺的弹性图中的 2 个错误"
+			}
+		},
+		"messages": [
+			{
+				"condition": {
+					"operand": "and",
+					"rules": ["oldVersion<2.3.0", "newVersion>=2.3.0"]
+				},
+				"title": {
+					"en": "Important notice!",
+					"de": "Wichtiger Hinweis!",
+					"ru": "Важное замечание!",
+					"pt": "Notícia importante!",
+					"nl": "Belangrijke mededeling!",
+					"fr": "Avis important!",
+					"it": "Avviso IMPORTANTE!",
+					"es": "Noticia importante!",
+					"pl": "Ważna uwaga!",
+					"uk": "Погода!",
+					"zh-cn": "重要通知!"
+				},
+				"text": {
+					"en": "The behavior of the adapter has changed! Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false.",
+					"de": "Das Verhalten des Adapters hat sich geändert! Rechnerkanäle des Typs 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde.",
+					"ru": "Поведение адаптера изменилось! Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false.",
+					"pt": "O comportamento do adaptador mudou! Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false.",
+					"nl": "Het gedrag van de adapter is veranderd! Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false.",
+					"fr": "Le comportement de l'adaptateur a changé ! Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false.",
+					"it": "Il comportamento dell'adattatore è cambiato! I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false.",
+					"es": "¡El comportamiento del adaptador ha cambiado! Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false.",
+					"pl": "Zachowanie adaptera zmieniło się! Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false.",
+					"uk": "Поведінка адаптера змінилась! Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false.",
+					"zh-cn": "适配器行为已更改！'智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭”。"
+				},
+				"level": "warn",
+				"buttons": ["agree", "cancel"]
+			}
+		],
+		"titleLang": {
+			"en": "Tibber Link",
+			"de": "Tibber Link",
+			"ru": "Тиббер Ссылка",
+			"pt": "Tibber Link",
+			"nl": "Tibber Link",
+			"fr": "Tibber Link",
+			"it": "Tibber Link",
+			"es": "Tibber Link",
+			"pl": "Tibber Link",
+			"uk": "Посилання",
+			"zh-cn": "网络联系"
+		},
+		"desc": {
+			"en": "Links Tibber API data to be used in ioBroker",
+			"de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
+			"ru": "Ссылки на данные Tibber API для использования в ioBroker",
+			"pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
+			"nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
+			"fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
+			"it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
+			"es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
+			"pl": "Łączy dane z API Tibber do użycia w ioBroker",
+			"uk": "Посилання на дані Tibber API для використання в ioBroker",
+			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
+		},
+		"authors": ["Hombach <TibberLink@homba.ch>"],
+		"keywords": ["power", "energy", "Tibber"],
+		"licenseInformation": {
+			"license": "GPL-3.0-only",
+			"type": "free"
+		},
+		"platform": "Javascript/Node.js",
+		"icon": "tibberlink.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
+		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
+		"loglevel": "info",
+		"tier": 2,
+		"mode": "daemon",
+		"messagebox": true,
+		"allowInit": true,
+		"type": "energy",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=6.0.11"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=7.6.17"
+			}
+		],
+		"plugins": {
+			"sentry": {
+				"dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
+			}
+		}
+	},
+	"encryptedNative": ["TibberAPIToken"],
+	"protectedNative": ["TibberAPIToken"],
+	"native": {
+		"TibberAPIToken": "",
+		"HomesList": [
+			{
+				"feedActive": "false",
+				"priceDataPollActive": "true",
+				"homeID": "None available - restart adapter after entering token",
+				"statsActive": "false",
+				"numberConsHourly": 24,
+				"numberConsDaily": 7,
+				"numberConsWeekly": 4,
+				"numberConsMonthly": 4,
+				"numberConsAnnual": 2
+			}
+		],
+		"CalculatorList": [
+			{
+				"chHomeID": "None available - restart adapter after entering token",
+				"chType": "best cost",
+				"chName": "Channel Name",
+				"chActive": "false",
+				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
+				"chValueOn": "true",
+				"chValueOff": "false",
+				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
+				"chValueOn2": "true",
+				"chValueOff2": "false"
+			}
+		],
+		"PulseList": [
+			{
+				"puName": "Pulse Local",
+				"tibberBridgeUrl": "tibber-host",
+				"tibberBridgePassword": "xxxx-xxxx",
+				"tibberPulseLocalNodeId": 1,
+				"tibberBridgeRawDataInterval": 2000
+			}
+		]
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.LastSentryLogDay",
+			"type": "state",
+			"common": {
+				"role": "value",
+				"name": "Last day of month for Sentry log",
+				"type": "number",
+				"unit": "",
+				"read": true,
+				"write": false,
+				"def": 0
+			},
+			"native": {}
+		}
+	]
 }
