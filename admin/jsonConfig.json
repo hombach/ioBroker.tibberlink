@@ -593,7 +593,118 @@
 		"_LocalPulseTab": {
 			"type": "panel",
 			"label": "LBL_LocalPulseTab",
-			"#include": "LocalPulseTab.jsonConfig.json"
+			"items": {
+				"UseLocalPulseData": {
+					"type": "checkbox",
+					"label": "LBL_item_UseLocalPulseData",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_localpulsehelp1": {
+					"type": "staticText",
+					"label": "LBL_item_localpulsehelp1",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_localpulsehelp2": {
+					"type": "staticText",
+					"label": "LBL_item_localpulsehelp2",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_localpulsehelp3": {
+					"type": "staticText",
+					"label": "LBL_item_localpulsehelp3",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_localpulsehelp4": {
+					"type": "staticLink",
+					"label": "LBL_item_localpulsehelp4",
+					"href": "https://github.com/marq24/ha-tibber-pulse-local",
+					"button": false,
+					"variant": "text",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": false
+				},
+
+				"PulseList": {
+					"type": "table",
+					"label": "LBL_PulseList",
+					"hidden": "!data.UseLocalPulseData",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"items": [
+						{
+							"type": "text",
+							"label": "LBL_item_tibberBridgeUrl",
+							"tooltip": "TTIP_item_tibberBridgeUrl",
+							"maxLength": 30,
+							"attr": "tibberBridgeUrl",
+							"filter": false,
+							"sort": false,
+							"width": "40%",
+							"default": "tibber-host"
+						},
+						{
+							"type": "text",
+							"label": "LBL_item_tibberBridgePassword",
+							"tooltip": "TTIP_item_tibberBridgePassword",
+							"maxLength": 20,
+							"attr": "tibberBridgePassword",
+							"filter": false,
+							"sort": false,
+							"width": "40%",
+							"default": "xxxx-xxxx"
+						},
+						{
+							"type": "number",
+							"label": "LBL_item_tibberPulseLocalNodeId",
+							"tooltip": "TTIP_item_tibberPulseLocalNodeId",
+							"attr": "tibberPulseLocalNodeId",
+							"min": 0,
+							"max": 99,
+							"step": 1,
+							"width": "10%",
+							"default": 1
+						},
+						{
+							"type": "number",
+							"label": "LBL_item_tibberBridgeRawDataInterval",
+							"tooltip": "TTIP_item_tibberBridgeRawDataInterval",
+							"attr": "tibberBridgeRawDataInterval",
+							"min": 1000,
+							"max": 100000,
+							"step": 100,
+							"width": "10%",
+							"default": 2000
+						}
+					]
+				}
+			}
 		}
 	}
 }
