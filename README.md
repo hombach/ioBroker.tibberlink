@@ -168,6 +168,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) fix jsonconfig schema definition (#762)
+- (HombachC) optimize cron jobs
 - (HombachC) update axios
 
 ### 5.0.2 (2025-08-29)
