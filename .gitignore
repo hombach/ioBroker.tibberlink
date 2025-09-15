@@ -91,3 +91,5 @@ dist
 
 # Visual Studio cache/options directory
 .vs/
+
+.commitinfo
