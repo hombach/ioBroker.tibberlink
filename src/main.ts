@@ -204,11 +204,15 @@ class Tibberlink extends utils.Adapter {
 
 				const jobCurrentPrice = CronJob.from({
 					cronTime: "20 58 * * * *", //"20 58 * * * *" = 3 minutes before 00:00:20 jede Stunde => 00:00:20 - 00:02:20
+					//cronTime: "20 */15 * * * *", // alle 15 Minuten zur Sekunde 20
 					onTick: async () => {
 						let okPrice = false;
 						let attempt = 0;
 						do {
+							// delay dependent of attempt (0–2, 2–4, 4–6, 6-8)
+							//const minDelay = 2 * attempt;
 							attempt++;
+							//await this.delay(this.getRandomDelay(minDelay, minDelay + 2));
 							await this.delay(this.getRandomDelay(2, 4));
 							okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
 							this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
@@ -235,7 +239,7 @@ class Tibberlink extends utils.Adapter {
 							await this.delay(this.getRandomDelay(4, 6));
 							await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
 							okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
-							this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
+							this.log.debug(`Cron job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
 						} while (!okPrice && attempt < 10);
 						void tibberCalculator.startCalculatorTasks();
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
@@ -257,7 +261,7 @@ class Tibberlink extends utils.Adapter {
 							attempt++;
 							await this.delay(this.getRandomDelay(4, 6));
 							okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
-							this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
+							this.log.debug(`Cron job PricesTomorrow - attempt ${attempt}, okPrice: ${okPrice}`);
 						} while (!okPrice && attempt < 8);
 						void tibberCalculator.startCalculatorTasks();
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
@@ -388,11 +392,13 @@ class Tibberlink extends utils.Adapter {
 	 */
 	private async jobPricesTodayLOOP(tibberAPICaller: TibberAPICaller): Promise<void> {
 		let okPrice = false;
+		let attempt = 0;
 		do {
+			attempt++;
 			okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
-			this.log.debug(`Loop job PricesToday - okPrice: ${okPrice}`);
+			this.log.debug(`Loop job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
 			await this.delay(this.getRandomDelay(4, 6));
-		} while (!okPrice);
+		} while (!okPrice && attempt < 10);
 	}
 	/**
 	 * subfunction to loop till prices tomorrow for all homes are got from server - adapter startup-phase
@@ -401,11 +407,13 @@ class Tibberlink extends utils.Adapter {
 	 */
 	private async jobPricesTomorrowLOOP(tibberAPICaller: TibberAPICaller): Promise<void> {
 		let okPrice = false;
+		let attempt = 0;
 		do {
+			attempt++;
 			okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
-			this.log.debug(`Loop job PricesTomorrow - okPrice: ${okPrice}`);
+			this.log.debug(`Loop job PricesTomorrow - attempt ${attempt}, okPrice: ${okPrice}`);
 			await this.delay(this.getRandomDelay(4, 6));
-		} while (!okPrice);
+		} while (!okPrice && attempt < 8);
 	}
 
 	/**
