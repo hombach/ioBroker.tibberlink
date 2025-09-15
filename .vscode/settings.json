@@ -15,13 +15,7 @@
 			"url": "https://raw.githubusercontent.com/ioBroker/ioBroker.js-controller/master/schemas/io-package.json"
 		},
 		{
-			"fileMatch": [
-				"admin/jsonConfig.json",
-				"admin/jsonCustom.json",
-				"admin/jsonTab.json",
-				"admin/LocalPulseTab.jsonConfig.json",
-				"admin/CalculatorTab.jsonConfig.json"
-			],
+			"fileMatch": ["admin/jsonConfig.json", "admin/jsonCustom.json", "admin/jsonTab.json", "admin/CalculatorTab.jsonConfig.json"],
 			"url": "https://raw.githubusercontent.com/ioBroker/ioBroker.admin/master/packages/jsonConfig/schemas/jsonConfig.json"
 		}
 	]
