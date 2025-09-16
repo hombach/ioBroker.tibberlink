@@ -574,8 +574,14 @@ class Tibberlink extends utils.Adapter {
 											const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
 											if (iso8601RegEx.test(state.val)) {
 												const dateWithTimeZone = new Date(state.val);
+
+												// floor to nearest 15-minute interval
+												//const minutes = dateWithTimeZone.getMinutes();
+												//dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
+
 												// floor to hour
 												dateWithTimeZone.setMinutes(0, 0, 0);
+
 												this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
 												this.log.debug(
 													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${format(
@@ -601,10 +607,15 @@ class Tibberlink extends utils.Adapter {
 											const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
 											if (iso8601RegEx.test(state.val)) {
 												const dateWithTimeZone = new Date(state.val);
+
+												// floor to nearest 15-minute interval
+												//const minutes = dateWithTimeZone.getMinutes();
+												//dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
+
 												// floor to hour
 												dateWithTimeZone.setMinutes(0, 0, 0);
-												this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
 
+												this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
 												// START Warn long LTF
 												// Get StartTime directly as a Date object
 												const startTime = this.config.CalculatorList[calcChannel].chStartTime;
