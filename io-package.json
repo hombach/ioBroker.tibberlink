@@ -172,7 +172,6 @@
 		"tier": 2,
 		"mode": "daemon",
 		"messagebox": true,
-		"allowInit": false,
 		"type": "energy",
 		"compact": true,
 		"connectionType": "cloud",
