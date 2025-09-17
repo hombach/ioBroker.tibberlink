@@ -18,6 +18,12 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 4.5.3 (2025-05-17)
+
+- (HombachC) optimize shutdown-logic (#707)
+- (HombachC) update tibber-api
+- (HombachC) bump dependencies
+
 ### 4.5.2 (2025-04-18)
 
 - (HombachC) fix jsonConfig error (#686)

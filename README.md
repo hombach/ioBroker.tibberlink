@@ -164,8 +164,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 5.0.3 (2025-09-17)
 
 - (HombachC) fix jsonconfig schema definition (#762)
 - (HombachC) optimize cron jobs
@@ -198,12 +197,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) fix special cases of local export value (#704)
 - (HombachC) remove tests for node.js 18
 - (HombachC) optimize asynchron code
-
-### 4.5.3 (2025-05-17)
-
-- (HombachC) optimize shutdown-logic (#707)
-- (HombachC) update tibber-api
-- (HombachC) bump dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
