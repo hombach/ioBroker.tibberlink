@@ -203,17 +203,17 @@ class Tibberlink extends utils.Adapter {
 				void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 
 				const jobCurrentPrice = CronJob.from({
-					cronTime: "20 58 * * * *", //"20 58 * * * *" = 3 minutes before 00:00:20 jede Stunde => 00:00:20 - 00:02:20
-					//cronTime: "20 */15 * * * *", // alle 15 Minuten zur Sekunde 20
+					//WIP5.1 cronTime: "20 58 * * * *", //"20 58 * * * *" = 3 minutes before 00:00:20 each hour => 00:00:20 - 00:02:20
+					cronTime: "20 */15 * * * *", // each 15 minutes at second 20
 					onTick: async () => {
 						let okPrice = false;
 						let attempt = 0;
 						do {
 							// delay dependent of attempt (0–2, 2–4, 4–6, 6-8)
-							//const minDelay = 2 * attempt;
+							const minDelay = 2 * attempt;
 							attempt++;
-							//await this.delay(this.getRandomDelay(minDelay, minDelay + 2));
-							await this.delay(this.getRandomDelay(2, 4));
+							await this.delay(this.getRandomDelay(minDelay, minDelay + 2));
+							//WIP5.1 await this.delay(this.getRandomDelay(2, 4));
 							okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
 							this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
 						} while (!okPrice && attempt < 4);
@@ -576,11 +576,11 @@ class Tibberlink extends utils.Adapter {
 												const dateWithTimeZone = new Date(state.val);
 
 												// floor to nearest 15-minute interval
-												//const minutes = dateWithTimeZone.getMinutes();
-												//dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
+												const minutes = dateWithTimeZone.getMinutes();
+												dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
 
 												// floor to hour
-												dateWithTimeZone.setMinutes(0, 0, 0);
+												//WIP5.1 dateWithTimeZone.setMinutes(0, 0, 0);
 
 												this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
 												this.log.debug(
@@ -609,11 +609,11 @@ class Tibberlink extends utils.Adapter {
 												const dateWithTimeZone = new Date(state.val);
 
 												// floor to nearest 15-minute interval
-												//const minutes = dateWithTimeZone.getMinutes();
-												//dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
+												const minutes = dateWithTimeZone.getMinutes();
+												dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
 
 												// floor to hour
-												dateWithTimeZone.setMinutes(0, 0, 0);
+												//WIP5.1 dateWithTimeZone.setMinutes(0, 0, 0);
 
 												this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
 												// START Warn long LTF

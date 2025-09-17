@@ -164,6 +164,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) change price updates to 15 minutes resolution (#384)
+
 ### 5.0.3 (2025-09-17)
 
 - (HombachC) fix jsonconfig schema definition (#762)

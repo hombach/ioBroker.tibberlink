@@ -188,13 +188,14 @@ class Tibberlink extends utils.Adapter {
                 void tibberAPICaller.updateConsumptionAllHomes();
                 void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
-                    cronTime: "20 58 * * * *",
+                    cronTime: "20 */15 * * * *",
                     onTick: async () => {
                         let okPrice = false;
                         let attempt = 0;
                         do {
+                            const minDelay = 2 * attempt;
                             attempt++;
-                            await this.delay(this.getRandomDelay(2, 4));
+                            await this.delay(this.getRandomDelay(minDelay, minDelay + 2));
                             okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
                             this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
                         } while (!okPrice && attempt < 4);
@@ -490,7 +491,8 @@ class Tibberlink extends utils.Adapter {
                                             const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
                                             if (iso8601RegEx.test(state.val)) {
                                                 const dateWithTimeZone = new Date(state.val);
-                                                dateWithTimeZone.setMinutes(0, 0, 0);
+                                                const minutes = dateWithTimeZone.getMinutes();
+                                                dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
                                                 this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
                                                 this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
                                                 void this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
@@ -508,7 +510,8 @@ class Tibberlink extends utils.Adapter {
                                             const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
                                             if (iso8601RegEx.test(state.val)) {
                                                 const dateWithTimeZone = new Date(state.val);
-                                                dateWithTimeZone.setMinutes(0, 0, 0);
+                                                const minutes = dateWithTimeZone.getMinutes();
+                                                dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
                                                 this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
                                                 const startTime = this.config.CalculatorList[calcChannel].chStartTime;
                                                 if (!(0, date_fns_1.isSameDay)(dateWithTimeZone, startTime) && !(0, date_fns_1.isSameDay)(dateWithTimeZone, (0, date_fns_1.addDays)(startTime, 1))) {
