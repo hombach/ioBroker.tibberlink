@@ -164,7 +164,7 @@ class Tibberlink extends utils.Adapter {
                 }
             }
             if (this.homeInfoList.length === 0) {
-                this.log.warn(`Got no homes in your account - probably by a Tibber Server Error - adapter restarts in 5 minutes`);
+                this.log.warn(`Got no homes in your account - probably by a Tibber server error - adapter restarts in 5 minutes`);
                 await this.delay(5 * 60000);
                 this.restart();
             }

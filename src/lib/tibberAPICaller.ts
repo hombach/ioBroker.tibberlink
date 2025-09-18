@@ -381,6 +381,7 @@ export class TibberAPICaller extends ProjectUtils {
 				}
 				const homeID = home.homeID;
 				const resolutions = [
+					// TODO: add EnergyResolution.QuarterHourly when Tibber API supports it
 					{ type: EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
 					{ type: EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
 					{ type: EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
