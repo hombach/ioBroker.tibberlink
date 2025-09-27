@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "5.0.3",
+    "version": "5.0.4",
     "news": {
+      "5.0.4": {
+        "en": "change price updates to 15 minutes resolution (#384)\nupdate tibber-api to 5.4.2\nupdate chai system",
+        "de": "preisänderungen auf 15 minuten auflösung ändern (#384)\naktualisierung von tibber-api auf 5.4.2\nchai system",
+        "ru": "изменение цены до 15 минут разрешения (#384)\nобновление tibber-api до 5.4.2\nобновление системы chai",
+        "pt": "mudar as atualizações de preço para resolução de 15 minutos (#384)\natualizar tibber-api para 5.4.2\natualizar sistema chai",
+        "nl": "wijzigen prijs updates naar 15 minuten resolutie (#384)\ntibber-api tot 5.4.2 bijwerken\nchai-systeem bijwerken",
+        "fr": "changer les mises à jour du prix à la résolution de 15 minutes (#384)\nmettre à jour le tibber-api à 5.4.2\nmettre à jour le système chai",
+        "it": "modifica gli aggiornamenti dei prezzi alla risoluzione di 15 minuti (#384)\naggiornamento tibber-api a 5.4.2\naggiornamento sistema chai",
+        "es": "actualizaciones de precios de cambio a resolución de 15 minutos (#384)\nactualización tibber-api a 5.4.2\nactualización del sistema chai",
+        "pl": "zmiana aktualizacji cen do rozdzielczości 15 minut (# 384)\naktualizacja tibber- api do 5.4.2\naktualizacja systemu chai",
+        "uk": "зміна ціни за ціною до 15 хвилин дозвіл (#384)\nоновлення tibber-api до 5.4.2\nоновлення системи chai",
+        "zh-cn": "将价格更新为15分钟分辨率(# 384)\n将 tibber- api 更新到 5.4.2\n更新 chai 系统"
+      },
       "5.0.3": {
         "en": "fix jsonconfig schema definition (#762)\noptimize cron jobs\nupdate axios",
         "de": "Behebe das JSON-Konfigurationsschema (#762)\nCron-Jobs optimieren\nAktualisierung von axios",
@@ -80,19 +93,6 @@
         "pl": "optymalizacja logiki zamykania (# 707)\nupdate tibber- api\nuzależnienia od guza",
         "uk": "оптимізація відключення (#707)\nоновлення tibber-api\nbump залежності",
         "zh-cn": "优化关闭日志(# 707)\n更新 - api\n意外依赖"
-      },
-      "4.5.2": {
-        "en": "fix jsonConfig error (#686)\nbump dependencies\nadd statevalue range to projectUtils\ncode optimizations",
-        "de": "jsonConfig-Fehler beheben (#686)\nbumpabhängigkeiten\nzustandswertbereich zum Projekt hinzufügen Utils\ncodeoptimierungen",
-        "ru": "исправление ошибки jsonConfig (#686)\nбамп зависимости\nдобавить диапазон значений состояния в проект утиль\nоптимизация кода",
-        "pt": "corrigir erro jsonConfig (#686)\ndependências de choque\nadicionar intervalo de valor de estado ao projeto Utilidades\notimizações de código",
-        "nl": "fix jsonConfig fout (#686)\nbump afhankelijkheden\nstatuswaardebereik toevoegen aan project Utils\ncode optimalisaties",
-        "fr": "correction de l'erreur jsonConfig (#686)\ndépendances des bosses\najouter une plage de valeur d'état au projet Utilisation\noptimisation des codes",
-        "it": "correzione errore jsonConfig (#686)\nindipendenza urto\naggiungere la gamma di valore di stato al progetto Utili\nottimizzazioni del codice",
-        "es": "error jsonConfig (#686)\ndependencia de los gastos\nañadir rango de valor estatal al proyecto Utils\noptimizaciones de código",
-        "pl": "naprawić błąd jsonConfig (# 686)\nuzależnienia od guza\ndodaj zakres stanu do projektu Przyrządy\noptymalizacja kodu",
-        "uk": "виправлено помилку(#686)\nbump залежності\nдодати діапазон державного значення для проекту Утили\nоптимізація коду",
-        "zh-cn": "修复jsonconfig 错误 (# 686)\n意外依赖\n为工程添加状态值范围 UTIs 数字\n代码优化"
       }
     },
     "messages": [

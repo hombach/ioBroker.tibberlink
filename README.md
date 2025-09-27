@@ -164,8 +164,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 5.0.4 (2025-09-27)
 
 - (HombachC) change price updates to 15 minutes resolution (#384)
 - (HombachC) update tibber-api to 5.4.2
@@ -198,12 +197,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) BREAKING: dropped node.js 18 support (#703)
 - (HombachC) BREAKING: dropped js-controller 5 support (#703)
 - (HombachC) add tests for node.js 24 (#717)
-
-### 4.5.4 (2025-05-18)
-
-- (HombachC) fix special cases of local export value (#704)
-- (HombachC) remove tests for node.js 18
-- (HombachC) optimize asynchron code
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
