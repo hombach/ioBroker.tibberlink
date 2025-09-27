@@ -168,6 +168,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) change price updates to 15 minutes resolution (#384)
+- (HombachC) update chai system
 
 ### 5.0.3 (2025-09-17)
 

@@ -6,6 +6,8 @@
  */
 
 import { expect } from "chai";
+// Enable chai's should syntax globally
+import "chai/register-should";
 // import { functionToTest } from "./moduleToTest";
 
 describe("module to test => function to test", () => {
