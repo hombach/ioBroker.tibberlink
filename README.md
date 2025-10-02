@@ -164,6 +164,13 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) change price updates to 15 minutes resolution as default
+- (HombachC) update tibber-api to 5.5.2
+- (HombachC) fixing issues detected by repository checker (#774)
+
 ### 5.0.4 (2025-09-27)
 
 - (HombachC) change price updates to 15 minutes resolution (#384)
