@@ -108,13 +108,13 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         return false;
     }
-    async updatePricesTodayAllHomes(homeInfoList, forceUpdate = false) {
+    async updatePricesTodayAllHomes(homeInfoList, resolution, forceUpdate = false) {
         let okprice = true;
         for (const curHomeInfo of homeInfoList) {
             if (!curHomeInfo.PriceDataPollActive) {
                 continue;
             }
-            if (!(await this.updatePricesToday(curHomeInfo.ID, forceUpdate))) {
+            if (!(await this.updatePricesToday(curHomeInfo.ID, resolution, forceUpdate))) {
                 okprice = false;
             }
             else {
@@ -124,7 +124,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         return okprice;
     }
-    async updatePricesToday(homeId, forceUpdate = false) {
+    async updatePricesToday(homeId, resolution, forceUpdate = false) {
         try {
             let exDate = null;
             let exPricesToday = [];
@@ -137,7 +137,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             if (!exDate || exDate <= today || forceUpdate) {
-                const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
+                const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId, resolution);
                 if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2]?.total)) {
                     throw new Error(`Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
                 }
@@ -180,13 +180,13 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         return false;
     }
-    async updatePricesTomorrowAllHomes(homeInfoList, forceUpdate = false) {
+    async updatePricesTomorrowAllHomes(homeInfoList, resolution, forceUpdate = false) {
         let okprice = true;
         for (const curHomeInfo of homeInfoList) {
             if (!curHomeInfo.PriceDataPollActive) {
                 continue;
             }
-            if (!(await this.updatePricesTomorrow(curHomeInfo.ID, forceUpdate))) {
+            if (!(await this.updatePricesTomorrow(curHomeInfo.ID, resolution, forceUpdate))) {
                 okprice = false;
             }
             else {
@@ -196,7 +196,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         return okprice;
     }
-    async updatePricesTomorrow(homeId, forceUpdate = false) {
+    async updatePricesTomorrow(homeId, resolution, forceUpdate = false) {
         try {
             let exDate = null;
             let exPricesTomorrow = [];
@@ -210,7 +210,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             morgen.setDate(morgen.getDate() + 1);
             morgen.setHours(0, 0, 0, 0);
             if (!exDate || exDate < morgen || forceUpdate) {
-                const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
+                const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId, resolution);
                 this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
                 void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
                 if (pricesTomorrow.length === 0) {

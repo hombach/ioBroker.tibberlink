@@ -218,8 +218,8 @@ class Tibberlink extends utils.Adapter {
                         do {
                             attempt++;
                             await this.delay(this.getRandomDelay(4, 6));
-                            await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
-                            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList);
+                            await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, "QUARTER_HOURLY");
+                            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, "QUARTER_HOURLY");
                             this.log.debug(`Cron job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
                         } while (!okPrice && attempt < 10);
                         void tibberCalculator.startCalculatorTasks();
@@ -240,7 +240,7 @@ class Tibberlink extends utils.Adapter {
                         do {
                             attempt++;
                             await this.delay(this.getRandomDelay(4, 6));
-                            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList);
+                            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, "QUARTER_HOURLY");
                             this.log.debug(`Cron job PricesTomorrow - attempt ${attempt}, okPrice: ${okPrice}`);
                         } while (!okPrice && attempt < 8);
                         void tibberCalculator.startCalculatorTasks();
@@ -361,7 +361,7 @@ class Tibberlink extends utils.Adapter {
         let attempt = 0;
         do {
             attempt++;
-            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, true);
+            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, "QUARTER_HOURLY", true);
             this.log.debug(`Loop job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
             await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice && attempt < 10);
@@ -371,7 +371,7 @@ class Tibberlink extends utils.Adapter {
         let attempt = 0;
         do {
             attempt++;
-            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, true);
+            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, "QUARTER_HOURLY", true);
             this.log.debug(`Loop job PricesTomorrow - attempt ${attempt}, okPrice: ${okPrice}`);
             await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice && attempt < 8);

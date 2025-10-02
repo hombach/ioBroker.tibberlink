@@ -6,6 +6,7 @@ import type { IContactInfo } from "tibber-api/lib/src/models/IContactInfo.js";
 import type { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity.js";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice.js";
 import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution.js";
+import type { PriceResolution } from "tibber-api/lib/src/models/enums/PriceResolution.js";
 import { ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
 /**
@@ -168,16 +169,17 @@ export class TibberAPICaller extends ProjectUtils {
 	 * updates lists of todays prices of all homes
 	 *
 	 * @param homeInfoList - homeInfo list object
+	 * @param resolution Either HOURLY or QUARTER_HOURLY
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	async updatePricesTodayAllHomes(homeInfoList: IHomeInfo[], forceUpdate = false): Promise<boolean> {
+	async updatePricesTodayAllHomes(homeInfoList: IHomeInfo[], resolution: PriceResolution, forceUpdate = false): Promise<boolean> {
 		let okprice = true;
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) {
 				continue;
 			}
-			if (!(await this.updatePricesToday(curHomeInfo.ID, forceUpdate))) {
+			if (!(await this.updatePricesToday(curHomeInfo.ID, resolution, forceUpdate))) {
 				okprice = false;
 			} else {
 				const now = new Date();
@@ -190,10 +192,11 @@ export class TibberAPICaller extends ProjectUtils {
 	 * updates list of todays prices of one home
 	 *
 	 * @param homeId - homeId string
+	 * @param resolution Either HOURLY or QUARTER_HOURLY
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	private async updatePricesToday(homeId: string, forceUpdate = false): Promise<boolean> {
+	private async updatePricesToday(homeId: string, resolution: PriceResolution, forceUpdate = false): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			let exPricesToday: IPrice[] = [];
@@ -206,7 +209,7 @@ export class TibberAPICaller extends ProjectUtils {
 			const today = new Date();
 			today.setHours(0, 0, 0, 0); // sets clock to 0:00
 			if (!exDate || exDate <= today || forceUpdate) {
-				const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId);
+				const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId, resolution);
 				if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2]?.total)) {
 					throw new Error(`Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
 				}
@@ -268,16 +271,17 @@ export class TibberAPICaller extends ProjectUtils {
 	 * updates lists of tomorrows prices of all homes
 	 *
 	 * @param homeInfoList - homeInfo list object
+	 * @param resolution Either HOURLY or QUARTER_HOURLY
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	async updatePricesTomorrowAllHomes(homeInfoList: IHomeInfo[], forceUpdate = false): Promise<boolean> {
+	async updatePricesTomorrowAllHomes(homeInfoList: IHomeInfo[], resolution: PriceResolution, forceUpdate = false): Promise<boolean> {
 		let okprice = true;
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) {
 				continue;
 			}
-			if (!(await this.updatePricesTomorrow(curHomeInfo.ID, forceUpdate))) {
+			if (!(await this.updatePricesTomorrow(curHomeInfo.ID, resolution, forceUpdate))) {
 				okprice = false; // single fault sets all false
 			} else {
 				const now = new Date();
@@ -290,10 +294,11 @@ export class TibberAPICaller extends ProjectUtils {
 	 * updates list of tomorrows prices of one home
 	 *
 	 * @param homeId - homeId string
+	 * @param resolution Either HOURLY or QUARTER_HOURLY
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got new data
 	 */
-	private async updatePricesTomorrow(homeId: string, forceUpdate = false): Promise<boolean> {
+	private async updatePricesTomorrow(homeId: string, resolution: PriceResolution, forceUpdate = false): Promise<boolean> {
 		try {
 			let exDate: Date | null = null;
 			let exPricesTomorrow: IPrice[] = [];
@@ -307,7 +312,7 @@ export class TibberAPICaller extends ProjectUtils {
 			morgen.setDate(morgen.getDate() + 1);
 			morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
 			if (!exDate || exDate < morgen || forceUpdate) {
-				const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId);
+				const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId, resolution);
 				this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
 				void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify(pricesTomorrow), "The prices tomorrow as json"); // write also it might be empty
 				if (pricesTomorrow.length === 0) {
