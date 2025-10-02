@@ -221,12 +221,12 @@ export class TibberAPICaller extends ProjectUtils {
 				this.fetchPriceMaximum(
 					homeId,
 					`PricesToday.maximum`,
-					pricesToday.sort((a, b) => a.total - b.total),
+					pricesToday, //.sort((a, b) => a.total - b.total),
 				);
 				this.fetchPriceMinimum(
 					homeId,
 					`PricesToday.minimum`,
-					pricesToday.sort((a, b) => a.total - b.total),
+					pricesToday, //.sort((a, b) => a.total - b.total),
 				);
 				for (const price of pricesToday) {
 					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
@@ -340,12 +340,12 @@ export class TibberAPICaller extends ProjectUtils {
 					this.fetchPriceMaximum(
 						homeId,
 						`PricesTomorrow.maximum`,
-						pricesTomorrow.sort((a, b) => a.total - b.total),
+						pricesTomorrow, //.sort((a, b) => a.total - b.total),
 					);
 					this.fetchPriceMinimum(
 						homeId,
 						`PricesTomorrow.minimum`,
-						pricesTomorrow.sort((a, b) => a.total - b.total),
+						pricesTomorrow, //.sort((a, b) => a.total - b.total),
 					);
 					void this.checkAndSetValue(
 						`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`,
@@ -491,6 +491,21 @@ export class TibberAPICaller extends ProjectUtils {
 	}
 
 	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
+		if (!price || price.length === 0) {
+			return;
+		}
+		// find maximum entry
+		const maxEntry = price.reduce((max, current) => (current.total > max.total ? current : max));
+
+		const basePath = `Homes.${homeId}.${objectDestination}`;
+		void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * maxEntry.total) / 1000, "Todays total price maximum");
+		void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * maxEntry.energy) / 1000, "Todays spotmarket price at total price maximum");
+		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * maxEntry.tax) / 1000, "Todays tax price at total price maximum");
+		void this.checkAndSetValue(`${basePath}.level`, maxEntry.level, "Price level compared to recent price values");
+		void this.checkAndSetValue(`${basePath}.startsAt`, maxEntry.startsAt, "Start time of the price maximum");
+	}
+	/*
+	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || typeof price[23].total !== "number") {
 			// possible exit 1.4.3 - Sentry discovered possible error in 1.4.1
 			// return;
@@ -502,6 +517,22 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.level`, price[23].level, "Price level compared to recent price values");
 		void this.checkAndSetValue(`${basePath}.startsAt`, price[23].startsAt, "Start time of the price maximum");
 	}
+	*/
+	private fetchPriceMinimum(homeId: string, objectDestination: string, price: IPrice[]): void {
+		if (!price || price.length === 0) {
+			return;
+		}
+		// find minimum entry
+		const minEntry = price.reduce((min, current) => (current.total < min.total ? current : min));
+
+		const basePath = `Homes.${homeId}.${objectDestination}`;
+		void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * minEntry.total) / 1000, "Todays total price minimum");
+		void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * minEntry.energy) / 1000, "Todays spotmarket price at total price minimum");
+		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * minEntry.tax) / 1000, "Todays tax price at total price minimum");
+		void this.checkAndSetValue(`${basePath}.level`, minEntry.level, "Price level compared to recent price values");
+		void this.checkAndSetValue(`${basePath}.startsAt`, minEntry.startsAt, "Start time of the price minimum");
+	}
+	/*
 	private fetchPriceMinimum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
 		void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * price[0].total) / 1000, "Todays total price minimum");
@@ -510,6 +541,7 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.level`, price[0].level, "Price level compared to recent price values");
 		void this.checkAndSetValue(`${basePath}.startsAt`, price[0].startsAt, "Start time of the price minimum");
 	}
+	*/
 
 	private emptyingPrice(homeId: string, objectDestination: string): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;

@@ -146,8 +146,8 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 void this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.json`, JSON.stringify(exPricesToday), "The prices yesterday as json");
                 this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
                 this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
-                this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday.sort((a, b) => a.total - b.total));
-                this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday.sort((a, b) => a.total - b.total));
+                this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
+                this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
                 for (const price of pricesToday) {
                     const hour = new Date(price.startsAt.substr(0, 19)).getHours();
                     await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
@@ -230,8 +230,8 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                         await this.fetchPrice(homeId, `PricesTomorrow.${hour}`, price);
                     }
                     this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
-                    this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow.sort((a, b) => a.total - b.total));
-                    this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow.sort((a, b) => a.total - b.total));
+                    this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
+                    this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow);
                     void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`, JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
                     exDate = new Date(pricesTomorrow[2].startsAt);
                     if (exDate && exDate >= morgen) {
@@ -329,22 +329,28 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (remainingTaxSum / filteredPrices.length)) / 1000, "Todays remaining average tax price");
     }
     fetchPriceMaximum(homeId, objectDestination, price) {
-        if (!price || typeof price[23].total !== "number") {
+        if (!price || price.length === 0) {
+            return;
         }
+        const maxEntry = price.reduce((max, current) => (current.total > max.total ? current : max));
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * price[23].total) / 1000, "Todays total price maximum");
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * price[23].energy) / 1000, "Todays spotmarket price at total price maximum");
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * price[23].tax) / 1000, "Todays tax price at total price maximum");
-        void this.checkAndSetValue(`${basePath}.level`, price[23].level, "Price level compared to recent price values");
-        void this.checkAndSetValue(`${basePath}.startsAt`, price[23].startsAt, "Start time of the price maximum");
+        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * maxEntry.total) / 1000, "Todays total price maximum");
+        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * maxEntry.energy) / 1000, "Todays spotmarket price at total price maximum");
+        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * maxEntry.tax) / 1000, "Todays tax price at total price maximum");
+        void this.checkAndSetValue(`${basePath}.level`, maxEntry.level, "Price level compared to recent price values");
+        void this.checkAndSetValue(`${basePath}.startsAt`, maxEntry.startsAt, "Start time of the price maximum");
     }
     fetchPriceMinimum(homeId, objectDestination, price) {
+        if (!price || price.length === 0) {
+            return;
+        }
+        const minEntry = price.reduce((min, current) => (current.total < min.total ? current : min));
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * price[0].total) / 1000, "Todays total price minimum");
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * price[0].energy) / 1000, "Todays spotmarket price at total price minimum");
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * price[0].tax) / 1000, "Todays tax price at total price minimum");
-        void this.checkAndSetValue(`${basePath}.level`, price[0].level, "Price level compared to recent price values");
-        void this.checkAndSetValue(`${basePath}.startsAt`, price[0].startsAt, "Start time of the price minimum");
+        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * minEntry.total) / 1000, "Todays total price minimum");
+        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * minEntry.energy) / 1000, "Todays spotmarket price at total price minimum");
+        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * minEntry.tax) / 1000, "Todays tax price at total price minimum");
+        void this.checkAndSetValue(`${basePath}.level`, minEntry.level, "Price level compared to recent price values");
+        void this.checkAndSetValue(`${basePath}.startsAt`, minEntry.startsAt, "Start time of the price minimum");
     }
     emptyingPrice(homeId, objectDestination) {
         const basePath = `Homes.${homeId}.${objectDestination}`;
