@@ -218,16 +218,8 @@ export class TibberAPICaller extends ProjectUtils {
 				void this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.json`, JSON.stringify(exPricesToday), "The prices yesterday as json");
 				this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
 				this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
-				this.fetchPriceMaximum(
-					homeId,
-					`PricesToday.maximum`,
-					pricesToday, //.sort((a, b) => a.total - b.total),
-				);
-				this.fetchPriceMinimum(
-					homeId,
-					`PricesToday.minimum`,
-					pricesToday, //.sort((a, b) => a.total - b.total),
-				);
+				this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
+				this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
 				for (const price of pricesToday) {
 					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
 					await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
@@ -337,16 +329,8 @@ export class TibberAPICaller extends ProjectUtils {
 						await this.fetchPrice(homeId, `PricesTomorrow.${hour}`, price);
 					}
 					this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
-					this.fetchPriceMaximum(
-						homeId,
-						`PricesTomorrow.maximum`,
-						pricesTomorrow, //.sort((a, b) => a.total - b.total),
-					);
-					this.fetchPriceMinimum(
-						homeId,
-						`PricesTomorrow.minimum`,
-						pricesTomorrow, //.sort((a, b) => a.total - b.total),
-					);
+					this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
+					this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow);
 					void this.checkAndSetValue(
 						`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`,
 						JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)),
@@ -441,6 +425,23 @@ export class TibberAPICaller extends ProjectUtils {
 	}
 
 	private fetchPriceAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
+		if (!price || price.length === 0) {
+			return;
+		}
+
+		const sumValues = (key: keyof IPrice): number => price.reduce((sum, item) => (item && typeof item[key] === "number" ? sum + item[key] : sum), 0);
+
+		const basePath = `Homes.${homeId}.${objectDestination}`;
+		void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (sumValues("total") / price.length)) / 1000, "Todays total price average");
+		void this.checkAndSetValueNumber(
+			`${basePath}.energy`,
+			Math.round(1000 * (sumValues("energy") / price.length)) / 1000,
+			"Todays average spotmarket price",
+		);
+		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / price.length)) / 1000, "Todays average tax price");
+	}
+	/*
+	private fetchPriceAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
 		const totalSum = price.reduce((sum, item) => {
 			if (item && typeof item.total === "number") {
 				return sum + item.total;
@@ -454,7 +455,36 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (energySum / price.length)) / 1000, "Todays average spotmarket price");
 		const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
 		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (taxSum / price.length)) / 1000, "Todays average tax price");
+	}*/
+	private fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
+		if (!price || price.length === 0) {
+			return;
+		}
+		const now = new Date();
+		const remainingPrices = price.filter(item => item && new Date(item.startsAt) >= now);
+		if (remainingPrices.length === 0) {
+			return;
+		}
+		const sumValues = (key: keyof IPrice): number =>
+			remainingPrices.reduce((sum, item) => (item && typeof item[key] === "number" ? sum + item[key] : sum), 0);
+		const basePath = `Homes.${homeId}.${objectDestination}`;
+		void this.checkAndSetValueNumber(
+			`${basePath}.total`,
+			Math.round(1000 * (sumValues("total") / remainingPrices.length)) / 1000,
+			"Todays total price remaining average",
+		);
+		void this.checkAndSetValueNumber(
+			`${basePath}.energy`,
+			Math.round(1000 * (sumValues("energy") / remainingPrices.length)) / 1000,
+			"Todays remaining average spot market price",
+		);
+		void this.checkAndSetValueNumber(
+			`${basePath}.tax`,
+			Math.round(1000 * (sumValues("tax") / remainingPrices.length)) / 1000,
+			"Todays remaining average tax price",
+		);
 	}
+	/*
 	private fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
 		const now = new Date(); // current time
 		const currentHour = now.getHours();
@@ -488,7 +518,7 @@ export class TibberAPICaller extends ProjectUtils {
 			Math.round(1000 * (remainingTaxSum / filteredPrices.length)) / 1000,
 			"Todays remaining average tax price",
 		);
-	}
+	}*/
 
 	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
@@ -504,20 +534,6 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.level`, maxEntry.level, "Price level compared to recent price values");
 		void this.checkAndSetValue(`${basePath}.startsAt`, maxEntry.startsAt, "Start time of the price maximum");
 	}
-	/*
-	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
-		if (!price || typeof price[23].total !== "number") {
-			// possible exit 1.4.3 - Sentry discovered possible error in 1.4.1
-			// return;
-		}
-		const basePath = `Homes.${homeId}.${objectDestination}`;
-		void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * price[23].total) / 1000, "Todays total price maximum");
-		void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * price[23].energy) / 1000, "Todays spotmarket price at total price maximum");
-		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * price[23].tax) / 1000, "Todays tax price at total price maximum");
-		void this.checkAndSetValue(`${basePath}.level`, price[23].level, "Price level compared to recent price values");
-		void this.checkAndSetValue(`${basePath}.startsAt`, price[23].startsAt, "Start time of the price maximum");
-	}
-	*/
 	private fetchPriceMinimum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
 			return;
@@ -532,16 +548,6 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.level`, minEntry.level, "Price level compared to recent price values");
 		void this.checkAndSetValue(`${basePath}.startsAt`, minEntry.startsAt, "Start time of the price minimum");
 	}
-	/*
-	private fetchPriceMinimum(homeId: string, objectDestination: string, price: IPrice[]): void {
-		const basePath = `Homes.${homeId}.${objectDestination}`;
-		void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * price[0].total) / 1000, "Todays total price minimum");
-		void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * price[0].energy) / 1000, "Todays spotmarket price at total price minimum");
-		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * price[0].tax) / 1000, "Todays tax price at total price minimum");
-		void this.checkAndSetValue(`${basePath}.level`, price[0].level, "Price level compared to recent price values");
-		void this.checkAndSetValue(`${basePath}.startsAt`, price[0].startsAt, "Start time of the price minimum");
-	}
-	*/
 
 	private emptyingPrice(homeId: string, objectDestination: string): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;

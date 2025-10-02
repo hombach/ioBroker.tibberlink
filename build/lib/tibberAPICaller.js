@@ -295,38 +295,29 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         void this.checkAndSetValue(`${basePath}.level`, price.level, "Price level compared to recent price values");
     }
     fetchPriceAverage(homeId, objectDestination, price) {
-        const totalSum = price.reduce((sum, item) => {
-            if (item && typeof item.total === "number") {
-                return sum + item.total;
-            }
-            return sum;
-        }, 0);
+        if (!price || price.length === 0) {
+            return;
+        }
+        const sumValues = (key) => price.reduce((sum, item) => (item && typeof item[key] === "number" ? sum + item[key] : sum), 0);
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (totalSum / price.length)) / 1000, "Todays total price average");
-        const energySum = price.reduce((sum, item) => sum + item.energy, 0);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (energySum / price.length)) / 1000, "Todays average spotmarket price");
-        const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (taxSum / price.length)) / 1000, "Todays average tax price");
+        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (sumValues("total") / price.length)) / 1000, "Todays total price average");
+        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (sumValues("energy") / price.length)) / 1000, "Todays average spotmarket price");
+        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / price.length)) / 1000, "Todays average tax price");
     }
     fetchPriceRemainingAverage(homeId, objectDestination, price) {
+        if (!price || price.length === 0) {
+            return;
+        }
         const now = new Date();
-        const currentHour = now.getHours();
-        const filteredPrices = price.filter(item => {
-            const itemHour = new Date(item.startsAt).getHours();
-            return itemHour >= currentHour;
-        });
-        const remainingTotalSum = filteredPrices.reduce((sum, item) => {
-            if (item && typeof item.total === "number") {
-                return sum + item.total;
-            }
-            return sum;
-        }, 0);
+        const remainingPrices = price.filter(item => item && new Date(item.startsAt) >= now);
+        if (remainingPrices.length === 0) {
+            return;
+        }
+        const sumValues = (key) => remainingPrices.reduce((sum, item) => (item && typeof item[key] === "number" ? sum + item[key] : sum), 0);
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (remainingTotalSum / filteredPrices.length)) / 1000, "Todays total price remaining average");
-        const remainingEnergySum = filteredPrices.reduce((sum, item) => sum + item.energy, 0);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (remainingEnergySum / filteredPrices.length)) / 1000, "Todays remaining average spot market price");
-        const remainingTaxSum = filteredPrices.reduce((sum, item) => sum + item.tax, 0);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (remainingTaxSum / filteredPrices.length)) / 1000, "Todays remaining average tax price");
+        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (sumValues("total") / remainingPrices.length)) / 1000, "Todays total price remaining average");
+        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (sumValues("energy") / remainingPrices.length)) / 1000, "Todays remaining average spot market price");
+        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / remainingPrices.length)) / 1000, "Todays remaining average tax price");
     }
     fetchPriceMaximum(homeId, objectDestination, price) {
         if (!price || price.length === 0) {
