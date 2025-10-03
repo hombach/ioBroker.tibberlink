@@ -69,7 +69,7 @@ export class TibberCharts extends ProjectUtils {
 			const totalValues = mergedPrices.map(item => item.total);
 			const startsAtValues = mergedPrices.map(item => {
 				const date = new Date(item.startsAt);
-				return format(date, "dd.MM.'\\n'HH:mm");
+				return format(date, "dd.MM.'\n'HH:mm");
 			});
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
