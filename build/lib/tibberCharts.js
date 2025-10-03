@@ -73,28 +73,38 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                             this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
                             const filteredData = jsonOutput.filter(entry => entry.output);
-                            let startIndex = 0;
-                            for (let i = 1; i <= filteredData.length; i++) {
-                                const current = filteredData[i - 1];
-                                const next = filteredData[i];
-                                const isContinuous = next && (0, date_fns_1.differenceInHours)((0, date_fns_1.parseISO)(next.startsAt), (0, date_fns_1.parseISO)(current.startsAt)) === 1;
-                                if (!isContinuous || i === filteredData.length) {
-                                    const startTime = (0, date_fns_1.parseISO)(filteredData[startIndex].startsAt);
-                                    const endTime = (0, date_fns_1.addHours)((0, date_fns_1.parseISO)(current.startsAt), 1);
-                                    switch (entry.chType) {
-                                        case projectUtils_js_1.enCalcType.BestCost:
-                                        case projectUtils_js_1.enCalcType.BestCostLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
-                                            break;
-                                        case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
-                                        case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
-                                            break;
-                                        default:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
-                                    }
-                                    startIndex = i;
+                            const blocks = [];
+                            let blockStart = null;
+                            let prev = null;
+                            for (const current of filteredData) {
+                                if (!blockStart) {
+                                    blockStart = current;
+                                    prev = current;
+                                    continue;
                                 }
+                                const diffMinutes = ((0, date_fns_1.parseISO)(current.startsAt).getTime() - (0, date_fns_1.parseISO)(prev.startsAt).getTime()) / (1000 * 60);
+                                if (diffMinutes > 15 || current.name !== prev.name) {
+                                    const startTime = (0, date_fns_1.parseISO)(blockStart.startsAt);
+                                    const endTime = (0, date_fns_1.addMinutes)((0, date_fns_1.parseISO)(prev.startsAt), 15);
+                                    blocks.push({ startTime, endTime, name: prev.name, yAxis: prev.chTriggerPrice });
+                                    blockStart = current;
+                                }
+                                prev = current;
+                            }
+                            if (blockStart && prev) {
+                                const startTime = (0, date_fns_1.parseISO)(blockStart.startsAt);
+                                const endTime = (0, date_fns_1.addMinutes)((0, date_fns_1.parseISO)(prev.startsAt), 15);
+                                blocks.push({ startTime, endTime, name: prev.name, yAxis: prev.chTriggerPrice });
+                            }
+                            for (const block of blocks) {
+                                const startFormatted = (0, date_fns_1.format)(block.startTime, "dd.MM.'\\n'HH:mm");
+                                const endFormatted = (0, date_fns_1.format)(block.endTime, "dd.MM.'\\n'HH:mm");
+                                calcChannelsData += `[{
+									name: "${block.name}", 
+									xAxis: "${startFormatted}"
+								}, {
+									xAxis: "${endFormatted}"${block.yAxis !== undefined ? `, yAxis: ${block.yAxis}` : ""}
+								}],\n`;
                             }
                         }
                     }
