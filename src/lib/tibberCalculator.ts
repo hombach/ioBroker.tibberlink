@@ -706,6 +706,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 		const badComponents = ["tibberlink", "Homes", "Calculations"]; // we must not use an input as output!!
 
+		// eslint-disable-next-line @typescript-eslint/no-for-in-array
 		for (const channel in this.adapter.config.CalculatorList) {
 			//#region *** first run checks ***
 			if (firstRun) {

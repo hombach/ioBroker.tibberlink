@@ -111,7 +111,7 @@ export class TibberAPICaller extends ProjectUtils {
 		return okprice;
 	}
 	/**
-	 * updates current price of one home
+	 * updates current price of one home - if price isn't already saved for current hour, or forceUpdate is set
 	 *
 	 * @param homeId - homeId string
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false

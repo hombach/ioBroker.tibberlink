@@ -171,6 +171,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) change price updates to 15 minutes resolution as default
 - (HombachC) update tibber-api to 5.5.2
 - (HombachC) fixing issues detected by repository checker (#774)
+- (HombachC) update typescript to 5.9.3 (#777)
 
 ### 5.0.4 (2025-09-27)
 
