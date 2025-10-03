@@ -1,7 +1,6 @@
 import type * as utils from "@iobroker/adapter-core";
-import { addHours, addMinutes, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
-//import { addHours, addMinutes, differenceInHours, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
-
+//import { addHours, differenceInHours, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
+import { addHours, differenceInMinutes, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
@@ -37,6 +36,11 @@ export class TibberCharts extends ProjectUtils {
 	}
 
 	private async generateFlexChartJSON(homeID: string): Promise<void> {
+		// helper for format "dd.MM.\nHH:mm"
+		function formatDate(d: Date): string {
+			return format(d, "dd.MM.'\n'HH:mm");
+		}
+
 		try {
 			const exPricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesToday.json`));
 			const exPricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesTomorrow.json`));
@@ -70,7 +74,8 @@ export class TibberCharts extends ProjectUtils {
 			const totalValues = mergedPrices.map(item => item.total);
 			const startsAtValues = mergedPrices.map(item => {
 				const date = new Date(item.startsAt);
-				return format(date, "dd.MM.'\n'HH:mm");
+				return formatDate(date);
+				//return format(date, "dd.MM.'\n'HH:mm");
 			});
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
@@ -97,6 +102,7 @@ export class TibberCharts extends ProjectUtils {
 					let calcChannelsData = "";
 					if (filteredEntries.length > 0) {
 						this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
+
 						for (const entry of filteredEntries) {
 							if (!entry.chGraphEnabled) {
 								// should this channel be processed for charts JSON? Otherwise skip
@@ -106,13 +112,13 @@ export class TibberCharts extends ProjectUtils {
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
 
-							/*
 							let startIndex = 0;
 							for (let i = 1; i <= filteredData.length; i++) {
 								// check: connected hours?
 								const current = filteredData[i - 1];
 								const next = filteredData[i];
-								const isContinuous = next && differenceInHours(parseISO(next.startsAt), parseISO(current.startsAt)) === 1;
+								//const isContinuous = next && differenceInHours(parseISO(next.startsAt), parseISO(current.startsAt)) === 1;
+								const isContinuous = next && differenceInMinutes(parseISO(next.startsAt), parseISO(current.startsAt)) === 15;
 								if (!isContinuous || i === filteredData.length) {
 									// end of block or last iteration
 									const startTime = parseISO(filteredData[startIndex].startsAt);
@@ -120,61 +126,17 @@ export class TibberCharts extends ProjectUtils {
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}", yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}"}],\n`;
 											break;
 										default:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}"}],\n`;
 									}
 									startIndex = i; // start next group
 								}
-							}*/
-
-							const blocks: any[] = [];
-							let blockStart: { startsAt: string; name: string; chTriggerPrice?: number } | null = null;
-							let prev: { startsAt: string; name: string; chTriggerPrice?: number } | null = null;
-
-							for (const current of filteredData) {
-								if (!blockStart) {
-									// start of new block
-									blockStart = current;
-									prev = current;
-									continue;
-								}
-
-								// Verify: continous block?
-								const diffMinutes = (parseISO(current.startsAt).getTime() - parseISO(prev.startsAt).getTime()) / (1000 * 60);
-								if (diffMinutes > 15 || current.name !== prev.name) {
-									// ende of block, save it
-									const startTime = parseISO(blockStart.startsAt);
-									const endTime = addMinutes(parseISO(prev.startsAt), 15); // 15 min interval
-									blocks.push({ startTime, endTime, name: prev.name, yAxis: prev.chTriggerPrice });
-									// new block
-									blockStart = current;
-								}
-								prev = current;
-							}
-
-							// add last block
-							if (blockStart && prev) {
-								const startTime = parseISO(blockStart.startsAt);
-								const endTime = addMinutes(parseISO(prev.startsAt), 15); // 15 min interval
-								blocks.push({ startTime, endTime, name: prev.name, yAxis: prev.chTriggerPrice });
-							}
-
-							// Flexcharts output
-							for (const block of blocks) {
-								const startFormatted = format(block.startTime, "dd.MM.'\\n'HH:mm");
-								const endFormatted = format(block.endTime, "dd.MM.'\\n'HH:mm");
-								calcChannelsData += `[{
-									name: "${block.name}", 
-									xAxis: "${startFormatted}"
-								}, {
-									xAxis: "${endFormatted}"${block.yAxis !== undefined ? `, yAxis: ${block.yAxis}` : ""}
-								}],\n`;
 							}
 						}
 					}
