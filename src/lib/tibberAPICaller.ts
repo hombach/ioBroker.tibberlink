@@ -444,12 +444,17 @@ export class TibberAPICaller extends ProjectUtils {
 	 */
 	private async fetchPrice(homeId: string, objectDestination: string, price: IPrice): Promise<void> {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
-		await this.checkAndSetValueNumber(`${basePath}.total`, price.total, "Total price (energy + taxes)");
-		void this.checkAndSetValueNumber(`${basePath}.energy`, price.energy, "Spotmarket energy price");
-		void this.checkAndSetValueNumber(`${basePath}.tax`, price.tax, "Tax part of the price (energy, tax, VAT...)");
-		void this.checkAndSetValue(`${basePath}.startsAt`, price.startsAt, "Start time of the price");
-		//void this.checkAndSetValue(`${basePath}.currency`, price.currency, "The price currency");
-		void this.checkAndSetValue(`${basePath}.level`, price.level, "Price level compared to recent price values");
+
+		const date = new Date(price.startsAt);
+		const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+
+		await this.checkAndSetValueNumber(`${basePath}.total`, price.total, `Total price (energy + taxes)`);
+		void this.checkAndSetValueNumber(`${basePath}.energy`, price.energy, `Spotmarket energy price`);
+		void this.checkAndSetValueNumber(`${basePath}.tax`, price.tax, `Tax part of the price (energy, tax, VAT...)`);
+		//void this.checkAndSetValue(`${basePath}.startsAt`, price.startsAt, `Start time of the price`);
+		void this.checkAndSetValue(`${basePath}.startsAt`, price.startsAt, `Start time of the price - ${timeLabel}`);
+		//void this.checkAndSetValue(`${basePath}.currency`, price.currency, `The price currency`);
+		void this.checkAndSetValue(`${basePath}.level`, price.level, `Price level compared to recent price values`);
 	}
 
 	private fetchPriceAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
