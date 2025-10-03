@@ -165,15 +165,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
-
-- (HombachC) BREAKING: hourly price states (0...23) are now quarterhourly (0...95)
-- (HombachC) change price updates to 15 minutes resolution as default
-- (HombachC) update tibber-api to 5.5.2
-- (HombachC) update typescript to 5.9.3 (#777)
-- (HombachC) add names to prices state folders
-
-### 6.0.0-beta.0 (2025-10-03)
+### 6.0.0-beta.1 (2025-10-03)
 
 - (HombachC) BREAKING: hourly price states (0...23) are now quarterhourly (0...95)
 - (HombachC) change price updates to 15 minutes resolution as default
@@ -198,15 +190,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) min admin 7.6.17 as recommended (#754)
 - (HombachC) update adapter-core
 - (HombachC) bump typescript
-- (HombachC) bump dependencies
-
-### 5.0.1 (2025-08-15)
-
-- (HombachC) add decoder for EMH eHZB IMSys
-- (HombachC) remove creation of not feeded states
-- (HombachC) fix typo in error message (#731)
-- (HombachC) fix vulnerability
-- (HombachC) change power production to be polled by default (#721)
 - (HombachC) bump dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
