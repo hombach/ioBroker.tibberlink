@@ -120,14 +120,14 @@ export class TibberCharts extends ProjectUtils {
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
 											break;
 										default:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
 									}
 									startIndex = i; // start next group
 								}
