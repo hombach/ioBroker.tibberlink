@@ -148,9 +148,9 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
                 this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
                 this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
-                for (const price of pricesToday) {
-                    const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-                    await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
+                for (let i = 0; i < pricesToday.length; i++) {
+                    const price = pricesToday[i];
+                    await this.fetchPrice(homeId, `PricesToday.${i}`, price);
                 }
                 if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
                     void this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), "prices sorted by cost ascending as json");
@@ -225,9 +225,9 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     return false;
                 }
                 else if (Array.isArray(pricesTomorrow)) {
-                    for (const price of pricesTomorrow) {
-                        const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-                        await this.fetchPrice(homeId, `PricesTomorrow.${hour}`, price);
+                    for (let i = 0; i < pricesTomorrow.length; i++) {
+                        const price = pricesTomorrow[i];
+                        await this.fetchPrice(homeId, `PricesTomorrow.${i}`, price);
                     }
                     this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
                     this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);

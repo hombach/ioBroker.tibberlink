@@ -167,13 +167,14 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) BREAKING: hourly price states (0...23) are now quarterhourly (0...95)
 - (HombachC) change price updates to 15 minutes resolution as default
 - (HombachC) update tibber-api to 5.5.2
 - (HombachC) fixing issues detected by repository checker (#774)
 
 ### 5.0.4 (2025-09-27)
 
-- (HombachC) change price updates to 15 minutes resolution (#384)
+- (HombachC) prepared price updates to 15 minutes resolution (#384)
 - (HombachC) update tibber-api to 5.4.2
 - (HombachC) update chai system
 

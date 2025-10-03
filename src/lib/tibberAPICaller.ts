@@ -220,9 +220,23 @@ export class TibberAPICaller extends ProjectUtils {
 				this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
 				this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
 				this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
+				/*
 				for (const price of pricesToday) {
+					// states as 0, 1, 2 ... for hourly resolution
 					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
 					await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
+				}*/
+				/*
+				for (const price of pricesToday) {
+					// states as 14_15, 14_30, 14_45 for 15 minutes resolution
+					const date = new Date(price.startsAt.substr(0, 19));
+					const key = `${date.getHours().toString().padStart(2, "0")}_${date.getMinutes().toString().padStart(2, "0")}`;
+					await this.fetchPrice(homeId, `PricesToday.${key}`, price);
+				}*/
+				for (let i = 0; i < pricesToday.length; i++) {
+					// states as 0, 1, 2 ... for hourly resolution or 0,1,2...95 for 15 minutes resolution
+					const price = pricesToday[i];
+					await this.fetchPrice(homeId, `PricesToday.${i}`, price);
 				}
 				if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
 					// Got valid pricesToday
@@ -324,9 +338,23 @@ export class TibberAPICaller extends ProjectUtils {
 					return false;
 				} else if (Array.isArray(pricesTomorrow)) {
 					// pricing known, after about 13:00 - write the states
+					/*
 					for (const price of pricesTomorrow) {
+						// states as 0, 1, 2 ... for hourly resolution
 						const hour = new Date(price.startsAt.substr(0, 19)).getHours();
 						await this.fetchPrice(homeId, `PricesTomorrow.${hour}`, price);
+					}*/
+					/*
+					for (const price of pricesTomorrow) {
+						// states as 14_15, 14_30, 14_45 for 15 minutes resolution
+						const date = new Date(price.startsAt.substr(0, 19));
+						const key = `${date.getHours().toString().padStart(2, "0")}_${date.getMinutes().toString().padStart(2, "0")}`;
+						await this.fetchPrice(homeId, `PricesTomorrow.${key}`, price);
+					}*/
+					for (let i = 0; i < pricesTomorrow.length; i++) {
+						// states as 0, 1, 2 ... for hourly resolution or 0,1,2...95 for 15 minutes resolution
+						const price = pricesTomorrow[i];
+						await this.fetchPrice(homeId, `PricesTomorrow.${i}`, price);
 					}
 					this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
 					this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
@@ -440,22 +468,6 @@ export class TibberAPICaller extends ProjectUtils {
 		);
 		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / price.length)) / 1000, "Todays average tax price");
 	}
-	/*
-	private fetchPriceAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
-		const totalSum = price.reduce((sum, item) => {
-			if (item && typeof item.total === "number") {
-				return sum + item.total;
-			}
-			return sum;
-		}, 0);
-
-		const basePath = `Homes.${homeId}.${objectDestination}`;
-		void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (totalSum / price.length)) / 1000, "Todays total price average");
-		const energySum = price.reduce((sum, item) => sum + item.energy, 0);
-		void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (energySum / price.length)) / 1000, "Todays average spotmarket price");
-		const taxSum = price.reduce((sum, item) => sum + item.tax, 0);
-		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (taxSum / price.length)) / 1000, "Todays average tax price");
-	}*/
 	private fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
 			return;
@@ -484,41 +496,6 @@ export class TibberAPICaller extends ProjectUtils {
 			"Todays remaining average tax price",
 		);
 	}
-	/*
-	private fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
-		const now = new Date(); // current time
-		const currentHour = now.getHours();
-		// filter to prices of current and later hours
-		const filteredPrices = price.filter(item => {
-			const itemHour = new Date(item.startsAt).getHours();
-			return itemHour >= currentHour;
-		});
-
-		const remainingTotalSum = filteredPrices.reduce((sum, item) => {
-			if (item && typeof item.total === "number") {
-				return sum + item.total;
-			}
-			return sum;
-		}, 0);
-		const basePath = `Homes.${homeId}.${objectDestination}`;
-		void this.checkAndSetValueNumber(
-			`${basePath}.total`,
-			Math.round(1000 * (remainingTotalSum / filteredPrices.length)) / 1000,
-			"Todays total price remaining average",
-		);
-		const remainingEnergySum = filteredPrices.reduce((sum, item) => sum + item.energy, 0);
-		void this.checkAndSetValueNumber(
-			`${basePath}.energy`,
-			Math.round(1000 * (remainingEnergySum / filteredPrices.length)) / 1000,
-			"Todays remaining average spot market price",
-		);
-		const remainingTaxSum = filteredPrices.reduce((sum, item) => sum + item.tax, 0);
-		void this.checkAndSetValueNumber(
-			`${basePath}.tax`,
-			Math.round(1000 * (remainingTaxSum / filteredPrices.length)) / 1000,
-			"Todays remaining average tax price",
-		);
-	}*/
 
 	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
