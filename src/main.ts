@@ -138,12 +138,12 @@ class Tibberlink extends utils.Adapter {
 				const isMonthTransition = todayDay < lastDay;
 
 				// If no month transition, check normal difference
-				// If month transition, check if difference is >= 3 days
+				// If month transition, check if difference is >= 10 days
 				if (
-					(!isMonthTransition && lastDay < todayDay + 3) || // Normal case: same month
-					(isMonthTransition && todayDay + 30 - lastDay >= 3) // Month transition: rough estimate
+					(!isMonthTransition && lastDay < todayDay + 10) || // Normal case: same month
+					(isMonthTransition && todayDay + 30 - lastDay >= 10) // Month transition: rough estimate
 				) {
-					// Verify if 3 or more days in the past
+					// Verified if 10 or more days in the past
 					this.tibberCalculator.updateCalculatorUsageStats();
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();

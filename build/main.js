@@ -137,8 +137,8 @@ class Tibberlink extends utils.Adapter {
                 const today = new Date();
                 const todayDay = today.getDate();
                 const isMonthTransition = todayDay < lastDay;
-                if ((!isMonthTransition && lastDay < todayDay + 3) ||
-                    (isMonthTransition && todayDay + 30 - lastDay >= 3)) {
+                if ((!isMonthTransition && lastDay < todayDay + 10) ||
+                    (isMonthTransition && todayDay + 30 - lastDay >= 10)) {
                     this.tibberCalculator.updateCalculatorUsageStats();
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
