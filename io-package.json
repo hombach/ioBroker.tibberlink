@@ -1,9 +1,9 @@
 {
 	"common": {
 		"name": "tibberlink",
-		"version": "6.0.0-beta.1",
+		"version": "6.0.0-beta.2",
 		"news": {
-			"6.0.0-beta.1": {
+			"6.0.0-beta.2": {
 				"en": "BREAKING: hourly price states (0...23) are now quarterhourly (0...95)\nchange price updates to 15 minutes resolution as default\nupdate tibber-api to 5.5.2\nupdate typescript to 5.9.3 (#777)\nadd names to prices state folders",
 				"de": "BREAKING: Stundenpreise (0...23) sind jetzt viertelstunde (0...95)\npreisaktualisierung auf 15 minuten auflösung als standard ändern\naktualisierung von tibber-api auf 5.5.2\nupdate-typscript auf 5.9.3 (#777)\nnamen zu preisen hinzufügen",
 				"ru": "Почасовые цены (0...23) теперь квартальные (0...95)\nизменение цены до 15 минут разрешения по умолчанию\nобновление tibber-api до 5.5.2\nобновление typescript до 5.9.3 (#777)\nдобавить имена в ценовые государственные папки",
