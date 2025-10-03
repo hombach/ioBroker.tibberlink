@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "5.0.4",
+    "version": "6.0.0-beta.0",
     "news": {
+      "6.0.0-beta.0": {
+        "en": "BREAKING: hourly price states (0...23) are now quarterhourly (0...95)\nchange price updates to 15 minutes resolution as default\nupdate tibber-api to 5.5.2\nfixing issues detected by repository checker (#774)\nupdate typescript to 5.9.3 (#777)\nadd names to prices state folders",
+        "de": "BREAKING: Stundenpreise (0...23) sind jetzt viertelstunde (0...95)\npreisaktualisierung auf 15 minuten auflösung als standard ändern\naktualisierung von tibber-api auf 5.5.2\nproblembehebung durch repository checker (#774)\nupdate-typscript auf 5.9.3 (#777)\nnamen zu preisen hinzufügen",
+        "ru": "Почасовые цены (0...23) теперь квартальные (0...95)\nизменение цены до 15 минут разрешения по умолчанию\nобновление tibber-api до 5.5.2\nисправление проблем, обнаруженных с помощью проверки репозитория (#774)\nобновление typescript до 5.9.3 (#777)\nдобавить имена в ценовые государственные папки",
+        "pt": "PREJUÍZO: os estados de preço por hora (0...23) são agora trimestralmente (0...95)\nmudar as atualizações de preço para 15 minutos de resolução como padrão\natualizar tibber-api para 5.5.2\ncorrigir problemas detectados pelo verificador de repositórios (#774)\natualizar o texto para 5.9.3 (#777)\nadicionar nomes às pastas de estados de preços",
+        "nl": "Breaking: uurprijs toestanden (0...23) zijn nu kwartuur (0...95)\nwijzigen prijs updates naar 15 minuten resolutie als standaard\ntibber-api bijwerken tot 5.5.2\nvastleggen van problemen gedetecteerd door repository checker (#774)\nupdate typescript naar 5.9.3 (#777)\nnamen toevoegen aan prijzen state mappen",
+        "fr": "BREAKING: les états des prix horaires (0...23) sont maintenant trimestriels (0...95)\nchanger les mises à jour de prix à 15 minutes de résolution par défaut\nmettre à jour le tibber-api à 5.5.2\ncorrection des problèmes détectés par le contrôleur du dépôt (#774)\nmettre à jour la typographie au 5.9.3 (#777)\najouter des noms aux dossiers d'état des prix",
+        "it": "BREAKING: gli stati di prezzo orario (0...23) sono ora trimestrali (0...95)\ncambiare gli aggiornamenti dei prezzi alla risoluzione di 15 minuti come predefinito\naggiornamento tibber-api a 5.5.2\nrisolvere i problemi rilevati da repository checker (#774)\nupdate typescript to 5.9.3 (#777)\naggiungere nomi a prezzi cartelle stato",
+        "es": "BREAKING: los estados de precio por hora (0...23) están ahora trimestralmente (0...95)\nactualizaciones de precios de cambio a 15 minutos resolución como predeterminado\nactualización tibber-api a 5.5.2\nproblemas de fijación detectados por repositorio (#774)\ntipografía de actualización a 5.9.3 (#777)\nañadir nombres a precios carpetas estatales",
+        "pl": "BREAKING: stany cen godzinowych (0... 23) są obecnie kwartalne (0... 95)\nzmienić aktualizacje cen do rozdzielczości 15 minut jako domyślnie\naktualizacja tibber- api do 5.5.2\nproblemy z ustawianiem wykrywane przez kontroler repozytorium (# 774)\naktualizacja do 5.9.3 (# 777)\ndodaj nazwy do katalogów stanowych cen",
+        "uk": "BREAKING: погодинні цінові стани (0...23) тепер чвертьгодинно (0...95)\nзмінити оновлення ціни до 15 хвилин, як за замовчуванням\nоновлення tibber-api до 5.5.2\nвиправлення питань, виявлених репозиторійною перевіркою (#774)\nenglish, українська, français..\nдодати імена до цін державних папок",
+        "zh-cn": "每小时价格(0.23)现在是每半小时(0.95)\n将价格更新改为默认的15分钟分辨率\n将 tibber-api 更新到 5.5.2\n修复仓库检查器发现的问题(# 774)\n更新打字符至5.9.3 (# 777)\n在价格状态文件夹中添加名称"
+      },
       "5.0.4": {
         "en": "change price updates to 15 minutes resolution (#384)\nupdate tibber-api to 5.4.2\nupdate chai system",
         "de": "preisänderungen auf 15 minuten auflösung ändern (#384)\naktualisierung von tibber-api auf 5.4.2\nchai system",
@@ -80,19 +93,6 @@
         "pl": "ustalić specjalne przypadki o lokalnej wartości eksportowej (# 704)\nusunąć testy na node.js 18\noptymalizacja kodu asynchronu",
         "uk": "виправити спеціальні випадки місцевого експортного значення (#704)\nвидалити тести для node.js 18\nоптимізація коду asynchron",
         "zh-cn": "固定本地出口值的特殊情况(# 704)\n取消节点测试。 js 18\n优化同步代码"
-      },
-      "4.5.3": {
-        "en": "optimize shutdown-logic (#707)\nupdate tibber-api\nbump dependencies",
-        "de": "optimierte abschaltlogik (#707)\naktualisierung tibber-api\nbumpabhängigkeiten",
-        "ru": "оптимизация логики отключения (#707)\nобновление tibber-api\nбамп зависимости",
-        "pt": "otimizar o desligamento-lógico (#707)\natualizar tibber-api\ndependências de choque",
-        "nl": "optimalisatie shutdown-logic (#707)\ntibber-api bijwerken\nbump afhankelijkheden",
-        "fr": "optimiser l'arrêt-logique (#707)\nmettre à jour le tibber-api\ndépendances des bosses",
-        "it": "ottimizzare shutdown-logic (#707)\naggiornamento tibber-api\nindipendenza urto",
-        "es": "optimización de cierre-lógica (#707)\nactualización tibber-api\ndependencia de los gastos",
-        "pl": "optymalizacja logiki zamykania (# 707)\nupdate tibber- api\nuzależnienia od guza",
-        "uk": "оптимізація відключення (#707)\nоновлення tibber-api\nbump залежності",
-        "zh-cn": "优化关闭日志(# 707)\n更新 - api\n意外依赖"
       }
     },
     "messages": [

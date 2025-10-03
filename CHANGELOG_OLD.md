@@ -18,6 +18,12 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 5.0.0 (2025-05-30)
+
+- (HombachC) BREAKING: dropped node.js 18 support (#703)
+- (HombachC) BREAKING: dropped js-controller 5 support (#703)
+- (HombachC) add tests for node.js 24 (#717)
+
 ### 4.5.4 (2025-05-18)
 
 - (HombachC) fix special cases of local export value (#704)
@@ -384,7 +390,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) implement calculator channel names (#186)
 - (HombachC) fix error in cron jobs (#190)
 - (HombachC) remove not used calculator channel state objects (#188)
-- (HombachC) code optimizations
 - (HombachC) optimize translation handling
 
 ### 1.4.3 (2023-11-08)

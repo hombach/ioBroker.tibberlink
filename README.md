@@ -165,7 +165,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 6.0.0-beta.0 (2025-10-03)
 
 - (HombachC) BREAKING: hourly price states (0...23) are now quarterhourly (0...95)
 - (HombachC) change price updates to 15 minutes resolution as default
@@ -201,12 +201,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) fix vulnerability
 - (HombachC) change power production to be polled by default (#721)
 - (HombachC) bump dependencies
-
-### 5.0.0 (2025-05-30)
-
-- (HombachC) BREAKING: dropped node.js 18 support (#703)
-- (HombachC) BREAKING: dropped js-controller 5 support (#703)
-- (HombachC) add tests for node.js 24 (#717)
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
