@@ -36,11 +36,6 @@ export class TibberCharts extends ProjectUtils {
 	}
 
 	private async generateFlexChartJSON(homeID: string): Promise<void> {
-		// helper for format "dd.MM.\nHH:mm"
-		function formatDate(d: Date): string {
-			return format(d, "dd.MM.'\n'HH:mm");
-		}
-
 		try {
 			const exPricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesToday.json`));
 			const exPricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesTomorrow.json`));
@@ -74,8 +69,7 @@ export class TibberCharts extends ProjectUtils {
 			const totalValues = mergedPrices.map(item => item.total);
 			const startsAtValues = mergedPrices.map(item => {
 				const date = new Date(item.startsAt);
-				return formatDate(date);
-				//return format(date, "dd.MM.'\n'HH:mm");
+				return format(date, "dd.MM.'\n'HH:mm");
 			});
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
@@ -126,14 +120,14 @@ export class TibberCharts extends ProjectUtils {
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}", yAxis: ${entry.chTriggerPrice}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\n'HH:mm")}"}],\n`;
 											break;
 										default:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\n'HH:mm")}"}],\n`;
 									}
 									startIndex = i; // start next group
 								}

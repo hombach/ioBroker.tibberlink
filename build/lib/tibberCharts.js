@@ -16,9 +16,6 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
         }
     }
     async generateFlexChartJSON(homeID) {
-        function formatDate(d) {
-            return (0, date_fns_1.format)(d, "dd.MM.'\n'HH:mm");
-        }
         try {
             const exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesToday.json`));
             const exPricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesTomorrow.json`));
@@ -46,7 +43,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
             const totalValues = mergedPrices.map(item => item.total);
             const startsAtValues = mergedPrices.map(item => {
                 const date = new Date(item.startsAt);
-                return formatDate(date);
+                return (0, date_fns_1.format)(date, "dd.MM.'\n'HH:mm");
             });
             let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
             if (jsonFlexCharts) {
@@ -87,14 +84,14 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                     switch (entry.chType) {
                                         case projectUtils_js_1.enCalcType.BestCost:
                                         case projectUtils_js_1.enCalcType.BestCostLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}", yAxis: ${entry.chTriggerPrice}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
                                             break;
                                         case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                                         case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}"}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\n'HH:mm")}"}],\n`;
                                             break;
                                         default:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${formatDate(startTime)}"}, {xAxis: "${formatDate(endTime)}"}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\n'HH:mm")}"}],\n`;
                                     }
                                     startIndex = i;
                                 }
