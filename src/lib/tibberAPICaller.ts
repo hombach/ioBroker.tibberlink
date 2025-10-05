@@ -267,7 +267,7 @@ export class TibberAPICaller extends ProjectUtils {
 				void this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(pricesToday), "The prices today as json"); // write also it might be empty
 				void this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.json`, JSON.stringify(exPricesToday), "The prices yesterday as json");
 				this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
-				this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
+				await this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
 				this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
 				this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
 				for (let i = 0; i < pricesToday.length; i++) {
