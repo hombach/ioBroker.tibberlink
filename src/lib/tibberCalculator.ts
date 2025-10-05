@@ -538,7 +538,7 @@ export class TibberCalculator extends ProjectUtils {
 			void this.checkAndSetValueNumber(
 				`Homes.${homeId}.Calculations.${channel}.AmountHours`,
 				channelConfig.chAmountHours,
-				`value of hours to trigger this channel`,
+				`value of hours to trigger this channel, resolution 0.25 hours = 15 minutes`,
 				undefined,
 				`level`,
 				true,

@@ -411,7 +411,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             if (channelConfig.chAmountHours === undefined) {
                 channelConfig.chAmountHours = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AmountHours`, channelConfig.chAmountHours, `value of hours to trigger this channel`, undefined, `level`, true, true);
+            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AmountHours`, channelConfig.chAmountHours, `value of hours to trigger this channel, resolution 0.25 hours = 15 minutes`, undefined, `level`, true, true);
             const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
             if (typeof valueAmountHours === "number") {
                 channelConfig.chAmountHours = valueAmountHours * 4;
