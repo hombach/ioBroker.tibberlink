@@ -80,7 +80,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                 const isContinuous = next && (0, date_fns_1.differenceInMinutes)((0, date_fns_1.parseISO)(next.startsAt), (0, date_fns_1.parseISO)(current.startsAt)) === 15;
                                 if (!isContinuous || i === filteredData.length) {
                                     const startTime = (0, date_fns_1.parseISO)(filteredData[startIndex].startsAt);
-                                    const endTime = (0, date_fns_1.addHours)((0, date_fns_1.parseISO)(current.startsAt), 1);
+                                    const endTime = (0, date_fns_1.addMinutes)((0, date_fns_1.parseISO)(current.startsAt), 15);
                                     switch (entry.chType) {
                                         case projectUtils_js_1.enCalcType.BestCost:
                                         case projectUtils_js_1.enCalcType.BestCostLTF:

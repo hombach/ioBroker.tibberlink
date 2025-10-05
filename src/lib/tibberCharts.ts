@@ -1,6 +1,6 @@
 import type * as utils from "@iobroker/adapter-core";
 //import { addHours, differenceInHours, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
-import { addHours, differenceInMinutes, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
+import { addHours, addMinutes, differenceInMinutes, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
@@ -107,6 +107,7 @@ export class TibberCharts extends ProjectUtils {
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
 
 							let startIndex = 0;
+
 							for (let i = 1; i <= filteredData.length; i++) {
 								// check: connected hours?
 								const current = filteredData[i - 1];
@@ -116,7 +117,8 @@ export class TibberCharts extends ProjectUtils {
 								if (!isContinuous || i === filteredData.length) {
 									// end of block or last iteration
 									const startTime = parseISO(filteredData[startIndex].startsAt);
-									const endTime = addHours(parseISO(current.startsAt), 1);
+									const endTime = addMinutes(parseISO(current.startsAt), 15); // 15 minutes instead of 1 hour
+									// TODO remove after test  -  const endTime = addHours(parseISO(current.startsAt), 1);
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
