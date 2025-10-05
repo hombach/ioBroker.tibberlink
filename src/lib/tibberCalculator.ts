@@ -870,6 +870,7 @@ export class TibberCalculator extends ProjectUtils {
 		});
 	}
 
+	// ADAPTED TO 15 MINUTE - BLOCK SIZE IRRELEVANT
 	private async executeCalculatorBestCost(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -927,6 +928,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
+	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes
 	private async executeCalculatorBestSingleHours(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -998,6 +1000,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
+	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes - ONGOING
 	private async executeCalculatorBestHoursBlock(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1033,7 +1036,8 @@ export class TibberCalculator extends ProjectUtils {
 						startIndex = i;
 					}
 				}
-				const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+				const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1073,7 +1077,8 @@ export class TibberCalculator extends ProjectUtils {
 						startIndex = i;
 					}
 				}
-				const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
+				const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkQuarterMatch(entry));
 				// identify if any element is true
 				if (channelResult.some(value => value)) {
 					valueToSet = channelConfig.chValueOn;

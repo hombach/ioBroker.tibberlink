@@ -774,7 +774,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         startIndex = i;
                     }
                 }
-                const channelResult = filteredPrices.slice(startIndex, startIndex + n).map((entry) => checkHourMatch(entry));
+                const channelResult = filteredPrices.slice(startIndex, startIndex + n).map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(),
@@ -808,7 +808,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         startIndex = i;
                     }
                 }
-                const channelResult = filteredPrices.slice(startIndex, startIndex + n).map((entry) => checkHourMatch(entry));
+                const channelResult = filteredPrices.slice(startIndex, startIndex + n).map((entry) => checkQuarterMatch(entry));
                 if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                 }
