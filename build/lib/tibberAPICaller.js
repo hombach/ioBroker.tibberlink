@@ -320,6 +320,15 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         const taxSum = filteredPrices.reduce((sum, item) => sum + (item.tax ?? 0), 0);
         const count = filteredPrices.length;
         const basePath = `Homes.${homeId}.${objectDestination}`;
+        const date = new Date(filteredPrices[0].startsAt);
+        const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+        await this.adapter.setObject(basePath, {
+            type: "folder",
+            common: {
+                name: `valid from ${timeLabel}`,
+            },
+            native: {},
+        });
         await this.checkAndSetValueNumber(`${basePath}.total`, Math.round((totalSum / count) * 1000) / 1000, `Todays total price remaining average`);
         await this.checkAndSetValueNumber(`${basePath}.energy`, Math.round((energySum / count) * 1000) / 1000, `Todays remaining average spot market price`);
         await this.checkAndSetValueNumber(`${basePath}.tax`, Math.round((taxSum / count) * 1000) / 1000, `Todays remaining average tax price`);

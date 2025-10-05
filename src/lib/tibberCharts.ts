@@ -1,5 +1,4 @@
 import type * as utils from "@iobroker/adapter-core";
-//import { addHours, differenceInHours, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
 import { addHours, addMinutes, differenceInMinutes, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
@@ -99,7 +98,6 @@ export class TibberCharts extends ProjectUtils {
 
 						for (const entry of filteredEntries) {
 							if (!entry.chGraphEnabled) {
-								// should this channel be processed for charts JSON? Otherwise skip
 								continue;
 							}
 							this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
@@ -109,16 +107,14 @@ export class TibberCharts extends ProjectUtils {
 							let startIndex = 0;
 
 							for (let i = 1; i <= filteredData.length; i++) {
-								// check: connected hours?
+								// test for connected time blocks?
 								const current = filteredData[i - 1];
 								const next = filteredData[i];
-								//const isContinuous = next && differenceInHours(parseISO(next.startsAt), parseISO(current.startsAt)) === 1;
 								const isContinuous = next && differenceInMinutes(parseISO(next.startsAt), parseISO(current.startsAt)) === 15;
 								if (!isContinuous || i === filteredData.length) {
 									// end of block or last iteration
 									const startTime = parseISO(filteredData[startIndex].startsAt);
 									const endTime = addMinutes(parseISO(current.startsAt), 15); // 15 minutes instead of 1 hour
-									// TODO remove after test  -  const endTime = addHours(parseISO(current.startsAt), 1);
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:

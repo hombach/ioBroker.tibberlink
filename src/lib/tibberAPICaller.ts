@@ -96,17 +96,14 @@ export class TibberAPICaller extends ProjectUtils {
 	 * updates current prices of all homes
 	 *
 	 * @param homeInfoList - homeInfo list object
-	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	// TODO: remove after test:  async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate = false): Promise<boolean> {
 	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[]): Promise<boolean> {
 		let okprice = true;
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) {
 				continue;
 			}
-			// TODO: remove after test:   if (!(await this.updateCurrentPrice(curHomeInfo.ID, forceUpdate))) {
 			if (!(await this.updateCurrentPrice(curHomeInfo.ID))) {
 				okprice = false;
 			} // single fault sets all false
@@ -527,6 +524,17 @@ export class TibberAPICaller extends ProjectUtils {
 		const taxSum = filteredPrices.reduce((sum, item) => sum + (item.tax ?? 0), 0);
 		const count = filteredPrices.length;
 		const basePath = `Homes.${homeId}.${objectDestination}`;
+		//new
+		const date = new Date(filteredPrices[0].startsAt);
+		const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+		await this.adapter.setObject(basePath, {
+			type: "folder",
+			common: {
+				name: `valid from ${timeLabel}`,
+			},
+			native: {},
+		});
+		//new
 		await this.checkAndSetValueNumber(`${basePath}.total`, Math.round((totalSum / count) * 1000) / 1000, `Todays total price remaining average`);
 		await this.checkAndSetValueNumber(`${basePath}.energy`, Math.round((energySum / count) * 1000) / 1000, `Todays remaining average spot market price`);
 		await this.checkAndSetValueNumber(`${basePath}.tax`, Math.round((taxSum / count) * 1000) / 1000, `Todays remaining average tax price`);
