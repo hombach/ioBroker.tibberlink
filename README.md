@@ -165,7 +165,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 6.0.0-beta.3 (2025-10-05)
 
 - (HombachC) BREAKING: hourly price states (0...23) are now quarterhourly (0...95)
 - (HombachC) change price updates to 15 minutes resolution as default
@@ -175,14 +175,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) update typescript to 5.9.3 (#777)
 - (HombachC) add names to prices state folders
 - (HombachC) try to fix chart generation
-
-### 6.0.0-beta.2 (2025-10-03)
-
-- (HombachC) BREAKING: hourly price states (0...23) are now quarterhourly (0...95)
-- (HombachC) change price updates to 15 minutes resolution as default
-- (HombachC) update tibber-api to 5.5.2
-- (HombachC) update typescript to 5.9.3 (#777)
-- (HombachC) add names to prices state folders
 
 ### 5.0.4 (2025-09-27)
 
