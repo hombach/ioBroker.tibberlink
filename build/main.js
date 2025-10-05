@@ -470,9 +470,10 @@ class Tibberlink extends utils.Adapter {
                                         break;
                                     case "AmountHours":
                                         if (typeof state.val === "number") {
-                                            this.config.CalculatorList[calcChannel].chAmountHours = state.val;
-                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours: ${this.config.CalculatorList[calcChannel].chAmountHours}`);
-                                            void this.setState(id, state.val, true);
+                                            const roundedValue = Math.round(state.val * 4) / 4;
+                                            this.config.CalculatorList[calcChannel].chAmountHours = roundedValue * 4;
+                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours: ${roundedValue}`);
+                                            void this.setState(id, roundedValue, true);
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chAmountHours: ${state.val}`);
@@ -483,11 +484,10 @@ class Tibberlink extends utils.Adapter {
                                             const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
                                             if (iso8601RegEx.test(state.val)) {
                                                 const dateWithTimeZone = new Date(state.val);
-                                                const minutes = dateWithTimeZone.getMinutes();
-                                                dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
-                                                this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
-                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
-                                                void this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                                                const roundedDate = (0, date_fns_1.roundToNearestMinutes)(dateWithTimeZone, { nearestTo: 15, roundingMethod: "floor" });
+                                                this.config.CalculatorList[calcChannel].chStartTime = roundedDate;
+                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${(0, date_fns_1.format)(roundedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
+                                                void this.setState(id, (0, date_fns_1.format)(roundedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
                                             else {
                                                 this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStartTime: ${state.val}`);

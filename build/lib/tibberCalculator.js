@@ -454,7 +454,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`, channelConfig.chEfficiencyLoss, `efficiency loss between charge and discharge of battery system`, undefined, `level.max`, true, true);
             const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
             if (typeof valueEfficiencyLoss === "number") {
-                channelConfig.chAmountHours = valueEfficiencyLoss;
+                channelConfig.chEfficiencyLoss = valueEfficiencyLoss;
                 this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to EfficiencyLoss: ${channelConfig.chEfficiencyLoss}`);
             }
             else {

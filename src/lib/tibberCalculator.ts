@@ -183,7 +183,7 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStart`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
-					await this.setup_chAmountHours(homeId, channel);
+					await this.setup_chAmountHours(homeId, channel); // alias 15 minute time blocks
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON2`);
 					await this.setup_chOutput(homeId, channel);
@@ -194,7 +194,7 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
-					await this.setup_chAmountHours(homeId, channel);
+					await this.setup_chAmountHours(homeId, channel); // alias 15 minute time blocks
 					this.setup_chAverageTotalCost(homeId, channel);
 					this.setup_chBlockStartFullHour(homeId, channel);
 					this.setup_chBlockEndFullHour(homeId, channel);
@@ -227,7 +227,7 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStopTime`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setupLTFInputs(homeId, channel);
-					await this.setup_chAmountHours(homeId, channel);
+					await this.setup_chAmountHours(homeId, channel); // alias 15 minute time blocks
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`); // OUTPUTS
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.OutputJSON2`);
 					await this.setup_chOutput(homeId, channel);
@@ -238,7 +238,7 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setupLTFInputs(homeId, channel);
-					await this.setup_chAmountHours(homeId, channel);
+					await this.setup_chAmountHours(homeId, channel); // alias 15 minute time blocks
 					this.setup_chAverageTotalCost(homeId, channel);
 					this.setup_chBlockStartFullHour(homeId, channel);
 					this.setup_chBlockEndFullHour(homeId, channel);
@@ -304,7 +304,7 @@ export class TibberCalculator extends ProjectUtils {
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.BlockStop`);
 					await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 					await this.setupLTFInputs(homeId, channel);
-					await this.setup_chAmountHours(homeId, channel);
+					await this.setup_chAmountHours(homeId, channel); // alias 15 minute time blocks
 					await this.setup_chEfficiencyLoss(homeId, channel);
 					await this.setup_chOutput(homeId, channel); // OUTPUTS
 					await this.setup_chOutput2(homeId, channel);
@@ -603,7 +603,7 @@ export class TibberCalculator extends ProjectUtils {
 			);
 			const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
 			if (typeof valueEfficiencyLoss === "number") {
-				channelConfig.chAmountHours = valueEfficiencyLoss;
+				channelConfig.chEfficiencyLoss = valueEfficiencyLoss;
 				this.adapter.log.debug(
 					`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to EfficiencyLoss: ${channelConfig.chEfficiencyLoss}`,
 				);
@@ -941,7 +941,7 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Find channel result ***
 				// sort by total cost
 				filteredPrices.sort((a, b) => a.total - b.total);
-				// get first chAmountHours entries und test for matching hour
+				// get first chAmountHours entries und test for matching time block
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
 				//#endregion
 
@@ -967,7 +967,7 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Find channel result ***
 				// sort by total cost
 				filteredPrices.sort((a, b) => a.total - b.total);
-				// get first chAmountHours entries und test for matching hour
+				// get first chAmountHours entries und test for matching time block
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
 				// identify if any element is true
 				if (channelResult.some(value => value)) {

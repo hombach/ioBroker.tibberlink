@@ -1,7 +1,7 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
-import { addDays, format, isSameDay } from "date-fns";
+import { addDays, format, isSameDay, roundToNearestMinutes } from "date-fns";
 import type { IConfig } from "tibber-api";
 import type { PriceResolution } from "tibber-api/lib/src/models/enums/PriceResolution.js";
 import type { IHomeInfo } from "./lib/projectUtils.js";
@@ -242,9 +242,6 @@ class Tibberlink extends utils.Adapter {
 				// timeZone: "system",  // system is default
 				//runOnInit: false,
 				//});
-				//if (jobCurrentPriceOLD) {
-				//	this.cronList.push(jobCurrentPrice);
-				//}
 
 				const jobPricesToday = CronJob.from({
 					cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 5 minutes before 00:01:20 => 00:00:20 - 00:02:20 for first try
@@ -417,7 +414,6 @@ class Tibberlink extends utils.Adapter {
 			await this.delay(this.getRandomDelay(4, 6));
 		} while (!okPrice && attempt < 10);
 		if (okPrice) {
-			// TODO: NEW for 15 minutes test
 			await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
 		}
 	}
@@ -578,11 +574,15 @@ class Tibberlink extends utils.Adapter {
 									case "AmountHours":
 										// Update .chAmountHours based on state.val if it's a number
 										if (typeof state.val === "number") {
-											this.config.CalculatorList[calcChannel].chAmountHours = state.val;
+											// TODO remove after test: this.config.CalculatorList[calcChannel].chAmountHours = state.val;
+											const roundedValue = Math.round(state.val * 4) / 4;
+											this.config.CalculatorList[calcChannel].chAmountHours = roundedValue * 4; // hours to quarter hour blocks
 											this.log.debug(
-												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours: ${this.config.CalculatorList[calcChannel].chAmountHours}`,
+												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours: ${roundedValue}`,
+												// TODO remove after test: `calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours: ${this.config.CalculatorList[calcChannel].chAmountHours}`,
 											);
-											void this.setState(id, state.val, true);
+											void this.setState(id, roundedValue, true);
+											// TODO remove after test: void this.setState(id, state.val, true);
 										} else {
 											this.log.warn(`Wrong type for channel: ${calcChannel} - chAmountHours: ${state.val}`);
 										}
@@ -595,22 +595,24 @@ class Tibberlink extends utils.Adapter {
 											const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
 											if (iso8601RegEx.test(state.val)) {
 												const dateWithTimeZone = new Date(state.val);
-
 												// floor to nearest 15-minute interval
-												const minutes = dateWithTimeZone.getMinutes();
-												dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
-
+												// TODO remove after test: const minutes = dateWithTimeZone.getMinutes();
+												// TODO remove after test: dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
+												const roundedDate = roundToNearestMinutes(dateWithTimeZone, { nearestTo: 15, roundingMethod: "floor" });
 												// floor to hour
-												//WIP5.1 dateWithTimeZone.setMinutes(0, 0, 0);
+												// TODO remove after test: dateWithTimeZone.setMinutes(0, 0, 0);
 
-												this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
+												// TODO remove after test: this.config.CalculatorList[calcChannel].chStartTime = dateWithTimeZone;
+												this.config.CalculatorList[calcChannel].chStartTime = roundedDate;
 												this.log.debug(
 													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StartTime: ${format(
-														dateWithTimeZone,
+														// TODO remove after test: dateWithTimeZone,
+														roundedDate,
 														"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
 													)}`,
 												);
-												void this.setState(id, format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+												// TODO remove after test: void this.setState(id, format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+												void this.setState(id, format(roundedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
 											} else {
 												this.log.warn(
 													`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStartTime: ${state.val}`,
@@ -628,13 +630,11 @@ class Tibberlink extends utils.Adapter {
 											const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
 											if (iso8601RegEx.test(state.val)) {
 												const dateWithTimeZone = new Date(state.val);
-
 												// floor to nearest 15-minute interval
 												const minutes = dateWithTimeZone.getMinutes();
 												dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
-
 												// floor to hour
-												//WIP5.1 dateWithTimeZone.setMinutes(0, 0, 0);
+												// TODO remove after test:  dateWithTimeZone.setMinutes(0, 0, 0);
 
 												this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
 												// START Warn long LTF
@@ -649,7 +649,7 @@ class Tibberlink extends utils.Adapter {
 														`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`,
 													);
 												}
-												// STOP
+												// STOP Warn long LTF
 
 												this.log.debug(
 													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${format(
