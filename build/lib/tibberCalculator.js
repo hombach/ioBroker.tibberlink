@@ -1002,7 +1002,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 filteredPrices.sort((a, b) => a.total - b.total);
                 const cheapestPrice = filteredPrices[0]?.total;
                 const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
-                const channelResult = allowedPrices.map((entry) => checkHourMatch(entry));
+                const channelResult = allowedPrices.map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(),
@@ -1022,7 +1022,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 filteredPrices.sort((a, b) => a.total - b.total);
                 const cheapestPrice = filteredPrices[0]?.total;
                 const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
-                const channelResult = allowedPrices.map((entry) => checkHourMatch(entry));
+                const channelResult = allowedPrices.map((entry) => checkQuarterMatch(entry));
                 if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                 }

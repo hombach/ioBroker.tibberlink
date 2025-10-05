@@ -1000,7 +1000,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes - ONGOING
+	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes
 	private async executeCalculatorBestHoursBlock(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1155,6 +1155,7 @@ export class TibberCalculator extends ProjectUtils {
 			- Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
 		*/
 	//#endregion
+	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes - TODO!!!
 	private async executeCalculatorSmartBatteryBuffer(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1348,6 +1349,7 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
+	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes - ONGOING
 	private async executeCalculatorBestPercentage(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1366,7 +1368,8 @@ export class TibberCalculator extends ProjectUtils {
 				filteredPrices.sort((a, b) => a.total - b.total);
 				const cheapestPrice = filteredPrices[0]?.total;
 				const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
-				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkHourMatch(entry));
+				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1393,7 +1396,8 @@ export class TibberCalculator extends ProjectUtils {
 				filteredPrices.sort((a, b) => a.total - b.total);
 				const cheapestPrice = filteredPrices[0]?.total;
 				const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
-				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkHourMatch(entry));
+				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 
 				// identify if any element is true
 				if (channelResult.some(value => value)) {
