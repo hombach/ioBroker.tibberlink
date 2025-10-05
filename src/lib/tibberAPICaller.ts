@@ -220,19 +220,6 @@ export class TibberAPICaller extends ProjectUtils {
 				this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
 				this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
 				this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
-				/*
-				for (const price of pricesToday) {
-					// states as 0, 1, 2 ... for hourly resolution
-					const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-					await this.fetchPrice(homeId, `PricesToday.${hour}`, price);
-				}*/
-				/*
-				for (const price of pricesToday) {
-					// states as 14_15, 14_30, 14_45 for 15 minutes resolution
-					const date = new Date(price.startsAt.substr(0, 19));
-					const key = `${date.getHours().toString().padStart(2, "0")}_${date.getMinutes().toString().padStart(2, "0")}`;
-					await this.fetchPrice(homeId, `PricesToday.${key}`, price);
-				}*/
 				for (let i = 0; i < pricesToday.length; i++) {
 					// states as 0, 1, 2 ... for hourly resolution or 0,1,2...95 for 15 minutes resolution
 					const price = pricesToday[i];
@@ -338,19 +325,6 @@ export class TibberAPICaller extends ProjectUtils {
 					return false;
 				} else if (Array.isArray(pricesTomorrow)) {
 					// pricing known, after about 13:00 - write the states
-					/*
-					for (const price of pricesTomorrow) {
-						// states as 0, 1, 2 ... for hourly resolution
-						const hour = new Date(price.startsAt.substr(0, 19)).getHours();
-						await this.fetchPrice(homeId, `PricesTomorrow.${hour}`, price);
-					}*/
-					/*
-					for (const price of pricesTomorrow) {
-						// states as 14_15, 14_30, 14_45 for 15 minutes resolution
-						const date = new Date(price.startsAt.substr(0, 19));
-						const key = `${date.getHours().toString().padStart(2, "0")}_${date.getMinutes().toString().padStart(2, "0")}`;
-						await this.fetchPrice(homeId, `PricesTomorrow.${key}`, price);
-					}*/
 					for (let i = 0; i < pricesTomorrow.length; i++) {
 						// states as 0, 1, 2 ... for hourly resolution or 0,1,2...95 for 15 minutes resolution
 						const price = pricesTomorrow[i];

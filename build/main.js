@@ -204,7 +204,6 @@ class Tibberlink extends utils.Adapter {
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,
-                    timeZone: "system",
                     runOnInit: false,
                 });
                 if (jobCurrentPrice) {
@@ -226,7 +225,6 @@ class Tibberlink extends utils.Adapter {
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,
-                    timeZone: "system",
                     runOnInit: true,
                 });
                 if (jobPricesToday) {

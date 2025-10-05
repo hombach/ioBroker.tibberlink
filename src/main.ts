@@ -195,6 +195,7 @@ class Tibberlink extends utils.Adapter {
 
 				// (force) get current prices and start calculator tasks once for the FIRST time
 				await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
+				// TODO get 15 minute price
 
 				void this.jobPricesTodayLOOP(tibberAPICaller);
 				void this.jobPricesTomorrowLOOP(tibberAPICaller);
@@ -223,7 +224,7 @@ class Tibberlink extends utils.Adapter {
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
-					timeZone: "system",
+					// timeZone: "system",  // system is default
 					runOnInit: false,
 				});
 				if (jobCurrentPrice) {
@@ -246,7 +247,7 @@ class Tibberlink extends utils.Adapter {
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
-					timeZone: "system",
+					// timeZone: "system", // system is default
 					runOnInit: true,
 				});
 				if (jobPricesToday) {
