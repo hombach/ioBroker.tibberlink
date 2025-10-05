@@ -705,7 +705,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             else if (modeLTF && now < channelConfig.chStartTime) {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 filteredPrices.sort((a, b) => a.total - b.total);
-                const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkHourMatch(entry));
+                const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(),
@@ -723,7 +723,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             else {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 filteredPrices.sort((a, b) => a.total - b.total);
-                const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkHourMatch(entry));
+                const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkQuarterMatch(entry));
                 if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                 }
@@ -1112,6 +1112,12 @@ function checkHourMatch(entry) {
     const currentDateTime = new Date();
     const startDateTime = new Date(entry.startsAt);
     return currentDateTime.getHours() === startDateTime.getHours();
+}
+function checkQuarterMatch(entry) {
+    const now = new Date();
+    const start = (0, date_fns_1.parseISO)(entry.startsAt);
+    const end = (0, date_fns_1.addMinutes)(start, 15);
+    return now >= start && now < end;
 }
 function convertValue(Value) {
     if (Value.toLowerCase() === "true") {

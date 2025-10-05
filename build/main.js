@@ -472,7 +472,7 @@ class Tibberlink extends utils.Adapter {
                                         if (typeof state.val === "number") {
                                             const roundedValue = Math.round(state.val * 4) / 4;
                                             this.config.CalculatorList[calcChannel].chAmountHours = roundedValue * 4;
-                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours: ${roundedValue}`);
+                                            this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to AmountHours-15min-blocks: ${this.config.CalculatorList[calcChannel].chAmountHours}`);
                                             void this.setState(id, roundedValue, true);
                                         }
                                         else {

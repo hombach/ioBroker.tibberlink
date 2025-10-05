@@ -1,5 +1,6 @@
 import type * as utils from "@iobroker/adapter-core";
-import { addDays, addHours, format } from "date-fns";
+import { addDays, addHours, addMinutes, format, parseISO } from "date-fns";
+//import { addDays, addHours, format } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice.js";
 import { ProjectUtils, enCalcType, getCalcTypeDescription } from "./projectUtils.js";
 
@@ -942,7 +943,8 @@ export class TibberCalculator extends ProjectUtils {
 				// sort by total cost
 				filteredPrices.sort((a, b) => a.total - b.total);
 				// get first chAmountHours entries und test for matching time block
-				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
+				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -968,7 +970,8 @@ export class TibberCalculator extends ProjectUtils {
 				// sort by total cost
 				filteredPrices.sort((a, b) => a.total - b.total);
 				// get first chAmountHours entries und test for matching time block
-				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
+				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
 				// identify if any element is true
 				if (channelResult.some(value => value)) {
 					valueToSet = channelConfig.chValueOn;
@@ -1543,6 +1546,19 @@ function checkHourMatch(entry: IPrice): boolean {
 	const currentDateTime = new Date();
 	const startDateTime = new Date(entry.startsAt);
 	return currentDateTime.getHours() === startDateTime.getHours();
+}
+
+/**
+ * Checks if the current time is within the 15-minute interval of the given entry's start time.
+ *
+ * @param entry - An object of type `IPrice` containing a `startsAt` property (ISO date string).
+ * @returns True if the current time is within the 15-minute block, otherwise false.
+ */
+function checkQuarterMatch(entry: IPrice): boolean {
+	const now = new Date();
+	const start = parseISO(entry.startsAt);
+	const end = addMinutes(start, 15);
+	return now >= start && now < end;
 }
 
 /**
