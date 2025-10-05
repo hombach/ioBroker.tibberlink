@@ -1157,7 +1157,7 @@ export class TibberCalculator extends ProjectUtils {
 			- Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
 		*/
 	//#endregion
-	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes - ONGOING
+	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes
 	private async executeCalculatorSmartBatteryBuffer(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1171,7 +1171,8 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now < channelConfig.chStartTime) {
 				// chActive but before LTF -> choose chValueOff, but calculate results
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-				const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
+				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
+				//TODO remove after test: const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
 				const cheapHours: IPrice[] = [];
 				const normalHours: IPrice[] = [];
@@ -1248,7 +1249,8 @@ export class TibberCalculator extends ProjectUtils {
 			} else {
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-				const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
+				//TODO remove after test: const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
+				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
 				const cheapHours: IPrice[] = [];
 				const normalHours: IPrice[] = [];

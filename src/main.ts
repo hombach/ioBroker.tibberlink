@@ -631,19 +631,23 @@ class Tibberlink extends utils.Adapter {
 											if (iso8601RegEx.test(state.val)) {
 												const dateWithTimeZone = new Date(state.val);
 												// floor to nearest 15-minute interval
-												const minutes = dateWithTimeZone.getMinutes();
-												dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
+												// TODO remove after test: const minutes = dateWithTimeZone.getMinutes();
+												// TODO remove after test: dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
+												const roundedDate = roundToNearestMinutes(dateWithTimeZone, { nearestTo: 15, roundingMethod: "floor" });
 												// floor to hour
 												// TODO remove after test:  dateWithTimeZone.setMinutes(0, 0, 0);
 
-												this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
+												// TODO remove after test:  this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
+												this.config.CalculatorList[calcChannel].chStopTime = roundedDate;
 												// START Warn long LTF
 												// Get StartTime directly as a Date object
 												const startTime = this.config.CalculatorList[calcChannel].chStartTime;
 												// Check if StopTime is not the same day or the next day as StartTime
-												if (!isSameDay(dateWithTimeZone, startTime) && !isSameDay(dateWithTimeZone, addDays(startTime, 1))) {
+												// TODO remove after test:  if (!isSameDay(dateWithTimeZone, startTime) && !isSameDay(dateWithTimeZone, addDays(startTime, 1))) {
+												if (!isSameDay(roundedDate, startTime) && !isSameDay(roundedDate, addDays(startTime, 1))) {
 													this.log.warn(
-														`StopTime for channel ${calcChannel} is not the same or next day as StartTime! StartTime: ${startTime.toISOString()}, StopTime: ${dateWithTimeZone.toISOString()}`,
+														// TODO remove after test:  `StopTime for channel ${calcChannel} is not the same or next day as StartTime! StartTime: ${startTime.toISOString()}, StopTime: ${dateWithTimeZone.toISOString()}`,
+														`StopTime for channel ${calcChannel} is not the same or next day as StartTime! StartTime: ${startTime.toISOString()}, StopTime: ${roundedDate.toISOString()}`,
 													);
 													this.log.warn(
 														`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`,
@@ -653,7 +657,8 @@ class Tibberlink extends utils.Adapter {
 
 												this.log.debug(
 													`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${format(
-														dateWithTimeZone,
+														// TODO remove after test: dateWithTimeZone,
+														roundedDate,
 														"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
 													)}`,
 												);

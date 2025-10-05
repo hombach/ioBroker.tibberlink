@@ -502,15 +502,14 @@ class Tibberlink extends utils.Adapter {
                                             const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
                                             if (iso8601RegEx.test(state.val)) {
                                                 const dateWithTimeZone = new Date(state.val);
-                                                const minutes = dateWithTimeZone.getMinutes();
-                                                dateWithTimeZone.setMinutes(Math.floor(minutes / 15) * 15, 0, 0);
-                                                this.config.CalculatorList[calcChannel].chStopTime = dateWithTimeZone;
+                                                const roundedDate = (0, date_fns_1.roundToNearestMinutes)(dateWithTimeZone, { nearestTo: 15, roundingMethod: "floor" });
+                                                this.config.CalculatorList[calcChannel].chStopTime = roundedDate;
                                                 const startTime = this.config.CalculatorList[calcChannel].chStartTime;
-                                                if (!(0, date_fns_1.isSameDay)(dateWithTimeZone, startTime) && !(0, date_fns_1.isSameDay)(dateWithTimeZone, (0, date_fns_1.addDays)(startTime, 1))) {
-                                                    this.log.warn(`StopTime for channel ${calcChannel} is not the same or next day as StartTime! StartTime: ${startTime.toISOString()}, StopTime: ${dateWithTimeZone.toISOString()}`);
+                                                if (!(0, date_fns_1.isSameDay)(roundedDate, startTime) && !(0, date_fns_1.isSameDay)(roundedDate, (0, date_fns_1.addDays)(startTime, 1))) {
+                                                    this.log.warn(`StopTime for channel ${calcChannel} is not the same or next day as StartTime! StartTime: ${startTime.toISOString()}, StopTime: ${roundedDate.toISOString()}`);
                                                     this.log.warn(`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`);
                                                 }
-                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${(0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
+                                                this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${(0, date_fns_1.format)(roundedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
                                                 void this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
                                             else {

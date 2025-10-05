@@ -847,7 +847,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
-                const maxCheapCount = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
+                const maxCheapCount = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
                 const efficiencyLoss = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
                 const cheapHours = [];
                 const normalHours = [];
@@ -907,7 +907,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             else {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
-                const maxCheapCount = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
+                const maxCheapCount = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
                 const efficiencyLoss = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
                 const cheapHours = [];
                 const normalHours = [];
