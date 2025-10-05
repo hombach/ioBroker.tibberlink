@@ -194,8 +194,8 @@ class Tibberlink extends utils.Adapter {
 				}
 
 				// (force) get current prices and start calculator tasks once for the FIRST time
-				await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
-				// TODO get 15 minute price
+				// TODO: remove after test:  await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
+				// TODO get 15 minute price  - line above moved to jobPricesTodayLOOP
 
 				void this.jobPricesTodayLOOP(tibberAPICaller);
 				void this.jobPricesTomorrowLOOP(tibberAPICaller);
@@ -205,31 +205,46 @@ class Tibberlink extends utils.Adapter {
 				void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 
 				const jobCurrentPrice = CronJob.from({
-					//WIP5.1 cronTime: "20 58 * * * *", //"20 58 * * * *" = 3 minutes before 00:00:20 each hour => 00:00:20 - 00:02:20
-					cronTime: "20 */15 * * * *", // each 15 minutes at second 20
+					cronTime: "2 */15 * * * *", // jede 15. Minute, Sekunde 2
 					onTick: async () => {
-						let okPrice = false;
-						let attempt = 0;
-						do {
-							// delay dependent of attempt (0–2, 2–4, 4–6, 6-8)
-							const minDelay = 2 * attempt;
-							attempt++;
-							await this.delay(this.getRandomDelay(minDelay, minDelay + 2));
-							//WIP5.1 await this.delay(this.getRandomDelay(2, 4));
-							okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
-							this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
-						} while (!okPrice && attempt < 4);
+						// get current price from existing (?) PricesToday
+						await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
 						void tibberAPICaller.updateConsumptionAllHomes();
 						await tibberCalculator.startCalculatorTasks();
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
-					// timeZone: "system",  // system is default
 					runOnInit: false,
 				});
 				if (jobCurrentPrice) {
 					this.cronList.push(jobCurrentPrice);
 				}
+
+				// TODO remove after test
+				//const jobCurrentPriceOLD = CronJob.from({
+				//cronTime: "20 */15 * * * *", // each 15 minutes at second 20
+				//onTick: async () => {
+				//let okPrice = false;
+				//let attempt = 0;
+				//do {
+				// delay dependent of attempt (0–2, 2–4, 4–6, 6-8)
+				//const minDelay = 2 * attempt;
+				//attempt++;
+				//await this.delay(this.getRandomDelay(minDelay, minDelay + 2));
+				//okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
+				//this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
+				//} while (!okPrice && attempt < 4);
+				//void tibberAPICaller.updateConsumptionAllHomes();
+				//await tibberCalculator.startCalculatorTasks();
+				//void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
+				//},
+				//start: true,
+				// timeZone: "system",  // system is default
+				//runOnInit: false,
+				//});
+				//if (jobCurrentPriceOLD) {
+				//	this.cronList.push(jobCurrentPrice);
+				//}
 
 				const jobPricesToday = CronJob.from({
 					cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 5 minutes before 00:01:20 => 00:00:20 - 00:02:20 for first try
@@ -401,6 +416,10 @@ class Tibberlink extends utils.Adapter {
 			this.log.debug(`Loop job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
 			await this.delay(this.getRandomDelay(4, 6));
 		} while (!okPrice && attempt < 10);
+		if (okPrice) {
+			// TODO: NEW for 15 minutes test
+			await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
+		}
 	}
 	/**
 	 * subfunction to loop till prices tomorrow for all homes are got from server - adapter startup-phase

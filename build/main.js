@@ -181,24 +181,15 @@ class Tibberlink extends utils.Adapter {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
                     }
                 }
-                await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
                 void this.jobPricesTodayLOOP(tibberAPICaller);
                 void this.jobPricesTomorrowLOOP(tibberAPICaller);
                 void tibberCalculator.startCalculatorTasks(false, true);
                 void tibberAPICaller.updateConsumptionAllHomes();
                 void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
-                    cronTime: "20 */15 * * * *",
+                    cronTime: "2 */15 * * * *",
                     onTick: async () => {
-                        let okPrice = false;
-                        let attempt = 0;
-                        do {
-                            const minDelay = 2 * attempt;
-                            attempt++;
-                            await this.delay(this.getRandomDelay(minDelay, minDelay + 2));
-                            okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
-                            this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
-                        } while (!okPrice && attempt < 4);
+                        await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
                         void tibberAPICaller.updateConsumptionAllHomes();
                         await tibberCalculator.startCalculatorTasks();
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
@@ -363,6 +354,9 @@ class Tibberlink extends utils.Adapter {
             this.log.debug(`Loop job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
             await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice && attempt < 10);
+        if (okPrice) {
+            await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
+        }
     }
     async jobPricesTomorrowLOOP(tibberAPICaller) {
         let okPrice = false;

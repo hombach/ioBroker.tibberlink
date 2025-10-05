@@ -1,4 +1,5 @@
 import type * as utils from "@iobroker/adapter-core";
+import { addMinutes } from "date-fns";
 import { TibberQuery, type IConfig } from "tibber-api";
 import type { IAddress } from "tibber-api/lib/src/models/IAddress.js";
 import type { IConsumption } from "tibber-api/lib/src/models/IConsumption.js";
@@ -98,18 +99,66 @@ export class TibberAPICaller extends ProjectUtils {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got correct data
 	 */
-	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate = false): Promise<boolean> {
+	// TODO: remove after test:  async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[], forceUpdate = false): Promise<boolean> {
+	async updateCurrentPriceAllHomes(homeInfoList: IHomeInfo[]): Promise<boolean> {
 		let okprice = true;
 		for (const curHomeInfo of homeInfoList) {
 			if (!curHomeInfo.PriceDataPollActive) {
 				continue;
 			}
-			if (!(await this.updateCurrentPrice(curHomeInfo.ID, forceUpdate))) {
+			// TODO: remove after test:   if (!(await this.updateCurrentPrice(curHomeInfo.ID, forceUpdate))) {
+			if (!(await this.updateCurrentPrice(curHomeInfo.ID))) {
 				okprice = false;
 			} // single fault sets all false
 		}
 		return okprice;
 	}
+	/**
+	 * updates current price of one home based on already fetched PricesToday
+	 *
+	 * @param homeId - homeId string
+	 * @returns okprice - got new data
+	 */
+	private async updateCurrentPrice(homeId: string): Promise<boolean> {
+		try {
+			if (!homeId) {
+				return false;
+			}
+			const now = new Date();
+			const pricesStr = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
+			if (!pricesStr) {
+				this.adapter.log.debug(`No PricesToday data found for home ${homeId}`);
+				return false;
+			}
+			const pricesToday: IPrice[] = JSON.parse(pricesStr);
+			if (!Array.isArray(pricesToday) || pricesToday.length === 0) {
+				this.adapter.log.debug(`PricesToday array empty for home ${homeId}`);
+				return false;
+			}
+
+			// get price object for current 15 minute period
+			const currentPrice = pricesToday.find(p => {
+				const start = new Date(p.startsAt);
+				const end = addMinutes(start, 15); // 15 minutes interval
+				return now >= start && now < end;
+			});
+			if (!currentPrice) {
+				this.adapter.log.warn(`No matching price found for current time in home ${homeId}`);
+				return false;
+			}
+
+			// use found price info
+			await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
+			await this.fetchPriceRemainingAverage(homeId, "PricesToday.averageRemaining", pricesToday);
+			this.adapter.log.debug(`Updated current price and remaining average for home ${homeId} from PricesToday: ${JSON.stringify(currentPrice)}`);
+			return true;
+		} catch (error: unknown) {
+			const msg = this.generateErrorMessage(error, `update of current price from PricesToday`);
+			this.adapter.log.error(msg);
+			return false;
+		}
+	}
+
 	/**
 	 * updates current price of one home - if price isn't already saved for current hour, or forceUpdate is set
 	 *
@@ -117,6 +166,7 @@ export class TibberAPICaller extends ProjectUtils {
 	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
 	 * @returns okprice - got new data
 	 */
+	/* TODO: remove old function after testing
 	private async updateCurrentPrice(homeId: string, forceUpdate = false): Promise<boolean> {
 		try {
 			if (homeId) {
@@ -163,7 +213,7 @@ export class TibberAPICaller extends ProjectUtils {
 			return false;
 		}
 		return false;
-	}
+	}*/
 
 	/**
 	 * updates lists of todays prices of all homes
@@ -451,6 +501,38 @@ export class TibberAPICaller extends ProjectUtils {
 		);
 		void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / price.length)) / 1000, "Todays average tax price");
 	}
+
+	/**
+	 * calculates the average of remaining prices for today based on 15-minute intervals
+	 *
+	 * @param homeId - homeId string
+	 * @param objectDestination - destination state path
+	 * @param price - array of IPrice for today
+	 */
+	private async fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): Promise<void> {
+		if (!price || price.length === 0) {
+			return;
+		}
+		const now = new Date();
+		const filteredPrices = price.filter(item => {
+			const start = new Date(item.startsAt);
+			return start >= now;
+		});
+		if (!filteredPrices.length) {
+			this.adapter.log.debug(`No remaining prices for today in home ${homeId}`);
+			return;
+		}
+		const totalSum = filteredPrices.reduce((sum, item) => sum + (item.total ?? 0), 0);
+		const energySum = filteredPrices.reduce((sum, item) => sum + (item.energy ?? 0), 0);
+		const taxSum = filteredPrices.reduce((sum, item) => sum + (item.tax ?? 0), 0);
+		const count = filteredPrices.length;
+		const basePath = `Homes.${homeId}.${objectDestination}`;
+		await this.checkAndSetValueNumber(`${basePath}.total`, Math.round((totalSum / count) * 1000) / 1000, `Todays total price remaining average`);
+		await this.checkAndSetValueNumber(`${basePath}.energy`, Math.round((energySum / count) * 1000) / 1000, `Todays remaining average spot market price`);
+		await this.checkAndSetValueNumber(`${basePath}.tax`, Math.round((taxSum / count) * 1000) / 1000, `Todays remaining average tax price`);
+	}
+
+	/*TODO: remove old function after testing
 	private fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
 			return;
@@ -478,7 +560,7 @@ export class TibberAPICaller extends ProjectUtils {
 			Math.round(1000 * (sumValues("tax") / remainingPrices.length)) / 1000,
 			"Todays remaining average tax price",
 		);
-	}
+	}*/
 
 	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {

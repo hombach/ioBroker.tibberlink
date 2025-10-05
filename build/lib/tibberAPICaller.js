@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberAPICaller = void 0;
+const date_fns_1 = require("date-fns");
 const tibber_api_1 = require("tibber-api");
 const EnergyResolution_js_1 = require("tibber-api/lib/src/models/enums/EnergyResolution.js");
 const projectUtils_js_1 = require("./projectUtils.js");
@@ -48,65 +49,53 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             return [];
         }
     }
-    async updateCurrentPriceAllHomes(homeInfoList, forceUpdate = false) {
+    async updateCurrentPriceAllHomes(homeInfoList) {
         let okprice = true;
         for (const curHomeInfo of homeInfoList) {
             if (!curHomeInfo.PriceDataPollActive) {
                 continue;
             }
-            if (!(await this.updateCurrentPrice(curHomeInfo.ID, forceUpdate))) {
+            if (!(await this.updateCurrentPrice(curHomeInfo.ID))) {
                 okprice = false;
             }
         }
         return okprice;
     }
-    async updateCurrentPrice(homeId, forceUpdate = false) {
+    async updateCurrentPrice(homeId) {
         try {
-            if (homeId) {
-                let exDateCurrent = null;
-                let pricesToday = [];
-                const now = new Date();
-                if (!forceUpdate) {
-                    exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
-                    pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
-                }
-                if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
-                    const exDateToday = new Date(pricesToday[2].startsAt);
-                    if (now.getDate() == exDateToday.getDate()) {
-                        this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
-                    }
-                }
-                if (!exDateCurrent || now.getHours() !== exDateCurrent.getHours() || forceUpdate) {
-                    const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
-                    await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
-                    this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)} Force: ${forceUpdate}`);
-                    exDateCurrent = new Date(currentPrice.startsAt);
-                    if (exDateCurrent && now.getHours() === exDateCurrent.getHours()) {
-                        return true;
-                    }
-                }
-                else if (now.getHours() == exDateCurrent.getHours()) {
-                    this.adapter.log.debug(`Hour (${exDateCurrent.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`);
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            }
-            else {
+            if (!homeId) {
                 return false;
             }
+            const now = new Date();
+            const pricesStr = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
+            if (!pricesStr) {
+                this.adapter.log.debug(`No PricesToday data found for home ${homeId}`);
+                return false;
+            }
+            const pricesToday = JSON.parse(pricesStr);
+            if (!Array.isArray(pricesToday) || pricesToday.length === 0) {
+                this.adapter.log.debug(`PricesToday array empty for home ${homeId}`);
+                return false;
+            }
+            const currentPrice = pricesToday.find(p => {
+                const start = new Date(p.startsAt);
+                const end = (0, date_fns_1.addMinutes)(start, 15);
+                return now >= start && now < end;
+            });
+            if (!currentPrice) {
+                this.adapter.log.warn(`No matching price found for current time in home ${homeId}`);
+                return false;
+            }
+            await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
+            await this.fetchPriceRemainingAverage(homeId, "PricesToday.averageRemaining", pricesToday);
+            this.adapter.log.debug(`Updated current price and remaining average for home ${homeId} from PricesToday: ${JSON.stringify(currentPrice)}`);
+            return true;
         }
         catch (error) {
-            if (forceUpdate) {
-                this.adapter.log.error(this.generateErrorMessage(error, `pull of current price`));
-            }
-            else {
-                this.adapter.log.warn(this.generateErrorMessage(error, `pull of current price`));
-            }
+            const msg = this.generateErrorMessage(error, `update of current price from PricesToday`);
+            this.adapter.log.error(msg);
             return false;
         }
-        return false;
     }
     async updatePricesTodayAllHomes(homeInfoList, resolution, forceUpdate = false) {
         let okprice = true;
@@ -313,20 +302,27 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (sumValues("energy") / price.length)) / 1000, "Todays average spotmarket price");
         void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / price.length)) / 1000, "Todays average tax price");
     }
-    fetchPriceRemainingAverage(homeId, objectDestination, price) {
+    async fetchPriceRemainingAverage(homeId, objectDestination, price) {
         if (!price || price.length === 0) {
             return;
         }
         const now = new Date();
-        const remainingPrices = price.filter(item => item && new Date(item.startsAt) >= now);
-        if (remainingPrices.length === 0) {
+        const filteredPrices = price.filter(item => {
+            const start = new Date(item.startsAt);
+            return start >= now;
+        });
+        if (!filteredPrices.length) {
+            this.adapter.log.debug(`No remaining prices for today in home ${homeId}`);
             return;
         }
-        const sumValues = (key) => remainingPrices.reduce((sum, item) => (item && typeof item[key] === "number" ? sum + item[key] : sum), 0);
+        const totalSum = filteredPrices.reduce((sum, item) => sum + (item.total ?? 0), 0);
+        const energySum = filteredPrices.reduce((sum, item) => sum + (item.energy ?? 0), 0);
+        const taxSum = filteredPrices.reduce((sum, item) => sum + (item.tax ?? 0), 0);
+        const count = filteredPrices.length;
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (sumValues("total") / remainingPrices.length)) / 1000, "Todays total price remaining average");
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (sumValues("energy") / remainingPrices.length)) / 1000, "Todays remaining average spot market price");
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / remainingPrices.length)) / 1000, "Todays remaining average tax price");
+        await this.checkAndSetValueNumber(`${basePath}.total`, Math.round((totalSum / count) * 1000) / 1000, `Todays total price remaining average`);
+        await this.checkAndSetValueNumber(`${basePath}.energy`, Math.round((energySum / count) * 1000) / 1000, `Todays remaining average spot market price`);
+        await this.checkAndSetValueNumber(`${basePath}.tax`, Math.round((taxSum / count) * 1000) / 1000, `Todays remaining average tax price`);
     }
     fetchPriceMaximum(homeId, objectDestination, price) {
         if (!price || price.length === 0) {
