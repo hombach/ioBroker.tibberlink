@@ -1157,7 +1157,7 @@ export class TibberCalculator extends ProjectUtils {
 			- Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
 		*/
 	//#endregion
-	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes - TODO!!!
+	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes - ONGOING
 	private async executeCalculatorSmartBatteryBuffer(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1212,9 +1212,12 @@ export class TibberCalculator extends ProjectUtils {
 					`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`,
 				);
 
-				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
-				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
-				//const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
+				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkQuarterMatch(entry));
+				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkQuarterMatch(entry));
+				//const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkQuarterMatch(entry));
+				//TODO remove after test: const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: //const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: //const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1289,9 +1292,13 @@ export class TibberCalculator extends ProjectUtils {
 				this.adapter.log.debug(
 					`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveHours.map(hour => hour.total).join(", ")}`,
 				);
-				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
-				const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
-				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
+
+				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkQuarterMatch(entry));
+				const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkQuarterMatch(entry));
+				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkQuarterMatch(entry));
+				//TODO remove after test: const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
+				//TODO remove after test: const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
 				//#endregion
 
 				//#region *** identify if an element is true and generate output
@@ -1553,11 +1560,11 @@ export class TibberCalculator extends ProjectUtils {
  * @param entry - An object of type `IPrice` containing a `startsAt` property that represents the start time as a date string.
  * @returns A boolean indicating whether the current hour matches the hour of the `startsAt` time.
  */
-function checkHourMatch(entry: IPrice): boolean {
+/* TODO delete after test: function checkHourMatch(entry: IPrice): boolean {
 	const currentDateTime = new Date();
 	const startDateTime = new Date(entry.startsAt);
 	return currentDateTime.getHours() === startDateTime.getHours();
-}
+}*/
 
 /**
  * Checks if the current time is within the 15-minute interval of the given entry's start time.

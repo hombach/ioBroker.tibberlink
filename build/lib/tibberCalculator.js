@@ -880,7 +880,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap: ${cheapHours.map(hour => hour.total).join(", ")}`);
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalHours.map(hour => hour.total).join(", ")}`);
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`);
-                const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
+                const resultCheap = cheapHours.map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: new Date(entry.startsAt).getHours(),
@@ -940,9 +940,9 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap prices: ${cheapHours.map(hour => hour.total).join(", ")}`);
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal prices: ${normalHours.map(hour => hour.total).join(", ")}`);
                 this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveHours.map(hour => hour.total).join(", ")}`);
-                const resultCheap = cheapHours.map((entry) => checkHourMatch(entry));
-                const resultNormal = normalHours.map((entry) => checkHourMatch(entry));
-                const resultExpensive = expensiveHours.map((entry) => checkHourMatch(entry));
+                const resultCheap = cheapHours.map((entry) => checkQuarterMatch(entry));
+                const resultNormal = normalHours.map((entry) => checkQuarterMatch(entry));
+                const resultExpensive = expensiveHours.map((entry) => checkQuarterMatch(entry));
                 if (resultCheap.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                     valueToSet2 = channelConfig.chValueOff2;
@@ -1108,11 +1108,6 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     }
 }
 exports.TibberCalculator = TibberCalculator;
-function checkHourMatch(entry) {
-    const currentDateTime = new Date();
-    const startDateTime = new Date(entry.startsAt);
-    return currentDateTime.getHours() === startDateTime.getHours();
-}
 function checkQuarterMatch(entry) {
     const now = new Date();
     const start = (0, date_fns_1.parseISO)(entry.startsAt);
