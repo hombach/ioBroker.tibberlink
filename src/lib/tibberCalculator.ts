@@ -547,7 +547,6 @@ export class TibberCalculator extends ProjectUtils {
 
 			const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
 			if (typeof valueAmountHours === "number") {
-				//TODO delete after test: channelConfig.chAmountHours = valueAmountHours;
 				channelConfig.chAmountHours = valueAmountHours * 4; // convert hours to 15 minute time blocks
 				this.adapter.log.debug(
 					`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to AmountHours: ${channelConfig.chAmountHours}`,
@@ -872,7 +871,6 @@ export class TibberCalculator extends ProjectUtils {
 		});
 	}
 
-	// ADAPTED TO 15 MINUTE - BLOCK SIZE IRRELEVANT
 	private async executeCalculatorBestCost(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -930,7 +928,6 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes
 	private async executeCalculatorBestSingleHours(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -947,7 +944,6 @@ export class TibberCalculator extends ProjectUtils {
 				// sort by total cost
 				filteredPrices.sort((a, b) => a.total - b.total);
 				// get first amount of block entries und test for matching time block
-				//TODO remove after test: const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
@@ -974,7 +970,6 @@ export class TibberCalculator extends ProjectUtils {
 				// sort by total cost
 				filteredPrices.sort((a, b) => a.total - b.total);
 				// get first chAmountHours entries und test for matching time block
-				//TODO remove after test: const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkHourMatch(entry));
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
 				// identify if any element is true
 				if (channelResult.some(value => value)) {
@@ -1002,7 +997,6 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes
 	private async executeCalculatorBestHoursBlock(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1038,7 +1032,6 @@ export class TibberCalculator extends ProjectUtils {
 						startIndex = i;
 					}
 				}
-				//TODO remove after test: const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
 				const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
@@ -1079,7 +1072,6 @@ export class TibberCalculator extends ProjectUtils {
 						startIndex = i;
 					}
 				}
-				//TODO remove after test: const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkHourMatch(entry));
 				const channelResult: boolean[] = filteredPrices.slice(startIndex, startIndex + n).map((entry: IPrice) => checkQuarterMatch(entry));
 				// identify if any element is true
 				if (channelResult.some(value => value)) {
@@ -1157,7 +1149,6 @@ export class TibberCalculator extends ProjectUtils {
 			- Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
 		*/
 	//#endregion
-	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes
 	private async executeCalculatorSmartBatteryBuffer(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1172,7 +1163,6 @@ export class TibberCalculator extends ProjectUtils {
 				// chActive but before LTF -> choose chValueOff, but calculate results
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
-				//TODO remove after test: const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
 				const cheapHours: IPrice[] = [];
 				const normalHours: IPrice[] = [];
@@ -1216,9 +1206,6 @@ export class TibberCalculator extends ProjectUtils {
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkQuarterMatch(entry));
 				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkQuarterMatch(entry));
 				//const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkQuarterMatch(entry));
-				//TODO remove after test: const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
-				//TODO remove after test: //const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
-				//TODO remove after test: //const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1249,7 +1236,6 @@ export class TibberCalculator extends ProjectUtils {
 			} else {
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
-				//TODO remove after test: const maxCheapCount: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`);
 				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
 				const cheapHours: IPrice[] = [];
@@ -1298,9 +1284,6 @@ export class TibberCalculator extends ProjectUtils {
 				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkQuarterMatch(entry));
 				const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkQuarterMatch(entry));
 				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkQuarterMatch(entry));
-				//TODO remove after test: const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkHourMatch(entry));
-				//TODO remove after test: const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkHourMatch(entry));
-				//TODO remove after test: const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkHourMatch(entry));
 				//#endregion
 
 				//#region *** identify if an element is true and generate output
@@ -1360,7 +1343,6 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
-	// ADAPTED TO 15 MINUTE - BLOCK SIZE 15 Minutes
 	private async executeCalculatorBestPercentage(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1379,7 +1361,6 @@ export class TibberCalculator extends ProjectUtils {
 				filteredPrices.sort((a, b) => a.total - b.total);
 				const cheapestPrice = filteredPrices[0]?.total;
 				const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
-				//TODO remove after test: const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkHourMatch(entry));
 				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
@@ -1407,7 +1388,6 @@ export class TibberCalculator extends ProjectUtils {
 				filteredPrices.sort((a, b) => a.total - b.total);
 				const cheapestPrice = filteredPrices[0]?.total;
 				const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
-				//TODO remove after test: const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkHourMatch(entry));
 				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 
 				// identify if any element is true
@@ -1553,20 +1533,6 @@ export class TibberCalculator extends ProjectUtils {
 		this.adapter.config.CalculatorList[channel].chStopTime = addDays(chStopTime, chRepeatDays);
 	}
 }
-
-/**
- * Checks if the current hour matches the hour of a given entry's start time.
- * This method compares the hour of the current date and time with the hour extracted from the `startsAt` property of the provided `entry` object.
- * If the hours match, the function returns `true`, otherwise `false`.
- *
- * @param entry - An object of type `IPrice` containing a `startsAt` property that represents the start time as a date string.
- * @returns A boolean indicating whether the current hour matches the hour of the `startsAt` time.
- */
-/* TODO delete after test: function checkHourMatch(entry: IPrice): boolean {
-	const currentDateTime = new Date();
-	const startDateTime = new Date(entry.startsAt);
-	return currentDateTime.getHours() === startDateTime.getHours();
-}*/
 
 /**
  * Checks if the current time is within the 15-minute interval of the given entry's start time.

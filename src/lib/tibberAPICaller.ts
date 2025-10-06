@@ -157,62 +157,6 @@ export class TibberAPICaller extends ProjectUtils {
 	}
 
 	/**
-	 * updates current price of one home - if price isn't already saved for current hour, or forceUpdate is set
-	 *
-	 * @param homeId - homeId string
-	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
-	 * @returns okprice - got new data
-	 */
-	/* TODO: remove old function after testing
-	private async updateCurrentPrice(homeId: string, forceUpdate = false): Promise<boolean> {
-		try {
-			if (homeId) {
-				let exDateCurrent: Date | null = null;
-				let pricesToday: IPrice[] = [];
-				const now = new Date();
-				if (!forceUpdate) {
-					exDateCurrent = new Date(await this.getStateValue(`Homes.${homeId}.CurrentPrice.startsAt`));
-					pricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
-				}
-				// update remaining average
-				if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
-					const exDateToday: Date = new Date(pricesToday[2].startsAt);
-					if (now.getDate() == exDateToday.getDate()) {
-						this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
-					}
-				}
-
-				if (!exDateCurrent || now.getHours() !== exDateCurrent.getHours() || forceUpdate) {
-					const currentPrice = await this.tibberQuery.getCurrentEnergyPrice(homeId);
-					await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
-					this.adapter.log.debug(`Got current price from tibber api: ${JSON.stringify(currentPrice)} Force: ${forceUpdate}`);
-					exDateCurrent = new Date(currentPrice.startsAt);
-					if (exDateCurrent && now.getHours() === exDateCurrent.getHours()) {
-						return true;
-					}
-				} else if (now.getHours() == exDateCurrent.getHours()) {
-					this.adapter.log.debug(
-						`Hour (${exDateCurrent.getHours()}) of known current price is already the current hour, polling of current price from Tibber skipped`,
-					);
-					return true;
-				} else {
-					return false;
-				}
-			} else {
-				return false;
-			}
-		} catch (error: unknown) {
-			if (forceUpdate) {
-				this.adapter.log.error(this.generateErrorMessage(error, `pull of current price`));
-			} else {
-				this.adapter.log.warn(this.generateErrorMessage(error, `pull of current price`));
-			}
-			return false;
-		}
-		return false;
-	}*/
-
-	/**
 	 * updates lists of todays prices of all homes
 	 *
 	 * @param homeInfoList - homeInfo list object
@@ -539,36 +483,6 @@ export class TibberAPICaller extends ProjectUtils {
 		await this.checkAndSetValueNumber(`${basePath}.energy`, Math.round((energySum / count) * 1000) / 1000, `Todays remaining average spot market price`);
 		await this.checkAndSetValueNumber(`${basePath}.tax`, Math.round((taxSum / count) * 1000) / 1000, `Todays remaining average tax price`);
 	}
-
-	/*TODO: remove old function after testing
-	private fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
-		if (!price || price.length === 0) {
-			return;
-		}
-		const now = new Date();
-		const remainingPrices = price.filter(item => item && new Date(item.startsAt) >= now);
-		if (remainingPrices.length === 0) {
-			return;
-		}
-		const sumValues = (key: keyof IPrice): number =>
-			remainingPrices.reduce((sum, item) => (item && typeof item[key] === "number" ? sum + item[key] : sum), 0);
-		const basePath = `Homes.${homeId}.${objectDestination}`;
-		void this.checkAndSetValueNumber(
-			`${basePath}.total`,
-			Math.round(1000 * (sumValues("total") / remainingPrices.length)) / 1000,
-			"Todays total price remaining average",
-		);
-		void this.checkAndSetValueNumber(
-			`${basePath}.energy`,
-			Math.round(1000 * (sumValues("energy") / remainingPrices.length)) / 1000,
-			"Todays remaining average spot market price",
-		);
-		void this.checkAndSetValueNumber(
-			`${basePath}.tax`,
-			Math.round(1000 * (sumValues("tax") / remainingPrices.length)) / 1000,
-			"Todays remaining average tax price",
-		);
-	}*/
 
 	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
