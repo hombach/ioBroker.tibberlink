@@ -165,6 +165,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+- (HombachC) fix error in cleaning tomorrow data
+
 ### 6.0.0 (2025-10-06)
 
 - (HombachC) BREAKING: hourly price states (0...23) are now quarterhourly (0...95)

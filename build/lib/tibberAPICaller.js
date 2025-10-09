@@ -204,8 +204,8 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify(pricesTomorrow), "The prices tomorrow as json");
                 if (pricesTomorrow.length === 0) {
                     this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
-                    for (let hour = 0; hour < 24; hour++) {
-                        this.emptyingPrice(homeId, `PricesTomorrow.${hour}`);
+                    for (let timeblock = 0; timeblock < 96; timeblock++) {
+                        this.emptyingPrice(homeId, `PricesTomorrow.${timeblock}`);
                     }
                     this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
                     this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
