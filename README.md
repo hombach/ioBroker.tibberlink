@@ -168,6 +168,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) fix error in cleaning tomorrow data
+- (HombachC) update release management to 4.x.x
 
 ### 6.0.0 (2025-10-06)
 
