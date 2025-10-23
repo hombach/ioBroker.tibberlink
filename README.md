@@ -165,6 +165,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+- (HombachC) update NPM deployment
+
 ### 6.0.1 (2025-10-09)
 
 - (HombachC) fix error in cleaning tomorrow data
