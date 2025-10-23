@@ -6,8 +6,7 @@
  */
 
 import { expect } from "chai";
-// Enable chai's should syntax globally
-import "chai/register-should";
+import "chai/register-should"; // Extends Object.prototype with 'should'
 // import { functionToTest } from "./moduleToTest";
 
 describe("module to test => function to test", () => {
@@ -19,7 +18,7 @@ describe("module to test => function to test", () => {
 		// assign result a value from functionToTest
 		expect(result).to.equal(expected);
 		// or using the should() syntax
-		result.should.equal(expected);
+		result.should.be.equal(expected);
 	});
 	// ... more tests => it
 });
