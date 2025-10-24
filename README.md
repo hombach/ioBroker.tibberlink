@@ -168,6 +168,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) update NPM deployment
+- (HombachC) update dependencies
 
 ### 6.0.1 (2025-10-09)
 
