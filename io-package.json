@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "6.0.1",
+    "version": "6.0.2",
     "news": {
+      "6.0.2": {
+        "en": "update NPM deployment\nupdate dependencies",
+        "de": "nPM-Einsatz aktualisieren\naktualisierung der abhängigkeiten",
+        "ru": "обновление NPM развертывания\nобновление зависимостей",
+        "pt": "atualizar a implantação do NPM\natualizar dependências",
+        "nl": "nPM-implementatie bijwerken\nafhankelijkheden bijwerken",
+        "fr": "mettre à jour le déploiement des NPM\nmettre à jour les dépendances",
+        "it": "aggiornamento Distribuzione NPM\naggiornamento dipendenze",
+        "es": "actualización del despliegue del mecanismo nacional de prevención\ndependencias de actualización",
+        "pl": "aktualizacja rozmieszczenia NPM\naktualizacji zależności",
+        "uk": "оновлення розгортання NPM\nоновлення залежності",
+        "zh-cn": "更新国家预防机制的部署情况\n更新依赖关系"
+      },
       "6.0.1": {
         "en": "fix error in cleaning tomorrow data\nupdate release management to 4.x.x",
         "de": "fehler in der reinigung von morgen daten beheben\nupdate-release-management auf 4.x.x",
@@ -80,19 +93,6 @@
         "pl": "dodaj dekoder dla EMH eHZB IMSys\nusunięcie tworzenia państw, które nie zostały objęte zwolnieniem\nfix typo w komunikacie błędu (# 731)\nnaprawić podatność\nzmiana produkcji energii, która ma być sprawdzana domyślnie (# 721)\nuzależnienia od guza",
         "uk": "додати декодер для EMH eHZB IMSys\nвидалення створення негодованих держав\nфіксувати типо повідомлення про помилку (#731)\nвиправити вразливість\nзмінити виробництво електроенергії, щоб бути опитані за замовчуванням (#721)\nbump залежності",
         "zh-cn": "为 EMH eHZB IMSys 添加解码器\n删除未种子状态的创建\n在错误消息中修正类型 (# 731)\n消除脆弱性\n变电生产默认进行投票(# 721)\n意外依赖"
-      },
-      "5.0.0": {
-        "en": "BREAKING: dropped node.js 18 support (#703)\nBREAKING: dropped js-controller 5 support (#703)\nadd tests for node.js 24 (#717)",
-        "de": "BREAKING: drop node.js 18 support (#703)\nBREAKING: Dropd js-controller 5 Unterstützung (#703)\ntests für node.js 24 hinzufügen (#717)",
-        "ru": "Скачать node.js 18 support (#703)\nСкачать js-контроллер 5 (#703)\nдобавить тесты для node.js 24 (#717)",
-        "pt": "BREAKING: caiu node.js 18 apoio (#703)\nBREAKING: suporte lançado js-controller 5 (#703)\nadicionar testes para node.js 24 (#717)",
-        "nl": "Breaking: gedaald node.js 18 ondersteuning (#703)\nBreaking: dropped js-controller 5 support (#703)\ntests voor node.js 24 (#717) toevoegen",
-        "fr": "BREAKING: Lâche le support node.js 18 (#703)\nBREAKING: support js-controller 5 abandonné (#703)\najouter des tests pour node.js 24 (#717)",
-        "it": "BREAKING: supporto n° 18 caduto (#703)\nBREAKING: supporto js-controller 5 (#703)\naggiungere test per node.js 24 (#717)",
-        "es": "BREAKING: drop node.js 18 support (#703)\nBREAKING: soporte lanzado js-controller 5 (#703)\nañadir pruebas para node.js 24 (#717)",
-        "pl": "BREAKING: upuszczony node.js 18 wsparcia (# 703)\nBREAKING: upuszczony kontroler js- 5 wsparcia (# 703)\ndodać testy dla node.js 24 (# 717)",
-        "uk": "BREAKING: скидати node.js 18 support (#703)\nBREAKING: скидати js-controller 5 підтримки (#703)\njavascript licenses api веб-сайт go1.13.8",
-        "zh-cn": "中断: 放弃了节点.js 18支持(#703)\n中断 : 放弃 js 控制器 5 支持 (# 703)\n添加节点24(# 717) 的测试"
       }
     },
     "messages": [

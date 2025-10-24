@@ -18,6 +18,12 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+## 5.0.2 (2025-08-29)
+
+- (HombachC) min admin 7.6.17 as recommended (#754)
+- (HombachC) update adapter-core
+- (HombachC) bump typescript
+
 ### 5.0.1 (2025-08-15)
 
 - (HombachC) add decoder for EMH eHZB IMSys
@@ -25,7 +31,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) fix typo in error message (#731)
 - (HombachC) fix vulnerability
 - (HombachC) change power production to be polled by default (#721)
-- (HombachC) bump dependencies
 
 ### 5.0.0 (2025-05-30)
 
