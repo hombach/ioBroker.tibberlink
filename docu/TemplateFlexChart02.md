@@ -50,7 +50,7 @@
 	},
 	visualMap: {
 		min: 0.2,
-		max: 0.3,
+		max: 0.35,
 		inRange: {
 			color: ["green", "yellow", "red"] // Verlauf von grün über gelb nach rot
 		},
@@ -63,22 +63,21 @@
 			step: "end",
 			symbol: "none",
 			label: {
-            show: true, // Zeigt die Labels an
-            position: 'top', // Positioniert die Labels über den Balken
-            formatter: function(params) {
-                // Kürze das Label auf 2 Stellen
-                return params.value.toString().substring(0, 4);
-            }
-        },
+	            show: true, // Zeigt die Labels an
+    	        position: 'top', // Positioniert die Labels über den Balken
+        	    formatter: function(params) {
+            	    // Kürze das Label auf 2 Stellen
+                	return params.value.toString().substring(0, 4);
+            	}
+        	},
 			data: %%yAxisData%%,
 
-			      markPoint: {
-        data: [
-          { type: 'max', name: 'Max', itemStyle: { color: 'red' }  },
-          { type: 'min', name: 'Min', itemStyle: { color: 'green' }  }
-        ]
-      },
-
+			markPoint: {
+		        data: [
+					{ type: 'max', name: 'Max', itemStyle: { color: 'red' } },
+					{ type: 'min', name: 'Min', itemStyle: { color: 'green' } }
+				]
+			},
 			markArea: {
 				itemStyle: {
 					color: "rgba(120, 200, 120, 0.2)"

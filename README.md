@@ -164,6 +164,13 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) update axios
+- (HombachC) update FlexChart template
+- (HombachC) update dependencies
+
 ### 6.0.2 (2025-10-24)
 
 - (HombachC) update NPM deployment
