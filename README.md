@@ -167,6 +167,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) optimize sentry
 - (HombachC) update axios
 - (HombachC) update FlexChart template
 - (HombachC) update dependencies
