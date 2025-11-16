@@ -165,7 +165,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
-### **WORK IN PROGRESS**
+### 6.0.3 (2025-11-16)
 
 - (HombachC) optimize sentry
 - (HombachC) optimize dependabot config (#805)
@@ -201,12 +201,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) prepared price updates to 15 minutes resolution (#384)
 - (HombachC) update tibber-api to 5.4.2
 - (HombachC) update chai system
-
-### 5.0.3 (2025-09-17)
-
-- (HombachC) fix jsonconfig schema definition (#762)
-- (HombachC) optimize cron jobs
-- (HombachC) update axios
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

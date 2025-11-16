@@ -18,6 +18,12 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+## 5.0.3 (2025-09-17)
+
+- (HombachC) fix jsonconfig schema definition (#762)
+- (HombachC) optimize cron jobs
+- (HombachC) update axios
+
 ## 5.0.2 (2025-08-29)
 
 - (HombachC) min admin 7.6.17 as recommended (#754)
