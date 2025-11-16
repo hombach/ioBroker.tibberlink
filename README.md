@@ -169,6 +169,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) optimize sentry
 - (HombachC) update axios
+- (HombachC) update cron
 - (HombachC) update FlexChart template
 - (HombachC) update dependencies
 
