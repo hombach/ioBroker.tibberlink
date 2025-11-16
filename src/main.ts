@@ -128,38 +128,29 @@ class Tibberlink extends utils.Adapter {
 				const sentryInstance = this.getPluginInstance("sentry");
 				const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
 
-				// Fetch the last logged day from state
-				//WiP // Fetch the last logged month from state
-				const last = await this.getStateAsync("info.LastSentryLogDay");
-				//WiP const last = await this.getStateAsync("info.LastSentryLogMonth");
-				const lastDay = Number(last?.val) || 0;
-				//WiP const lastMonth = Number(last?.val) || 0;
-				const today = new Date();
-				const todayDay = today.getDate();
-				//WiP const currentMonth = today.getMonth() + 1; // 1-12
+				// DEL state info.LastSentryLogDay from old releases
+				this.delObject("info.LastSentryLogDay");
 
-				// Check if a month transition has occurred (today < lastDay, e.g., today 1, last 31)
-				//WiP // Check if a new month has started
-				const isMonthTransition = todayDay < lastDay;
-				//WiP const isNewMonth = currentMonth !== lastMonth;
+				// Fetch the last logged month from state
+				const last = await this.getStateAsync("info.LastSentryLogMonth");
+				const lastMonth = Number(last?.val) || 0;
+				const today = new Date();
+				const currentMonth = today.getMonth() + 1; // 1-12
+
+				// Check if a new month has started
+				const isNewMonth = currentMonth !== lastMonth;
 
 				// If no month transition, check normal difference
 				// If month transition, check if difference is >= 10 days
-				if (
-					(!isMonthTransition && lastDay < todayDay + 10) || // Normal case: same month
-					(isMonthTransition && todayDay + 30 - lastDay >= 10) // Month transition: rough estimate
-				) {
-					// Verified if 10 or more days in the past
-					//WiP if (isNewMonth) {
-					//WiP // Verified if new month
+				if (isNewMonth) {
+					// Verified if new month
 					this.tibberCalculator.updateCalculatorUsageStats();
 					if (sentryInstance) {
 						const Sentry = sentryInstance.getSentryObject();
 						Sentry &&
 							Sentry.withScope((scope: { setLevel: (arg0: string) => void; setTag: (arg0: string, arg1: number) => void }) => {
 								scope.setLevel("info");
-								scope.setTag("SentryDay", todayDay);
-								//WiP scope.setTag("SentryDay", today.getDate());
+								scope.setTag("SentryDay", today.getDate());
 								scope.setTag("HomeIDs", this.homeInfoList.length);
 								scope.setTag("LocalPulse", pulseLocal);
 								scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
@@ -174,8 +165,7 @@ class Tibberlink extends utils.Adapter {
 								Sentry.captureMessage("Adapter TibberLink started", "info");
 							});
 					}
-					await this.setState("info.LastSentryLogDay", { val: todayDay, ack: true });
-					//WiP await this.setState("info.LastSentryLogMonth", { val: currentMonth, ack: true });
+					await this.setState("info.LastSentryLogMonth", { val: currentMonth, ack: true });
 				}
 			}
 

@@ -132,20 +132,20 @@ class Tibberlink extends utils.Adapter {
             if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
                 const sentryInstance = this.getPluginInstance("sentry");
                 const pulseLocal = this.config.UseLocalPulseData ? 1 : 0;
-                const last = await this.getStateAsync("info.LastSentryLogDay");
-                const lastDay = Number(last?.val) || 0;
+                this.delObject("info.LastSentryLogDay");
+                const last = await this.getStateAsync("info.LastSentryLogMonth");
+                const lastMonth = Number(last?.val) || 0;
                 const today = new Date();
-                const todayDay = today.getDate();
-                const isMonthTransition = todayDay < lastDay;
-                if ((!isMonthTransition && lastDay < todayDay + 10) ||
-                    (isMonthTransition && todayDay + 30 - lastDay >= 10)) {
+                const currentMonth = today.getMonth() + 1;
+                const isNewMonth = currentMonth !== lastMonth;
+                if (isNewMonth) {
                     this.tibberCalculator.updateCalculatorUsageStats();
                     if (sentryInstance) {
                         const Sentry = sentryInstance.getSentryObject();
                         Sentry &&
                             Sentry.withScope((scope) => {
                                 scope.setLevel("info");
-                                scope.setTag("SentryDay", todayDay);
+                                scope.setTag("SentryDay", today.getDate());
                                 scope.setTag("HomeIDs", this.homeInfoList.length);
                                 scope.setTag("LocalPulse", pulseLocal);
                                 scope.setTag("numBestCost", this.tibberCalculator.numBestCost);
@@ -160,7 +160,7 @@ class Tibberlink extends utils.Adapter {
                                 Sentry.captureMessage("Adapter TibberLink started", "info");
                             });
                     }
-                    await this.setState("info.LastSentryLogDay", { val: todayDay, ack: true });
+                    await this.setState("info.LastSentryLogMonth", { val: currentMonth, ack: true });
                 }
             }
             if (this.homeInfoList.length === 0) {

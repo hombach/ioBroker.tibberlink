@@ -168,6 +168,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) optimize sentry
+- (HombachC) optimize dependabot config (#805)
 - (HombachC) update axios
 - (HombachC) update cron
 - (HombachC) update FlexChart template

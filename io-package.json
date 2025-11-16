@@ -1,293 +1,277 @@
 {
-  "common": {
-    "name": "tibberlink",
-    "version": "6.0.2",
-    "news": {
-      "6.0.2": {
-        "en": "update NPM deployment\nupdate dependencies",
-        "de": "nPM-Einsatz aktualisieren\naktualisierung der abhängigkeiten",
-        "ru": "обновление NPM развертывания\nобновление зависимостей",
-        "pt": "atualizar a implantação do NPM\natualizar dependências",
-        "nl": "nPM-implementatie bijwerken\nafhankelijkheden bijwerken",
-        "fr": "mettre à jour le déploiement des NPM\nmettre à jour les dépendances",
-        "it": "aggiornamento Distribuzione NPM\naggiornamento dipendenze",
-        "es": "actualización del despliegue del mecanismo nacional de prevención\ndependencias de actualización",
-        "pl": "aktualizacja rozmieszczenia NPM\naktualizacji zależności",
-        "uk": "оновлення розгортання NPM\nоновлення залежності",
-        "zh-cn": "更新国家预防机制的部署情况\n更新依赖关系"
-      },
-      "6.0.1": {
-        "en": "fix error in cleaning tomorrow data\nupdate release management to 4.x.x",
-        "de": "fehler in der reinigung von morgen daten beheben\nupdate-release-management auf 4.x.x",
-        "ru": "ошибка в очистке данных завтрашнего дня\nуправление обновлениями для 4.x.x",
-        "pt": "corrigir erro na limpeza amanhã dados\natualização de gerenciamento de lançamento para 4.x.x",
-        "nl": "fix fout in het schoonmaken van morgen gegevens\nupdate release management naar 4.x.x",
-        "fr": "corriger l'erreur dans le nettoyage des données de demain\nmettre à jour la gestion de la publication vers 4.x.x",
-        "it": "correzione di errore nella pulizia dei dati di domani\nupdate release management a 4.x.x",
-        "es": "corregir error en la limpieza mañana datos\nactualizar la gestión de la liberación a 4.x.x",
-        "pl": "naprawić błąd w czyszczeniu danych jutro\naktualizacja zarządzania wersjami do 4.x.x",
-        "uk": "виправлено помилку в очищенні даних\nуправління оновлення релізу до 4.x.x",
-        "zh-cn": "清除明天数据时纠正错误\n更新发行管理到 4. x. x"
-      },
-      "6.0.0": {
-        "en": "BREAKING: hourly price states (0...23) are now quarterhourly (0...95)\nBREAKING: adapted calculator time blocks need reentry of \"AmountHours\" values\nchange price updates to 15 minutes resolution as default\nchange current price updates to use existing today values instead of Tibber calls\nmore timely precision for current price and calculator\nadapt chart generation\nfix error in efficiency loss\nadapt calculator time blocks\nupdate tibber-api to 5.5.2\nupdate typescript to 5.9.3 (#777)\nadd names to price states folders",
-        "de": "BREAKING: Stundenpreise (0...23) sind jetzt viertelstunde (0...95)\nBREAKING: angepasste Rechenzeitblöcke brauchen Wiedereingabe von \"AmountHours\"-Werten\npreisaktualisierung auf 15 minuten auflösung als standard ändern\naktuelle Preisaktualisierungen ändern, um bestehende Werte anstelle von Tibber-Anrufen zu verwenden\nmehr zeitgerechte präzision für den aktuellen preis und rechner\nanpassung der chart-generation\nfehler in effizienzverlust beheben\nanpassung der rechenzeitblöcke\naktualisierung von tibber-api auf 5.5.2\nupdate-typscript auf 5.9.3 (#777)\nnamen in preiszustände ordner hinzufügen",
-        "ru": "Почасовые цены (0...23) теперь квартальные (0...95)\nБРИКИНГ: адаптированные блоки времени калькулятора требуют повторного ввода значений «AmountHours»\nизменение цены до 15 минут разрешения по умолчанию\nизменить текущие обновления цен, чтобы использовать существующие сегодня значения вместо вызовов Tibber\nболее своевременная точность для текущей цены и калькулятора\nадаптация генерации графиков\nисправление ошибок при потере эффективности\nадаптация блоков времени калькулятора\nобновление tibber-api до 5.5.2\nобновление typescript до 5.9.3 (#777)\nдобавить имена в папки состояния цен",
-        "pt": "PREJUÍZO: os estados de preço por hora (0...23) são agora trimestralmente (0...95)\nBREAKING: blocos de tempo de calculadora adaptados precisam de reentrada de valores \"AmountHours\"\nmudar as atualizações de preço para 15 minutos de resolução como padrão\nalterar as actualizações de preços para usar os valores actuais em vez das chamadas Tibber\nprecisão mais oportuna para o preço atual e calculadora\nadaptar a geração de gráficos\ncorrigir erro na perda de eficiência\nadaptar blocos de tempo da calculadora\natualizar tibber-api para 5.5.2\natualizar o texto para 5.9.3 (#777)\nadicionar nomes às pastas de estados de preço",
-        "nl": "Breaking: uurprijs toestanden (0...23) zijn nu kwartuur (0...95)\nBREAKING: aangepaste rekenmachine tijdblokken moeten opnieuw worden ingevoerd van \"AmountHours\" waarden\nwijzigen prijs updates naar 15 minuten resolutie als standaard\nhuidige prijs-updates wijzigen om bestaande huidige waarden te gebruiken in plaats van Tibber calls\nmeer tijdige precisie voor de huidige prijs en rekenmachine\nkaartgeneratie aanpassen\nfout in efficiëntieverlies herstellen\nrekenmachine tijdblokken aanpassen\ntibber-api bijwerken tot 5.5.2\nupdate typescript naar 5.9.3 (#777)\nnamen toevoegen aan de prijs staat mappen",
-        "fr": "BREAKING: les états des prix horaires (0...23) sont maintenant trimestriels (0...95)\nBREAKING: les blocs de temps de calcul adaptés nécessitent la rentrée des valeurs \"AmountHours\"\nchanger les mises à jour de prix à 15 minutes de résolution par défaut\nchanger les mises à jour de prix actuelles pour utiliser les valeurs actuelles au lieu des appels Tibber\nprécision plus rapide pour le prix actuel et la calculatrice\nadapter la génération de graphiques\ncorriger l'erreur dans la perte d'efficacité\nadapter les blocs horaires de calculatrice\nmettre à jour le tibber-api à 5.5.2\nmettre à jour la typographie au 5.9.3 (#777)\najouter des noms aux dossiers des états de prix",
-        "it": "BREAKING: gli stati di prezzo orario (0...23) sono ora trimestrali (0...95)\nBREAKING: i blocchi di tempo della calcolatrice adattati hanno bisogno di reinserimento dei valori \"AmountHours\"\ncambiare gli aggiornamenti dei prezzi alla risoluzione di 15 minuti come predefinito\ncambiare gli aggiornamenti attuali dei prezzi per utilizzare i valori attuali esistenti invece delle chiamate Tibber\npiù puntuale precisione per il prezzo attuale e calcolatrice\nadattare la generazione del grafico\nerrore corretto nella perdita di efficienza\nadattare i blocchi di tempo del calcolatore\naggiornamento tibber-api a 5.5.2\nupdate typescript to 5.9.3 (#777)\naggiungere i nomi alle cartelle degli stati dei prezzi",
-        "es": "BREAKING: los estados de precio por hora (0...23) están ahora trimestralmente (0...95)\nBREAKING: los bloques de tiempo de calculadora adaptados necesitan reingresar los valores de \"AmountHours\"\nactualizaciones de precios de cambio a 15 minutos resolución como predeterminado\ncambiar actualizaciones actuales de precios para utilizar valores existentes hoy en lugar de llamadas Tibber\nprecisión más oportuna para el precio actual y calculadora\nadaptación de la generación de gráficos\ncorregir error en la pérdida de eficiencia\nbloques de tiempo de la calculadora\nactualización tibber-api a 5.5.2\ntipografía de actualización a 5.9.3 (#777)\nañadir nombres a carpetas de estados de precios",
-        "pl": "BREAKING: stany cen godzinowych (0... 23) są obecnie kwartalne (0... 95)\nBREAKING: dostosowany kalkulator bloki czasowe wymagają ponownego wprowadzenia wartości \"AmountHours\"\nzmienić aktualizacje cen do rozdzielczości 15 minut jako domyślnie\nzmienić aktualne aktualizacje cen w celu wykorzystania istniejących obecnie wartości zamiast połączeń Tibber\nszybsza precyzja dla bieżącej ceny i kalkulator\ndostosowywanie tworzenia map\nnaprawić błąd w utracie wydajności\ndostosować bloki czasowe kalkulatora\naktualizacja tibber- api do 5.5.2\naktualizacja do 5.9.3 (# 777)\ndodaj nazwy do folderów stanów cen",
-        "uk": "BREAKING: погодинні цінові стани (0...23) тепер чвертьгодинно (0...95)\nBREAKING: адаптовані блоки часу калькуляторів, які потребують переадресації значень \"AmountHours\"\nзмінити оновлення ціни до 15 хвилин, як за замовчуванням\nзмінити поточні оновлення ціни, щоб використовувати існуючі сьогодні значення замість дзвінків Tibber\nбільш своєчасна точність за поточною ціною і калькулятором\nстворення адаптивної діаграми\nвиправлено помилку при зниженні ефективності\nадаптувати блоки часу калькулятора\nоновлення tibber-api до 5.5.2\nenglish, українська, français..\nдодати імена в папки ціноутворення",
-        "zh-cn": "每小时价格(0.23)现在是每半小时(0.95)\nBREAKING:经过调整的计算器时区块需要重新输入“AmountHours”值\n将价格更新改为默认的15分钟分辨率\n更改当前价格更新以使用今天已有的值, 而不是提伯调用\n当前价格和计算器更及时的精确度\n调整图表生成\n效率损失的固定错误\n调整计算时间块\n将 tibber-api 更新到 5.5.2\n更新打字符至5.9.3 (# 777)\n添加名称到价格状态文件夹"
-      },
-      "5.0.4": {
-        "en": "change price updates to 15 minutes resolution (#384)\nupdate tibber-api to 5.4.2\nupdate chai system",
-        "de": "preisänderungen auf 15 minuten auflösung ändern (#384)\naktualisierung von tibber-api auf 5.4.2\nchai system",
-        "ru": "изменение цены до 15 минут разрешения (#384)\nобновление tibber-api до 5.4.2\nобновление системы chai",
-        "pt": "mudar as atualizações de preço para resolução de 15 minutos (#384)\natualizar tibber-api para 5.4.2\natualizar sistema chai",
-        "nl": "wijzigen prijs updates naar 15 minuten resolutie (#384)\ntibber-api tot 5.4.2 bijwerken\nchai-systeem bijwerken",
-        "fr": "changer les mises à jour du prix à la résolution de 15 minutes (#384)\nmettre à jour le tibber-api à 5.4.2\nmettre à jour le système chai",
-        "it": "modifica gli aggiornamenti dei prezzi alla risoluzione di 15 minuti (#384)\naggiornamento tibber-api a 5.4.2\naggiornamento sistema chai",
-        "es": "actualizaciones de precios de cambio a resolución de 15 minutos (#384)\nactualización tibber-api a 5.4.2\nactualización del sistema chai",
-        "pl": "zmiana aktualizacji cen do rozdzielczości 15 minut (# 384)\naktualizacja tibber- api do 5.4.2\naktualizacja systemu chai",
-        "uk": "зміна ціни за ціною до 15 хвилин дозвіл (#384)\nоновлення tibber-api до 5.4.2\nоновлення системи chai",
-        "zh-cn": "将价格更新为15分钟分辨率(# 384)\n将 tibber- api 更新到 5.4.2\n更新 chai 系统"
-      },
-      "5.0.3": {
-        "en": "fix jsonconfig schema definition (#762)\noptimize cron jobs\nupdate axios",
-        "de": "Behebe das JSON-Konfigurationsschema (#762)\nCron-Jobs optimieren\nAktualisierung von axios",
-        "ru": "исправлена схема определения jsonconfig (#762)\nоптимизировать задания cron\nобновление axios",
-        "pt": "Corrigir a definição do esquema jsonconfig (#762)\notimizar trabalhos cron\natualizar o axios",
-        "nl": "Herstel JSON-configschemadefinitie (#762)\nOptimaliseer cron jobs\nUpdate axios",
-        "fr": "corriger la définition du schéma jsonconfig (#762)\noptimiser les tâches cron\nmettre à jour axios",
-        "it": "Correzione della definizione dello schema JSONConfig (#762)\nottimizzare i job cron\nAggiornamento di axios",
-        "es": "corregir la definición del esquema jsonconfig (#762)\noptimizar trabajos programados\nactualizar axios",
-        "pl": "naprawa definicji schematu jsonconfig (#762)\nzoptymalizuj zadania cron\naktualizacja axios",
-        "uk": "виправлення визначення схеми jsonconfig (#762)\nОптимізувати задачі cron\nоновлення axios",
-        "zh-cn": "修复jsonconfig模式定义（#762）\n优化cron作业\n更新 axios"
-      },
-      "5.0.2": {
-        "en": "min admin 7.6.17 as recommended (#754)\nupdate adapter-core\nbump typescript\nbump dependencies",
-        "de": "min admin 7.6.17 wie empfohlen (#754)\nupdate adapter-kern\nbeschriftungsart\nbumpabhängigkeiten",
-        "ru": "min admin 7.6.17 as recommended (#754)\nобновление adapter-core\nбамбуковый шрифт\nбамп зависимости",
-        "pt": "min admin 7.6.17 como recomendado (# 754)\natualizar o núcleo do adaptador\ntypescript\ndependências de colisão",
-        "nl": "min. toediening 7.6.17 zoals aanbevolen (#754)\nupdate adapter-core\nbump typescript\nbump afhankelijkheden",
-        "fr": "admin 7.6.17 min comme recommandé (#754)\nmettre à jour adaptateur-core\ntype de bosse\ndépendances des bosses",
-        "it": "min admin 7.6.17 come raccomandato (#754)\naggiornamento adattatore-core\ntipo di urto\nindipendenza urto",
-        "es": "min admin 7.6.17 como se recomienda (#754)\nactualización adaptador-core\ntipografía\ndependencia de los gastos",
-        "pl": "min admin 7.6.17 zgodnie z zaleceniami (# 754)\nupdate adapter- core\ntypeskrypt bump\nuzależnienia od guza",
-        "uk": "min admin 7.6.17 як рекомендується (#754)\nоновлення адаптера-core\njavascript licenses api веб-сайт\nbump залежності",
-        "zh-cn": "建议(第754号)\n更新适配器核心\n凸起型号\n意外依赖"
-      },
-      "5.0.1": {
-        "en": "add decoder for EMH eHZB IMSys\nremove creation of not feeded states\nfix typo in error message (#731)\nfix vulnerability\nchange power production to be polled by default (#721)\nbump dependencies",
-        "de": "dekoder für EMH eHZB IMSys hinzufügen\ndie schaffung nicht gefütterter staaten entfernen\nfix typo in fehlermeldung (#731)\nfehlerbehebung\nänderung der stromproduktion, die standardmäßig abgefragt werden soll (#721)\nbumpabhängigkeiten",
-        "ru": "добавить декодер для EMH eHZB IMSys\nустранить создание некормленных государств\nисправить опечатку в сообщении об ошибке (#731)\nисправить уязвимость\nизменение производства электроэнергии для голосования по умолчанию (#721)\nбамп зависимости",
-        "pt": "adicionar decodificador para EMH eHZB IMSys\nremover a criação de estados não alimentados\ncorrigir erro na mensagem de erro (# 731)\ncorrigir vulnerabilidade\nmudar a produção de energia a ser pesquisada por padrão (# 721)\ndependências de colisão",
-        "nl": "decoder toevoegen voor EMH eHZB IMSys\nhet aanmaken van niet-gevoede staten verwijderen\nfix typefout in foutmelding (#731)\nkwetsbaarheid herstellen\nde stroomproductie moet standaard worden ondervraagd (#721)\nbump afhankelijkheden",
-        "fr": "ajouter un décodeur pour EMH eHZB IMSys\nsupprimer la création d'états non nourris\ncorrection du typo dans le message d'erreur (#731)\nfixer la vulnérabilité\nmodifier la production d'électricité à sonder par défaut (#721)\ndépendances des bosses",
-        "it": "aggiungere decoder per EMH eHZB IMSys\nrimuovere la creazione di stati non alimentati\ncorrezione del tipo nel messaggio di errore (#731)\ncorrezione della vulnerabilità\nmodifica la produzione di potenza da inquinare per impostazione predefinita (#721)\nindipendenza urto",
-        "es": "añadir decodificador para EMH eHZB IMSys\neliminar la creación de estados no alimentados\nfix typo in error message (#731)\ncorrección de vulnerabilidad\ncambiar la producción de potencia para ser encuestado por defecto (#721)\ndependencia de los gastos",
-        "pl": "dodaj dekoder dla EMH eHZB IMSys\nusunięcie tworzenia państw, które nie zostały objęte zwolnieniem\nfix typo w komunikacie błędu (# 731)\nnaprawić podatność\nzmiana produkcji energii, która ma być sprawdzana domyślnie (# 721)\nuzależnienia od guza",
-        "uk": "додати декодер для EMH eHZB IMSys\nвидалення створення негодованих держав\nфіксувати типо повідомлення про помилку (#731)\nвиправити вразливість\nзмінити виробництво електроенергії, щоб бути опитані за замовчуванням (#721)\nbump залежності",
-        "zh-cn": "为 EMH eHZB IMSys 添加解码器\n删除未种子状态的创建\n在错误消息中修正类型 (# 731)\n消除脆弱性\n变电生产默认进行投票(# 721)\n意外依赖"
-      }
-    },
-    "messages": [
-      {
-        "condition": {
-          "operand": "and",
-          "rules": [
-            "oldVersion<2.3.0",
-            "newVersion>=2.3.0"
-          ]
-        },
-        "title": {
-          "en": "Important notice!",
-          "de": "Wichtiger Hinweis!",
-          "ru": "Важное замечание!",
-          "pt": "Notícia importante!",
-          "nl": "Belangrijke mededeling!",
-          "fr": "Avis important!",
-          "it": "Avviso IMPORTANTE!",
-          "es": "Noticia importante!",
-          "pl": "Ważna uwaga!",
-          "uk": "Погода!",
-          "zh-cn": "重要通知!"
-        },
-        "text": {
-          "en": "The behavior of the adapter has changed! Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false.",
-          "de": "Das Verhalten des Adapters hat sich geändert! Rechnerkanäle des Typs 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde.",
-          "ru": "Поведение адаптера изменилось! Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false.",
-          "pt": "O comportamento do adaptador mudou! Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false.",
-          "nl": "Het gedrag van de adapter is veranderd! Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false.",
-          "fr": "Le comportement de l'adaptateur a changé ! Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false.",
-          "it": "Il comportamento dell'adattatore è cambiato! I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false.",
-          "es": "¡El comportamiento del adaptador ha cambiado! Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false.",
-          "pl": "Zachowanie adaptera zmieniło się! Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false.",
-          "uk": "Поведінка адаптера змінилась! Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false.",
-          "zh-cn": "适配器行为已更改！'智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭”。"
-        },
-        "level": "warn",
-        "buttons": [
-          "agree",
-          "cancel"
-        ]
-      }
-    ],
-    "titleLang": {
-      "en": "Tibber Link",
-      "de": "Tibber Link",
-      "ru": "Тиббер Ссылка",
-      "pt": "Tibber Link",
-      "nl": "Tibber Link",
-      "fr": "Tibber Link",
-      "it": "Tibber Link",
-      "es": "Tibber Link",
-      "pl": "Tibber Link",
-      "uk": "Посилання",
-      "zh-cn": "网络联系"
-    },
-    "desc": {
-      "en": "Links Tibber API data to be used in ioBroker",
-      "de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
-      "ru": "Ссылки на данные Tibber API для использования в ioBroker",
-      "pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
-      "nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
-      "fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
-      "it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
-      "es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
-      "pl": "Łączy dane z API Tibber do użycia w ioBroker",
-      "uk": "Посилання на дані Tibber API для використання в ioBroker",
-      "zh-cn": "连接Tibber API数据以在ioBroker中使用"
-    },
-    "authors": [
-      "Hombach <TibberLink@homba.ch>"
-    ],
-    "keywords": [
-      "power",
-      "energy",
-      "Tibber"
-    ],
-    "licenseInformation": {
-      "license": "GPL-3.0-only",
-      "type": "free"
-    },
-    "platform": "Javascript/Node.js",
-    "icon": "tibberlink.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
-    "readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
-    "loglevel": "info",
-    "tier": 2,
-    "mode": "daemon",
-    "messagebox": true,
-    "type": "energy",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=6.0.11"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=7.6.17"
-      }
-    ],
-    "plugins": {
-      "sentry": {
-        "dsn": "https://06e51e8346a5411f99ac6b1533d1d0ea@o415875.ingest.sentry.io/4505569088765952"
-      }
-    }
-  },
-  "encryptedNative": [
-    "TibberAPIToken"
-  ],
-  "protectedNative": [
-    "TibberAPIToken"
-  ],
-  "native": {
-    "TibberAPIToken": "",
-    "HomesList": [
-      {
-        "feedActive": "false",
-        "priceDataPollActive": "true",
-        "homeID": "None available - restart adapter after entering token",
-        "statsActive": "false",
-        "numberConsHourly": 24,
-        "numberConsDaily": 7,
-        "numberConsWeekly": 4,
-        "numberConsMonthly": 4,
-        "numberConsAnnual": 2
-      }
-    ],
-    "CalculatorList": [
-      {
-        "chHomeID": "None available - restart adapter after entering token",
-        "chType": "best cost",
-        "chName": "Channel Name",
-        "chActive": "false",
-        "chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
-        "chValueOn": "true",
-        "chValueOff": "false",
-        "chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
-        "chValueOn2": "true",
-        "chValueOff2": "false"
-      }
-    ],
-    "PulseList": [
-      {
-        "puName": "Pulse Local",
-        "tibberBridgeUrl": "tibber-host",
-        "tibberBridgePassword": "xxxx-xxxx",
-        "tibberPulseLocalNodeId": 1,
-        "tibberBridgeRawDataInterval": 2000
-      }
-    ]
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Information"
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "role": "indicator.connected",
-        "name": "Device or service connected",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.LastSentryLogDay",
-      "type": "state",
-      "common": {
-        "role": "value",
-        "name": "Last day of month for Sentry log",
-        "type": "number",
-        "unit": "",
-        "read": true,
-        "write": false,
-        "def": 0
-      },
-      "native": {}
-    }
-  ]
+	"common": {
+		"name": "tibberlink",
+		"version": "6.0.2",
+		"news": {
+			"6.0.2": {
+				"en": "update NPM deployment\nupdate dependencies",
+				"de": "nPM-Einsatz aktualisieren\naktualisierung der abhängigkeiten",
+				"ru": "обновление NPM развертывания\nобновление зависимостей",
+				"pt": "atualizar a implantação do NPM\natualizar dependências",
+				"nl": "nPM-implementatie bijwerken\nafhankelijkheden bijwerken",
+				"fr": "mettre à jour le déploiement des NPM\nmettre à jour les dépendances",
+				"it": "aggiornamento Distribuzione NPM\naggiornamento dipendenze",
+				"es": "actualización del despliegue del mecanismo nacional de prevención\ndependencias de actualización",
+				"pl": "aktualizacja rozmieszczenia NPM\naktualizacji zależności",
+				"uk": "оновлення розгортання NPM\nоновлення залежності",
+				"zh-cn": "更新国家预防机制的部署情况\n更新依赖关系"
+			},
+			"6.0.1": {
+				"en": "fix error in cleaning tomorrow data\nupdate release management to 4.x.x",
+				"de": "fehler in der reinigung von morgen daten beheben\nupdate-release-management auf 4.x.x",
+				"ru": "ошибка в очистке данных завтрашнего дня\nуправление обновлениями для 4.x.x",
+				"pt": "corrigir erro na limpeza amanhã dados\natualização de gerenciamento de lançamento para 4.x.x",
+				"nl": "fix fout in het schoonmaken van morgen gegevens\nupdate release management naar 4.x.x",
+				"fr": "corriger l'erreur dans le nettoyage des données de demain\nmettre à jour la gestion de la publication vers 4.x.x",
+				"it": "correzione di errore nella pulizia dei dati di domani\nupdate release management a 4.x.x",
+				"es": "corregir error en la limpieza mañana datos\nactualizar la gestión de la liberación a 4.x.x",
+				"pl": "naprawić błąd w czyszczeniu danych jutro\naktualizacja zarządzania wersjami do 4.x.x",
+				"uk": "виправлено помилку в очищенні даних\nуправління оновлення релізу до 4.x.x",
+				"zh-cn": "清除明天数据时纠正错误\n更新发行管理到 4. x. x"
+			},
+			"6.0.0": {
+				"en": "BREAKING: hourly price states (0...23) are now quarterhourly (0...95)\nBREAKING: adapted calculator time blocks need reentry of \"AmountHours\" values\nchange price updates to 15 minutes resolution as default\nchange current price updates to use existing today values instead of Tibber calls\nmore timely precision for current price and calculator\nadapt chart generation\nfix error in efficiency loss\nadapt calculator time blocks\nupdate tibber-api to 5.5.2\nupdate typescript to 5.9.3 (#777)\nadd names to price states folders",
+				"de": "BREAKING: Stundenpreise (0...23) sind jetzt viertelstunde (0...95)\nBREAKING: angepasste Rechenzeitblöcke brauchen Wiedereingabe von \"AmountHours\"-Werten\npreisaktualisierung auf 15 minuten auflösung als standard ändern\naktuelle Preisaktualisierungen ändern, um bestehende Werte anstelle von Tibber-Anrufen zu verwenden\nmehr zeitgerechte präzision für den aktuellen preis und rechner\nanpassung der chart-generation\nfehler in effizienzverlust beheben\nanpassung der rechenzeitblöcke\naktualisierung von tibber-api auf 5.5.2\nupdate-typscript auf 5.9.3 (#777)\nnamen in preiszustände ordner hinzufügen",
+				"ru": "Почасовые цены (0...23) теперь квартальные (0...95)\nБРИКИНГ: адаптированные блоки времени калькулятора требуют повторного ввода значений «AmountHours»\nизменение цены до 15 минут разрешения по умолчанию\nизменить текущие обновления цен, чтобы использовать существующие сегодня значения вместо вызовов Tibber\nболее своевременная точность для текущей цены и калькулятора\nадаптация генерации графиков\nисправление ошибок при потере эффективности\nадаптация блоков времени калькулятора\nобновление tibber-api до 5.5.2\nобновление typescript до 5.9.3 (#777)\nдобавить имена в папки состояния цен",
+				"pt": "PREJUÍZO: os estados de preço por hora (0...23) são agora trimestralmente (0...95)\nBREAKING: blocos de tempo de calculadora adaptados precisam de reentrada de valores \"AmountHours\"\nmudar as atualizações de preço para 15 minutos de resolução como padrão\nalterar as actualizações de preços para usar os valores actuais em vez das chamadas Tibber\nprecisão mais oportuna para o preço atual e calculadora\nadaptar a geração de gráficos\ncorrigir erro na perda de eficiência\nadaptar blocos de tempo da calculadora\natualizar tibber-api para 5.5.2\natualizar o texto para 5.9.3 (#777)\nadicionar nomes às pastas de estados de preço",
+				"nl": "Breaking: uurprijs toestanden (0...23) zijn nu kwartuur (0...95)\nBREAKING: aangepaste rekenmachine tijdblokken moeten opnieuw worden ingevoerd van \"AmountHours\" waarden\nwijzigen prijs updates naar 15 minuten resolutie als standaard\nhuidige prijs-updates wijzigen om bestaande huidige waarden te gebruiken in plaats van Tibber calls\nmeer tijdige precisie voor de huidige prijs en rekenmachine\nkaartgeneratie aanpassen\nfout in efficiëntieverlies herstellen\nrekenmachine tijdblokken aanpassen\ntibber-api bijwerken tot 5.5.2\nupdate typescript naar 5.9.3 (#777)\nnamen toevoegen aan de prijs staat mappen",
+				"fr": "BREAKING: les états des prix horaires (0...23) sont maintenant trimestriels (0...95)\nBREAKING: les blocs de temps de calcul adaptés nécessitent la rentrée des valeurs \"AmountHours\"\nchanger les mises à jour de prix à 15 minutes de résolution par défaut\nchanger les mises à jour de prix actuelles pour utiliser les valeurs actuelles au lieu des appels Tibber\nprécision plus rapide pour le prix actuel et la calculatrice\nadapter la génération de graphiques\ncorriger l'erreur dans la perte d'efficacité\nadapter les blocs horaires de calculatrice\nmettre à jour le tibber-api à 5.5.2\nmettre à jour la typographie au 5.9.3 (#777)\najouter des noms aux dossiers des états de prix",
+				"it": "BREAKING: gli stati di prezzo orario (0...23) sono ora trimestrali (0...95)\nBREAKING: i blocchi di tempo della calcolatrice adattati hanno bisogno di reinserimento dei valori \"AmountHours\"\ncambiare gli aggiornamenti dei prezzi alla risoluzione di 15 minuti come predefinito\ncambiare gli aggiornamenti attuali dei prezzi per utilizzare i valori attuali esistenti invece delle chiamate Tibber\npiù puntuale precisione per il prezzo attuale e calcolatrice\nadattare la generazione del grafico\nerrore corretto nella perdita di efficienza\nadattare i blocchi di tempo del calcolatore\naggiornamento tibber-api a 5.5.2\nupdate typescript to 5.9.3 (#777)\naggiungere i nomi alle cartelle degli stati dei prezzi",
+				"es": "BREAKING: los estados de precio por hora (0...23) están ahora trimestralmente (0...95)\nBREAKING: los bloques de tiempo de calculadora adaptados necesitan reingresar los valores de \"AmountHours\"\nactualizaciones de precios de cambio a 15 minutos resolución como predeterminado\ncambiar actualizaciones actuales de precios para utilizar valores existentes hoy en lugar de llamadas Tibber\nprecisión más oportuna para el precio actual y calculadora\nadaptación de la generación de gráficos\ncorregir error en la pérdida de eficiencia\nbloques de tiempo de la calculadora\nactualización tibber-api a 5.5.2\ntipografía de actualización a 5.9.3 (#777)\nañadir nombres a carpetas de estados de precios",
+				"pl": "BREAKING: stany cen godzinowych (0... 23) są obecnie kwartalne (0... 95)\nBREAKING: dostosowany kalkulator bloki czasowe wymagają ponownego wprowadzenia wartości \"AmountHours\"\nzmienić aktualizacje cen do rozdzielczości 15 minut jako domyślnie\nzmienić aktualne aktualizacje cen w celu wykorzystania istniejących obecnie wartości zamiast połączeń Tibber\nszybsza precyzja dla bieżącej ceny i kalkulator\ndostosowywanie tworzenia map\nnaprawić błąd w utracie wydajności\ndostosować bloki czasowe kalkulatora\naktualizacja tibber- api do 5.5.2\naktualizacja do 5.9.3 (# 777)\ndodaj nazwy do folderów stanów cen",
+				"uk": "BREAKING: погодинні цінові стани (0...23) тепер чвертьгодинно (0...95)\nBREAKING: адаптовані блоки часу калькуляторів, які потребують переадресації значень \"AmountHours\"\nзмінити оновлення ціни до 15 хвилин, як за замовчуванням\nзмінити поточні оновлення ціни, щоб використовувати існуючі сьогодні значення замість дзвінків Tibber\nбільш своєчасна точність за поточною ціною і калькулятором\nстворення адаптивної діаграми\nвиправлено помилку при зниженні ефективності\nадаптувати блоки часу калькулятора\nоновлення tibber-api до 5.5.2\nenglish, українська, français..\nдодати імена в папки ціноутворення",
+				"zh-cn": "每小时价格(0.23)现在是每半小时(0.95)\nBREAKING:经过调整的计算器时区块需要重新输入“AmountHours”值\n将价格更新改为默认的15分钟分辨率\n更改当前价格更新以使用今天已有的值, 而不是提伯调用\n当前价格和计算器更及时的精确度\n调整图表生成\n效率损失的固定错误\n调整计算时间块\n将 tibber-api 更新到 5.5.2\n更新打字符至5.9.3 (# 777)\n添加名称到价格状态文件夹"
+			},
+			"5.0.4": {
+				"en": "change price updates to 15 minutes resolution (#384)\nupdate tibber-api to 5.4.2\nupdate chai system",
+				"de": "preisänderungen auf 15 minuten auflösung ändern (#384)\naktualisierung von tibber-api auf 5.4.2\nchai system",
+				"ru": "изменение цены до 15 минут разрешения (#384)\nобновление tibber-api до 5.4.2\nобновление системы chai",
+				"pt": "mudar as atualizações de preço para resolução de 15 minutos (#384)\natualizar tibber-api para 5.4.2\natualizar sistema chai",
+				"nl": "wijzigen prijs updates naar 15 minuten resolutie (#384)\ntibber-api tot 5.4.2 bijwerken\nchai-systeem bijwerken",
+				"fr": "changer les mises à jour du prix à la résolution de 15 minutes (#384)\nmettre à jour le tibber-api à 5.4.2\nmettre à jour le système chai",
+				"it": "modifica gli aggiornamenti dei prezzi alla risoluzione di 15 minuti (#384)\naggiornamento tibber-api a 5.4.2\naggiornamento sistema chai",
+				"es": "actualizaciones de precios de cambio a resolución de 15 minutos (#384)\nactualización tibber-api a 5.4.2\nactualización del sistema chai",
+				"pl": "zmiana aktualizacji cen do rozdzielczości 15 minut (# 384)\naktualizacja tibber- api do 5.4.2\naktualizacja systemu chai",
+				"uk": "зміна ціни за ціною до 15 хвилин дозвіл (#384)\nоновлення tibber-api до 5.4.2\nоновлення системи chai",
+				"zh-cn": "将价格更新为15分钟分辨率(# 384)\n将 tibber- api 更新到 5.4.2\n更新 chai 系统"
+			},
+			"5.0.3": {
+				"en": "fix jsonconfig schema definition (#762)\noptimize cron jobs\nupdate axios",
+				"de": "Behebe das JSON-Konfigurationsschema (#762)\nCron-Jobs optimieren\nAktualisierung von axios",
+				"ru": "исправлена схема определения jsonconfig (#762)\nоптимизировать задания cron\nобновление axios",
+				"pt": "Corrigir a definição do esquema jsonconfig (#762)\notimizar trabalhos cron\natualizar o axios",
+				"nl": "Herstel JSON-configschemadefinitie (#762)\nOptimaliseer cron jobs\nUpdate axios",
+				"fr": "corriger la définition du schéma jsonconfig (#762)\noptimiser les tâches cron\nmettre à jour axios",
+				"it": "Correzione della definizione dello schema JSONConfig (#762)\nottimizzare i job cron\nAggiornamento di axios",
+				"es": "corregir la definición del esquema jsonconfig (#762)\noptimizar trabajos programados\nactualizar axios",
+				"pl": "naprawa definicji schematu jsonconfig (#762)\nzoptymalizuj zadania cron\naktualizacja axios",
+				"uk": "виправлення визначення схеми jsonconfig (#762)\nОптимізувати задачі cron\nоновлення axios",
+				"zh-cn": "修复jsonconfig模式定义（#762）\n优化cron作业\n更新 axios"
+			},
+			"5.0.2": {
+				"en": "min admin 7.6.17 as recommended (#754)\nupdate adapter-core\nbump typescript\nbump dependencies",
+				"de": "min admin 7.6.17 wie empfohlen (#754)\nupdate adapter-kern\nbeschriftungsart\nbumpabhängigkeiten",
+				"ru": "min admin 7.6.17 as recommended (#754)\nобновление adapter-core\nбамбуковый шрифт\nбамп зависимости",
+				"pt": "min admin 7.6.17 como recomendado (# 754)\natualizar o núcleo do adaptador\ntypescript\ndependências de colisão",
+				"nl": "min. toediening 7.6.17 zoals aanbevolen (#754)\nupdate adapter-core\nbump typescript\nbump afhankelijkheden",
+				"fr": "admin 7.6.17 min comme recommandé (#754)\nmettre à jour adaptateur-core\ntype de bosse\ndépendances des bosses",
+				"it": "min admin 7.6.17 come raccomandato (#754)\naggiornamento adattatore-core\ntipo di urto\nindipendenza urto",
+				"es": "min admin 7.6.17 como se recomienda (#754)\nactualización adaptador-core\ntipografía\ndependencia de los gastos",
+				"pl": "min admin 7.6.17 zgodnie z zaleceniami (# 754)\nupdate adapter- core\ntypeskrypt bump\nuzależnienia od guza",
+				"uk": "min admin 7.6.17 як рекомендується (#754)\nоновлення адаптера-core\njavascript licenses api веб-сайт\nbump залежності",
+				"zh-cn": "建议(第754号)\n更新适配器核心\n凸起型号\n意外依赖"
+			},
+			"5.0.1": {
+				"en": "add decoder for EMH eHZB IMSys\nremove creation of not feeded states\nfix typo in error message (#731)\nfix vulnerability\nchange power production to be polled by default (#721)\nbump dependencies",
+				"de": "dekoder für EMH eHZB IMSys hinzufügen\ndie schaffung nicht gefütterter staaten entfernen\nfix typo in fehlermeldung (#731)\nfehlerbehebung\nänderung der stromproduktion, die standardmäßig abgefragt werden soll (#721)\nbumpabhängigkeiten",
+				"ru": "добавить декодер для EMH eHZB IMSys\nустранить создание некормленных государств\nисправить опечатку в сообщении об ошибке (#731)\nисправить уязвимость\nизменение производства электроэнергии для голосования по умолчанию (#721)\nбамп зависимости",
+				"pt": "adicionar decodificador para EMH eHZB IMSys\nremover a criação de estados não alimentados\ncorrigir erro na mensagem de erro (# 731)\ncorrigir vulnerabilidade\nmudar a produção de energia a ser pesquisada por padrão (# 721)\ndependências de colisão",
+				"nl": "decoder toevoegen voor EMH eHZB IMSys\nhet aanmaken van niet-gevoede staten verwijderen\nfix typefout in foutmelding (#731)\nkwetsbaarheid herstellen\nde stroomproductie moet standaard worden ondervraagd (#721)\nbump afhankelijkheden",
+				"fr": "ajouter un décodeur pour EMH eHZB IMSys\nsupprimer la création d'états non nourris\ncorrection du typo dans le message d'erreur (#731)\nfixer la vulnérabilité\nmodifier la production d'électricité à sonder par défaut (#721)\ndépendances des bosses",
+				"it": "aggiungere decoder per EMH eHZB IMSys\nrimuovere la creazione di stati non alimentati\ncorrezione del tipo nel messaggio di errore (#731)\ncorrezione della vulnerabilità\nmodifica la produzione di potenza da inquinare per impostazione predefinita (#721)\nindipendenza urto",
+				"es": "añadir decodificador para EMH eHZB IMSys\neliminar la creación de estados no alimentados\nfix typo in error message (#731)\ncorrección de vulnerabilidad\ncambiar la producción de potencia para ser encuestado por defecto (#721)\ndependencia de los gastos",
+				"pl": "dodaj dekoder dla EMH eHZB IMSys\nusunięcie tworzenia państw, które nie zostały objęte zwolnieniem\nfix typo w komunikacie błędu (# 731)\nnaprawić podatność\nzmiana produkcji energii, która ma być sprawdzana domyślnie (# 721)\nuzależnienia od guza",
+				"uk": "додати декодер для EMH eHZB IMSys\nвидалення створення негодованих держав\nфіксувати типо повідомлення про помилку (#731)\nвиправити вразливість\nзмінити виробництво електроенергії, щоб бути опитані за замовчуванням (#721)\nbump залежності",
+				"zh-cn": "为 EMH eHZB IMSys 添加解码器\n删除未种子状态的创建\n在错误消息中修正类型 (# 731)\n消除脆弱性\n变电生产默认进行投票(# 721)\n意外依赖"
+			}
+		},
+		"messages": [
+			{
+				"condition": {
+					"operand": "and",
+					"rules": ["oldVersion<2.3.0", "newVersion>=2.3.0"]
+				},
+				"title": {
+					"en": "Important notice!",
+					"de": "Wichtiger Hinweis!",
+					"ru": "Важное замечание!",
+					"pt": "Notícia importante!",
+					"nl": "Belangrijke mededeling!",
+					"fr": "Avis important!",
+					"it": "Avviso IMPORTANTE!",
+					"es": "Noticia importante!",
+					"pl": "Ważna uwaga!",
+					"uk": "Погода!",
+					"zh-cn": "重要通知!"
+				},
+				"text": {
+					"en": "The behavior of the adapter has changed! Calculator channels of type 'smart battery buffer' will now switch outputs to 'OFF' only once, directly after setting the channel to Active=false.",
+					"de": "Das Verhalten des Adapters hat sich geändert! Rechnerkanäle des Typs 'smart battery buffer' schalten die Ausgänge jetzt nur noch einmal auf 'AUS', direkt nachdem der Kanal auf Aktiv=false gesetzt wurde.",
+					"ru": "Поведение адаптера изменилось! Каналы калькулятора типа 'smart battery buffer' теперь будут переключать выходы на 'ВЫКЛ' только один раз, непосредственно после установки канала на Active=false.",
+					"pt": "O comportamento do adaptador mudou! Os canais da calculadora do tipo 'smart battery buffer' agora mudarão as saídas para 'DESATIVADO' apenas uma vez, imediatamente após definir o canal como Ativo=false.",
+					"nl": "Het gedrag van de adapter is veranderd! Rekenmachinekanalen van het type 'smart battery buffer' schakelen de uitgangen nu slechts één keer uit naar 'UIT', direct nadat het kanaal is ingesteld op Actief=false.",
+					"fr": "Le comportement de l'adaptateur a changé ! Les canaux de calculatrice de type 'smart battery buffer' basculeront désormais les sorties sur 'OFF' une seule fois, juste après avoir réglé le canal sur Actif=false.",
+					"it": "Il comportamento dell'adattatore è cambiato! I canali della calcolatrice di tipo 'smart battery buffer' passeranno ora le uscite su 'OFF' solo una volta, subito dopo aver impostato il canale su Attivo=false.",
+					"es": "¡El comportamiento del adaptador ha cambiado! Los canales de la calculadora de tipo 'smart battery buffer' ahora cambiarán las salidas a 'APAGADO' solo una vez, justo después de establecer el canal en Activo=false.",
+					"pl": "Zachowanie adaptera zmieniło się! Kanały kalkulatora typu 'smart battery buffer' będą teraz przełączać wyjścia na 'WYŁ' tylko raz, bezpośrednio po ustawieniu kanału na Aktywny=false.",
+					"uk": "Поведінка адаптера змінилась! Канали калькулятора типу 'smart battery buffer' тепер будуть перемикати виходи на 'ВИКЛ' тільки один раз, безпосередньо після встановлення каналу на Активний=false.",
+					"zh-cn": "适配器行为已更改！'智能电池缓冲'类型的计算器通道现在将在将通道设置为Active=false后仅一次将输出切换到“关闭”。"
+				},
+				"level": "warn",
+				"buttons": ["agree", "cancel"]
+			}
+		],
+		"titleLang": {
+			"en": "Tibber Link",
+			"de": "Tibber Link",
+			"ru": "Тиббер Ссылка",
+			"pt": "Tibber Link",
+			"nl": "Tibber Link",
+			"fr": "Tibber Link",
+			"it": "Tibber Link",
+			"es": "Tibber Link",
+			"pl": "Tibber Link",
+			"uk": "Посилання",
+			"zh-cn": "网络联系"
+		},
+		"desc": {
+			"en": "Links Tibber API data to be used in ioBroker",
+			"de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
+			"ru": "Ссылки на данные Tibber API для использования в ioBroker",
+			"pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
+			"nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
+			"fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
+			"it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
+			"es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
+			"pl": "Łączy dane z API Tibber do użycia w ioBroker",
+			"uk": "Посилання на дані Tibber API для використання в ioBroker",
+			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
+		},
+		"authors": ["Hombach <TibberLink@homba.ch>"],
+		"keywords": ["power", "energy", "Tibber"],
+		"licenseInformation": {
+			"license": "GPL-3.0-only",
+			"type": "free"
+		},
+		"platform": "Javascript/Node.js",
+		"icon": "tibberlink.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
+		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
+		"loglevel": "info",
+		"tier": 2,
+		"mode": "daemon",
+		"messagebox": true,
+		"type": "energy",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=6.0.11"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=7.6.17"
+			}
+		],
+		"plugins": {
+			"sentry": {
+				"dsn": "https://eb119579a7dd76e359395df22aa265f8@o415875.ingest.us.sentry.io/4510376005009408"
+			}
+		}
+	},
+	"encryptedNative": ["TibberAPIToken"],
+	"protectedNative": ["TibberAPIToken"],
+	"native": {
+		"TibberAPIToken": "",
+		"HomesList": [
+			{
+				"feedActive": "false",
+				"priceDataPollActive": "true",
+				"homeID": "None available - restart adapter after entering token",
+				"statsActive": "false",
+				"numberConsHourly": 24,
+				"numberConsDaily": 7,
+				"numberConsWeekly": 4,
+				"numberConsMonthly": 4,
+				"numberConsAnnual": 2
+			}
+		],
+		"CalculatorList": [
+			{
+				"chHomeID": "None available - restart adapter after entering token",
+				"chType": "best cost",
+				"chName": "Channel Name",
+				"chActive": "false",
+				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
+				"chValueOn": "true",
+				"chValueOff": "false",
+				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
+				"chValueOn2": "true",
+				"chValueOff2": "false"
+			}
+		],
+		"PulseList": [
+			{
+				"puName": "Pulse Local",
+				"tibberBridgeUrl": "tibber-host",
+				"tibberBridgePassword": "xxxx-xxxx",
+				"tibberPulseLocalNodeId": 1,
+				"tibberBridgeRawDataInterval": 2000
+			}
+		]
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.LastSentryLogMonth",
+			"type": "state",
+			"common": {
+				"role": "value",
+				"name": "Last month for Sentry log",
+				"type": "number",
+				"unit": "",
+				"read": true,
+				"write": false,
+				"def": 0
+			},
+			"native": {}
+		}
+	]
 }
