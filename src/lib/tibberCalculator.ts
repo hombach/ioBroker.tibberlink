@@ -1122,21 +1122,21 @@ export class TibberCalculator extends ProjectUtils {
 	//#region *** SPECIFICATION Smart Battery Buffer ***
 	/*
 		Summary:
-			Develop a channel that categorizes hourly energy prices into three groups—cheap, normal, and expensive.
-			The categorization is based on the total price of each hour, considering a efficiency loss of a battery system.
+			Develop a channel that categorizes slots of 15 minutes with energy prices into three groups—cheap, normal, and expensive.
+			The categorization is based on the total price of each slot, considering a efficiency loss of a battery system.
 
 		Detailed Description:
-			The system has an algorithm to organize hourly energy prices, providing users with a clear understanding of price
+			The system has an algorithm to organize timeslots with energy prices, providing users with a clear understanding of price
 			dynamics. The algorithm follows these steps:
-			- Sort by Total Price: Sort hourly rates in ascending order based on the total price.
-			- Identify Cheap Hours: Starting with the cheapest hour, include hours in the cheap category if the total price is
-			lower than the total price of the most expensive hour minus a minimum distance (MinDelta). Hereby calculate MinDelta
-			based on the average total price of the cheap hours and a user-defined efficiency loss of a battery system. Collect
-			cheap hours up to a maximum number of maxCheapCount
-			- Determine the Most Expensive Hour Among the Cheap: Identify the hour with the highest total price among the cheap hours.
+			- Sort by total price: Sort timeslots in ascending order based on the total price.
+			- Identify cheap timeslots: Starting with the cheapest timeslot, include timeslots in the cheap category if the total price is
+			lower than the total price of the most expensive timeslot minus a minimum distance (MinDelta). Hereby calculate MinDelta
+			based on the average total price of the cheap timeslots and a user-defined efficiency loss of a battery system. Collect
+			cheap timeslots up to a maximum number of maxCheapCount
+			- Determine the Most Expensive Hour Among the Cheap: Identify the timeslot with the highest total price among the cheap slots.
 			- Classify Normal and Expensive Hours: Hours not classified as cheap are further categorized as follows:
-				Normal Hours: Total price is lower than MinDelta plus the highest total price among the cheap hours.
-				Expensive Hours: Total price is higher than MinDelta plus the highest total price among the cheap hours.
+				Normal Timeslots: Total price is lower than MinDelta plus the highest total price among the cheap slots.
+				Expensive Timeslots: Total price is higher than MinDelta plus the highest total price among the cheap slots.
 
 		User Customization:
 			Allow users to specify the maximum number of cheap hours they want to identify (maxCheapCount) and
@@ -1164,9 +1164,9 @@ export class TibberCalculator extends ProjectUtils {
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
-				const cheapHours: IPrice[] = [];
-				const normalHours: IPrice[] = [];
-				const expensiveHours: IPrice[] = [];
+				const cheapTimeSlots: IPrice[] = [];
+				const normalTimeSlots: IPrice[] = [];
+				const expensiveTimeSlots: IPrice[] = [];
 				let cheapIndex = 0;
 				let minDelta = 0;
 
@@ -1174,38 +1174,40 @@ export class TibberCalculator extends ProjectUtils {
 				// sort by total price
 				filteredPrices.sort((a, b) => a.total - b.total);
 
-				while (cheapIndex < filteredPrices.length && cheapHours.length < maxCheapCount) {
+				while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
 					const currentHour = filteredPrices[cheapIndex];
 					if (currentHour.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
-						cheapHours.push(currentHour);
-						minDelta = calculateMinDelta(cheapHours, efficiencyLoss);
+						cheapTimeSlots.push(currentHour);
+						minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
 					} else {
 						break;
 					}
 					cheapIndex++;
 				}
 
-				const maxCheapTotal = Math.max(...cheapHours.map(hour => hour.total));
+				const maxCheapTotal = Math.max(...cheapTimeSlots.map(hour => hour.total));
 
 				for (const hour of filteredPrices) {
-					if (!cheapHours.includes(hour)) {
+					if (!cheapTimeSlots.includes(hour)) {
 						if (hour.total > minDelta + maxCheapTotal) {
-							expensiveHours.push(hour);
+							expensiveTimeSlots.push(hour);
 						} else {
-							normalHours.push(hour);
+							normalTimeSlots.push(hour);
 						}
 					}
 				}
 
-				this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap: ${cheapHours.map(hour => hour.total).join(", ")}`);
-				this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalHours.map(hour => hour.total).join(", ")}`);
+				this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap: ${cheapTimeSlots.map(hour => hour.total).join(", ")}`);
 				this.adapter.log.debug(
-					`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveHours.map(hour => hour.total).join(", ")}`,
+					`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalTimeSlots.map(hour => hour.total).join(", ")}`,
+				);
+				this.adapter.log.debug(
+					`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveTimeSlots.map(hour => hour.total).join(", ")}`,
 				);
 
-				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkQuarterMatch(entry));
-				//const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkQuarterMatch(entry));
-				//const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkQuarterMatch(entry));
+				const resultCheap: boolean[] = cheapTimeSlots.map((entry: IPrice) => checkQuarterMatch(entry));
+				//const resultNormal: boolean[] = normalTimeSlots.map((entry: IPrice) => checkQuarterMatch(entry));
+				//const resultExpensive: boolean[] = expensiveTimeSlots.map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1223,7 +1225,7 @@ export class TibberCalculator extends ProjectUtils {
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
-						output: expensiveHours.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
+						output: expensiveTimeSlots.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
@@ -1238,9 +1240,9 @@ export class TibberCalculator extends ProjectUtils {
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
-				const cheapHours: IPrice[] = [];
-				const normalHours: IPrice[] = [];
-				const expensiveHours: IPrice[] = [];
+				const cheapTimeSlots: IPrice[] = [];
+				const normalTimeSlots: IPrice[] = [];
+				const expensiveTimeSlots: IPrice[] = [];
 				let cheapIndex = 0;
 				let minDelta = 0;
 
@@ -1248,42 +1250,42 @@ export class TibberCalculator extends ProjectUtils {
 				// sort by total price
 				filteredPrices.sort((a, b) => a.total - b.total);
 
-				while (cheapIndex < filteredPrices.length && cheapHours.length < maxCheapCount) {
+				while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
 					const currentHour = filteredPrices[cheapIndex];
 					if (currentHour.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
-						cheapHours.push(currentHour);
-						minDelta = calculateMinDelta(cheapHours, efficiencyLoss);
+						cheapTimeSlots.push(currentHour);
+						minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
 					} else {
 						break;
 					}
 					cheapIndex++;
 				}
 
-				const maxCheapTotal = Math.max(...cheapHours.map(hour => hour.total));
+				const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total));
 
 				for (const hour of filteredPrices) {
-					if (!cheapHours.includes(hour)) {
+					if (!cheapTimeSlots.includes(hour)) {
 						if (hour.total > minDelta + maxCheapTotal) {
-							expensiveHours.push(hour);
+							expensiveTimeSlots.push(hour);
 						} else {
-							normalHours.push(hour);
+							normalTimeSlots.push(hour);
 						}
 					}
 				}
 
 				this.adapter.log.debug(
-					`[tibberCalculator]: channel ${channel} SBB-type result - cheap prices: ${cheapHours.map(hour => hour.total).join(", ")}`,
+					`[tibberCalculator]: channel ${channel} SBB-type result - cheap prices: ${cheapTimeSlots.map(slot => slot.total).join(", ")}`,
 				);
 				this.adapter.log.debug(
-					`[tibberCalculator]: channel ${channel} SBB-type result - normal prices: ${normalHours.map(hour => hour.total).join(", ")}`,
+					`[tibberCalculator]: channel ${channel} SBB-type result - normal prices: ${normalTimeSlots.map(slot => slot.total).join(", ")}`,
 				);
 				this.adapter.log.debug(
-					`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveHours.map(hour => hour.total).join(", ")}`,
+					`[tibberCalculator]: channel ${channel} SBB-type result - expensive prices: ${expensiveTimeSlots.map(slot => slot.total).join(", ")}`,
 				);
 
-				const resultCheap: boolean[] = cheapHours.map((entry: IPrice) => checkQuarterMatch(entry));
-				const resultNormal: boolean[] = normalHours.map((entry: IPrice) => checkQuarterMatch(entry));
-				const resultExpensive: boolean[] = expensiveHours.map((entry: IPrice) => checkQuarterMatch(entry));
+				const resultCheap: boolean[] = cheapTimeSlots.map((entry: IPrice) => checkQuarterMatch(entry));
+				const resultNormal: boolean[] = normalTimeSlots.map((entry: IPrice) => checkQuarterMatch(entry));
+				const resultExpensive: boolean[] = expensiveTimeSlots.map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
 				//#region *** identify if an element is true and generate output
@@ -1322,16 +1324,16 @@ export class TibberCalculator extends ProjectUtils {
 						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
-						output: expensiveHours.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
+						output: expensiveTimeSlots.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
 					}))
 					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
 				//#endregion
 			}
 
-			function calculateMinDelta(cheapHours: IPrice[], efficiencyLoss: number): number {
-				const cheapTotalSum = cheapHours.reduce((sum, hour) => sum + hour.total, 0);
-				const cheapAverage = cheapTotalSum / cheapHours.length;
+			function calculateMinDelta(cheapTimeSlots: IPrice[], efficiencyLoss: number): number {
+				const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + slot.total, 0);
+				const cheapAverage = cheapTotalSum / cheapTimeSlots.length;
 				return cheapAverage * efficiencyLoss;
 			}
 
