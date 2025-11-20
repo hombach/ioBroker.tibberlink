@@ -478,7 +478,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     setup_chBlockStartFullHour(homeId, channel, delMode = false) {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStartFullHour`, `-`, `first hour of determined block`, `value`, false, false);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockStartFullHour`, `-`, `first quarter hour of determined block`, `value`, false, false);
             if (!delMode) {
                 this.adapter.log.debug(`[tibberCalculator]: setup output state BlockStartFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
@@ -490,7 +490,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     setup_chBlockEndFullHour(homeId, channel, delMode = false) {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end hour of determined block`, `value`, false, false);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end quarter hour of determined block`, `value`, false, false);
             if (!delMode) {
                 this.adapter.log.debug(`[tibberCalculator]: setup output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
@@ -856,9 +856,9 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 let minDelta = 0;
                 filteredPrices.sort((a, b) => a.total - b.total);
                 while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
-                    const currentHour = filteredPrices[cheapIndex];
-                    if (currentHour.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
-                        cheapTimeSlots.push(currentHour);
+                    const currentTimeSlot = filteredPrices[cheapIndex];
+                    if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+                        cheapTimeSlots.push(currentTimeSlot);
                         minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
                     }
                     else {
@@ -866,20 +866,20 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     }
                     cheapIndex++;
                 }
-                const maxCheapTotal = Math.max(...cheapTimeSlots.map(hour => hour.total));
-                for (const hour of filteredPrices) {
-                    if (!cheapTimeSlots.includes(hour)) {
-                        if (hour.total > minDelta + maxCheapTotal) {
-                            expensiveTimeSlots.push(hour);
+                const maxCheapTotal = Math.max(...cheapTimeSlots.map(timeSlot => timeSlot.total));
+                for (const timeSlot of filteredPrices) {
+                    if (!cheapTimeSlots.includes(timeSlot)) {
+                        if (timeSlot.total > minDelta + maxCheapTotal) {
+                            expensiveTimeSlots.push(timeSlot);
                         }
                         else {
-                            normalTimeSlots.push(hour);
+                            normalTimeSlots.push(timeSlot);
                         }
                     }
                 }
-                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap: ${cheapTimeSlots.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalTimeSlots.map(hour => hour.total).join(", ")}`);
-                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveTimeSlots.map(hour => hour.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - cheap: ${cheapTimeSlots.map(timeSlot => timeSlot.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - normal: ${normalTimeSlots.map(timeSlot => timeSlot.total).join(", ")}`);
+                this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB-type result - expensive: ${expensiveTimeSlots.map(timeSlot => timeSlot.total).join(", ")}`);
                 const resultCheap = cheapTimeSlots.map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
@@ -916,9 +916,9 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 let minDelta = 0;
                 filteredPrices.sort((a, b) => a.total - b.total);
                 while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
-                    const currentHour = filteredPrices[cheapIndex];
-                    if (currentHour.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
-                        cheapTimeSlots.push(currentHour);
+                    const currentTimeSlot = filteredPrices[cheapIndex];
+                    if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+                        cheapTimeSlots.push(currentTimeSlot);
                         minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
                     }
                     else {
@@ -927,13 +927,13 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     cheapIndex++;
                 }
                 const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total));
-                for (const hour of filteredPrices) {
-                    if (!cheapTimeSlots.includes(hour)) {
-                        if (hour.total > minDelta + maxCheapTotal) {
-                            expensiveTimeSlots.push(hour);
+                for (const timeSlot of filteredPrices) {
+                    if (!cheapTimeSlots.includes(timeSlot)) {
+                        if (timeSlot.total > minDelta + maxCheapTotal) {
+                            expensiveTimeSlots.push(timeSlot);
                         }
                         else {
-                            normalTimeSlots.push(hour);
+                            normalTimeSlots.push(timeSlot);
                         }
                     }
                 }
