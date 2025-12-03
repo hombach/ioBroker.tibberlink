@@ -71,11 +71,14 @@ export class TibberCharts extends ProjectUtils {
 				// WiP return format(date, "dd.MM.'\n'HH:mm");
 				return date.getTime();
 			});
+			// build data-series
+			const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt).getTime(), item.total]);
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
 			if (jsonFlexCharts) {
 				jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
 				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
+				jsonFlexCharts = jsonFlexCharts.replace("%%seriesData%%", JSON.stringify(timeSeriesData));
 
 				if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
 					const allowedTypes = [
