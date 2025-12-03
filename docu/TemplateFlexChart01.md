@@ -20,8 +20,7 @@
 	},
 	xAxis: {
 		type: "time",
-		boundaryGap: false,
-		data: %%xAxisData%%
+		boundaryGap: false
 	},
 	yAxis: {
 		type: "value",
@@ -44,7 +43,7 @@
 			type: "line",
 			step: "end",
 			symbol: "none",
-			data: %%yAxisData%%,
+			data: %%seriesData%%,
 
 			markArea: {
 				itemStyle: {

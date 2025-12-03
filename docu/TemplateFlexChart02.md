@@ -38,8 +38,7 @@
                                     // of window of xAxis will effect the
                                     // window of yAxis.
             start: 20,
-            end: 40},
-		data: %%xAxisData%%,
+            end: 40}
 	},
 	yAxis: {
 		type: "value",
@@ -70,7 +69,7 @@
                 	return params.value.toString().substring(0, 4);
             	}
         	},
-			data: %%yAxisData%%,
+			data: %%seriesData%%,
 
 			markPoint: {
 		        data: [
