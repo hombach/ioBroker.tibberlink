@@ -86,14 +86,14 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                     switch (entry.chType) {
                                         case projectUtils_js_1.enCalcType.BestCost:
                                         case projectUtils_js_1.enCalcType.BestCostLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
                                             break;
                                         case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                                         case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}, {xAxis: ${endTime.getTime()}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
                                             break;
                                         default:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}, {xAxis: ${endTime.getTime()}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
                                     }
                                     startIndex = i;
                                 }
