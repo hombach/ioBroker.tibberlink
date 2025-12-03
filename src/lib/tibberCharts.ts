@@ -54,10 +54,10 @@ export class TibberCharts extends ProjectUtils {
 				});
 			}
 
-			// double last item and raise hour by one
+			// double last item and raise time by one 15 minute block
 			const lastItem = mergedPrices[mergedPrices.length - 1];
 			const lastStartsAt = new Date(lastItem.startsAt);
-			const newStartsAt = addHours(lastStartsAt, 1);
+			const newStartsAt = addMinutes(lastStartsAt, 15);
 			const duplicatedItem = {
 				...lastItem,
 				startsAt: newStartsAt.toISOString(),
@@ -68,7 +68,8 @@ export class TibberCharts extends ProjectUtils {
 			const totalValues = mergedPrices.map(item => item.total);
 			const startsAtValues = mergedPrices.map(item => {
 				const date = new Date(item.startsAt);
-				return format(date, "dd.MM.'\n'HH:mm");
+				// WiP return format(date, "dd.MM.'\n'HH:mm");
+				return date.getTime();
 			});
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";

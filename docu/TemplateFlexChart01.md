@@ -19,7 +19,7 @@
 		left: "10%", right: "4%", top: "8%", bottom: "8%"
 	},
 	xAxis: {
-		type: "category",
+		type: "time",
 		boundaryGap: false,
 		data: %%xAxisData%%
 	},
