@@ -1,5 +1,5 @@
 import type * as utils from "@iobroker/adapter-core";
-import { addHours, addMinutes, differenceInMinutes, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
+import { addHours, addMinutes, differenceInMinutes, isAfter, isBefore, parseISO, subHours } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
@@ -119,14 +119,17 @@ export class TibberCharts extends ProjectUtils {
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+											// WiP calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											// WiP calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}, {xAxis: ${endTime.getTime()}}],\n`;
 											break;
 										default:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											// WiP calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}, {xAxis: ${endTime.getTime()}}],\n`;
 									}
 									startIndex = i; // start next group
 								}
