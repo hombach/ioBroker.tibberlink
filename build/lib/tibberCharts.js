@@ -62,10 +62,12 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                     const maxVisibleY = Math.max(...mergedPrices.map(item => item.total));
                     if (filteredEntries.length > 0) {
                         this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
+                        let entryCount = 0;
                         for (const entry of filteredEntries) {
                             if (!entry.chGraphEnabled) {
                                 continue;
                             }
+                            entryCount++;
                             this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
                             const filteredData = jsonOutput.filter(entry => entry.output);
@@ -84,10 +86,10 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                             break;
                                         case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                                         case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredData.length) * i}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * entryCount}}],\n`;
                                             break;
                                         default:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredData.length) * i}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * entryCount}}],\n`;
                                     }
                                     startIndex = i;
                                 }
