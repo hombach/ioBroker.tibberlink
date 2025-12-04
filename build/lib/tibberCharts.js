@@ -87,7 +87,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                             calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${(maxVisibleY * 0.8) / filteredEntries.length}}],\n`;
                                             break;
                                         default:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${(maxVisibleY * 0.8) / filteredEntries.length}}],\n`;
                                     }
                                     startIndex = i;
                                 }
