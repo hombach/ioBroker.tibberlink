@@ -64,22 +64,12 @@ export class TibberCharts extends ProjectUtils {
 			};
 			mergedPrices.push(duplicatedItem);
 
-			// build data-rows
-			const totalValues = mergedPrices.map(item => item.total);
-			const startsAtValues = mergedPrices.map(item => {
-				const date = new Date(item.startsAt);
-				// WiP return format(date, "dd.MM.'\n'HH:mm");
-				return date.getTime();
-			});
 			// build data-series
 			const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt).getTime(), item.total]);
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
 			if (jsonFlexCharts) {
-				jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
-				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
 				jsonFlexCharts = jsonFlexCharts.replace("%%seriesData%%", JSON.stringify(timeSeriesData));
-
 				if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
 					const allowedTypes = [
 						enCalcType.BestCost,
@@ -97,6 +87,8 @@ export class TibberCharts extends ProjectUtils {
 						entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
 					);
 					let calcChannelsData = "";
+					const maxVisibleY = Math.max(...mergedPrices.map(item => item.total)); // höchster Preis im Diagramm
+
 					if (filteredEntries.length > 0) {
 						this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
 
@@ -122,16 +114,14 @@ export class TibberCharts extends ProjectUtils {
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
-											// WiP calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
 											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											// WiP calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
+											// calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${(maxVisibleY * 0.8) / filteredEntries.length}}],\n`;
 											break;
 										default:
-											// WiP calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
 											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
 									}
 									startIndex = i; // start next group

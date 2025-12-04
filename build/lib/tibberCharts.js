@@ -40,16 +40,9 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                 startsAt: newStartsAt.toISOString(),
             };
             mergedPrices.push(duplicatedItem);
-            const totalValues = mergedPrices.map(item => item.total);
-            const startsAtValues = mergedPrices.map(item => {
-                const date = new Date(item.startsAt);
-                return date.getTime();
-            });
             const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt).getTime(), item.total]);
             let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
             if (jsonFlexCharts) {
-                jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
-                jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
                 jsonFlexCharts = jsonFlexCharts.replace("%%seriesData%%", JSON.stringify(timeSeriesData));
                 if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
                     const allowedTypes = [
@@ -66,6 +59,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                     ];
                     const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
                     let calcChannelsData = "";
+                    const maxVisibleY = Math.max(...mergedPrices.map(item => item.total));
                     if (filteredEntries.length > 0) {
                         this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
                         for (const entry of filteredEntries) {
@@ -90,7 +84,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                             break;
                                         case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                                         case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${(maxVisibleY * 0.8) / filteredEntries.length}}],\n`;
                                             break;
                                         default:
                                             calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
