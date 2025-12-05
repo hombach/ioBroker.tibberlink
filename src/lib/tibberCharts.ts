@@ -121,11 +121,11 @@ export class TibberCharts extends ProjectUtils {
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
 											// calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length - entryCount)}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
 											break;
 										default:
 											// calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length - entryCount)}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
 									}
 									startIndex = i; // start next group
 								}
