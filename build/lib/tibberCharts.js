@@ -94,6 +94,22 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                     startIndex = i;
                                 }
                             }
+                            if (entry.chType === projectUtils_js_1.enCalcType.SmartBatteryBuffer || entry.chType === projectUtils_js_1.enCalcType.SmartBatteryBufferLTF) {
+                                this.adapter.log.debug(`[tibberCharts]: channel ${entry.chName} is of type SmartBatteryBuffer, additional handling may be required`);
+                                const jsonOutput2 = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`));
+                                const filteredData2 = jsonOutput2.filter((entry) => entry.output);
+                                for (let i = 1; i <= filteredData2.length; i++) {
+                                    const current = filteredData2[i - 1];
+                                    const next = filteredData2[i];
+                                    const isContinuous = next && (0, date_fns_1.differenceInMinutes)((0, date_fns_1.parseISO)(next.startsAt), (0, date_fns_1.parseISO)(current.startsAt)) === 15;
+                                    if (!isContinuous || i === filteredData2.length) {
+                                        const startTime = (0, date_fns_1.parseISO)(filteredData2[startIndex].startsAt);
+                                        const endTime = (0, date_fns_1.addMinutes)((0, date_fns_1.parseISO)(current.startsAt), 15);
+                                        calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
+                                    }
+                                    startIndex = i;
+                                }
+                            }
                         }
                     }
                     if (calcChannelsData == "") {

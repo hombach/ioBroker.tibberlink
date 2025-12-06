@@ -120,16 +120,36 @@ export class TibberCharts extends ProjectUtils {
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											// calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
 											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
 											break;
 										default:
-											// calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}}],\n`;
 											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
 									}
 									startIndex = i; // start next group
 								}
 							}
+							//WiP additional handling for SmartBatteryBuffer
+							if (entry.chType === enCalcType.SmartBatteryBuffer || entry.chType === enCalcType.SmartBatteryBufferLTF) {
+								this.adapter.log.debug(
+									`[tibberCharts]: channel ${entry.chName} is of type SmartBatteryBuffer, additional handling may be required`,
+								);
+								const jsonOutput2 = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`));
+								const filteredData2 = jsonOutput2.filter((entry: { output: boolean }) => entry.output);
+								for (let i = 1; i <= filteredData2.length; i++) {
+									// test for connected time blocks?
+									const current = filteredData2[i - 1];
+									const next = filteredData2[i];
+									const isContinuous = next && differenceInMinutes(parseISO(next.startsAt), parseISO(current.startsAt)) === 15;
+									if (!isContinuous || i === filteredData2.length) {
+										// end of block or last iteration
+										const startTime = parseISO(filteredData2[startIndex].startsAt);
+										const endTime = addMinutes(parseISO(current.startsAt), 15); // 15 minutes instead of 1 hour
+										calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
+									}
+									startIndex = i; // start next group
+								}
+							}
+							//WiP
 						}
 					}
 					if (calcChannelsData == "") {
