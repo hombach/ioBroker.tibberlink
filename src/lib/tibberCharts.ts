@@ -144,7 +144,7 @@ export class TibberCharts extends ProjectUtils {
 										// end of block or last iteration
 										const startTime = parseISO(filteredData2[startIndex].startsAt);
 										const endTime = addMinutes(parseISO(current.startsAt), 15); // 15 minutes instead of 1 hour
-										calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
+										calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1.25 - entryCount)}}],\n`;
 									}
 									startIndex = i; // start next group
 								}
