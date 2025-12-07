@@ -83,21 +83,34 @@ export class TibberCharts extends ProjectUtils {
 						enCalcType.SmartBatteryBuffer,
 						enCalcType.SmartBatteryBufferLTF,
 					]; // list of supported channel types
-					const filteredEntries = this.adapter.config.CalculatorList.filter(
-						entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
-					);
-					let calcChannelsData = "";
-					const maxVisibleY = Math.max(...mergedPrices.map(item => item.total)); // höchster Preis im Diagramm
+					//WiP const filteredCalcChannels = this.adapter.config.CalculatorList.filter(
+					//WiP 	entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
+					//WiP );
+					const filteredCalcChannels = this.adapter.config.CalculatorList.filter(
+						entry => entry.chActive && entry.chHomeID === homeID && allowedTypes.includes(entry.chType),
+					).map(entry => ({
+						...entry, // all existing fields
+						markAreaY1: 0.15, // new field for output 1
+						markAreaY2: 0.16, // new field for output 2
+					}));
 
-					if (filteredEntries.length > 0) {
-						this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
+					let calcChannelsData = "";
+					const maxVisibleY = Math.max(...mergedPrices.map(item => item.total)); // highest price in chart
+					const maxMarkAreaY = maxVisibleY * 0.95;
+
+					if (filteredCalcChannels.length > 0) {
+						this.adapter.log.debug(`[tibberCharts]: found ${filteredCalcChannels.length} channels to potentialy draw FlexCharts`);
 
 						let entryCount = 0;
-						for (const entry of filteredEntries) {
+						for (const entry of filteredCalcChannels) {
 							if (!entry.chGraphEnabled) {
 								continue;
 							}
 							entryCount++;
+							// WiP
+							entry.markAreaY1 = (maxMarkAreaY / filteredCalcChannels.length) * (filteredCalcChannels.length + 1 - entryCount);
+							entry.markAreaY2 = (maxMarkAreaY / filteredCalcChannels.length) * (filteredCalcChannels.length + 1.35 - entryCount);
+							// WiP
 							this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
@@ -120,33 +133,34 @@ export class TibberCharts extends ProjectUtils {
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
 											break;
 										default:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1 - entryCount)}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
 									}
 									startIndex = i; // start next group
 								}
 							}
-							//WiP additional handling for SmartBatteryBuffer
+							//WiP additional handling second output for SmartBatteryBuffer
 							if (entry.chType === enCalcType.SmartBatteryBuffer || entry.chType === enCalcType.SmartBatteryBufferLTF) {
 								this.adapter.log.debug(
 									`[tibberCharts]: channel ${entry.chName} is of type SmartBatteryBuffer, additional handling may be required`,
 								);
 								const jsonOutput2 = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`));
 								const filteredData2 = jsonOutput2.filter((entry: { output: boolean }) => entry.output);
-								for (let i = 1; i <= filteredData2.length; i++) {
+								let startIndex2 = 0;
+								for (let j = 1; j <= filteredData2.length; j++) {
 									// test for connected time blocks?
-									const current = filteredData2[i - 1];
-									const next = filteredData2[i];
+									const current = filteredData2[j - 1];
+									const next = filteredData2[j];
 									const isContinuous = next && differenceInMinutes(parseISO(next.startsAt), parseISO(current.startsAt)) === 15;
-									if (!isContinuous || i === filteredData2.length) {
+									if (!isContinuous || j === filteredData2.length) {
 										// end of block or last iteration
-										const startTime = parseISO(filteredData2[startIndex].startsAt);
+										const startTime = parseISO(filteredData2[startIndex2].startsAt);
 										const endTime = addMinutes(parseISO(current.startsAt), 15);
-										calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1.35 - entryCount)}}],\n`;
+										calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
 									}
-									startIndex = i;
+									startIndex2 = j;
 								}
 							}
 							//WiP
