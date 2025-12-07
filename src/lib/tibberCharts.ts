@@ -112,7 +112,7 @@ export class TibberCharts extends ProjectUtils {
 								if (!isContinuous || i === filteredData.length) {
 									// end of block or last iteration
 									const startTime = parseISO(filteredData[startIndex].startsAt);
-									const endTime = addMinutes(parseISO(current.startsAt), 15); // 15 minutes instead of 1 hour
+									const endTime = addMinutes(parseISO(current.startsAt), 15);
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
@@ -143,10 +143,10 @@ export class TibberCharts extends ProjectUtils {
 									if (!isContinuous || i === filteredData2.length) {
 										// end of block or last iteration
 										const startTime = parseISO(filteredData2[startIndex].startsAt);
-										const endTime = addMinutes(parseISO(current.startsAt), 15); // 15 minutes instead of 1 hour
+										const endTime = addMinutes(parseISO(current.startsAt), 15);
 										calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1.35 - entryCount)}}],\n`;
 									}
-									startIndex = i; // start next group
+									startIndex = i;
 								}
 							}
 							//WiP
