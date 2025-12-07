@@ -105,7 +105,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                     if (!isContinuous || i === filteredData2.length) {
                                         const startTime = (0, date_fns_1.parseISO)(filteredData2[startIndex].startsAt);
                                         const endTime = (0, date_fns_1.addMinutes)((0, date_fns_1.parseISO)(current.startsAt), 15);
-                                        calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1.25 - entryCount)}}],\n`;
+                                        calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${((maxVisibleY * 0.95) / filteredEntries.length) * (filteredEntries.length + 1.35 - entryCount)}}],\n`;
                                     }
                                     startIndex = i;
                                 }
