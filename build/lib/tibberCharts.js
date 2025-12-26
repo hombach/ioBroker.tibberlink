@@ -78,6 +78,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                             this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
                             const filteredData = jsonOutput.filter(entry => entry.output);
+                            const markAreaItemStylePart = entry.chGraphColor ? `, itemStyle: { color: "${entry.chGraphColor}" }` : "";
                             let startIndex = 0;
                             for (let i = 1; i <= filteredData.length; i++) {
                                 const current = filteredData[i - 1];
@@ -89,14 +90,14 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                     switch (entry.chType) {
                                         case projectUtils_js_1.enCalcType.BestCost:
                                         case projectUtils_js_1.enCalcType.BestCostLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
                                             break;
                                         case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                                         case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
                                             break;
                                         default:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
                                     }
                                     startIndex = i;
                                 }
@@ -113,7 +114,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                     if (!isContinuous || j === filteredData2.length) {
                                         const startTime = (0, date_fns_1.parseISO)(filteredData2[startIndex2].startsAt);
                                         const endTime = (0, date_fns_1.addMinutes)((0, date_fns_1.parseISO)(current.startsAt), 15);
-                                        calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}, itemStyle: {color: "${entry.chGraphColor}"}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
+                                        calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
                                     }
                                     startIndex2 = j;
                                 }

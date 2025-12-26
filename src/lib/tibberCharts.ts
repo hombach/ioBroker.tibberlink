@@ -114,6 +114,7 @@ export class TibberCharts extends ProjectUtils {
 							this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
+							const markAreaItemStylePart = entry.chGraphColor ? `, itemStyle: { color: "${entry.chGraphColor}" }` : "";
 
 							let startIndex = 0;
 
@@ -129,14 +130,14 @@ export class TibberCharts extends ProjectUtils {
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
 											break;
 										default:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
 									}
 									startIndex = i; // start next group
 								}
@@ -158,8 +159,7 @@ export class TibberCharts extends ProjectUtils {
 										// end of block or last iteration
 										const startTime = parseISO(filteredData2[startIndex2].startsAt);
 										const endTime = addMinutes(parseISO(current.startsAt), 15);
-										//calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
-										calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}, itemStyle: {color: "${entry.chGraphColor}"}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
+										calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
 									}
 									startIndex2 = j;
 								}

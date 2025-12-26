@@ -174,6 +174,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) BREAKING: change flexcharts x-axis type
+- (HombachC) introduce FlexChart output for SBB channels second output
 - (HombachC) introduce second name for FlexChart output of SBB channels
 - (HombachC) introduce color for FlexChart output of calculator results
 - (HombachC) clean code for 15min time slots
