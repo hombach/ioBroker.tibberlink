@@ -19,9 +19,8 @@
 		left: "10%", right: "4%", top: "8%", bottom: "8%"
 	},
 	xAxis: {
-		type: "category",
-		boundaryGap: false,
-		data: %%xAxisData%%
+		type: "time",
+		boundaryGap: false
 	},
 	yAxis: {
 		type: "value",
@@ -44,7 +43,7 @@
 			type: "line",
 			step: "end",
 			symbol: "none",
-			data: %%yAxisData%%,
+			data: %%seriesData%%,
 
 			markArea: {
 				itemStyle: {

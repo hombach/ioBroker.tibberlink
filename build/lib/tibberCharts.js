@@ -34,21 +34,16 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
             }
             const lastItem = mergedPrices[mergedPrices.length - 1];
             const lastStartsAt = new Date(lastItem.startsAt);
-            const newStartsAt = (0, date_fns_1.addHours)(lastStartsAt, 1);
+            const newStartsAt = (0, date_fns_1.addMinutes)(lastStartsAt, 15);
             const duplicatedItem = {
                 ...lastItem,
                 startsAt: newStartsAt.toISOString(),
             };
             mergedPrices.push(duplicatedItem);
-            const totalValues = mergedPrices.map(item => item.total);
-            const startsAtValues = mergedPrices.map(item => {
-                const date = new Date(item.startsAt);
-                return (0, date_fns_1.format)(date, "dd.MM.'\n'HH:mm");
-            });
+            const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt).getTime(), item.total]);
             let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
             if (jsonFlexCharts) {
-                jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
-                jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
+                jsonFlexCharts = jsonFlexCharts.replace("%%seriesData%%", JSON.stringify(timeSeriesData));
                 if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
                     const allowedTypes = [
                         projectUtils_js_1.enCalcType.BestCost,
@@ -62,14 +57,24 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                         projectUtils_js_1.enCalcType.SmartBatteryBuffer,
                         projectUtils_js_1.enCalcType.SmartBatteryBufferLTF,
                     ];
-                    const filteredEntries = this.adapter.config.CalculatorList.filter(entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType));
+                    const filteredCalcChannels = this.adapter.config.CalculatorList.filter(entry => entry.chActive && entry.chHomeID === homeID && allowedTypes.includes(entry.chType)).map(entry => ({
+                        ...entry,
+                        markAreaY1: 0.15,
+                        markAreaY2: 0.16,
+                    }));
                     let calcChannelsData = "";
-                    if (filteredEntries.length > 0) {
-                        this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
-                        for (const entry of filteredEntries) {
+                    const maxVisibleY = Math.max(...mergedPrices.map(item => item.total));
+                    const maxMarkAreaY = maxVisibleY * 0.95;
+                    if (filteredCalcChannels.length > 0) {
+                        this.adapter.log.debug(`[tibberCharts]: found ${filteredCalcChannels.length} channels to potentialy draw FlexCharts`);
+                        let entryCount = 0;
+                        for (const entry of filteredCalcChannels) {
                             if (!entry.chGraphEnabled) {
                                 continue;
                             }
+                            entryCount++;
+                            entry.markAreaY1 = (maxMarkAreaY / filteredCalcChannels.length) * (filteredCalcChannels.length + 1 - entryCount);
+                            entry.markAreaY2 = (maxMarkAreaY / filteredCalcChannels.length) * (filteredCalcChannels.length + 1.35 - entryCount);
                             this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
                             const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
                             const filteredData = jsonOutput.filter(entry => entry.output);
@@ -84,16 +89,33 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                     switch (entry.chType) {
                                         case projectUtils_js_1.enCalcType.BestCost:
                                         case projectUtils_js_1.enCalcType.BestCostLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
                                             break;
                                         case projectUtils_js_1.enCalcType.SmartBatteryBuffer:
                                         case projectUtils_js_1.enCalcType.SmartBatteryBufferLTF:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
                                             break;
                                         default:
-                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: "${(0, date_fns_1.format)(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${(0, date_fns_1.format)(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+                                            calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
                                     }
                                     startIndex = i;
+                                }
+                            }
+                            if (entry.chType === projectUtils_js_1.enCalcType.SmartBatteryBuffer || entry.chType === projectUtils_js_1.enCalcType.SmartBatteryBufferLTF) {
+                                this.adapter.log.debug(`[tibberCharts]: channel ${entry.chName} is of type SmartBatteryBuffer, additional handling may be required`);
+                                const jsonOutput2 = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`));
+                                const filteredData2 = jsonOutput2.filter((entry) => entry.output);
+                                let startIndex2 = 0;
+                                for (let j = 1; j <= filteredData2.length; j++) {
+                                    const current = filteredData2[j - 1];
+                                    const next = filteredData2[j];
+                                    const isContinuous = next && (0, date_fns_1.differenceInMinutes)((0, date_fns_1.parseISO)(next.startsAt), (0, date_fns_1.parseISO)(current.startsAt)) === 15;
+                                    if (!isContinuous || j === filteredData2.length) {
+                                        const startTime = (0, date_fns_1.parseISO)(filteredData2[startIndex2].startsAt);
+                                        const endTime = (0, date_fns_1.addMinutes)((0, date_fns_1.parseISO)(current.startsAt), 15);
+                                        calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
+                                    }
+                                    startIndex2 = j;
                                 }
                             }
                         }

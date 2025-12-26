@@ -1,5 +1,5 @@
 import type * as utils from "@iobroker/adapter-core";
-import { addHours, addMinutes, differenceInMinutes, format, isAfter, isBefore, parseISO, subHours } from "date-fns";
+import { addHours, addMinutes, differenceInMinutes, isAfter, isBefore, parseISO, subHours } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice";
 import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
@@ -54,28 +54,22 @@ export class TibberCharts extends ProjectUtils {
 				});
 			}
 
-			// double last item and raise hour by one
+			// double last item and raise time by one 15 minute block
 			const lastItem = mergedPrices[mergedPrices.length - 1];
 			const lastStartsAt = new Date(lastItem.startsAt);
-			const newStartsAt = addHours(lastStartsAt, 1);
+			const newStartsAt = addMinutes(lastStartsAt, 15);
 			const duplicatedItem = {
 				...lastItem,
 				startsAt: newStartsAt.toISOString(),
 			};
 			mergedPrices.push(duplicatedItem);
 
-			// build data-rows
-			const totalValues = mergedPrices.map(item => item.total);
-			const startsAtValues = mergedPrices.map(item => {
-				const date = new Date(item.startsAt);
-				return format(date, "dd.MM.'\n'HH:mm");
-			});
+			// build data-series
+			const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt).getTime(), item.total]);
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
 			if (jsonFlexCharts) {
-				jsonFlexCharts = jsonFlexCharts.replace("%%xAxisData%%", JSON.stringify(startsAtValues));
-				jsonFlexCharts = jsonFlexCharts.replace("%%yAxisData%%", JSON.stringify(totalValues));
-
+				jsonFlexCharts = jsonFlexCharts.replace("%%seriesData%%", JSON.stringify(timeSeriesData));
 				if (this.adapter.config.UseCalculator && jsonFlexCharts.includes("%%CalcChannelsData%%")) {
 					const allowedTypes = [
 						enCalcType.BestCost,
@@ -89,17 +83,34 @@ export class TibberCharts extends ProjectUtils {
 						enCalcType.SmartBatteryBuffer,
 						enCalcType.SmartBatteryBufferLTF,
 					]; // list of supported channel types
-					const filteredEntries = this.adapter.config.CalculatorList.filter(
-						entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
-					);
-					let calcChannelsData = "";
-					if (filteredEntries.length > 0) {
-						this.adapter.log.debug(`[tibberCharts]: found ${filteredEntries.length} channels to potentialy draw FlexCharts`);
+					//WiP const filteredCalcChannels = this.adapter.config.CalculatorList.filter(
+					//WiP 	entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
+					//WiP );
+					const filteredCalcChannels = this.adapter.config.CalculatorList.filter(
+						entry => entry.chActive && entry.chHomeID === homeID && allowedTypes.includes(entry.chType),
+					).map(entry => ({
+						...entry, // all existing fields
+						markAreaY1: 0.15, // new field for output 1
+						markAreaY2: 0.16, // new field for output 2
+					}));
 
-						for (const entry of filteredEntries) {
+					let calcChannelsData = "";
+					const maxVisibleY = Math.max(...mergedPrices.map(item => item.total)); // highest price in chart
+					const maxMarkAreaY = maxVisibleY * 0.95;
+
+					if (filteredCalcChannels.length > 0) {
+						this.adapter.log.debug(`[tibberCharts]: found ${filteredCalcChannels.length} channels to potentialy draw FlexCharts`);
+
+						let entryCount = 0;
+						for (const entry of filteredCalcChannels) {
 							if (!entry.chGraphEnabled) {
 								continue;
 							}
+							entryCount++;
+							// WiP
+							entry.markAreaY1 = (maxMarkAreaY / filteredCalcChannels.length) * (filteredCalcChannels.length + 1 - entryCount);
+							entry.markAreaY2 = (maxMarkAreaY / filteredCalcChannels.length) * (filteredCalcChannels.length + 1.35 - entryCount);
+							// WiP
 							this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
@@ -114,22 +125,45 @@ export class TibberCharts extends ProjectUtils {
 								if (!isContinuous || i === filteredData.length) {
 									// end of block or last iteration
 									const startTime = parseISO(filteredData[startIndex].startsAt);
-									const endTime = addMinutes(parseISO(current.startsAt), 15); // 15 minutes instead of 1 hour
+									const endTime = addMinutes(parseISO(current.startsAt), 15);
 									switch (entry.chType) {
 										case enCalcType.BestCost:
 										case enCalcType.BestCostLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}", yAxis: ${entry.chTriggerPrice}}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.chTriggerPrice}}],\n`;
 											break;
 										case enCalcType.SmartBatteryBuffer:
 										case enCalcType.SmartBatteryBufferLTF:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
 											break;
 										default:
-											calcChannelsData += `[{name: "${entry.chName}", xAxis: "${format(startTime, "dd.MM.'\\n'HH:mm")}"}, {xAxis: "${format(endTime, "dd.MM.'\\n'HH:mm")}"}],\n`;
+											calcChannelsData += `[{name: "${entry.chName}", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY1}}],\n`;
 									}
 									startIndex = i; // start next group
 								}
 							}
+							//WiP additional handling second output for SmartBatteryBuffer
+							if (entry.chType === enCalcType.SmartBatteryBuffer || entry.chType === enCalcType.SmartBatteryBufferLTF) {
+								this.adapter.log.debug(
+									`[tibberCharts]: channel ${entry.chName} is of type SmartBatteryBuffer, additional handling may be required`,
+								);
+								const jsonOutput2 = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`));
+								const filteredData2 = jsonOutput2.filter((entry: { output: boolean }) => entry.output);
+								let startIndex2 = 0;
+								for (let j = 1; j <= filteredData2.length; j++) {
+									// test for connected time blocks?
+									const current = filteredData2[j - 1];
+									const next = filteredData2[j];
+									const isContinuous = next && differenceInMinutes(parseISO(next.startsAt), parseISO(current.startsAt)) === 15;
+									if (!isContinuous || j === filteredData2.length) {
+										// end of block or last iteration
+										const startTime = parseISO(filteredData2[startIndex2].startsAt);
+										const endTime = addMinutes(parseISO(current.startsAt), 15);
+										calcChannelsData += `[{name: "${entry.chName}-2", xAxis: ${startTime.getTime()}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
+									}
+									startIndex2 = j;
+								}
+							}
+							//WiP
 						}
 					}
 					if (calcChannelsData == "") {
