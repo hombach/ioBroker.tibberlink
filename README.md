@@ -170,6 +170,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) BREAKING: change flexcharts x-axis type
 - (HombachC) clean code for 15min time slots
 - (HombachC) update cron
+- (HombachC) update dependencies
 
 ### 6.0.3 (2025-11-16)
 
