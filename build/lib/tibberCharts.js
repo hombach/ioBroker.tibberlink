@@ -106,6 +106,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                 this.adapter.log.debug(`[tibberCharts]: channel ${entry.chName} is of type SmartBatteryBuffer, additional handling may be required`);
                                 const jsonOutput2 = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`));
                                 const filteredData2 = jsonOutput2.filter((entry) => entry.output);
+                                const markAreaItemStylePart2 = entry.chGraphColor2 ? `, itemStyle: { color: "${entry.chGraphColor2}" }` : "";
                                 let startIndex2 = 0;
                                 for (let j = 1; j <= filteredData2.length; j++) {
                                     const current = filteredData2[j - 1];
@@ -114,7 +115,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                                     if (!isContinuous || j === filteredData2.length) {
                                         const startTime = (0, date_fns_1.parseISO)(filteredData2[startIndex2].startsAt);
                                         const endTime = (0, date_fns_1.addMinutes)((0, date_fns_1.parseISO)(current.startsAt), 15);
-                                        calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
+                                        calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}${markAreaItemStylePart2}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
                                         startIndex2 = j;
                                     }
                                 }

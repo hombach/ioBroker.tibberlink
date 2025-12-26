@@ -684,6 +684,7 @@
 							"xl": 6,
 							"newLine": true
 						},
+
 						{
 							"type": "text",
 							"label": "LBL_item_chGraphName2",
@@ -693,6 +694,23 @@
 							"validator": "if(data.chGraphName2 === '' || data.chGraphName2 === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.chGraphName2);}",
 							"validatorNoSaveOnError": true,
 							"default": "channel name 2",
+							"hidden": "data.chGraphEnabled === false || (data.chType !== 7 && data.chType !== 10)",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6,
+							"newLine": true
+						},
+						{
+							"type": "text",
+							"label": "LBL_item_chGraphColor2",
+							"tooltip": "TTIP_item_chGraphColor2",
+							"maxLength": 24,
+							"attr": "chGraphColor2",
+							"validator": "const regex = /^rgba\\((\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*),\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*,\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*,\\s*(0|0?\\.\\d+|1(\\.0)?)\\s*\\)$/i; return regex.test(data.chGraphColor);",
+							"validatorNoSaveOnError": true,
+							"default": "rgba(120, 200, 120, 0.2)",
 							"hidden": "data.chGraphEnabled === false || (data.chType !== 7 && data.chType !== 10)",
 							"xs": 12,
 							"sm": 12,

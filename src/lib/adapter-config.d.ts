@@ -66,6 +66,7 @@ declare global {
 					chGraphEnabled: boolean;
 					chGraphColor: string;
 					chGraphName2: string;
+					chGraphColor2: string;
 				},
 			];
 			PulseList: [

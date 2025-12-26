@@ -117,7 +117,6 @@ export class TibberCharts extends ProjectUtils {
 							const markAreaItemStylePart = entry.chGraphColor ? `, itemStyle: { color: "${entry.chGraphColor}" }` : "";
 
 							let startIndex = 0;
-
 							for (let i = 1; i <= filteredData.length; i++) {
 								// test for connected time blocks?
 								const current = filteredData[i - 1];
@@ -142,13 +141,14 @@ export class TibberCharts extends ProjectUtils {
 									startIndex = i; // start next group
 								}
 							}
-							//WiP additional handling second output for SmartBatteryBuffer
 							if (entry.chType === enCalcType.SmartBatteryBuffer || entry.chType === enCalcType.SmartBatteryBufferLTF) {
 								this.adapter.log.debug(
 									`[tibberCharts]: channel ${entry.chName} is of type SmartBatteryBuffer, additional handling may be required`,
 								);
 								const jsonOutput2 = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`));
 								const filteredData2 = jsonOutput2.filter((entry: { output: boolean }) => entry.output);
+								const markAreaItemStylePart2 = entry.chGraphColor2 ? `, itemStyle: { color: "${entry.chGraphColor2}" }` : "";
+
 								let startIndex2 = 0;
 								for (let j = 1; j <= filteredData2.length; j++) {
 									// test for connected time blocks?
@@ -159,13 +159,11 @@ export class TibberCharts extends ProjectUtils {
 										// end of block or last iteration
 										const startTime = parseISO(filteredData2[startIndex2].startsAt);
 										const endTime = addMinutes(parseISO(current.startsAt), 15);
-										calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
+										calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}${markAreaItemStylePart2}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
 										startIndex2 = j;
 									}
-									//WiP startIndex2 = j;
 								}
 							}
-							//WiP
 						}
 					}
 					if (calcChannelsData == "") {
