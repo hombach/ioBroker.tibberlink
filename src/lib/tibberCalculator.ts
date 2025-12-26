@@ -1137,8 +1137,9 @@ export class TibberCalculator extends ProjectUtils {
 			- Sort by total price: Sort timeslots in ascending order based on the total price.
 			- Identify cheap timeslots: Starting with the cheapest timeslot, include timeslots in the cheap category if the total price is
 			lower than the total price of the most expensive timeslot minus a minimum distance (MinDelta). Hereby calculate MinDelta
-			based on the average total price of the cheap timeslots and a user-defined efficiency loss of a battery system. Collect
-			cheap timeslots up to a maximum number of maxCheapCount
+			based on the average total price of the cheap timeslots and a user-defined efficiency loss of a battery system. Identify cheap
+			timeslots starting from the lowest prices and include them only as long as the price difference to the most expensive timeslot
+			exceeds the dynamically calculated minimum delta (battery efficiency loss). The number of cheap timeslots is additionally capped by maxCheapCount.
 			- Determine the Most Expensive Hour Among the Cheap: Identify the timeslot with the highest total price among the cheap slots.
 			- Classify Normal and Expensive Hours: Hours not classified as cheap are further categorized as follows:
 				Normal Timeslots: Total price is lower than MinDelta plus the highest total price among the cheap slots.
@@ -1169,6 +1170,8 @@ export class TibberCalculator extends ProjectUtils {
 				// chActive but before LTF -> choose chValueOff, but calculate results
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
+				// maxCheapCount is an upper bound.
+				// The actual number of cheap slots is determined by price distance (minDelta), not by the requested hour count.
 				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
 				const cheapTimeSlots: IPrice[] = [];
 				const normalTimeSlots: IPrice[] = [];
