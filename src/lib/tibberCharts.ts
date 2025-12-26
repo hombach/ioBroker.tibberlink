@@ -160,8 +160,9 @@ export class TibberCharts extends ProjectUtils {
 										const startTime = parseISO(filteredData2[startIndex2].startsAt);
 										const endTime = addMinutes(parseISO(current.startsAt), 15);
 										calcChannelsData += `[{name: "${entry.chGraphName2}", xAxis: ${startTime.getTime()}${markAreaItemStylePart}}, {xAxis: ${endTime.getTime()}, yAxis: ${entry.markAreaY2}}],\n`;
+										startIndex2 = j;
 									}
-									startIndex2 = j;
+									//WiP startIndex2 = j;
 								}
 							}
 							//WiP

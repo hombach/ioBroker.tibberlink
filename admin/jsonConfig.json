@@ -671,7 +671,7 @@
 							"type": "text",
 							"label": "LBL_item_chGraphColor",
 							"tooltip": "TTIP_item_chGraphColor",
-							"maxLength": 22,
+							"maxLength": 24,
 							"attr": "chGraphColor",
 							"validator": "const regex = /^rgba\\((\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*),\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*,\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*,\\s*(0|0?\\.\\d+|1(\\.0)?)\\s*\\)$/i; return regex.test(data.chGraphColor);",
 							"validatorNoSaveOnError": true,
