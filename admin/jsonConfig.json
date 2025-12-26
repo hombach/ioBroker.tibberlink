@@ -561,7 +561,7 @@
 							"tooltip": "TTIP_item_chName",
 							"maxLength": 25,
 							"attr": "chName",
-							"validator": "if(data.name === '' || data.name === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.name);}",
+							"validator": "if(data.chName=== '' || data.chName === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.chName);}",
 							"validatorNoSaveOnError": true,
 							"default": "channel name",
 							"xs": 12,
@@ -652,6 +652,7 @@
 							"lg": 6,
 							"xl": 6
 						},
+
 						{
 							"type": "checkbox",
 							"label": "LBL_chGraphEnabled",
@@ -664,6 +665,40 @@
 							"lg": 4,
 							"xl": 4,
 							"newLine": true
+						},
+
+						{
+							"type": "text",
+							"label": "LBL_item_chGraphColor",
+							"tooltip": "TTIP_item_chGraphColor",
+							"maxLength": 20,
+							"attr": "chGraphColor",
+							"validator": "const regex = /^rgba\\((\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*),\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*,\\s*([01]?\\d?\\d|2([0-4]\\d|5[0-5]))\\s*,\\s*(0|0?\\.\\d+|1(\\.0)?)\\s*\\)$/i; return regex.test(data.chGraphColor);",
+							"validatorNoSaveOnError": true,
+							"default": "rgba(120, 200, 120, 0.2)",
+							"hidden": "data.chGraphEnabled === false",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6,
+							"newLine": true
+						},
+						{
+							"type": "text",
+							"label": "LBL_item_chGraphName2",
+							"tooltip": "TTIP_item_chGraphName2",
+							"maxLength": 25,
+							"attr": "chGraphName2",
+							"validator": "if(data.chGraphName2 === '' || data.chGraphName2 === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.chGraphName2);}",
+							"validatorNoSaveOnError": true,
+							"default": "channel name 2",
+							"hidden": "data.chGraphEnabled === false || (data.chType !== 7 && data.chType !== 10)",
+							"xs": 12,
+							"sm": 12,
+							"md": 6,
+							"lg": 6,
+							"xl": 6
 						}
 					]
 				},

@@ -75,7 +75,7 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
             - Cheap timeslots: Battery charging is enabled (value YES) and feed into the home energy system is disabled (value 2 NO). These are the slots with the lowest prices that pass the efficiency filter, up to AmountHours.
             - Expensive timeslots: Battery charging is disabled (value NO) and feed into the home energy system is enabled (value 2 YES). These slots have the highest prices, above the dynamically calculated threshold based on the cheapest timeslot prices and efficiency loss.
             - Normal timeslots: Where charging is not economically viable, both outputs are disabled.
-              This approach ensures that the battery is only used when it is economically beneficial, rather than strictly adhering to a fixed number of hours.
+        - This approach ensures that the battery is only used when it is economically beneficial, rather than strictly adhering to a fixed number of hours.
 - LTF channels: These operate similarly to standard channels but are active only within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel automatically deactivates. 'StartTime' and 'StopTime' can span two calendar days, as Tibber does not provide data beyond a 48-hour window. Both states require a date-time string in ISO-8601 format with a timezone offset, e.g., '2024-12-24T18:00:00.000+01:00'." Additionally, the LTF channels feature a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel will repeat its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition.
 
 ## Graph Output Configuration
@@ -174,6 +174,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) BREAKING: change flexcharts x-axis type
+- (HombachC) introduce second name for FlexChart output of SBB channels
+- (HombachC) introduce color for FlexChart output of calculator results
 - (HombachC) clean code for 15min time slots
 - (HombachC) fix schema links (#822)
 - (HombachC) update cron

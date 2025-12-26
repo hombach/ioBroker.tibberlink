@@ -64,6 +64,8 @@ declare global {
 					chEfficiencyLoss: number;
 					chPercentage: number;
 					chGraphEnabled: boolean;
+					chGraphColor: string;
+					chGraphName2: string;
 				},
 			];
 			PulseList: [
