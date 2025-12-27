@@ -91,20 +91,20 @@ export class TibberPulse extends ProjectUtils {
 			}
 
 			this.countedFeedDisconnects++;
-			const loggingTextBlock = ` to reconnect with incremental delay -  Error text sent by Tibber: ${data.toString()}`;
+			const loggingTextBlock = `to reconnect with incremental delay -  Error text sent by Tibber: ${data.toString()}`;
 
 			if (this.deltaFeedWarningTime > 30) {
 				this.countedFeedDisconnects = 0;
 				this.lastFeedWarningTime = null;
-				this.adapter.log.warn(`A feed was disconnected very often. I keep trying${loggingTextBlock}`);
+				this.adapter.log.warn(`A feed was disconnected very often. I keep trying ${loggingTextBlock}`);
 			} else {
 				if (this.countedFeedDisconnects == 5) {
 					this.lastFeedWarningTime = new Date();
-					this.adapter.log.warn(`A feed was disconnected very often. I keep trying${loggingTextBlock}`);
+					this.adapter.log.warn(`A feed was disconnected very often. I keep trying ${loggingTextBlock}`);
 				} else if (this.countedFeedDisconnects == 25) {
-					this.adapter.log.error(`A feed was disconnected very often. I keep trying${loggingTextBlock}`);
+					this.adapter.log.error(`A feed was disconnected very often. I keep trying ${loggingTextBlock}`);
 				} else {
-					this.adapter.log.debug(`A feed was disconnected. I try to${loggingTextBlock}`);
+					this.adapter.log.debug(`A feed was disconnected. I try ${loggingTextBlock}`);
 				}
 			}
 			void this.reconnect();
@@ -137,33 +137,27 @@ export class TibberPulse extends ProjectUtils {
 	}
 
 	private fetchLiveMeasurement(objectDestination: string, liveMeasurement: ILiveMeasurement): void {
-		let power = 0;
-		if (liveMeasurement.powerProduction === undefined || liveMeasurement.powerProduction === null) {
-			liveMeasurement.powerProduction = 0;
-		} // fix wrong data from Tibber in edge cases
-		if (liveMeasurement.power > 0) {
-			power = liveMeasurement.power;
-		} else if (liveMeasurement.powerProduction > 0) {
-			power = liveMeasurement.powerProduction * -1;
-		}
+		liveMeasurement.powerProduction ??= 0; // fix wrong data from Tibber in edge cases
+		const power = liveMeasurement.power > 0 ? liveMeasurement.power : liveMeasurement.powerProduction > 0 ? -liveMeasurement.powerProduction : 0;
+
 		// "minpower" should be called "minpowerConsumption" - in fact there is no correct minpower yet,
 		// when we think about minpower and maxpower should be linked to "power" (positive and negative power)
 		if (this.tibberConfig.homeId !== undefined) {
 			const basePath = `Homes.${this.tibberConfig.homeId}.${objectDestination}`;
 
-			void this.checkAndSetValue(`${basePath}.timestamp`, liveMeasurement.timestamp, "Timestamp when usage occurred");
-			void this.checkAndSetValueNumber(`${basePath}.power`, power, "Powerlevel measured at the moment +/-", "W");
+			void this.checkAndSetValue(`${basePath}.timestamp`, liveMeasurement.timestamp, `Timestamp when usage occurred`);
+			void this.checkAndSetValueNumber(`${basePath}.power`, power, `Powerlevel measured at the moment +/-`, "W");
 			void this.checkAndSetValueNumber(
 				`${basePath}.lastMeterConsumption`,
 				Math.round(1000 * liveMeasurement.lastMeterConsumption) / 1000,
-				"Latest consumption meter state",
+				`Latest consumption meter state`,
 				"kWh",
 			);
 			if (this.adapter.config.FeedConfigAccumulatedConsumption) {
 				void this.checkAndSetValueNumber(
 					`${basePath}.accumulatedConsumption`,
 					Math.round(1000 * liveMeasurement.accumulatedConsumption) / 1000,
-					"Energy consumed since midnight",
+					`Energy consumed since midnight`,
 					"kWh",
 				);
 			}
@@ -171,7 +165,7 @@ export class TibberPulse extends ProjectUtils {
 				void this.checkAndSetValueNumber(
 					`${basePath}.accumulatedProduction`,
 					Math.round(1000 * liveMeasurement.accumulatedProduction) / 1000,
-					"Energy feed into grid since midnight",
+					`Energy feed into grid since midnight`,
 					"kWh",
 				);
 			}
@@ -179,7 +173,7 @@ export class TibberPulse extends ProjectUtils {
 				void this.checkAndSetValueNumber(
 					`${basePath}.accumulatedConsumptionLastHour`,
 					Math.round(1000 * liveMeasurement.accumulatedConsumptionLastHour) / 1000,
-					"Energy consumed since since last hour shift",
+					`Energy consumed since since last hour shift`,
 					"kWh",
 				);
 			}
@@ -187,7 +181,7 @@ export class TibberPulse extends ProjectUtils {
 				void this.checkAndSetValueNumber(
 					`${basePath}.accumulatedProductionLastHour`,
 					Math.round(1000 * liveMeasurement.accumulatedProductionLastHour) / 1000,
-					"Energy produced since last hour shift",
+					`Energy produced since last hour shift`,
 					"kWh",
 				);
 			}
@@ -195,14 +189,14 @@ export class TibberPulse extends ProjectUtils {
 				void this.checkAndSetValueNumber(
 					`${basePath}.accumulatedCost`,
 					liveMeasurement.accumulatedCost,
-					"Accumulated cost since midnight; requires active Tibber power deal",
+					`Accumulated cost since midnight; requires active Tibber power deal`,
 				);
 			}
 			if (this.adapter.config.FeedConfigAccumulatedReward) {
 				void this.checkAndSetValueNumber(
 					`${basePath}.accumulatedReward`,
 					liveMeasurement.accumulatedReward,
-					"Accumulated reward since midnight; requires active Tibber power deal",
+					`Accumulated reward since midnight; requires active Tibber power deal`,
 				);
 			}
 			void this.checkAndSetValue(`${basePath}.currency`, liveMeasurement.currency, "Currency of displayed cost; requires active Tibber power deal");
@@ -216,49 +210,49 @@ export class TibberPulse extends ProjectUtils {
 			void this.checkAndSetValueNumber(
 				`${basePath}.lastMeterProduction`,
 				Math.round(1000 * liveMeasurement.lastMeterProduction) / 1000,
-				"Latest grid feed-in meter state",
+				`Latest grid feed-in meter state`,
 				"kWh",
 			);
 			void this.checkAndSetValueNumber(`${basePath}.powerFactor`, liveMeasurement.powerFactor, "Power factor (active power / apparent power)");
 			void this.checkAndSetValueNumber(
 				`${basePath}.signalStrength`,
 				liveMeasurement.signalStrength,
-				"Device signal strength (Pulse - dB; Watty - percent)",
+				`Device signal strength (Pulse - dB; Watty - percent)`,
 			);
 			void this.checkAndSetValueNumber(
 				`${basePath}.voltagePhase1`,
 				liveMeasurement.voltagePhase1,
-				"Voltage on phase 1; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+				`Voltage on phase 1; on some meters this value is not part of every data frame therefore the value is null at some timestamps`,
 				"V",
 			);
 			void this.checkAndSetValueNumber(
 				`${basePath}.voltagePhase2`,
 				liveMeasurement.voltagePhase2,
-				"Voltage on phase 2; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+				`Voltage on phase 2; on some meters this value is not part of every data frame therefore the value is null at some timestamps`,
 				"V",
 			);
 			void this.checkAndSetValueNumber(
 				`${basePath}.voltagePhase3`,
 				liveMeasurement.voltagePhase3,
-				"Voltage on phase 3; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+				`Voltage on phase 3; on some meters this value is not part of every data frame therefore the value is null at some timestamps`,
 				"V",
 			);
 			void this.checkAndSetValueNumber(
 				`${basePath}.currentL1`,
 				liveMeasurement.currentL1,
-				"Current on L1; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+				`Current on L1; on some meters this value is not part of every data frame therefore the value is null at some timestamps`,
 				"A",
 			);
 			void this.checkAndSetValueNumber(
 				`${basePath}.currentL2`,
 				liveMeasurement.currentL2,
-				"Current on L2; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+				`Current on L2; on some meters this value is not part of every data frame therefore the value is null at some timestamps`,
 				"A",
 			);
 			void this.checkAndSetValueNumber(
 				`${basePath}.currentL3`,
 				liveMeasurement.currentL3,
-				"Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps",
+				`Current on L3; on some meters this value is not part of every data frame therefore the value is null at some timestamps`,
 				"A",
 			);
 		}

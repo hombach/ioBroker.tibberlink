@@ -122,11 +122,11 @@ class Tibberlink extends utils.Adapter {
             if (this.config.HomesList?.every(info => !info.feedActive)) {
                 if (this.homeInfoList.length > 0) {
                     void this.setState("info.connection", true, true);
-                    this.log.debug(`Connection Check: Feed not enabled and I received home list from api - good connection`);
+                    this.log.debug(`Connection Check: Feed not enabled but received a home list from api - good connection`);
                 }
                 else {
                     void this.setState("info.connection", false, true);
-                    this.log.debug(`Connection Check: Feed not enabled and I do not get home list from api - bad connection`);
+                    this.log.debug(`Connection Check: Feed not enabled and not got a home list from api - bad connection`);
                 }
             }
             if (this.supportsFeature && this.supportsFeature("PLUGINS")) {
@@ -164,7 +164,7 @@ class Tibberlink extends utils.Adapter {
                 }
             }
             if (this.homeInfoList.length === 0) {
-                this.log.warn(`Got no homes in your account - probably by a Tibber server error - adapter restarts in 5 minutes`);
+                this.log.warn(`Got no homes in your account - possibly by a Tibber server error - adapter restarts in 5 minutes`);
                 await this.delay(5 * 60000);
                 this.restart();
             }
@@ -236,7 +236,6 @@ class Tibberlink extends utils.Adapter {
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
                     start: true,
-                    timeZone: "system",
                     runOnInit: true,
                 });
                 if (jobPricesTomorrow) {

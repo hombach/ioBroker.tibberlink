@@ -116,10 +116,10 @@ class Tibberlink extends utils.Adapter {
 			if (this.config.HomesList?.every(info => !info.feedActive)) {
 				if (this.homeInfoList.length > 0) {
 					void this.setState("info.connection", true, true);
-					this.log.debug(`Connection Check: Feed not enabled and I received home list from api - good connection`);
+					this.log.debug(`Connection Check: Feed not enabled but received a home list from api - good connection`);
 				} else {
 					void this.setState("info.connection", false, true);
-					this.log.debug(`Connection Check: Feed not enabled and I do not get home list from api - bad connection`);
+					this.log.debug(`Connection Check: Feed not enabled and not got a home list from api - bad connection`);
 				}
 			}
 
@@ -171,7 +171,7 @@ class Tibberlink extends utils.Adapter {
 
 			// if no homeIDs available - adapter can't do that much and restarts
 			if (this.homeInfoList.length === 0) {
-				this.log.warn(`Got no homes in your account - probably by a Tibber server error - adapter restarts in 5 minutes`);
+				this.log.warn(`Got no homes in your account - possibly by a Tibber server error - adapter restarts in 5 minutes`);
 				await this.delay(5 * 60000);
 				this.restart();
 			}
@@ -220,29 +220,6 @@ class Tibberlink extends utils.Adapter {
 					this.cronList.push(jobCurrentPrice);
 				}
 
-				// TODO remove after test
-				//const jobCurrentPriceOLD = CronJob.from({
-				//cronTime: "20 */15 * * * *", // each 15 minutes at second 20
-				//onTick: async () => {
-				//let okPrice = false;
-				//let attempt = 0;
-				//do {
-				// delay dependent of attempt (0–2, 2–4, 4–6, 6-8)
-				//const minDelay = 2 * attempt;
-				//attempt++;
-				//await this.delay(this.getRandomDelay(minDelay, minDelay + 2));
-				//okPrice = await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
-				//this.log.debug(`Cron job CurrentPrice - attempt ${attempt}, okPrice: ${okPrice}`);
-				//} while (!okPrice && attempt < 4);
-				//void tibberAPICaller.updateConsumptionAllHomes();
-				//await tibberCalculator.startCalculatorTasks();
-				//void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
-				//},
-				//start: true,
-				// timeZone: "system",  // system is default
-				//runOnInit: false,
-				//});
-
 				const jobPricesToday = CronJob.from({
 					cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 5 minutes before 00:01:20 => 00:00:20 - 00:02:20 for first try
 					onTick: async () => {
@@ -259,7 +236,6 @@ class Tibberlink extends utils.Adapter {
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
-					// timeZone: "system", // system is default
 					runOnInit: true,
 				});
 				if (jobPricesToday) {
@@ -281,7 +257,6 @@ class Tibberlink extends utils.Adapter {
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
 					start: true,
-					timeZone: "system",
 					runOnInit: true,
 				});
 				if (jobPricesTomorrow) {
@@ -417,6 +392,7 @@ class Tibberlink extends utils.Adapter {
 			await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
 		}
 	}
+
 	/**
 	 * subfunction to loop till prices tomorrow for all homes are got from server - adapter startup-phase
 	 *
