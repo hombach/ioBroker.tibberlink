@@ -225,4 +225,4 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 GNU General Public License v3.0 only
 
-Copyright (c) 2023-2025 C.Hombach <TibberLink@homba.ch>
+Copyright (c) 2023-2026 C.Hombach <TibberLink@homba.ch>
