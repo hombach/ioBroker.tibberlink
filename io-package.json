@@ -99,7 +99,10 @@
 			{
 				"condition": {
 					"operand": "and",
-					"rules": ["oldVersion<6.1.0", "newVersion>=6.1.0"]
+					"rules": [
+						"oldVersion<6.1.0",
+						"newVersion>=6.1.0"
+					]
 				},
 				"title": {
 					"en": "Important notice!",
@@ -128,7 +131,10 @@
 					"zh-cn": "适配器行为已更改！FlexCharts 的 X 轴现在会根据窗口大小自动调整，因此模板已更新。请将您的模板与新示例进行比较，并在需要时进行调整。"
 				},
 				"level": "warn",
-				"buttons": ["agree", "cancel"]
+				"buttons": [
+					"agree",
+					"cancel"
+				]
 			}
 		],
 		"titleLang": {
@@ -157,8 +163,14 @@
 			"uk": "Посилання на дані Tibber API для використання в ioBroker",
 			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
 		},
-		"authors": ["Hombach <TibberLink@homba.ch>"],
-		"keywords": ["power", "energy", "Tibber"],
+		"authors": [
+			"Hombach <TibberLink@homba.ch>"
+		],
+		"keywords": [
+			"power",
+			"energy",
+			"Tibber"
+		],
 		"licenseInformation": {
 			"license": "GPL-3.0-only",
 			"type": "free"
@@ -195,8 +207,12 @@
 			}
 		}
 	},
-	"encryptedNative": ["TibberAPIToken"],
-	"protectedNative": ["TibberAPIToken"],
+	"encryptedNative": [
+		"TibberAPIToken"
+	],
+	"protectedNative": [
+		"TibberAPIToken"
+	],
 	"native": {
 		"TibberAPIToken": "",
 		"HomesList": [
