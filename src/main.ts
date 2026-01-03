@@ -271,7 +271,7 @@ class Tibberlink extends utils.Adapter {
 						this.log.debug(`Cron job DailyPriceRollover done`);
 					},
 					start: true,
-					runOnInit: true,
+					runOnInit: false,
 				});
 				if (jobDailyPriceRollover) {
 					this.cronList.push(jobDailyPriceRollover);
