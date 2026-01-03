@@ -180,7 +180,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) introduce more statistics for yesterdays prices
 - (HombachC) clean code for 15min time slots
 - (HombachC) fix schema links (#822)
-- (HombachC) fix CurrentPrice for first minutes after midnight (#812)
+- (HombachC) fix CurrentPrice after midnight (#812)
 - (HombachC) update cron
 - (HombachC) year 2026 changes
 - (HombachC) update dependencies
