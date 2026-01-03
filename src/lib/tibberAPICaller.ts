@@ -117,10 +117,10 @@ export class TibberAPICaller extends ProjectUtils {
 	 * @returns okprice - got new data
 	 */
 	private async updateCurrentPrice(homeId: string): Promise<boolean> {
+		if (!homeId) {
+			return false;
+		}
 		try {
-			if (!homeId) {
-				return false;
-			}
 			const now = new Date();
 			const pricesStr = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
 			if (!pricesStr) {
@@ -156,13 +156,107 @@ export class TibberAPICaller extends ProjectUtils {
 		}
 	}
 
+	//WiP 6.1.0 new Job - copy prices today to yesterday at 00:00:01
 	/**
-	 * updates lists of todays prices of all homes
+	 * daily rollover at exactly 00:00:00
+	 * copies current PricesToday → PricesYesterday & current PricesTomorrow → PricesToday (if available)
+	 * clears PricesTomorrow afterwards
+	 * this ensures Yesterday is always filled, even if Tibber API fails shortly after midnight
 	 *
 	 * @param homeInfoList - homeInfo list object
-	 * @param resolution Either HOURLY or QUARTER_HOURLY
-	 * @param forceUpdate - OPTIONAL: force mode, without verification if existing data is fitting to current date, default: false
-	 * @returns okprice - got correct data
+	 */
+	async dailyPriceRolloverAllHomes(homeInfoList: IHomeInfo[]): Promise<void> {
+		for (const curHomeInfo of homeInfoList) {
+			if (!curHomeInfo.PriceDataPollActive) {
+				continue;
+			}
+			await this.dailyPriceRollover(curHomeInfo.ID);
+		}
+	}
+
+	/**
+	 * daily rollover at exactly 00:00:00 of one home
+	 *
+	 * @param homeId - homeId string
+	 */
+	private async dailyPriceRollover(homeId: string): Promise<void> {
+		try {
+			let currentPricesToday: IPrice[] = [];
+			let currentPricesTomorrow: IPrice[] = [];
+			try {
+				currentPricesToday = JSON.parse((await this.getStateValue(`Homes.${homeId}.PricesToday.json`)) || "[]");
+				currentPricesTomorrow = JSON.parse((await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`)) || "[]");
+			} catch {
+				currentPricesToday = [];
+				currentPricesTomorrow = [];
+			}
+
+			this.adapter.log.info(`Performing daily price rollover for home ${homeId}`);
+
+			// yesterday = old today
+			await this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.json`, JSON.stringify(currentPricesToday), `The prices yesterday as json`);
+
+			// new today = old tomorrow (if available, otherwise keep current)
+			const newPricesToday = currentPricesTomorrow.length > 0 ? currentPricesTomorrow : []; // fallback empty
+			await this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(newPricesToday), `The prices today as json`);
+
+			// empty PricesTomorrow (will be filled later if available)
+			await this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify([]), `The prices tomorrow as json`);
+
+			// recalculate sorted variants and statistics (for yesterday and today)
+			if (Array.isArray(currentPricesToday) && currentPricesToday.length > 0) {
+				await this.checkAndSetValue(
+					`Homes.${homeId}.PricesYesterday.jsonBYpriceASC`,
+					JSON.stringify([...currentPricesToday].sort((a, b) => a.total - b.total)),
+					`prices yesterday sorted by cost ascending as json`,
+				);
+				this.fetchPriceAverage(homeId, `PricesYesterday.average`, currentPricesToday);
+				this.fetchPriceMaximum(homeId, `PricesYesterday.maximum`, currentPricesToday);
+				this.fetchPriceMinimum(homeId, `PricesYesterday.minimum`, currentPricesToday);
+			}
+			if (Array.isArray(newPricesToday) && newPricesToday.length > 0) {
+				await this.checkAndSetValue(
+					`Homes.${homeId}.PricesToday.jsonBYpriceASC`,
+					JSON.stringify([...newPricesToday].sort((a, b) => a.total - b.total)),
+					`prices today sorted by cost ascending as json`,
+				);
+				this.fetchPriceAverage(homeId, `PricesToday.average`, newPricesToday);
+				await this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, newPricesToday);
+				this.fetchPriceMaximum(homeId, `PricesToday.maximum`, newPricesToday);
+				this.fetchPriceMinimum(homeId, `PricesToday.minimum`, newPricesToday);
+				for (let i = 0; i < newPricesToday.length; i++) {
+					await this.fetchPrice(homeId, `PricesToday.${i}`, newPricesToday[i]);
+				}
+			}
+
+			// emptying PricesTomorrow states
+			this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete after rollover`);
+			for (let i = 0; i < 96; i++) {
+				this.emptyingPrice(homeId, `PricesTomorrow.${i}`);
+			}
+			this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
+			this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
+			this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
+			await this.checkAndSetValue(
+				`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`,
+				JSON.stringify([]),
+				`prices tomorrow sorted by cost ascending as json`,
+			);
+
+			this.adapter.log.debug(`daily price rollover completed for home ${homeId}`);
+		} catch (error: unknown) {
+			this.adapter.log.error(this.generateErrorMessage(error, `daily price rollover for home ${homeId}`));
+		}
+	}
+	// WiP 6.1.0 new Job - copy prices today to yesterday at 00:00:01
+
+	/**
+	 * Updates the list of today's prices for all homes.
+	 *
+	 * @param homeInfoList - List of home information objects.
+	 * @param resolution - The resolution of the price data (e.g., HOURLY or QUARTER_HOURLY).
+	 * @param forceUpdate - Optional flag to force update even if existing data is valid. Default is false.
+	 * @returns A promise that resolves to a boolean indicating whether the update was successful.
 	 */
 	async updatePricesTodayAllHomes(homeInfoList: IHomeInfo[], resolution: PriceResolution, forceUpdate = false): Promise<boolean> {
 		let okprice = true;
@@ -199,6 +293,61 @@ export class TibberAPICaller extends ProjectUtils {
 			}
 			const today = new Date();
 			today.setHours(0, 0, 0, 0); // sets clock to 0:00
+
+			if (!exDate || exDate < today || forceUpdate || !Array.isArray(exPricesToday) || exPricesToday.length === 0) {
+				const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId, resolution);
+				if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2]?.total)) {
+					throw new Error(`Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
+				}
+				this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
+				void this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(pricesToday), `The prices today as json`);
+				this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
+				await this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
+				this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
+				this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
+				for (let i = 0; i < pricesToday.length; i++) {
+					// states as 0, 1, 2 ... for hourly resolution or 0,1,2...95 for 15 minutes resolution
+					await this.fetchPrice(homeId, `PricesToday.${i}`, pricesToday[i]);
+				}
+				void this.checkAndSetValue(
+					`Homes.${homeId}.PricesToday.jsonBYpriceASC`,
+					JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)),
+					`prices sorted by cost ascending as json`,
+				);
+				// verify if data is for this day
+				if (pricesToday[2]?.startsAt) {
+					const newDate = new Date(pricesToday[2].startsAt);
+					if (newDate >= today) {
+						return true;
+					}
+				}
+				return false;
+			} // else if (exDate && exDate >= today) {
+			this.adapter.log.debug(`Existing date of price info is already the today date, polling of prices today from Tibber skipped`);
+			return true;
+		} catch (error: unknown) {
+			if (forceUpdate) {
+				this.adapter.log.error(this.generateErrorMessage(error, `force pull of prices today`));
+			} else {
+				this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
+			}
+			return false;
+		}
+	}
+
+	/* WiP 6.1.0 new Job - copy prices today to yesterday at 00:00:01
+	private async updatePricesToday(homeId: string, resolution: PriceResolution, forceUpdate = false): Promise<boolean> {
+		try {
+			let exDate: Date | null = null;
+			let exPricesToday: IPrice[] = [];
+			if (!forceUpdate) {
+				exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
+			}
+			if (Array.isArray(exPricesToday) && exPricesToday[2]?.startsAt) {
+				exDate = new Date(exPricesToday[2].startsAt);
+			}
+			const today = new Date();
+			today.setHours(0, 0, 0, 0); // sets clock to 0:00
 			if (!exDate || exDate <= today || forceUpdate) {
 				const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId, resolution);
 				if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2]?.total)) {
@@ -213,8 +362,7 @@ export class TibberAPICaller extends ProjectUtils {
 				this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
 				for (let i = 0; i < pricesToday.length; i++) {
 					// states as 0, 1, 2 ... for hourly resolution or 0,1,2...95 for 15 minutes resolution
-					const price = pricesToday[i];
-					await this.fetchPrice(homeId, `PricesToday.${i}`, price);
+					await this.fetchPrice(homeId, `PricesToday.${i}`, pricesToday[i]);
 				}
 				if (Array.isArray(pricesToday) && pricesToday[2]?.startsAt) {
 					// Got valid pricesToday
@@ -248,8 +396,8 @@ export class TibberAPICaller extends ProjectUtils {
 			}
 			return false;
 		}
-		return false;
 	}
+	*/ //WiP 6.1.0 new Job - copy prices today to yesterday at 00:00:01
 
 	/**
 	 * updates lists of tomorrows prices of all homes
@@ -311,7 +459,7 @@ export class TibberAPICaller extends ProjectUtils {
 					void this.checkAndSetValue(
 						`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`,
 						JSON.stringify(pricesTomorrow),
-						`prices sorted by cost ascending as json`,
+						`prices tomorrow sorted by cost ascending as json`,
 					);
 					return false;
 				} else if (Array.isArray(pricesTomorrow)) {

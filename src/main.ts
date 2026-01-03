@@ -205,7 +205,7 @@ class Tibberlink extends utils.Adapter {
 				void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 
 				const jobCurrentPrice = CronJob.from({
-					cronTime: "2 */15 * * * *", // jede 15. Minute, Sekunde 2
+					cronTime: "3 */15 * * * *", // jede 15. Minute, Sekunde 3
 					onTick: async () => {
 						// get current price from existing (?) PricesToday
 						await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
@@ -221,7 +221,7 @@ class Tibberlink extends utils.Adapter {
 				}
 
 				const jobPricesToday = CronJob.from({
-					cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 5 minutes before 00:01:20 => 00:00:20 - 00:02:20 for first try
+					cronTime: "20 56 23 * * *", //"20 56 23 * * *" = 23:56:20, every day = 5 minutes before 00:01:20 => 00:00:20 - 00:02:20 for first try
 					onTick: async () => {
 						let okPrice = false;
 						let attempt = 0;
@@ -231,7 +231,7 @@ class Tibberlink extends utils.Adapter {
 							await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, "QUARTER_HOURLY" as PriceResolution);
 							okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, "QUARTER_HOURLY" as PriceResolution);
 							this.log.debug(`Cron job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
-						} while (!okPrice && attempt < 10);
+						} while (!okPrice && attempt < 15);
 						void tibberCalculator.startCalculatorTasks();
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 					},
@@ -243,7 +243,7 @@ class Tibberlink extends utils.Adapter {
 				}
 
 				const jobPricesTomorrow = CronJob.from({
-					cronTime: "20 56 12 * * *", //"20 56 12 * * *" = 5 minutes before 13:01:20 => 13:00:20 - 13:02:20 for first try
+					cronTime: "20 56 12 * * *", //"20 56 12 * * *" = 12:56:20, every day5 minutes before 13:01:20 => 13:00:20 - 13:02:20 for first try
 					onTick: async () => {
 						let okPrice = false;
 						let attempt = 0;
@@ -263,6 +263,22 @@ class Tibberlink extends utils.Adapter {
 					this.cronList.push(jobPricesTomorrow);
 				}
 
+				//WiP 6.1.0 new Job - copy prices today to yesterday at 00:00:01
+				const jobDailyPriceRollover = CronJob.from({
+					cronTime: "01 0 0 * * *", //"01 0 0 * * *" = 00:00:01, every day
+					onTick: async () => {
+						await tibberAPICaller.dailyPriceRolloverAllHomes(this.homeInfoList);
+						this.log.debug(`Cron job DailyPriceRollover done`);
+					},
+					start: true,
+					runOnInit: true,
+				});
+				if (jobDailyPriceRollover) {
+					this.cronList.push(jobDailyPriceRollover);
+				}
+				//WiP 6.1.0 new Job - copy prices today to yesterday at 00:00:01
+
+				// finally start live data feed if configured
 				//#region *** If user uses live feed - start feed connection ***
 				if (this.homeInfoList.some(info => info.FeedActive)) {
 					// array with configs of feeds, init with base data set

@@ -187,7 +187,7 @@ class Tibberlink extends utils.Adapter {
                 void tibberAPICaller.updateConsumptionAllHomes();
                 void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
-                    cronTime: "2 */15 * * * *",
+                    cronTime: "3 */15 * * * *",
                     onTick: async () => {
                         await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
                         void tibberAPICaller.updateConsumptionAllHomes();
@@ -211,7 +211,7 @@ class Tibberlink extends utils.Adapter {
                             await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, "QUARTER_HOURLY");
                             okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, "QUARTER_HOURLY");
                             this.log.debug(`Cron job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
-                        } while (!okPrice && attempt < 10);
+                        } while (!okPrice && attempt < 15);
                         void tibberCalculator.startCalculatorTasks();
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                     },
@@ -240,6 +240,18 @@ class Tibberlink extends utils.Adapter {
                 });
                 if (jobPricesTomorrow) {
                     this.cronList.push(jobPricesTomorrow);
+                }
+                const jobDailyPriceRollover = cron_1.CronJob.from({
+                    cronTime: "01 0 0 * * *",
+                    onTick: async () => {
+                        await tibberAPICaller.dailyPriceRolloverAllHomes(this.homeInfoList);
+                        this.log.debug(`Cron job DailyPriceRollover done`);
+                    },
+                    start: true,
+                    runOnInit: true,
+                });
+                if (jobDailyPriceRollover) {
+                    this.cronList.push(jobDailyPriceRollover);
                 }
                 if (this.homeInfoList.some(info => info.FeedActive)) {
                     const tibberFeedConfigs = Array.from({ length: this.homeInfoList.length }, () => {
