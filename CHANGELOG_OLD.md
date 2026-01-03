@@ -18,6 +18,12 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+## 5.0.4 (2025-09-27)
+
+- (HombachC) prepared price updates to 15 minutes resolution (#384)
+- (HombachC) update tibber-api to 5.4.2
+- (HombachC) update chai system
+
 ## 5.0.3 (2025-09-17)
 
 - (HombachC) fix jsonconfig schema definition (#762)

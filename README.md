@@ -170,8 +170,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 6.1.0 (2026-01-03)
 
 - (HombachC) BREAKING: change flexcharts x-axis type
 - (HombachC) introduce FlexChart output for SBB channels second output
@@ -215,12 +214,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) update tibber-api to 5.5.2
 - (HombachC) update typescript to 5.9.3 (#777)
 - (HombachC) add names to price states folders
-
-### 5.0.4 (2025-09-27)
-
-- (HombachC) prepared price updates to 15 minutes resolution (#384)
-- (HombachC) update tibber-api to 5.4.2
-- (HombachC) update chai system
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
