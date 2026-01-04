@@ -42,7 +42,7 @@
 	},
 	yAxis: {
 		type: "value",
-		axisLabel: {formatter: "{value} ct/kWh"},
+		axisLabel: {formatter: "{value} €/kWh"},
 		axisPointer: {
 			snap: true
 		}

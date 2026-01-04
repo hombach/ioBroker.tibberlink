@@ -24,14 +24,14 @@
 	},
 	yAxis: {
 		type: "value",
-		axisLabel: {formatter: "{value} ct/kWh"},
+		axisLabel: {formatter: "{value} €/kWh"},
 		axisPointer: {
 			snap: true
 		}
 	},
 	visualMap: {
 		min: 0.2,
-		max: 0.3,
+		max: 0.35,
 		inRange: {
 			color: ["green", "yellow", "red"] // Verlauf von grün über gelb nach rot
 		},
