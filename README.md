@@ -170,6 +170,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
 ### 6.1.0 (2026-01-03)
 
 - (HombachC) BREAKING: change flexcharts x-axis type
