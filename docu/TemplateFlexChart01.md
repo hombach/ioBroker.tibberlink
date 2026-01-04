@@ -52,8 +52,28 @@
 				data: [
 					%%CalcChannelsData%%
 				]
-			}
-		}
-	]
+			},
+
+	        markLine: { // Markierung des aktuellen Zeitblocks
+                data: [
+                    {
+                        name: "now",
+                        xAxis: (function() {
+                            const now = new Date();
+                            const roundedMinutes = Math.floor(now.getMinutes() / 15) * 15;
+                            now.setMinutes(roundedMinutes, 0, 0);
+                            return now.getTime();
+                        })()
+                    }
+                ],
+                symbol: ["arrow", "none"],
+                label: {
+                    show: false,
+                }
+            }
+
+        }
+    ]
+
 };
 ```
