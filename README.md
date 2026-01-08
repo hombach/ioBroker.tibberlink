@@ -171,6 +171,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+- (HombachC) fix LTF shifting for frames greater 24h
+
 ### 6.1.0 (2026-01-03)
 
 - (HombachC) BREAKING: change flexcharts x-axis type

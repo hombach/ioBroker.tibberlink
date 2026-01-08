@@ -902,8 +902,12 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive but after LTF
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
-				this.handleAfterLTF(channel);
+				this.shiftLTF(channel);
 			} else {
+				if (modeLTF && now > addDays(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+					// chActive and inside LTF, but more than repeatdays after start -> shift LTF
+					this.shiftLTF(channel);
+				}
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF, true);
 
@@ -967,8 +971,12 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive but after LTF -> choose chValueOff and disable channel or generate new running period
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
-				this.handleAfterLTF(channel);
+				this.shiftLTF(channel);
 			} else {
+				if (modeLTF && now > addDays(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+					// chActive and inside LTF, but more than repeatdays after start -> shift LTF
+					this.shiftLTF(channel);
+				}
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 
@@ -1059,8 +1067,12 @@ export class TibberCalculator extends ProjectUtils {
 				this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
 				this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
 				this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
-				this.handleAfterLTF(channel);
+				this.shiftLTF(channel);
 			} else {
+				if (modeLTF && now > addDays(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+					// chActive and inside LTF, but more than repeatdays after start -> shift LTF
+					this.shiftLTF(channel);
+				}
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 
@@ -1245,8 +1257,12 @@ export class TibberCalculator extends ProjectUtils {
 				// chActive but after LTF -> choose chValueOff, channelOff2 and disable channels or generate new running period
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, `[]`, true);
-				this.handleAfterLTF(channel);
+				this.shiftLTF(channel);
 			} else {
+				if (modeLTF && now > addDays(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+					// chActive and inside LTF, but more than repeatdays after start -> shift LTF
+					this.shiftLTF(channel);
+				}
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
@@ -1391,8 +1407,12 @@ export class TibberCalculator extends ProjectUtils {
 			} else if (modeLTF && now > channelConfig.chStopTime) {
 				// chActive but after LTF -> choose chValueOff and disable channel or generate new running period
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
-				this.handleAfterLTF(channel);
+				this.shiftLTF(channel);
 			} else {
+				if (modeLTF && now > addDays(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+					// chActive and inside LTF, but more than repeatdays after start -> shift LTF
+					this.shiftLTF(channel);
+				}
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 
@@ -1523,13 +1543,13 @@ export class TibberCalculator extends ProjectUtils {
 
 	/**
 	 * Handles the actions to be performed after a LTF has completed for a specific channel.
-	 * This function updates the active state, start time, and stop time of a calculation
-	 * based on the provided channel configuration. If no repeat days are specified, the calculation
-	 * is deactivated. Otherwise, the start and stop times are adjusted according to the repeat days.
+	 * This function updates the active state, start time, and stop time of a calculation based on the
+	 * provided channel configuration. If no repeat days are specified, the calculation is deactivated.
+	 * Otherwise, the start and stop times are adjusted according to the repeat days parameter.
 	 *
 	 * @param channel - The number representing the channel to process.
 	 */
-	handleAfterLTF(channel: number): void {
+	shiftLTF(channel: number): void {
 		const { chHomeID, chRepeatDays, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
 		if (chRepeatDays == 0) {
 			void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.Active`, false, true);

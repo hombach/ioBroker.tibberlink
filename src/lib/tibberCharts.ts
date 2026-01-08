@@ -83,9 +83,6 @@ export class TibberCharts extends ProjectUtils {
 						enCalcType.SmartBatteryBuffer,
 						enCalcType.SmartBatteryBufferLTF,
 					]; // list of supported channel types
-					//WiP const filteredCalcChannels = this.adapter.config.CalculatorList.filter(
-					//WiP 	entry => entry.chActive == true && entry.chHomeID == homeID && allowedTypes.includes(entry.chType),
-					//WiP );
 					const filteredCalcChannels = this.adapter.config.CalculatorList.filter(
 						entry => entry.chActive && entry.chHomeID === homeID && allowedTypes.includes(entry.chType),
 					).map(entry => ({

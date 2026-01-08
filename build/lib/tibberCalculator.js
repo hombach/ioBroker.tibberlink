@@ -670,9 +670,12 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
-                this.handleAfterLTF(channel);
+                this.shiftLTF(channel);
             }
             else {
+                if (modeLTF && now > (0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+                    this.shiftLTF(channel);
+                }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF, true);
                 const currentPrice = await this.getStateValue(`Homes.${channelConfig.chHomeID}.CurrentPrice.total`);
                 if (channelConfig.chTriggerPrice > currentPrice) {
@@ -718,9 +721,12 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
-                this.handleAfterLTF(channel);
+                this.shiftLTF(channel);
             }
             else {
+                if (modeLTF && now > (0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+                    this.shiftLTF(channel);
+                }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 filteredPrices.sort((a, b) => a.total - b.total);
                 const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkQuarterMatch(entry));
@@ -791,9 +797,12 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 this.setup_chBlockEndFullHour(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockStart(channelConfig.chHomeID, channel, true);
                 this.setup_chBlockEnd(channelConfig.chHomeID, channel, true);
-                this.handleAfterLTF(channel);
+                this.shiftLTF(channel);
             }
             else {
+                if (modeLTF && now > (0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+                    this.shiftLTF(channel);
+                }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 let minSum = Number.MAX_VALUE;
                 let startIndex = 0;
@@ -903,9 +912,12 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             else if (modeLTF && now > channelConfig.chStopTime) {
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, `[]`, true);
-                this.handleAfterLTF(channel);
+                this.shiftLTF(channel);
             }
             else {
+                if (modeLTF && now > (0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+                    this.shiftLTF(channel);
+                }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 const maxCheapCount = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
                 const efficiencyLoss = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
@@ -1015,9 +1027,12 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             else if (modeLTF && now > channelConfig.chStopTime) {
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, `[]`, true);
-                this.handleAfterLTF(channel);
+                this.shiftLTF(channel);
             }
             else {
+                if (modeLTF && now > (0, date_fns_1.addDays)(channelConfig.chStartTime, channelConfig.chRepeatDays)) {
+                    this.shiftLTF(channel);
+                }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 filteredPrices.sort((a, b) => a.total - b.total);
                 const cheapestPrice = filteredPrices[0]?.total;
@@ -1093,7 +1108,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
         });
         return filteredPrices;
     }
-    handleAfterLTF(channel) {
+    shiftLTF(channel) {
         const { chHomeID, chRepeatDays, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
         if (chRepeatDays == 0) {
             void this.adapter.setState(`Homes.${chHomeID}.Calculations.${channel}.Active`, false, true);
