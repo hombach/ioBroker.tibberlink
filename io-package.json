@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "6.1.0",
+    "version": "6.1.1",
     "news": {
+      "6.1.1": {
+        "en": "fix LTF shifting for frames greater 24h\nupdate dependencies",
+        "de": "fix LTF-Verschiebung für Rahmen größer 24h\naktualisierung der abhängigkeiten",
+        "ru": "исправить сдвиг LTF для кадров больше 24 ч\nобновление зависимостей",
+        "pt": "corrigir deslocamento LTF para quadros maiores 24h\natualizar dependências",
+        "nl": "vast LTF verschuiven voor frames groter 24h\nafhankelijkheden bijwerken",
+        "fr": "fixer le déplacement LTF pour les cadres plus grand 24h\nmettre à jour les dépendances",
+        "it": "fix LTF spostamento per cornici maggiore 24h\naggiornamento dipendenze",
+        "es": "fijar LTF cambio para marcos mayor 24h\ndependencias de actualización",
+        "pl": "naprawić przesunięcie LTF dla klatek większych 24h\naktualizacji zależności",
+        "uk": "кріплення LTF для каркасів більше 24h\nоновлення залежності",
+        "zh-cn": "为更大的24小时帧修正 LTF 转换\n更新依赖关系"
+      },
       "6.1.0": {
         "en": "BREAKING: change flexcharts x-axis type\nintroduce FlexChart output for SBB channels second output\nintroduce second name for FlexChart output of SBB channels\nintroduce color for FlexChart output of calculator results\nintroduce more statistics for yesterdays prices\nclean code for 15min time slots\nfix schema links (#822)\nfix CurrentPrice after midnight (#812)\nupdate cron\nyear 2026 changes\nupdate dependencies",
         "de": "BREAKING: Flexcharts x-Achsentyp ändern\nflexChart Ausgang für SBB Kanäle zweiter Ausgang\nden zweiten Namen für FlexChart-Ausgang von SBB-Kanälen einführen\ndie Farbe für die FlexChart Ausgabe von Rechenergebnissen einführen\nmehr statistiken für die gestrigen preise einführen\nsauberer code für 15min zeitschlitze\nschemalinks fixieren (#822)\naktuellePreis nach Mitternacht (#812)\nupdate cron\njahr 2026 änderungen\naktualisierung der abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "zmiana aktualizacji cen do rozdzielczości 15 minut (# 384)\naktualizacja tibber- api do 5.4.2\naktualizacja systemu chai",
         "uk": "зміна ціни за ціною до 15 хвилин дозвіл (#384)\nоновлення tibber-api до 5.4.2\nоновлення системи chai",
         "zh-cn": "将价格更新为15分钟分辨率(# 384)\n将 tibber- api 更新到 5.4.2\n更新 chai 系统"
-      },
-      "5.0.3": {
-        "en": "fix jsonconfig schema definition (#762)\noptimize cron jobs\nupdate axios",
-        "de": "Behebe das JSON-Konfigurationsschema (#762)\nCron-Jobs optimieren\nAktualisierung von axios",
-        "ru": "исправлена схема определения jsonconfig (#762)\nоптимизировать задания cron\nобновление axios",
-        "pt": "Corrigir a definição do esquema jsonconfig (#762)\notimizar trabalhos cron\natualizar o axios",
-        "nl": "Herstel JSON-configschemadefinitie (#762)\nOptimaliseer cron jobs\nUpdate axios",
-        "fr": "corriger la définition du schéma jsonconfig (#762)\noptimiser les tâches cron\nmettre à jour axios",
-        "it": "Correzione della definizione dello schema JSONConfig (#762)\nottimizzare i job cron\nAggiornamento di axios",
-        "es": "corregir la definición del esquema jsonconfig (#762)\noptimizar trabajos programados\nactualizar axios",
-        "pl": "naprawa definicji schematu jsonconfig (#762)\nzoptymalizuj zadania cron\naktualizacja axios",
-        "uk": "виправлення визначення схеми jsonconfig (#762)\nОптимізувати задачі cron\nоновлення axios",
-        "zh-cn": "修复jsonconfig模式定义（#762）\n优化cron作业\n更新 axios"
       }
     },
     "messages": [
