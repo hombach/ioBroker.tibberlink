@@ -271,7 +271,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
             }
             if (result.unit == "Wh") {
                 result.unit = "kWh";
-                result.value = Math.round(result.value / 10) / 100;
+                result.value = Math.round(result.value) / 1000;
             }
             void this.checkAndSetValueNumber(`LocalPulse.${pulse}.${result.name}`, result.value, this.adapter.config.PulseList[pulse].puName, result.unit, `info.name`, false, false, forceMode);
             this.adapter.log.debug(`Pulse mode 3 parse result: ${JSON.stringify(result)}`);

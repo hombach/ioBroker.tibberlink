@@ -508,7 +508,8 @@ export class TibberLocal extends ProjectUtils {
 
 			if (result.unit == "Wh") {
 				result.unit = "kWh";
-				result.value = Math.round(result.value / 10) / 100;
+				// WiP result.value = Math.round(result.value / 10) / 100;
+				result.value = Math.round(result.value) / 1000;
 			}
 			void this.checkAndSetValueNumber(
 				`LocalPulse.${pulse}.${result.name}`,
