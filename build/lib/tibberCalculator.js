@@ -490,7 +490,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     setup_chBlockEndFullHour(homeId, channel, delMode = false) {
         try {
             const channelConfig = this.adapter.config.CalculatorList[channel];
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end quarter hour of determined block`, `value`, false, false);
+            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`, `-`, `end full hour of determined block`, `value`, false, false);
             if (!delMode) {
                 this.adapter.log.debug(`[tibberCalculator]: setup output state BlockEndFullHour in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
             }
@@ -835,8 +835,8 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, (0, date_fns_1.format)(beginDate, "H"), true);
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, true);
                 const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
-                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "H"), true);
-                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, (0, date_fns_1.format)((0, date_fns_1.addHours)(endDate, 1), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, (0, date_fns_1.format)((0, date_fns_1.addMinutes)(endDate, 15), "H"), true);
+                void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`, (0, date_fns_1.format)((0, date_fns_1.addMinutes)(endDate, 15), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
             }
             this.setChannelOutStates(channel, valueToSet);
         }

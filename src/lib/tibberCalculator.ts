@@ -1,5 +1,5 @@
 import type * as utils from "@iobroker/adapter-core";
-import { addDays, addHours, addMinutes, format, parseISO } from "date-fns";
+import { addDays, addMinutes, format, parseISO } from "date-fns";
 import type { IPrice } from "tibber-api/lib/src/models/IPrice.js";
 import { ProjectUtils, enCalcType, getCalcTypeDescription } from "./projectUtils.js";
 
@@ -658,7 +658,7 @@ export class TibberCalculator extends ProjectUtils {
 			void this.checkAndSetValue(
 				`Homes.${homeId}.Calculations.${channel}.BlockEndFullHour`,
 				`-`,
-				`end quarter hour of determined block`,
+				`end full hour of determined block`,
 				`value`,
 				false,
 				false,
@@ -1121,10 +1121,14 @@ export class TibberCalculator extends ProjectUtils {
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, format(beginDate, "H"), true);
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, true);
 				const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
-				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`, format(addHours(endDate, 1), "H"), true);
+				void this.adapter.setState(
+					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`,
+					format(addMinutes(endDate, 15), "H"),
+					true,
+				);
 				void this.adapter.setState(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEnd`,
-					format(addHours(endDate, 1), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
+					format(addMinutes(endDate, 15), "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"),
 					true,
 				);
 				//#endregion

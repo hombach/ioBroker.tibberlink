@@ -170,6 +170,12 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) fix wrong end block state calculation (#841)
+- (HombachC) update dependencies
+
 ### 6.1.1 (2026-02-05)
 
 - (HombachC) fix LTF shifting for frames greater 24h
