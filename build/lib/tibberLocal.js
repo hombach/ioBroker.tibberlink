@@ -276,7 +276,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
             void this.checkAndSetValueNumber(`LocalPulse.${pulse}.${result.name}`, result.value, this.adapter.config.PulseList[pulse].puName, result.unit, `info.name`, false, false, forceMode);
             this.adapter.log.debug(`Pulse mode 3 parse result: ${JSON.stringify(result)}`);
             const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
-            output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
+            output.push(`${(0, date_fns_1.format)(new Date(), "HH:mm:ss.SSS")}: ${formattedMatch}\n`);
         }
         if (output.length > 0) {
             this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
@@ -359,10 +359,6 @@ function parseSignedHex(hexStr) {
         }
     }
     return Number(num.toString());
-}
-function getCurrentTimeFormatted() {
-    const now = new Date();
-    return (0, date_fns_1.format)(now, "HH:mm:ss.SSS");
 }
 function findDlmsUnitByCode(decimalCode) {
     const dlmsUnits = [
