@@ -43,9 +43,6 @@ export class TibberLocal extends ProjectUtils {
 	 */
 	setupOnePulseLocal(pulse: number): void {
 		try {
-			//if (this.adapter.config.PulseList[pulse].puName === undefined) {
-			//	this.adapter.config.PulseList[pulse].puName = `Pulse Local`;
-			//}
 			this.adapter.config.PulseList[pulse].puName ??= `Pulse Local`;
 
 			const interval = this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval;
@@ -695,6 +692,7 @@ function parseSignedHex(hexStr: string): number {
  * @returns A string representing the current time in "HH:mm:ss.SSS" format.
  */
 function getCurrentTimeFormatted(): string {
+	// ToDo: use date-fns
 	const now = new Date();
 	return format(now, "HH:mm:ss.SSS");
 }

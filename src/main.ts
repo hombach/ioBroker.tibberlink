@@ -194,9 +194,6 @@ class Tibberlink extends utils.Adapter {
 				}
 
 				// (force) get current prices and start calculator tasks once for the FIRST time
-				// TODO: remove after test:  await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList, true);
-				// TODO get 15 minute price  - line above moved to jobPricesTodayLOOP
-
 				void this.jobPricesTodayLOOP(tibberAPICaller);
 				void this.jobPricesTomorrowLOOP(tibberAPICaller);
 				void tibberCalculator.startCalculatorTasks(false, true);
@@ -263,7 +260,6 @@ class Tibberlink extends utils.Adapter {
 					this.cronList.push(jobPricesTomorrow);
 				}
 
-				//WiP 6.1.0 new Job - copy prices today to yesterday at 00:00:01
 				const jobDailyPriceRollover = CronJob.from({
 					cronTime: "01 0 0 * * *", //"01 0 0 * * *" = 00:00:01, every day
 					onTick: async () => {
@@ -276,7 +272,6 @@ class Tibberlink extends utils.Adapter {
 				if (jobDailyPriceRollover) {
 					this.cronList.push(jobDailyPriceRollover);
 				}
-				//WiP 6.1.0 new Job - copy prices today to yesterday at 00:00:01
 
 				// finally start live data feed if configured
 				//#region *** If user uses live feed - start feed connection ***
