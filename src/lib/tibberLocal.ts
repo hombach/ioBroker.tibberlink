@@ -523,7 +523,8 @@ export class TibberLocal extends ProjectUtils {
 			);
 			this.adapter.log.debug(`Pulse mode 3 parse result: ${JSON.stringify(result)}`);
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
-			output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
+			// WiP  output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
+			output.push(`${format(new Date(), "HH:mm:ss.SSS")}: ${formattedMatch}\n`);
 		}
 		if (output.length > 0) {
 			this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
@@ -692,11 +693,13 @@ function parseSignedHex(hexStr: string): number {
  *
  * @returns A string representing the current time in "HH:mm:ss.SSS" format.
  */
-function getCurrentTimeFormatted(): string {
-	// ToDo: use date-fns
-	const now = new Date();
-	return format(now, "HH:mm:ss.SSS");
-}
+//WiP   function getCurrentTimeFormatted(): string {
+//	const now = new Date();
+//	return format(now, "HH:mm:ss.SSS");
+//}
+//WiP   function getCurrentTimeFormatted(): string {
+//	return format(new Date(), "HH:mm:ss.SSS");
+//}
 
 /**
  * Finds the DLMS unit corresponding to a given decimal code.
