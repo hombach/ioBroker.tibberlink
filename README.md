@@ -174,6 +174,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) fix wrong end block state calculation (#841)
+- (HombachC) setup auto-merge for dependabot (#834)
 - (HombachC) update dependencies
 
 ### 6.1.1 (2026-02-05)
