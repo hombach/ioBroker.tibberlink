@@ -561,7 +561,7 @@
 							"tooltip": "TTIP_item_chName",
 							"maxLength": 25,
 							"attr": "chName",
-							"validator": "if(data.chName=== '' || data.chName === null){return false;}else{const myRegEx = /^([0-9a-z_ ])*$/i; return myRegEx.test(data.chName);}",
+							"validator": "if(data.chName === '' || data.chName === null){return false;}else{const myRegEx = /^[A-Za-z0-9äöüÄÖÜß _.-]{1,25}$/; return myRegEx.test(data.chName);}",
 							"validatorNoSaveOnError": true,
 							"default": "channel name",
 							"xs": 12,

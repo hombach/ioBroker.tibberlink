@@ -173,6 +173,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) enable umlauts to calculation channel names (#844)
 - (HombachC) enhance resolution of pulse meter data (#840)
 - (HombachC) fix wrong end block state calculation (#841)
 - (HombachC) setup auto-merge for dependabot (#834)
