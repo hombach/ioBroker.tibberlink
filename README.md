@@ -170,6 +170,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
 ### 6.2.0 (2026-03-07)
 
 - (HombachC) enable umlauts to calculation channel names (#844)
