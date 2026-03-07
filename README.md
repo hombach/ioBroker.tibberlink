@@ -170,8 +170,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 6.2.0 (2026-03-07)
 
 - (HombachC) enable umlauts to calculation channel names (#844)
 - (HombachC) enhance resolution of pulse meter data (#840)
@@ -209,11 +208,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) update NPM deployment
 - (HombachC) update dependencies
-
-### 6.0.1 (2025-10-09)
-
-- (HombachC) fix error in cleaning tomorrow data
-- (HombachC) update release management to 4.x.x
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

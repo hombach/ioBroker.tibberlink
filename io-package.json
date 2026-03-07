@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "6.1.1",
+    "version": "6.2.0",
     "news": {
+      "6.2.0": {
+        "en": "enable umlauts to calculation channel names (#844)\nenhance resolution of pulse meter data (#840)\nfix wrong end block state calculation (#841)\nsetup auto-merge for dependabot (#834)\nupdate dependencies",
+        "de": "umlaute zur berechnung von kanalnamen aktivieren (#844)\nverbesserung der auflösung von pulsmesserdaten (#840)\nfalsche endblock-zustandsberechnung (#841)\nsetup auto-merge für abhängigabot (#834)\naktualisierung der abhängigkeiten",
+        "ru": "умлауты могут вычислять имена каналов (#844)\nулучшение разрешения данных пульсометра (#840)\nисправить неправильный расчет состояния конечного блока (#841)\nнастройка автоматического слияния для иждивенца (#834)\nобновление зависимостей",
+        "pt": "habilitar umlauts para calcular os nomes dos canais (# 844)\nmelhorar a resolução dos dados do medidor de pulso (# 840)\ncorrigir o cálculo errado do estado do bloco final (# 841)\nconfiguração de auto- fusão para dependebot (# 834)\natualizar dependências",
+        "nl": "umlauts inschakelen om kanaalnamen te berekenen (#844)\nverbeteren van de resolutie van pulsmetergegevens (#840)\nberekening van de foute eindbloktoestand op te lossen (#841)\nsetup auto-merge voor dependabot (#834)\nafhankelijkheden bijwerken",
+        "fr": "activer umlauts pour calculer les noms de canaux (#844)\naméliorer la résolution des données du compteur d'impulsions (#840)\ncorrection du mauvais calcul de l'état du bloc d'extrémité (#841)\nsetup auto-merge pour dependabot (#834)\nmettre à jour les dépendances",
+        "it": "abilitare umlauts ai nomi dei canali di calcolo (#844)\nmigliorare la risoluzione dei dati del contatore di impulso (#840)\ncorreggere il calcolo dello stato del blocco finale sbagliato (#841)\ninstallazione auto-merge per dipendeabot (#834)\naggiornamento dipendenze",
+        "es": "habilitar umlauts a los nombres de los canales de cálculo (#844)\nmejorar la resolución de los datos del medidor de pulso (#840)\narreglar el cálculo del estado del bloque final incorrecto (#841)\nconfiguración de auto-merge para dependabot (#834)\ndependencias de actualización",
+        "pl": "włączyć umlauty do nazw kanałów obliczeniowych (# 844)\nzwiększenie rozdzielczości danych pulsometru (# 840)\nnaprawić błędne obliczenia stanu bloku końca (# 841)\nsetup auto- merge for dependabot (# 834)\naktualizacji zależności",
+        "uk": "увімкнути umlauts для обчислення назв каналів (#844)\nпідвищити роздільну здатність даних імпульсних лічильників (#840)\nвиправити неправильний кінець блоку державного розрахунку (#841)\nустановка автозапчастин для залежності (#834)\nоновлення залежності",
+        "zh-cn": "允许 umlauts 计算频道名称 (# 844)\n增强脉冲计数据的分辨率 (# 840)\n固定错误的终端块状态计算 (# 841)\n为depabot (# 834) 设置自动安装\n更新依赖关系"
+      },
       "6.1.1": {
         "en": "fix LTF shifting for frames greater 24h\nupdate dependencies",
         "de": "fix LTF-Verschiebung für Rahmen größer 24h\naktualisierung der abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "BREAKING: stany cen godzinowych (0... 23) są obecnie kwartalne (0... 95)\nBREAKING: dostosowany kalkulator bloki czasowe wymagają ponownego wprowadzenia wartości \"AmountHours\"\nzmienić aktualizacje cen do rozdzielczości 15 minut jako domyślnie\nzmienić aktualne aktualizacje cen w celu wykorzystania istniejących obecnie wartości zamiast połączeń Tibber\nszybsza precyzja dla bieżącej ceny i kalkulator\ndostosowywanie tworzenia map\nnaprawić błąd w utracie wydajności\ndostosować bloki czasowe kalkulatora\naktualizacja tibber- api do 5.5.2\naktualizacja do 5.9.3 (# 777)\ndodaj nazwy do folderów stanów cen",
         "uk": "BREAKING: погодинні цінові стани (0...23) тепер чвертьгодинно (0...95)\nBREAKING: адаптовані блоки часу калькуляторів, які потребують переадресації значень \"AmountHours\"\nзмінити оновлення ціни до 15 хвилин, як за замовчуванням\nзмінити поточні оновлення ціни, щоб використовувати існуючі сьогодні значення замість дзвінків Tibber\nбільш своєчасна точність за поточною ціною і калькулятором\nстворення адаптивної діаграми\nвиправлено помилку при зниженні ефективності\nадаптувати блоки часу калькулятора\nоновлення tibber-api до 5.5.2\nenglish, українська, français..\nдодати імена в папки ціноутворення",
         "zh-cn": "每小时价格(0.23)现在是每半小时(0.95)\nBREAKING:经过调整的计算器时区块需要重新输入“AmountHours”值\n将价格更新改为默认的15分钟分辨率\n更改当前价格更新以使用今天已有的值, 而不是提伯调用\n当前价格和计算器更及时的精确度\n调整图表生成\n效率损失的固定错误\n调整计算时间块\n将 tibber-api 更新到 5.5.2\n更新打字符至5.9.3 (# 777)\n添加名称到价格状态文件夹"
-      },
-      "5.0.4": {
-        "en": "change price updates to 15 minutes resolution (#384)\nupdate tibber-api to 5.4.2\nupdate chai system",
-        "de": "preisänderungen auf 15 minuten auflösung ändern (#384)\naktualisierung von tibber-api auf 5.4.2\nchai system",
-        "ru": "изменение цены до 15 минут разрешения (#384)\nобновление tibber-api до 5.4.2\nобновление системы chai",
-        "pt": "mudar as atualizações de preço para resolução de 15 minutos (#384)\natualizar tibber-api para 5.4.2\natualizar sistema chai",
-        "nl": "wijzigen prijs updates naar 15 minuten resolutie (#384)\ntibber-api tot 5.4.2 bijwerken\nchai-systeem bijwerken",
-        "fr": "changer les mises à jour du prix à la résolution de 15 minutes (#384)\nmettre à jour le tibber-api à 5.4.2\nmettre à jour le système chai",
-        "it": "modifica gli aggiornamenti dei prezzi alla risoluzione di 15 minuti (#384)\naggiornamento tibber-api a 5.4.2\naggiornamento sistema chai",
-        "es": "actualizaciones de precios de cambio a resolución de 15 minutos (#384)\nactualización tibber-api a 5.4.2\nactualización del sistema chai",
-        "pl": "zmiana aktualizacji cen do rozdzielczości 15 minut (# 384)\naktualizacja tibber- api do 5.4.2\naktualizacja systemu chai",
-        "uk": "зміна ціни за ціною до 15 хвилин дозвіл (#384)\nоновлення tibber-api до 5.4.2\nоновлення системи chai",
-        "zh-cn": "将价格更新为15分钟分辨率(# 384)\n将 tibber- api 更新到 5.4.2\n更新 chai 系统"
       }
     },
     "messages": [

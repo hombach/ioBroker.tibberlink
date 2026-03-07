@@ -17,7 +17,13 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
-## 6.0.0 (2025-10-06)
+
+### 6.0.1 (2025-10-09)
+
+- (HombachC) fix error in cleaning tomorrow data
+- (HombachC) update release management to 4.x.x
+
+### 6.0.0 (2025-10-06)
 
 - (HombachC) BREAKING: hourly price states (0...23) are now quarterhourly (0...95)
 - (HombachC) BREAKING: adapted calculator time blocks need reentry of "AmountHours" values
@@ -31,19 +37,19 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) update typescript to 5.9.3 (#777)
 - (HombachC) add names to price states folders
 
-## 5.0.4 (2025-09-27)
+### 5.0.4 (2025-09-27)
 
 - (HombachC) prepared price updates to 15 minutes resolution (#384)
 - (HombachC) update tibber-api to 5.4.2
 - (HombachC) update chai system
 
-## 5.0.3 (2025-09-17)
+### 5.0.3 (2025-09-17)
 
 - (HombachC) fix jsonconfig schema definition (#762)
 - (HombachC) optimize cron jobs
 - (HombachC) update axios
 
-## 5.0.2 (2025-08-29)
+### 5.0.2 (2025-08-29)
 
 - (HombachC) min admin 7.6.17 as recommended (#754)
 - (HombachC) update adapter-core
