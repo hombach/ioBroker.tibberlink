@@ -171,6 +171,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   ### **WORK IN PROGRESS**
 -->
 
+### **WORK IN PROGRESS**
+
+- (HombachC) switch to ES2023 code
+
 ### 6.2.0 (2026-03-07)
 
 - (HombachC) enable umlauts to calculation channel names (#844)
