@@ -174,6 +174,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) switch to ES2023 code
+- (HombachC) update dependencies
 
 ### 6.2.0 (2026-03-07)
 
