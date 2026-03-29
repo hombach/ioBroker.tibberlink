@@ -173,6 +173,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) optimize pull of consumption data (#860)
 - (HombachC) switch to ES2023 code
 - (HombachC) update dependencies
 
