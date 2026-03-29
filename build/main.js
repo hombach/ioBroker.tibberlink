@@ -187,12 +187,13 @@ class Tibberlink extends utils.Adapter {
                 void tibberAPICaller.updateConsumptionAllHomes();
                 void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
-                    cronTime: "3 */15 * * * *",
+                    cronTime: "4 */15 * * * *",
                     onTick: async () => {
                         await tibberAPICaller.updateCurrentPriceAllHomes(this.homeInfoList);
-                        void tibberAPICaller.updateConsumptionAllHomes();
                         await tibberCalculator.startCalculatorTasks();
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
+                        await this.delay(this.getRandomDelay(2, 4));
+                        void tibberAPICaller.updateConsumptionAllHomes();
                     },
                     start: true,
                     runOnInit: false,
