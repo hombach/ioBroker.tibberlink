@@ -18,6 +18,10 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 6.0.2 (2025-10-24)
+
+- (HombachC) update NPM deployment
+
 ### 6.0.1 (2025-10-09)
 
 - (HombachC) fix error in cleaning tomorrow data
