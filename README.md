@@ -170,8 +170,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 6.2.2 (2026-04-13)
 
 - (HombachC) fix vulnerability in axios
 - (HombachC) update dependencies
@@ -208,13 +207,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) update cron
 - (HombachC) year 2026 changes
 - (HombachC) update dependencies
-
-### 6.0.3 (2025-11-16)
-
-- (HombachC) optimize sentry
-- (HombachC) optimize dependabot config (#805)
-- (HombachC) update axios and cron
-- (HombachC) update FlexChart template
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

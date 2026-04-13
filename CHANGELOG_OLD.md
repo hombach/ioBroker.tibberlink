@@ -18,6 +18,13 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 6.0.3 (2025-11-16)
+
+- (HombachC) optimize sentry
+- (HombachC) optimize dependabot config (#805)
+- (HombachC) update axios and cron
+- (HombachC) update FlexChart template
+
 ### 6.0.2 (2025-10-24)
 
 - (HombachC) update NPM deployment

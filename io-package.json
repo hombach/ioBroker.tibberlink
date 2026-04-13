@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "6.2.1",
+    "version": "6.2.2",
     "news": {
+      "6.2.2": {
+        "en": "fix vulnerability in axios\nupdate dependencies",
+        "de": "schwachstelle in axios beheben\naktualisierung der abhängigkeiten",
+        "ru": "уязвимость в axios\nобновление зависимостей",
+        "pt": "corrigir vulnerabilidade em axios\natualizar dependências",
+        "nl": "fix kwetsbaarheid in axios\nafhankelijkheden bijwerken",
+        "fr": "corriger la vulnérabilité dans les axios\nmettre à jour les dépendances",
+        "it": "fissare la vulnerabilità in assios\naggiornamento dipendenze",
+        "es": "fijar vulnerabilidad en axios\ndependencias de actualización",
+        "pl": "naprawić wrażliwość w aksjozach\naktualizacji zależności",
+        "uk": "зафіксувати вразливість в осях\nоновлення залежності",
+        "zh-cn": "在轴线中固定脆弱性\n更新依赖关系"
+      },
       "6.2.1": {
         "en": "optimize pull of consumption data (#860)\nswitch to ES2023 code\nupdate dependencies",
         "de": "optimieren von verbrauchsdaten (#860)\neS2023-Code wechseln\naktualisierung der abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja rozmieszczenia NPM\naktualizacji zależności",
         "uk": "оновлення розгортання NPM\nоновлення залежності",
         "zh-cn": "更新国家预防机制的部署情况\n更新依赖关系"
-      },
-      "6.0.1": {
-        "en": "fix error in cleaning tomorrow data\nupdate release management to 4.x.x",
-        "de": "fehler in der reinigung von morgen daten beheben\nupdate-release-management auf 4.x.x",
-        "ru": "ошибка в очистке данных завтрашнего дня\nуправление обновлениями для 4.x.x",
-        "pt": "corrigir erro na limpeza amanhã dados\natualização de gerenciamento de lançamento para 4.x.x",
-        "nl": "fix fout in het schoonmaken van morgen gegevens\nupdate release management naar 4.x.x",
-        "fr": "corriger l'erreur dans le nettoyage des données de demain\nmettre à jour la gestion de la publication vers 4.x.x",
-        "it": "correzione di errore nella pulizia dei dati di domani\nupdate release management a 4.x.x",
-        "es": "corregir error en la limpieza mañana datos\nactualizar la gestión de la liberación a 4.x.x",
-        "pl": "naprawić błąd w czyszczeniu danych jutro\naktualizacja zarządzania wersjami do 4.x.x",
-        "uk": "виправлено помилку в очищенні даних\nуправління оновлення релізу до 4.x.x",
-        "zh-cn": "清除明天数据时纠正错误\n更新发行管理到 4. x. x"
       }
     },
     "messages": [
