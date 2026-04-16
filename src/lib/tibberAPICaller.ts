@@ -27,6 +27,7 @@ export class TibberAPICaller extends ProjectUtils {
 		super(adapter);
 		this.tibberConfig = tibberConfig;
 		this.tibberQuery = new TibberQuery(this.tibberConfig, 60000); // WiP - 60s timeout for API calls, can be adapted later if needed
+		// this.tibberQuery = new TibberQuery(this.tibberConfig, this.adapter.config.TibberRequestTimeout); // WiP - 60s timeout for API calls, can be adapted later if needed
 	}
 
 	/**
