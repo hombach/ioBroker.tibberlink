@@ -170,6 +170,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) fix some type definitions
+
 ### 6.2.2 (2026-04-13)
 
 - (HombachC) fix vulnerability in axios

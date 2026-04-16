@@ -19,28 +19,35 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.debug(`Got homes from tibber api: ${JSON.stringify(Homes)}`);
             const homeInfoList = [];
             for (const currentHome of Homes) {
+                if (!currentHome.id) {
+                    continue;
+                }
                 homeInfoList.push({
                     ID: currentHome.id,
-                    NameInApp: currentHome.appNickname,
-                    RealTime: currentHome.features.realTimeConsumptionEnabled,
+                    NameInApp: currentHome.appNickname ?? `not set`,
+                    RealTime: currentHome.features?.realTimeConsumptionEnabled ?? false,
                     FeedActive: false,
                     PriceDataPollActive: true,
                 });
                 this.tibberConfig.homeId = currentHome.id;
                 const basePath = `Homes.${currentHome.id}`;
                 void this.checkAndSetValue(`${basePath}.General.Id`, currentHome.id, "ID of your home");
-                void this.checkAndSetValue(`${basePath}.General.Timezone`, currentHome.timeZone, "The time zone the home resides in");
-                void this.checkAndSetValue(`${basePath}.General.NameInApp`, currentHome.appNickname, "The nickname given to the home");
-                void this.checkAndSetValue(`${basePath}.General.AvatarInApp`, currentHome.appAvatar, "The chosen app avatar for the home");
-                void this.checkAndSetValue(`${basePath}.General.Type`, currentHome.type, "The type of home.");
-                void this.checkAndSetValue(`${basePath}.General.PrimaryHeatingSource`, currentHome.primaryHeatingSource, `The primary form of heating in the home`);
-                void this.checkAndSetValueNumber(`${basePath}.General.Size`, currentHome.size, "The size of the home in square meters");
-                void this.checkAndSetValueNumber(`${basePath}.General.NumberOfResidents`, currentHome.numberOfResidents, `he number of people living in the home`);
-                void this.checkAndSetValueNumber(`${basePath}.General.MainFuseSize`, currentHome.mainFuseSize, "The main fuse size");
-                void this.checkAndSetValueBoolean(`${basePath}.General.HasVentilationSystem`, currentHome.hasVentilationSystem, `Whether the home has a ventilation system`);
-                this.fetchAddress(currentHome.id, "Address", currentHome.address);
-                this.fetchLegalEntity(currentHome.id, "Owner", currentHome.owner);
-                void this.checkAndSetValueBoolean(`${basePath}.Features.RealTimeConsumptionEnabled`, currentHome.features.realTimeConsumptionEnabled, `Whether Tibber server will send consumption data by API`);
+                void this.checkAndSetValue(`${basePath}.General.Timezone`, currentHome.timeZone ?? `not set`, "The time zone the home resides in");
+                void this.checkAndSetValue(`${basePath}.General.NameInApp`, currentHome.appNickname ?? `not set`, "The nickname given to the home");
+                void this.checkAndSetValue(`${basePath}.General.AvatarInApp`, currentHome.appAvatar ?? `not set`, "The chosen app avatar for the home");
+                void this.checkAndSetValue(`${basePath}.General.Type`, currentHome.type ?? `not set`, "The type of home.");
+                void this.checkAndSetValue(`${basePath}.General.PrimaryHeatingSource`, currentHome.primaryHeatingSource ?? `not set`, `The primary form of heating in the home`);
+                void this.checkAndSetValueNumber(`${basePath}.General.Size`, currentHome.size ?? 0, "The size of the home in square meters");
+                void this.checkAndSetValueNumber(`${basePath}.General.NumberOfResidents`, currentHome.numberOfResidents ?? 0, `The number of people living in the home`);
+                void this.checkAndSetValueNumber(`${basePath}.General.MainFuseSize`, currentHome.mainFuseSize ?? 0, "The main fuse size");
+                void this.checkAndSetValueBoolean(`${basePath}.General.HasVentilationSystem`, currentHome.hasVentilationSystem ?? false, `Whether the home has a ventilation system`);
+                if (currentHome.address) {
+                    this.fetchAddress(currentHome.id, "Address", currentHome.address);
+                }
+                if (currentHome.owner) {
+                    this.fetchLegalEntity(currentHome.id, "Owner", currentHome.owner);
+                }
+                void this.checkAndSetValueBoolean(`${basePath}.Features.RealTimeConsumptionEnabled`, currentHome.features?.realTimeConsumptionEnabled ?? false, `Whether Tibber server will send consumption data by API`);
             }
             return homeInfoList;
         }
@@ -78,7 +85,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 return false;
             }
             const currentPrice = pricesToday.find(p => {
-                const start = new Date(p.startsAt);
+                const start = new Date(p.startsAt ?? ``);
                 const end = (0, date_fns_1.addMinutes)(start, 15);
                 return now >= start && now < end;
             });
@@ -123,13 +130,13 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             await this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(newPricesToday), `The prices today as json`);
             await this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify([]), `The prices tomorrow as json`);
             if (Array.isArray(currentPricesToday) && currentPricesToday.length > 0) {
-                await this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.jsonBYpriceASC`, JSON.stringify([...currentPricesToday].sort((a, b) => a.total - b.total)), `prices yesterday sorted by cost ascending as json`);
+                await this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.jsonBYpriceASC`, JSON.stringify([...currentPricesToday].sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices yesterday sorted by cost ascending as json`);
                 this.fetchPriceAverage(homeId, `PricesYesterday.average`, currentPricesToday);
                 this.fetchPriceMaximum(homeId, `PricesYesterday.maximum`, currentPricesToday);
                 this.fetchPriceMinimum(homeId, `PricesYesterday.minimum`, currentPricesToday);
             }
             if (Array.isArray(newPricesToday) && newPricesToday.length > 0) {
-                await this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify([...newPricesToday].sort((a, b) => a.total - b.total)), `prices today sorted by cost ascending as json`);
+                await this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify([...newPricesToday].sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices today sorted by cost ascending as json`);
                 this.fetchPriceAverage(homeId, `PricesToday.average`, newPricesToday);
                 await this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, newPricesToday);
                 this.fetchPriceMaximum(homeId, `PricesToday.maximum`, newPricesToday);
@@ -194,7 +201,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 for (let i = 0; i < pricesToday.length; i++) {
                     await this.fetchPrice(homeId, `PricesToday.${i}`, pricesToday[i]);
                 }
-                void this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify(pricesToday.sort((a, b) => a.total - b.total)), `prices sorted by cost ascending as json`);
+                void this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify(pricesToday.sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices sorted by cost ascending as json`);
                 if (pricesToday[2]?.startsAt) {
                     const newDate = new Date(pricesToday[2].startsAt);
                     if (newDate >= today) {
@@ -268,8 +275,8 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
                     this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
                     this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow);
-                    void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`, JSON.stringify(pricesTomorrow.sort((a, b) => a.total - b.total)), `prices sorted by cost ascending as json`);
-                    exDate = new Date(pricesTomorrow[2].startsAt);
+                    void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`, JSON.stringify(pricesTomorrow.sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices sorted by cost ascending as json`);
+                    exDate = new Date(pricesTomorrow[2].startsAt ?? ``);
                     if (exDate && exDate >= morgen) {
                         return true;
                     }
@@ -324,7 +331,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
     }
     async fetchPrice(homeId, objectDestination, price) {
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        const date = new Date(price.startsAt);
+        const date = new Date(price.startsAt ?? ``);
         const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
         await this.adapter.setObject(basePath, {
             type: "folder",
@@ -333,11 +340,11 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             },
             native: {},
         });
-        await this.checkAndSetValueNumber(`${basePath}.total`, price.total, `Total price (energy + taxes)`);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, price.energy, `Spotmarket energy price`);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, price.tax, `Tax part of the price (energy, tax, VAT...)`);
-        void this.checkAndSetValue(`${basePath}.startsAt`, price.startsAt, `Start time of the price`);
-        void this.checkAndSetValue(`${basePath}.level`, price.level, `Price level compared to recent price values`);
+        await this.checkAndSetValueNumber(`${basePath}.total`, price.total ?? 0, `Total price (energy + taxes)`);
+        void this.checkAndSetValueNumber(`${basePath}.energy`, price.energy ?? 0, `Spotmarket energy price`);
+        void this.checkAndSetValueNumber(`${basePath}.tax`, price.tax ?? 0, `Tax part of the price (energy, tax, VAT...)`);
+        void this.checkAndSetValue(`${basePath}.startsAt`, price.startsAt ?? `---`, `Start time of the price`);
+        void this.checkAndSetValue(`${basePath}.level`, price.level ?? `---`, `Price level compared to recent price values`);
     }
     fetchPriceAverage(homeId, objectDestination, price) {
         if (!price || price.length === 0) {
@@ -355,7 +362,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
         const now = new Date();
         const filteredPrices = price.filter(item => {
-            const start = new Date(item.startsAt);
+            const start = new Date(item.startsAt ?? ``);
             return start >= now;
         });
         if (!filteredPrices.length) {
@@ -367,7 +374,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         const taxSum = filteredPrices.reduce((sum, item) => sum + (item.tax ?? 0), 0);
         const count = filteredPrices.length;
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        const date = new Date(filteredPrices[0].startsAt);
+        const date = new Date(filteredPrices[0].startsAt ?? ``);
         const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
         await this.adapter.setObject(basePath, {
             type: "folder",
@@ -384,25 +391,25 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         if (!price || price.length === 0) {
             return;
         }
-        const maxEntry = price.reduce((max, current) => (current.total > max.total ? current : max));
+        const maxEntry = price.reduce((max, current) => ((current.total ?? 0) > (max.total ?? 0) ? current : max));
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * maxEntry.total) / 1000, `Todays total price maximum`);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * maxEntry.energy) / 1000, `Todays spotmarket price at total price maximum`);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * maxEntry.tax) / 1000, `Todays tax price at total price maximum`);
-        void this.checkAndSetValue(`${basePath}.level`, maxEntry.level, `Price level compared to recent price values`);
-        void this.checkAndSetValue(`${basePath}.startsAt`, maxEntry.startsAt, `Start time of the price maximum`);
+        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (maxEntry.total ?? 0)) / 1000, `Todays total price maximum`);
+        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (maxEntry.energy ?? 0)) / 1000, `Todays spotmarket price at total price maximum`);
+        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (maxEntry.tax ?? 0)) / 1000, `Todays tax price at total price maximum`);
+        void this.checkAndSetValue(`${basePath}.level`, maxEntry.level ?? `---`, `Price level compared to recent price values`);
+        void this.checkAndSetValue(`${basePath}.startsAt`, maxEntry.startsAt ?? `---`, `Start time of the price maximum`);
     }
     fetchPriceMinimum(homeId, objectDestination, price) {
         if (!price || price.length === 0) {
             return;
         }
-        const minEntry = price.reduce((min, current) => (current.total < min.total ? current : min));
+        const minEntry = price.reduce((min, current) => ((current.total ?? 0) < (min.total ?? 0) ? current : min));
         const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * minEntry.total) / 1000, `Todays total price minimum`);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * minEntry.energy) / 1000, `Todays spotmarket price at total price minimum`);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * minEntry.tax) / 1000, `Todays tax price at total price minimum`);
-        void this.checkAndSetValue(`${basePath}.level`, minEntry.level, `Price level compared to recent price values`);
-        void this.checkAndSetValue(`${basePath}.startsAt`, minEntry.startsAt, `Start time of the price minimum`);
+        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (minEntry.total ?? 0)) / 1000, `Todays total price minimum`);
+        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (minEntry.energy ?? 0)) / 1000, `Todays spotmarket price at total price minimum`);
+        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (minEntry.tax ?? 0)) / 1000, `Todays tax price at total price minimum`);
+        void this.checkAndSetValue(`${basePath}.level`, minEntry.level ?? `---`, `Price level compared to recent price values`);
+        void this.checkAndSetValue(`${basePath}.startsAt`, minEntry.startsAt ?? `---`, `Start time of the price minimum`);
     }
     emptyingPrice(homeId, objectDestination) {
         const basePath = `Homes.${homeId}.${objectDestination}`;
