@@ -1,293 +1,277 @@
 {
-  "common": {
-    "name": "tibberlink",
-    "version": "6.2.2",
-    "news": {
-      "6.2.2": {
-        "en": "fix vulnerability in axios\nupdate dependencies",
-        "de": "schwachstelle in axios beheben\naktualisierung der abhängigkeiten",
-        "ru": "уязвимость в axios\nобновление зависимостей",
-        "pt": "corrigir vulnerabilidade em axios\natualizar dependências",
-        "nl": "fix kwetsbaarheid in axios\nafhankelijkheden bijwerken",
-        "fr": "corriger la vulnérabilité dans les axios\nmettre à jour les dépendances",
-        "it": "fissare la vulnerabilità in assios\naggiornamento dipendenze",
-        "es": "fijar vulnerabilidad en axios\ndependencias de actualización",
-        "pl": "naprawić wrażliwość w aksjozach\naktualizacji zależności",
-        "uk": "зафіксувати вразливість в осях\nоновлення залежності",
-        "zh-cn": "在轴线中固定脆弱性\n更新依赖关系"
-      },
-      "6.2.1": {
-        "en": "optimize pull of consumption data (#860)\nswitch to ES2023 code\nupdate dependencies",
-        "de": "optimieren von verbrauchsdaten (#860)\neS2023-Code wechseln\naktualisierung der abhängigkeiten",
-        "ru": "оптимизация данных о потреблении (#860)\nпереход на код ES2023\nобновление зависимостей",
-        "pt": "otimizar os dados de consumo (# 860)\nmudar para o código ES2023\natualizar dependências",
-        "nl": "optimalisatie van verbruiksgegevens (#860)\nschakel naar ES2023 code\nafhankelijkheden bijwerken",
-        "fr": "optimiser le tirage des données de consommation (#860)\npasser au code ES2023\nmettre à jour les dépendances",
-        "it": "ottimizzare l'estrazione dei dati di consumo (#860)\npassare al codice ES2023\naggiornamento dipendenze",
-        "es": "optimización de los datos de consumo (#860)\nconmutación al código ES2023\ndependencias de actualización",
-        "pl": "optymalizacja poboru danych konsumpcyjnych (# 860)\nprzełączanie na kod ES2023\naktualizacji zależności",
-        "uk": "оптимізоване навантаження даних споживання (#860)\nперемкніть код ES2023\nоновлення залежності",
-        "zh-cn": "优化消费数据的牵引(# 860)\n切换到 ES2023 代码\n更新依赖关系"
-      },
-      "6.2.0": {
-        "en": "enable umlauts to calculation channel names (#844)\nenhance resolution of pulse meter data (#840)\nfix wrong end block state calculation (#841)\nsetup auto-merge for dependabot (#834)\nupdate dependencies",
-        "de": "umlaute zur berechnung von kanalnamen aktivieren (#844)\nverbesserung der auflösung von pulsmesserdaten (#840)\nfalsche endblock-zustandsberechnung (#841)\nsetup auto-merge für abhängigabot (#834)\naktualisierung der abhängigkeiten",
-        "ru": "умлауты могут вычислять имена каналов (#844)\nулучшение разрешения данных пульсометра (#840)\nисправить неправильный расчет состояния конечного блока (#841)\nнастройка автоматического слияния для иждивенца (#834)\nобновление зависимостей",
-        "pt": "habilitar umlauts para calcular os nomes dos canais (# 844)\nmelhorar a resolução dos dados do medidor de pulso (# 840)\ncorrigir o cálculo errado do estado do bloco final (# 841)\nconfiguração de auto- fusão para dependebot (# 834)\natualizar dependências",
-        "nl": "umlauts inschakelen om kanaalnamen te berekenen (#844)\nverbeteren van de resolutie van pulsmetergegevens (#840)\nberekening van de foute eindbloktoestand op te lossen (#841)\nsetup auto-merge voor dependabot (#834)\nafhankelijkheden bijwerken",
-        "fr": "activer umlauts pour calculer les noms de canaux (#844)\naméliorer la résolution des données du compteur d'impulsions (#840)\ncorrection du mauvais calcul de l'état du bloc d'extrémité (#841)\nsetup auto-merge pour dependabot (#834)\nmettre à jour les dépendances",
-        "it": "abilitare umlauts ai nomi dei canali di calcolo (#844)\nmigliorare la risoluzione dei dati del contatore di impulso (#840)\ncorreggere il calcolo dello stato del blocco finale sbagliato (#841)\ninstallazione auto-merge per dipendeabot (#834)\naggiornamento dipendenze",
-        "es": "habilitar umlauts a los nombres de los canales de cálculo (#844)\nmejorar la resolución de los datos del medidor de pulso (#840)\narreglar el cálculo del estado del bloque final incorrecto (#841)\nconfiguración de auto-merge para dependabot (#834)\ndependencias de actualización",
-        "pl": "włączyć umlauty do nazw kanałów obliczeniowych (# 844)\nzwiększenie rozdzielczości danych pulsometru (# 840)\nnaprawić błędne obliczenia stanu bloku końca (# 841)\nsetup auto- merge for dependabot (# 834)\naktualizacji zależności",
-        "uk": "увімкнути umlauts для обчислення назв каналів (#844)\nпідвищити роздільну здатність даних імпульсних лічильників (#840)\nвиправити неправильний кінець блоку державного розрахунку (#841)\nустановка автозапчастин для залежності (#834)\nоновлення залежності",
-        "zh-cn": "允许 umlauts 计算频道名称 (# 844)\n增强脉冲计数据的分辨率 (# 840)\n固定错误的终端块状态计算 (# 841)\n为depabot (# 834) 设置自动安装\n更新依赖关系"
-      },
-      "6.1.1": {
-        "en": "fix LTF shifting for frames greater 24h\nupdate dependencies",
-        "de": "fix LTF-Verschiebung für Rahmen größer 24h\naktualisierung der abhängigkeiten",
-        "ru": "исправить сдвиг LTF для кадров больше 24 ч\nобновление зависимостей",
-        "pt": "corrigir deslocamento LTF para quadros maiores 24h\natualizar dependências",
-        "nl": "vast LTF verschuiven voor frames groter 24h\nafhankelijkheden bijwerken",
-        "fr": "fixer le déplacement LTF pour les cadres plus grand 24h\nmettre à jour les dépendances",
-        "it": "fix LTF spostamento per cornici maggiore 24h\naggiornamento dipendenze",
-        "es": "fijar LTF cambio para marcos mayor 24h\ndependencias de actualización",
-        "pl": "naprawić przesunięcie LTF dla klatek większych 24h\naktualizacji zależności",
-        "uk": "кріплення LTF для каркасів більше 24h\nоновлення залежності",
-        "zh-cn": "为更大的24小时帧修正 LTF 转换\n更新依赖关系"
-      },
-      "6.1.0": {
-        "en": "BREAKING: change flexcharts x-axis type\nintroduce FlexChart output for SBB channels second output\nintroduce second name for FlexChart output of SBB channels\nintroduce color for FlexChart output of calculator results\nintroduce more statistics for yesterdays prices\nclean code for 15min time slots\nfix schema links (#822)\nfix CurrentPrice after midnight (#812)\nupdate cron\nyear 2026 changes\nupdate dependencies",
-        "de": "BREAKING: Flexcharts x-Achsentyp ändern\nflexChart Ausgang für SBB Kanäle zweiter Ausgang\nden zweiten Namen für FlexChart-Ausgang von SBB-Kanälen einführen\ndie Farbe für die FlexChart Ausgabe von Rechenergebnissen einführen\nmehr statistiken für die gestrigen preise einführen\nsauberer code für 15min zeitschlitze\nschemalinks fixieren (#822)\naktuellePreis nach Mitternacht (#812)\nupdate cron\njahr 2026 änderungen\naktualisierung der abhängigkeiten",
-        "ru": "BREAKING: изменение флексчартов типа x-axis\nввести выход FlexChart для каналов SBB второй выход\nввести второе имя для вывода FlexChart каналов SBB\nввести цвет для вывода FlexChart результатов калькулятора\nвведите больше статистики по вчерашним ценам\nчистый код для 15-минутных временных интервалов\nссылки на схемы (#822)\nтекущая цена после полуночи (#812)\nобновление cron\n2026 год изменения\nобновление зависимостей",
-        "pt": "BREAKING: mudança de flexcharts tipo de eixo x\nintroduzir saída FlexChart para canais SBB segunda saída\nintroduzir o segundo nome para a saída FlexChart de canais SBB\nintroduzir a cor para a saída FlexChart dos resultados da calculadora\nintroduzir mais estatísticas para os preços de ontem\ncódigo limpo para slots de tempo de 15 minutos\ncorrigir links de esquema (# 822)\ncorrigir CurrentPrice após a meia-noite (# 812)\natualizar cron\nvariações do ano de 2026\natualizar dependências",
-        "nl": "Breaking: verandering flexcharts x-as type\nflexChart uitgang voor SBB kanalen tweede uitgang introduceren\nintroduceer tweede naam voor FlexChart uitgang van SBB kanalen\nintroduceer kleur voor FlexChart-uitvoer van rekenresultaten\nmeer statistieken voor de prijzen van gisteren invoeren\nschone code voor 15min tijd slots\nschema links herstellen (#822)\nfix CurrentPrijs na middernacht (#812)\ncron bijwerken\njaar 2026 veranderingen\nafhankelijkheden bijwerken",
-        "fr": "BREAKING: changement flexcharts type d'axe x\nintroduire la sortie FlexChart pour les canaux CFF deuxième sortie\nintroduire le deuxième nom pour la sortie FlexChart des canaux CFF\nintroduire la couleur pour la sortie FlexChart des résultats de calculatrice\nintroduire plus de statistiques pour les prix d'hier\ncode propre pour les créneaux horaires de 15min\ncorriger les liens de schéma (#822)\nfixer CurrentPrix après minuit (#812)\nmettre à jour cron\nannée 2026 changements\nmettre à jour les dépendances",
-        "it": "BREAKING: cambio flexcharts x-assis tipo\nintrodurre l'output FlexChart per canali FFS seconda uscita\nintrodurre il secondo nome per l'uscita FlexChart dei canali FFS\nintrodurre il colore per l'output FlexChart dei risultati della calcolatrice\nintrodurre ulteriori statistiche per i prezzi di ieri\ncodice pulito per slot di tempo 15min\ncorrezione dei collegamenti di schema (#822)\ncorrezione CorrentePrezzo dopo mezzanotte (#812)\naggiornamento cron\nanno 2026 modifiche\naggiornamento dipendenze",
-        "es": "BREAKING: cambiar flexcharts tipo x-axis\nintroducir la salida FlexChart para los canales SBB\nintroducir el segundo nombre para la salida FlexChart de canales SBB\nintroducir color para la salida FlexChart de los resultados de la calculadora\nintroducir más estadísticas para los precios de ayer\ncódigo limpio para ranuras de tiempo 15min\nfijar enlaces de esquemas (#822)\nfijar el precio actual después de la medianoche (#812)\nactualización cron\naño 2026 cambios\ndependencias de actualización",
-        "pl": "BREAKING: zmiana typu flexcharts\nwprowadzić wyjście FlexChart dla kanałów SBB drugie wyjście\nwprowadzić drugą nazwę dla wyjścia FlexChart z kanałów SBB\nwprowadzić kolor dla wyjścia FlexChart z kalkulatora wyników\nwprowadzenie większej liczby statystyk dotyczących cen w ciągu ostatnich dni\nczysty kod dla czasu 15min\nfix schema links (# 822)\nfix CurrentPrice after midnight (# 812)\naktualizacja cron\nrok 2026 zmiany\naktualizacji zależności",
-        "uk": "BREAKING: зміна флексарів типу осі\nвводити FlexChart вихід для каналів SBB другий вихід\nвводити другу назву для FlexChart виведення SBB каналів\nввести колір для FlexChart виведення результатів калькулятора\nзапроваджувати більшу статистику за цінами\nчистий код за 15 хв\nfix schema посилання (#822)\nвиправити CurrentPrice після півночі (#812)\nоновлення cron\nрік 2026 змін\nоновлення залежності",
-        "zh-cn": "打破: 更改弹性图x轴类型\n为 SBB 通道引入 FlexChart 输出\n为 SBB 频道的 FlexChart 输出引入第二个名称\n引入计算结果的 FlexChart 输出颜色\n增加昨天价格的统计数据\n15min 时段的清洁代码\n固定计划链接 (# 822)\n午夜后修正当前价格(# 812)\n更新线索\n2026年的变化\n更新依赖关系"
-      },
-      "6.0.3": {
-        "en": "optimize sentry\noptimize dependabot config (#805)\nupdate axios and cron\nupdate FlexChart template",
-        "de": "optimieren sie die sendung\noptimieren abhängigabot config (#805)\naxios und cron aktualisieren\nupdate FlexChart Template",
-        "ru": "оптимизация часовых\nоптимизируйте конфигурацию зависимого робота (#805)\nобновление axios и cron\nобновление шаблона FlexChart",
-        "pt": "otimizar sentinela\notimizar a configuração do dependebot (# 805)\natualizar axios e cron\natualizar modelo FlexChart",
-        "nl": "optimale wacht\nde dependabotconfiguratie optimaliseren (#805)\nupdate axios en cron\nflexChart-sjabloon bijwerken",
-        "fr": "optimiser la sentinelle\noptimiser la configuration de dependabot (#805)\nmettre à jour axios et cron\nmettre à jour le modèle FlexChart",
-        "it": "ottimizza la spedizione\nottimizzare la configurazione dipendeabot (#805)\naggiornamento assio e cron\naggiornamento modello FlexChart",
-        "es": "optimización de centry\noptimizar config de dependabot (#805)\nactualización axios y cron\nactualizar plantilla FlexChart",
-        "pl": "optymalizacja wartownika\nzoptymalizuj config zależny (# 805)\nuaktualnić aksjos i cron\naktualizacja szablonu FlexChart",
-        "uk": "оптимізація відправлень\nоптимізація налаштування залежностей (#805)\nоновлення axios і cron\nоновлення шаблону FlexChart",
-        "zh-cn": "优化哨兵\n优化依赖配置 (# 805)\n更新轴和冠\n更新 FlexChart 模板"
-      },
-      "6.0.2": {
-        "en": "update NPM deployment\nupdate dependencies",
-        "de": "nPM-Einsatz aktualisieren\naktualisierung der abhängigkeiten",
-        "ru": "обновление NPM развертывания\nобновление зависимостей",
-        "pt": "atualizar a implantação do NPM\natualizar dependências",
-        "nl": "nPM-implementatie bijwerken\nafhankelijkheden bijwerken",
-        "fr": "mettre à jour le déploiement des NPM\nmettre à jour les dépendances",
-        "it": "aggiornamento Distribuzione NPM\naggiornamento dipendenze",
-        "es": "actualización del despliegue del mecanismo nacional de prevención\ndependencias de actualización",
-        "pl": "aktualizacja rozmieszczenia NPM\naktualizacji zależności",
-        "uk": "оновлення розгортання NPM\nоновлення залежності",
-        "zh-cn": "更新国家预防机制的部署情况\n更新依赖关系"
-      }
-    },
-    "messages": [
-      {
-        "condition": {
-          "operand": "and",
-          "rules": [
-            "oldVersion<6.1.0",
-            "newVersion>=6.1.0"
-          ]
-        },
-        "title": {
-          "en": "Important notice!",
-          "de": "Wichtiger Hinweis!",
-          "ru": "Важное замечание!",
-          "pt": "Notícia importante!",
-          "nl": "Belangrijke mededeling!",
-          "fr": "Avis important!",
-          "it": "Avviso IMPORTANTE!",
-          "es": "Noticia importante!",
-          "pl": "Ważna uwaga!",
-          "uk": "Погода!",
-          "zh-cn": "重要通知!"
-        },
-        "text": {
-          "en": "The adapter behavior has changed! The FlexCharts X-axis now adapts to the window size. Because of this, the templates were updated. Please compare your template with the new examples and adjust it if needed.",
-          "de": "Das Verhalten des Adapters hat sich geändert! Die X-Achse der FlexCharts passt sich jetzt der Fenstergröße an. Daher wurden die Templates aktualisiert. Bitte vergleicht euer Template mit den neuen Vorlagen und passt es bei Bedarf an.",
-          "ru": "Поведение адаптера изменилось! Ось X в FlexCharts теперь адаптируется к размеру окна. Поэтому шаблоны были обновлены. Пожалуйста, сравните свой шаблон с новыми примерами и при необходимости скорректируйте его.",
-          "pt": "O comportamento do adaptador mudou! O eixo X do FlexCharts agora se adapta ao tamanho da janela. Por isso, os modelos foram atualizados. Compare seu modelo com os novos exemplos e ajuste-o se necessário.",
-          "nl": "Het gedrag van de adapter is veranderd! De X-as van FlexCharts past zich nu aan de venstergrootte aan. Daarom zijn de templates bijgewerkt. Vergelijk je template met de nieuwe voorbeelden en pas deze indien nodig aan.",
-          "fr": "Le comportement de l'adaptateur a changé ! L’axe X de FlexCharts s’adapte désormais à la taille de la fenêtre. Les modèles ont donc été mis à jour. Veuillez comparer votre modèle avec les nouveaux exemples et l’ajuster si nécessaire.",
-          "it": "Il comportamento dell'adattatore è cambiato! L’asse X di FlexCharts ora si adatta alla dimensione della finestra. Per questo motivo, i template sono stati aggiornati. Confronta il tuo template con i nuovi esempi e adattalo se necessario.",
-          "es": "¡El comportamiento del adaptador ha cambiado! El eje X de FlexCharts ahora se adapta al tamaño de la ventana. Por ello, los templates se han actualizado. Compara tu template con los nuevos ejemplos y ajústalo si es necesario.",
-          "pl": "Zachowanie adaptera zmieniło się! Oś X w FlexCharts teraz dostosowuje się do rozmiaru okna. Dlatego szablony zostały zaktualizowane. Porównaj swój szablon z nowymi przykładami i dostosuj go w razie potrzeby.",
-          "uk": "Поведінка адаптера змінилася! Вісь X у FlexCharts тепер адаптується до розміру вікна. Тому шаблони було оновлено. Порівняйте свій шаблон з новими прикладами та за потреби змініть його.",
-          "zh-cn": "适配器行为已更改！FlexCharts 的 X 轴现在会根据窗口大小自动调整，因此模板已更新。请将您的模板与新示例进行比较，并在需要时进行调整。"
-        },
-        "level": "warn",
-        "buttons": [
-          "agree",
-          "cancel"
-        ]
-      }
-    ],
-    "titleLang": {
-      "en": "Tibber Link",
-      "de": "Tibber Link",
-      "ru": "Тиббер Ссылка",
-      "pt": "Tibber Link",
-      "nl": "Tibber Link",
-      "fr": "Tibber Link",
-      "it": "Tibber Link",
-      "es": "Tibber Link",
-      "pl": "Tibber Link",
-      "uk": "Посилання",
-      "zh-cn": "网络联系"
-    },
-    "desc": {
-      "en": "Links Tibber API data to be used in ioBroker",
-      "de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
-      "ru": "Ссылки на данные Tibber API для использования в ioBroker",
-      "pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
-      "nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
-      "fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
-      "it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
-      "es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
-      "pl": "Łączy dane z API Tibber do użycia w ioBroker",
-      "uk": "Посилання на дані Tibber API для використання в ioBroker",
-      "zh-cn": "连接Tibber API数据以在ioBroker中使用"
-    },
-    "authors": [
-      "Hombach <TibberLink@homba.ch>"
-    ],
-    "keywords": [
-      "power",
-      "energy",
-      "Tibber"
-    ],
-    "licenseInformation": {
-      "license": "GPL-3.0-only",
-      "type": "free"
-    },
-    "platform": "Javascript/Node.js",
-    "icon": "tibberlink.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
-    "readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
-    "loglevel": "info",
-    "tier": 2,
-    "mode": "daemon",
-    "messagebox": true,
-    "type": "energy",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=6.0.11"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=7.6.17"
-      }
-    ],
-    "plugins": {
-      "sentry": {
-        "dsn": "https://eb119579a7dd76e359395df22aa265f8@o415875.ingest.us.sentry.io/4510376005009408"
-      }
-    }
-  },
-  "encryptedNative": [
-    "TibberAPIToken"
-  ],
-  "protectedNative": [
-    "TibberAPIToken"
-  ],
-  "native": {
-    "TibberAPIToken": "",
-    "HomesList": [
-      {
-        "feedActive": "false",
-        "priceDataPollActive": "true",
-        "homeID": "None available - restart adapter after entering token",
-        "statsActive": "false",
-        "numberConsHourly": 24,
-        "numberConsDaily": 7,
-        "numberConsWeekly": 4,
-        "numberConsMonthly": 4,
-        "numberConsAnnual": 2
-      }
-    ],
-    "CalculatorList": [
-      {
-        "chHomeID": "None available - restart adapter after entering token",
-        "chType": "best cost",
-        "chName": "Channel Name",
-        "chActive": "false",
-        "chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
-        "chValueOn": "true",
-        "chValueOff": "false",
-        "chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
-        "chValueOn2": "true",
-        "chValueOff2": "false"
-      }
-    ],
-    "PulseList": [
-      {
-        "puName": "Pulse Local",
-        "tibberBridgeUrl": "tibber-host",
-        "tibberBridgePassword": "xxxx-xxxx",
-        "tibberPulseLocalNodeId": 1,
-        "tibberBridgeRawDataInterval": 2000
-      }
-    ]
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Information"
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "role": "indicator.connected",
-        "name": "Device or service connected",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.LastSentryLogMonth",
-      "type": "state",
-      "common": {
-        "role": "value",
-        "name": "Last month for Sentry log",
-        "type": "number",
-        "unit": "",
-        "read": true,
-        "write": false,
-        "def": 0
-      },
-      "native": {}
-    }
-  ]
+	"common": {
+		"name": "tibberlink",
+		"version": "6.2.2",
+		"news": {
+			"6.2.2": {
+				"en": "fix vulnerability in axios\nupdate dependencies",
+				"de": "schwachstelle in axios beheben\naktualisierung der abhängigkeiten",
+				"ru": "уязвимость в axios\nобновление зависимостей",
+				"pt": "corrigir vulnerabilidade em axios\natualizar dependências",
+				"nl": "fix kwetsbaarheid in axios\nafhankelijkheden bijwerken",
+				"fr": "corriger la vulnérabilité dans les axios\nmettre à jour les dépendances",
+				"it": "fissare la vulnerabilità in assios\naggiornamento dipendenze",
+				"es": "fijar vulnerabilidad en axios\ndependencias de actualización",
+				"pl": "naprawić wrażliwość w aksjozach\naktualizacji zależności",
+				"uk": "зафіксувати вразливість в осях\nоновлення залежності",
+				"zh-cn": "在轴线中固定脆弱性\n更新依赖关系"
+			},
+			"6.2.1": {
+				"en": "optimize pull of consumption data (#860)\nswitch to ES2023 code\nupdate dependencies",
+				"de": "optimieren von verbrauchsdaten (#860)\neS2023-Code wechseln\naktualisierung der abhängigkeiten",
+				"ru": "оптимизация данных о потреблении (#860)\nпереход на код ES2023\nобновление зависимостей",
+				"pt": "otimizar os dados de consumo (# 860)\nmudar para o código ES2023\natualizar dependências",
+				"nl": "optimalisatie van verbruiksgegevens (#860)\nschakel naar ES2023 code\nafhankelijkheden bijwerken",
+				"fr": "optimiser le tirage des données de consommation (#860)\npasser au code ES2023\nmettre à jour les dépendances",
+				"it": "ottimizzare l'estrazione dei dati di consumo (#860)\npassare al codice ES2023\naggiornamento dipendenze",
+				"es": "optimización de los datos de consumo (#860)\nconmutación al código ES2023\ndependencias de actualización",
+				"pl": "optymalizacja poboru danych konsumpcyjnych (# 860)\nprzełączanie na kod ES2023\naktualizacji zależności",
+				"uk": "оптимізоване навантаження даних споживання (#860)\nперемкніть код ES2023\nоновлення залежності",
+				"zh-cn": "优化消费数据的牵引(# 860)\n切换到 ES2023 代码\n更新依赖关系"
+			},
+			"6.2.0": {
+				"en": "enable umlauts to calculation channel names (#844)\nenhance resolution of pulse meter data (#840)\nfix wrong end block state calculation (#841)\nsetup auto-merge for dependabot (#834)\nupdate dependencies",
+				"de": "umlaute zur berechnung von kanalnamen aktivieren (#844)\nverbesserung der auflösung von pulsmesserdaten (#840)\nfalsche endblock-zustandsberechnung (#841)\nsetup auto-merge für abhängigabot (#834)\naktualisierung der abhängigkeiten",
+				"ru": "умлауты могут вычислять имена каналов (#844)\nулучшение разрешения данных пульсометра (#840)\nисправить неправильный расчет состояния конечного блока (#841)\nнастройка автоматического слияния для иждивенца (#834)\nобновление зависимостей",
+				"pt": "habilitar umlauts para calcular os nomes dos canais (# 844)\nmelhorar a resolução dos dados do medidor de pulso (# 840)\ncorrigir o cálculo errado do estado do bloco final (# 841)\nconfiguração de auto- fusão para dependebot (# 834)\natualizar dependências",
+				"nl": "umlauts inschakelen om kanaalnamen te berekenen (#844)\nverbeteren van de resolutie van pulsmetergegevens (#840)\nberekening van de foute eindbloktoestand op te lossen (#841)\nsetup auto-merge voor dependabot (#834)\nafhankelijkheden bijwerken",
+				"fr": "activer umlauts pour calculer les noms de canaux (#844)\naméliorer la résolution des données du compteur d'impulsions (#840)\ncorrection du mauvais calcul de l'état du bloc d'extrémité (#841)\nsetup auto-merge pour dependabot (#834)\nmettre à jour les dépendances",
+				"it": "abilitare umlauts ai nomi dei canali di calcolo (#844)\nmigliorare la risoluzione dei dati del contatore di impulso (#840)\ncorreggere il calcolo dello stato del blocco finale sbagliato (#841)\ninstallazione auto-merge per dipendeabot (#834)\naggiornamento dipendenze",
+				"es": "habilitar umlauts a los nombres de los canales de cálculo (#844)\nmejorar la resolución de los datos del medidor de pulso (#840)\narreglar el cálculo del estado del bloque final incorrecto (#841)\nconfiguración de auto-merge para dependabot (#834)\ndependencias de actualización",
+				"pl": "włączyć umlauty do nazw kanałów obliczeniowych (# 844)\nzwiększenie rozdzielczości danych pulsometru (# 840)\nnaprawić błędne obliczenia stanu bloku końca (# 841)\nsetup auto- merge for dependabot (# 834)\naktualizacji zależności",
+				"uk": "увімкнути umlauts для обчислення назв каналів (#844)\nпідвищити роздільну здатність даних імпульсних лічильників (#840)\nвиправити неправильний кінець блоку державного розрахунку (#841)\nустановка автозапчастин для залежності (#834)\nоновлення залежності",
+				"zh-cn": "允许 umlauts 计算频道名称 (# 844)\n增强脉冲计数据的分辨率 (# 840)\n固定错误的终端块状态计算 (# 841)\n为depabot (# 834) 设置自动安装\n更新依赖关系"
+			},
+			"6.1.1": {
+				"en": "fix LTF shifting for frames greater 24h\nupdate dependencies",
+				"de": "fix LTF-Verschiebung für Rahmen größer 24h\naktualisierung der abhängigkeiten",
+				"ru": "исправить сдвиг LTF для кадров больше 24 ч\nобновление зависимостей",
+				"pt": "corrigir deslocamento LTF para quadros maiores 24h\natualizar dependências",
+				"nl": "vast LTF verschuiven voor frames groter 24h\nafhankelijkheden bijwerken",
+				"fr": "fixer le déplacement LTF pour les cadres plus grand 24h\nmettre à jour les dépendances",
+				"it": "fix LTF spostamento per cornici maggiore 24h\naggiornamento dipendenze",
+				"es": "fijar LTF cambio para marcos mayor 24h\ndependencias de actualización",
+				"pl": "naprawić przesunięcie LTF dla klatek większych 24h\naktualizacji zależności",
+				"uk": "кріплення LTF для каркасів більше 24h\nоновлення залежності",
+				"zh-cn": "为更大的24小时帧修正 LTF 转换\n更新依赖关系"
+			},
+			"6.1.0": {
+				"en": "BREAKING: change flexcharts x-axis type\nintroduce FlexChart output for SBB channels second output\nintroduce second name for FlexChart output of SBB channels\nintroduce color for FlexChart output of calculator results\nintroduce more statistics for yesterdays prices\nclean code for 15min time slots\nfix schema links (#822)\nfix CurrentPrice after midnight (#812)\nupdate cron\nyear 2026 changes\nupdate dependencies",
+				"de": "BREAKING: Flexcharts x-Achsentyp ändern\nflexChart Ausgang für SBB Kanäle zweiter Ausgang\nden zweiten Namen für FlexChart-Ausgang von SBB-Kanälen einführen\ndie Farbe für die FlexChart Ausgabe von Rechenergebnissen einführen\nmehr statistiken für die gestrigen preise einführen\nsauberer code für 15min zeitschlitze\nschemalinks fixieren (#822)\naktuellePreis nach Mitternacht (#812)\nupdate cron\njahr 2026 änderungen\naktualisierung der abhängigkeiten",
+				"ru": "BREAKING: изменение флексчартов типа x-axis\nввести выход FlexChart для каналов SBB второй выход\nввести второе имя для вывода FlexChart каналов SBB\nввести цвет для вывода FlexChart результатов калькулятора\nвведите больше статистики по вчерашним ценам\nчистый код для 15-минутных временных интервалов\nссылки на схемы (#822)\nтекущая цена после полуночи (#812)\nобновление cron\n2026 год изменения\nобновление зависимостей",
+				"pt": "BREAKING: mudança de flexcharts tipo de eixo x\nintroduzir saída FlexChart para canais SBB segunda saída\nintroduzir o segundo nome para a saída FlexChart de canais SBB\nintroduzir a cor para a saída FlexChart dos resultados da calculadora\nintroduzir mais estatísticas para os preços de ontem\ncódigo limpo para slots de tempo de 15 minutos\ncorrigir links de esquema (# 822)\ncorrigir CurrentPrice após a meia-noite (# 812)\natualizar cron\nvariações do ano de 2026\natualizar dependências",
+				"nl": "Breaking: verandering flexcharts x-as type\nflexChart uitgang voor SBB kanalen tweede uitgang introduceren\nintroduceer tweede naam voor FlexChart uitgang van SBB kanalen\nintroduceer kleur voor FlexChart-uitvoer van rekenresultaten\nmeer statistieken voor de prijzen van gisteren invoeren\nschone code voor 15min tijd slots\nschema links herstellen (#822)\nfix CurrentPrijs na middernacht (#812)\ncron bijwerken\njaar 2026 veranderingen\nafhankelijkheden bijwerken",
+				"fr": "BREAKING: changement flexcharts type d'axe x\nintroduire la sortie FlexChart pour les canaux CFF deuxième sortie\nintroduire le deuxième nom pour la sortie FlexChart des canaux CFF\nintroduire la couleur pour la sortie FlexChart des résultats de calculatrice\nintroduire plus de statistiques pour les prix d'hier\ncode propre pour les créneaux horaires de 15min\ncorriger les liens de schéma (#822)\nfixer CurrentPrix après minuit (#812)\nmettre à jour cron\nannée 2026 changements\nmettre à jour les dépendances",
+				"it": "BREAKING: cambio flexcharts x-assis tipo\nintrodurre l'output FlexChart per canali FFS seconda uscita\nintrodurre il secondo nome per l'uscita FlexChart dei canali FFS\nintrodurre il colore per l'output FlexChart dei risultati della calcolatrice\nintrodurre ulteriori statistiche per i prezzi di ieri\ncodice pulito per slot di tempo 15min\ncorrezione dei collegamenti di schema (#822)\ncorrezione CorrentePrezzo dopo mezzanotte (#812)\naggiornamento cron\nanno 2026 modifiche\naggiornamento dipendenze",
+				"es": "BREAKING: cambiar flexcharts tipo x-axis\nintroducir la salida FlexChart para los canales SBB\nintroducir el segundo nombre para la salida FlexChart de canales SBB\nintroducir color para la salida FlexChart de los resultados de la calculadora\nintroducir más estadísticas para los precios de ayer\ncódigo limpio para ranuras de tiempo 15min\nfijar enlaces de esquemas (#822)\nfijar el precio actual después de la medianoche (#812)\nactualización cron\naño 2026 cambios\ndependencias de actualización",
+				"pl": "BREAKING: zmiana typu flexcharts\nwprowadzić wyjście FlexChart dla kanałów SBB drugie wyjście\nwprowadzić drugą nazwę dla wyjścia FlexChart z kanałów SBB\nwprowadzić kolor dla wyjścia FlexChart z kalkulatora wyników\nwprowadzenie większej liczby statystyk dotyczących cen w ciągu ostatnich dni\nczysty kod dla czasu 15min\nfix schema links (# 822)\nfix CurrentPrice after midnight (# 812)\naktualizacja cron\nrok 2026 zmiany\naktualizacji zależności",
+				"uk": "BREAKING: зміна флексарів типу осі\nвводити FlexChart вихід для каналів SBB другий вихід\nвводити другу назву для FlexChart виведення SBB каналів\nввести колір для FlexChart виведення результатів калькулятора\nзапроваджувати більшу статистику за цінами\nчистий код за 15 хв\nfix schema посилання (#822)\nвиправити CurrentPrice після півночі (#812)\nоновлення cron\nрік 2026 змін\nоновлення залежності",
+				"zh-cn": "打破: 更改弹性图x轴类型\n为 SBB 通道引入 FlexChart 输出\n为 SBB 频道的 FlexChart 输出引入第二个名称\n引入计算结果的 FlexChart 输出颜色\n增加昨天价格的统计数据\n15min 时段的清洁代码\n固定计划链接 (# 822)\n午夜后修正当前价格(# 812)\n更新线索\n2026年的变化\n更新依赖关系"
+			},
+			"6.0.3": {
+				"en": "optimize sentry\noptimize dependabot config (#805)\nupdate axios and cron\nupdate FlexChart template",
+				"de": "optimieren sie die sendung\noptimieren abhängigabot config (#805)\naxios und cron aktualisieren\nupdate FlexChart Template",
+				"ru": "оптимизация часовых\nоптимизируйте конфигурацию зависимого робота (#805)\nобновление axios и cron\nобновление шаблона FlexChart",
+				"pt": "otimizar sentinela\notimizar a configuração do dependebot (# 805)\natualizar axios e cron\natualizar modelo FlexChart",
+				"nl": "optimale wacht\nde dependabotconfiguratie optimaliseren (#805)\nupdate axios en cron\nflexChart-sjabloon bijwerken",
+				"fr": "optimiser la sentinelle\noptimiser la configuration de dependabot (#805)\nmettre à jour axios et cron\nmettre à jour le modèle FlexChart",
+				"it": "ottimizza la spedizione\nottimizzare la configurazione dipendeabot (#805)\naggiornamento assio e cron\naggiornamento modello FlexChart",
+				"es": "optimización de centry\noptimizar config de dependabot (#805)\nactualización axios y cron\nactualizar plantilla FlexChart",
+				"pl": "optymalizacja wartownika\nzoptymalizuj config zależny (# 805)\nuaktualnić aksjos i cron\naktualizacja szablonu FlexChart",
+				"uk": "оптимізація відправлень\nоптимізація налаштування залежностей (#805)\nоновлення axios і cron\nоновлення шаблону FlexChart",
+				"zh-cn": "优化哨兵\n优化依赖配置 (# 805)\n更新轴和冠\n更新 FlexChart 模板"
+			},
+			"6.0.2": {
+				"en": "update NPM deployment\nupdate dependencies",
+				"de": "nPM-Einsatz aktualisieren\naktualisierung der abhängigkeiten",
+				"ru": "обновление NPM развертывания\nобновление зависимостей",
+				"pt": "atualizar a implantação do NPM\natualizar dependências",
+				"nl": "nPM-implementatie bijwerken\nafhankelijkheden bijwerken",
+				"fr": "mettre à jour le déploiement des NPM\nmettre à jour les dépendances",
+				"it": "aggiornamento Distribuzione NPM\naggiornamento dipendenze",
+				"es": "actualización del despliegue del mecanismo nacional de prevención\ndependencias de actualización",
+				"pl": "aktualizacja rozmieszczenia NPM\naktualizacji zależności",
+				"uk": "оновлення розгортання NPM\nоновлення залежності",
+				"zh-cn": "更新国家预防机制的部署情况\n更新依赖关系"
+			}
+		},
+		"messages": [
+			{
+				"condition": {
+					"operand": "and",
+					"rules": ["oldVersion<6.1.0", "newVersion>=6.1.0"]
+				},
+				"title": {
+					"en": "Important notice!",
+					"de": "Wichtiger Hinweis!",
+					"ru": "Важное замечание!",
+					"pt": "Notícia importante!",
+					"nl": "Belangrijke mededeling!",
+					"fr": "Avis important!",
+					"it": "Avviso IMPORTANTE!",
+					"es": "Noticia importante!",
+					"pl": "Ważna uwaga!",
+					"uk": "Погода!",
+					"zh-cn": "重要通知!"
+				},
+				"text": {
+					"en": "The adapter behavior has changed! The FlexCharts X-axis now adapts to the window size. Because of this, the templates were updated. Please compare your template with the new examples and adjust it if needed.",
+					"de": "Das Verhalten des Adapters hat sich geändert! Die X-Achse der FlexCharts passt sich jetzt der Fenstergröße an. Daher wurden die Templates aktualisiert. Bitte vergleicht euer Template mit den neuen Vorlagen und passt es bei Bedarf an.",
+					"ru": "Поведение адаптера изменилось! Ось X в FlexCharts теперь адаптируется к размеру окна. Поэтому шаблоны были обновлены. Пожалуйста, сравните свой шаблон с новыми примерами и при необходимости скорректируйте его.",
+					"pt": "O comportamento do adaptador mudou! O eixo X do FlexCharts agora se adapta ao tamanho da janela. Por isso, os modelos foram atualizados. Compare seu modelo com os novos exemplos e ajuste-o se necessário.",
+					"nl": "Het gedrag van de adapter is veranderd! De X-as van FlexCharts past zich nu aan de venstergrootte aan. Daarom zijn de templates bijgewerkt. Vergelijk je template met de nieuwe voorbeelden en pas deze indien nodig aan.",
+					"fr": "Le comportement de l'adaptateur a changé ! L’axe X de FlexCharts s’adapte désormais à la taille de la fenêtre. Les modèles ont donc été mis à jour. Veuillez comparer votre modèle avec les nouveaux exemples et l’ajuster si nécessaire.",
+					"it": "Il comportamento dell'adattatore è cambiato! L’asse X di FlexCharts ora si adatta alla dimensione della finestra. Per questo motivo, i template sono stati aggiornati. Confronta il tuo template con i nuovi esempi e adattalo se necessario.",
+					"es": "¡El comportamiento del adaptador ha cambiado! El eje X de FlexCharts ahora se adapta al tamaño de la ventana. Por ello, los templates se han actualizado. Compara tu template con los nuevos ejemplos y ajústalo si es necesario.",
+					"pl": "Zachowanie adaptera zmieniło się! Oś X w FlexCharts teraz dostosowuje się do rozmiaru okna. Dlatego szablony zostały zaktualizowane. Porównaj swój szablon z nowymi przykładami i dostosuj go w razie potrzeby.",
+					"uk": "Поведінка адаптера змінилася! Вісь X у FlexCharts тепер адаптується до розміру вікна. Тому шаблони було оновлено. Порівняйте свій шаблон з новими прикладами та за потреби змініть його.",
+					"zh-cn": "适配器行为已更改！FlexCharts 的 X 轴现在会根据窗口大小自动调整，因此模板已更新。请将您的模板与新示例进行比较，并在需要时进行调整。"
+				},
+				"level": "warn",
+				"buttons": ["agree", "cancel"]
+			}
+		],
+		"titleLang": {
+			"en": "Tibber Link",
+			"de": "Tibber Link",
+			"ru": "Тиббер Ссылка",
+			"pt": "Tibber Link",
+			"nl": "Tibber Link",
+			"fr": "Tibber Link",
+			"it": "Tibber Link",
+			"es": "Tibber Link",
+			"pl": "Tibber Link",
+			"uk": "Посилання",
+			"zh-cn": "网络联系"
+		},
+		"desc": {
+			"en": "Links Tibber API data to be used in ioBroker",
+			"de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
+			"ru": "Ссылки на данные Tibber API для использования в ioBroker",
+			"pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
+			"nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
+			"fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
+			"it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
+			"es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
+			"pl": "Łączy dane z API Tibber do użycia w ioBroker",
+			"uk": "Посилання на дані Tibber API для використання в ioBroker",
+			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
+		},
+		"authors": ["Hombach <TibberLink@homba.ch>"],
+		"keywords": ["power", "energy", "Tibber"],
+		"licenseInformation": {
+			"license": "GPL-3.0-only",
+			"type": "free"
+		},
+		"platform": "Javascript/Node.js",
+		"icon": "tibberlink.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
+		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
+		"loglevel": "info",
+		"tier": 2,
+		"mode": "daemon",
+		"messagebox": true,
+		"type": "energy",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=6.0.11"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=7.6.20"
+			}
+		],
+		"plugins": {
+			"sentry": {
+				"dsn": "https://eb119579a7dd76e359395df22aa265f8@o415875.ingest.us.sentry.io/4510376005009408"
+			}
+		}
+	},
+	"encryptedNative": ["TibberAPIToken"],
+	"protectedNative": ["TibberAPIToken"],
+	"native": {
+		"TibberAPIToken": "",
+		"HomesList": [
+			{
+				"feedActive": "false",
+				"priceDataPollActive": "true",
+				"homeID": "None available - restart adapter after entering token",
+				"statsActive": "false",
+				"numberConsHourly": 24,
+				"numberConsDaily": 7,
+				"numberConsWeekly": 4,
+				"numberConsMonthly": 4,
+				"numberConsAnnual": 2
+			}
+		],
+		"CalculatorList": [
+			{
+				"chHomeID": "None available - restart adapter after entering token",
+				"chType": "best cost",
+				"chName": "Channel Name",
+				"chActive": "false",
+				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
+				"chValueOn": "true",
+				"chValueOff": "false",
+				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
+				"chValueOn2": "true",
+				"chValueOff2": "false"
+			}
+		],
+		"PulseList": [
+			{
+				"puName": "Pulse Local",
+				"tibberBridgeUrl": "tibber-host",
+				"tibberBridgePassword": "xxxx-xxxx",
+				"tibberPulseLocalNodeId": 1,
+				"tibberBridgeRawDataInterval": 2000
+			}
+		]
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.LastSentryLogMonth",
+			"type": "state",
+			"common": {
+				"role": "value",
+				"name": "Last month for Sentry log",
+				"type": "number",
+				"unit": "",
+				"read": true,
+				"write": false,
+				"def": 0
+			},
+			"native": {}
+		}
+	]
 }

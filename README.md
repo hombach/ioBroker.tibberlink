@@ -184,6 +184,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (copilot) BREAKING: Adapter requires node.js >= 22 now
+- (HombachC) Adapter requires admin >=7.6.20 now
 - (HombachC) fix some type definitions
 - (HombachC) extend FlexCharts docu
 - (HombachC) update dependencies
