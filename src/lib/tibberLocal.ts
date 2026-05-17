@@ -390,7 +390,7 @@ export class TibberLocal extends ProjectUtils {
 	 *
 	 * @param pulse - A number representing the index of the Pulse device in the PulseList configuration.
 	 * @returns A Promise that resolves with the data as a hex string if successful.
-	 * @throws Will throw an error if the HTTP request fails.
+	 * @throws {Error} Will throw an error if the HTTP request fails.
 	 */
 	private async getDataAsHexString(pulse: number): Promise<string> {
 		const auth = `Basic ${Buffer.from(`admin:${this.adapter.config.PulseList[pulse].tibberBridgePassword}`).toString("base64")}`;

@@ -102,14 +102,7 @@ class ProjectUtils {
     }
     isLikeEmpty(inputVar) {
         if (typeof inputVar !== "undefined" && inputVar !== null) {
-            let sTemp = JSON.stringify(inputVar);
-            sTemp = sTemp.replace(/\s+/g, "");
-            sTemp = sTemp.replace(/"+/g, "");
-            sTemp = sTemp.replace(/'+/g, "");
-            sTemp = sTemp.replace(/\[+/g, "");
-            sTemp = sTemp.replace(/\]+/g, "");
-            sTemp = sTemp.replace(/\{+/g, "");
-            sTemp = sTemp.replace(/\}+/g, "");
+            const sTemp = JSON.stringify(inputVar).replace(/[\s"'[\]{}]/g, "");
             if (sTemp !== "") {
                 return false;
             }
@@ -149,6 +142,9 @@ class ProjectUtils {
                 ...((max ?? undefined) ? { max } : {}),
                 ...((step ?? undefined) ? { step } : {}),
             };
+            if (unit != null) {
+                commonObj.unit = unit;
+            }
             await (forceMode
                 ? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
                 : this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
@@ -174,6 +170,72 @@ class ProjectUtils {
                 await this.adapter.setState(stateName, { val: value, ack: true });
             }
         }
+    }
+    async checkAndSetFolder(folderObjectName, name, icon = "", forceMode = false) {
+        const commonObj = {
+            type: "meta.folder",
+            name: name ?? folderObjectName.split(".").pop() ?? folderObjectName,
+            desc: "",
+        };
+        if (icon) {
+            commonObj.icon = icon;
+        }
+        await (forceMode
+            ? this.adapter.setObject(folderObjectName, {
+                type: "folder",
+                common: commonObj,
+                native: {},
+            })
+            : this.adapter.setObjectNotExistsAsync(folderObjectName, {
+                type: "folder",
+                common: commonObj,
+                native: {},
+            }));
+    }
+    async checkAndSetDevice(deviceObjectName, name, onlineId = "", icon = "", forceMode = false) {
+        const commonObj = {
+            name: name ?? deviceObjectName.split(".").pop() ?? deviceObjectName,
+            desc: "",
+        };
+        if (onlineId) {
+            commonObj.statusStates = {
+                onlineId,
+            };
+        }
+        if (icon) {
+            commonObj.icon = icon;
+        }
+        await (forceMode
+            ? this.adapter.setObject(deviceObjectName, {
+                type: "device",
+                common: commonObj,
+                native: {},
+            })
+            : this.adapter.setObjectNotExistsAsync(deviceObjectName, {
+                type: "device",
+                common: commonObj,
+                native: {},
+            }));
+    }
+    async checkAndSetChannel(channelObjectName, name, icon = "", forceMode = false) {
+        const commonObj = {
+            name: name ?? channelObjectName.split(".").pop() ?? channelObjectName,
+            desc: "",
+        };
+        if (icon) {
+            commonObj.icon = icon;
+        }
+        await (forceMode
+            ? this.adapter.setObject(channelObjectName, {
+                type: "channel",
+                common: commonObj,
+                native: {},
+            })
+            : this.adapter.setObjectNotExistsAsync(channelObjectName, {
+                type: "channel",
+                common: commonObj,
+                native: {},
+            }));
     }
     generateErrorMessage(error, context) {
         let errorMessages = "";

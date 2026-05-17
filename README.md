@@ -188,8 +188,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (copilot) added current month consumption (#872)
 - (HombachC) fixed vulnerability in axios
 - (HombachC) fixed some type definitions
-- (HombachC) extend FlexCharts docu
-- (HombachC) update dependencies
+- (HombachC) extended FlexCharts docu
+- (HombachC) updated dependencies
+- (HombachC) updated projectUtils
 
 ### 6.2.2 (2026-04-13)
 

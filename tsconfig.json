@@ -14,8 +14,6 @@
 		"noEmitOnError": true,
 		"outDir": "./build/",
 		"removeComments": true,
-		//"module": "commonjs",
-		//"moduleResolution": "node",
 		"module": "node20",
 		"moduleResolution": "node16",
 		"esModuleInterop": true,
