@@ -516,8 +516,8 @@ class Tibberlink extends utils.Adapter {
 			}
 			await this.setState("info.connection", false, true);
 			callback();
-		} catch (e) {
-			this.log.warn((e as Error).message);
+		} catch (error) {
+			this.log.warn((error as Error).message);
 			callback();
 		}
 	}
@@ -721,8 +721,8 @@ class Tibberlink extends utils.Adapter {
 				// The state was deleted
 				this.log.warn(`state ${id} deleted`);
 			}
-		} catch (e) {
-			this.log.error(`Unhandled exception processing onstateChange: ${e}`);
+		} catch (error) {
+			this.log.error(`Unhandled exception processing onstateChange: ${error}`);
 		}
 	}
 }
