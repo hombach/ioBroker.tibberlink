@@ -185,7 +185,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (copilot) BREAKING: Adapter requires node.js >= 22 now
 - (HombachC) Adapter requires admin >=7.6.20 now
-- (copilot) added current month consumption (#872)
+- (grok) added current month consumption (#872)
 - (HombachC) fixed vulnerability in axios
 - (HombachC) fixed some type definitions
 - (HombachC) extended FlexCharts docu

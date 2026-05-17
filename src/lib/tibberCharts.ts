@@ -50,7 +50,7 @@ export class TibberCharts extends ProjectUtils {
 
 				mergedPrices = mergedPrices.filter(price => {
 					// WiPconst priceTime = parseISO(price.startsAt)
-					const priceTime = parseISO(price.startsAt);
+					const priceTime = parseISO(price.startsAt ?? "");
 					return isAfter(priceTime, pastCutoff) && isBefore(priceTime, futureCutoff);
 				});
 			}
@@ -58,7 +58,7 @@ export class TibberCharts extends ProjectUtils {
 			// double last item and raise time by one 15 minute block
 			const lastItem = mergedPrices[mergedPrices.length - 1];
 			//WiP const lastStartsAt = new Date(lastItem.startsAt);
-			const lastStartsAt = new Date(lastItem.startsAt);
+			const lastStartsAt = new Date(lastItem.startsAt ?? "");
 			const newStartsAt = addMinutes(lastStartsAt, 15);
 			const duplicatedItem = {
 				...lastItem,
@@ -67,7 +67,8 @@ export class TibberCharts extends ProjectUtils {
 			mergedPrices.push(duplicatedItem);
 
 			// build data-series
-			const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt).getTime(), item.total]);
+			// WiP const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt).getTime(), item.total]);
+			const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt ?? "").getTime(), item.total]);
 
 			let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
 			if (jsonFlexCharts) {

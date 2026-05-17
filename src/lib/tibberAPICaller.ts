@@ -505,7 +505,8 @@ export class TibberAPICaller extends ProjectUtils {
 						);
 
 						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
-						if (type === EnergyResolution.MONTHLY) {
+						// if (type === EnergyResolution.DAILY && numCons >= 31) {
+						if (type === EnergyResolution.DAILY) {
 							const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
 							void this.checkAndSetValueNumber(
 								`Homes.${homeID}.Consumption.currentMonthConsumption`,
@@ -532,6 +533,38 @@ export class TibberAPICaller extends ProjectUtils {
 			return undefined;
 		}
 
+		const now = new Date();
+		const currentYear = now.getFullYear();
+		const currentMonth = now.getMonth(); // 0-based
+		let total = 0;
+
+		for (const entry of consumption) {
+			const dateStr = entry.from ?? entry.to;
+			if (!dateStr) {
+				continue;
+			}
+
+			const date = new Date(dateStr);
+			if (isNaN(date.getTime())) {
+				continue;
+			}
+
+			// only entries of the current month/year considered
+			if (date.getFullYear() === currentYear && date.getMonth() === currentMonth) {
+				const value = typeof entry.consumption === "number" ? entry.consumption : Number(entry.consumption);
+				if (Number.isFinite(value)) {
+					total += value;
+				}
+			}
+		}
+		return total > 0 ? total : undefined;
+	}
+	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
+	/**
+	private getCurrentMonthConsumption(consumption: IConsumption[]): number | undefined {
+		if (!consumption || consumption.length === 0) {
+			return undefined;
+		}
 		const sortedConsumption = consumption
 			.map(entry => ({
 				entry,
@@ -544,16 +577,15 @@ export class TibberAPICaller extends ProjectUtils {
 			}))
 			.filter(item => !Number.isNaN(item.timestamp))
 			.sort((left, right) => left.timestamp - right.timestamp);
-
 		const latest = sortedConsumption.at(-1)?.entry;
 		if (!latest) {
 			return undefined;
 		}
-
 		const consumptionValue = typeof latest.consumption === "number" ? latest.consumption : Number(latest.consumption);
 		return Number.isFinite(consumptionValue) ? consumptionValue : undefined;
 	}
 	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
+	 */
 
 	/**
 	 * Updates the list of tomorrow's prices for one home.

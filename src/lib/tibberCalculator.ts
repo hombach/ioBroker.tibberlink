@@ -1224,7 +1224,7 @@ export class TibberCalculator extends ProjectUtils {
 				while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
 					const currentTimeSlot = filteredPrices[cheapIndex];
 					// WiP if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
-					if (currentTimeSlot.total < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
+					if (currentTimeSlot.total ?? 0 < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
 						cheapTimeSlots.push(currentTimeSlot);
 						minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
 					} else {
@@ -1238,7 +1238,8 @@ export class TibberCalculator extends ProjectUtils {
 
 				for (const timeSlot of filteredPrices) {
 					if (!cheapTimeSlots.includes(timeSlot)) {
-						if (timeSlot.total > minDelta + maxCheapTotal) {
+						// WiP if (timeSlot.total > minDelta + maxCheapTotal) {
+						if (timeSlot.total ?? 0 > minDelta + maxCheapTotal) {
 							expensiveTimeSlots.push(timeSlot);
 						} else {
 							normalTimeSlots.push(timeSlot);
@@ -1313,7 +1314,7 @@ export class TibberCalculator extends ProjectUtils {
 				while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
 					const currentTimeSlot = filteredPrices[cheapIndex];
 					// WiP if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
-					if (currentTimeSlot.total < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
+					if (currentTimeSlot.total ?? 0 < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
 						cheapTimeSlots.push(currentTimeSlot);
 						minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
 					} else {
@@ -1328,7 +1329,7 @@ export class TibberCalculator extends ProjectUtils {
 				for (const timeSlot of filteredPrices) {
 					if (!cheapTimeSlots.includes(timeSlot)) {
 						// WiP if (timeSlot.total > minDelta + maxCheapTotal) {
-						if (timeSlot.total > minDelta + maxCheapTotal) {
+						if (timeSlot.total ?? 0 > minDelta + maxCheapTotal) {
 							expensiveTimeSlots.push(timeSlot);
 						} else {
 							normalTimeSlots.push(timeSlot);
@@ -1581,7 +1582,8 @@ export class TibberCalculator extends ProjectUtils {
 
 		// filter objects to time frame
 		const filteredPrices = mergedPrices.filter(price => {
-			const priceDate = new Date(price.startsAt);
+			// WiP const priceDate = new Date(price.startsAt);
+			const priceDate = new Date(price.startsAt ?? 0);
 			return priceDate >= startTime && priceDate < stopTime;
 		});
 		return filteredPrices;
@@ -1621,7 +1623,8 @@ export class TibberCalculator extends ProjectUtils {
  */
 function checkQuarterMatch(entry: IPrice): boolean {
 	const now = new Date();
-	const start = parseISO(entry.startsAt);
+	// WiP const start = parseISO(entry.startsAt);
+	const start = parseISO(entry.startsAt ?? "");
 	const end = addMinutes(start, 15);
 	return now >= start && now < end;
 }

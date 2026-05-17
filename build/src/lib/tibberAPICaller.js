@@ -342,7 +342,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     if (numCons && numCons > 0) {
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
-                        if (type === EnergyResolution_js_1.EnergyResolution.MONTHLY) {
+                        if (type === EnergyResolution_js_1.EnergyResolution.DAILY) {
                             const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
                             void this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`);
                         }
@@ -362,24 +362,27 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         if (!consumption || consumption.length === 0) {
             return undefined;
         }
-        const sortedConsumption = consumption
-            .map(entry => ({
-            entry,
-            date: entry.from ?? entry.to,
-        }))
-            .filter((item) => typeof item.date === "string" && item.date.length > 0)
-            .map(item => ({
-            entry: item.entry,
-            timestamp: Date.parse(item.date),
-        }))
-            .filter(item => !Number.isNaN(item.timestamp))
-            .sort((left, right) => left.timestamp - right.timestamp);
-        const latest = sortedConsumption.at(-1)?.entry;
-        if (!latest) {
-            return undefined;
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth();
+        let total = 0;
+        for (const entry of consumption) {
+            const dateStr = entry.from ?? entry.to;
+            if (!dateStr) {
+                continue;
+            }
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) {
+                continue;
+            }
+            if (date.getFullYear() === currentYear && date.getMonth() === currentMonth) {
+                const value = typeof entry.consumption === "number" ? entry.consumption : Number(entry.consumption);
+                if (Number.isFinite(value)) {
+                    total += value;
+                }
+            }
         }
-        const consumptionValue = typeof latest.consumption === "number" ? latest.consumption : Number(latest.consumption);
-        return Number.isFinite(consumptionValue) ? consumptionValue : undefined;
+        return total > 0 ? total : undefined;
     }
     async fetchPrice(homeId, objectDestination, price) {
         const basePath = `Homes.${homeId}.${objectDestination}`;
