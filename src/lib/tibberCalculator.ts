@@ -328,7 +328,7 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.subscribeStates(`Homes.${homeId}.Calculations.${channel}.Percentage`);
 			//#endregion
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error as Error, `setup of states for calculator`));
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of states for calculator`));
 		}
 	}
 
@@ -389,7 +389,7 @@ export class TibberCalculator extends ProjectUtils {
 				this.adapter.log.debug(`[tibberCalculator]: wrong type for chStopTime: ${valueStopTime}`);
 			}
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error as Error, `setup of state StopTime for calculator`));
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state StopTime for calculator`));
 		}
 
 		try {
