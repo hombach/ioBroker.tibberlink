@@ -63,7 +63,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                         markAreaY2: 0.16,
                     }));
                     let calcChannelsData = "";
-                    const maxVisibleY = Math.max(...mergedPrices.map(item => item.total));
+                    const maxVisibleY = Math.max(...mergedPrices.map(item => item.total ?? 0));
                     const maxMarkAreaY = maxVisibleY * 0.95;
                     if (filteredCalcChannels.length > 0) {
                         this.adapter.log.debug(`[tibberCharts]: found ${filteredCalcChannels.length} channels to potentialy draw FlexCharts`);

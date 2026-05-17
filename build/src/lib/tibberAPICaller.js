@@ -359,6 +359,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
     }
     getCurrentMonthConsumption(consumption) {
+        this.adapter.log.error(`MonthData: ${JSON.stringify(consumption)}`);
         if (!consumption || consumption.length === 0) {
             this.adapter.log.error(`Error 1 occurred while pulling current month consumption data`);
             return undefined;

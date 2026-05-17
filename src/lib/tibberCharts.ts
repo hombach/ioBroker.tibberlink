@@ -95,7 +95,8 @@ export class TibberCharts extends ProjectUtils {
 					}));
 
 					let calcChannelsData = "";
-					const maxVisibleY = Math.max(...mergedPrices.map(item => item.total)); // highest price in chart
+					// WiP const maxVisibleY = Math.max(...mergedPrices.map(item => item.total)); // highest price in chart
+					const maxVisibleY = Math.max(...mergedPrices.map(item => item.total ?? 0)); // highest price in chart
 					const maxMarkAreaY = maxVisibleY * 0.95;
 
 					if (filteredCalcChannels.length > 0) {
@@ -113,6 +114,7 @@ export class TibberCharts extends ProjectUtils {
 							// WiP
 							this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
 							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
+							// WiP const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
 							const markAreaItemStylePart = entry.chGraphColor ? `, itemStyle: { color: "${entry.chGraphColor}" }` : "";
 

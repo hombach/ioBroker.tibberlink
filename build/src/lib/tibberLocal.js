@@ -251,8 +251,9 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
             const decimalCode = parseInt(match[2], 16);
             result.unit = findDlmsUnitByCode(decimalCode);
             const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 };
-            const scaleFactor = scalingFactors[match[3].toLowerCase()];
-            if (scaleFactor) {
+            const key = match[3].toLowerCase();
+            if (key in scalingFactors) {
+                const scaleFactor = scalingFactors[key];
                 result.value /= scaleFactor;
             }
             if (result.value < -1000000000) {

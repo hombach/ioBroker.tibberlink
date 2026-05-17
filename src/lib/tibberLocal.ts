@@ -469,10 +469,15 @@ export class TibberLocal extends ProjectUtils {
 			const decimalCode = parseInt(match[2], 16);
 			result.unit = findDlmsUnitByCode(decimalCode);
 
-			const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 };
+			// WiP const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 };
 			// WiP const scaleFactor = scalingFactors[match[3].toLowerCase()];
-			const scaleFactor = scalingFactors[match[3].toLowerCase()];
-			if (scaleFactor) {
+			// WiP if (scaleFactor) {
+			// WiP result.value /= scaleFactor;
+			// WiP }
+			const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 } as const;
+			const key = match[3].toLowerCase() as keyof typeof scalingFactors;
+			if (key in scalingFactors) {
+				const scaleFactor = scalingFactors[key];
 				result.value /= scaleFactor;
 			}
 
