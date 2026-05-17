@@ -1,5 +1,6 @@
 // ioBroker eslint template configuration file for js and ts files
 // Please note that esm or react based modules need additional modules loaded.
+// @ts-ignore: no declaration file for module '@iobroker/eslint-config'
 import config from "@iobroker/eslint-config";
 
 export default [
