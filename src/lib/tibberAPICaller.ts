@@ -530,9 +530,7 @@ export class TibberAPICaller extends ProjectUtils {
 
 	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 	private getCurrentMonthConsumption(consumption: IConsumption[]): number | undefined {
-		this.adapter.log.info(`Get MonthData: ${JSON.stringify(consumption)}`);
 		if (!consumption || consumption.length === 0) {
-			this.adapter.log.error(`Error 1 occurred while pulling current month consumption data`);
 			return undefined;
 		}
 		const now = new Date();
@@ -540,7 +538,6 @@ export class TibberAPICaller extends ProjectUtils {
 		for (const entry of consumption) {
 			const dateStr = entry.from ?? entry.to;
 			if (!dateStr) {
-				this.adapter.log.error(`Error !dateStr occurred while pulling current month consumption data`);
 				continue;
 			}
 			const entryDate = parseISO(dateStr);

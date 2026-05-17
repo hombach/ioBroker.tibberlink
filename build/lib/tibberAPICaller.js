@@ -359,9 +359,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
     }
     getCurrentMonthConsumption(consumption) {
-        this.adapter.log.info(`Get MonthData: ${JSON.stringify(consumption)}`);
         if (!consumption || consumption.length === 0) {
-            this.adapter.log.error(`Error 1 occurred while pulling current month consumption data`);
             return undefined;
         }
         const now = new Date();
@@ -369,7 +367,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         for (const entry of consumption) {
             const dateStr = entry.from ?? entry.to;
             if (!dateStr) {
-                this.adapter.log.error(`Error !dateStr occurred while pulling current month consumption data`);
                 continue;
             }
             const entryDate = (0, date_fns_1.parseISO)(dateStr);
