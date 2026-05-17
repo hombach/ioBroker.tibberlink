@@ -663,7 +663,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null,
                     startsAt: entry.startsAt,
                     total: entry.total,
-                    output: channelConfig.chTriggerPrice > entry.total ? true : false,
+                    output: channelConfig.chTriggerPrice > (entry.total ?? 0) ? true : false,
                 }))
                     .sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime());
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
@@ -686,7 +686,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null,
                     startsAt: entry.startsAt,
                     total: entry.total,
-                    output: channelConfig.chTriggerPrice > entry.total ? true : false,
+                    output: channelConfig.chTriggerPrice > (entry.total ?? 0) ? true : false,
                 }))
                     .sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime());
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
@@ -737,7 +737,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     .map((entry, index) => ({
                     hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null,
                     startsAt: entry.startsAt,
-                    total: entry.total,
+                    total: entry.total ?? 0,
                     output: channelResult[index] !== undefined ? true : false,
                 }))
                     .sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime());
@@ -1011,9 +1011,9 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
-                filteredPrices.sort((a, b) => a.total - b.total);
+                filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
                 const cheapestPrice = filteredPrices[0]?.total;
-                const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
+                const allowedPrices = filteredPrices.filter(entry => (entry.total ?? 0) <= cheapestPrice * (1 + percentage / 100));
                 const channelResult = allowedPrices.map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({

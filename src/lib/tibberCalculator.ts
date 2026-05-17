@@ -895,7 +895,7 @@ export class TibberCalculator extends ProjectUtils {
 						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
-						output: channelConfig.chTriggerPrice > entry.total ? true : false, // mark all cheap hours
+						output: channelConfig.chTriggerPrice > (entry.total ?? 0) ? true : false, // mark all cheap hours
 					}))
 					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
@@ -927,7 +927,7 @@ export class TibberCalculator extends ProjectUtils {
 						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
-						output: channelConfig.chTriggerPrice > entry.total ? true : false, // mark all cheap hours
+						output: channelConfig.chTriggerPrice > (entry.total ?? 0) ? true : false, // mark all cheap hours
 					}))
 					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
@@ -1004,7 +1004,7 @@ export class TibberCalculator extends ProjectUtils {
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
 						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
-						total: entry.total,
+						total: entry.total ?? 0,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
 					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
@@ -1419,9 +1419,9 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total cost
-				filteredPrices.sort((a, b) => a.total - b.total);
+				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 				const cheapestPrice = filteredPrices[0]?.total;
-				const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
+				const allowedPrices = filteredPrices.filter(entry => (entry.total ?? 0) <= cheapestPrice * (1 + percentage / 100));
 				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
