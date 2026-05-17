@@ -446,6 +446,7 @@ export class TibberAPICaller extends ProjectUtils {
 	 * @returns void - data will be written to ioBroker objects as JSON
 	 */
 	async updateConsumptionAllHomes(): Promise<void> {
+		this.adapter.log.info(`updateConsumptionAllHomes`);
 		try {
 			for (const home of this.adapter.config.HomesList) {
 				if (!home.statsActive || !home.homeID) {

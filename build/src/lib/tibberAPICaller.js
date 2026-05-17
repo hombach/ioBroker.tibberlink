@@ -300,6 +300,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
     }
     async updateConsumptionAllHomes() {
+        this.adapter.log.info(`updateConsumptionAllHomes`);
         try {
             for (const home of this.adapter.config.HomesList) {
                 if (!home.statsActive || !home.homeID) {
