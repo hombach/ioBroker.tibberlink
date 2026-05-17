@@ -416,7 +416,7 @@ export class TibberCalculator extends ProjectUtils {
 				this.adapter.log.debug(`[tibberCalculator]: wrong type for chTriggerPrice: ${valueRepeatDays}`);
 			}
 		} catch (error) {
-			this.adapter.log.warn(this.generateErrorMessage(error as Error, `setup of state RepeatDays for calculator`));
+			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state RepeatDays for calculator`));
 		}
 	}
 	private async deleteLTFInputs(homeId: string, channel: number): Promise<void> {
@@ -440,7 +440,7 @@ export class TibberCalculator extends ProjectUtils {
 					true,
 				);
 			} catch (error) {
-				this.adapter.log.warn(this.generateErrorMessage(error as Error, `setup of state Output for calculator for Home ${homeId}, Channel ${channel}`));
+				this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator for Home ${homeId}, Channel ${channel}`));
 			}
 		}
 	}
@@ -852,7 +852,7 @@ export class TibberCalculator extends ProjectUtils {
 					);
 				}
 			} catch (error) {
-				this.adapter.log.warn(`unhandled error ${error} while executing calculator channel ${channel}`);
+				this.adapter.log.warn(`unhandled error ${error as Error} while executing calculator channel ${channel}`);
 			}
 		}
 	}
@@ -872,7 +872,7 @@ export class TibberCalculator extends ProjectUtils {
 			try {
 				this.increaseStatsValueByOne(channel.chType);
 			} catch (error) {
-				this.adapter.log.debug(`[tibberCalculator]: unhandled error ${error} in calculator usage scan`);
+				this.adapter.log.debug(`[tibberCalculator]: unhandled error ${error as Error} in calculator usage scan`);
 			}
 		});
 	}

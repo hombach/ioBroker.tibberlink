@@ -722,7 +722,7 @@ class Tibberlink extends utils.Adapter {
 				this.log.warn(`state ${id} deleted`);
 			}
 		} catch (error) {
-			this.log.error(`Unhandled exception processing onstateChange: ${error}`);
+			this.log.error(`Unhandled exception processing onstateChange: ${error as Error}`);
 		}
 	}
 }

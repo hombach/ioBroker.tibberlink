@@ -168,7 +168,7 @@ export class TibberLocal extends ProjectUtils {
 			}
 			return response.data;
 		} catch (error) {
-			this.adapter.log.error(`Error while polling metrics (getPulseData). ${error}`);
+			this.adapter.log.error(`Error while polling metrics (getPulseData). ${error as Error}`);
 			throw error;
 		}
 		/*
