@@ -891,12 +891,14 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelConfig.chTriggerPrice > entry.total ? true : false, // mark all cheap hours
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
 			} else if (modeLTF && now > channelConfig.chStopTime) {
@@ -921,12 +923,14 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelConfig.chTriggerPrice > entry.total ? true : false, // mark all cheap hours
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
 			}
@@ -952,6 +956,7 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total cost
+				// WiP filteredPrices.sort((a, b) => a.total - b.total);
 				filteredPrices.sort((a, b) => a.total - b.total);
 				// get first amount of block entries und test for matching time block
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
@@ -960,12 +965,14 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
 			} else if (modeLTF && now > channelConfig.chStopTime) {
@@ -994,12 +1001,14 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
 			}
@@ -1052,12 +1061,14 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index - startIndex] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
 			} else if (modeLTF && now > channelConfig.chStopTime) {
@@ -1100,12 +1111,14 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index - startIndex] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
 
@@ -1117,10 +1130,17 @@ export class TibberCalculator extends ProjectUtils {
 				);
 
 				//#region *** Write start and stop time of determined block to data points ***
-				const beginDate = new Date(filteredPrices[startIndex].startsAt);
+				// WiP const beginDate = new Date(filteredPrices[startIndex].startsAt);
+				const beginDate = new Date(filteredPrices[startIndex]?.startsAt ?? Date.now());
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, format(beginDate, "H"), true);
-				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, true);
-				const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
+				// WiP void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, true);
+				void this.adapter.setState(
+					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`,
+					filteredPrices[startIndex]?.startsAt ?? Date.now(),
+					true,
+				);
+				// WiP const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
+				const endDate = new Date(filteredPrices[startIndex + n - 1]?.startsAt ?? Date.now());
 				void this.adapter.setState(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`,
 					format(addMinutes(endDate, 15), "H"),
@@ -1240,21 +1260,25 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: resultCheap[index] !== undefined ? true : false, // Check if resultCheap[index] is defined
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				const jsonOutput2 = filteredPrices
 					.map((entry: IPrice) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: expensiveTimeSlots.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
 				//#endregion
 			} else if (modeLTF && now > channelConfig.chStopTime) {
@@ -1342,22 +1366,26 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: resultCheap[index] !== undefined ? true : false, // Check if resultCheap[index] is defined
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 
 				const jsonOutput2 = filteredPrices
 					.map((entry: IPrice) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: expensiveTimeSlots.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
 				//#endregion
 			}
@@ -1400,12 +1428,14 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
 			} else if (modeLTF && now > channelConfig.chStopTime) {
@@ -1436,12 +1466,14 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
+						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
+						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
+					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
 			}
