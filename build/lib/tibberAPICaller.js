@@ -300,7 +300,6 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
     }
     async updateConsumptionAllHomes() {
-        this.adapter.log.info(`updateConsumptionAllHomes`);
         try {
             for (const home of this.adapter.config.HomesList) {
                 if (!home.statsActive || !home.homeID) {
@@ -343,9 +342,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     if (numCons && numCons > 0) {
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
-                        this.adapter.log.info(`Send MonthData?`);
                         if (description == `day`) {
-                            this.adapter.log.info(`Send MonthData: ${JSON.stringify(consumption)}`);
                             const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
                             await this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`, `value.energy.consumed`);
                         }

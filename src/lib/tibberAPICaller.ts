@@ -446,7 +446,6 @@ export class TibberAPICaller extends ProjectUtils {
 	 * @returns void - data will be written to ioBroker objects as JSON
 	 */
 	async updateConsumptionAllHomes(): Promise<void> {
-		this.adapter.log.info(`updateConsumptionAllHomes`);
 		try {
 			for (const home of this.adapter.config.HomesList) {
 				if (!home.statsActive || !home.homeID) {
@@ -507,9 +506,7 @@ export class TibberAPICaller extends ProjectUtils {
 
 						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 						// if (type == EnergyResolution.DAILY && numCons >= 31) {
-						this.adapter.log.info(`Send MonthData?`);
 						if (description == `day`) {
-							this.adapter.log.info(`Send MonthData: ${JSON.stringify(consumption)}`);
 							const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
 							await this.checkAndSetValueNumber(
 								`Homes.${homeID}.Consumption.currentMonthConsumption`,
