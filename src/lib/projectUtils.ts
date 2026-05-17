@@ -87,7 +87,7 @@ export class ProjectUtils {
 	 * @param stateName - A string representing the name of the state to retrieve.
 	 * @returns A Promise that resolves with the object of the state if it exists, otherwise resolves with null.
 	 */
-	private async getState(stateName: string): Promise<ioBroker.State | null> {
+	private async getState(stateName: string): Promise<ioBroker.State | null | undefined> {
 		try {
 			if (await this.verifyStateAvailable(stateName)) {
 				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, }
@@ -158,7 +158,7 @@ export class ProjectUtils {
 				throw new Error(`Unable to retrieve info from state '${stateName}'.`);
 			}
 		} catch (error) {
-			this.adapter.log.error(`[asyncGetForeignState](${stateName}): ${error}`);
+			this.adapter.log.error(`[asyncGetForeignState](${stateName}): ${error as Error}`);
 			return null;
 		}
 	}
