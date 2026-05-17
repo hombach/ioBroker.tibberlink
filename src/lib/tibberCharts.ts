@@ -6,6 +6,15 @@ import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 // https://echarts.apache.org/examples/en/index.html
 // https://github.com/MyHomeMyData/ioBroker.flexcharts
 
+//WiP
+interface ICalculationOutput {
+	hour: number;
+	startsAt: string;
+	total: number;
+	output: boolean;
+}
+//WiP
+
 /**
  * TibberCalculator
  */
@@ -113,7 +122,10 @@ export class TibberCharts extends ProjectUtils {
 							entry.markAreaY2 = (maxMarkAreaY / filteredCalcChannels.length) * (filteredCalcChannels.length + 1.35 - entryCount);
 							// WiP
 							this.adapter.log.debug(`[tibberCharts]: found channel ${entry.chName} to draw FlexCharts`);
-							const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
+							// WiP const jsonOutput = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`));
+							const jsonOutput: ICalculationOutput[] = JSON.parse(
+								await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON`),
+							);
 							// WiP const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
 							const filteredData = jsonOutput.filter(entry => entry.output); // only output = true
 							const markAreaItemStylePart = entry.chGraphColor ? `, itemStyle: { color: "${entry.chGraphColor}" }` : "";
@@ -147,7 +159,9 @@ export class TibberCharts extends ProjectUtils {
 								this.adapter.log.debug(
 									`[tibberCharts]: channel ${entry.chName} is of type SmartBatteryBuffer, additional handling may be required`,
 								);
-								const jsonOutput2 = JSON.parse(await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`));
+								const jsonOutput2: ICalculationOutput[] = JSON.parse(
+									await this.getStateValue(`Homes.${homeID}.Calculations.${entry.chChannelID}.OutputJSON2`),
+								);
 								const filteredData2 = jsonOutput2.filter((entry: { output: boolean }) => entry.output);
 								const markAreaItemStylePart2 = entry.chGraphColor2 ? `, itemStyle: { color: "${entry.chGraphColor2}" }` : "";
 
