@@ -1323,8 +1323,8 @@ export class TibberCalculator extends ProjectUtils {
 					cheapIndex++;
 				}
 
-				const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total));
 				// WiP const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total));
+				const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total ?? 0));
 
 				for (const timeSlot of filteredPrices) {
 					if (!cheapTimeSlots.includes(timeSlot)) {
@@ -1401,7 +1401,7 @@ export class TibberCalculator extends ProjectUtils {
 
 			function calculateMinDelta(cheapTimeSlots: IPrice[], efficiencyLoss: number): number {
 				// WiP const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + slot.total, 0);
-				const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + slot.total, 0);
+				const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + (slot.total ?? 0), 0);
 				const cheapAverage = cheapTotalSum / cheapTimeSlots.length;
 				return cheapAverage * efficiencyLoss;
 			}
@@ -1465,7 +1465,8 @@ export class TibberCalculator extends ProjectUtils {
 				// WiP filteredPrices.sort((a, b) => a.total - b.total);
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 				const cheapestPrice = filteredPrices[0]?.total ?? 0;
-				const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
+				// WiP const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
+				const allowedPrices = filteredPrices.filter(entry => (entry.total ?? 0) <= cheapestPrice * (1 + percentage / 100));
 				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 
 				// identify if any element is true

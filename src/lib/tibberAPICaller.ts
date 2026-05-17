@@ -1,5 +1,5 @@
 import type * as utils from "@iobroker/adapter-core";
-import { addMinutes } from "date-fns";
+import { addMinutes, isSameMonth, isValid, parseISO } from "date-fns";
 import { TibberQuery, type IConfig } from "tibber-api";
 import type { IAddress } from "tibber-api/lib/src/models/IAddress.js";
 import type { IConsumption } from "tibber-api/lib/src/models/IConsumption.js";
@@ -514,7 +514,7 @@ export class TibberAPICaller extends ProjectUtils {
 								`Total consumption for the current month`,
 								`kWh`,
 							);
-						}
+						} // WiP else if error, no data or too short period for calculation of current month consumption, e.g. for monthly resolution with numCons = 12, then just set state but empty
 						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 					} else {
 						void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, `[]`);
@@ -530,35 +530,28 @@ export class TibberAPICaller extends ProjectUtils {
 	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 	private getCurrentMonthConsumption(consumption: IConsumption[]): number | undefined {
 		if (!consumption || consumption.length === 0) {
+			this.adapter.log.error(`Error 1 occurred while pulling current month consumption data`);
 			return undefined;
 		}
-
 		const now = new Date();
-		const currentYear = now.getFullYear();
-		const currentMonth = now.getMonth(); // 0-based
-		let total = 0;
-
+		let sum = 0;
 		for (const entry of consumption) {
 			const dateStr = entry.from ?? entry.to;
 			if (!dateStr) {
+				this.adapter.log.error(`Error !dateStr occurred while pulling current month consumption data`);
 				continue;
 			}
-
-			const date = new Date(dateStr);
-			if (isNaN(date.getTime())) {
-				continue;
-			}
-
-			// only entries of the current month/year considered
-			if (date.getFullYear() === currentYear && date.getMonth() === currentMonth) {
-				const value = typeof entry.consumption === "number" ? entry.consumption : Number(entry.consumption);
-				if (Number.isFinite(value)) {
-					total += value;
-				}
-			}
+        	const entryDate = parseISO(dateStr);
+        if (!isValid(entryDate)) continue;
+        if (isSameMonth(entryDate, now)) {
+            const value = entry.consumption;
+            if (typeof value === 'number' && isFinite(value) && value >= 0) {
+                sum += value;
+    		}
 		}
-		return total > 0 ? total : undefined;
+		return sum > 0 ? sum : undefined;
 	}
+
 	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 	/**
 	private getCurrentMonthConsumption(consumption: IConsumption[]): number | undefined {
