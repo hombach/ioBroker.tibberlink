@@ -707,7 +707,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             else if (modeLTF && now < channelConfig.chStartTime) {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
-                filteredPrices.sort((a, b) => a.total - b.total);
+                filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
                 const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
@@ -728,7 +728,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     this.shiftLTF(channel);
                 }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
-                filteredPrices.sort((a, b) => a.total - b.total);
+                filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
                 const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkQuarterMatch(entry));
                 if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
@@ -773,7 +773,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 for (let i = 0; i < filteredPrices.length - n + 1; i++) {
                     let sum = 0;
                     for (let j = i; j < i + n; j++) {
-                        sum += filteredPrices[j].total;
+                        sum += filteredPrices[j].total ?? 0;
                     }
                     if (sum < minSum) {
                         minSum = sum;
@@ -810,7 +810,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 for (let i = 0; i < filteredPrices.length - n + 1; i++) {
                     let sum = 0;
                     for (let j = i; j < i + n; j++) {
-                        sum += filteredPrices[j].total;
+                        sum += filteredPrices[j].total ?? 0;
                     }
                     if (sum < minSum) {
                         minSum = sum;
@@ -863,10 +863,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 const expensiveTimeSlots = [];
                 let cheapIndex = 0;
                 let minDelta = 0;
-                filteredPrices.sort((a, b) => a.total - b.total);
+                filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
                 while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
                     const currentTimeSlot = filteredPrices[cheapIndex];
-                    if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+                    if (currentTimeSlot.total < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
                         cheapTimeSlots.push(currentTimeSlot);
                         minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
                     }
@@ -875,7 +875,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     }
                     cheapIndex++;
                 }
-                const maxCheapTotal = Math.max(...cheapTimeSlots.map(timeSlot => timeSlot.total));
+                const maxCheapTotal = Math.max(...cheapTimeSlots.map(timeSlot => timeSlot.total ?? 0));
                 for (const timeSlot of filteredPrices) {
                     if (!cheapTimeSlots.includes(timeSlot)) {
                         if (timeSlot.total > minDelta + maxCheapTotal) {
@@ -926,10 +926,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 const expensiveTimeSlots = [];
                 let cheapIndex = 0;
                 let minDelta = 0;
-                filteredPrices.sort((a, b) => a.total - b.total);
+                filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
                 while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
                     const currentTimeSlot = filteredPrices[cheapIndex];
-                    if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+                    if (currentTimeSlot.total < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
                         cheapTimeSlots.push(currentTimeSlot);
                         minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
                     }
@@ -1012,7 +1012,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             else if (modeLTF && now < channelConfig.chStartTime) {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
-                const cheapestPrice = filteredPrices[0]?.total;
+                const cheapestPrice = filteredPrices[0]?.total ?? 0;
                 const allowedPrices = filteredPrices.filter(entry => (entry.total ?? 0) <= cheapestPrice * (1 + percentage / 100));
                 const channelResult = allowedPrices.map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
@@ -1034,8 +1034,8 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     this.shiftLTF(channel);
                 }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
-                filteredPrices.sort((a, b) => a.total - b.total);
-                const cheapestPrice = filteredPrices[0]?.total;
+                filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
+                const cheapestPrice = filteredPrices[0]?.total ?? 0;
                 const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
                 const channelResult = allowedPrices.map((entry) => checkQuarterMatch(entry));
                 if (channelResult.some(value => value)) {

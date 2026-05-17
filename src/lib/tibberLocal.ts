@@ -470,6 +470,7 @@ export class TibberLocal extends ProjectUtils {
 			result.unit = findDlmsUnitByCode(decimalCode);
 
 			const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 };
+			// WiP const scaleFactor = scalingFactors[match[3].toLowerCase()];
 			const scaleFactor = scalingFactors[match[3].toLowerCase()];
 			if (scaleFactor) {
 				result.value /= scaleFactor;

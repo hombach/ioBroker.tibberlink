@@ -957,7 +957,7 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Find channel result ***
 				// sort by total cost
 				// WiP filteredPrices.sort((a, b) => a.total - b.total);
-				filteredPrices.sort((a, b) => a.total - b.total);
+				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 				// get first amount of block entries und test for matching time block
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
@@ -989,7 +989,8 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total cost
-				filteredPrices.sort((a, b) => a.total - b.total);
+				// WiP filteredPrices.sort((a, b) => a.total - b.total);
+				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 				// get first chAmountHours entries und test for matching time block
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
 				// identify if any element is true
@@ -1048,7 +1049,7 @@ export class TibberCalculator extends ProjectUtils {
 				for (let i = 0; i < filteredPrices.length - n + 1; i++) {
 					let sum = 0;
 					for (let j = i; j < i + n; j++) {
-						sum += filteredPrices[j].total;
+						sum += filteredPrices[j].total ?? 0;
 					}
 					if (sum < minSum) {
 						minSum = sum;
@@ -1094,7 +1095,7 @@ export class TibberCalculator extends ProjectUtils {
 				for (let i = 0; i < filteredPrices.length - n + 1; i++) {
 					let sum = 0;
 					for (let j = i; j < i + n; j++) {
-						sum += filteredPrices[j].total;
+						sum += filteredPrices[j].total ?? 0;
 					}
 					if (sum < minSum) {
 						minSum = sum;
@@ -1217,11 +1218,13 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total price
-				filteredPrices.sort((a, b) => a.total - b.total);
+				// WiP filteredPrices.sort((a, b) => a.total - b.total);
+				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 
 				while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
 					const currentTimeSlot = filteredPrices[cheapIndex];
-					if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+					// WiP if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+					if (currentTimeSlot.total < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
 						cheapTimeSlots.push(currentTimeSlot);
 						minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
 					} else {
@@ -1230,7 +1233,8 @@ export class TibberCalculator extends ProjectUtils {
 					cheapIndex++;
 				}
 
-				const maxCheapTotal = Math.max(...cheapTimeSlots.map(timeSlot => timeSlot.total));
+				// WiP const maxCheapTotal = Math.max(...cheapTimeSlots.map(timeSlot => timeSlot.total));
+				const maxCheapTotal = Math.max(...cheapTimeSlots.map(timeSlot => timeSlot.total ?? 0));
 
 				for (const timeSlot of filteredPrices) {
 					if (!cheapTimeSlots.includes(timeSlot)) {
@@ -1303,11 +1307,13 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total price
-				filteredPrices.sort((a, b) => a.total - b.total);
+				// WiP filteredPrices.sort((a, b) => a.total - b.total);
+				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 
 				while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
 					const currentTimeSlot = filteredPrices[cheapIndex];
-					if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+					// WiP if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
+					if (currentTimeSlot.total < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
 						cheapTimeSlots.push(currentTimeSlot);
 						minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
 					} else {
@@ -1317,9 +1323,11 @@ export class TibberCalculator extends ProjectUtils {
 				}
 
 				const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total));
+				// WiP const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total));
 
 				for (const timeSlot of filteredPrices) {
 					if (!cheapTimeSlots.includes(timeSlot)) {
+						// WiP if (timeSlot.total > minDelta + maxCheapTotal) {
 						if (timeSlot.total > minDelta + maxCheapTotal) {
 							expensiveTimeSlots.push(timeSlot);
 						} else {
@@ -1391,6 +1399,7 @@ export class TibberCalculator extends ProjectUtils {
 			}
 
 			function calculateMinDelta(cheapTimeSlots: IPrice[], efficiencyLoss: number): number {
+				// WiP const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + slot.total, 0);
 				const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + slot.total, 0);
 				const cheapAverage = cheapTotalSum / cheapTimeSlots.length;
 				return cheapAverage * efficiencyLoss;
@@ -1420,7 +1429,7 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Find channel result ***
 				// sort by total cost
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
-				const cheapestPrice = filteredPrices[0]?.total;
+				const cheapestPrice = filteredPrices[0]?.total ?? 0;
 				const allowedPrices = filteredPrices.filter(entry => (entry.total ?? 0) <= cheapestPrice * (1 + percentage / 100));
 				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
@@ -1452,8 +1461,9 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total cost
-				filteredPrices.sort((a, b) => a.total - b.total);
-				const cheapestPrice = filteredPrices[0]?.total;
+				// WiP filteredPrices.sort((a, b) => a.total - b.total);
+				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
+				const cheapestPrice = filteredPrices[0]?.total ?? 0;
 				const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
 				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 

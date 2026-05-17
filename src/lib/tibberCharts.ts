@@ -49,6 +49,7 @@ export class TibberCharts extends ProjectUtils {
 				const futureCutoff = addHours(now, this.adapter.config.FlexGraphFutureCutOff - 1);
 
 				mergedPrices = mergedPrices.filter(price => {
+					// WiPconst priceTime = parseISO(price.startsAt)
 					const priceTime = parseISO(price.startsAt);
 					return isAfter(priceTime, pastCutoff) && isBefore(priceTime, futureCutoff);
 				});
@@ -56,6 +57,7 @@ export class TibberCharts extends ProjectUtils {
 
 			// double last item and raise time by one 15 minute block
 			const lastItem = mergedPrices[mergedPrices.length - 1];
+			//WiP const lastStartsAt = new Date(lastItem.startsAt);
 			const lastStartsAt = new Date(lastItem.startsAt);
 			const newStartsAt = addMinutes(lastStartsAt, 15);
 			const duplicatedItem = {
