@@ -19,6 +19,7 @@
 		"esModuleInterop": true,
 		// this is necessary for the automatic typing of the adapter config
 		"resolveJsonModule": true,
+		"types": ["node", "mocha"],
 
 		// If you want to disable the stricter type checks (not recommended), uncomment the following line
 		// "strict": false,
