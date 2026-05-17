@@ -6,473 +6,954 @@ const tibber_api_1 = require("tibber-api");
 const EnergyResolution_js_1 = require("tibber-api/lib/src/models/enums/EnergyResolution.js");
 const projectUtils_js_1 = require("./projectUtils.js");
 class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
-    tibberConfig;
-    tibberQuery;
-    constructor(tibberConfig, adapter) {
-        super(adapter);
-        this.tibberConfig = tibberConfig;
-        this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig, 60000);
-    }
-    async updateHomesFromAPI() {
-        try {
-            const Homes = await this.tibberQuery.getHomes();
-            this.adapter.log.debug(`Got homes from tibber api: ${JSON.stringify(Homes)}`);
-            const homeInfoList = [];
-            for (const currentHome of Homes) {
-                if (!currentHome.id) {
-                    continue;
-                }
-                homeInfoList.push({
-                    ID: currentHome.id,
-                    NameInApp: currentHome.appNickname ?? `not set`,
-                    RealTime: currentHome.features?.realTimeConsumptionEnabled ?? false,
-                    FeedActive: false,
-                    PriceDataPollActive: true,
-                });
-                this.tibberConfig.homeId = currentHome.id;
-                const basePath = `Homes.${currentHome.id}`;
-                void this.checkAndSetValue(`${basePath}.General.Id`, currentHome.id, "ID of your home");
-                void this.checkAndSetValue(`${basePath}.General.Timezone`, currentHome.timeZone ?? `not set`, "The time zone the home resides in");
-                void this.checkAndSetValue(`${basePath}.General.NameInApp`, currentHome.appNickname ?? `not set`, "The nickname given to the home");
-                void this.checkAndSetValue(`${basePath}.General.AvatarInApp`, currentHome.appAvatar ?? `not set`, "The chosen app avatar for the home");
-                void this.checkAndSetValue(`${basePath}.General.Type`, currentHome.type ?? `not set`, "The type of home.");
-                void this.checkAndSetValue(`${basePath}.General.PrimaryHeatingSource`, currentHome.primaryHeatingSource ?? `not set`, `The primary form of heating in the home`);
-                void this.checkAndSetValueNumber(`${basePath}.General.Size`, currentHome.size ?? 0, "The size of the home in square meters");
-                void this.checkAndSetValueNumber(`${basePath}.General.NumberOfResidents`, currentHome.numberOfResidents ?? 0, `The number of people living in the home`);
-                void this.checkAndSetValueNumber(`${basePath}.General.MainFuseSize`, currentHome.mainFuseSize ?? 0, "The main fuse size");
-                void this.checkAndSetValueBoolean(`${basePath}.General.HasVentilationSystem`, currentHome.hasVentilationSystem ?? false, `Whether the home has a ventilation system`);
-                if (currentHome.address) {
-                    this.fetchAddress(currentHome.id, "Address", currentHome.address);
-                }
-                if (currentHome.owner) {
-                    this.fetchLegalEntity(currentHome.id, "Owner", currentHome.owner);
-                }
-                void this.checkAndSetValueBoolean(`${basePath}.Features.RealTimeConsumptionEnabled`, currentHome.features?.realTimeConsumptionEnabled ?? false, `Whether Tibber server will send consumption data by API`);
-            }
-            return homeInfoList;
+  tibberConfig;
+  tibberQuery;
+  constructor(tibberConfig, adapter) {
+    super(adapter);
+    this.tibberConfig = tibberConfig;
+    this.tibberQuery = new tibber_api_1.TibberQuery(this.tibberConfig, 60000);
+  }
+  async updateHomesFromAPI() {
+    try {
+      const Homes = await this.tibberQuery.getHomes();
+      this.adapter.log.debug(
+        `Got homes from tibber api: ${JSON.stringify(Homes)}`,
+      );
+      const homeInfoList = [];
+      for (const currentHome of Homes) {
+        if (!currentHome.id) {
+          continue;
         }
-        catch (error) {
-            this.adapter.log.error(this.generateErrorMessage(error, `fetching homes from Tibber API`));
-            return [];
-        }
-    }
-    async updateCurrentPriceAllHomes(homeInfoList) {
-        let okprice = true;
-        for (const curHomeInfo of homeInfoList) {
-            if (!curHomeInfo.PriceDataPollActive) {
-                continue;
-            }
-            if (!(await this.updateCurrentPrice(curHomeInfo.ID))) {
-                okprice = false;
-            }
-        }
-        return okprice;
-    }
-    async updateCurrentPrice(homeId) {
-        if (!homeId) {
-            return false;
-        }
-        try {
-            const now = new Date();
-            const pricesStr = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
-            if (!pricesStr) {
-                this.adapter.log.debug(`No PricesToday data found for home ${homeId}`);
-                return false;
-            }
-            const pricesToday = JSON.parse(pricesStr);
-            if (!Array.isArray(pricesToday) || pricesToday.length === 0) {
-                this.adapter.log.debug(`PricesToday array empty for home ${homeId}`);
-                return false;
-            }
-            const currentPrice = pricesToday.find(p => {
-                const start = new Date(p.startsAt ?? ``);
-                const end = (0, date_fns_1.addMinutes)(start, 15);
-                return now >= start && now < end;
-            });
-            if (!currentPrice) {
-                this.adapter.log.warn(`No matching price found for current time in home ${homeId}`);
-                return false;
-            }
-            await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
-            await this.fetchPriceRemainingAverage(homeId, "PricesToday.averageRemaining", pricesToday);
-            this.adapter.log.debug(`Updated current price and remaining average for home ${homeId} from PricesToday: ${JSON.stringify(currentPrice)}`);
-            return true;
-        }
-        catch (error) {
-            const msg = this.generateErrorMessage(error, `update of current price from PricesToday`);
-            this.adapter.log.error(msg);
-            return false;
-        }
-    }
-    async dailyPriceRolloverAllHomes(homeInfoList) {
-        for (const curHomeInfo of homeInfoList) {
-            if (!curHomeInfo.PriceDataPollActive) {
-                continue;
-            }
-            await this.dailyPriceRollover(curHomeInfo.ID);
-        }
-    }
-    async dailyPriceRollover(homeId) {
-        try {
-            let currentPricesToday = [];
-            let currentPricesTomorrow = [];
-            try {
-                currentPricesToday = JSON.parse((await this.getStateValue(`Homes.${homeId}.PricesToday.json`)) || "[]");
-                currentPricesTomorrow = JSON.parse((await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`)) || "[]");
-            }
-            catch {
-                currentPricesToday = [];
-                currentPricesTomorrow = [];
-            }
-            this.adapter.log.info(`Performing daily price rollover for home ${homeId}`);
-            await this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.json`, JSON.stringify(currentPricesToday), `The prices yesterday as json`);
-            const newPricesToday = currentPricesTomorrow.length > 0 ? currentPricesTomorrow : [];
-            await this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(newPricesToday), `The prices today as json`);
-            await this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify([]), `The prices tomorrow as json`);
-            if (Array.isArray(currentPricesToday) && currentPricesToday.length > 0) {
-                await this.checkAndSetValue(`Homes.${homeId}.PricesYesterday.jsonBYpriceASC`, JSON.stringify([...currentPricesToday].sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices yesterday sorted by cost ascending as json`);
-                this.fetchPriceAverage(homeId, `PricesYesterday.average`, currentPricesToday);
-                this.fetchPriceMaximum(homeId, `PricesYesterday.maximum`, currentPricesToday);
-                this.fetchPriceMinimum(homeId, `PricesYesterday.minimum`, currentPricesToday);
-            }
-            if (Array.isArray(newPricesToday) && newPricesToday.length > 0) {
-                await this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify([...newPricesToday].sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices today sorted by cost ascending as json`);
-                this.fetchPriceAverage(homeId, `PricesToday.average`, newPricesToday);
-                await this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, newPricesToday);
-                this.fetchPriceMaximum(homeId, `PricesToday.maximum`, newPricesToday);
-                this.fetchPriceMinimum(homeId, `PricesToday.minimum`, newPricesToday);
-                for (let i = 0; i < newPricesToday.length; i++) {
-                    await this.fetchPrice(homeId, `PricesToday.${i}`, newPricesToday[i]);
-                }
-            }
-            this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete after rollover`);
-            for (let i = 0; i < 96; i++) {
-                this.emptyingPrice(homeId, `PricesTomorrow.${i}`);
-            }
-            this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
-            this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
-            this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
-            await this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`, JSON.stringify([]), `prices tomorrow sorted by cost ascending as json`);
-            this.adapter.log.debug(`daily price rollover completed for home ${homeId}`);
-        }
-        catch (error) {
-            this.adapter.log.error(this.generateErrorMessage(error, `daily price rollover for home ${homeId}`));
-        }
-    }
-    async updatePricesTodayAllHomes(homeInfoList, resolution, forceUpdate = false) {
-        let okprice = true;
-        for (const curHomeInfo of homeInfoList) {
-            if (!curHomeInfo.PriceDataPollActive) {
-                continue;
-            }
-            if (!(await this.updatePricesToday(curHomeInfo.ID, resolution, forceUpdate))) {
-                okprice = false;
-            }
-            else {
-                const now = new Date();
-                void this.checkAndSetValue(`Homes.${curHomeInfo.ID}.PricesToday.lastUpdate`, now.toString(), `last update of prices today`);
-            }
-        }
-        return okprice;
-    }
-    async updatePricesToday(homeId, resolution, forceUpdate = false) {
-        try {
-            let exDate = null;
-            let exPricesToday = [];
-            if (!forceUpdate) {
-                exPricesToday = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesToday.json`));
-            }
-            if (Array.isArray(exPricesToday) && exPricesToday[2]?.startsAt) {
-                exDate = new Date(exPricesToday[2].startsAt);
-            }
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
-            if (!exDate || exDate < today || forceUpdate || !Array.isArray(exPricesToday) || exPricesToday.length === 0) {
-                const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId, resolution);
-                if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2]?.total)) {
-                    throw new Error(`Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
-                }
-                this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
-                void this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(pricesToday), `The prices today as json`);
-                this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
-                await this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
-                this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
-                this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
-                for (let i = 0; i < pricesToday.length; i++) {
-                    await this.fetchPrice(homeId, `PricesToday.${i}`, pricesToday[i]);
-                }
-                void this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify(pricesToday.sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices sorted by cost ascending as json`);
-                if (pricesToday[2]?.startsAt) {
-                    const newDate = new Date(pricesToday[2].startsAt);
-                    if (newDate >= today) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            this.adapter.log.debug(`Existing date of price info is already the today date, polling of prices today from Tibber skipped`);
-            return true;
-        }
-        catch (error) {
-            if (forceUpdate) {
-                this.adapter.log.error(this.generateErrorMessage(error, `force pull of prices today`));
-            }
-            else {
-                this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices today`));
-            }
-            return false;
-        }
-    }
-    async updatePricesTomorrowAllHomes(homeInfoList, resolution, forceUpdate = false) {
-        let okprice = true;
-        for (const curHomeInfo of homeInfoList) {
-            if (!curHomeInfo.PriceDataPollActive) {
-                continue;
-            }
-            if (!(await this.updatePricesTomorrow(curHomeInfo.ID, resolution, forceUpdate))) {
-                okprice = false;
-            }
-            else {
-                const now = new Date();
-                void this.checkAndSetValue(`Homes.${curHomeInfo.ID}.PricesTomorrow.lastUpdate`, now.toString(), `last update of prices tomorrow`);
-            }
-        }
-        return okprice;
-    }
-    async updatePricesTomorrow(homeId, resolution, forceUpdate = false) {
-        try {
-            let exDate = null;
-            let exPricesTomorrow = [];
-            if (!forceUpdate) {
-                exPricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`));
-            }
-            if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2]?.startsAt) {
-                exDate = new Date(exPricesTomorrow[2].startsAt);
-            }
-            const morgen = new Date();
-            morgen.setDate(morgen.getDate() + 1);
-            morgen.setHours(0, 0, 0, 0);
-            if (!exDate || exDate < morgen || forceUpdate) {
-                const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId, resolution);
-                this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
-                void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify(pricesTomorrow), `The prices tomorrow as json`);
-                if (pricesTomorrow.length === 0) {
-                    this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
-                    for (let timeblock = 0; timeblock < 96; timeblock++) {
-                        this.emptyingPrice(homeId, `PricesTomorrow.${timeblock}`);
-                    }
-                    this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
-                    this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
-                    this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
-                    void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`, JSON.stringify(pricesTomorrow), `prices tomorrow sorted by cost ascending as json`);
-                    return false;
-                }
-                else if (Array.isArray(pricesTomorrow)) {
-                    for (let i = 0; i < pricesTomorrow.length; i++) {
-                        const price = pricesTomorrow[i];
-                        await this.fetchPrice(homeId, `PricesTomorrow.${i}`, price);
-                    }
-                    this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
-                    this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
-                    this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow);
-                    void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`, JSON.stringify(pricesTomorrow.sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices sorted by cost ascending as json`);
-                    exDate = new Date(pricesTomorrow[2].startsAt ?? ``);
-                    if (exDate && exDate >= morgen) {
-                        return true;
-                    }
-                    return false;
-                }
-            }
-            else if (exDate && exDate >= morgen) {
-                this.adapter.log.debug(`Existing date of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
-                return true;
-            }
-            return false;
-        }
-        catch (error) {
-            if (forceUpdate) {
-                this.adapter.log.error(this.generateErrorMessage(error, `force pull of prices tomorrow`));
-            }
-            else {
-                this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));
-            }
-            return false;
-        }
-    }
-    async updateConsumptionAllHomes() {
-        try {
-            for (const home of this.adapter.config.HomesList) {
-                if (!home.statsActive || !home.homeID) {
-                    continue;
-                }
-                const homeID = home.homeID;
-                const resolutions = [
-                    { type: EnergyResolution_js_1.EnergyResolution.HOURLY, state: `jsonHourly`, numCons: home.numberConsHourly, description: `hour` },
-                    { type: EnergyResolution_js_1.EnergyResolution.DAILY, state: `jsonDaily`, numCons: home.numberConsDaily, description: `day` },
-                    { type: EnergyResolution_js_1.EnergyResolution.WEEKLY, state: `jsonWeekly`, numCons: home.numberConsWeekly, description: `week` },
-                    { type: EnergyResolution_js_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numCons: home.numberConsMonthly, description: `month` },
-                    { type: EnergyResolution_js_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numCons: home.numberConsAnnual, description: `year` },
-                ];
-                for (const { type, state, numCons, description } of resolutions) {
-                    if (numCons && numCons > 0) {
-                        const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
-                        void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
-                    }
-                    else {
-                        void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, `[]`);
-                    }
-                }
-                this.adapter.log.debug(`Got all consumption data from Tibber Server for home: ${homeID}`);
-            }
-        }
-        catch (error) {
-            this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
-        }
-    }
-    async fetchPrice(homeId, objectDestination, price) {
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        const date = new Date(price.startsAt ?? ``);
-        const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
-        await this.adapter.setObject(basePath, {
-            type: "folder",
-            common: {
-                name: `valid from ${timeLabel}`,
-            },
-            native: {},
+        homeInfoList.push({
+          ID: currentHome.id,
+          NameInApp: currentHome.appNickname ?? `not set`,
+          RealTime: currentHome.features?.realTimeConsumptionEnabled ?? false,
+          FeedActive: false,
+          PriceDataPollActive: true,
         });
-        await this.checkAndSetValueNumber(`${basePath}.total`, price.total ?? 0, `Total price (energy + taxes)`);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, price.energy ?? 0, `Spotmarket energy price`);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, price.tax ?? 0, `Tax part of the price (energy, tax, VAT...)`);
-        void this.checkAndSetValue(`${basePath}.startsAt`, price.startsAt ?? `---`, `Start time of the price`);
-        void this.checkAndSetValue(`${basePath}.level`, price.level ?? `---`, `Price level compared to recent price values`);
-    }
-    fetchPriceAverage(homeId, objectDestination, price) {
-        if (!price || price.length === 0) {
-            return;
+        this.tibberConfig.homeId = currentHome.id;
+        const basePath = `Homes.${currentHome.id}`;
+        void this.checkAndSetValue(
+          `${basePath}.General.Id`,
+          currentHome.id,
+          "ID of your home",
+        );
+        void this.checkAndSetValue(
+          `${basePath}.General.Timezone`,
+          currentHome.timeZone ?? `not set`,
+          "The time zone the home resides in",
+        );
+        void this.checkAndSetValue(
+          `${basePath}.General.NameInApp`,
+          currentHome.appNickname ?? `not set`,
+          "The nickname given to the home",
+        );
+        void this.checkAndSetValue(
+          `${basePath}.General.AvatarInApp`,
+          currentHome.appAvatar ?? `not set`,
+          "The chosen app avatar for the home",
+        );
+        void this.checkAndSetValue(
+          `${basePath}.General.Type`,
+          currentHome.type ?? `not set`,
+          "The type of home.",
+        );
+        void this.checkAndSetValue(
+          `${basePath}.General.PrimaryHeatingSource`,
+          currentHome.primaryHeatingSource ?? `not set`,
+          `The primary form of heating in the home`,
+        );
+        void this.checkAndSetValueNumber(
+          `${basePath}.General.Size`,
+          currentHome.size ?? 0,
+          "The size of the home in square meters",
+        );
+        void this.checkAndSetValueNumber(
+          `${basePath}.General.NumberOfResidents`,
+          currentHome.numberOfResidents ?? 0,
+          `The number of people living in the home`,
+        );
+        void this.checkAndSetValueNumber(
+          `${basePath}.General.MainFuseSize`,
+          currentHome.mainFuseSize ?? 0,
+          "The main fuse size",
+        );
+        void this.checkAndSetValueBoolean(
+          `${basePath}.General.HasVentilationSystem`,
+          currentHome.hasVentilationSystem ?? false,
+          `Whether the home has a ventilation system`,
+        );
+        if (currentHome.address) {
+          this.fetchAddress(currentHome.id, "Address", currentHome.address);
         }
-        const sumValues = (key) => price.reduce((sum, item) => (item && typeof item[key] === "number" ? sum + item[key] : sum), 0);
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (sumValues("total") / price.length)) / 1000, `Todays total price average`);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (sumValues("energy") / price.length)) / 1000, `Todays average spotmarket price`);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / price.length)) / 1000, `Todays average tax price`);
-    }
-    async fetchPriceRemainingAverage(homeId, objectDestination, price) {
-        if (!price || price.length === 0) {
-            return;
+        if (currentHome.owner) {
+          this.fetchLegalEntity(currentHome.id, "Owner", currentHome.owner);
         }
+        void this.checkAndSetValueBoolean(
+          `${basePath}.Features.RealTimeConsumptionEnabled`,
+          currentHome.features?.realTimeConsumptionEnabled ?? false,
+          `Whether Tibber server will send consumption data by API`,
+        );
+      }
+      return homeInfoList;
+    } catch (error) {
+      this.adapter.log.error(
+        this.generateErrorMessage(error, `fetching homes from Tibber API`),
+      );
+      return [];
+    }
+  }
+  async updateCurrentPriceAllHomes(homeInfoList) {
+    let okprice = true;
+    for (const curHomeInfo of homeInfoList) {
+      if (!curHomeInfo.PriceDataPollActive) {
+        continue;
+      }
+      if (!(await this.updateCurrentPrice(curHomeInfo.ID))) {
+        okprice = false;
+      }
+    }
+    return okprice;
+  }
+  async updateCurrentPrice(homeId) {
+    if (!homeId) {
+      return false;
+    }
+    try {
+      const now = new Date();
+      const pricesStr = await this.getStateValue(
+        `Homes.${homeId}.PricesToday.json`,
+      );
+      if (!pricesStr) {
+        this.adapter.log.debug(`No PricesToday data found for home ${homeId}`);
+        return false;
+      }
+      const pricesToday = JSON.parse(pricesStr);
+      if (!Array.isArray(pricesToday) || pricesToday.length === 0) {
+        this.adapter.log.debug(`PricesToday array empty for home ${homeId}`);
+        return false;
+      }
+      const currentPrice = pricesToday.find((p) => {
+        const start = new Date(p.startsAt ?? ``);
+        const end = (0, date_fns_1.addMinutes)(start, 15);
+        return now >= start && now < end;
+      });
+      if (!currentPrice) {
+        this.adapter.log.warn(
+          `No matching price found for current time in home ${homeId}`,
+        );
+        return false;
+      }
+      await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
+      await this.fetchPriceRemainingAverage(
+        homeId,
+        "PricesToday.averageRemaining",
+        pricesToday,
+      );
+      this.adapter.log.debug(
+        `Updated current price and remaining average for home ${homeId} from PricesToday: ${JSON.stringify(currentPrice)}`,
+      );
+      return true;
+    } catch (error) {
+      const msg = this.generateErrorMessage(
+        error,
+        `update of current price from PricesToday`,
+      );
+      this.adapter.log.error(msg);
+      return false;
+    }
+  }
+  async dailyPriceRolloverAllHomes(homeInfoList) {
+    for (const curHomeInfo of homeInfoList) {
+      if (!curHomeInfo.PriceDataPollActive) {
+        continue;
+      }
+      await this.dailyPriceRollover(curHomeInfo.ID);
+    }
+  }
+  async dailyPriceRollover(homeId) {
+    try {
+      let currentPricesToday = [];
+      let currentPricesTomorrow = [];
+      try {
+        currentPricesToday = JSON.parse(
+          (await this.getStateValue(`Homes.${homeId}.PricesToday.json`)) ||
+            "[]",
+        );
+        currentPricesTomorrow = JSON.parse(
+          (await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`)) ||
+            "[]",
+        );
+      } catch {
+        currentPricesToday = [];
+        currentPricesTomorrow = [];
+      }
+      this.adapter.log.info(
+        `Performing daily price rollover for home ${homeId}`,
+      );
+      await this.checkAndSetValue(
+        `Homes.${homeId}.PricesYesterday.json`,
+        JSON.stringify(currentPricesToday),
+        `The prices yesterday as json`,
+      );
+      const newPricesToday =
+        currentPricesTomorrow.length > 0 ? currentPricesTomorrow : [];
+      await this.checkAndSetValue(
+        `Homes.${homeId}.PricesToday.json`,
+        JSON.stringify(newPricesToday),
+        `The prices today as json`,
+      );
+      await this.checkAndSetValue(
+        `Homes.${homeId}.PricesTomorrow.json`,
+        JSON.stringify([]),
+        `The prices tomorrow as json`,
+      );
+      if (Array.isArray(currentPricesToday) && currentPricesToday.length > 0) {
+        await this.checkAndSetValue(
+          `Homes.${homeId}.PricesYesterday.jsonBYpriceASC`,
+          JSON.stringify(
+            [...currentPricesToday].sort(
+              (a, b) => (a.total ?? 0) - (b.total ?? 0),
+            ),
+          ),
+          `prices yesterday sorted by cost ascending as json`,
+        );
+        this.fetchPriceAverage(
+          homeId,
+          `PricesYesterday.average`,
+          currentPricesToday,
+        );
+        this.fetchPriceMaximum(
+          homeId,
+          `PricesYesterday.maximum`,
+          currentPricesToday,
+        );
+        this.fetchPriceMinimum(
+          homeId,
+          `PricesYesterday.minimum`,
+          currentPricesToday,
+        );
+      }
+      if (Array.isArray(newPricesToday) && newPricesToday.length > 0) {
+        await this.checkAndSetValue(
+          `Homes.${homeId}.PricesToday.jsonBYpriceASC`,
+          JSON.stringify(
+            [...newPricesToday].sort((a, b) => (a.total ?? 0) - (b.total ?? 0)),
+          ),
+          `prices today sorted by cost ascending as json`,
+        );
+        this.fetchPriceAverage(homeId, `PricesToday.average`, newPricesToday);
+        await this.fetchPriceRemainingAverage(
+          homeId,
+          `PricesToday.averageRemaining`,
+          newPricesToday,
+        );
+        this.fetchPriceMaximum(homeId, `PricesToday.maximum`, newPricesToday);
+        this.fetchPriceMinimum(homeId, `PricesToday.minimum`, newPricesToday);
+        for (let i = 0; i < newPricesToday.length; i++) {
+          await this.fetchPrice(homeId, `PricesToday.${i}`, newPricesToday[i]);
+        }
+      }
+      this.adapter.log.debug(
+        `Emptying prices tomorrow and average cause existing ones are obsolete after rollover`,
+      );
+      for (let i = 0; i < 96; i++) {
+        this.emptyingPrice(homeId, `PricesTomorrow.${i}`);
+      }
+      this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
+      this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
+      this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
+      await this.checkAndSetValue(
+        `Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`,
+        JSON.stringify([]),
+        `prices tomorrow sorted by cost ascending as json`,
+      );
+      this.adapter.log.debug(
+        `daily price rollover completed for home ${homeId}`,
+      );
+    } catch (error) {
+      this.adapter.log.error(
+        this.generateErrorMessage(
+          error,
+          `daily price rollover for home ${homeId}`,
+        ),
+      );
+    }
+  }
+  async updatePricesTodayAllHomes(
+    homeInfoList,
+    resolution,
+    forceUpdate = false,
+  ) {
+    let okprice = true;
+    for (const curHomeInfo of homeInfoList) {
+      if (!curHomeInfo.PriceDataPollActive) {
+        continue;
+      }
+      if (
+        !(await this.updatePricesToday(curHomeInfo.ID, resolution, forceUpdate))
+      ) {
+        okprice = false;
+      } else {
         const now = new Date();
-        const filteredPrices = price.filter(item => {
-            const start = new Date(item.startsAt ?? ``);
-            return start >= now;
-        });
-        if (!filteredPrices.length) {
-            this.adapter.log.debug(`No remaining prices for today in home ${homeId}`);
-            return;
+        void this.checkAndSetValue(
+          `Homes.${curHomeInfo.ID}.PricesToday.lastUpdate`,
+          now.toString(),
+          `last update of prices today`,
+        );
+      }
+    }
+    return okprice;
+  }
+  async updatePricesToday(homeId, resolution, forceUpdate = false) {
+    try {
+      let exDate = null;
+      let exPricesToday = [];
+      if (!forceUpdate) {
+        exPricesToday = JSON.parse(
+          await this.getStateValue(`Homes.${homeId}.PricesToday.json`),
+        );
+      }
+      if (Array.isArray(exPricesToday) && exPricesToday[2]?.startsAt) {
+        exDate = new Date(exPricesToday[2].startsAt);
+      }
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (
+        !exDate ||
+        exDate < today ||
+        forceUpdate ||
+        !Array.isArray(exPricesToday) ||
+        exPricesToday.length === 0
+      ) {
+        const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(
+          homeId,
+          resolution,
+        );
+        if (
+          !(
+            Array.isArray(pricesToday) &&
+            pricesToday.length > 0 &&
+            pricesToday[2]?.total
+          )
+        ) {
+          throw new Error(
+            `Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`,
+          );
         }
-        const totalSum = filteredPrices.reduce((sum, item) => sum + (item.total ?? 0), 0);
-        const energySum = filteredPrices.reduce((sum, item) => sum + (item.energy ?? 0), 0);
-        const taxSum = filteredPrices.reduce((sum, item) => sum + (item.tax ?? 0), 0);
-        const count = filteredPrices.length;
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        const date = new Date(filteredPrices[0].startsAt ?? ``);
-        const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
-        await this.adapter.setObject(basePath, {
-            type: "folder",
-            common: {
-                name: `valid from ${timeLabel}`,
-            },
-            native: {},
-        });
-        await this.checkAndSetValueNumber(`${basePath}.total`, Math.round((totalSum / count) * 1000) / 1000, `Todays total price remaining average`);
-        await this.checkAndSetValueNumber(`${basePath}.energy`, Math.round((energySum / count) * 1000) / 1000, `Todays remaining average spot market price`);
-        await this.checkAndSetValueNumber(`${basePath}.tax`, Math.round((taxSum / count) * 1000) / 1000, `Todays remaining average tax price`);
-    }
-    fetchPriceMaximum(homeId, objectDestination, price) {
-        if (!price || price.length === 0) {
-            return;
+        this.adapter.log.debug(
+          `Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`,
+        );
+        void this.checkAndSetValue(
+          `Homes.${homeId}.PricesToday.json`,
+          JSON.stringify(pricesToday),
+          `The prices today as json`,
+        );
+        this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
+        await this.fetchPriceRemainingAverage(
+          homeId,
+          `PricesToday.averageRemaining`,
+          pricesToday,
+        );
+        this.fetchPriceMaximum(homeId, `PricesToday.maximum`, pricesToday);
+        this.fetchPriceMinimum(homeId, `PricesToday.minimum`, pricesToday);
+        for (let i = 0; i < pricesToday.length; i++) {
+          await this.fetchPrice(homeId, `PricesToday.${i}`, pricesToday[i]);
         }
-        const maxEntry = price.reduce((max, current) => ((current.total ?? 0) > (max.total ?? 0) ? current : max));
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (maxEntry.total ?? 0)) / 1000, `Todays total price maximum`);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (maxEntry.energy ?? 0)) / 1000, `Todays spotmarket price at total price maximum`);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (maxEntry.tax ?? 0)) / 1000, `Todays tax price at total price maximum`);
-        void this.checkAndSetValue(`${basePath}.level`, maxEntry.level ?? `---`, `Price level compared to recent price values`);
-        void this.checkAndSetValue(`${basePath}.startsAt`, maxEntry.startsAt ?? `---`, `Start time of the price maximum`);
-    }
-    fetchPriceMinimum(homeId, objectDestination, price) {
-        if (!price || price.length === 0) {
-            return;
+        void this.checkAndSetValue(
+          `Homes.${homeId}.PricesToday.jsonBYpriceASC`,
+          JSON.stringify(
+            pricesToday.sort((a, b) => (a.total ?? 0) - (b.total ?? 0)),
+          ),
+          `prices sorted by cost ascending as json`,
+        );
+        if (pricesToday[2]?.startsAt) {
+          const newDate = new Date(pricesToday[2].startsAt);
+          if (newDate >= today) {
+            return true;
+          }
         }
-        const minEntry = price.reduce((min, current) => ((current.total ?? 0) < (min.total ?? 0) ? current : min));
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, Math.round(1000 * (minEntry.total ?? 0)) / 1000, `Todays total price minimum`);
-        void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (minEntry.energy ?? 0)) / 1000, `Todays spotmarket price at total price minimum`);
-        void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (minEntry.tax ?? 0)) / 1000, `Todays tax price at total price minimum`);
-        void this.checkAndSetValue(`${basePath}.level`, minEntry.level ?? `---`, `Price level compared to recent price values`);
-        void this.checkAndSetValue(`${basePath}.startsAt`, minEntry.startsAt ?? `---`, `Start time of the price minimum`);
+        return false;
+      }
+      this.adapter.log.debug(
+        `Existing date of price info is already the today date, polling of prices today from Tibber skipped`,
+      );
+      return true;
+    } catch (error) {
+      if (forceUpdate) {
+        this.adapter.log.error(
+          this.generateErrorMessage(error, `force pull of prices today`),
+        );
+      } else {
+        this.adapter.log.warn(
+          this.generateErrorMessage(error, `pull of prices today`),
+        );
+      }
+      return false;
     }
-    emptyingPrice(homeId, objectDestination) {
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, 0, "The total price (energy + taxes)");
-        void this.checkAndSetValueNumber(`${basePath}.energy`, 0, "Spotmarket price");
-        void this.checkAndSetValueNumber(`${basePath}.tax`, 0, "Tax part of the price (energy tax, VAT, etc.)");
-        void this.checkAndSetValue(`${basePath}.level`, "Not known now", "Price level compared to recent price values");
+  }
+  async updatePricesTomorrowAllHomes(
+    homeInfoList,
+    resolution,
+    forceUpdate = false,
+  ) {
+    let okprice = true;
+    for (const curHomeInfo of homeInfoList) {
+      if (!curHomeInfo.PriceDataPollActive) {
+        continue;
+      }
+      if (
+        !(await this.updatePricesTomorrow(
+          curHomeInfo.ID,
+          resolution,
+          forceUpdate,
+        ))
+      ) {
+        okprice = false;
+      } else {
+        const now = new Date();
+        void this.checkAndSetValue(
+          `Homes.${curHomeInfo.ID}.PricesTomorrow.lastUpdate`,
+          now.toString(),
+          `last update of prices tomorrow`,
+        );
+      }
     }
-    emptyingPriceAverage(homeId, objectDestination) {
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, 0, "The todays total price average");
-        void this.checkAndSetValueNumber(`${basePath}.energy`, 0, "The todays avarage spotmarket price");
-        void this.checkAndSetValueNumber(`${basePath}.tax`, 0, "The todays avarage tax price");
-    }
-    emptyingPriceMaximum(homeId, objectDestination) {
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, 0, "Todays total price maximum");
-        void this.checkAndSetValueNumber(`${basePath}.energy`, 0, "Todays spotmarket price at total price maximum");
-        void this.checkAndSetValueNumber(`${basePath}.tax`, 0, "Todays tax price at total price maximum");
-        void this.checkAndSetValue(`${basePath}.level`, "Not known now", "Price level compared to recent price values");
-        void this.checkAndSetValue(`${basePath}.startsAt`, "Not known now", "Start time of the price maximum");
-    }
-    emptyingPriceMinimum(homeId, objectDestination) {
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValueNumber(`${basePath}.total`, 0, "Todays total price minimum");
-        void this.checkAndSetValueNumber(`${basePath}.energy`, 0, "Todays spotmarket price at total price minimum");
-        void this.checkAndSetValueNumber(`${basePath}.tax`, 0, "Todays tax price at total price minimum");
-        void this.checkAndSetValue(`${basePath}.level`, "Not known now", "Price level compared to recent price values");
-        void this.checkAndSetValue(`${basePath}.startsAt`, "Not known now", "Start time of the price minimum");
-    }
-    fetchLegalEntity(homeId, objectDestination, legalEntity) {
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValue(`${basePath}.Id`, legalEntity.id);
-        void this.checkAndSetValue(`${basePath}.FirstName`, legalEntity.firstName);
-        void this.checkAndSetValueBoolean(`${basePath}.IsCompany`, legalEntity.isCompany);
-        void this.checkAndSetValue(`${basePath}.Name`, legalEntity.name);
-        void this.checkAndSetValue(`${basePath}.MiddleName`, legalEntity.middleName);
-        void this.checkAndSetValue(`${basePath}.LastName`, legalEntity.lastName);
-        void this.checkAndSetValue(`${basePath}.OrganizationNo`, legalEntity.organizationNo);
-        void this.checkAndSetValue(`${basePath}.Language`, legalEntity.language);
-        if (legalEntity.contactInfo) {
-            this.fetchContactInfo(homeId, `${objectDestination}.ContactInfo`, legalEntity.contactInfo);
+    return okprice;
+  }
+  async updatePricesTomorrow(homeId, resolution, forceUpdate = false) {
+    try {
+      let exDate = null;
+      let exPricesTomorrow = [];
+      if (!forceUpdate) {
+        exPricesTomorrow = JSON.parse(
+          await this.getStateValue(`Homes.${homeId}.PricesTomorrow.json`),
+        );
+      }
+      if (Array.isArray(exPricesTomorrow) && exPricesTomorrow[2]?.startsAt) {
+        exDate = new Date(exPricesTomorrow[2].startsAt);
+      }
+      const morgen = new Date();
+      morgen.setDate(morgen.getDate() + 1);
+      morgen.setHours(0, 0, 0, 0);
+      if (!exDate || exDate < morgen || forceUpdate) {
+        const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(
+          homeId,
+          resolution,
+        );
+        this.adapter.log.debug(
+          `Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`,
+        );
+        void this.checkAndSetValue(
+          `Homes.${homeId}.PricesTomorrow.json`,
+          JSON.stringify(pricesTomorrow),
+          `The prices tomorrow as json`,
+        );
+        if (pricesTomorrow.length === 0) {
+          this.adapter.log.debug(
+            `Emptying prices tomorrow and average cause existing ones are obsolete...`,
+          );
+          for (let timeblock = 0; timeblock < 96; timeblock++) {
+            this.emptyingPrice(homeId, `PricesTomorrow.${timeblock}`);
+          }
+          this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
+          this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
+          this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
+          void this.checkAndSetValue(
+            `Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`,
+            JSON.stringify(pricesTomorrow),
+            `prices tomorrow sorted by cost ascending as json`,
+          );
+          return false;
+        } else if (Array.isArray(pricesTomorrow)) {
+          for (let i = 0; i < pricesTomorrow.length; i++) {
+            const price = pricesTomorrow[i];
+            await this.fetchPrice(homeId, `PricesTomorrow.${i}`, price);
+          }
+          this.fetchPriceAverage(
+            homeId,
+            `PricesTomorrow.average`,
+            pricesTomorrow,
+          );
+          this.fetchPriceMaximum(
+            homeId,
+            `PricesTomorrow.maximum`,
+            pricesTomorrow,
+          );
+          this.fetchPriceMinimum(
+            homeId,
+            `PricesTomorrow.minimum`,
+            pricesTomorrow,
+          );
+          void this.checkAndSetValue(
+            `Homes.${homeId}.PricesTomorrow.jsonBYpriceASC`,
+            JSON.stringify(
+              pricesTomorrow.sort((a, b) => (a.total ?? 0) - (b.total ?? 0)),
+            ),
+            `prices sorted by cost ascending as json`,
+          );
+          exDate = new Date(pricesTomorrow[2].startsAt ?? ``);
+          if (exDate && exDate >= morgen) {
+            return true;
+          }
+          return false;
         }
-        if (legalEntity.address) {
-            this.fetchAddress(homeId, `${objectDestination}.Address`, legalEntity.address);
+      } else if (exDate && exDate >= morgen) {
+        this.adapter.log.debug(
+          `Existing date of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`,
+        );
+        return true;
+      }
+      return false;
+    } catch (error) {
+      if (forceUpdate) {
+        this.adapter.log.error(
+          this.generateErrorMessage(error, `force pull of prices tomorrow`),
+        );
+      } else {
+        this.adapter.log.warn(
+          this.generateErrorMessage(error, `pull of prices tomorrow`),
+        );
+      }
+      return false;
+    }
+  }
+  async updateConsumptionAllHomes() {
+    try {
+      for (const home of this.adapter.config.HomesList) {
+        if (!home.statsActive || !home.homeID) {
+          continue;
         }
+        const homeID = home.homeID;
+        const resolutions = [
+          {
+            type: EnergyResolution_js_1.EnergyResolution.HOURLY,
+            state: `jsonHourly`,
+            numCons: home.numberConsHourly,
+            description: `hour`,
+          },
+          {
+            type: EnergyResolution_js_1.EnergyResolution.DAILY,
+            state: `jsonDaily`,
+            numCons: home.numberConsDaily,
+            description: `day`,
+          },
+          {
+            type: EnergyResolution_js_1.EnergyResolution.WEEKLY,
+            state: `jsonWeekly`,
+            numCons: home.numberConsWeekly,
+            description: `week`,
+          },
+          {
+            type: EnergyResolution_js_1.EnergyResolution.MONTHLY,
+            state: `jsonMonthly`,
+            numCons: home.numberConsMonthly,
+            description: `month`,
+          },
+          {
+            type: EnergyResolution_js_1.EnergyResolution.ANNUAL,
+            state: `jsonAnnual`,
+            numCons: home.numberConsAnnual,
+            description: `year`,
+          },
+        ];
+        for (const { type, state, numCons, description } of resolutions) {
+          if (numCons && numCons > 0) {
+            const consumption = await this.tibberQuery.getConsumption(
+              type,
+              numCons,
+              homeID,
+            );
+            void this.checkAndSetValue(
+              `Homes.${homeID}.Consumption.${state}`,
+              JSON.stringify(consumption),
+              `Historical consumption last ${description}s as json)`,
+              `json`,
+            );
+            if (type === EnergyResolution_js_1.EnergyResolution.MONTHLY) {
+              const currentMonthConsumption =
+                this.getCurrentMonthConsumption(consumption);
+              void this.checkAndSetValueNumber(
+                `Homes.${homeID}.Consumption.currentMonthConsumption`,
+                currentMonthConsumption ?? 0,
+                `Total consumption for the current month`,
+                `kWh`,
+              );
+            }
+          } else {
+            void this.checkAndSetValue(
+              `Homes.${homeID}.Consumption.${state}`,
+              `[]`,
+            );
+          }
+        }
+        this.adapter.log.debug(
+          `Got all consumption data from Tibber Server for home: ${homeID}`,
+        );
+      }
+    } catch (error) {
+      this.adapter.log.error(
+        this.generateErrorMessage(error, `pull of consumption data`),
+      );
     }
-    fetchContactInfo(homeId, objectDestination, contactInfo) {
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValue(`${basePath}.Email`, contactInfo.email);
-        void this.checkAndSetValue(`${basePath}.Mobile`, contactInfo.mobile);
+  }
+  getCurrentMonthConsumption(consumption) {
+    if (!consumption || consumption.length === 0) {
+      return undefined;
     }
-    fetchAddress(homeId, objectDestination, address) {
-        const basePath = `Homes.${homeId}.${objectDestination}`;
-        void this.checkAndSetValue(`${basePath}.address1`, address.address1);
-        void this.checkAndSetValue(`${basePath}.address2`, address.address2);
-        void this.checkAndSetValue(`${basePath}.address3`, address.address3);
-        void this.checkAndSetValue(`${basePath}.City`, address.city);
-        void this.checkAndSetValue(`${basePath}.PostalCode`, address.postalCode);
-        void this.checkAndSetValue(`${basePath}.Country`, address.country);
-        void this.checkAndSetValue(`${basePath}.Latitude`, address.latitude);
-        void this.checkAndSetValue(`${basePath}.Longitude`, address.longitude);
+    const sortedConsumption = consumption
+      .map((entry) => ({
+        entry,
+        date: entry.from ?? entry.to,
+      }))
+      .filter((item) => typeof item.date === "string" && item.date.length > 0)
+      .map((item) => ({
+        entry: item.entry,
+        timestamp: Date.parse(item.date),
+      }))
+      .filter((item) => !Number.isNaN(item.timestamp))
+      .sort((left, right) => left.timestamp - right.timestamp);
+    const latest = sortedConsumption.at(-1)?.entry;
+    if (!latest) {
+      return undefined;
     }
+    const consumptionValue =
+      typeof latest.consumption === "number"
+        ? latest.consumption
+        : Number(latest.consumption);
+    return Number.isFinite(consumptionValue) ? consumptionValue : undefined;
+  }
+  async fetchPrice(homeId, objectDestination, price) {
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    const date = new Date(price.startsAt ?? ``);
+    const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+    await this.adapter.setObject(basePath, {
+      type: "folder",
+      common: {
+        name: `valid from ${timeLabel}`,
+      },
+      native: {},
+    });
+    await this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      price.total ?? 0,
+      `Total price (energy + taxes)`,
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      price.energy ?? 0,
+      `Spotmarket energy price`,
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      price.tax ?? 0,
+      `Tax part of the price (energy, tax, VAT...)`,
+    );
+    void this.checkAndSetValue(
+      `${basePath}.startsAt`,
+      price.startsAt ?? `---`,
+      `Start time of the price`,
+    );
+    void this.checkAndSetValue(
+      `${basePath}.level`,
+      price.level ?? `---`,
+      `Price level compared to recent price values`,
+    );
+  }
+  fetchPriceAverage(homeId, objectDestination, price) {
+    if (!price || price.length === 0) {
+      return;
+    }
+    const sumValues = (key) =>
+      price.reduce(
+        (sum, item) =>
+          item && typeof item[key] === "number" ? sum + item[key] : sum,
+        0,
+      );
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      Math.round(1000 * (sumValues("total") / price.length)) / 1000,
+      `Todays total price average`,
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      Math.round(1000 * (sumValues("energy") / price.length)) / 1000,
+      `Todays average spotmarket price`,
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      Math.round(1000 * (sumValues("tax") / price.length)) / 1000,
+      `Todays average tax price`,
+    );
+  }
+  async fetchPriceRemainingAverage(homeId, objectDestination, price) {
+    if (!price || price.length === 0) {
+      return;
+    }
+    const now = new Date();
+    const filteredPrices = price.filter((item) => {
+      const start = new Date(item.startsAt ?? ``);
+      return start >= now;
+    });
+    if (!filteredPrices.length) {
+      this.adapter.log.debug(`No remaining prices for today in home ${homeId}`);
+      return;
+    }
+    const totalSum = filteredPrices.reduce(
+      (sum, item) => sum + (item.total ?? 0),
+      0,
+    );
+    const energySum = filteredPrices.reduce(
+      (sum, item) => sum + (item.energy ?? 0),
+      0,
+    );
+    const taxSum = filteredPrices.reduce(
+      (sum, item) => sum + (item.tax ?? 0),
+      0,
+    );
+    const count = filteredPrices.length;
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    const date = new Date(filteredPrices[0].startsAt ?? ``);
+    const timeLabel = `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+    await this.adapter.setObject(basePath, {
+      type: "folder",
+      common: {
+        name: `valid from ${timeLabel}`,
+      },
+      native: {},
+    });
+    await this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      Math.round((totalSum / count) * 1000) / 1000,
+      `Todays total price remaining average`,
+    );
+    await this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      Math.round((energySum / count) * 1000) / 1000,
+      `Todays remaining average spot market price`,
+    );
+    await this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      Math.round((taxSum / count) * 1000) / 1000,
+      `Todays remaining average tax price`,
+    );
+  }
+  fetchPriceMaximum(homeId, objectDestination, price) {
+    if (!price || price.length === 0) {
+      return;
+    }
+    const maxEntry = price.reduce((max, current) =>
+      (current.total ?? 0) > (max.total ?? 0) ? current : max,
+    );
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      Math.round(1000 * (maxEntry.total ?? 0)) / 1000,
+      `Todays total price maximum`,
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      Math.round(1000 * (maxEntry.energy ?? 0)) / 1000,
+      `Todays spotmarket price at total price maximum`,
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      Math.round(1000 * (maxEntry.tax ?? 0)) / 1000,
+      `Todays tax price at total price maximum`,
+    );
+    void this.checkAndSetValue(
+      `${basePath}.level`,
+      maxEntry.level ?? `---`,
+      `Price level compared to recent price values`,
+    );
+    void this.checkAndSetValue(
+      `${basePath}.startsAt`,
+      maxEntry.startsAt ?? `---`,
+      `Start time of the price maximum`,
+    );
+  }
+  fetchPriceMinimum(homeId, objectDestination, price) {
+    if (!price || price.length === 0) {
+      return;
+    }
+    const minEntry = price.reduce((min, current) =>
+      (current.total ?? 0) < (min.total ?? 0) ? current : min,
+    );
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      Math.round(1000 * (minEntry.total ?? 0)) / 1000,
+      `Todays total price minimum`,
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      Math.round(1000 * (minEntry.energy ?? 0)) / 1000,
+      `Todays spotmarket price at total price minimum`,
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      Math.round(1000 * (minEntry.tax ?? 0)) / 1000,
+      `Todays tax price at total price minimum`,
+    );
+    void this.checkAndSetValue(
+      `${basePath}.level`,
+      minEntry.level ?? `---`,
+      `Price level compared to recent price values`,
+    );
+    void this.checkAndSetValue(
+      `${basePath}.startsAt`,
+      minEntry.startsAt ?? `---`,
+      `Start time of the price minimum`,
+    );
+  }
+  emptyingPrice(homeId, objectDestination) {
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      0,
+      "The total price (energy + taxes)",
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      0,
+      "Spotmarket price",
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      0,
+      "Tax part of the price (energy tax, VAT, etc.)",
+    );
+    void this.checkAndSetValue(
+      `${basePath}.level`,
+      "Not known now",
+      "Price level compared to recent price values",
+    );
+  }
+  emptyingPriceAverage(homeId, objectDestination) {
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      0,
+      "The todays total price average",
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      0,
+      "The todays avarage spotmarket price",
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      0,
+      "The todays avarage tax price",
+    );
+  }
+  emptyingPriceMaximum(homeId, objectDestination) {
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      0,
+      "Todays total price maximum",
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      0,
+      "Todays spotmarket price at total price maximum",
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      0,
+      "Todays tax price at total price maximum",
+    );
+    void this.checkAndSetValue(
+      `${basePath}.level`,
+      "Not known now",
+      "Price level compared to recent price values",
+    );
+    void this.checkAndSetValue(
+      `${basePath}.startsAt`,
+      "Not known now",
+      "Start time of the price maximum",
+    );
+  }
+  emptyingPriceMinimum(homeId, objectDestination) {
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValueNumber(
+      `${basePath}.total`,
+      0,
+      "Todays total price minimum",
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.energy`,
+      0,
+      "Todays spotmarket price at total price minimum",
+    );
+    void this.checkAndSetValueNumber(
+      `${basePath}.tax`,
+      0,
+      "Todays tax price at total price minimum",
+    );
+    void this.checkAndSetValue(
+      `${basePath}.level`,
+      "Not known now",
+      "Price level compared to recent price values",
+    );
+    void this.checkAndSetValue(
+      `${basePath}.startsAt`,
+      "Not known now",
+      "Start time of the price minimum",
+    );
+  }
+  fetchLegalEntity(homeId, objectDestination, legalEntity) {
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValue(`${basePath}.Id`, legalEntity.id);
+    void this.checkAndSetValue(`${basePath}.FirstName`, legalEntity.firstName);
+    void this.checkAndSetValueBoolean(
+      `${basePath}.IsCompany`,
+      legalEntity.isCompany,
+    );
+    void this.checkAndSetValue(`${basePath}.Name`, legalEntity.name);
+    void this.checkAndSetValue(
+      `${basePath}.MiddleName`,
+      legalEntity.middleName,
+    );
+    void this.checkAndSetValue(`${basePath}.LastName`, legalEntity.lastName);
+    void this.checkAndSetValue(
+      `${basePath}.OrganizationNo`,
+      legalEntity.organizationNo,
+    );
+    void this.checkAndSetValue(`${basePath}.Language`, legalEntity.language);
+    if (legalEntity.contactInfo) {
+      this.fetchContactInfo(
+        homeId,
+        `${objectDestination}.ContactInfo`,
+        legalEntity.contactInfo,
+      );
+    }
+    if (legalEntity.address) {
+      this.fetchAddress(
+        homeId,
+        `${objectDestination}.Address`,
+        legalEntity.address,
+      );
+    }
+  }
+  fetchContactInfo(homeId, objectDestination, contactInfo) {
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValue(`${basePath}.Email`, contactInfo.email);
+    void this.checkAndSetValue(`${basePath}.Mobile`, contactInfo.mobile);
+  }
+  fetchAddress(homeId, objectDestination, address) {
+    const basePath = `Homes.${homeId}.${objectDestination}`;
+    void this.checkAndSetValue(`${basePath}.address1`, address.address1);
+    void this.checkAndSetValue(`${basePath}.address2`, address.address2);
+    void this.checkAndSetValue(`${basePath}.address3`, address.address3);
+    void this.checkAndSetValue(`${basePath}.City`, address.city);
+    void this.checkAndSetValue(`${basePath}.PostalCode`, address.postalCode);
+    void this.checkAndSetValue(`${basePath}.Country`, address.country);
+    void this.checkAndSetValue(`${basePath}.Latitude`, address.latitude);
+    void this.checkAndSetValue(`${basePath}.Longitude`, address.longitude);
+  }
 }
 exports.TibberAPICaller = TibberAPICaller;
 //# sourceMappingURL=tibberAPICaller.js.map

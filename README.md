@@ -59,23 +59,23 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - If no external output state is selected, an internal state within the channel's range will be created.
 - The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states or a number or text to be written.
 - Outputs:
-    - "Best cost": Utilizes the "TriggerPrice" state as input, producing a "YES" output every hour when the current Tibber energy cost is below the trigger price.
-    - "Best single hours": Generates a "YES" output during the least expensive hours, with the number defined in the "AmountHours" state.
-    - "Best hours block": Outputs "YES" during the most cost-effective block of hours, with the number of hours specified in the "AmountHours" state.  
-      Additionally, the average total cost in the determined block is written to a state "AverageTotalCost" nearby the input states of this channel. Also start and end hour of the block is written to "BlockStartFullHour" and "BlockEndFullHour" as a result of the calculation.
-    - "Best percentage": Outputs "YES" during the least expensive hour and any other hours where the price falls within the percentage range specified in the "Percentage" settings state.
-    - "Best cost LTF": "Best cost" within a Limited Time Frame (LTF).
-    - "Best single hours LTF": "Best single hours" within a Limited Time Frame (LTF).
-    - "Best hours block LTF": "Best hours block" within a Limited Time Frame (LTF).
-    - "Best percentage LTF": "Best percentage" within a Limited Time Frame (LTF).
-    - "Smart Battery Buffer":
-        - The "EfficiencyLoss" parameter defines the efficiency loss of the battery system. Its value ranges from 0 to 1, where 0 means no efficiency loss and 1 represents complete energy loss. For example, a value of 0.25 indicates a 25% efficiency loss per charge/discharge cycle.
-        - The "AmountHours" parameter specifies the maximum number of hours the system may use for battery charging, rounded to quarter hours. Important: this is an upper limit, not a guaranteed number of hours. The actual number of charging timeslots is determined dynamically based on energy prices and the efficiency loss. Only timeslots where charging is economically worthwhile (i.e., price is sufficiently below the most expensive slot, considering EfficiencyLoss) will be selected.
-        - The calculator works as follows:
-            - Cheap timeslots: Battery charging is enabled (value YES) and feed into the home energy system is disabled (value 2 NO). These are the slots with the lowest prices that pass the efficiency filter, up to AmountHours.
-            - Expensive timeslots: Battery charging is disabled (value NO) and feed into the home energy system is enabled (value 2 YES). These slots have the highest prices, above the dynamically calculated threshold based on the cheapest timeslot prices and efficiency loss.
-            - Normal timeslots: Where charging is not economically viable, both outputs are disabled.
-        - This approach ensures that the battery is only used when it is economically beneficial, rather than strictly adhering to a fixed number of hours.
+  - "Best cost": Utilizes the "TriggerPrice" state as input, producing a "YES" output every hour when the current Tibber energy cost is below the trigger price.
+  - "Best single hours": Generates a "YES" output during the least expensive hours, with the number defined in the "AmountHours" state.
+  - "Best hours block": Outputs "YES" during the most cost-effective block of hours, with the number of hours specified in the "AmountHours" state.  
+    Additionally, the average total cost in the determined block is written to a state "AverageTotalCost" nearby the input states of this channel. Also start and end hour of the block is written to "BlockStartFullHour" and "BlockEndFullHour" as a result of the calculation.
+  - "Best percentage": Outputs "YES" during the least expensive hour and any other hours where the price falls within the percentage range specified in the "Percentage" settings state.
+  - "Best cost LTF": "Best cost" within a Limited Time Frame (LTF).
+  - "Best single hours LTF": "Best single hours" within a Limited Time Frame (LTF).
+  - "Best hours block LTF": "Best hours block" within a Limited Time Frame (LTF).
+  - "Best percentage LTF": "Best percentage" within a Limited Time Frame (LTF).
+  - "Smart Battery Buffer":
+    - The "EfficiencyLoss" parameter defines the efficiency loss of the battery system. Its value ranges from 0 to 1, where 0 means no efficiency loss and 1 represents complete energy loss. For example, a value of 0.25 indicates a 25% efficiency loss per charge/discharge cycle.
+    - The "AmountHours" parameter specifies the maximum number of hours the system may use for battery charging, rounded to quarter hours. Important: this is an upper limit, not a guaranteed number of hours. The actual number of charging timeslots is determined dynamically based on energy prices and the efficiency loss. Only timeslots where charging is economically worthwhile (i.e., price is sufficiently below the most expensive slot, considering EfficiencyLoss) will be selected.
+    - The calculator works as follows:
+      - Cheap timeslots: Battery charging is enabled (value YES) and feed into the home energy system is disabled (value 2 NO). These are the slots with the lowest prices that pass the efficiency filter, up to AmountHours.
+      - Expensive timeslots: Battery charging is disabled (value NO) and feed into the home energy system is enabled (value 2 YES). These slots have the highest prices, above the dynamically calculated threshold based on the cheapest timeslot prices and efficiency loss.
+      - Normal timeslots: Where charging is not economically viable, both outputs are disabled.
+    - This approach ensures that the battery is only used when it is economically beneficial, rather than strictly adhering to a fixed number of hours.
 - LTF channels: These operate similarly to standard channels but are active only within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel automatically deactivates. 'StartTime' and 'StopTime' can span two calendar days, as Tibber does not provide data beyond a 48-hour window. Both states require a date-time string in ISO-8601 format with a timezone offset, e.g., '2024-12-24T18:00:00.000+01:00'." Additionally, the LTF channels feature a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel will repeat its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition.
 
 ## Graph Output Configuration
@@ -96,16 +96,16 @@ This method requires the "FlexCharts" adapter to be installed separately.
 
 - The TibberLink adapter creates a state called `jsonFlexCharts`.
 
-    ![jsonFlexChartsState.png](docu/jsonFlexChartsState.png)
+  ![jsonFlexChartsState.png](docu/jsonFlexChartsState.png)
 
 - The FlexCharts adapter renders this state via the following URL:
-    ```
-    http://[YOUR IP of FLEXCHARTS]:8082/flexcharts/echarts.html?source=state&id=tibberlink.0.Homes.[TIBBER-HOME-ID].PricesTotal.jsonFlexCharts
-    ```
+  ```
+  http://[YOUR IP of FLEXCHARTS]:8082/flexcharts/echarts.html?source=state&id=tibberlink.0.Homes.[TIBBER-HOME-ID].PricesTotal.jsonFlexCharts
+  ```
 - Starting with V0.7.0 FlexCharts supports automatic chart updates via SSE (Server Sent Events). To use this add `&sse` to the URL:
-    ```
-    http://[YOUR IP of FLEXCHARTS]:8082/flexcharts/echarts.html?source=state&id=tibberlink.0.Homes.[TIBBER-HOME-ID].PricesTotal.jsonFlexCharts&sse=30
-    ```
+  ```
+  http://[YOUR IP of FLEXCHARTS]:8082/flexcharts/echarts.html?source=state&id=tibberlink.0.Homes.[TIBBER-HOME-ID].PricesTotal.jsonFlexCharts&sse=30
+  ```
 - Refer to the [FlexCharts adapter documentation](https://github.com/MyHomeMyData/ioBroker.flexcharts) for more details.
 
 @reblausgt Mit v0.7.0 ist es in Flexcharts nun möglich, Charts automatisch neu aufzubauen, wenn sich der State des Charts geändert hat. Das Verfahren nennt sich SSE (Server Sent Events). Aktiviert wird es denkbar einfach, indem ein &sse an den html-Aufruf anhängt. Details sind im Readme beschrieben.
@@ -121,14 +121,14 @@ Die Version ist in NPM und im Beta-Repo verfügbar. Ab 26. April auch im Stable.
 - A sample template can be downloaded from: [TemplateFlexChart01.md](docu/TemplateFlexChart01.md).
 - Copy and paste the template into the JSON editor.
 - The template contains the placeholders:
-    - `%%xAxisData%%` and `%%yAxisData%%` (populated with price information at runtime).
-    - `%%CalcChannelsData%%` (populated with selected calculator channel data).
+  - `%%xAxisData%%` and `%%yAxisData%%` (populated with price information at runtime).
+  - `%%CalcChannelsData%%` (populated with selected calculator channel data).
 - The rest of the template follows the Apache ECharts configuration. For reference, see [Apache ECharts Examples](https://echarts.apache.org/examples/en/index.html).
 - **Recommendation:** Test the TibberLink adapter without a real template using the default string:
-    ```
-    %%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%
-    ```
-    This helps understand its functionality.
+  ```
+  %%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%
+  ```
+  This helps understand its functionality.
 - Template adjustments can be tested on Apache ECharts examples pages using the "Output-E-Charts" state data.
 - Good templates will be shared within the TibberLink adapter community.
 
@@ -185,6 +185,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (copilot) BREAKING: Adapter requires node.js >= 22 now
 - (HombachC) Adapter requires admin >=7.6.20 now
+- (copilot) Add current month consumption (#872)
 - (HombachC) fix some type definitions
 - (HombachC) extend FlexCharts docu
 - (HombachC) update dependencies
