@@ -506,7 +506,8 @@ export class TibberAPICaller extends ProjectUtils {
 
 						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 						// if (type == EnergyResolution.DAILY && numCons >= 31) {
-						if (type == EnergyResolution.DAILY) {
+						this.adapter.log.info(`Send MonthData?`);
+						if (description == `day`) {
 							this.adapter.log.info(`Send MonthData: ${JSON.stringify(consumption)}`);
 							const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
 							await this.checkAndSetValueNumber(

@@ -342,7 +342,8 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     if (numCons && numCons > 0) {
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
-                        if (type == EnergyResolution_js_1.EnergyResolution.DAILY) {
+                        this.adapter.log.info(`Send MonthData?`);
+                        if (description == `day`) {
                             this.adapter.log.info(`Send MonthData: ${JSON.stringify(consumption)}`);
                             const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
                             await this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`, `value.energy.consumed`);
