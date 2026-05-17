@@ -507,6 +507,7 @@ export class TibberAPICaller extends ProjectUtils {
 						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 						// if (type === EnergyResolution.DAILY && numCons >= 31) {
 						if (type === EnergyResolution.DAILY) {
+							this.adapter.log.error(`Send MonthData: ${JSON.stringify(consumption)}`);
 							const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
 							void this.checkAndSetValueNumber(
 								`Homes.${homeID}.Consumption.currentMonthConsumption`,
@@ -530,7 +531,7 @@ export class TibberAPICaller extends ProjectUtils {
 
 	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 	private getCurrentMonthConsumption(consumption: IConsumption[]): number | undefined {
-		this.adapter.log.error(`MonthData: ${JSON.stringify(consumption)}`);
+		this.adapter.log.error(`Get MonthData: ${JSON.stringify(consumption)}`);
 		if (!consumption || consumption.length === 0) {
 			this.adapter.log.error(`Error 1 occurred while pulling current month consumption data`);
 			return undefined;
