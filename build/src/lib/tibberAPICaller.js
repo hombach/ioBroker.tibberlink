@@ -342,10 +342,10 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     if (numCons && numCons > 0) {
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
-                        if (type === EnergyResolution_js_1.EnergyResolution.DAILY) {
-                            this.adapter.log.error(`Send MonthData: ${JSON.stringify(consumption)}`);
+                        if (type == EnergyResolution_js_1.EnergyResolution.DAILY) {
+                            this.adapter.log.info(`Send MonthData: ${JSON.stringify(consumption)}`);
                             const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
-                            void this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`, `value.energy.consumed`);
+                            await this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`, `value.energy.consumed`);
                         }
                     }
                     else {
@@ -360,7 +360,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
     }
     getCurrentMonthConsumption(consumption) {
-        this.adapter.log.error(`Get MonthData: ${JSON.stringify(consumption)}`);
+        this.adapter.log.info(`Get MonthData: ${JSON.stringify(consumption)}`);
         if (!consumption || consumption.length === 0) {
             this.adapter.log.error(`Error 1 occurred while pulling current month consumption data`);
             return undefined;
