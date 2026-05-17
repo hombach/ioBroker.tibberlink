@@ -513,6 +513,7 @@ export class TibberAPICaller extends ProjectUtils {
 								currentMonthConsumption ?? 0,
 								`Total consumption for the current month`,
 								`kWh`,
+								`value.energy.consumed`,
 							);
 						} // WiP else if error, no data or too short period for calculation of current month consumption, e.g. for monthly resolution with numCons = 12, then just set state but empty
 						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution

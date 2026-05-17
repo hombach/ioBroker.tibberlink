@@ -344,7 +344,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
                         if (type === EnergyResolution_js_1.EnergyResolution.DAILY) {
                             const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
-                            void this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`);
+                            void this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`, `value.energy.consumed`);
                         }
                     }
                     else {
