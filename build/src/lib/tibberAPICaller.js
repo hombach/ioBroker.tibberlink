@@ -360,29 +360,29 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
     }
     getCurrentMonthConsumption(consumption) {
         if (!consumption || consumption.length === 0) {
+            this.adapter.log.error(`Error 1 occurred while pulling current month consumption data`);
             return undefined;
         }
         const now = new Date();
-        const currentYear = now.getFullYear();
-        const currentMonth = now.getMonth();
-        let total = 0;
+        let sum = 0;
         for (const entry of consumption) {
             const dateStr = entry.from ?? entry.to;
             if (!dateStr) {
+                this.adapter.log.error(`Error !dateStr occurred while pulling current month consumption data`);
                 continue;
             }
-            const date = new Date(dateStr);
-            if (isNaN(date.getTime())) {
+            const entryDate = (0, date_fns_1.parseISO)(dateStr);
+            if (!(0, date_fns_1.isValid)(entryDate)) {
                 continue;
             }
-            if (date.getFullYear() === currentYear && date.getMonth() === currentMonth) {
-                const value = typeof entry.consumption === "number" ? entry.consumption : Number(entry.consumption);
-                if (Number.isFinite(value)) {
-                    total += value;
+            if ((0, date_fns_1.isSameMonth)(entryDate, now)) {
+                const value = entry.consumption;
+                if (typeof value === "number" && isFinite(value) && value >= 0) {
+                    sum += value;
                 }
             }
         }
-        return total > 0 ? total : undefined;
+        return sum > 0 ? sum : undefined;
     }
     async fetchPrice(homeId, objectDestination, price) {
         const basePath = `Homes.${homeId}.${objectDestination}`;

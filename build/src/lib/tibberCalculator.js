@@ -938,7 +938,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     }
                     cheapIndex++;
                 }
-                const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total));
+                const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total ?? 0));
                 for (const timeSlot of filteredPrices) {
                     if (!cheapTimeSlots.includes(timeSlot)) {
                         if (timeSlot.total ?? 0 > minDelta + maxCheapTotal) {
@@ -990,7 +990,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
             }
             function calculateMinDelta(cheapTimeSlots, efficiencyLoss) {
-                const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + slot.total, 0);
+                const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + (slot.total ?? 0), 0);
                 const cheapAverage = cheapTotalSum / cheapTimeSlots.length;
                 return cheapAverage * efficiencyLoss;
             }
@@ -1036,7 +1036,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
                 const cheapestPrice = filteredPrices[0]?.total ?? 0;
-                const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
+                const allowedPrices = filteredPrices.filter(entry => (entry.total ?? 0) <= cheapestPrice * (1 + percentage / 100));
                 const channelResult = allowedPrices.map((entry) => checkQuarterMatch(entry));
                 if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;

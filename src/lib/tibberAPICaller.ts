@@ -541,44 +541,19 @@ export class TibberAPICaller extends ProjectUtils {
 				this.adapter.log.error(`Error !dateStr occurred while pulling current month consumption data`);
 				continue;
 			}
-        	const entryDate = parseISO(dateStr);
-        if (!isValid(entryDate)) continue;
-        if (isSameMonth(entryDate, now)) {
-            const value = entry.consumption;
-            if (typeof value === 'number' && isFinite(value) && value >= 0) {
-                sum += value;
-    		}
+			const entryDate = parseISO(dateStr);
+			if (!isValid(entryDate)) {
+				continue;
+			}
+			if (isSameMonth(entryDate, now)) {
+				const value = entry.consumption;
+				if (typeof value === "number" && isFinite(value) && value >= 0) {
+					sum += value;
+				}
+			}
 		}
 		return sum > 0 ? sum : undefined;
-	}
-
-	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
-	/**
-	private getCurrentMonthConsumption(consumption: IConsumption[]): number | undefined {
-		if (!consumption || consumption.length === 0) {
-			return undefined;
-		}
-		const sortedConsumption = consumption
-			.map(entry => ({
-				entry,
-				date: entry.from ?? entry.to,
-			}))
-			.filter((item): item is { entry: IConsumption; date: string } => typeof item.date === "string" && item.date.length > 0)
-			.map(item => ({
-				entry: item.entry,
-				timestamp: Date.parse(item.date),
-			}))
-			.filter(item => !Number.isNaN(item.timestamp))
-			.sort((left, right) => left.timestamp - right.timestamp);
-		const latest = sortedConsumption.at(-1)?.entry;
-		if (!latest) {
-			return undefined;
-		}
-		const consumptionValue = typeof latest.consumption === "number" ? latest.consumption : Number(latest.consumption);
-		return Number.isFinite(consumptionValue) ? consumptionValue : undefined;
-	}
-	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
-	 */
+	} // WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 
 	/**
 	 * Updates the list of tomorrow's prices for one home.
