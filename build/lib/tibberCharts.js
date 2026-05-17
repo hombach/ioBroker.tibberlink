@@ -28,19 +28,19 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                 const pastCutoff = (0, date_fns_1.subHours)(now, this.adapter.config.FlexGraphPastCutOff + 1);
                 const futureCutoff = (0, date_fns_1.addHours)(now, this.adapter.config.FlexGraphFutureCutOff - 1);
                 mergedPrices = mergedPrices.filter(price => {
-                    const priceTime = (0, date_fns_1.parseISO)(price.startsAt);
+                    const priceTime = (0, date_fns_1.parseISO)(price.startsAt ?? "");
                     return (0, date_fns_1.isAfter)(priceTime, pastCutoff) && (0, date_fns_1.isBefore)(priceTime, futureCutoff);
                 });
             }
             const lastItem = mergedPrices[mergedPrices.length - 1];
-            const lastStartsAt = new Date(lastItem.startsAt);
+            const lastStartsAt = new Date(lastItem.startsAt ?? "");
             const newStartsAt = (0, date_fns_1.addMinutes)(lastStartsAt, 15);
             const duplicatedItem = {
                 ...lastItem,
                 startsAt: newStartsAt.toISOString(),
             };
             mergedPrices.push(duplicatedItem);
-            const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt).getTime(), item.total]);
+            const timeSeriesData = mergedPrices.map(item => [new Date(item.startsAt ?? "").getTime(), item.total]);
             let jsonFlexCharts = this.adapter.config.FlexGraphJSON || "";
             if (jsonFlexCharts) {
                 jsonFlexCharts = jsonFlexCharts.replace("%%seriesData%%", JSON.stringify(timeSeriesData));
@@ -63,7 +63,7 @@ class TibberCharts extends projectUtils_js_1.ProjectUtils {
                         markAreaY2: 0.16,
                     }));
                     let calcChannelsData = "";
-                    const maxVisibleY = Math.max(...mergedPrices.map(item => item.total));
+                    const maxVisibleY = Math.max(...mergedPrices.map(item => item.total ?? 0));
                     const maxMarkAreaY = maxVisibleY * 0.95;
                     if (filteredCalcChannels.length > 0) {
                         this.adapter.log.debug(`[tibberCharts]: found ${filteredCalcChannels.length} channels to potentialy draw FlexCharts`);

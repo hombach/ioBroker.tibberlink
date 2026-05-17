@@ -300,6 +300,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
     }
     async updateConsumptionAllHomes() {
+        this.adapter.log.info(`updateConsumptionAllHomes`);
         try {
             for (const home of this.adapter.config.HomesList) {
                 if (!home.statsActive || !home.homeID) {
@@ -342,9 +343,11 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                     if (numCons && numCons > 0) {
                         const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
-                        if (type === EnergyResolution_js_1.EnergyResolution.MONTHLY) {
+                        this.adapter.log.info(`Send MonthData?`);
+                        if (description == `day`) {
+                            this.adapter.log.info(`Send MonthData: ${JSON.stringify(consumption)}`);
                             const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
-                            void this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`);
+                            await this.checkAndSetValueNumber(`Homes.${homeID}.Consumption.currentMonthConsumption`, currentMonthConsumption ?? 0, `Total consumption for the current month`, `kWh`, `value.energy.consumed`);
                         }
                     }
                     else {
@@ -359,27 +362,31 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         }
     }
     getCurrentMonthConsumption(consumption) {
+        this.adapter.log.info(`Get MonthData: ${JSON.stringify(consumption)}`);
         if (!consumption || consumption.length === 0) {
+            this.adapter.log.error(`Error 1 occurred while pulling current month consumption data`);
             return undefined;
         }
-        const sortedConsumption = consumption
-            .map(entry => ({
-            entry,
-            date: entry.from ?? entry.to,
-        }))
-            .filter((item) => typeof item.date === "string" && item.date.length > 0)
-            .map(item => ({
-            entry: item.entry,
-            timestamp: Date.parse(item.date),
-        }))
-            .filter(item => !Number.isNaN(item.timestamp))
-            .sort((left, right) => left.timestamp - right.timestamp);
-        const latest = sortedConsumption.at(-1)?.entry;
-        if (!latest) {
-            return undefined;
+        const now = new Date();
+        let sum = 0;
+        for (const entry of consumption) {
+            const dateStr = entry.from ?? entry.to;
+            if (!dateStr) {
+                this.adapter.log.error(`Error !dateStr occurred while pulling current month consumption data`);
+                continue;
+            }
+            const entryDate = (0, date_fns_1.parseISO)(dateStr);
+            if (!(0, date_fns_1.isValid)(entryDate)) {
+                continue;
+            }
+            if ((0, date_fns_1.isSameMonth)(entryDate, now)) {
+                const value = entry.consumption;
+                if (typeof value === "number" && isFinite(value) && value >= 0) {
+                    sum += value;
+                }
+            }
         }
-        const consumptionValue = typeof latest.consumption === "number" ? latest.consumption : Number(latest.consumption);
-        return Number.isFinite(consumptionValue) ? consumptionValue : undefined;
+        return sum > 0 ? sum : undefined;
     }
     async fetchPrice(homeId, objectDestination, price) {
         const basePath = `Homes.${homeId}.${objectDestination}`;
