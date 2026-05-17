@@ -505,7 +505,6 @@ export class TibberAPICaller extends ProjectUtils {
 						);
 
 						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
-						// if (type == EnergyResolution.DAILY && numCons >= 31) {
 						if (description == `day`) {
 							const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
 							await this.checkAndSetValueNumber(
@@ -515,7 +514,7 @@ export class TibberAPICaller extends ProjectUtils {
 								`kWh`,
 								`value.energy.consumed`,
 							);
-						} // WiP else if error, no data or too short period for calculation of current month consumption, e.g. for monthly resolution with numCons = 12, then just set state but empty
+						}
 						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 					} else {
 						void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, `[]`);
