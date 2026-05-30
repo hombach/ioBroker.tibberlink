@@ -4,6 +4,7 @@
 	"LBL_EChartsLink": "有关如何使用 ECharts 的信息，请参阅此链接",
 	"LBL_FlexChartsLink": "有关如何使用 ioBroker FlexCharts 的信息，请参阅此链接",
 	"LBL_FlexGraphFutureCutOff": "Flexgraph Future Birs切断",
+	"LBL_FlexGraphJSON": "配置模板以创建要在图表中使用的数据字符串 - 例如ioBroker FlexCharts",
 	"LBL_FlexGraphPastCutOff": "弹性过去的时间切断了",
 	"LBL_GraphsTab": "图形输出设置",
 	"LBL_HomesList": "脉冲实时数据流的配置",

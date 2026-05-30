@@ -4,6 +4,7 @@
 	"LBL_EChartsLink": "Информацию о том, как использовать ECharts, можно найти по этой ссылке.",
 	"LBL_FlexChartsLink": "Информацию о том, как использовать ioBroker FlexCharts, можно найти по этой ссылке.",
 	"LBL_FlexGraphFutureCutOff": "Flexgraph в будущие часы отключены",
+	"LBL_FlexGraphJSON": "Настройте шаблон для создания строки данных, которая будет использоваться в графиках - например. ioBroker FlexCharts",
 	"LBL_FlexGraphPastCutOff": "Flexgraph в прошлые часы отключено",
 	"LBL_GraphsTab": "Настройки вывода графика",
 	"LBL_HomesList": "Конфигурация потоков импульсных данных в реальном времени",

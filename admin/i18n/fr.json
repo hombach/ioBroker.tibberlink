@@ -4,6 +4,7 @@
 	"LBL_EChartsLink": "Pour plus d'informations sur l'utilisation d'ECharts, voir ce lien",
 	"LBL_FlexChartsLink": "Pour plus d'informations sur l'utilisation d'ioBroker FlexCharts, consultez ce lien",
 	"LBL_FlexGraphFutureCutOff": "Flexgraph Future Hours Coupé",
+	"LBL_FlexGraphJSON": "Configurez le modèle pour créer une chaîne de données à utiliser dans les graphiques - par ex. ioBroker FlexCharts",
 	"LBL_FlexGraphPastCutOff": "Flexgraph passés passés coupés",
 	"LBL_GraphsTab": "Paramètres de sortie graphique",
 	"LBL_HomesList": "Configuration des flux de données Pulse Live",

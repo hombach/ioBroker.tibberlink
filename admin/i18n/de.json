@@ -4,6 +4,7 @@
 	"LBL_EChartsLink": "Informationen zur Verwendung von ECharts finden Sie unter diesem Link",
 	"LBL_FlexChartsLink": "Informationen zur Verwendung von ioBroker FlexCharts finden Sie unter diesem Link",
 	"LBL_FlexGraphFutureCutOff": "FlexGraph in der Zukunft abgeschnitten",
+	"LBL_FlexGraphJSON": "Konfigurieren Sie die Vorlage, um eine Datenzeichenfolge zu erstellen, die in Diagrammen verwendet werden soll – z. B. ioBroker FlexCharts",
 	"LBL_FlexGraphPastCutOff": "FlexGraph in der Vergangenheit abgeschnitten",
 	"LBL_GraphsTab": "Einstellungen für die Diagrammausgabe",
 	"LBL_HomesList": "Konfiguration von Pulse-Live-Datenströmen",

@@ -4,6 +4,7 @@
 	"LBL_EChartsLink": "Voor informatie over het gebruik van ECharts, zie deze link",
 	"LBL_FlexChartsLink": "Zie deze link voor informatie over het gebruik van ioBroker FlexCharts",
 	"LBL_FlexGraphFutureCutOff": "FlexGraph toekomstige uren afgesneden",
+	"LBL_FlexGraphJSON": "Configureer de sjabloon om een ​​gegevensreeks te maken die in grafieken kan worden gebruikt - b.v. ioBroker FlexCharts",
 	"LBL_FlexGraphPastCutOff": "Flexgraph afgelopen uren afgesneden",
 	"LBL_GraphsTab": "Instellingen voor grafiekuitvoer",
 	"LBL_HomesList": "Configuratie van Pulse Live-gegevensstromen",

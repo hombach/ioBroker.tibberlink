@@ -4,6 +4,7 @@
 	"LBL_EChartsLink": "For informations how to use ECharts see this link",
 	"LBL_FlexChartsLink": "For informations how to use ioBroker FlexCharts see this link",
 	"LBL_GraphsTab": "Graph Output Settings",
+	"LBL_FlexGraphJSON": "Configure template to create a data string to be used in graphs - e.g. ioBroker FlexCharts",
 	"LBL_HomesList": "Configuration of Pulse Live Data Streams",
 	"LBL_LocalPulseTab": "Local Pulse Poll Settings",
 	"LBL_PulseList": "Local Pulse to poll data from:",

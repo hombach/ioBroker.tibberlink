@@ -4,6 +4,7 @@
 	"LBL_EChartsLink": "Щоб отримати інформацію про використання ECharts, перегляньте це посилання",
 	"LBL_FlexChartsLink": "Щоб отримати інформацію про використання ioBroker FlexCharts, перегляньте це посилання",
 	"LBL_FlexGraphFutureCutOff": "Flexgraph майбутні години відрізані",
+	"LBL_FlexGraphJSON": "Налаштуйте шаблон для створення рядка даних для використання в графіках, наприклад. ioBroker FlexCharts",
 	"LBL_FlexGraphPastCutOff": "Flexgraph минулі години відрізані",
 	"LBL_GraphsTab": "Параметри виведення графіка",
 	"LBL_HomesList": "Конфігурація Pulse Live Data Streams",

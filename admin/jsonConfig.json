@@ -929,7 +929,7 @@
 			"items": {
 				"FlexGraphJSON": {
 					"type": "jsonEditor",
-					"label": "Configure template to create a data string to be used in graphs - e.g. ioBroker FlexCharts",
+					"label": "LBL_FlexGraphJSON",
 					"validateJson": false,
 					"json5": true,
 					"newLine": true,

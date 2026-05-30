@@ -4,6 +4,7 @@
 	"LBL_EChartsLink": "Per informazioni su come utilizzare ECharts vedere questo collegamento",
 	"LBL_FlexChartsLink": "Per informazioni su come utilizzare ioBroker FlexCharts vedere questo collegamento",
 	"LBL_FlexGraphFutureCutOff": "Flexgraph Hours Future Tagliate",
+	"LBL_FlexGraphJSON": "Configura il modello per creare una stringa di dati da utilizzare nei grafici, ad es. ioBroker FlexCharts",
 	"LBL_FlexGraphPastCutOff": "Flexgraph Ore passate tagliate fuori",
 	"LBL_GraphsTab": "Impostazioni di output del grafico",
 	"LBL_HomesList": "Configurazione dei flussi di dati in tempo reale",
