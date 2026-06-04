@@ -174,8 +174,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.0.0 (2026-06-04)
 
 - (copilot) BREAKING: Adapter requires node.js >= 22 now
 - (HombachC) Adapter requires admin >=7.6.20 now
@@ -209,20 +208,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 6.1.1 (2026-02-05)
 
 - (HombachC) fix LTF shifting for frames greater 24h
-- (HombachC) update dependencies
-
-### 6.1.0 (2026-01-03)
-
-- (HombachC) BREAKING: change flexcharts x-axis type
-- (HombachC) introduce FlexChart output for SBB channels second output
-- (HombachC) introduce second name for FlexChart output of SBB channels
-- (HombachC) introduce color for FlexChart output of calculator results
-- (HombachC) introduce more statistics for yesterdays prices
-- (HombachC) clean code for 15min time slots
-- (HombachC) fix schema links (#822)
-- (HombachC) fix CurrentPrice after midnight (#812)
-- (HombachC) update cron
-- (HombachC) year 2026 changes
 - (HombachC) update dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
