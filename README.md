@@ -108,12 +108,6 @@ This method requires the "FlexCharts" adapter to be installed separately.
     ```
 - Refer to the [FlexCharts adapter documentation](https://github.com/MyHomeMyData/ioBroker.flexcharts) for more details.
 
-@reblausgt Mit v0.7.0 ist es in Flexcharts nun möglich, Charts automatisch neu aufzubauen, wenn sich der State des Charts geändert hat. Das Verfahren nennt sich SSE (Server Sent Events). Aktiviert wird es denkbar einfach, indem ein &sse an den html-Aufruf anhängt. Details sind im Readme beschrieben.
-
-Die Version ist in NPM und im Beta-Repo verfügbar. Ab 26. April auch im Stable.
-
-- Refer to the [FlexCharts adapter documentation](https://github.com/MyHomeMyData/ioBroker.flexcharts) for more details.
-
 #### **JSON Template Usage**
 
 - The `jsonFlexCharts` state is generated based on a template configured via the JSON editor in the adapter settings.
