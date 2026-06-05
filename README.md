@@ -164,7 +164,7 @@ marq24 has described how to do this excellently for his HomeAssistant integratio
 
 https://github.com/marq24/ha-tibber-pulse-local
 
-If everything works correctly, the meter data will be written to IoBroker states every 2 seconds.
+If everything works correctly, the meter data will be written to ioBroker states every 2 seconds.
 
 ## Sentry
 
