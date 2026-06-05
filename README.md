@@ -28,8 +28,8 @@
 
 ## Adapter for Utilizing TIBBER energy data in ioBroker
 
-This adapter facilitates the connection of data from your Tibber account's API to be used within ioBroker, whether for a single home or multiple residences.
-New Feature: The adapter now supports direct local reading of the Tibber Pulse Sensor through your home network, allowing for real-time monitoring and data collection without relying solely on the cloud API.
+This adapter connects your Tibber account's API data to ioBroker, whether for a single home or multiple residences.
+It also supports direct local reading of the Tibber Pulse sensor via your home network, enabling real-time monitoring and data collection without relying solely on the cloud API.
 
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
@@ -40,8 +40,8 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - Enter your Tibber API token in the standard settings and configure at least one line for live feed settings (select "None available").
 - Save the settings and exit the configuration to restart the adapter; this step allows your home(s) to be queried the first time from the Tibber server.
 - Return to the configuration screen and select the homes from which you wish to fetch real-time data using your Tibber Pulse. You can also select homes and disable the feed (Note: This works only if the hardware is installed and the Tibber server has verified the connection to Pulse).
-- Note: If you have more than one home actively in your Tibber account you have to add all of them to get rid of error message caused by potentially not needed homes. Add them all and disable the options.
-- You have the option to deactivate the retrieval of price data for today and tomorrow, for instance, if you only intend to utilize Pulse live feeds
+- Note: If you have more than one home in your Tibber account you must add all of them to avoid error messages caused by homes that may not be needed. Add them all and disable the unwanted ones.
+- You have the option to deactivate the retrieval of price data for today and tomorrow, for instance, if you only intend to use the Pulse live feed.
 - Optionally, you can enable the retrieval of historical consumption data. Please specify the number of datasets for hours, days, weeks, months, and years. You can use "0" to disable one or more of these intervals based on your preferences.
 - Note: It's essential to be mindful of the dataset size, as excessively large requests may result in a lack of response from the Tibber Server. We recommend experimenting with the dataset size to ensure optimal functionality. Adjusting the intervals and dataset numbers can help strike the right balance between obtaining insightful data and maintaining server responsiveness. E.g. 48 is a quite good amount for hours.
 - Save the settings.
@@ -52,7 +52,7 @@ When daily historical consumption is enabled, the adapter provides an aggregated
 
 - `Homes.<HOME-ID>.Consumption.currentMonthConsumption`
 
-This state is the total consumption for the current calendar month in `kWh` and is calculated from the daily consumption data returned by Tibber. If not enough days are configured the calculated value will onlx present these amount of days! not a complete month.
+This state is the total consumption for the current calendar month in `kWh`, calculated from the daily consumption data returned by Tibber. If too few days are configured, the value will only reflect that number of days — not a complete month.
 
 ## Calculator Configuration
 
@@ -60,7 +60,7 @@ This state is the total consumption for the current calendar month in `kWh` and 
 - The Calculator operates using channels, with each channel linked to a selected home.
 - These states are designed to serve as external, dynamic inputs for TibberLink, allowing you to, for example, adjust the marginal cost ("TriggerPrice") from an external source or enable the calculator channel ("Active").
 - These channels have to be activated or deactivated based on corresponding states.
-- The states of a calculator channel are positioned adjacent to the home states and named according to the channel number. Hereby the channelname choosen in admin screen is shown here to better identify your configurations.  
+- The states of a calculator channel are positioned adjacent to the home states and named according to the channel number. The channel name entered in the admin screen is displayed here to help identify your configurations.  
   ![Calculator States](docu/calculatorStates.png)
 - The behavior of each channel is determined by its type: "best cost (LTF)", "best single hours (LTF)", "best hours block (LTF)" or "smart battery buffer".
 - Each channel populates one or two external states as output, which has to be selected in the settings tab. For instance, this state might be "0_userdata.0.example_state" or any other writeable external state.
@@ -88,8 +88,7 @@ This state is the total consumption for the current calendar month in `kWh` and 
 
 ## Graph Output Configuration
 
-The adapter helps visualize price trends and calculator results. It provides three levels of complexity, each offering different options.
-These three methods provide various options for visualizing price trends and calculator results. Depending on your requirements, you can choose from a simple JSON-based approach to a fully customized JavaScript solution.
+The adapter helps visualize price trends and calculator results. It provides three levels of complexity — from a simple JSON-based approach to a fully customized JavaScript solution.
 
 ### 1. **(Under Development) Visualization using the "E-Charts" Adapter**
 
@@ -123,12 +122,12 @@ This method requires the "FlexCharts" adapter to be installed separately.
 - A sample template can be downloaded from: [TemplateFlexChart01.md](docu/TemplateFlexChart01.md).
 - Copy and paste the template into the JSON editor.
 - The template contains the placeholders:
-    - `%%xAxisData%%` and `%%yAxisData%%` (populated with price information at runtime).
+    - `%%seriesData%%` (populated with the time-series price data at runtime).
     - `%%CalcChannelsData%%` (populated with selected calculator channel data).
 - The rest of the template follows the Apache ECharts configuration. For reference, see [Apache ECharts Examples](https://echarts.apache.org/examples/en/index.html).
 - **Recommendation:** Test the TibberLink adapter without a real template using the default string:
     ```
-    %%xAxisData%%\n\n%%yAxisData%%\n\n%%CalcChannelsData%%
+    %%seriesData%%\n\n%%CalcChannelsData%%
     ```
     This helps understand its functionality.
 - Template adjustments can be tested on Apache ECharts examples pages using the "Output-E-Charts" state data.
