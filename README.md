@@ -26,7 +26,7 @@
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
 
-## Adapter for Utilizing TIBBER energy data in ioBroker
+## Adapter for Utilizing Tibber Energy Data in ioBroker
 
 This adapter connects your Tibber account's API data to ioBroker, whether for a single home or multiple residences.
 It also supports direct local reading of the Tibber Pulse sensor via your home network, enabling real-time monitoring and data collection without relying solely on the cloud API.
@@ -38,12 +38,12 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - Begin by creating a new instance of the adapter.
 - You'll also require an API token from Tibber, which you can obtain here: [Tibber Developer API](https://developer.tibber.com).
 - Enter your Tibber API token in the standard settings and configure at least one line for live feed settings (select "None available").
-- Save the settings and exit the configuration to restart the adapter; this step allows your home(s) to be queried the first time from the Tibber server.
+- Save the settings and exit the configuration to restart the adapter; this step allows your home(s) to be queried for the first time from the Tibber server.
 - Return to the configuration screen and select the homes from which you wish to fetch real-time data using your Tibber Pulse. You can also select homes and disable the feed (Note: This works only if the hardware is installed and the Tibber server has verified the connection to Pulse).
-- Note: If you have more than one home in your Tibber account you must add all of them to avoid error messages caused by homes that may not be needed. Add them all and disable the unwanted ones.
+- Note: If you have more than one home in your Tibber account, you must add all of them to avoid error messages caused by homes that may not be needed. Add them all and disable the unwanted ones.
 - You have the option to deactivate the retrieval of price data for today and tomorrow, for instance, if you only intend to use the Pulse live feed.
 - Optionally, you can enable the retrieval of historical consumption data. Please specify the number of datasets for hours, days, weeks, months, and years. You can use "0" to disable one or more of these intervals based on your preferences.
-- Note: It's essential to be mindful of the dataset size, as excessively large requests may result in a lack of response from the Tibber Server. We recommend experimenting with the dataset size to ensure optimal functionality. Adjusting the intervals and dataset numbers can help strike the right balance between obtaining insightful data and maintaining server responsiveness. E.g. 48 is a quite good amount for hours.
+- Note: It's essential to be mindful of the dataset size, as excessively large requests may result in no response from the Tibber Server. We recommend experimenting with the dataset size to ensure optimal functionality. Adjusting the intervals and dataset numbers can help strike the right balance between obtaining insightful data and maintaining server responsiveness. For example, 48 is a recommended value for hours.
 - Save the settings.
 
 ## Consumption Data Documentation
@@ -63,7 +63,7 @@ This state is the total consumption for the current calendar month in `kWh`, cal
 - The states of a calculator channel are positioned adjacent to the home states and named according to the channel number. The channel name entered in the admin screen is displayed here to help identify your configurations.  
   ![Calculator States](docu/calculatorStates.png)
 - The behavior of each channel is determined by its type: "best cost (LTF)", "best single hours (LTF)", "best hours block (LTF)" or "smart battery buffer".
-- Each channel populates one or two external states as output, which has to be selected in the settings tab. For instance, this state might be "0_userdata.0.example_state" or any other writeable external state.
+- Each channel populates one or two external states as output, which have to be selected in the settings tab. For instance, this state might be "0_userdata.0.example_state" or any other writeable external state.
 - If no external output state is selected, an internal state within the channel's range will be created.
 - The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states or a number or text to be written.
 - Outputs:
@@ -84,7 +84,7 @@ This state is the total consumption for the current calendar month in `kWh`, cal
             - Expensive timeslots: Battery charging is disabled (value NO) and feed into the home energy system is enabled (value 2 YES). These slots have the highest prices, above the dynamically calculated threshold based on the cheapest timeslot prices and efficiency loss.
             - Normal timeslots: Where charging is not economically viable, both outputs are disabled.
         - This approach ensures that the battery is only used when it is economically beneficial, rather than strictly adhering to a fixed number of hours.
-- LTF channels: These operate similarly to standard channels but are active only within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel automatically deactivates. 'StartTime' and 'StopTime' can span two calendar days, as Tibber does not provide data beyond a 48-hour window. Both states require a date-time string in ISO-8601 format with a timezone offset, e.g., '2024-12-24T18:00:00.000+01:00'." Additionally, the LTF channels feature a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel will repeat its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition.
+- LTF channels: These operate similarly to standard channels but are active only within a time frame defined by the 'StartTime' and 'StopTime' state objects. After 'StopTime,' the channel automatically deactivates. 'StartTime' and 'StopTime' can span two calendar days, as Tibber does not provide data beyond a 48-hour window. Both states require a date-time string in ISO-8601 format with a timezone offset, e.g., '2024-12-24T18:00:00.000+01:00'. Additionally, the LTF channels feature a new state parameter called 'RepeatDays,' which defaults to 0. When 'RepeatDays' is set to a positive integer, the channel will repeat its cycle by incrementing both 'StartTime' and 'StopTime' by the specified number of days after 'StopTime' is reached. For example, set 'RepeatDays' to 1 for daily repetition.
 
 ## Graph Output Configuration
 
@@ -94,7 +94,7 @@ The adapter helps visualize price trends and calculator results. It provides thr
 
 This method requires the "E-Charts" adapter to be installed separately.
 
-- JSON data can be used, generated in the Calculator States section as `Output-E-Charts`.
+- JSON data generated in the Calculator States section (`Output-E-Charts`) can be used.
 - The capabilities are limited by the constraints of the E-Charts adapter.
 
 ### 2. **Using the "FlexCharts" (or "Fully Featured eCharts") Adapter with JSON**
@@ -109,7 +109,7 @@ This method requires the "FlexCharts" adapter to be installed separately.
     ```
     http://[YOUR IP of FLEXCHARTS]:8082/flexcharts/echarts.html?source=state&id=tibberlink.0.Homes.[TIBBER-HOME-ID].PricesTotal.jsonFlexCharts
     ```
-- Starting with V0.7.0 FlexCharts supports automatic chart updates via SSE (Server Sent Events). To use this add `&sse` to the URL:
+- Starting with V0.7.0, FlexCharts supports automatic chart updates via SSE (Server-Sent Events). To use this add `&sse` to the URL:
     ```
     http://[YOUR IP of FLEXCHARTS]:8082/flexcharts/echarts.html?source=state&id=tibberlink.0.Homes.[TIBBER-HOME-ID].PricesTotal.jsonFlexCharts&sse=30
     ```
@@ -118,7 +118,7 @@ This method requires the "FlexCharts" adapter to be installed separately.
 #### **JSON Template Usage**
 
 - The `jsonFlexCharts` state is generated based on a template configured via the JSON editor in the adapter settings.
-- **Important:** The built-in JSON editor in ioBroker.Admin does not support JSON5, which may cause false error messages.
+- The built-in JSON editor uses JSON5 mode, so comments and trailing commas are permitted.
 - A sample template can be downloaded from: [TemplateFlexChart01.md](docu/TemplateFlexChart01.md).
 - Copy and paste the template into the JSON editor.
 - The template contains the placeholders:
@@ -147,20 +147,20 @@ For maximum flexibility and customization, the FlexCharts adapter can be used wi
 
 To obtain, for example, peak hours instead of optimal hours, simply invert the usage and parameters:
 ![Calculator States Inverse](docu/calculatorStatesInverse.png)
-By swapping true <-> false, you will receive a true at a low cost in the first line and a true at a high cost in the second line (Channel names are not triggers and are still free to choose).
+By swapping true <-> false, you will receive a true at a low cost in the first line and a true at a high cost in the second line (channel names are just examples and can be freely chosen).
 
-Attention: For peak single hours, such as in the example, you also need to adjust the number of hours. Original: 5 -> Inverse (24-5) = 19 -> You will obtain a true result during the 5 peak hours.
+Attention: For peak single hours, such as in the example, you also need to adjust the number of hours. Original: 5 -> Inverse (24-5) = 19 -> You will obtain a 'true' output during the 5 peak hours.
 
 ### LTF channels
 
-The calculation is performed for "multiday" data. As we only have information for "today" and "tomorrow" (available after approximately 13:00), the time scope is effectively limited to a maximum of 35 hours. However, it's crucial to be mindful of this behavior because the calculated result may/will change around 13:00 when new data for tomorrow's prices becomes available.
+The calculation is performed for "multiday" data. As we only have information for "today" and "tomorrow" (available after approximately 13:00), the time scope covers up to 48 hours, though typically around 35 hours immediately after the 13:00 price update. However, it's crucial to be mindful of this behavior because the calculated result may/will change around 13:00 when new data for tomorrow's prices becomes available.
 
 To observe this dynamic change in the time scope for a standard channel, you may opt for a Limited Time Frame (LTF) spanning several years. This is particularly useful for the "Best Single Hours LTF" scenario.
 
 ## Direct local poll of Pulse data
 
 To make it work, you need to modify the web interface of the Bridge to remain permanently enabled.
-marq24 has described how to do this excellently for his HomeAssistant integration here:
+marq24 provides an excellent description of how to do this for his Home Assistant integration here:
 
 https://github.com/marq24/ha-tibber-pulse-local
 
@@ -184,8 +184,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) optimized documentation
 - (claude) added code documentation
-- (claude) performance optimisation event listeners
+- (claude) performance optimization of event listeners
 - (HombachC) added current month consumption docu
 - (HombachC) updated release-script
 - (HombachC) fixed adapter checker warnings
