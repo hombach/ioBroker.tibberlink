@@ -892,12 +892,10 @@ export class TibberCalculator extends ProjectUtils {
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelConfig.chTriggerPrice > (entry.total ?? 0) ? true : false, // mark all cheap hours
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
@@ -924,12 +922,10 @@ export class TibberCalculator extends ProjectUtils {
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelConfig.chTriggerPrice > (entry.total ?? 0) ? true : false, // mark all cheap hours
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
@@ -956,7 +952,6 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total cost
-				// WiP filteredPrices.sort((a, b) => a.total - b.total);
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 				// get first amount of block entries und test for matching time block
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
@@ -966,12 +961,10 @@ export class TibberCalculator extends ProjectUtils {
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
@@ -989,7 +982,6 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total cost
-				// WiP filteredPrices.sort((a, b) => a.total - b.total);
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 				// get first chAmountHours entries und test for matching time block
 				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
@@ -1003,12 +995,10 @@ export class TibberCalculator extends ProjectUtils {
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total ?? 0,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
@@ -1063,12 +1053,10 @@ export class TibberCalculator extends ProjectUtils {
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index - startIndex] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
@@ -1113,12 +1101,10 @@ export class TibberCalculator extends ProjectUtils {
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index - startIndex] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
@@ -1131,16 +1117,13 @@ export class TibberCalculator extends ProjectUtils {
 				);
 
 				//#region *** Write start and stop time of determined block to data points ***
-				// WiP const beginDate = new Date(filteredPrices[startIndex].startsAt);
 				const beginDate = new Date(filteredPrices[startIndex]?.startsAt ?? Date.now());
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStartFullHour`, format(beginDate, "H"), true);
-				// WiP void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`, filteredPrices[startIndex].startsAt, true);
 				void this.adapter.setState(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockStart`,
 					filteredPrices[startIndex]?.startsAt ?? Date.now(),
 					true,
 				);
-				// WiP const endDate = new Date(filteredPrices[startIndex + n - 1].startsAt);
 				const endDate = new Date(filteredPrices[startIndex + n - 1]?.startsAt ?? Date.now());
 				void this.adapter.setState(
 					`Homes.${channelConfig.chHomeID}.Calculations.${channel}.BlockEndFullHour`,
@@ -1218,12 +1201,10 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total price
-				// WiP filteredPrices.sort((a, b) => a.total - b.total);
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 
 				while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
 					const currentTimeSlot = filteredPrices[cheapIndex];
-					// WiP if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
 					if (currentTimeSlot.total ?? 0 < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
 						cheapTimeSlots.push(currentTimeSlot);
 						minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
@@ -1233,12 +1214,10 @@ export class TibberCalculator extends ProjectUtils {
 					cheapIndex++;
 				}
 
-				// WiP const maxCheapTotal = Math.max(...cheapTimeSlots.map(timeSlot => timeSlot.total));
 				const maxCheapTotal = Math.max(...cheapTimeSlots.map(timeSlot => timeSlot.total ?? 0));
 
 				for (const timeSlot of filteredPrices) {
 					if (!cheapTimeSlots.includes(timeSlot)) {
-						// WiP if (timeSlot.total > minDelta + maxCheapTotal) {
 						if (timeSlot.total ?? 0 > minDelta + maxCheapTotal) {
 							expensiveTimeSlots.push(timeSlot);
 						} else {
@@ -1266,23 +1245,19 @@ export class TibberCalculator extends ProjectUtils {
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: resultCheap[index] !== undefined ? true : false, // Check if resultCheap[index] is defined
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				const jsonOutput2 = filteredPrices
 					.map((entry: IPrice) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: expensiveTimeSlots.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
 					}))
-					// WiP.sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
 				//#endregion
@@ -1308,12 +1283,10 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total price
-				// WiP filteredPrices.sort((a, b) => a.total - b.total);
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 
 				while (cheapIndex < filteredPrices.length && cheapTimeSlots.length < maxCheapCount) {
 					const currentTimeSlot = filteredPrices[cheapIndex];
-					// WiP if (currentTimeSlot.total < filteredPrices[filteredPrices.length - 1].total - minDelta) {
 					if (currentTimeSlot.total ?? 0 < (filteredPrices[filteredPrices.length - 1].total ?? 0) - minDelta) {
 						cheapTimeSlots.push(currentTimeSlot);
 						minDelta = calculateMinDelta(cheapTimeSlots, efficiencyLoss);
@@ -1323,12 +1296,10 @@ export class TibberCalculator extends ProjectUtils {
 					cheapIndex++;
 				}
 
-				// WiP const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total));
 				const maxCheapTotal = Math.max(...cheapTimeSlots.map(slot => slot.total ?? 0));
 
 				for (const timeSlot of filteredPrices) {
 					if (!cheapTimeSlots.includes(timeSlot)) {
-						// WiP if (timeSlot.total > minDelta + maxCheapTotal) {
 						if (timeSlot.total ?? 0 > minDelta + maxCheapTotal) {
 							expensiveTimeSlots.push(timeSlot);
 						} else {
@@ -1375,32 +1346,27 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: resultCheap[index] !== undefined ? true : false, // Check if resultCheap[index] is defined
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 
 				const jsonOutput2 = filteredPrices
 					.map((entry: IPrice) => ({
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: expensiveTimeSlots.some((expensive: IPrice) => expensive.startsAt === entry.startsAt), // Check if entry is part of resultExpensive
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON2`, JSON.stringify(jsonOutput2, null, 2), true);
 				//#endregion
 			}
 
 			function calculateMinDelta(cheapTimeSlots: IPrice[], efficiencyLoss: number): number {
-				// WiP const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + slot.total, 0);
 				const cheapTotalSum = cheapTimeSlots.reduce((sum, slot) => sum + (slot.total ?? 0), 0);
 				const cheapAverage = cheapTotalSum / cheapTimeSlots.length;
 				return cheapAverage * efficiencyLoss;
@@ -1438,13 +1404,11 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Mark the entries with the result and create JSON output ***
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
@@ -1462,10 +1426,8 @@ export class TibberCalculator extends ProjectUtils {
 
 				//#region *** Find channel result ***
 				// sort by total cost
-				// WiP filteredPrices.sort((a, b) => a.total - b.total);
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
 				const cheapestPrice = filteredPrices[0]?.total ?? 0;
-				// WiP const allowedPrices = filteredPrices.filter(entry => entry.total <= cheapestPrice * (1 + percentage / 100));
 				const allowedPrices = filteredPrices.filter(entry => (entry.total ?? 0) <= cheapestPrice * (1 + percentage / 100));
 				const channelResult: boolean[] = allowedPrices.map((entry: IPrice) => checkQuarterMatch(entry));
 
@@ -1479,12 +1441,10 @@ export class TibberCalculator extends ProjectUtils {
 				const jsonOutput = filteredPrices
 					.map((entry: IPrice, index: number) => ({
 						hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null, // extract the hour from startsAt
-						// WiP hour: new Date(entry.startsAt).getHours(), // extract the hour from startsAt
 						startsAt: entry.startsAt,
 						total: entry.total,
 						output: channelResult[index] !== undefined ? true : false, // Check if channelResult[index] is defined
 					}))
-					// WiP .sort((a, b) => new Date(a.startsAt).getTime() - new Date(b.startsAt).getTime()); // Sort by startsAt
 					.sort((a, b) => new Date(a.startsAt ?? 0).getTime() - new Date(b.startsAt ?? 0).getTime()); // Sort by startsAt
 				void this.adapter.setState(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.OutputJSON`, JSON.stringify(jsonOutput, null, 2), true);
 				//#endregion
@@ -1583,7 +1543,6 @@ export class TibberCalculator extends ProjectUtils {
 
 		// filter objects to time frame
 		const filteredPrices = mergedPrices.filter(price => {
-			// WiP const priceDate = new Date(price.startsAt);
 			const priceDate = new Date(price.startsAt ?? 0);
 			return priceDate >= startTime && priceDate < stopTime;
 		});
@@ -1624,7 +1583,6 @@ export class TibberCalculator extends ProjectUtils {
  */
 function checkQuarterMatch(entry: IPrice): boolean {
 	const now = new Date();
-	// WiP const start = parseISO(entry.startsAt);
 	const start = parseISO(entry.startsAt ?? "");
 	const end = addMinutes(start, 15);
 	return now >= start && now < end;
