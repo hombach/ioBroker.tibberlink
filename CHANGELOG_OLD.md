@@ -18,6 +18,19 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+### 6.1.0 (2026-01-03)
+
+- (HombachC) BREAKING: change flexcharts x-axis type
+- (HombachC) introduce FlexChart output for SBB channels second output
+- (HombachC) introduce second name for FlexChart output of SBB channels
+- (HombachC) introduce color for FlexChart output of calculator results
+- (HombachC) introduce more statistics for yesterdays prices
+- (HombachC) clean code for 15min time slots
+- (HombachC) fix schema links (#822)
+- (HombachC) fix CurrentPrice after midnight (#812)
+- (HombachC) update cron
+- (HombachC) year 2026 changes
+
 ### 6.0.3 (2025-11-16)
 
 - (HombachC) optimize sentry
@@ -634,16 +647,3 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 ### 0.1.0 (2023-07-14)
 
 - (HombachC) initial version
-## 6.1.0 (2026-01-03)
-
-- (HombachC) BREAKING: change flexcharts x-axis type
-- (HombachC) introduce FlexChart output for SBB channels second output
-- (HombachC) introduce second name for FlexChart output of SBB channels
-- (HombachC) introduce color for FlexChart output of calculator results
-- (HombachC) introduce more statistics for yesterdays prices
-- (HombachC) clean code for 15min time slots
-- (HombachC) fix schema links (#822)
-- (HombachC) fix CurrentPrice after midnight (#812)
-- (HombachC) update cron
-- (HombachC) year 2026 changes
-- (HombachC) update dependencies
