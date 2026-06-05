@@ -44,16 +44,20 @@ export class TibberPulse extends ProjectUtils {
 	}
 
 	/**
-	 * disconnectPulseStream
+	 * Closes the current Tibber feed connection and reinitialises the feed with fresh event handlers.
+	 * Removes all listeners from the old feed before closing it to prevent handler accumulation,
+	 * then attaches the full set of event handlers to the newly created feed instance.
 	 */
 	disconnectPulseStream(): void {
 		try {
+			this.tibberFeed.removeAllListeners();
 			this.tibberFeed.close();
 		} catch (error) {
 			this.adapter.log.warn(`Error on feed close: ${(error as Error).message}`);
 		}
-		// Reinitialize TibberFeed
+		// Reinitialize TibberFeed and re-attach event handlers
 		this.tibberFeed = new TibberFeed(new TibberQuery(this.tibberConfig));
+		this.addEventHandlerOnFeed(this.tibberFeed);
 	}
 
 	/**

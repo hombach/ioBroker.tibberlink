@@ -31,12 +31,14 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
     }
     disconnectPulseStream() {
         try {
+            this.tibberFeed.removeAllListeners();
             this.tibberFeed.close();
         }
         catch (error) {
             this.adapter.log.warn(`Error on feed close: ${error.message}`);
         }
         this.tibberFeed = new tibber_api_1.TibberFeed(new tibber_api_1.TibberQuery(this.tibberConfig));
+        this.addEventHandlerOnFeed(this.tibberFeed);
     }
     addEventHandlerOnFeed(currentFeed) {
         currentFeed.on("connected", data => {
