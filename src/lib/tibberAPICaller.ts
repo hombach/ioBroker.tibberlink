@@ -588,6 +588,13 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.level`, price.level ?? `---`, `Price level compared to recent price values`);
 	}
 
+	/**
+	 * Calculates and writes the average total, energy, and tax prices from the given price array to adapter states.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 * @param price - Array of IPrice objects to average.
+	 */
 	private fetchPriceAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
 			return;
@@ -644,6 +651,13 @@ export class TibberAPICaller extends ProjectUtils {
 		await this.checkAndSetValueNumber(`${basePath}.tax`, Math.round((taxSum / count) * 1000) / 1000, `Todays remaining average tax price`);
 	}
 
+	/**
+	 * Finds the entry with the highest total price in the given array and writes its values to adapter states.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 * @param price - Array of IPrice objects to search.
+	 */
 	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
 			return;
@@ -662,6 +676,13 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.level`, maxEntry.level ?? `---`, `Price level compared to recent price values`);
 		void this.checkAndSetValue(`${basePath}.startsAt`, maxEntry.startsAt ?? `---`, `Start time of the price maximum`);
 	}
+	/**
+	 * Finds the entry with the lowest total price in the given array and writes its values to adapter states.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 * @param price - Array of IPrice objects to search.
+	 */
 	private fetchPriceMinimum(homeId: string, objectDestination: string, price: IPrice[]): void {
 		if (!price || price.length === 0) {
 			return;
@@ -681,6 +702,13 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.startsAt`, minEntry.startsAt ?? `---`, `Start time of the price minimum`);
 	}
 
+	/**
+	 * Resets all price sub-states (total, energy, tax, level) to neutral/zero values.
+	 * Used to clear stale data e.g. when tomorrow's prices are not yet available.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 */
 	private emptyingPrice(homeId: string, objectDestination: string): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
 		void this.checkAndSetValueNumber(`${basePath}.total`, 0, "The total price (energy + taxes)");
@@ -688,12 +716,24 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValueNumber(`${basePath}.tax`, 0, "Tax part of the price (energy tax, VAT, etc.)");
 		void this.checkAndSetValue(`${basePath}.level`, "Not known now", "Price level compared to recent price values");
 	}
+	/**
+	 * Resets average price sub-states (total, energy, tax) to zero.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 */
 	private emptyingPriceAverage(homeId: string, objectDestination: string): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
 		void this.checkAndSetValueNumber(`${basePath}.total`, 0, "The todays total price average");
 		void this.checkAndSetValueNumber(`${basePath}.energy`, 0, "The todays avarage spotmarket price");
 		void this.checkAndSetValueNumber(`${basePath}.tax`, 0, "The todays avarage tax price");
 	}
+	/**
+	 * Resets maximum price sub-states (total, energy, tax, level, startsAt) to neutral/zero values.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 */
 	private emptyingPriceMaximum(homeId: string, objectDestination: string): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
 		void this.checkAndSetValueNumber(`${basePath}.total`, 0, "Todays total price maximum");
@@ -702,6 +742,12 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.level`, "Not known now", "Price level compared to recent price values");
 		void this.checkAndSetValue(`${basePath}.startsAt`, "Not known now", "Start time of the price maximum");
 	}
+	/**
+	 * Resets minimum price sub-states (total, energy, tax, level, startsAt) to neutral/zero values.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 */
 	private emptyingPriceMinimum(homeId: string, objectDestination: string): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
 		void this.checkAndSetValueNumber(`${basePath}.total`, 0, "Todays total price minimum");
@@ -711,6 +757,14 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValue(`${basePath}.startsAt`, "Not known now", "Start time of the price minimum");
 	}
 
+	/**
+	 * Writes all fields of a legal entity (owner or subscriber) to adapter states,
+	 * including nested contact info and address if present.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 * @param legalEntity - The ILegalEntity object returned by the Tibber API.
+	 */
 	private fetchLegalEntity(homeId: string, objectDestination: string, legalEntity: ILegalEntity): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
 		void this.checkAndSetValue(`${basePath}.Id`, legalEntity.id);
@@ -728,11 +782,25 @@ export class TibberAPICaller extends ProjectUtils {
 			this.fetchAddress(homeId, `${objectDestination}.Address`, legalEntity.address);
 		}
 	}
+	/**
+	 * Writes the email and mobile fields of a contact info object to adapter states.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 * @param contactInfo - The IContactInfo object returned by the Tibber API.
+	 */
 	private fetchContactInfo(homeId: string, objectDestination: string, contactInfo: IContactInfo): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
 		void this.checkAndSetValue(`${basePath}.Email`, contactInfo.email);
 		void this.checkAndSetValue(`${basePath}.Mobile`, contactInfo.mobile);
 	}
+	/**
+	 * Writes all address fields (street, city, postal code, country, coordinates) to adapter states.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
+	 * @param address - The IAddress object returned by the Tibber API.
+	 */
 	private fetchAddress(homeId: string, objectDestination: string, address: IAddress): void {
 		const basePath = `Homes.${homeId}.${objectDestination}`;
 		void this.checkAndSetValue(`${basePath}.address1`, address.address1);

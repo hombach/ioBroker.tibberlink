@@ -56,6 +56,12 @@ export class TibberPulse extends ProjectUtils {
 		this.tibberFeed = new TibberFeed(new TibberQuery(this.tibberConfig));
 	}
 
+	/**
+	 * Registers all event handlers (connected, disconnected, error, data) on the given TibberFeed instance.
+	 * Must be called whenever a new TibberFeed is created so all lifecycle events are properly handled.
+	 *
+	 * @param currentFeed - The TibberFeed instance to attach event handlers to.
+	 */
 	private addEventHandlerOnFeed(currentFeed: TibberFeed): void {
 		// Set info.connection state for event "connected"
 		currentFeed.on("connected", data => {
@@ -136,6 +142,14 @@ export class TibberPulse extends ProjectUtils {
 		});
 	}
 
+	/**
+	 * Writes a live measurement frame received from the Tibber feed to the corresponding adapter states.
+	 * Only populates optional states (accumulatedConsumption, voltages, currents, etc.) when the
+	 * respective FeedConfig flags are enabled in the adapter configuration.
+	 *
+	 * @param objectDestination - Sub-path under `Homes.<homeId>.` where the states are written (e.g. "LiveMeasurement").
+	 * @param liveMeasurement - The live measurement object received from the Tibber GraphQL subscription.
+	 */
 	private fetchLiveMeasurement(objectDestination: string, liveMeasurement: ILiveMeasurement): void {
 		liveMeasurement.powerProduction ??= 0; // fix wrong data from Tibber in edge cases
 		const power = liveMeasurement.power > 0 ? liveMeasurement.power : liveMeasurement.powerProduction > 0 ? -liveMeasurement.powerProduction : 0;

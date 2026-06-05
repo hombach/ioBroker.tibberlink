@@ -185,6 +185,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (claude) added code documentation
 - (HombachC) added current month consumption docu
 - (HombachC) updated release-script
 - (HombachC) fixed adapter checker warnings

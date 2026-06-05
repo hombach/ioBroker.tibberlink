@@ -43,6 +43,15 @@ export class TibberCharts extends ProjectUtils {
 		}
 	}
 
+	/**
+	 * Generates and writes the FlexCharts JSON string for a single home.
+	 * Merges today's and tomorrow's prices, applies the configured past/future cut-off window,
+	 * injects the time-series data into the chart template, and optionally overlays active
+	 * calculator channel mark-areas. Writes the result to `Homes.<homeID>.PricesTotal.jsonFlexCharts`.
+	 *
+	 * @param homeID - ID of the home whose chart JSON should be generated.
+	 * @returns Resolves when the chart state has been updated.
+	 */
 	private async generateFlexChartJSON(homeID: string): Promise<void> {
 		try {
 			const exPricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${homeID}.PricesToday.json`));

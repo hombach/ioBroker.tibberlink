@@ -12,6 +12,11 @@ import { TibberLocal } from "./lib/tibberLocal.js";
 import { TibberPulse } from "./lib/tibberPulse.js";
 
 class Tibberlink extends utils.Adapter {
+	/**
+	 * Creates a new Tibberlink adapter instance and registers all ioBroker lifecycle event handlers.
+	 *
+	 * @param options - Optional adapter configuration options passed through to the base class.
+	 */
 	public constructor(options: Partial<utils.AdapterOptions> = {}) {
 		super({
 			...options,
@@ -395,9 +400,12 @@ class Tibberlink extends utils.Adapter {
 	}
 
 	/**
-	 * subfunction to loop till prices today for all homes are got from server - adapter startup-phase
+	 * Loops until today's prices for all homes have been successfully fetched from the Tibber server.
+	 * Called during adapter startup; retries up to 10 times with a random delay between attempts.
+	 * On success, also triggers an immediate current-price update.
 	 *
-	 * @param tibberAPICaller - TibberAPICaller
+	 * @param tibberAPICaller - TibberAPICaller instance used to fetch price data.
+	 * @returns Resolves when prices have been fetched or the maximum number of attempts is reached.
 	 */
 	private async jobPricesTodayLOOP(tibberAPICaller: TibberAPICaller): Promise<void> {
 		let okPrice = false;
@@ -414,9 +422,11 @@ class Tibberlink extends utils.Adapter {
 	}
 
 	/**
-	 * subfunction to loop till prices tomorrow for all homes are got from server - adapter startup-phase
+	 * Loops until tomorrow's prices for all homes have been successfully fetched from the Tibber server.
+	 * Called during adapter startup; retries up to 8 times with a random delay between attempts.
 	 *
-	 * @param tibberAPICaller - TibberAPICaller
+	 * @param tibberAPICaller - TibberAPICaller instance used to fetch price data.
+	 * @returns Resolves when prices have been fetched or the maximum number of attempts is reached.
 	 */
 	private async jobPricesTomorrowLOOP(tibberAPICaller: TibberAPICaller): Promise<void> {
 		let okPrice = false;

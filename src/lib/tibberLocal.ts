@@ -142,6 +142,13 @@ export class TibberLocal extends ProjectUtils {
 		}
 	}
 
+	/**
+	 * Fetches the raw metrics JSON from the local Tibber Bridge for the given Pulse device.
+	 * Authenticates with HTTP Basic auth using the configured bridge password.
+	 *
+	 * @param pulse - Index of the Pulse entry in `PulseList` config.
+	 * @returns Resolves with the raw response body string from the bridge.
+	 */
 	private async getPulseData(pulse: number): Promise<string> {
 		const auth = `Basic ${Buffer.from(`admin:${this.adapter.config.PulseList[pulse].tibberBridgePassword}`).toString("base64")}`;
 		const options = {

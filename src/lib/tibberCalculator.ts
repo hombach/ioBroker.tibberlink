@@ -38,7 +38,8 @@ export class TibberCalculator extends ProjectUtils {
 	}
 
 	/**
-	 * initStats
+	 * Resets all calculator channel type counters to zero.
+	 * Called before re-scanning the CalculatorList to produce fresh usage statistics.
 	 */
 	initStats(): void {
 		this.numBestCost = 0;
@@ -53,6 +54,11 @@ export class TibberCalculator extends ProjectUtils {
 		this.numSmartBatteryBufferLTF = 0;
 	}
 
+	/**
+	 * Increments the usage counter for the given calculator channel type by one.
+	 *
+	 * @param type - The `enCalcType` enum value identifying which counter to increment.
+	 */
 	private increaseStatsValueByOne(type: enCalcType): void {
 		switch (type) {
 			case enCalcType.BestCost:
@@ -88,9 +94,14 @@ export class TibberCalculator extends ProjectUtils {
 	}
 
 	/**
+	 * Creates and initialises all ioBroker state objects for a single calculator channel.
+	 * Sets up output states, JSON output states, and channel-type-specific input states
+	 * (trigger price, amount hours, LTF window, percentage, efficiency loss, block timing).
+	 * Subscribes to the relevant input states so runtime changes are picked up immediately.
 	 *
-	 * @param homeId - ID of the home
-	 * @param channel - ID of the calculator channel
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when all states have been created and subscriptions are registered.
 	 */
 	async setupCalculatorStates(homeId: string, channel: number): Promise<void> {
 		try {
@@ -332,6 +343,14 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
+	/**
+	 * Creates or updates the LTF (Limited Time Frame) input states — StartTime, StopTime, RepeatDays —
+	 * for the given channel, and reads back the persisted values into the in-memory channel config.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when all LTF input states have been written and the config has been updated.
+	 */
 	private async setupLTFInputs(homeId: string, channel: number): Promise<void> {
 		const channelConfig = this.adapter.config.CalculatorList[channel];
 
@@ -419,12 +438,28 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state RepeatDays for calculator`));
 		}
 	}
+	/**
+	 * Removes the LTF input state objects (StartTime, StopTime, RepeatDays) from the adapter object tree.
+	 * Called when a channel type is changed away from an LTF type.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when all three state objects have been deleted.
+	 */
 	private async deleteLTFInputs(homeId: string, channel: number): Promise<void> {
 		await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StartTime`);
 		await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.StopTime`);
 		await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
 	}
 
+	/**
+	 * Creates the primary Output boolean state for the channel, or removes it when a custom
+	 * external target state is configured (chTargetState).
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when the state has been created or deleted.
+	 */
 	private async setup_chOutput(homeId: string, channel: number): Promise<void> {
 		const channelConfig = this.adapter.config.CalculatorList[channel];
 		if (channelConfig?.chTargetState?.length > 10 && !channelConfig.chTargetState.startsWith("choose your state to drive")) {
@@ -444,6 +479,14 @@ export class TibberCalculator extends ProjectUtils {
 			}
 		}
 	}
+	/**
+	 * Creates the secondary Output2 boolean state for the channel (used by SmartBatteryBuffer types),
+	 * or removes it when a custom external target state is configured (chTargetState2).
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when the state has been created or deleted.
+	 */
 	private async setup_chOutput2(homeId: string, channel: number): Promise<void> {
 		const channelConfig = this.adapter.config.CalculatorList[channel];
 		if (channelConfig?.chTargetState2?.length > 10 && !channelConfig.chTargetState2.startsWith("choose your state to drive")) {
@@ -463,6 +506,13 @@ export class TibberCalculator extends ProjectUtils {
 			}
 		}
 	}
+	/**
+	 * Creates or resets the OutputJSON state for the channel, which holds the full price schedule as JSON.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param delMode - When `true`, suppresses the debug log (used during cleanup/delete flows).
+	 */
 	private setup_chOutputJSON(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -481,6 +531,14 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write  state OutputJSON for calculator in Home ${homeId}, Channel ${channel}`));
 		}
 	}
+	/**
+	 * Creates or resets the OutputJSON2 state for the channel (used by SmartBatteryBuffer types
+	 * to indicate expensive/feed-in slots separately from cheap/charging slots).
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param delMode - When `true`, suppresses the debug log (used during cleanup/delete flows).
+	 */
 	private setup_chOutputJSON2(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -499,6 +557,14 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write state OutputJSON2 for calculator in Home ${homeId}, Channel ${channel}`));
 		}
 	}
+	/**
+	 * Creates the TriggerPrice input state if it does not yet exist, then reads back the persisted
+	 * value into the in-memory channel config so subsequent calculations use the latest user setting.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when the state has been written and the config has been updated.
+	 */
 	private async setup_chTriggerPrice(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -527,6 +593,14 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state TriggerPrice for calculator`));
 		}
 	}
+	/**
+	 * Creates the AmountHours input state (in hours, resolution 0.25 h = 15 min) and reads back
+	 * the persisted value, converting it to 15-minute blocks internally (×4) for use in calculations.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when the state has been written and the config has been updated.
+	 */
 	private async setup_chAmountHours(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -557,6 +631,14 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AmountHours for calculator`));
 		}
 	}
+	/**
+	 * Creates the Percentage input state and reads back the persisted value into the channel config.
+	 * Used by BestPercentage channel types to define the allowed price spread above the cheapest slot.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when the state has been written and the config has been updated.
+	 */
 	private async setup_chPercentage(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -586,6 +668,15 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Percentage for calculator`));
 		}
 	}
+	/**
+	 * Creates the EfficiencyLoss input state and reads back the persisted value into the channel config.
+	 * Represents the round-trip efficiency loss of a battery system, used by SmartBatteryBuffer types
+	 * to dynamically calculate the minimum price delta between cheap and expensive slots.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns Resolves when the state has been written and the config has been updated.
+	 */
 	private async setup_chEfficiencyLoss(homeId: string, channel: number): Promise<void> {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -615,6 +706,13 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state EfficiencyLoss for calculator`));
 		}
 	}
+	/**
+	 * Creates the AverageTotalCost output state, which holds the mean total price of the
+	 * cheapest block determined by a BestHoursBlock channel.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 */
 	private setup_chAverageTotalCost(homeId: string, channel: number): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -632,6 +730,14 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AverageTotalCost for calculator`));
 		}
 	}
+	/**
+	 * Creates or resets the BlockStartFullHour output state, which holds the full-hour number (0–23)
+	 * at which the cheapest block begins.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param delMode - When `true`, suppresses the debug log (used during cleanup/delete flows).
+	 */
 	private setup_chBlockStartFullHour(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -652,6 +758,14 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator in Home ${homeId}, Channel ${channel}`));
 		}
 	}
+	/**
+	 * Creates or resets the BlockEndFullHour output state, which holds the full-hour number (0–23)
+	 * at which the cheapest block ends (i.e. start of the first quarter-hour after the block).
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param delMode - When `true`, suppresses the debug log (used during cleanup/delete flows).
+	 */
 	private setup_chBlockEndFullHour(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -672,6 +786,14 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEndFullHour for calculator`));
 		}
 	}
+	/**
+	 * Creates or resets the BlockStart output state, which holds the ISO date-time string of the
+	 * first 15-minute slot of the cheapest block.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param delMode - When `true`, suppresses the debug log (used during cleanup/delete flows).
+	 */
 	private setup_chBlockStart(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -690,6 +812,14 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStart for calculator`));
 		}
 	}
+	/**
+	 * Creates or resets the BlockEnd output state, which holds the ISO date-time string of the
+	 * first 15-minute slot after the cheapest block (exclusive end boundary).
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param delMode - When `true`, suppresses the debug log (used during cleanup/delete flows).
+	 */
 	private setup_chBlockEnd(homeId: string, channel: number, delMode = false): void {
 		try {
 			const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -877,6 +1007,15 @@ export class TibberCalculator extends ProjectUtils {
 		});
 	}
 
+	/**
+	 * Executes the BestCost (or BestCostLTF) calculator logic for the given channel.
+	 * Sets the channel output to ON when the current price is below the configured trigger price,
+	 * and writes the full price schedule with per-slot output flags to OutputJSON.
+	 *
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param modeLTF - When `true`, applies Limited Time Frame boundaries from the channel config.
+	 * @returns Resolves when output states and OutputJSON have been updated.
+	 */
 	private async executeCalculatorBestCost(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -938,6 +1077,15 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
+	/**
+	 * Executes the BestSingleHours (or BestSingleHoursLTF) calculator logic for the given channel.
+	 * Selects the N cheapest individual 15-minute slots and sets the output to ON during the matching slot.
+	 * Writes the full price schedule with per-slot output flags to OutputJSON.
+	 *
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param modeLTF - When `true`, applies Limited Time Frame boundaries from the channel config.
+	 * @returns Resolves when output states and OutputJSON have been updated.
+	 */
 	private async executeCalculatorBestSingleHours(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1011,6 +1159,16 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
+	/**
+	 * Executes the BestHoursBlock (or BestHoursBlockLTF) calculator logic for the given channel.
+	 * Finds the contiguous block of N 15-minute slots with the lowest total price sum and sets
+	 * the output to ON during the matching slot. Also writes block start/end times and average cost.
+	 * Writes the full price schedule with per-slot output flags to OutputJSON.
+	 *
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param modeLTF - When `true`, applies Limited Time Frame boundaries from the channel config.
+	 * @returns Resolves when output states, block timing states, and OutputJSON have been updated.
+	 */
 	private async executeCalculatorBestHoursBlock(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1176,6 +1334,17 @@ export class TibberCalculator extends ProjectUtils {
 			- Expensive Hours - disable battery charging (OFF-1) and enable feed into home energy system (ON-2)
 		*/
 	//#endregion
+	/**
+	 * Executes the SmartBatteryBuffer (or SmartBatteryBufferLTF) calculator logic for the given channel.
+	 * Classifies all 15-minute slots into cheap (charge battery), normal (idle), or expensive (feed into grid)
+	 * based on a dynamic minimum price delta derived from the configured battery efficiency loss.
+	 * Sets two outputs: Output (cheap → ON) and Output2 (expensive → ON).
+	 * Writes separate JSON schedules to OutputJSON (cheap slots) and OutputJSON2 (expensive slots).
+	 *
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param modeLTF - When `true`, applies Limited Time Frame boundaries from the channel config.
+	 * @returns Resolves when both output states and both OutputJSON states have been updated.
+	 */
 	private async executeCalculatorSmartBatteryBuffer(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -1380,6 +1549,16 @@ export class TibberCalculator extends ProjectUtils {
 		}
 	}
 
+	/**
+	 * Executes the BestPercentage (or BestPercentageLTF) calculator logic for the given channel.
+	 * Activates the output for all slots whose price is within the configured percentage above
+	 * the cheapest slot price in the current time window.
+	 * Writes the full price schedule with per-slot output flags to OutputJSON.
+	 *
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @param modeLTF - When `true`, applies Limited Time Frame boundaries from the channel config.
+	 * @returns Resolves when output states and OutputJSON have been updated.
+	 */
 	private async executeCalculatorBestPercentage(channel: number, modeLTF = false): Promise<void> {
 		const now = new Date();
 		const channelConfig = this.adapter.config.CalculatorList[channel];
