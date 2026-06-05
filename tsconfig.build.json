@@ -5,10 +5,11 @@
 		"allowJs": false,
 		"checkJs": false,
 		"noEmit": false,
+		"allowImportingTsExtensions": false,
 		"declaration": false,
 		"rootDir": "./src",
 		"outDir": "./build"
 	},
 	"include": ["src/**/*.ts"],
-	"exclude": ["src/**/*.test.ts"]
+	"exclude": ["src/**/*.test.ts", "src/**/testHelpers.ts"]
 }

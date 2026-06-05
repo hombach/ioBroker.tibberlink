@@ -38,8 +38,11 @@
 		"target": "ES2023",
 
 		"sourceMap": true,
-		"inlineSourceMap": false
+		"inlineSourceMap": false,
 		// "watch": false
+
+		// Allow test files to import source files with explicit .ts extensions
+		"allowImportingTsExtensions": true
 	},
 	"include": ["src/**/*.ts", "test/**/*.ts", "admin/**/*.ts", "admin/**/*.tsx", "eslint.config.mjs", "prettier.config.mjs"],
 	"exclude": ["build/**", "node_modules/**", "widgets/**"]
