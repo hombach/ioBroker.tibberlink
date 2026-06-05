@@ -15,7 +15,7 @@ export class TibberLocal extends ProjectUtils {
 	// example HEX strings  -  meter mode 3 e.g. for "EasyMeter Q3AA2064" meters
 	// TestData: string = `1b1b1b1b01010101760b455359416ebd0ac96831620062007263010176010445535908455359781168310b09014553591103bf6ebd0101638b0d00760b455359416ebd0ac96832620062007263070177010b09014553591103bf6ebd080100620affff0072620165039878117677078181c78203ff01010101044553590177070100000009ff010101010b09014553591103bf6ebd0177070100010800ff6400008001621e52fc5900000007fdd4f5c60177070100020800ff6400008001621e52fc5900000000002009db0177070100100700ff0101621b52fe5900000000000028d60177078181c7f006ff010101010401003e0101016305d800760b455359416ebd0ac968336200620072630201710163c13b000000001b1b1b1b1a032b3e`;
 
-	// example HEX strings  -  #704 - special to check signing error in total export 208
+	// example HEX strings  - #704 - special to check signing error in total export 208
 	// TestData: string = `1b1b1b1b010101017605032ec3db6200620072630101760107ffffffffffff05010f969f0b0a014546522102cf806f72620165055c5cfb016334b6007605032ec3dc62006200726307017707ffffffffffff0b0a014546522102cf806f070100620affff72620165055c5cfbf106770701006032010101010101044546520177070100600100ff010101010b0a014546522102cf806f0177070100010800ff641c780472620165055c5cfb621e52ff650425f6160177070100020800ff0172620165055c5cfb621e52ff649174630177070100100700ff0101621b520053f9eb0177070100200700ff0101622352ff6308ca0177070100340700ff0101622352ff6308fc0177070100480700ff0101622352ff6308fb01770701001f0700ff0101622152fe62db0177070100330700ff0101622152fe62c30177070100470700ff0101622152fe6301570177070100510701ff01016208520052770177070100510702ff0101620852005300ee0177070100510704ff0101620852005300d6017707010051070fff0101620852005300c0017707010051071aff0101620852005300bc01770701000e0700ff0101622c52ff6301f3017707010000020000010101010630332e30300177070100605a0201010101010342bd01770701006161000001010101030000017707010060320104010101010850312e322e3132017707010060320404010101010304220101016350e5007605032ec3dd620062007263020171016378f9001b1b1b1b1a00b129`;
 
 	// example HEX strings  -  for "EMH eHZB-W24E8-0LHP0-D6-A5Q2" meters
@@ -469,11 +469,6 @@ export class TibberLocal extends ProjectUtils {
 			const decimalCode = parseInt(match[2], 16);
 			result.unit = findDlmsUnitByCode(decimalCode);
 
-			// WiP const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 };
-			// WiP const scaleFactor = scalingFactors[match[3].toLowerCase()];
-			// WiP if (scaleFactor) {
-			// WiP result.value /= scaleFactor;
-			// WiP }
 			const scalingFactors = { ff: 10, fe: 100, fd: 1000, fc: 10000 } as const;
 			const key = match[3].toLowerCase() as keyof typeof scalingFactors;
 			if (key in scalingFactors) {
@@ -514,7 +509,6 @@ export class TibberLocal extends ProjectUtils {
 
 			if (result.unit == "Wh") {
 				result.unit = "kWh";
-				// WiP result.value = Math.round(result.value / 10) / 100;
 				result.value = Math.round(result.value) / 1000;
 			}
 			void this.checkAndSetValueNumber(
@@ -529,7 +523,6 @@ export class TibberLocal extends ProjectUtils {
 			);
 			this.adapter.log.debug(`Pulse mode 3 parse result: ${JSON.stringify(result)}`);
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
-			// WiP  output.push(`${getCurrentTimeFormatted()}: ${formattedMatch}\n`);
 			output.push(`${format(new Date(), "HH:mm:ss.SSS")}: ${formattedMatch}\n`);
 		}
 		if (output.length > 0) {
@@ -693,19 +686,6 @@ function parseSignedHex(hexStr: string): number {
 	}
 	return Number(num.toString());
 }
-
-/**
- * Retrieves the current time formatted as a string in "HH:mm:ss.SSS" format.
- *
- * @returns A string representing the current time in "HH:mm:ss.SSS" format.
- */
-//WiP   function getCurrentTimeFormatted(): string {
-//	const now = new Date();
-//	return format(now, "HH:mm:ss.SSS");
-//}
-//WiP   function getCurrentTimeFormatted(): string {
-//	return format(new Date(), "HH:mm:ss.SSS");
-//}
 
 /**
  * Finds the DLMS unit corresponding to a given decimal code.

@@ -504,7 +504,6 @@ export class TibberAPICaller extends ProjectUtils {
 							`json`,
 						);
 
-						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 						if (description == `day`) {
 							const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
 							await this.checkAndSetValueNumber(
@@ -515,7 +514,6 @@ export class TibberAPICaller extends ProjectUtils {
 								`value.energy.consumed`,
 							);
 						}
-						// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 					} else {
 						void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, `[]`);
 					}
@@ -527,6 +525,17 @@ export class TibberAPICaller extends ProjectUtils {
 		}
 	}
 
+	/**
+	 * Calculates the total consumption for the current month.
+	 *
+	 * Iterates through all provided consumption entries, validates the
+	 * available date (`from` or `to`), and sums up all valid, non-negative
+	 * consumption values that belong to the current calendar month.
+	 *
+	 * @param consumption - List of consumption entries to evaluate.
+	 * @returns The summed consumption for the current month, or `undefined`
+	 * if no valid consumption values are available.
+	 */
 	private getCurrentMonthConsumption(consumption: IConsumption[]): number | undefined {
 		if (!consumption || consumption.length === 0) {
 			return undefined;
