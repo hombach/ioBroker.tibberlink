@@ -46,6 +46,14 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - Note: It's essential to be mindful of the dataset size, as excessively large requests may result in a lack of response from the Tibber Server. We recommend experimenting with the dataset size to ensure optimal functionality. Adjusting the intervals and dataset numbers can help strike the right balance between obtaining insightful data and maintaining server responsiveness. E.g. 48 is a quite good amount for hours.
 - Save the settings.
 
+## Consumption Data Documentation
+
+When daily historical consumption is enabled, the adapter provides an aggregated state for the current month:
+
+- `Homes.<HOME-ID>.Consumption.currentMonthConsumption`
+
+This state is the total consumption for the current calendar month in `kWh` and is calculated from the daily consumption data returned by Tibber. If not enough days are configured the calculated value will onlx present these amount of days! not a complete month.
+
 ## Calculator Configuration
 
 - Now that the Tibber connection is up and running, you can also leverage the Calculator to incorporate additional automation features into the TibberLink adapter.
@@ -174,6 +182,13 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) added current month consumption docu
+- (HombachC) updated release-script
+- (HombachC) fixed adapter checker warnings
+
 ### 7.0.0 (2026-06-04)
 
 - (copilot) BREAKING: Adapter requires node.js >= 22 now

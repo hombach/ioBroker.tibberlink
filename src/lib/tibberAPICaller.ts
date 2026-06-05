@@ -527,7 +527,6 @@ export class TibberAPICaller extends ProjectUtils {
 		}
 	}
 
-	// WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
 	private getCurrentMonthConsumption(consumption: IConsumption[]): number | undefined {
 		if (!consumption || consumption.length === 0) {
 			return undefined;
@@ -551,7 +550,7 @@ export class TibberAPICaller extends ProjectUtils {
 			}
 		}
 		return sum > 0 ? sum : undefined;
-	} // WiP 872 - add some useful aggregated values for consumption, e.g. total consumption of current month for monthly resolution
+	}
 
 	/**
 	 * Updates the list of tomorrow's prices for one home.
