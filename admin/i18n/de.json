@@ -104,5 +104,17 @@
 	"TTIP_item_tibberBridgePassword": "Das Passwort für Ihre lokale Tibber Bridge, wie auf der Hardware angegeben.",
 	"TTIP_item_tibberBridgeRawDataInterval": "Das Intervall (in Millisekunden) für die Abfrage Ihrer Bridge nach Pulse-Daten.",
 	"TTIP_item_tibberBridgeUrl": "Name Ihrer Bridge oder ihre IP-Adresse (standardmäßig „tibber-host“).",
-	"TTIP_item_tibberPulseLocalNodeId": "Die Knoten-ID, unter der Ihr Pulse auf der Bridge registriert ist."
+	"TTIP_item_tibberPulseLocalNodeId": "Die Knoten-ID, unter der Ihr Pulse auf der Bridge registriert ist.",
+	"LBL_VehiclesTab": "Fahrzeuge & Ladestationen",
+	"LBL_vehiclesHelp1": "Schritt 1: OAuth2-Client unter data-api.tibber.com/clients/manage registrieren und die Redirect-URI auf http://localhost/ setzen. Dann Client ID und Client Secret unten eintragen.",
+	"LBL_vehiclesRegisterLink": "Tibber Data API Client-Verwaltung oeffnen",
+	"LBL_TibberClientId": "Tibber Data API Client ID",
+	"TTIP_TibberClientId": "OAuth2 Client ID aus dem Tibber Data API Client-Verwaltungsportal",
+	"LBL_TibberClientSecret": "Tibber Data API Client Secret",
+	"TTIP_TibberClientSecret": "OAuth2 Client Secret aus dem Tibber Data API Client-Verwaltungsportal",
+	"LBL_vehiclesHelp2": "Schritt 2: Folgende URL im Browser oeffnen (CLIENT_ID_HERE durch die eigene Client ID ersetzen), die App autorisieren und danach die vollstaendige Callback-URL aus der Adressleiste kopieren und unten einfuegen. Der Browser zeigt Verbindung abgelehnt - das ist erwartet.",
+	"LBL_TibberAuthCode": "Autorisierungs-Callback-URL (einmalig einfuegen, dann leer lassen)",
+	"TTIP_TibberAuthCode": "Die vollstaendige Callback-URL (http://localhost/?code=...) hier einfuegen. Sie wird beim naechsten Adapterstart verarbeitet und automatisch geloescht.",
+	"LBL_TibberDataApiInterval": "Abfrageintervall (Minuten)",
+	"TTIP_TibberDataApiInterval": "Wie oft Fahrzeug- und Ladedaten von der Tibber Data API abgefragt werden (1-60 Minuten)"
 }

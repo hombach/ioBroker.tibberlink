@@ -81,6 +81,10 @@ declare global {
 			FlexGraphJSON: string;
 			FlexGraphPastCutOff: number;
 			FlexGraphFutureCutOff: number;
+			TibberClientId: string;
+			TibberClientSecret: string;
+			TibberAuthCode: string;
+			TibberDataApiInterval: number;
 		}
 	}
 }

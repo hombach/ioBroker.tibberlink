@@ -208,13 +208,19 @@
     }
   },
   "encryptedNative": [
-    "TibberAPIToken"
+    "TibberAPIToken",
+    "TibberClientSecret"
   ],
   "protectedNative": [
-    "TibberAPIToken"
+    "TibberAPIToken",
+    "TibberClientSecret"
   ],
   "native": {
     "TibberAPIToken": "",
+    "TibberClientId": "",
+    "TibberClientSecret": "",
+    "TibberAuthCode": "",
+    "TibberDataApiInterval": 5,
     "HomesList": [
       {
         "feedActive": "false",

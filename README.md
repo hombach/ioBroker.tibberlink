@@ -166,6 +166,43 @@ https://github.com/marq24/ha-tibber-pulse-local
 
 If everything works correctly, the meter data will be written to ioBroker states every 2 seconds.
 
+## Vehicles & Chargers Configuration
+
+This optional feature fetches vehicle and charger data (e.g. state of charge, range, plug status) from the Tibber Data API. It requires separate OAuth2 client credentials and is **independent of the main Tibber API token**.
+
+### Prerequisites
+
+1. Register an OAuth2 client at [https://data-api.tibber.com/clients/manage](https://data-api.tibber.com/clients/manage) to obtain a **Client ID** and **Client Secret**.
+2. Open the **Vehicles & Chargers** tab in the adapter configuration and enter both values.
+3. Save the configuration and restart the adapter. The adapter will log an authorization URL like:
+    ```
+    Tibber Data API: no auth code configured — please authorize. URL: https://thewall.tibber.com/connect/authorize?...
+    ```
+4. Open this URL in a browser and log in with your Tibber account to grant access.
+5. After authorization, the browser will redirect to `http://localhost/` — this connection will fail, which is expected. Copy the **full URL** from the browser's address bar (it contains a `?code=...` parameter).
+6. Paste the complete URL (or just the code value) into the **Auth Code** field in the adapter configuration and save.
+7. The adapter will exchange the code for tokens and begin polling. The Auth Code field is automatically cleared after successful use.
+
+The adapter stores the refresh token internally and renews the access token automatically, so this one-time authorization step does not need to be repeated.
+
+### Available States
+
+Vehicle data is written to `Vehicles.<VIN>.*`:
+
+| State                 | Description                       |
+| --------------------- | --------------------------------- |
+| `StateOfCharge`       | Battery state of charge in %      |
+| `TargetStateOfCharge` | Target state of charge in %       |
+| `Range`               | Remaining range in km             |
+| `PlugStatus`          | Plug connection status            |
+| `ChargingStatus`      | Current charging status           |
+| `HomeId`              | Associated Tibber home ID         |
+| `LastUpdated`         | Timestamp of the last data update |
+
+### Poll Interval
+
+The poll interval can be configured in the **Vehicles & Chargers** tab (1–60 minutes, default: 5 minutes).
+
 ## Sentry
 
 This adapter employs Sentry libraries to automatically report exceptions and code errors to the developers. For more details and information on how to disable error reporting, please consult the [Sentry-Plugin Documentation](https://github.com/ioBroker/plugin-sentry#plugin-sentry)! Sentry reporting is initiated starting with js-controller 3.0.
@@ -184,6 +221,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (claude) added integration for vehicles & chargers (#67)
 - (HombachC) optimized documentation
 - (claude) added code documentation
 - (claude) performance optimization of event listeners

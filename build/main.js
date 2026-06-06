@@ -39,6 +39,7 @@ const date_fns_1 = require("date-fns");
 const tibberAPICaller_js_1 = require("./lib/tibberAPICaller.js");
 const tibberCalculator_js_1 = require("./lib/tibberCalculator.js");
 const tibberCharts_js_1 = require("./lib/tibberCharts.js");
+const tibberDataAPI_js_1 = require("./lib/tibberDataAPI.js");
 const tibberLocal_js_1 = require("./lib/tibberLocal.js");
 const tibberPulse_js_1 = require("./lib/tibberPulse.js");
 class Tibberlink extends utils.Adapter {
@@ -60,6 +61,7 @@ class Tibberlink extends utils.Adapter {
     queryUrl = "";
     tibberCalculator = new tibberCalculator_js_1.TibberCalculator(this);
     tibberCharts = new tibberCharts_js_1.TibberCharts(this);
+    tibberDataAPI = new tibberDataAPI_js_1.TibberDataAPI(this);
     tibberLocal = new tibberLocal_js_1.TibberLocal(this);
     async onReady() {
         if (!this.config.TibberAPIToken && !this.config.UseLocalPulseData) {
@@ -354,6 +356,25 @@ class Tibberlink extends utils.Adapter {
                         }
                     });
                 }
+            }
+        }
+        if (this.config.TibberClientId && this.config.TibberClientSecret) {
+            const initialized = await this.tibberDataAPI.initialize();
+            if (initialized) {
+                void this.tibberDataAPI.updateVehicleData();
+                const intervalMinutes = Math.max(1, this.config.TibberDataApiInterval || 5);
+                const jobVehicleData = cron_1.CronJob.from({
+                    cronTime: `0 */${intervalMinutes} * * * *`,
+                    onTick: async () => {
+                        await this.tibberDataAPI.updateVehicleData();
+                    },
+                    start: true,
+                    runOnInit: false,
+                });
+                if (jobVehicleData) {
+                    this.cronList.push(jobVehicleData);
+                }
+                this.log.info(`Tibber Data API: vehicle polling started every ${intervalMinutes} minute(s)`);
             }
         }
     }

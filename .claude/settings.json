@@ -4,6 +4,9 @@
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\c.hombach\\\\.vscode\\\\ioBroker.tibberlink\" -Recurse -File | Where-Object {$_.Extension -match '\\\\.\\(ts|js|json\\)$'} | Select-Object -ExpandProperty FullName | Sort-Object)",
       "Bash(git checkout *)",
       "Bash(npm run *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\c.hombach\\.claude\\projects\\c--Users-c-hombach--vscode-ioBroker-tibberlink\\memory"
     ]
   }
 }

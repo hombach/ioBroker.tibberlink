@@ -104,5 +104,17 @@
 	"TTIP_item_tibberBridgePassword": "Пароль для вашого локального Tibber Bridge, як зазначено на апаратному забезпеченні.",
 	"TTIP_item_tibberBridgeRawDataInterval": "Інтервал, у мілісекундах, для опитування вашого Bridge для даних Pulse.",
 	"TTIP_item_tibberBridgeUrl": "Ім'я вашого Bridge або його IP-адреса (за замовчуванням \"tibber-host\").",
-	"TTIP_item_tibberPulseLocalNodeId": "Ідентифікатор вузла, де ваш Pulse зареєстровано на Bridge."
+	"TTIP_item_tibberPulseLocalNodeId": "Ідентифікатор вузла, де ваш Pulse зареєстровано на Bridge.",
+	"LBL_VehiclesTab": "Vehicles & Chargers",
+	"LBL_vehiclesHelp1": "Step 1: Register an OAuth2 client at data-api.tibber.com/clients/manage and set the redirect URI to http://localhost/. Then enter your Client ID and Client Secret below.",
+	"LBL_vehiclesRegisterLink": "Open Tibber Data API client management",
+	"LBL_TibberClientId": "Tibber Data API Client ID",
+	"TTIP_TibberClientId": "OAuth2 Client ID from the Tibber Data API client management portal",
+	"LBL_TibberClientSecret": "Tibber Data API Client Secret",
+	"TTIP_TibberClientSecret": "OAuth2 Client Secret from the Tibber Data API client management portal",
+	"LBL_vehiclesHelp2": "Step 2: Open the following URL in your browser (replace CLIENT_ID_HERE with your Client ID), authorize the app, then copy the full callback URL from your browser address bar and paste it into the field below:\nhttps://thewall.tibber.com/connect/authorize?client_id=CLIENT_ID_HERE&redirect_uri=http%3A%2F%2Flocalhost%2F&response_type=code&scope=openid+offline_access+data-api-homes-read+data-api-vehicles-read+data-api-chargers-read&code_challenge=Oey1jcnhbUa_fxI9A2NtdVrIk-QxD-9ARobHcVpOj7A&code_challenge_method=S256&state=iobroker\nThe browser will show ‘connection refused’ — that is expected. Just copy the URL from the address bar.",
+	"LBL_TibberAuthCode": "Authorization callback URL (paste once, then leave empty)",
+	"TTIP_TibberAuthCode": "Paste the full callback URL (http://localhost/?code=...) here. It will be consumed on the next adapter start and cleared automatically.",
+	"LBL_TibberDataApiInterval": "Poll interval (minutes)",
+	"TTIP_TibberDataApiInterval": "How often vehicle and charger data is fetched from the Tibber Data API (1-60 minutes)"
 }

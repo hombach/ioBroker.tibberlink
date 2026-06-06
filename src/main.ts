@@ -8,6 +8,7 @@ import type { IHomeInfo } from "./lib/projectUtils.js";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
 import { TibberCharts } from "./lib/tibberCharts.js";
+import { TibberDataAPI } from "./lib/tibberDataAPI.js";
 import { TibberLocal } from "./lib/tibberLocal.js";
 import { TibberPulse } from "./lib/tibberPulse.js";
 
@@ -37,6 +38,7 @@ class Tibberlink extends utils.Adapter {
 	private queryUrl = "";
 	private tibberCalculator = new TibberCalculator(this);
 	private tibberCharts = new TibberCharts(this);
+	private tibberDataAPI = new TibberDataAPI(this);
 	private tibberLocal = new TibberLocal(this);
 	/**
 	 * Is called when databases are connected and adapter received configuration.
@@ -395,6 +397,29 @@ class Tibberlink extends utils.Adapter {
 					});
 				}
 				//#endregion
+			}
+		}
+
+		// Tibber Data API — vehicles & chargers (independent of TibberAPIToken)
+		if (this.config.TibberClientId && this.config.TibberClientSecret) {
+			const initialized = await this.tibberDataAPI.initialize();
+			if (initialized) {
+				void this.tibberDataAPI.updateVehicleData();
+				const intervalMinutes = Math.max(1, this.config.TibberDataApiInterval || 5);
+				//#region *** jobVehicleData — polls vehicle/charger states at user-configured interval
+				const jobVehicleData = CronJob.from({
+					cronTime: `0 */${intervalMinutes} * * * *`,
+					onTick: async () => {
+						await this.tibberDataAPI.updateVehicleData();
+					},
+					start: true,
+					runOnInit: false,
+				});
+				if (jobVehicleData) {
+					this.cronList.push(jobVehicleData);
+				}
+				//#endregion
+				this.log.info(`Tibber Data API: vehicle polling started every ${intervalMinutes} minute(s)`);
 			}
 		}
 	}

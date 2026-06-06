@@ -1158,6 +1158,102 @@
 					]
 				}
 			}
+		},
+
+		"_VehiclesTab": {
+			"type": "panel",
+			"label": "LBL_VehiclesTab",
+			"xs": 12,
+			"sm": 12,
+			"md": 12,
+			"lg": 12,
+			"xl": 12,
+			"items": {
+				"_vehiclesHelp1": {
+					"type": "staticText",
+					"text": "LBL_vehiclesHelp1",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"_vehiclesRegisterLink": {
+					"type": "staticLink",
+					"label": "LBL_vehiclesRegisterLink",
+					"href": "https://data-api.tibber.com/clients/manage",
+					"button": true,
+					"icon": "info",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"TibberClientId": {
+					"type": "text",
+					"label": "LBL_TibberClientId",
+					"tooltip": "TTIP_TibberClientId",
+					"maxLength": 120,
+					"xs": 12,
+					"sm": 12,
+					"md": 8,
+					"lg": 6,
+					"xl": 4,
+					"newLine": true
+				},
+				"TibberClientSecret": {
+					"type": "password",
+					"label": "LBL_TibberClientSecret",
+					"tooltip": "TTIP_TibberClientSecret",
+					"maxLength": 120,
+					"xs": 12,
+					"sm": 12,
+					"md": 8,
+					"lg": 6,
+					"xl": 4,
+					"newLine": true
+				},
+				"_vehiclesHelp2": {
+					"type": "staticText",
+					"text": "LBL_vehiclesHelp2",
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
+				"TibberAuthCode": {
+					"type": "text",
+					"label": "LBL_TibberAuthCode",
+					"tooltip": "TTIP_TibberAuthCode",
+					"maxLength": 500,
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 10,
+					"xl": 8,
+					"newLine": true
+				},
+				"TibberDataApiInterval": {
+					"type": "number",
+					"label": "LBL_TibberDataApiInterval",
+					"tooltip": "TTIP_TibberDataApiInterval",
+					"min": 1,
+					"max": 60,
+					"step": 1,
+					"default": 5,
+					"xs": 12,
+					"sm": 6,
+					"md": 4,
+					"lg": 3,
+					"xl": 2,
+					"newLine": true
+				}
+			}
 		}
 	}
 }
