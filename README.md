@@ -242,8 +242,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.1.0 (2026-06-07)
 
 - (claude) added integration for vehicles & chargers (#67)
 - (HombachC) optimized documentation
@@ -282,11 +281,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) enhance resolution of pulse meter data (#840)
 - (HombachC) fix wrong end block state calculation (#841)
 - (HombachC) setup auto-merge for dependabot (#834)
-- (HombachC) update dependencies
-
-### 6.1.1 (2026-02-05)
-
-- (HombachC) fix LTF shifting for frames greater 24h
 - (HombachC) update dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "7.0.0",
+    "version": "7.1.0",
     "news": {
+      "7.1.0": {
+        "en": "added integration for vehicles & chargers (#67)\noptimized documentation\nadded code documentation\nperformance optimization of event listeners\nadded current month consumption docu\nupdated release-script\nfixed adapter checker warnings",
+        "de": "zusätzliche integration für fahrzeuge und ladegeräte (#67)\noptimierte dokumentation\ndokumentation des hinzugefügten codes\nperformance-optimierung von event-hörern\nhinzugefügt aktuelle monat verbrauch docu\naktualisiertes release-script\nwarnhinweise für feste adapterprüfgeräte",
+        "ru": "добавлена интеграция для транспортных средств и зарядных устройств (#67)\nоптимизированная документация\nдобавлена кодовая документация\nоптимизация производительности слушателей событий\nдобавлено потребление в текущем месяце\nобновленный release-script\nпредупреждения о проверке адаптера",
+        "pt": "integração adicional para veículos e carregadores (#67)\ndocumentação otimizada\ndocumentação de código adicionada\notimização do desempenho dos ouvintes de eventos\ndocu de consumo do mês atual adicionado\nversão-script actualizada\navisos de verificação do adaptador fixo",
+        "nl": "toegevoegde integratie voor voertuigen en laders (#67)\ngeoptimaliseerde documentatie\ntoegevoegde codedocumentatie\nprestatieoptimalisatie van event luisteraars\ntoegevoegd lopende maand consumptiedocument\nbijgewerkt release-script\nwaarschuwingen voor vaste adaptercontrole",
+        "fr": "intégration ajoutée pour les véhicules et chargeurs (#67)\nune documentation optimisée\ndocument de code ajouté\noptimisation de la performance des auditeurs d'événements\nconsommation mensuelle ajoutée\nmise à jour du texte de publication\navertissements de vérification de l'adaptateur fixe",
+        "it": "integrazione aggiuntiva per veicoli e caricabatterie (#67)\ndocumentazione ottimizzata\ndocumentazione del codice aggiunto\nottimizzazione delle prestazioni degli ascoltatori degli eventi\naggiunto consumo di mese corrente docu\nversione aggiornata\navvertenze di controllo dell'adattatore fisso",
+        "es": "integración agregada para cargadores de vehículos (#67)\ndocumentación optimizada\ndocumentación de código añadido\noptimización de rendimiento de los oyentes de eventos\nconsumo de mes en curso\nversión actualizada-script\navisos de control de adaptador fijo",
+        "pl": "dodana integracja pojazdów i ładowarek (# 67)\nzoptymalizowana dokumentacja\ndodana dokumentacja kodu\noptymalizacja wydajności słuchaczy zdarzeń\ndodany bieżący miesiąc zużycia doku\nzaktualizowany skrypt release-\nostrzeżenia dotyczące sprawdzania adaptera",
+        "uk": "додана інтеграція для транспортних засобів та зарядних пристроїв (#67)\nоптимізована документація\nдодано документацію коду\nоптимізація продуктивності слухачів заходу\nдодано поточний місяць споживання docu\nоновлений реліз-script\nвиправлені попередження перевірки адаптера",
+        "zh-cn": "车辆和充电器增加的集成(#67)\n优化文档\n添加代码文档\n事件听众的性能优化\n本月消费量\n更新发布标记\n固定适配器检查器警告"
+      },
       "7.0.0": {
         "en": "BREAKING: Adapter requires node.js >= 22 now\nAdapter requires admin >=7.6.20 now\nadded current month consumption (#872)\nupgraded typescript to 6.x\nfixed vulnerability in axios\nfixed some type definitions\nextended FlexCharts docu\nupdated dependencies\nupdated projectUtils",
         "de": "BREAKING: Adapter erfordert jetzt node.js >= 22\nAdapter erfordert Administrator >=7.6.20 jetzt\naktuellen monat verbrauch (#872)\naktualisiertes typskript auf 6.x\nfeste sicherheitslücke in axios\nbestimmte typendefinitionen festgelegt\nerweiterter FlexCharts-Docu\naktualisierte abhängigkeiten\naktualisiertes ProjektUtils",
@@ -80,19 +93,6 @@
         "pl": "BREAKING: zmiana typu flexcharts\nwprowadzić wyjście FlexChart dla kanałów SBB drugie wyjście\nwprowadzić drugą nazwę dla wyjścia FlexChart z kanałów SBB\nwprowadzić kolor dla wyjścia FlexChart z kalkulatora wyników\nwprowadzenie większej liczby statystyk dotyczących cen w ciągu ostatnich dni\nczysty kod dla czasu 15min\nfix schema links (# 822)\nfix CurrentPrice after midnight (# 812)\naktualizacja cron\nrok 2026 zmiany\naktualizacji zależności",
         "uk": "BREAKING: зміна флексарів типу осі\nвводити FlexChart вихід для каналів SBB другий вихід\nвводити другу назву для FlexChart виведення SBB каналів\nввести колір для FlexChart виведення результатів калькулятора\nзапроваджувати більшу статистику за цінами\nчистий код за 15 хв\nfix schema посилання (#822)\nвиправити CurrentPrice після півночі (#812)\nоновлення cron\nрік 2026 змін\nоновлення залежності",
         "zh-cn": "打破: 更改弹性图x轴类型\n为 SBB 通道引入 FlexChart 输出\n为 SBB 频道的 FlexChart 输出引入第二个名称\n引入计算结果的 FlexChart 输出颜色\n增加昨天价格的统计数据\n15min 时段的清洁代码\n固定计划链接 (# 822)\n午夜后修正当前价格(# 812)\n更新线索\n2026年的变化\n更新依赖关系"
-      },
-      "6.0.3": {
-        "en": "optimize sentry\noptimize dependabot config (#805)\nupdate axios and cron\nupdate FlexChart template",
-        "de": "optimieren sie die sendung\noptimieren abhängigabot config (#805)\naxios und cron aktualisieren\nupdate FlexChart Template",
-        "ru": "оптимизация часовых\nоптимизируйте конфигурацию зависимого робота (#805)\nобновление axios и cron\nобновление шаблона FlexChart",
-        "pt": "otimizar sentinela\notimizar a configuração do dependebot (# 805)\natualizar axios e cron\natualizar modelo FlexChart",
-        "nl": "optimale wacht\nde dependabotconfiguratie optimaliseren (#805)\nupdate axios en cron\nflexChart-sjabloon bijwerken",
-        "fr": "optimiser la sentinelle\noptimiser la configuration de dependabot (#805)\nmettre à jour axios et cron\nmettre à jour le modèle FlexChart",
-        "it": "ottimizza la spedizione\nottimizzare la configurazione dipendeabot (#805)\naggiornamento assio e cron\naggiornamento modello FlexChart",
-        "es": "optimización de centry\noptimizar config de dependabot (#805)\nactualización axios y cron\nactualizar plantilla FlexChart",
-        "pl": "optymalizacja wartownika\nzoptymalizuj config zależny (# 805)\nuaktualnić aksjos i cron\naktualizacja szablonu FlexChart",
-        "uk": "оптимізація відправлень\nоптимізація налаштування залежностей (#805)\nоновлення axios і cron\nоновлення шаблону FlexChart",
-        "zh-cn": "优化哨兵\n优化依赖配置 (# 805)\n更新轴和冠\n更新 FlexChart 模板"
       }
     },
     "messages": [

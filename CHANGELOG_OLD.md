@@ -18,6 +18,10 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+## 6.1.1 (2026-02-05)
+
+- (HombachC) fix LTF shifting for frames greater 24h
+
 ### 6.1.0 (2026-01-03)
 
 - (HombachC) BREAKING: change flexcharts x-axis type
