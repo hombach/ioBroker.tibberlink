@@ -57,13 +57,13 @@ export class TibberLocal extends ProjectUtils {
 				this.getPulseData(pulse)
 					.then(response => {
 						this.adapter.log.debug(
-							`Polled local Tibber Bridge metrics${firstMetricsRun ? " for the first time" : ""}: ${JSON.stringify(response)}`,
+							`[tibberLocal]: Polled local Tibber Bridge metrics${firstMetricsRun ? " for the first time" : ""}: ${JSON.stringify(response)}`,
 						);
 						this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
 						firstMetricsRun = false;
 					})
 					.catch(e => {
-						this.adapter.log.error(`Error while polling and parsing Tibber Bridge metrics: ${e}`);
+						this.adapter.log.error(`[tibberLocal]: Error while polling and parsing Tibber Bridge metrics: ${e}`);
 					});
 				//#endregion
 
@@ -71,12 +71,12 @@ export class TibberLocal extends ProjectUtils {
 				const jobBridgeMetrics = setInterval(() => {
 					this.getPulseData(pulse)
 						.then(response => {
-							this.adapter.log.debug(`Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
+							this.adapter.log.debug(`[tibberLocal]: Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
 							this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
 							firstMetricsRun = false;
 						})
 						.catch(e => {
-							this.adapter.log.error(`Error polling and parsing Tibber Bridge metrics: ${e}`);
+							this.adapter.log.error(`[tibberLocal]: Error polling and parsing Tibber Bridge metrics: ${e}`);
 						});
 				}, this.MetricsDataInterval);
 				if (jobBridgeMetrics) {
@@ -88,9 +88,9 @@ export class TibberLocal extends ProjectUtils {
 					// poll data and log as HEX string
 					this.getDataAsHexString(pulse)
 						.then(hexString => {
-							this.adapter.log.debug(`got HEX data from local pulse: ${hexString}`); // log data as HEX string
+							this.adapter.log.debug(`[tibberLocal]: got HEX data from local pulse: ${hexString}`); // log data as HEX string
 							void this.checkAndSetValue(`LocalPulse.${pulse}.SMLDataHEX`, hexString, this.adapter.config.PulseList[pulse].puName);
-							this.adapter.log.debug(`trying to parse meter mode ${this.meterMode}`);
+							this.adapter.log.debug(`[tibberLocal]: trying to parse meter mode ${this.meterMode}`);
 							switch (this.meterMode) {
 								case 1:
 									this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
@@ -107,7 +107,7 @@ export class TibberLocal extends ProjectUtils {
 							firstDataRun = false;
 						})
 						.catch(error => {
-							this.adapter.log.warn(`Error local polling of Tibber Pulse RAW data: ${error}`);
+							this.adapter.log.warn(`[tibberLocal]: Error local polling of Tibber Pulse RAW data: ${error}`);
 						});
 				}, this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval);
 				if (jobPulseLocal) {
@@ -454,17 +454,17 @@ export class TibberLocal extends ProjectUtils {
 		for (const match of messages) {
 			const result: PulseParseResult = { name: "", value: 0 };
 			if (this.TestMode) {
-				this.adapter.log.debug(`parse SML overall compliance: ${match[0]}`);
-				this.adapter.log.debug(`parse SML group 1: ${match[1]}`);
-				this.adapter.log.debug(`parse SML group 2: ${match[2]}`);
-				this.adapter.log.debug(`parse SML group 3: ${match[3]}`);
-				this.adapter.log.debug(`parse SML group 4: ${match[4]}`);
-				this.adapter.log.debug(`parse SML group 5: ${match[5]}`);
+				this.adapter.log.debug(`[tibberLocal]: parse SML overall compliance: ${match[0]}`);
+				this.adapter.log.debug(`[tibberLocal]: parse SML group 1: ${match[1]}`);
+				this.adapter.log.debug(`[tibberLocal]: parse SML group 2: ${match[2]}`);
+				this.adapter.log.debug(`[tibberLocal]: parse SML group 3: ${match[3]}`);
+				this.adapter.log.debug(`[tibberLocal]: parse SML group 4: ${match[4]}`);
+				this.adapter.log.debug(`[tibberLocal]: parse SML group 5: ${match[5]}`);
 			}
 
 			result.name = findObisCodeName(match[1]);
 			if (result.name.startsWith(`Found invalid OBIS-Code:`)) {
-				this.adapter.log.debug(result.name);
+				this.adapter.log.debug(`[tibberLocal]: ${result.name}`);
 				continue;
 			}
 			if (result.name.startsWith(`Found unknown OBIS-Code:`)) {
@@ -500,17 +500,17 @@ export class TibberLocal extends ProjectUtils {
 			//#endregion
 
 			if (result.value < -1000000000) {
-				this.adapter.log.debug(`Result.value < -1.000.000.000 skiped!`);
+				this.adapter.log.debug(`[tibberLocal]: Result.value < -1.000.000.000 skiped!`);
 				this.adapter.log.debug(JSON.stringify(result));
-				this.adapter.log.debug(`overall compliance: ${match[0]}`);
-				this.adapter.log.debug(`RAW: ${transfer}`);
+				this.adapter.log.debug(`[tibberLocal]: overall compliance: ${match[0]}`);
+				this.adapter.log.debug(`[tibberLocal]: RAW: ${transfer}`);
 				continue;
 			}
 			if (result.value > 1000000000) {
-				this.adapter.log.debug(`Result.value > 1.000.000.000 skiped!`);
+				this.adapter.log.debug(`[tibberLocal]: Result.value > 1.000.000.000 skiped!`);
 				this.adapter.log.debug(JSON.stringify(result));
-				this.adapter.log.debug(`overall compliance: ${match[0]}`);
-				this.adapter.log.debug(`RAW: ${transfer}`);
+				this.adapter.log.debug(`[tibberLocal]: overall compliance: ${match[0]}`);
+				this.adapter.log.debug(`[tibberLocal]: RAW: ${transfer}`);
 				continue;
 			}
 
@@ -528,12 +528,12 @@ export class TibberLocal extends ProjectUtils {
 				false,
 				forceMode,
 			);
-			this.adapter.log.debug(`Pulse mode 3 parse result: ${JSON.stringify(result)}`);
+			this.adapter.log.debug(`[tibberLocal]: Pulse mode 3 parse result: ${JSON.stringify(result)}`);
 			const formattedMatch = match[0].replace(/(..)/g, "$1 ").trim();
 			output.push(`${format(new Date(), "HH:mm:ss.SSS")}: ${formattedMatch}\n`);
 		}
 		if (output.length > 0) {
-			this.adapter.log.debug(`Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
+			this.adapter.log.debug(`[tibberLocal]: Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
 		}
 	}
 
@@ -615,7 +615,7 @@ export class TibberLocal extends ProjectUtils {
 				}
 			}
 		}
-		this.adapter.log.debug(`Pulse mode 1 or 4 parse result: ${JSON.stringify(PulseParseResults)}`);
+		this.adapter.log.debug(`[tibberLocal]: Pulse mode 1 or 4 parse result: ${JSON.stringify(PulseParseResults)}`);
 	}
 
 	/**

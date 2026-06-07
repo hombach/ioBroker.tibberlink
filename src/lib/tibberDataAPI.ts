@@ -36,17 +36,26 @@ interface TibberHome {
 	id: string;
 }
 
+/** Device as returned by GET /homes/{homeId}/devices (list endpoint — no live data). */
+interface TibberDevice {
+	id: string;
+	externalId?: string;
+	info?: { name?: string; brand?: string; model?: string };
+}
+
+/** Capability entry as returned by GET /homes/{homeId}/devices/{deviceId} (detail endpoint). */
 interface DeviceCapability {
+	id: string;
 	value: unknown;
 	unit?: string;
 }
 
-interface TibberDevice {
+/** Full device detail as returned by GET /homes/{homeId}/devices/{deviceId}. */
+interface TibberDeviceDetail {
 	id: string;
-	name?: string;
-	type?: string;
 	externalId?: string;
-	capabilities?: Record<string, DeviceCapability>;
+	info?: { name?: string; brand?: string; model?: string };
+	capabilities?: DeviceCapability[];
 }
 
 /**
@@ -294,6 +303,22 @@ export class TibberDataAPI extends ProjectUtils {
 	}
 
 	/**
+	 * Fetches the full detail of a single device including live capabilities.
+	 *
+	 * @param accessToken - Valid Bearer token.
+	 * @param homeId - The Tibber home ID.
+	 * @param deviceId - The device ID.
+	 * @returns Full device detail including capabilities array.
+	 */
+	private async fetchDevice(accessToken: string, homeId: string, deviceId: string): Promise<TibberDeviceDetail> {
+		const response = await axios.get<TibberDeviceDetail>(`${DATA_API_BASE}/homes/${homeId}/devices/${deviceId}`, {
+			headers: { Authorization: `Bearer ${accessToken}` },
+			timeout: 30_000,
+		});
+		return response.data;
+	}
+
+	/**
 	 * Fetches and processes all devices for a home, writing vehicle states.
 	 *
 	 * @param accessToken - Valid Bearer token.
@@ -303,22 +328,22 @@ export class TibberDataAPI extends ProjectUtils {
 		const devices = await this.fetchDevices(accessToken, homeId);
 		this.adapter.log.debug(`[tibberDataAPI]: home ${homeId} — found ${devices.length} device(s)`);
 		for (const device of devices) {
-			const isVeh = this.isVehicle(device);
-			this.adapter.log.debug(`[tibberDataAPI]: device raw=${JSON.stringify(device)}`);
-			if (isVeh) {
-				await this.writeVehicleStates(device, homeId);
+			const detail = await this.fetchDevice(accessToken, homeId, device.id);
+			this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" caps=${JSON.stringify(detail.capabilities ?? [])}`);
+			if (this.isVehicle(detail)) {
+				await this.writeVehicleStates(detail, homeId);
 			}
 		}
 	}
 
 	/**
-	 * Determines whether a device is a vehicle based on its type or capabilities.
+	 * Determines whether a device is a vehicle based on its capabilities array.
 	 *
-	 * @param device - The device to check.
-	 * @returns True if the device is a vehicle.
+	 * @param device - Full device detail from the detail endpoint.
+	 * @returns True if the device has a state-of-charge capability.
 	 */
-	private isVehicle(device: TibberDevice): boolean {
-		return device.type === "vehicle" || (device.capabilities !== undefined && "storage.stateOfCharge" in device.capabilities);
+	private isVehicle(device: TibberDeviceDetail): boolean {
+		return device.capabilities?.some(c => c.id === "storage.stateOfCharge") ?? false;
 	}
 
 	/**
@@ -350,16 +375,17 @@ export class TibberDataAPI extends ProjectUtils {
 	/**
 	 * Creates or updates ioBroker states for a vehicle device.
 	 *
-	 * @param device - Tibber device object of type vehicle.
+	 * @param device - Full device detail from the Tibber Data API detail endpoint.
 	 * @param homeId - The home ID the vehicle is associated with.
 	 */
-	private async writeVehicleStates(device: TibberDevice, homeId: string): Promise<void> {
+	private async writeVehicleStates(device: TibberDeviceDetail, homeId: string): Promise<void> {
 		const vin = this.parseVin(device.externalId);
-		this.adapter.log.debug(
-			`[tibberDataAPI]: writing states for vehicle "${device.name ?? vin}" (VIN: ${vin}), caps: ${Object.keys(device.capabilities ?? {}).join(", ") || "none"}`,
-		);
+		const displayName = device.info?.name ?? vin;
+		const caps = device.capabilities ?? [];
+		const findCap = (id: string): DeviceCapability | undefined => caps.find(c => c.id === id);
+
+		this.adapter.log.debug(`[tibberDataAPI]: writing states for vehicle "${displayName}" (VIN: ${vin}), caps: ${caps.map(c => c.id).join(", ") || "none"}`);
 		const basePath = `Vehicles.${vin}`;
-		const caps = device.capabilities ?? {};
 
 		await this.adapter.setObjectNotExistsAsync("Vehicles", {
 			type: "device",
@@ -368,34 +394,35 @@ export class TibberDataAPI extends ProjectUtils {
 		});
 		await this.adapter.setObjectNotExistsAsync(basePath, {
 			type: "channel",
-			common: { name: device.name ?? vin },
+			common: { name: displayName },
 			native: {},
 		});
 
 		void this.checkAndSetValue(`${basePath}.HomeId`, homeId, "Associated home ID");
 		void this.checkAndSetValue(`${basePath}.LastUpdated`, new Date().toISOString(), "Timestamp of last data update");
 
-		const soc = caps["storage.stateOfCharge"];
+		const soc = findCap("storage.stateOfCharge");
 		if (soc !== undefined) {
 			void this.checkAndSetValueNumber(`${basePath}.StateOfCharge`, Number(soc.value), "State of charge in %");
 		}
 
-		const targetSoc = caps["storage.targetStateOfCharge"];
+		const targetSoc = findCap("storage.targetStateOfCharge");
 		if (targetSoc !== undefined) {
 			void this.checkAndSetValueNumber(`${basePath}.TargetStateOfCharge`, Number(targetSoc.value), "Target state of charge in %");
 		}
 
-		const range = caps["range.remaining"];
+		const range = findCap("range.remaining");
 		if (range !== undefined) {
-			void this.checkAndSetValueNumber(`${basePath}.Range`, Number(range.value), "Remaining range in km");
+			const rangeKm = range.unit === "m" ? Number(range.value) / 1000 : Number(range.value);
+			void this.checkAndSetValueNumber(`${basePath}.Range`, rangeKm, "Remaining range in km");
 		}
 
-		const plugStatus = caps["connector.status"];
+		const plugStatus = findCap("connector.status");
 		if (plugStatus !== undefined) {
 			void this.checkAndSetValue(`${basePath}.PlugStatus`, String(plugStatus.value), "Plug connection status");
 		}
 
-		const chargingStatus = caps["charging.status"];
+		const chargingStatus = findCap("charging.status");
 		if (chargingStatus !== undefined) {
 			void this.checkAndSetValue(`${basePath}.ChargingStatus`, String(chargingStatus.value), "Charging status");
 		}
