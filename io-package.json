@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "7.1.0",
+    "version": "7.1.1",
     "news": {
+      "7.1.1": {
+        "en": "optimized vehicle states\nfixed adapter checker warnings",
+        "de": "optimierte fahrzeugzustände\nwarnhinweise für feste adapterprüfgeräte",
+        "ru": "оптимизированное состояние автомобиля\nпредупреждения о проверке адаптера",
+        "pt": "estados otimizados do veículo\navisos de verificação do adaptador fixo",
+        "nl": "geoptimaliseerde voertuigtoestanden\nwaarschuwingen voor vaste adaptercontrole",
+        "fr": "état optimisé du véhicule\navertissements de vérification de l'adaptateur fixe",
+        "it": "stati del veicolo ottimizzati\navvertenze di controllo dell'adattatore fisso",
+        "es": "estados de vehículos optimizados\navisos de control de adaptador fijo",
+        "pl": "zoptymalizowane stany pojazdów\nostrzeżenia dotyczące sprawdzania adaptera",
+        "uk": "оптимізовані стани транспортних засобів\nвиправлені попередження перевірки адаптера",
+        "zh-cn": "优化车辆状态\n固定适配器检查器警告"
+      },
       "7.1.0": {
         "en": "added integration for vehicles & chargers (#67)\noptimized documentation\nadded code documentation\nperformance optimization of event listeners\nadded current month consumption docu\nupdated release-script\nfixed adapter checker warnings",
         "de": "zusätzliche integration für fahrzeuge und ladegeräte (#67)\noptimierte dokumentation\ndokumentation des hinzugefügten codes\nperformance-optimierung von event-hörern\nhinzugefügt aktuelle monat verbrauch docu\naktualisiertes release-script\nwarnhinweise für feste adapterprüfgeräte",
@@ -80,19 +93,6 @@
         "pl": "naprawić przesunięcie LTF dla klatek większych 24h\naktualizacji zależności",
         "uk": "кріплення LTF для каркасів більше 24h\nоновлення залежності",
         "zh-cn": "为更大的24小时帧修正 LTF 转换\n更新依赖关系"
-      },
-      "6.1.0": {
-        "en": "BREAKING: change flexcharts x-axis type\nintroduce FlexChart output for SBB channels second output\nintroduce second name for FlexChart output of SBB channels\nintroduce color for FlexChart output of calculator results\nintroduce more statistics for yesterdays prices\nclean code for 15min time slots\nfix schema links (#822)\nfix CurrentPrice after midnight (#812)\nupdate cron\nyear 2026 changes\nupdate dependencies",
-        "de": "BREAKING: Flexcharts x-Achsentyp ändern\nflexChart Ausgang für SBB Kanäle zweiter Ausgang\nden zweiten Namen für FlexChart-Ausgang von SBB-Kanälen einführen\ndie Farbe für die FlexChart Ausgabe von Rechenergebnissen einführen\nmehr statistiken für die gestrigen preise einführen\nsauberer code für 15min zeitschlitze\nschemalinks fixieren (#822)\naktuellePreis nach Mitternacht (#812)\nupdate cron\njahr 2026 änderungen\naktualisierung der abhängigkeiten",
-        "ru": "BREAKING: изменение флексчартов типа x-axis\nввести выход FlexChart для каналов SBB второй выход\nввести второе имя для вывода FlexChart каналов SBB\nввести цвет для вывода FlexChart результатов калькулятора\nвведите больше статистики по вчерашним ценам\nчистый код для 15-минутных временных интервалов\nссылки на схемы (#822)\nтекущая цена после полуночи (#812)\nобновление cron\n2026 год изменения\nобновление зависимостей",
-        "pt": "BREAKING: mudança de flexcharts tipo de eixo x\nintroduzir saída FlexChart para canais SBB segunda saída\nintroduzir o segundo nome para a saída FlexChart de canais SBB\nintroduzir a cor para a saída FlexChart dos resultados da calculadora\nintroduzir mais estatísticas para os preços de ontem\ncódigo limpo para slots de tempo de 15 minutos\ncorrigir links de esquema (# 822)\ncorrigir CurrentPrice após a meia-noite (# 812)\natualizar cron\nvariações do ano de 2026\natualizar dependências",
-        "nl": "Breaking: verandering flexcharts x-as type\nflexChart uitgang voor SBB kanalen tweede uitgang introduceren\nintroduceer tweede naam voor FlexChart uitgang van SBB kanalen\nintroduceer kleur voor FlexChart-uitvoer van rekenresultaten\nmeer statistieken voor de prijzen van gisteren invoeren\nschone code voor 15min tijd slots\nschema links herstellen (#822)\nfix CurrentPrijs na middernacht (#812)\ncron bijwerken\njaar 2026 veranderingen\nafhankelijkheden bijwerken",
-        "fr": "BREAKING: changement flexcharts type d'axe x\nintroduire la sortie FlexChart pour les canaux CFF deuxième sortie\nintroduire le deuxième nom pour la sortie FlexChart des canaux CFF\nintroduire la couleur pour la sortie FlexChart des résultats de calculatrice\nintroduire plus de statistiques pour les prix d'hier\ncode propre pour les créneaux horaires de 15min\ncorriger les liens de schéma (#822)\nfixer CurrentPrix après minuit (#812)\nmettre à jour cron\nannée 2026 changements\nmettre à jour les dépendances",
-        "it": "BREAKING: cambio flexcharts x-assis tipo\nintrodurre l'output FlexChart per canali FFS seconda uscita\nintrodurre il secondo nome per l'uscita FlexChart dei canali FFS\nintrodurre il colore per l'output FlexChart dei risultati della calcolatrice\nintrodurre ulteriori statistiche per i prezzi di ieri\ncodice pulito per slot di tempo 15min\ncorrezione dei collegamenti di schema (#822)\ncorrezione CorrentePrezzo dopo mezzanotte (#812)\naggiornamento cron\nanno 2026 modifiche\naggiornamento dipendenze",
-        "es": "BREAKING: cambiar flexcharts tipo x-axis\nintroducir la salida FlexChart para los canales SBB\nintroducir el segundo nombre para la salida FlexChart de canales SBB\nintroducir color para la salida FlexChart de los resultados de la calculadora\nintroducir más estadísticas para los precios de ayer\ncódigo limpio para ranuras de tiempo 15min\nfijar enlaces de esquemas (#822)\nfijar el precio actual después de la medianoche (#812)\nactualización cron\naño 2026 cambios\ndependencias de actualización",
-        "pl": "BREAKING: zmiana typu flexcharts\nwprowadzić wyjście FlexChart dla kanałów SBB drugie wyjście\nwprowadzić drugą nazwę dla wyjścia FlexChart z kanałów SBB\nwprowadzić kolor dla wyjścia FlexChart z kalkulatora wyników\nwprowadzenie większej liczby statystyk dotyczących cen w ciągu ostatnich dni\nczysty kod dla czasu 15min\nfix schema links (# 822)\nfix CurrentPrice after midnight (# 812)\naktualizacja cron\nrok 2026 zmiany\naktualizacji zależności",
-        "uk": "BREAKING: зміна флексарів типу осі\nвводити FlexChart вихід для каналів SBB другий вихід\nвводити другу назву для FlexChart виведення SBB каналів\nввести колір для FlexChart виведення результатів калькулятора\nзапроваджувати більшу статистику за цінами\nчистий код за 15 хв\nfix schema посилання (#822)\nвиправити CurrentPrice після півночі (#812)\nоновлення cron\nрік 2026 змін\nоновлення залежності",
-        "zh-cn": "打破: 更改弹性图x轴类型\n为 SBB 通道引入 FlexChart 输出\n为 SBB 频道的 FlexChart 输出引入第二个名称\n引入计算结果的 FlexChart 输出颜色\n增加昨天价格的统计数据\n15min 时段的清洁代码\n固定计划链接 (# 822)\n午夜后修正当前价格(# 812)\n更新线索\n2026年的变化\n更新依赖关系"
       }
     },
     "messages": [

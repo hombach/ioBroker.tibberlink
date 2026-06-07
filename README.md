@@ -242,8 +242,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.1.1 (2026-06-07)
 
 - (HombachC) optimized vehicle states
 - (HombachC) fixed adapter checker warnings
@@ -279,14 +278,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) optimize pull of consumption data (#860)
 - (HombachC) switch to ES2023 code
-- (HombachC) update dependencies
-
-### 6.2.0 (2026-03-07)
-
-- (HombachC) enable umlauts to calculation channel names (#844)
-- (HombachC) enhance resolution of pulse meter data (#840)
-- (HombachC) fix wrong end block state calculation (#841)
-- (HombachC) setup auto-merge for dependabot (#834)
 - (HombachC) update dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
