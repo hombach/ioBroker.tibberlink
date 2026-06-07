@@ -387,11 +387,6 @@ export class TibberDataAPI extends ProjectUtils {
 		this.adapter.log.debug(`[tibberDataAPI]: writing states for vehicle "${displayName}" (VIN: ${vin}), caps: ${caps.map(c => c.id).join(", ") || "none"}`);
 		const basePath = `Vehicles.${vin}`;
 
-		//await this.adapter.setObjectNotExistsAsync("Vehicles", {
-		//type: "device",
-		//common: { name: "Vehicles" },
-		//native: {},
-		//});
 		await this.checkAndSetDevice("Vehicles");
 		await this.checkAndSetChannel(basePath, displayName);
 		void this.checkAndSetValue(`${basePath}.HomeId`, homeId, "Associated home ID");

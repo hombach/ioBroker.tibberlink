@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import type { IConfig } from "tibber-api";
-import { TibberAPICaller } from "./tibberAPICaller.ts";
 import { createMockAdapter, drainMicrotasks, TEST_PRICES, type MockStore } from "./testHelpers.ts";
+import { TibberAPICaller } from "./tibberAPICaller.ts";
 
 const HOME = "test-home-1";
 
