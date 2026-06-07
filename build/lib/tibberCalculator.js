@@ -370,7 +370,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `write  state OutputJSON for calculator in Home ${homeId}, Channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: write  state OutputJSON for calculator in Home ${homeId}, Channel ${channel}`));
         }
     }
     setup_chOutputJSON2(homeId, channel, delMode = false) {
@@ -382,7 +382,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `write state OutputJSON2 for calculator in Home ${homeId}, Channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: write state OutputJSON2 for calculator in Home ${homeId}, Channel ${channel}`));
         }
     }
     async setup_chTriggerPrice(homeId, channel) {
@@ -402,7 +402,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `setup of state TriggerPrice for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: setup of state TriggerPrice for calculator`));
         }
     }
     async setup_chAmountHours(homeId, channel) {
@@ -422,7 +422,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AmountHours for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: setup of state AmountHours for calculator`));
         }
     }
     async setup_chPercentage(homeId, channel) {
@@ -442,7 +442,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Percentage for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: setup of state Percentage for calculator`));
         }
     }
     async setup_chEfficiencyLoss(homeId, channel) {
@@ -462,7 +462,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `setup of state EfficiencyLoss for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: setup of state EfficiencyLoss for calculator`));
         }
     }
     setup_chAverageTotalCost(homeId, channel) {
@@ -472,7 +472,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.debug(`[tibberCalculator]: setup output state AverageTotalCost in home: ${homeId} - channel: ${channel}-${channelConfig.chName}`);
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `setup of state AverageTotalCost for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: setup of state AverageTotalCost for calculator`));
         }
     }
     setup_chBlockStartFullHour(homeId, channel, delMode = false) {
@@ -484,7 +484,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStartFullHour for calculator in Home ${homeId}, Channel ${channel}`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: write state BlockStartFullHour for calculator in Home ${homeId}, Channel ${channel}`));
         }
     }
     setup_chBlockEndFullHour(homeId, channel, delMode = false) {
@@ -496,7 +496,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEndFullHour for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: write state BlockEndFullHour for calculator`));
         }
     }
     setup_chBlockStart(homeId, channel, delMode = false) {
@@ -508,7 +508,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockStart for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: write state BlockStart for calculator`));
         }
     }
     setup_chBlockEnd(homeId, channel, delMode = false) {
@@ -520,7 +520,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(this.generateErrorMessage(error, `write state BlockEnd for calculator`));
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: write state BlockEnd for calculator`));
         }
     }
     async startCalculatorTasks(onStateChange = false, firstRun = false) {
@@ -547,7 +547,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         }
                     });
                     if (foundAllBadComponents) {
-                        this.adapter.log.error(`Invalid destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
+                        this.adapter.log.error(`[tibberCalculator]: Invalid destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
                         continue;
                     }
                 }
@@ -559,7 +559,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                     if (!this.adapter.config.CalculatorList[channel] ||
                         !this.adapter.config.CalculatorList[channel].chTargetState2 ||
                         !this.adapter.config.CalculatorList[channel].chTargetState2.trim()) {
-                        this.adapter.log.warn(`Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - upon this, channel will use internal state OUTPUT2`);
+                        this.adapter.log.warn(`[tibberCalculator]: Empty second destination state in calculator channel ${channel} defined - provide correct external state 2 - upon this, channel will use internal state OUTPUT2`);
                     }
                     if (this.adapter.config.CalculatorList[channel].chTargetState2 != null &&
                         typeof this.adapter.config.CalculatorList[channel].chTargetState2 === "string" &&
@@ -572,7 +572,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                             }
                         });
                         if (foundAllBadComponents) {
-                            this.adapter.log.error(`Invalid second destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
+                            this.adapter.log.error(`[tibberCalculator]: Invalid second destination state defined in calculator channel ${channel}. Please avoid specifying the activation state of this channel as the destination. Skipping channel execution.`);
                             continue;
                         }
                     }
@@ -583,7 +583,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                         this.adapter.config.CalculatorList[channel].chValueOn2 === "" ||
                         this.adapter.config.CalculatorList[channel].chValueOff2 == null ||
                         this.adapter.config.CalculatorList[channel].chValueOff2 === "") {
-                        this.adapter.log.error(`"Value YES 2" or "Value NO 2" is null or undefined in calculator channel ${channel}. Please provide usable values in config.`);
+                        this.adapter.log.error(`[tibberCalculator]: "Value YES 2" or "Value NO 2" is null or undefined in calculator channel ${channel}. Please provide usable values in config.`);
                         continue;
                     }
                 }
@@ -630,7 +630,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 }
             }
             catch (error) {
-                this.adapter.log.warn(`unhandled error ${error} while executing calculator channel ${channel}`);
+                this.adapter.log.warn(`[tibberCalculator]: unhandled error ${error} while executing calculator channel ${channel}`);
             }
         }
     }

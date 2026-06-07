@@ -122,16 +122,16 @@ export class TibberDataAPI extends ProjectUtils {
 			} else {
 				const stored = await this.loadRefreshToken();
 				if (!stored) {
-					this.adapter.log.info(`Tibber Data API: no auth code configured — please authorize. URL: ${TibberDataAPI.buildAuthUrl(clientId)}`);
+					this.adapter.log.info(`[tibberDataAPI]: no auth code configured — please authorize. URL: ${TibberDataAPI.buildAuthUrl(clientId)}`);
 					return false;
 				}
 				this.tokens = await this.refreshTokens(clientId, clientSecret, stored);
 				await this.saveRefreshToken(this.tokens.refreshToken);
-				this.adapter.log.debug("Tibber Data API: access token refreshed on startup");
+				this.adapter.log.debug("[tibberDataAPI]: access token refreshed on startup");
 			}
 			return true;
 		} catch (error) {
-			this.adapter.log.error(`Tibber Data API initialization failed: ${(error as Error).message}`);
+			this.adapter.log.error(`[tibberDataAPI]: initialization failed: ${(error as Error).message}`);
 			return false;
 		}
 	}
@@ -148,12 +148,12 @@ export class TibberDataAPI extends ProjectUtils {
 		try {
 			const accessToken = await this.getValidAccessToken(clientId, clientSecret);
 			const homes = await this.fetchHomes(accessToken);
-			this.adapter.log.debug(`Tibber Data API: found ${homes.length} home(s)`);
+			this.adapter.log.debug(`[tibberDataAPI]: found ${homes.length} home(s)`);
 			for (const home of homes) {
 				await this.processHomeDevices(accessToken, home.id);
 			}
 		} catch (error) {
-			this.adapter.log.warn(`Tibber Data API vehicle update failed: ${(error as Error).message}`);
+			this.adapter.log.warn(`[tibberDataAPI]: vehicle update failed: ${(error as Error).message}`);
 		}
 	}
 
@@ -242,12 +242,12 @@ export class TibberDataAPI extends ProjectUtils {
 	 */
 	private async getValidAccessToken(clientId: string, clientSecret: string): Promise<string> {
 		if (!this.tokens) {
-			throw new Error("TibberDataAPI is not initialized");
+			throw new Error("[tibberDataAPI]: TibberDataAPI is not initialized");
 		}
 		if (Date.now() >= this.tokens.expiresAt - TOKEN_EXPIRY_SAFETY_MS) {
 			this.tokens = await this.refreshTokens(clientId, clientSecret, this.tokens.refreshToken);
 			await this.saveRefreshToken(this.tokens.refreshToken);
-			this.adapter.log.debug("Tibber Data API: access token refreshed proactively");
+			this.adapter.log.debug("[tibberDataAPI]: access token refreshed proactively");
 		}
 		return this.tokens.accessToken;
 	}
@@ -301,10 +301,10 @@ export class TibberDataAPI extends ProjectUtils {
 	 */
 	private async processHomeDevices(accessToken: string, homeId: string): Promise<void> {
 		const devices = await this.fetchDevices(accessToken, homeId);
-		this.adapter.log.debug(`Tibber Data API: home ${homeId} — found ${devices.length} device(s)`);
+		this.adapter.log.debug(`[tibberDataAPI]: home ${homeId} — found ${devices.length} device(s)`);
 		for (const device of devices) {
 			const isVeh = this.isVehicle(device);
-			this.adapter.log.debug(`Tibber Data API: device "${device.name ?? device.id}" type="${device.type}" isVehicle=${isVeh}`);
+			this.adapter.log.debug(`[tibberDataAPI]: device raw=${JSON.stringify(device)}`);
 			if (isVeh) {
 				await this.writeVehicleStates(device, homeId);
 			}
@@ -356,7 +356,7 @@ export class TibberDataAPI extends ProjectUtils {
 	private async writeVehicleStates(device: TibberDevice, homeId: string): Promise<void> {
 		const vin = this.parseVin(device.externalId);
 		this.adapter.log.debug(
-			`Tibber Data API: writing states for vehicle "${device.name ?? vin}" (VIN: ${vin}), caps: ${Object.keys(device.capabilities ?? {}).join(", ") || "none"}`,
+			`[tibberDataAPI]: writing states for vehicle "${device.name ?? vin}" (VIN: ${vin}), caps: ${Object.keys(device.capabilities ?? {}).join(", ") || "none"}`,
 		);
 		const basePath = `Vehicles.${vin}`;
 		const caps = device.capabilities ?? {};
@@ -433,7 +433,7 @@ export class TibberDataAPI extends ProjectUtils {
 				await this.adapter.setForeignObjectAsync(objId, obj);
 			}
 		} catch (error) {
-			this.adapter.log.debug(`Could not clear TibberAuthCode from config: ${(error as Error).message}`);
+			this.adapter.log.debug(`[tibberDataAPI]: Could not clear TibberAuthCode from config: ${(error as Error).message}`);
 		}
 	}
 }

@@ -36,7 +36,7 @@ export class TibberAPICaller extends ProjectUtils {
 	async updateHomesFromAPI(): Promise<IHomeInfo[]> {
 		try {
 			const Homes = await this.tibberQuery.getHomes();
-			this.adapter.log.debug(`Got homes from tibber api: ${JSON.stringify(Homes)}`);
+			this.adapter.log.debug(`[tibberAPICaller]: Got homes from tibber api: ${JSON.stringify(Homes)}`);
 			const homeInfoList: IHomeInfo[] = [];
 			for (const currentHome of Homes) {
 				if (!currentHome.id) {
@@ -132,12 +132,12 @@ export class TibberAPICaller extends ProjectUtils {
 			const now = new Date();
 			const pricesStr = await this.getStateValue(`Homes.${homeId}.PricesToday.json`);
 			if (!pricesStr) {
-				this.adapter.log.debug(`No PricesToday data found for home ${homeId}`);
+				this.adapter.log.debug(`[tibberAPICaller]: No PricesToday data found for home ${homeId}`);
 				return false;
 			}
 			const pricesToday: IPrice[] = JSON.parse(pricesStr);
 			if (!Array.isArray(pricesToday) || pricesToday.length === 0) {
-				this.adapter.log.debug(`PricesToday array empty for home ${homeId}`);
+				this.adapter.log.debug(`[tibberAPICaller]: PricesToday array empty for home ${homeId}`);
 				return false;
 			}
 
@@ -148,14 +148,16 @@ export class TibberAPICaller extends ProjectUtils {
 				return now >= start && now < end;
 			});
 			if (!currentPrice) {
-				this.adapter.log.warn(`No matching price found for current time in home ${homeId}`);
+				this.adapter.log.warn(`[tibberAPICaller]: No matching price found for current time in home ${homeId}`);
 				return false;
 			}
 
 			// use found price info
 			await this.fetchPrice(homeId, "CurrentPrice", currentPrice);
 			await this.fetchPriceRemainingAverage(homeId, "PricesToday.averageRemaining", pricesToday);
-			this.adapter.log.debug(`Updated current price and remaining average for home ${homeId} from PricesToday: ${JSON.stringify(currentPrice)}`);
+			this.adapter.log.debug(
+				`[tibberAPICaller]: Updated current price and remaining average for home ${homeId} from PricesToday: ${JSON.stringify(currentPrice)}`,
+			);
 			return true;
 		} catch (error: unknown) {
 			const msg = this.generateErrorMessage(error, `update of current price from PricesToday`);
@@ -237,7 +239,7 @@ export class TibberAPICaller extends ProjectUtils {
 			}
 
 			// emptying PricesTomorrow states
-			this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete after rollover`);
+			this.adapter.log.debug(`[tibberAPICaller]: Emptying prices tomorrow and average cause existing ones are obsolete after rollover`);
 			for (let i = 0; i < 96; i++) {
 				this.emptyingPrice(homeId, `PricesTomorrow.${i}`);
 			}
@@ -250,9 +252,9 @@ export class TibberAPICaller extends ProjectUtils {
 				`prices tomorrow sorted by cost ascending as json`,
 			);
 
-			this.adapter.log.debug(`daily price rollover completed for home ${homeId}`);
+			this.adapter.log.debug(`[tibberAPICaller]: daily price rollover completed for home ${homeId}`);
 		} catch (error: unknown) {
-			this.adapter.log.error(this.generateErrorMessage(error, `daily price rollover for home ${homeId}`));
+			this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: daily price rollover for home ${homeId}`));
 		}
 	}
 
@@ -303,9 +305,9 @@ export class TibberAPICaller extends ProjectUtils {
 			if (!exDate || exDate < today || forceUpdate || !Array.isArray(exPricesToday) || exPricesToday.length === 0) {
 				const pricesToday = await this.tibberQuery.getTodaysEnergyPrices(homeId, resolution);
 				if (!(Array.isArray(pricesToday) && pricesToday.length > 0 && pricesToday[2]?.total)) {
-					throw new Error(`Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
+					throw new Error(`[tibberAPICaller]: Got invalid data structure from Tibber [you might not have a valid (or fully confirmed) contract]`);
 				}
-				this.adapter.log.debug(`Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
+				this.adapter.log.debug(`[tibberAPICaller]: Got prices today from tibber api: ${JSON.stringify(pricesToday)} Force: ${forceUpdate}`);
 				void this.checkAndSetValue(`Homes.${homeId}.PricesToday.json`, JSON.stringify(pricesToday), `The prices today as json`);
 				this.fetchPriceAverage(homeId, `PricesToday.average`, pricesToday);
 				await this.fetchPriceRemainingAverage(homeId, `PricesToday.averageRemaining`, pricesToday);
@@ -329,7 +331,7 @@ export class TibberAPICaller extends ProjectUtils {
 				}
 				return false;
 			} // else if (exDate && exDate >= today) {
-			this.adapter.log.debug(`Existing date of price info is already the today date, polling of prices today from Tibber skipped`);
+			this.adapter.log.debug(`[tibberAPICaller]: Existing date of price info is already the today date, polling of prices today from Tibber skipped`);
 			return true;
 		} catch (error: unknown) {
 			if (forceUpdate) {
@@ -387,11 +389,11 @@ export class TibberAPICaller extends ProjectUtils {
 			morgen.setHours(0, 0, 0, 0); // sets clock to 0:00
 			if (!exDate || exDate < morgen || forceUpdate) {
 				const pricesTomorrow = await this.tibberQuery.getTomorrowsEnergyPrices(homeId, resolution);
-				this.adapter.log.debug(`Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
+				this.adapter.log.debug(`[tibberAPICaller]: Got prices tomorrow from tibber api: ${JSON.stringify(pricesTomorrow)} Force: ${forceUpdate}`);
 				void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify(pricesTomorrow), `The prices tomorrow as json`); // write also it might be empty
 				if (pricesTomorrow.length === 0) {
 					// pricing not known, before about 13:00 - delete all the states
-					this.adapter.log.debug(`Emptying prices tomorrow and average cause existing ones are obsolete...`);
+					this.adapter.log.debug(`[tibberAPICaller]: Emptying prices tomorrow and average cause existing ones are obsolete...`);
 					for (let timeblock = 0; timeblock < 96; timeblock++) {
 						this.emptyingPrice(homeId, `PricesTomorrow.${timeblock}`);
 					}
@@ -426,15 +428,17 @@ export class TibberAPICaller extends ProjectUtils {
 					return false;
 				}
 			} else if (exDate && exDate >= morgen) {
-				this.adapter.log.debug(`Existing date of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`);
+				this.adapter.log.debug(
+					`[tibberAPICaller]: Existing date of price info is already the tomorrow date, polling of prices tomorrow from Tibber skipped`,
+				);
 				return true;
 			}
 			return false;
 		} catch (error: unknown) {
 			if (forceUpdate) {
-				this.adapter.log.error(this.generateErrorMessage(error, `force pull of prices tomorrow`));
+				this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: force pull of prices tomorrow`));
 			} else {
-				this.adapter.log.warn(this.generateErrorMessage(error, `pull of prices tomorrow`));
+				this.adapter.log.warn(this.generateErrorMessage(error, `[tibberAPICaller]: pull of prices tomorrow`));
 			}
 			return false;
 		}
@@ -518,10 +522,10 @@ export class TibberAPICaller extends ProjectUtils {
 						void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, `[]`);
 					}
 				}
-				this.adapter.log.debug(`Got all consumption data from Tibber Server for home: ${homeID}`);
+				this.adapter.log.debug(`[tibberAPICaller]: Got all consumption data from Tibber Server for home: ${homeID}`);
 			}
 		} catch (error: unknown) {
-			this.adapter.log.error(this.generateErrorMessage(error, `pull of consumption data`));
+			this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: pull of consumption data`));
 		}
 	}
 
@@ -629,7 +633,7 @@ export class TibberAPICaller extends ProjectUtils {
 			return start >= now;
 		});
 		if (!filteredPrices.length) {
-			this.adapter.log.debug(`No remaining prices for today in home ${homeId}`);
+			this.adapter.log.debug(`[tibberAPICaller]: No remaining prices for today in home ${homeId}`);
 			return;
 		}
 		const totalSum = filteredPrices.reduce((sum, item) => sum + (item.total ?? 0), 0);
