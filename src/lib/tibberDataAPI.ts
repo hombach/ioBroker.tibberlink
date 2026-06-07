@@ -148,6 +148,7 @@ export class TibberDataAPI extends ProjectUtils {
 		try {
 			const accessToken = await this.getValidAccessToken(clientId, clientSecret);
 			const homes = await this.fetchHomes(accessToken);
+			this.adapter.log.debug(`Tibber Data API: found ${homes.length} home(s)`);
 			for (const home of homes) {
 				await this.processHomeDevices(accessToken, home.id);
 			}
@@ -300,8 +301,11 @@ export class TibberDataAPI extends ProjectUtils {
 	 */
 	private async processHomeDevices(accessToken: string, homeId: string): Promise<void> {
 		const devices = await this.fetchDevices(accessToken, homeId);
+		this.adapter.log.debug(`Tibber Data API: home ${homeId} — found ${devices.length} device(s)`);
 		for (const device of devices) {
-			if (this.isVehicle(device)) {
+			const isVeh = this.isVehicle(device);
+			this.adapter.log.debug(`Tibber Data API: device "${device.name ?? device.id}" type="${device.type}" isVehicle=${isVeh}`);
+			if (isVeh) {
 				await this.writeVehicleStates(device, homeId);
 			}
 		}
@@ -351,6 +355,9 @@ export class TibberDataAPI extends ProjectUtils {
 	 */
 	private async writeVehicleStates(device: TibberDevice, homeId: string): Promise<void> {
 		const vin = this.parseVin(device.externalId);
+		this.adapter.log.debug(
+			`Tibber Data API: writing states for vehicle "${device.name ?? vin}" (VIN: ${vin}), caps: ${Object.keys(device.capabilities ?? {}).join(", ") || "none"}`,
+		);
 		const basePath = `Vehicles.${vin}`;
 		const caps = device.capabilities ?? {};
 
