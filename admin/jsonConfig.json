@@ -1226,24 +1226,9 @@
 					"xl": 12,
 					"newLine": true
 				},
-				"_vehiclesHelp2NoId": {
+				"_vehiclesHelp2url": {
 					"type": "staticText",
-					"text": "LBL_vehiclesHelp2NoId",
-					"hidden": "!!data.TibberClientId",
-					"xs": 12,
-					"sm": 12,
-					"md": 12,
-					"lg": 12,
-					"xl": 12,
-					"newLine": true
-				},
-				"_authUrlButton": {
-					"type": "staticLink",
-					"label": "LBL_vehiclesAuthButton",
-					"href": "https://thewall.tibber.com/connect/authorize?client_id=#{data.TibberClientId}&redirect_uri=http%3A%2F%2Flocalhost%2F&response_type=code&scope=openid+offline_access+data-api-homes-read+data-api-vehicles-read+data-api-chargers-read&code_challenge=Oey1jcnhbUa_fxI9A2NtdVrIk-QxD-9ARobHcVpOj7A&code_challenge_method=S256&state=iobroker",
-					"button": true,
-					"icon": "info",
-					"hidden": "!data.TibberClientId",
+					"text": "LBL_vehiclesHelp2url",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,
@@ -1254,7 +1239,6 @@
 				"_vehiclesHelp2b": {
 					"type": "staticText",
 					"text": "LBL_vehiclesHelp2b",
-					"hidden": "!data.TibberClientId",
 					"xs": 12,
 					"sm": 12,
 					"md": 12,

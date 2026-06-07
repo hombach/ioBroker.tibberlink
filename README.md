@@ -195,7 +195,7 @@ Neither API replaces the other — they complement each other. The vehicle and c
     <img src="docu/dataApi3.png" width="938" alt="Client created with ID and Secret">
 
 4. Open the **Vehicles & Chargers** tab in the adapter configuration, enter both values, and save.
-5. Click the **Open Tibber Authorization URL** button (visible once a Client ID is entered). This opens the pre-filled authorization URL in your browser and logs you in with your Tibber account to grant access.
+5. Copy the authorization URL shown in the adapter configuration (Step 2), replace `CLIENT_ID_HERE` with your Client ID, and open it in your browser. Log in with your Tibber account to grant access.
 6. The browser will redirect to `http://localhost/` and show a connection error — this is **expected and correct**. Copy the full URL from the address bar (it contains `?code=...`).
 
     <img src="docu/dataApi4.png" width="938" alt="Browser showing localhost connection refused with code in URL">
