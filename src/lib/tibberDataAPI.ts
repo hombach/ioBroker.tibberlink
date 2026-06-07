@@ -387,44 +387,40 @@ export class TibberDataAPI extends ProjectUtils {
 		this.adapter.log.debug(`[tibberDataAPI]: writing states for vehicle "${displayName}" (VIN: ${vin}), caps: ${caps.map(c => c.id).join(", ") || "none"}`);
 		const basePath = `Vehicles.${vin}`;
 
-		await this.adapter.setObjectNotExistsAsync("Vehicles", {
-			type: "device",
-			common: { name: "Vehicles" },
-			native: {},
-		});
-		await this.adapter.setObjectNotExistsAsync(basePath, {
-			type: "channel",
-			common: { name: displayName },
-			native: {},
-		});
-
+		//await this.adapter.setObjectNotExistsAsync("Vehicles", {
+		//type: "device",
+		//common: { name: "Vehicles" },
+		//native: {},
+		//});
+		await this.checkAndSetDevice("Vehicles");
+		await this.checkAndSetChannel(basePath, displayName);
 		void this.checkAndSetValue(`${basePath}.HomeId`, homeId, "Associated home ID");
 		void this.checkAndSetValue(`${basePath}.LastUpdated`, new Date().toISOString(), "Timestamp of last data update");
 
 		const soc = findCap("storage.stateOfCharge");
 		if (soc !== undefined) {
-			void this.checkAndSetValueNumber(`${basePath}.StateOfCharge`, Number(soc.value), "State of charge in %");
+			void this.checkAndSetValueNumber(`${basePath}.StateOfCharge`, Number(soc.value), "State of charge in %", "%", "value.battery");
 		}
 
 		const targetSoc = findCap("storage.targetStateOfCharge");
 		if (targetSoc !== undefined) {
-			void this.checkAndSetValueNumber(`${basePath}.TargetStateOfCharge`, Number(targetSoc.value), "Target state of charge in %");
+			void this.checkAndSetValueNumber(`${basePath}.TargetStateOfCharge`, Number(targetSoc.value), "Target state of charge in %", "%", "value.battery");
 		}
 
 		const range = findCap("range.remaining");
 		if (range !== undefined) {
 			const rangeKm = range.unit === "m" ? Number(range.value) / 1000 : Number(range.value);
-			void this.checkAndSetValueNumber(`${basePath}.Range`, rangeKm, "Remaining range in km");
+			void this.checkAndSetValueNumber(`${basePath}.Range`, rangeKm, "Remaining range in km", "km", "value.distance");
 		}
 
 		const plugStatus = findCap("connector.status");
 		if (plugStatus !== undefined) {
-			void this.checkAndSetValue(`${basePath}.PlugStatus`, String(plugStatus.value), "Plug connection status");
+			void this.checkAndSetValue(`${basePath}.PlugStatus`, String(plugStatus.value), "Plug connection status", "info.status");
 		}
 
 		const chargingStatus = findCap("charging.status");
 		if (chargingStatus !== undefined) {
-			void this.checkAndSetValue(`${basePath}.ChargingStatus`, String(chargingStatus.value), "Charging status");
+			void this.checkAndSetValue(`${basePath}.ChargingStatus`, String(chargingStatus.value), "Charging status", "info.status");
 		}
 	}
 

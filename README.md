@@ -103,7 +103,7 @@ This method requires the "FlexCharts" adapter to be installed separately.
 
 - The TibberLink adapter creates a state called `jsonFlexCharts`.
 
-    <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
+      <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
 
 - The FlexCharts adapter renders this state via the following URL:
     ```
@@ -181,7 +181,7 @@ Neither API replaces the other — they complement each other. The vehicle and c
 
 1. Open [https://data-api.tibber.com/clients/manage](https://data-api.tibber.com/clients/manage) and click **+ New client**.
 
-    <img src="docu/dataApi1.png" width="938" alt="Tibber Data API Client Management">
+ <img src="docu/dataApi1.png" width="938" alt="Tibber Data API Client Management">
 
 2. Give the client a name (e.g. `ioBrokerTibber`), set the **Redirect URI** to exactly `http://localhost/` (with trailing slash), and enable at least these scopes:
     - `data-api-homes-read`
@@ -192,7 +192,7 @@ Neither API replaces the other — they complement each other. The vehicle and c
 
 3. Click **Create**. Copy the **Client ID** and **Client Secret** immediately — the secret is only shown once.
 
-    <img src="docu/dataApi3.png" width="938" alt="Client created with ID and Secret">
+ <img src="docu/dataApi3.png" width="938" alt="Client created with ID and Secret">
 
 4. Open the **Vehicles & Chargers** tab in the adapter configuration, enter both values, and save.
 5. Restart the adapter. It will log a **warning** containing the ready-to-use authorization URL with your Client ID already filled in:
@@ -202,7 +202,7 @@ Neither API replaces the other — they complement each other. The vehicle and c
 6. Open that URL in a browser and log in with your Tibber account to grant access.
 7. The browser will redirect to `http://localhost/` and show a connection error — this is **expected and correct**. Copy the full URL from the address bar (it contains `?code=...`).
 
-    <img src="docu/dataApi4.png" width="938" alt="Browser showing localhost connection refused with code in URL">
+ <img src="docu/dataApi4.png" width="938" alt="Browser showing localhost connection refused with code in URL">
 
 8. Paste the complete URL into the **Auth Code** field in the adapter configuration and save.
 9. The adapter exchanges the code for tokens and begins polling. The Auth Code field is cleared automatically.
@@ -215,13 +215,13 @@ Vehicle data is written to `Vehicles.<VIN>.*`:
 
 | State                 | Description                       |
 | --------------------- | --------------------------------- |
-| `StateOfCharge`       | Battery state of charge in %      |
-| `TargetStateOfCharge` | Target state of charge in %       |
-| `Range`               | Remaining range in km             |
-| `PlugStatus`          | Plug connection status            |
 | `ChargingStatus`      | Current charging status           |
 | `HomeId`              | Associated Tibber home ID         |
 | `LastUpdated`         | Timestamp of the last data update |
+| `PlugStatus`          | Plug connection status            |
+| `Range`               | Remaining range in km             |
+| `StateOfCharge`       | Battery state of charge in %      |
+| `TargetStateOfCharge` | Target state of charge in %       |
 
 ### Poll Interval
 
@@ -242,9 +242,14 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) optimized vehicle states
+
 ### 7.1.0 (2026-06-07)
 
-- (claude) added integration for vehicles & chargers (#67)
+- (claude) added integration for vehicles(#67)
 - (HombachC) optimized documentation
 - (claude) added code documentation
 - (claude) performance optimization of event listeners
