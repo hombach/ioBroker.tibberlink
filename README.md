@@ -172,7 +172,12 @@ This optional feature fetches vehicle and charger data (e.g. state of charge, ra
 
 ### Prerequisites
 
-1. Register an OAuth2 client at [https://data-api.tibber.com/clients/manage](https://data-api.tibber.com/clients/manage) to obtain a **Client ID** and **Client Secret**.
+1. Register an OAuth2 client at [https://data-api.tibber.com/clients/manage](https://data-api.tibber.com/clients/manage) to obtain a **Client ID** and **Client Secret**. When creating the client, enable at least these scopes:
+    - `data-api-homes-read`
+    - `data-api-vehicles-read`
+    - `data-api-chargers-read`
+
+    Set the Redirect URI to exactly `http://localhost/` (with trailing slash).
 2. Open the **Vehicles & Chargers** tab in the adapter configuration and enter both values.
 3. Save the configuration and restart the adapter. The adapter will log an authorization URL like:
     ```

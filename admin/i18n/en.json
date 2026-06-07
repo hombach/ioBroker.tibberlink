@@ -106,7 +106,7 @@
 	"LBL_FlexGraphFutureCutOff": "FlexGraph future hours cut off",
 	"TTIP_FlexGraphFutureCutOff": "number of hours to be shown in the future",
 	"LBL_VehiclesTab": "Vehicles & Chargers",
-	"LBL_vehiclesHelp1": "Step 1: Register an OAuth2 client at data-api.tibber.com/clients/manage and set the redirect URI to http://localhost/. Then enter your Client ID and Client Secret below.",
+	"LBL_vehiclesHelp1": "Step 1: Register an OAuth2 client at data-api.tibber.com/clients/manage. Set the redirect URI to exactly http://localhost/ (with trailing slash) and enable these scopes: data-api-homes-read, data-api-vehicles-read, data-api-chargers-read. Then enter your Client ID and Client Secret below.",
 	"LBL_vehiclesRegisterLink": "Open Tibber Data API client management",
 	"LBL_TibberClientId": "Tibber Data API Client ID",
 	"TTIP_TibberClientId": "OAuth2 Client ID from the Tibber Data API client management portal",

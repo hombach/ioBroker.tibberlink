@@ -253,31 +253,43 @@ export class TibberDataAPI extends ProjectUtils {
 
 	/**
 	 * Fetches the list of homes from the Tibber Data API.
+	 * The endpoint may return either a plain array or a wrapped `{ homes: [...] }` object.
 	 *
 	 * @param accessToken - Valid Bearer token.
 	 * @returns Array of home objects.
 	 */
 	private async fetchHomes(accessToken: string): Promise<TibberHome[]> {
-		const response = await axios.get<TibberHome[]>(`${DATA_API_BASE}/homes`, {
+		const response = await axios.get<TibberHome[] | { homes: TibberHome[] }>(`${DATA_API_BASE}/homes`, {
 			headers: { Authorization: `Bearer ${accessToken}` },
 			timeout: 30_000,
 		});
-		return response.data;
+		const r = response.data;
+		if (Array.isArray(r)) {
+			return r;
+		}
+		const wrapped = r as { homes?: TibberHome[] };
+		return Array.isArray(wrapped.homes) ? wrapped.homes : [];
 	}
 
 	/**
 	 * Fetches the list of devices for a given home.
+	 * The endpoint may return either a plain array or a wrapped `{ devices: [...] }` object.
 	 *
 	 * @param accessToken - Valid Bearer token.
 	 * @param homeId - The Tibber home ID.
 	 * @returns Array of device objects.
 	 */
 	private async fetchDevices(accessToken: string, homeId: string): Promise<TibberDevice[]> {
-		const response = await axios.get<TibberDevice[]>(`${DATA_API_BASE}/homes/${homeId}/devices`, {
+		const response = await axios.get<TibberDevice[] | { devices: TibberDevice[] }>(`${DATA_API_BASE}/homes/${homeId}/devices`, {
 			headers: { Authorization: `Bearer ${accessToken}` },
 			timeout: 30_000,
 		});
-		return response.data;
+		const r = response.data;
+		if (Array.isArray(r)) {
+			return r;
+		}
+		const wrapped = r as { devices?: TibberDevice[] };
+		return Array.isArray(wrapped.devices) ? wrapped.devices : [];
 	}
 
 	/**

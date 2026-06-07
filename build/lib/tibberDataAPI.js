@@ -153,14 +153,24 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
             headers: { Authorization: `Bearer ${accessToken}` },
             timeout: 30_000,
         });
-        return response.data;
+        const r = response.data;
+        if (Array.isArray(r)) {
+            return r;
+        }
+        const wrapped = r;
+        return Array.isArray(wrapped.homes) ? wrapped.homes : [];
     }
     async fetchDevices(accessToken, homeId) {
         const response = await axios_1.default.get(`${DATA_API_BASE}/homes/${homeId}/devices`, {
             headers: { Authorization: `Bearer ${accessToken}` },
             timeout: 30_000,
         });
-        return response.data;
+        const r = response.data;
+        if (Array.isArray(r)) {
+            return r;
+        }
+        const wrapped = r;
+        return Array.isArray(wrapped.devices) ? wrapped.devices : [];
     }
     async processHomeDevices(accessToken, homeId) {
         const devices = await this.fetchDevices(accessToken, homeId);

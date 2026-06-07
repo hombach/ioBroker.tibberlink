@@ -3,7 +3,13 @@
     "allow": [
       "PowerShell(Get-ChildItem -Path \"c:\\\\Users\\\\c.hombach\\\\.vscode\\\\ioBroker.tibberlink\" -Recurse -File | Where-Object {$_.Extension -match '\\\\.\\(ts|js|json\\)$'} | Select-Object -ExpandProperty FullName | Sort-Object)",
       "Bash(git checkout *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "WebSearch",
+      "WebFetch(domain:developer.tibber.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:app.tibber.com)",
+      "WebFetch(domain:data-api.tibber.com)",
+      "Bash(npx tsc *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\c.hombach\\.claude\\projects\\c--Users-c-hombach--vscode-ioBroker-tibberlink\\memory"

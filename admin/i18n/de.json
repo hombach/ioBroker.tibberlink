@@ -106,7 +106,7 @@
 	"TTIP_item_tibberBridgeUrl": "Name Ihrer Bridge oder ihre IP-Adresse (standardmäßig „tibber-host“).",
 	"TTIP_item_tibberPulseLocalNodeId": "Die Knoten-ID, unter der Ihr Pulse auf der Bridge registriert ist.",
 	"LBL_VehiclesTab": "Fahrzeuge & Ladestationen",
-	"LBL_vehiclesHelp1": "Schritt 1: OAuth2-Client unter data-api.tibber.com/clients/manage registrieren und die Redirect-URI auf http://localhost/ setzen. Dann Client ID und Client Secret unten eintragen.",
+	"LBL_vehiclesHelp1": "Schritt 1: OAuth2-Client unter data-api.tibber.com/clients/manage registrieren. Redirect-URI exakt auf http://localhost/ setzen (mit abschließendem Schrägstrich) und folgende Scopes aktivieren: data-api-homes-read, data-api-vehicles-read, data-api-chargers-read. Dann Client ID und Client Secret unten eintragen.",
 	"LBL_vehiclesRegisterLink": "Tibber Data API Client-Verwaltung oeffnen",
 	"LBL_TibberClientId": "Tibber Data API Client ID",
 	"TTIP_TibberClientId": "OAuth2 Client ID aus dem Tibber Data API Client-Verwaltungsportal",
