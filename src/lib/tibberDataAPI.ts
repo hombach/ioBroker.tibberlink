@@ -131,7 +131,7 @@ export class TibberDataAPI extends ProjectUtils {
 			} else {
 				const stored = await this.loadRefreshToken();
 				if (!stored) {
-					this.adapter.log.info(`[tibberDataAPI]: no auth code configured — please authorize. URL: ${TibberDataAPI.buildAuthUrl(clientId)}`);
+					this.adapter.log.warn(`[tibberDataAPI]: no auth code configured — please authorize. URL: ${TibberDataAPI.buildAuthUrl(clientId)}`);
 					return false;
 				}
 				this.tokens = await this.refreshTokens(clientId, clientSecret, stored);
