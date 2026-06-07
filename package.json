@@ -28,7 +28,7 @@
 		"@iobroker/adapter-core": "^3.3.2",
 		"axios": "^1.16.1",
 		"cron": "^4.4.0",
-		"date-fns": "^4.3.0",
+		"date-fns": "^4.4.0",
 		"tibber-api": "^5.5.2"
 	},
 	"devDependencies": {
