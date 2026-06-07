@@ -112,7 +112,8 @@ export class TibberCalculator extends ProjectUtils {
 
 			//#region *** setup calculation channels folder ***
 			const typeDesc: string = getCalcTypeDescription(channelConfig.chType);
-			await this.adapter.setObject(`Homes.${homeId}.Calculations.${channel}`, {
+			//await this.checkAndSetChannel(`Homes.${homeId}.Calculations.${channel}`, channelConfig.chName);
+			await this.adapter.setObjectNotExistsAsync(`Homes.${homeId}.Calculations.${channel}`, {
 				type: "channel",
 				common: {
 					name: channelConfig.chName,

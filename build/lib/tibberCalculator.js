@@ -79,7 +79,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 channelConfig.chName = `Channel Name`;
             }
             const typeDesc = (0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType);
-            await this.adapter.setObject(`Homes.${homeId}.Calculations.${channel}`, {
+            await this.adapter.setObjectNotExistsAsync(`Homes.${homeId}.Calculations.${channel}`, {
                 type: "channel",
                 common: {
                     name: channelConfig.chName,
