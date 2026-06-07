@@ -61,7 +61,7 @@ This state is the total consumption for the current calendar month in `kWh`, cal
 - These states are designed to serve as external, dynamic inputs for TibberLink, allowing you to, for example, adjust the marginal cost ("TriggerPrice") from an external source or enable the calculator channel ("Active").
 - These channels have to be activated or deactivated based on corresponding states.
 - The states of a calculator channel are positioned adjacent to the home states and named according to the channel number. The channel name entered in the admin screen is displayed here to help identify your configurations.  
-  ![Calculator States](docu/calculatorStates.png)
+  <img src="docu/calculatorStates.png" width="938" alt="Calculator States">
 - The behavior of each channel is determined by its type: "best cost (LTF)", "best single hours (LTF)", "best hours block (LTF)" or "smart battery buffer".
 - Each channel populates one or two external states as output, which have to be selected in the settings tab. For instance, this state might be "0_userdata.0.example_state" or any other writeable external state.
 - If no external output state is selected, an internal state within the channel's range will be created.
@@ -103,7 +103,7 @@ This method requires the "FlexCharts" adapter to be installed separately.
 
 - The TibberLink adapter creates a state called `jsonFlexCharts`.
 
-    ![jsonFlexChartsState.png](docu/jsonFlexChartsState.png)
+    <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
 
 - The FlexCharts adapter renders this state via the following URL:
     ```
@@ -146,7 +146,9 @@ For maximum flexibility and customization, the FlexCharts adapter can be used wi
 ### Inverse Usage
 
 To obtain, for example, peak hours instead of optimal hours, simply invert the usage and parameters:
-![Calculator States Inverse](docu/calculatorStatesInverse.png)
+
+<img src="docu/calculatorStatesInverse.png" width="938" alt="Calculator States Inverse">
+
 By swapping true <-> false, you will receive a true at a low cost in the first line and a true at a high cost in the second line (channel names are just examples and can be freely chosen).
 
 Attention: For peak single hours, such as in the example, you also need to adjust the number of hours. Original: 5 -> Inverse (24-5) = 19 -> You will obtain a 'true' output during the 5 peak hours.
@@ -168,25 +170,42 @@ If everything works correctly, the meter data will be written to ioBroker states
 
 ## Vehicles & Chargers Configuration
 
-This optional feature fetches vehicle and charger data (e.g. state of charge, range, plug status) from the Tibber Data API. It requires separate OAuth2 client credentials and is **independent of the main Tibber API token**.
+Tibber operates two separate APIs with different purposes:
+
+- **Developer GraphQL API** (`api.tibber.com`) — energy prices, consumption history, and the Pulse live feed. This is what the standard Tibber API token (from [developer.tibber.com](https://developer.tibber.com)) gives access to.
+- **Tibber Data API** (`data-api.tibber.com`) — IoT device data for paired vehicles, chargers, heat pumps, and inverters. This is a newer, separate REST API that requires its own OAuth2 client registration.
+
+Neither API replaces the other — they complement each other. The vehicle and charger feature described here uses the Data API and therefore needs its own credentials in addition to the main API token.
 
 ### Prerequisites
 
-1. Register an OAuth2 client at [https://data-api.tibber.com/clients/manage](https://data-api.tibber.com/clients/manage) to obtain a **Client ID** and **Client Secret**. When creating the client, enable at least these scopes:
+1. Open [https://data-api.tibber.com/clients/manage](https://data-api.tibber.com/clients/manage) and click **+ New client**.
+
+    <img src="docu/dataApi1.png" width="938" alt="Tibber Data API Client Management">
+
+2. Give the client a name (e.g. `ioBrokerTibber`), set the **Redirect URI** to exactly `http://localhost/` (with trailing slash), and enable at least these scopes:
     - `data-api-homes-read`
     - `data-api-vehicles-read`
     - `data-api-chargers-read`
 
-    Set the Redirect URI to exactly `http://localhost/` (with trailing slash).
-2. Open the **Vehicles & Chargers** tab in the adapter configuration and enter both values.
-3. Save the configuration and restart the adapter. The adapter will log an authorization URL like:
+    <img src="docu/dataApi2.png" width="938" alt="Create client form with scopes">
+
+3. Click **Create**. Copy the **Client ID** and **Client Secret** immediately — the secret is only shown once.
+
+    <img src="docu/dataApi3.png" width="938" alt="Client created with ID and Secret">
+
+4. Open the **Vehicles & Chargers** tab in the adapter configuration, enter both values, and save.
+5. Restart the adapter. It will log an authorization URL:
     ```
     Tibber Data API: no auth code configured — please authorize. URL: https://thewall.tibber.com/connect/authorize?...
     ```
-4. Open this URL in a browser and log in with your Tibber account to grant access.
-5. After authorization, the browser will redirect to `http://localhost/` — this connection will fail, which is expected. Copy the **full URL** from the browser's address bar (it contains a `?code=...` parameter).
-6. Paste the complete URL (or just the code value) into the **Auth Code** field in the adapter configuration and save.
-7. The adapter will exchange the code for tokens and begin polling. The Auth Code field is automatically cleared after successful use.
+6. Open this URL in a browser and log in with your Tibber account to grant access.
+7. The browser will redirect to `http://localhost/` and show a connection error — this is **expected and correct**. Copy the full URL from the address bar (it contains `?code=...`).
+
+    <img src="docu/dataApi4.png" width="938" alt="Browser showing localhost connection refused with code in URL">
+
+8. Paste the complete URL into the **Auth Code** field in the adapter configuration and save.
+9. The adapter exchanges the code for tokens and begins polling. The Auth Code field is cleared automatically.
 
 The adapter stores the refresh token internally and renews the access token automatically, so this one-time authorization step does not need to be repeated.
 
