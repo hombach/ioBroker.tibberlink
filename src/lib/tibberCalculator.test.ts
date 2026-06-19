@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { enCalcType } from "./projectUtils.ts";
-import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES } from "./testHelpers.ts";
+import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES } from "./testHelpers.test.ts";
 import { TibberCalculator } from "./tibberCalculator.ts";
 
 // ── helpers ────────────────────────────────────────────────────────────────

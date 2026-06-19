@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { enCalcType } from "./lib/projectUtils.ts";
-import { createMockAdapter, drainMicrotasks, injectState } from "./lib/testHelpers.ts";
+import { createMockAdapter, drainMicrotasks, injectState } from "./lib/testHelpers.test.ts";
 import { TibberCalculator } from "./lib/tibberCalculator.ts";
 
 const HOME = "lifecycle-home-1";

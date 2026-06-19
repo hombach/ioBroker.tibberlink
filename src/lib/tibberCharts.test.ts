@@ -1,6 +1,6 @@
 import { expect } from "chai";
 import { type IHomeInfo } from "./projectUtils.ts";
-import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES, type MockStore } from "./testHelpers.ts";
+import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES, type MockStore } from "./testHelpers.test.ts";
 import { TibberCharts } from "./tibberCharts.ts";
 
 const HOME = "test-home-1";
