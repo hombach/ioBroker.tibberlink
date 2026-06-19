@@ -26,6 +26,10 @@
 
 [![NPM](https://nodei.co/npm/iobroker.tibberlink.png?downloads=true)](https://nodei.co/npm/iobroker.tibberlink/)
 
+## Sentry
+
+**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information on how to disable error reporting, see <a href="https://github.com/ioBroker/plugin-sentry#plugin-sentry">Sentry-Plugin Documentation</a>!
+
 ## Adapter for Utilizing Tibber Energy Data in ioBroker
 
 This adapter connects your Tibber account's API data to ioBroker, whether for a single home or multiple residences.
@@ -103,7 +107,7 @@ This method requires the "FlexCharts" adapter to be installed separately.
 
 - The TibberLink adapter creates a state called `jsonFlexCharts`.
 
-          <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
+            <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
 
 - The FlexCharts adapter renders this state via the following URL:
     ```
@@ -227,10 +231,6 @@ Vehicle data is written to `Vehicles.<VIN>.*`:
 
 The poll interval can be configured in the **Vehicles & Chargers** tab (1–60 minutes, default: 5 minutes).
 
-## Sentry
-
-**This adapter uses Sentry libraries to automatically report exceptions and code errors to the developers.** For more details and for information on how to disable error reporting, see <a href="https://github.com/ioBroker/plugin-sentry#plugin-sentry">Sentry-Plugin Documentation</a>!
-
 ## Donate
 
 <a href="https://www.paypal.com/donate/?hosted_button_id=F7NM9R2E2DUYS"><img src="https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/docu/bluePayPal.svg" height="40"></a>  
@@ -242,6 +242,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) fixed adapter checker warnings
+- (HombachC) updated dependencies
 
 ### 7.1.1 (2026-06-07)
 
