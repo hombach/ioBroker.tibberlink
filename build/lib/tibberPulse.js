@@ -104,6 +104,10 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
         });
     }
     fetchLiveMeasurement(objectDestination, liveMeasurement) {
+        if (!liveMeasurement) {
+            this.adapter.log.warn(`[tibberPulse]: received null liveMeasurement from Tibber feed — skipping`);
+            return;
+        }
         liveMeasurement.powerProduction ??= 0;
         const power = liveMeasurement.power > 0 ? liveMeasurement.power : liveMeasurement.powerProduction > 0 ? -liveMeasurement.powerProduction : 0;
         if (this.tibberConfig.homeId !== undefined) {

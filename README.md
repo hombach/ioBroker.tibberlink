@@ -107,7 +107,7 @@ This method requires the "FlexCharts" adapter to be installed separately.
 
 - The TibberLink adapter creates a state called `jsonFlexCharts`.
 
-              <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
+                <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
 
 - The FlexCharts adapter renders this state via the following URL:
     ```
@@ -245,6 +245,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) fixed adapter crash on null liveMeasurement from Tibber feed (#910)
+- (HombachC) improved vehicles & chargers OAuth2 setup documentation
+- (HombachC) fixed setInterval/clearInterval to use adapter-managed variants
+- (HombachC) removed yarn dependency, replaced with npm in release script
 - (HombachC) updated adapter-core
 - (HombachC) fixed adapter checker warnings
 - (HombachC) updated dependencies

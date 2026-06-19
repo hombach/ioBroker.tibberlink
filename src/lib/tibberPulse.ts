@@ -154,7 +154,11 @@ export class TibberPulse extends ProjectUtils {
 	 * @param objectDestination - Sub-path under `Homes.<homeId>.` where the states are written (e.g. "LiveMeasurement").
 	 * @param liveMeasurement - The live measurement object received from the Tibber GraphQL subscription.
 	 */
-	private fetchLiveMeasurement(objectDestination: string, liveMeasurement: ILiveMeasurement): void {
+	private fetchLiveMeasurement(objectDestination: string, liveMeasurement: ILiveMeasurement | null): void {
+		if (!liveMeasurement) {
+			this.adapter.log.warn(`[tibberPulse]: received null liveMeasurement from Tibber feed — skipping`);
+			return;
+		}
 		liveMeasurement.powerProduction ??= 0; // fix wrong data from Tibber in edge cases
 		const power = liveMeasurement.power > 0 ? liveMeasurement.power : liveMeasurement.powerProduction > 0 ? -liveMeasurement.powerProduction : 0;
 
