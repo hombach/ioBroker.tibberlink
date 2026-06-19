@@ -242,8 +242,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.1.2 (2026-06-19)
 
 - (HombachC) fixed adapter crash on null liveMeasurement from Tibber feed (#910)
 - (HombachC) improved vehicles & chargers OAuth2 setup documentation
@@ -283,12 +282,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 6.2.2 (2026-04-13)
 
 - (HombachC) fix vulnerability in axios
-- (HombachC) update dependencies
-
-### 6.2.1 (2026-03-30)
-
-- (HombachC) optimize pull of consumption data (#860)
-- (HombachC) switch to ES2023 code
 - (HombachC) update dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)

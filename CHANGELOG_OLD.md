@@ -18,13 +18,17 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 ## Changelog - OLD CHANGES
 
+## 6.2.1 (2026-03-30)
+
+- (HombachC) optimize pull of consumption data (#860)
+- (HombachC) switch to ES2023 code
+
 ## 6.2.0 (2026-03-07)
 
 - (HombachC) enable umlauts to calculation channel names (#844)
 - (HombachC) enhance resolution of pulse meter data (#840)
 - (HombachC) fix wrong end block state calculation (#841)
 - (HombachC) setup auto-merge for dependabot (#834)
-- (HombachC) update dependencies
 
 ## 6.1.1 (2026-02-05)
 

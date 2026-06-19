@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "7.1.1",
+    "version": "7.1.2",
     "news": {
+      "7.1.2": {
+        "en": "fixed adapter crash on null liveMeasurement from Tibber feed (#910)\nimproved vehicles & chargers OAuth2 setup documentation\nfixed setInterval/clearInterval to use adapter-managed variants\nremoved yarn dependency, replaced with npm in release script\nupdated adapter-core\nfixed adapter checker warnings\nupdated dependencies",
+        "de": "Adapterabsturz bei Null-Live-Messungen aus dem Tibber-Feed behoben (#910)\nverbesserte Dokumentation zur OAuth2-Einrichtung für Fahrzeuge und Ladegeräte\nsetInterval/clearInterval wurde korrigiert, um adapterverwaltete Varianten zu verwenden.\nDie Yarn-Abhängigkeit wurde entfernt und im Release-Skript durch npm ersetzt.\naktualisierter Adapter-Kern\nWarnungen des Adapterprüfers behoben\naktualisierte Abhängigkeiten",
+        "ru": "Исправлена ошибка адаптера, приводящая к сбою при нулевом значении liveMeasurement из потока Tibber (#910)\nУлучшена документация по настройке OAuth2 для транспортных средств и зарядных устройств.\nИсправлена ошибка в функциях setInterval/clearInterval для использования вариантов, управляемых адаптером.\nУдалена зависимость от yarn, заменена на npm в скрипте релиза.\nобновленный адаптер-ядро\nисправлены предупреждения проверки адаптера\nобновленные зависимости",
+        "pt": "Corrigido o problema de falha do adaptador em medições ao vivo nulas do feed do Tibber (#910)\nDocumentação aprimorada de configuração OAuth2 para veículos e carregadores\nsetInterval/clearInterval corrigidos para usar variantes gerenciadas pelo adaptador.\nDependência do Yarn removida e substituída por npm no script de lançamento.\nadaptador-core atualizado\navisos corrigidos do verificador de adaptador\ndependências atualizadas",
+        "nl": "Adaptercrash bij null liveMeasurement vanuit Tibber-feed opgelost (#910)\nVerbeterde documentatie voor het instellen van OAuth2 op voertuigen en laders\nDe setInterval/clearInterval-waarden zijn aangepast om door de adapter beheerde varianten te gebruiken.\nDe Yarn-afhankelijkheid is verwijderd en vervangen door npm in het releasescript.\nbijgewerkte adapterkern\nvaste adaptercontrole waarschuwingen\nbijgewerkte afhankelijkheden",
+        "fr": "Correction d'un plantage de l'adaptateur en cas de valeur nulle de liveMeasurement provenant du flux Tibber (#910)\nDocumentation de configuration OAuth2 améliorée pour les véhicules et les chargeurs\nLes fonctions setInterval/clearInterval ont été corrigées pour utiliser les variantes gérées par l'adaptateur.\nSuppression de la dépendance à Yarn, remplacée par npm dans le script de publication\nnoyau adaptateur mis à jour\nAvertissements corrigés du vérificateur d'adaptateur\ndépendances mises à jour",
+        "it": "Risolto il problema di arresto anomalo dell'adattatore in caso di liveMeasurement nullo dal feed di Tibber (#910)\nDocumentazione di configurazione OAuth2 migliorata per veicoli e caricabatterie\nsetInterval/clearInterval fissi per utilizzare le varianti gestite dall'adattatore\nRimossa la dipendenza da yarn, sostituita con npm nello script di rilascio.\ncore dell'adattatore aggiornato\navvisi del controllore dell'adattatore fisso\ndipendenze aggiornate",
+        "es": "Se corrigió el fallo del adaptador al recibir una medición en vivo nula desde la fuente Tibber (#910).\nDocumentación mejorada para la configuración de OAuth2 en vehículos y cargadores\nSe corrigió setInterval/clearInterval para usar variantes administradas por el adaptador.\nSe eliminó la dependencia de yarn y se reemplazó por npm en el script de lanzamiento.\nNúcleo del adaptador actualizado\nSe corrigieron las advertencias del verificador de adaptadores.\ndependencias actualizadas",
+        "pl": "naprawiono awarię adaptera przy null liveMeasurement z kanału Tibber (#910)\nulepszona dokumentacja konfiguracji OAuth2 dla pojazdów i ładowarek\nnaprawiono setInterval/clearInterval, aby używać wariantów zarządzanych przez adapter\nusunięto zależność od yarn, zastąpiono ją npm w skrypcie wydania\nzaktualizowany rdzeń adaptera\nstałe ostrzeżenia kontrolera adaptera\nzaktualizowane zależności",
+        "uk": "виправлено збій адаптера при нульовому живому вимірюванні з Tibber-каналу (#910)\nпокращена документація щодо налаштування OAuth2 для транспортних засобів та зарядних пристроїв\nвиправлено setInterval/clearInterval для використання варіантів, керованих адаптером\nвидалено залежність від yarn, замінено на npm у релізному скрипті\nоновлене ядро адаптера\nвиправлені попередження перевірки адаптерів\nоновлені залежності",
+        "zh-cn": "修复了从 Tibber 数据源获取空实时测量值时适配器崩溃的问题 (#910)\n改进的车辆和充电器 OAuth2 设置文档\n已修复 setInterval/clearInterval 以使用适配器管理的变体\n发布脚本中已移除 yarn 依赖，替换为 npm。\n更新适配器核心\n修复适配器检查器警告\n更新依赖项"
+      },
       "7.1.1": {
         "en": "optimized vehicle states\nfixed adapter checker warnings",
         "de": "optimierte fahrzeugzustände\nwarnhinweise für feste adapterprüfgeräte",
@@ -80,19 +93,6 @@
         "pl": "włączyć umlauty do nazw kanałów obliczeniowych (# 844)\nzwiększenie rozdzielczości danych pulsometru (# 840)\nnaprawić błędne obliczenia stanu bloku końca (# 841)\nsetup auto- merge for dependabot (# 834)\naktualizacji zależności",
         "uk": "увімкнути umlauts для обчислення назв каналів (#844)\nпідвищити роздільну здатність даних імпульсних лічильників (#840)\nвиправити неправильний кінець блоку державного розрахунку (#841)\nустановка автозапчастин для залежності (#834)\nоновлення залежності",
         "zh-cn": "允许 umlauts 计算频道名称 (# 844)\n增强脉冲计数据的分辨率 (# 840)\n固定错误的终端块状态计算 (# 841)\n为depabot (# 834) 设置自动安装\n更新依赖关系"
-      },
-      "6.1.1": {
-        "en": "fix LTF shifting for frames greater 24h\nupdate dependencies",
-        "de": "fix LTF-Verschiebung für Rahmen größer 24h\naktualisierung der abhängigkeiten",
-        "ru": "исправить сдвиг LTF для кадров больше 24 ч\nобновление зависимостей",
-        "pt": "corrigir deslocamento LTF para quadros maiores 24h\natualizar dependências",
-        "nl": "vast LTF verschuiven voor frames groter 24h\nafhankelijkheden bijwerken",
-        "fr": "fixer le déplacement LTF pour les cadres plus grand 24h\nmettre à jour les dépendances",
-        "it": "fix LTF spostamento per cornici maggiore 24h\naggiornamento dipendenze",
-        "es": "fijar LTF cambio para marcos mayor 24h\ndependencias de actualización",
-        "pl": "naprawić przesunięcie LTF dla klatek większych 24h\naktualizacji zależności",
-        "uk": "кріплення LTF для каркасів більше 24h\nоновлення залежності",
-        "zh-cn": "为更大的24小时帧修正 LTF 转换\n更新依赖关系"
       }
     },
     "messages": [
