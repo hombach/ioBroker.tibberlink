@@ -7,7 +7,7 @@ import { ProjectUtils } from "./projectUtils.js";
  * TibberLocal
  */
 export class TibberLocal extends ProjectUtils {
-	intervalList: NodeJS.Timeout[];
+	intervalList: ioBroker.Interval[];
 	TestData = "";
 	// example HEX strings  -  meter mode 3 e.g. for "ISKRA ISK00 7034" meters
 	// TestData: string = `1b1b1b1b01010101760512923b426200620072630101760101050630be6c0b090149534b0004316b61010163a9b600760512923b43620062007263070177010b090149534b0004316b61070100620affff726201650b7415f27a77078181c78203ff010101010449534b0177070100000009ff010101010b090149534b0004316b610177070100010800ff65000101a001621e52ff59000000000ee32fcb0177070100010801ff0101621e52ff59000000000ee32fcb0177070100010802ff0101621e52ff5900000000000000000177070100020800ff0101621e52ff590000000007318ead0177070100020801ff0101621e52ff590000000007318ead0177070100020802ff0101621e52ff5900000000000000000177070100100700ff0101621b520055fffffff10177078181c78205ff010101018302268dd6b5bfb5760a1b2c763b034bd3af9863ea9000593a8da767ec1ba01e9b6e8d52fa200e7ec7517fc100295699650b01010163d03800760512923b4462006200726302017101630a84001b1b1b1b1a00a9f2`;
@@ -68,7 +68,7 @@ export class TibberLocal extends ProjectUtils {
 				//#endregion
 
 				//#region *** setup Tibber Bridge metrics job
-				const jobBridgeMetrics = setInterval(() => {
+				const jobBridgeMetrics = this.adapter.setInterval(() => {
 					this.getPulseData(pulse)
 						.then(response => {
 							this.adapter.log.debug(`[tibberLocal]: Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
@@ -84,7 +84,7 @@ export class TibberLocal extends ProjectUtils {
 				}
 				//#endregion
 				//#region *** setup Tibber Pulse data job
-				const jobPulseLocal = setInterval(() => {
+				const jobPulseLocal = this.adapter.setInterval(() => {
 					// poll data and log as HEX string
 					this.getDataAsHexString(pulse)
 						.then(hexString => {
@@ -135,7 +135,7 @@ export class TibberLocal extends ProjectUtils {
 		try {
 			// Here we must clear all intervals that may still be active
 			for (const intervalJob of this.intervalList) {
-				clearInterval(intervalJob);
+				this.adapter.clearInterval(intervalJob);
 			}
 		} catch (e) {
 			this.adapter.log.warn((e as Error).message);

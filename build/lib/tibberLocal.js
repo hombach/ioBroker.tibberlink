@@ -36,7 +36,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                     .catch(e => {
                     this.adapter.log.error(`[tibberLocal]: Error while polling and parsing Tibber Bridge metrics: ${e}`);
                 });
-                const jobBridgeMetrics = setInterval(() => {
+                const jobBridgeMetrics = this.adapter.setInterval(() => {
                     this.getPulseData(pulse)
                         .then(response => {
                         this.adapter.log.debug(`[tibberLocal]: Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
@@ -50,7 +50,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                 if (jobBridgeMetrics) {
                     this.intervalList.push(jobBridgeMetrics);
                 }
-                const jobPulseLocal = setInterval(() => {
+                const jobPulseLocal = this.adapter.setInterval(() => {
                     this.getDataAsHexString(pulse)
                         .then(hexString => {
                         this.adapter.log.debug(`[tibberLocal]: got HEX data from local pulse: ${hexString}`);
@@ -92,7 +92,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
     clearIntervals() {
         try {
             for (const intervalJob of this.intervalList) {
-                clearInterval(intervalJob);
+                this.adapter.clearInterval(intervalJob);
             }
         }
         catch (e) {

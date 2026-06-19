@@ -11,6 +11,7 @@ export default [
 		ignores: [
 			"*.test.js",
 			"test/**/*.js",
+			"src/lib/testHelpers.ts",
 			"*.config.mjs",
 			"build",
 			"admin/build",
