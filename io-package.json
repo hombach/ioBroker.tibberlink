@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "7.1.2",
+    "version": "7.1.3",
     "news": {
+      "7.1.3": {
+        "en": "updated axios\nfixed local SML parsing for EMH meters reporting meter_mode 4 but sending binary SML data (#912)\nfixed false warn log for SBB when no price slot matches current quarter (#912)",
+        "de": "aktualisiertes Axios\nLokales SML-Parsing für EMH-Zähler, die meter_mode 4 melden, aber binäre SML-Daten senden, wurde korrigiert (#912).\nFehlerhafte Warnmeldung für SBB behoben, wenn kein Preissegment dem aktuellen Quartal entspricht (#912).",
+        "ru": "обновленные аксиосы\nИсправлена ошибка локального анализа SML для счетчиков EMH, сообщающих о режиме meter_mode 4, но отправляющих двоичные данные SML (#912)\nИсправлено ложное предупреждение в журнале SBB, когда ни один ценовой слот не соответствует текущему кварталу (#912)",
+        "pt": "axios atualizado\nCorreção na análise local de SML para medidores EMH que reportam meter_mode 4, mas enviam dados SML binários (#912)\nCorrigido o registro de aviso falso para SBB quando nenhum intervalo de preço corresponde ao trimestre atual (#912)",
+        "nl": "axios bijgewerkt\nDe lokale SML-parsing voor EMH-meters die meter_mode 4 rapporteren maar binaire SML-gegevens verzenden, is gecorrigeerd (#912).\nFoutmelding voor SBB gecorrigeerd wanneer geen prijsslot overeenkomt met het huidige kwartaal (#912)",
+        "fr": "axios mis à jour\nCorrection de l'analyse SML locale pour les compteurs EMH signalant meter_mode 4 mais envoyant des données SML binaires (#912)\nCorrection d'un faux avertissement dans le journal SBB lorsqu'aucun emplacement de prix ne correspond au trimestre en cours (#912)",
+        "it": "axios aggiornato\nCorretto il parsing SML locale per i contatori EMH che segnalano meter_mode 4 ma inviano dati SML binari (#912)\nCorretto il registro degli avvisi errati per SBB quando nessuna fascia di prezzo corrisponde al trimestre corrente (#912)",
+        "es": "Axios actualizado\nSe corrigió el análisis local de SML para medidores EMH que informaban meter_mode 4 pero enviaban datos SML binarios (#912).\nSe corrigió el registro de advertencia falso para SBB cuando ningún espacio de precio coincide con el trimestre actual (#912)",
+        "pl": "zaktualizowane aksjomaty\nnaprawiono lokalną analizę SML dla liczników EMH zgłaszających meter_mode 4, ale wysyłających binarne dane SML (#912)\nnaprawiono log fałszywych ostrzeżeń dla SBB, gdy żaden slot cenowy nie pasował do bieżącego kwartału (#912)",
+        "uk": "оновлений Axios\nвиправлено локальний розбір SML для лічильників EMH, які повідомляють про meter_mode 4, але надсилають двійкові дані SML (#912)\nвиправлено помилковий журнал попереджень для SBB, коли жоден ціновий слот не відповідає поточному кварталу (#912)",
+        "zh-cn": "更新后的 axios\n修复了 EMH 电表报告 meter_mode 4 但发送二进制 SML 数据的本地 SML 解析问题 (#912)\n修复了当没有价格档位与当前季度匹配时 SBB 的错误警告日志记录问题 (#912)"
+      },
       "7.1.2": {
         "en": "fixed adapter crash on null liveMeasurement from Tibber feed (#910)\nimproved vehicles & chargers OAuth2 setup documentation\nfixed setInterval/clearInterval to use adapter-managed variants\nremoved yarn dependency, replaced with npm in release script\nupdated adapter-core\nfixed adapter checker warnings\nupdated dependencies",
         "de": "Adapterabsturz bei Null-Live-Messungen aus dem Tibber-Feed behoben (#910)\nverbesserte Dokumentation zur OAuth2-Einrichtung für Fahrzeuge und Ladegeräte\nsetInterval/clearInterval wurde korrigiert, um adapterverwaltete Varianten zu verwenden.\nDie Yarn-Abhängigkeit wurde entfernt und im Release-Skript durch npm ersetzt.\naktualisierter Adapter-Kern\nWarnungen des Adapterprüfers behoben\naktualisierte Abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "optymalizacja poboru danych konsumpcyjnych (# 860)\nprzełączanie na kod ES2023\naktualizacji zależności",
         "uk": "оптимізоване навантаження даних споживання (#860)\nперемкніть код ES2023\nоновлення залежності",
         "zh-cn": "优化消费数据的牵引(# 860)\n切换到 ES2023 代码\n更新依赖关系"
-      },
-      "6.2.0": {
-        "en": "enable umlauts to calculation channel names (#844)\nenhance resolution of pulse meter data (#840)\nfix wrong end block state calculation (#841)\nsetup auto-merge for dependabot (#834)\nupdate dependencies",
-        "de": "umlaute zur berechnung von kanalnamen aktivieren (#844)\nverbesserung der auflösung von pulsmesserdaten (#840)\nfalsche endblock-zustandsberechnung (#841)\nsetup auto-merge für abhängigabot (#834)\naktualisierung der abhängigkeiten",
-        "ru": "умлауты могут вычислять имена каналов (#844)\nулучшение разрешения данных пульсометра (#840)\nисправить неправильный расчет состояния конечного блока (#841)\nнастройка автоматического слияния для иждивенца (#834)\nобновление зависимостей",
-        "pt": "habilitar umlauts para calcular os nomes dos canais (# 844)\nmelhorar a resolução dos dados do medidor de pulso (# 840)\ncorrigir o cálculo errado do estado do bloco final (# 841)\nconfiguração de auto- fusão para dependebot (# 834)\natualizar dependências",
-        "nl": "umlauts inschakelen om kanaalnamen te berekenen (#844)\nverbeteren van de resolutie van pulsmetergegevens (#840)\nberekening van de foute eindbloktoestand op te lossen (#841)\nsetup auto-merge voor dependabot (#834)\nafhankelijkheden bijwerken",
-        "fr": "activer umlauts pour calculer les noms de canaux (#844)\naméliorer la résolution des données du compteur d'impulsions (#840)\ncorrection du mauvais calcul de l'état du bloc d'extrémité (#841)\nsetup auto-merge pour dependabot (#834)\nmettre à jour les dépendances",
-        "it": "abilitare umlauts ai nomi dei canali di calcolo (#844)\nmigliorare la risoluzione dei dati del contatore di impulso (#840)\ncorreggere il calcolo dello stato del blocco finale sbagliato (#841)\ninstallazione auto-merge per dipendeabot (#834)\naggiornamento dipendenze",
-        "es": "habilitar umlauts a los nombres de los canales de cálculo (#844)\nmejorar la resolución de los datos del medidor de pulso (#840)\narreglar el cálculo del estado del bloque final incorrecto (#841)\nconfiguración de auto-merge para dependabot (#834)\ndependencias de actualización",
-        "pl": "włączyć umlauty do nazw kanałów obliczeniowych (# 844)\nzwiększenie rozdzielczości danych pulsometru (# 840)\nnaprawić błędne obliczenia stanu bloku końca (# 841)\nsetup auto- merge for dependabot (# 834)\naktualizacji zależności",
-        "uk": "увімкнути umlauts для обчислення назв каналів (#844)\nпідвищити роздільну здатність даних імпульсних лічильників (#840)\nвиправити неправильний кінець блоку державного розрахунку (#841)\nустановка автозапчастин для залежності (#834)\nоновлення залежності",
-        "zh-cn": "允许 umlauts 计算频道名称 (# 844)\n增强脉冲计数据的分辨率 (# 840)\n固定错误的终端块状态计算 (# 841)\n为depabot (# 834) 设置自动安装\n更新依赖关系"
       }
     },
     "messages": [

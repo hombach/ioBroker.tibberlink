@@ -242,8 +242,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.1.3 (2026-06-27)
 
 - (HombachC) updated axios
 - (HombachC) fixed local SML parsing for EMH meters reporting meter_mode 4 but sending binary SML data (#912)
@@ -285,11 +284,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) extended FlexCharts docu
 - (HombachC) updated dependencies
 - (HombachC) updated projectUtils
-
-### 6.2.2 (2026-04-13)
-
-- (HombachC) fix vulnerability in axios
-- (HombachC) update dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
