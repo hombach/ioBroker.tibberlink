@@ -64,7 +64,13 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                                 this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
                                 break;
                             case 4:
-                                this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
+                                if (hexString.toLowerCase().startsWith("1b1b1b1b")) {
+                                    this.adapter.log.debug(`[tibberLocal]: meter_mode 4 but binary SML detected — using mode 3 parser`);
+                                    this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
+                                }
+                                else {
+                                    this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
+                                }
                                 break;
                             default:
                                 this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);

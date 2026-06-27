@@ -107,7 +107,7 @@ This method requires the "FlexCharts" adapter to be installed separately.
 
 - The TibberLink adapter creates a state called `jsonFlexCharts`.
 
-                  <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
+                    <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
 
 - The FlexCharts adapter renders this state via the following URL:
     ```
@@ -246,6 +246,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) updated axios
+- (HombachC) fixed local SML parsing for EMH meters reporting meter_mode 4 but sending binary SML data (#912)
+- (HombachC) fixed false warn log for SBB when no price slot matches current quarter (#912)
 
 ### 7.1.2 (2026-06-19)
 

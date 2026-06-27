@@ -1513,9 +1513,7 @@ export class TibberCalculator extends ProjectUtils {
 					valueToSet = channelConfig.chValueOff;
 					valueToSet2 = channelConfig.chValueOn2;
 				} else {
-					this.adapter.log.warn(
-						this.generateErrorMessage(`no result found for SBB`, `execute calculator for smart battery buffer in channel ${channel}`),
-					);
+					this.adapter.log.debug(`[tibberCalculator]: channel ${channel} SBB - no slot matches current quarter, skipping output`);
 				}
 				//#endregion
 
