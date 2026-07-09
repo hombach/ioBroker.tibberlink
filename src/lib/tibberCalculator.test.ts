@@ -164,7 +164,7 @@ function demoPrices(): Array<{ startsAt: string; total: number }> {
 }
 
 /** Runs the SBB calculator over the demo prices for one efficiencyLoss and returns the classification. */
-async function runSbb(efficiencyLoss: number): Promise<{ cheapTotals: number[]; expensiveTotals: number[] }> {
+async function runSbb(efficiencyLoss: number): Promise<{ cheapTotals: number[]; normalTotals: number[]; expensiveTotals: number[] }> {
 	const { adapter, store } = createMockAdapter({
 		UseCalculator: true,
 		CalculatorList: [makeChannelConfig({ chType: enCalcType.SmartBatteryBuffer, chAmountHours: 5 })],
@@ -177,43 +177,53 @@ async function runSbb(efficiencyLoss: number): Promise<{ cheapTotals: number[]; 
 	await (calc as unknown as { executeCalculatorSmartBatteryBuffer(ch: number): Promise<void> }).executeCalculatorSmartBatteryBuffer(0);
 	await drainMicrotasks();
 
-	const cheap: Array<{ total: number; output: boolean }> = JSON.parse(store.states[`Homes.${HOME}.Calculations.0.OutputJSON`] as string);
-	const expensive: Array<{ total: number; output: boolean }> = JSON.parse(store.states[`Homes.${HOME}.Calculations.0.OutputJSON2`] as string);
+	// OutputJSON and OutputJSON2 both contain every slot; a slot is "cheap" when flagged
+	// in OutputJSON (charge), "expensive" when flagged in OutputJSON2 (feed-in), and
+	// "normal" (idle) when flagged in neither.
+	const cheap: Array<{ startsAt: string; total: number; output: boolean }> = JSON.parse(store.states[`Homes.${HOME}.Calculations.0.OutputJSON`] as string);
+	const expensive: Array<{ startsAt: string; total: number; output: boolean }> = JSON.parse(store.states[`Homes.${HOME}.Calculations.0.OutputJSON2`] as string);
+	const expensiveKeys = new Set(expensive.filter(e => e.output).map(e => e.startsAt));
+	const cheapKeys = new Set(cheap.filter(e => e.output).map(e => e.startsAt));
 	return {
 		cheapTotals: cheap.filter(e => e.output).map(e => e.total),
 		expensiveTotals: expensive.filter(e => e.output).map(e => e.total),
+		// idle slots: neither charge nor feed-in
+		normalTotals: cheap.filter(e => !cheapKeys.has(e.startsAt) && !expensiveKeys.has(e.startsAt)).map(e => e.total),
 	};
 }
 
 describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss with real price data (#918)", () => {
-	it("produces meaningfully different classifications for efficiencyLoss 0.25 vs 0.4", async () => {
+	it("creates a normal (idle) band between cheap and expensive when efficiencyLoss is applied", async () => {
+		// This is the core #918 symptom: the operator-precedence bug collapsed the normal
+		// band to zero, so every slot was either charge or feed-in. The efficiency loss must
+		// carve out an idle band where the price spread does not justify the round-trip loss.
 		const low = await runSbb(0.25);
 		const high = await runSbb(0.4);
 
-		// AmountHours=5 → maxCheapCount=20; the cheap cap is reached in both runs,
-		// so the "charge" set is identical (the 20 cheapest slots).
+		// AmountHours=5 → maxCheapCount=20; the cheap cap is reached in both runs.
 		expect(low.cheapTotals).to.have.lengthOf(20);
 		expect(high.cheapTotals).to.have.lengthOf(20);
 
-		// The efficiencyLoss effect shows on the feed-in ("expensive") side:
-		// a higher loss widens the required price gap → wider idle band → fewer feed-in slots.
-		expect(low.expensiveTotals).to.have.lengthOf(159);
-		expect(high.expensiveTotals).to.have.lengthOf(148);
+		// The three categories must all be populated (bug → normal was empty).
+		expect(low.normalTotals, "eff 0.25 normal band").to.have.lengthOf(14);
+		expect(low.expensiveTotals, "eff 0.25 expensive band").to.have.lengthOf(159);
+		expect(high.normalTotals, "eff 0.4 normal band").to.have.lengthOf(25);
+		expect(high.expensiveTotals, "eff 0.4 expensive band").to.have.lengthOf(148);
+
+		// A higher efficiency loss widens the idle band and shrinks the feed-in band.
+		expect(high.normalTotals.length).to.be.greaterThan(low.normalTotals.length);
 		expect(high.expensiveTotals.length).to.be.lessThan(low.expensiveTotals.length);
 
-		// The stricter run is a strict subset of the looser one.
-		const lowSet = new Set(low.expensiveTotals);
-		expect(high.expensiveTotals.every(t => lowSet.has(t))).to.be.true;
-
-		// Concrete boundary example: 0.8733 (visible price dip) is "feed-in" at 0.25 but idle at 0.4.
+		// Concrete boundary example: 0.8733 (visible price dip) is "feed-in" at 0.25 but
+		// falls into the idle band at 0.4.
 		expect(low.expensiveTotals).to.include(0.8733);
-		expect(high.expensiveTotals).to.not.include(0.8733);
+		expect(high.normalTotals).to.include(0.8733);
 	});
 
-	it("never leaves the expensive set empty (guards the #918 regression)", async () => {
-		// The operator-precedence bug classified every slot as cheap → zero expensive.
-		expect((await runSbb(0.25)).expensiveTotals).to.not.be.empty;
-		expect((await runSbb(0.4)).expensiveTotals).to.not.be.empty;
+	it("never collapses the normal band to zero (guards the #918 regression)", async () => {
+		// The operator-precedence bug left the normal band empty for every efficiencyLoss.
+		expect((await runSbb(0.25)).normalTotals, "eff 0.25").to.not.be.empty;
+		expect((await runSbb(0.4)).normalTotals, "eff 0.4").to.not.be.empty;
 	});
 });
 
