@@ -1,7 +1,13 @@
-import { expect } from "chai";
+import assert from "node:assert";
 import { enCalcType } from "./projectUtils.ts";
 import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES } from "./testHelpers.test.ts";
 import { TibberCalculator } from "./tibberCalculator.ts";
+
+/** Order-independent array equality (replacement for chai's `to.have.members`). */
+function sameMembers<T>(actual: T[], expected: T[], msg?: string): void {
+	const cmp = (a: T, b: T): number => (a > b ? 1 : a < b ? -1 : 0);
+	assert.deepStrictEqual([...actual].sort(cmp), [...expected].sort(cmp), msg);
+}
 
 // ── helpers ────────────────────────────────────────────────────────────────
 
@@ -59,7 +65,7 @@ describe("TibberCalculator – BestCost OutputJSON", () => {
 		const belowTrigger = TEST_PRICES.filter(p => (p.total ?? 0) < 0.2).map(p => p.startsAt);
 		const trueSlots = json.filter(e => e.output).map(e => e.startsAt);
 
-		expect(trueSlots).to.have.members(belowTrigger);
+		sameMembers(trueSlots, belowTrigger);
 	});
 
 	it("sets OutputJSON to [] when channel is inactive", async () => {
@@ -73,7 +79,7 @@ describe("TibberCalculator – BestCost OutputJSON", () => {
 		await (calc as unknown as { executeCalculatorBestCost(ch: number): Promise<void> }).executeCalculatorBestCost(0);
 		await drainMicrotasks();
 
-		expect(store.states[`Homes.${HOME}.Calculations.0.OutputJSON`]).to.equal("[]");
+		assert.strictEqual(store.states[`Homes.${HOME}.Calculations.0.OutputJSON`], "[]");
 	});
 });
 
@@ -97,7 +103,7 @@ describe("TibberCalculator – BestSingleHours OutputJSON", () => {
 
 		const trueSlots = json.filter(e => e.output).map(e => e.total);
 		// The 2 cheapest are 0.10 and 0.12
-		expect(trueSlots).to.have.members([0.1, 0.12]);
+		sameMembers(trueSlots, [0.1, 0.12]);
 	});
 });
 
@@ -122,7 +128,7 @@ describe("TibberCalculator – BestHoursBlock OutputJSON", () => {
 
 		const trueSlots = json.filter(e => e.output).map(e => e.total);
 		// Block i=1: slots with total 0.10, 0.25, 0.12
-		expect(trueSlots).to.have.members([0.1, 0.25, 0.12]);
+		sameMembers(trueSlots, [0.1, 0.25, 0.12]);
 	});
 });
 
@@ -145,7 +151,7 @@ describe("TibberCalculator – BestPercentage OutputJSON", () => {
 		const json: Array<{ total: number; output: boolean }> = JSON.parse(raw);
 
 		const trueTotals = json.filter(e => e.output).map(e => e.total);
-		expect(trueTotals).to.have.members([0.1, 0.12, 0.15]);
+		sameMembers(trueTotals, [0.1, 0.12, 0.15]);
 	});
 });
 
@@ -213,29 +219,29 @@ describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss with real price
 		const high = await runSbb(0.4);
 
 		// AmountHours=5 → maxCheapCount=20; the cheap cap is reached in both runs.
-		expect(low.cheapTotals).to.have.lengthOf(20);
-		expect(high.cheapTotals).to.have.lengthOf(20);
+		assert.strictEqual(low.cheapTotals.length, 20);
+		assert.strictEqual(high.cheapTotals.length, 20);
 
 		// The three categories must all be populated (bug → normal was empty).
-		expect(low.normalTotals, "eff 0.25 normal band").to.have.lengthOf(14);
-		expect(low.expensiveTotals, "eff 0.25 expensive band").to.have.lengthOf(159);
-		expect(high.normalTotals, "eff 0.4 normal band").to.have.lengthOf(25);
-		expect(high.expensiveTotals, "eff 0.4 expensive band").to.have.lengthOf(148);
+		assert.strictEqual(low.normalTotals.length, 14, "eff 0.25 normal band");
+		assert.strictEqual(low.expensiveTotals.length, 159, "eff 0.25 expensive band");
+		assert.strictEqual(high.normalTotals.length, 25, "eff 0.4 normal band");
+		assert.strictEqual(high.expensiveTotals.length, 148, "eff 0.4 expensive band");
 
 		// A higher efficiency loss widens the idle band and shrinks the feed-in band.
-		expect(high.normalTotals.length).to.be.greaterThan(low.normalTotals.length);
-		expect(high.expensiveTotals.length).to.be.lessThan(low.expensiveTotals.length);
+		assert.ok(high.normalTotals.length > low.normalTotals.length);
+		assert.ok(high.expensiveTotals.length < low.expensiveTotals.length);
 
 		// Concrete boundary example: 0.8733 (visible price dip) is "feed-in" at 0.25 but
 		// falls into the idle band at 0.4.
-		expect(low.expensiveTotals).to.include(0.8733);
-		expect(high.normalTotals).to.include(0.8733);
+		assert.ok(low.expensiveTotals.includes(0.8733));
+		assert.ok(high.normalTotals.includes(0.8733));
 	});
 
 	it("never collapses the normal band to zero (guards the #918 regression)", async () => {
 		// The operator-precedence bug left the normal band empty for every efficiencyLoss.
-		expect((await runSbb(0.25)).normalTotals, "eff 0.25").to.not.be.empty;
-		expect((await runSbb(0.4)).normalTotals, "eff 0.4").to.not.be.empty;
+		assert.ok((await runSbb(0.25)).normalTotals.length > 0, "eff 0.25");
+		assert.ok((await runSbb(0.4)).normalTotals.length > 0, "eff 0.4");
 	});
 });
 
@@ -247,16 +253,16 @@ describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss exact slot spli
 	// with AmountHours=5 hits the cap and only exercises the feed-in gate).
 	it("splits the slots exactly as expected for efficiencyLoss 0.25", async () => {
 		const r = await runSbb(0.25, TEST_PRICES, 8);
-		expect(r.cheapTotals, "charge").to.deep.equal([0.1, 0.12, 0.15, 0.18, 0.2, 0.25]);
-		expect(r.normalTotals, "idle").to.deep.equal([0.28]);
-		expect(r.expensiveTotals, "feed-in").to.deep.equal([0.3]);
+		assert.deepStrictEqual(r.cheapTotals, [0.1, 0.12, 0.15, 0.18, 0.2, 0.25], "charge");
+		assert.deepStrictEqual(r.normalTotals, [0.28], "idle");
+		assert.deepStrictEqual(r.expensiveTotals, [0.3], "feed-in");
 	});
 
 	it("splits the slots exactly as expected for efficiencyLoss 0.4", async () => {
 		const r = await runSbb(0.4, TEST_PRICES, 8);
-		expect(r.cheapTotals, "charge").to.deep.equal([0.1, 0.12, 0.15, 0.18, 0.2]);
-		expect(r.normalTotals, "idle").to.deep.equal([0.25]);
-		expect(r.expensiveTotals, "feed-in").to.deep.equal([0.28, 0.3]);
+		assert.deepStrictEqual(r.cheapTotals, [0.1, 0.12, 0.15, 0.18, 0.2], "charge");
+		assert.deepStrictEqual(r.normalTotals, [0.25], "idle");
+		assert.deepStrictEqual(r.expensiveTotals, [0.28, 0.3], "feed-in");
 	});
 
 	it("shifts slots from charge to idle/feed-in as efficiencyLoss grows", async () => {
@@ -264,12 +270,12 @@ describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss exact slot spli
 		const high = await runSbb(0.4, TEST_PRICES, 8);
 
 		// Both runs keep a populated idle band (bug → idle band was empty).
-		expect(low.normalTotals).to.not.be.empty;
-		expect(high.normalTotals).to.not.be.empty;
+		assert.ok(low.normalTotals.length > 0);
+		assert.ok(high.normalTotals.length > 0);
 
 		// Higher loss → fewer charge slots, more feed-in slots (0.25 moves out of charge).
-		expect(high.cheapTotals.length).to.be.lessThan(low.cheapTotals.length);
-		expect(high.expensiveTotals.length).to.be.greaterThan(low.expensiveTotals.length);
+		assert.ok(high.cheapTotals.length < low.cheapTotals.length);
+		assert.ok(high.expensiveTotals.length > low.expensiveTotals.length);
 	});
 });
 
@@ -288,7 +294,7 @@ describe("TibberCalculator – startCalculatorTasks", () => {
 		await calc.startCalculatorTasks();
 
 		// No OutputJSON state should have been written
-		expect(store.states[`Homes.${HOME}.Calculations.0.OutputJSON`]).to.be.undefined;
+		assert.strictEqual(store.states[`Homes.${HOME}.Calculations.0.OutputJSON`], undefined);
 	});
 
 	it("skips inactive channels and does not write OutputJSON", async () => {
@@ -305,7 +311,7 @@ describe("TibberCalculator – startCalculatorTasks", () => {
 		const raw = store.states[`Homes.${HOME}.Calculations.0.OutputJSON`] as string | undefined;
 		// Inactive channel writes [] to OutputJSON
 		if (raw !== undefined) {
-			expect(raw).to.equal("[]");
+			assert.strictEqual(raw, "[]");
 		}
 	});
 });

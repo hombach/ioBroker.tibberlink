@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import assert from "node:assert";
 import { enCalcType } from "./lib/projectUtils.ts";
 import { createMockAdapter, drainMicrotasks, injectState } from "./lib/testHelpers.test.ts";
 import { TibberCalculator } from "./lib/tibberCalculator.ts";
@@ -34,7 +34,7 @@ describe("Lifecycle – UseCalculator=false", () => {
 		const calc = new TibberCalculator(adapter);
 		await calc.startCalculatorTasks();
 
-		expect(Object.keys(store.states)).to.have.lengthOf(2); // only the 2 injected states
+		assert.strictEqual(Object.keys(store.states).length, 2); // only the 2 injected states
 	});
 });
 
@@ -67,11 +67,11 @@ describe("Lifecycle – setupCalculatorStates", () => {
 		await drainMicrotasks();
 
 		// Output state should exist
-		expect(store.objects).to.have.property(`Homes.${HOME}.Calculations.0.Output`);
+		assert.ok(`Homes.${HOME}.Calculations.0.Output` in store.objects);
 		// OutputJSON state should exist
-		expect(store.objects).to.have.property(`Homes.${HOME}.Calculations.0.OutputJSON`);
+		assert.ok(`Homes.${HOME}.Calculations.0.OutputJSON` in store.objects);
 		// TriggerPrice state should exist
-		expect(store.objects).to.have.property(`Homes.${HOME}.Calculations.0.TriggerPrice`);
+		assert.ok(`Homes.${HOME}.Calculations.0.TriggerPrice` in store.objects);
 	});
 
 	it("creates AmountHours and OutputJSON states for a BestSingleHours channel", async () => {
@@ -99,8 +99,8 @@ describe("Lifecycle – setupCalculatorStates", () => {
 		await calc.setupCalculatorStates(HOME, 0);
 		await drainMicrotasks();
 
-		expect(store.objects).to.have.property(`Homes.${HOME}.Calculations.0.AmountHours`);
-		expect(store.objects).to.have.property(`Homes.${HOME}.Calculations.0.OutputJSON`);
+		assert.ok(`Homes.${HOME}.Calculations.0.AmountHours` in store.objects);
+		assert.ok(`Homes.${HOME}.Calculations.0.OutputJSON` in store.objects);
 	});
 
 	it("creates Output2 and OutputJSON2 states for a SmartBatteryBuffer channel", async () => {
@@ -132,8 +132,8 @@ describe("Lifecycle – setupCalculatorStates", () => {
 		await calc.setupCalculatorStates(HOME, 0);
 		await drainMicrotasks();
 
-		expect(store.objects).to.have.property(`Homes.${HOME}.Calculations.0.Output2`);
-		expect(store.objects).to.have.property(`Homes.${HOME}.Calculations.0.OutputJSON2`);
-		expect(store.objects).to.have.property(`Homes.${HOME}.Calculations.0.EfficiencyLoss`);
+		assert.ok(`Homes.${HOME}.Calculations.0.Output2` in store.objects);
+		assert.ok(`Homes.${HOME}.Calculations.0.OutputJSON2` in store.objects);
+		assert.ok(`Homes.${HOME}.Calculations.0.EfficiencyLoss` in store.objects);
 	});
 });

@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import assert from "node:assert";
 import { createMockAdapter, drainMicrotasks } from "./testHelpers.test.ts";
 import { TibberLocal } from "./tibberLocal.ts";
 
@@ -93,11 +93,11 @@ describe("TibberLocal – extractAndParseSMLMessages (issue #912 EMH regression)
 		await drainMicrotasks();
 
 		// OBIS 1-0:16.7.0 — instantaneous power, int32 0xffffffff = -1 W
-		expect(store.states["LocalPulse.0.Power"]).to.equal(-1);
+		assert.strictEqual(store.states["LocalPulse.0.Power"], -1);
 		// OBIS 1-0:1.8.0 — import energy, int64 0x3020021 dWh ÷10 → Wh → kWh
-		expect(store.states["LocalPulse.0.Import_total"]).to.equal(5046.275);
+		assert.strictEqual(store.states["LocalPulse.0.Import_total"], 5046.275);
 		// OBIS 1-0:2.8.0 — export energy, int64 0x4c461f3 dWh ÷10 → Wh → kWh
-		expect(store.states["LocalPulse.0.Export_total"]).to.equal(7997.9);
+		assert.strictEqual(store.states["LocalPulse.0.Export_total"], 7997.9);
 	});
 
 	it("mode-1/4 ASCII parser yields no states for binary SML data (root cause of #912)", async () => {
@@ -107,7 +107,7 @@ describe("TibberLocal – extractAndParseSMLMessages (issue #912 EMH regression)
 		(local as unknown as AsciiParser).extractAndParseMode1_4Messages(0, EMH_ISSUE_912_HEX, true);
 		await drainMicrotasks();
 
-		expect(store.states["LocalPulse.0.Power"]).to.be.undefined;
+		assert.strictEqual(store.states["LocalPulse.0.Power"], undefined);
 	});
 });
 
@@ -117,11 +117,11 @@ describe("TibberLocal – extractAndParseSMLMessages (ISKRA ISK00 7034)", () => 
 		await drainMicrotasks();
 
 		// OBIS 1-0:16.7.0 — int32 0xfffffff1 = -15 W (feed-in)
-		expect(store.states["LocalPulse.0.Power"]).to.equal(-15);
+		assert.strictEqual(store.states["LocalPulse.0.Power"], -15);
 		// OBIS 1-0:1.8.0 — int64 0x0ee32fcb dWh ÷10 → Wh → kWh
-		expect(store.states["LocalPulse.0.Import_total"]).to.equal(24976.993);
+		assert.strictEqual(store.states["LocalPulse.0.Import_total"], 24976.993);
 		// OBIS 1-0:2.8.0 — int64 0x7318ead dWh ÷10 → Wh → kWh
-		expect(store.states["LocalPulse.0.Export_total"]).to.equal(12068.83);
+		assert.strictEqual(store.states["LocalPulse.0.Export_total"], 12068.83);
 	});
 });
 
@@ -131,11 +131,11 @@ describe("TibberLocal – extractAndParseSMLMessages (EasyMeter Q3AA2064)", () =
 		await drainMicrotasks();
 
 		// OBIS 1-0:16.7.0 — int64 0x28d6=10454 ÷100 (scaler 0xfe) = 104.54 W
-		expect(store.states["LocalPulse.0.Power"]).to.equal(104.54);
+		assert.strictEqual(store.states["LocalPulse.0.Power"], 104.54);
 		// OBIS 1-0:1.8.0 — int64 0x7fdd4f5c6 ÷10000 → Wh → kWh
-		expect(store.states["LocalPulse.0.Import_total"]).to.equal(3432.336);
+		assert.strictEqual(store.states["LocalPulse.0.Import_total"], 3432.336);
 		// OBIS 1-0:2.8.0 — int64 0x2009db ÷10000 → Wh → kWh
-		expect(store.states["LocalPulse.0.Export_total"]).to.equal(0.21);
+		assert.strictEqual(store.states["LocalPulse.0.Export_total"], 0.21);
 	});
 });
 
@@ -145,12 +145,12 @@ describe("TibberLocal – extractAndParseSMLMessages (EFR issue #704 unsigned ex
 		await drainMicrotasks();
 
 		// OBIS 1-0:16.7.0 — int16 0xf9eb = -1557 W
-		expect(store.states["LocalPulse.0.Power"]).to.equal(-1557);
+		assert.strictEqual(store.states["LocalPulse.0.Power"], -1557);
 		// OBIS 1-0:1.8.0 — uint32 0x0425f616 ÷10 → Wh → kWh
-		expect(store.states["LocalPulse.0.Import_total"]).to.equal(6959.669);
+		assert.strictEqual(store.states["LocalPulse.0.Import_total"], 6959.669);
 		// OBIS 1-0:2.8.0 — 3-byte 0x917463; signed would give -7244701 → negative kWh (wrong)
-		expect(store.states["LocalPulse.0.Export_total"]).to.equal(953.252);
-		expect(store.states["LocalPulse.0.Export_total"] as number).to.be.greaterThan(0);
+		assert.strictEqual(store.states["LocalPulse.0.Export_total"], 953.252);
+		assert.ok((store.states["LocalPulse.0.Export_total"] as number) > 0);
 	});
 });
 
@@ -160,10 +160,10 @@ describe("TibberLocal – extractAndParseSMLMessages (EMH eHZB-W24E8)", () => {
 		await drainMicrotasks();
 
 		// No Power OBIS in this telegram
-		expect(store.states["LocalPulse.0.Power"]).to.be.undefined;
+		assert.strictEqual(store.states["LocalPulse.0.Power"], undefined);
 		// OBIS 1-0:1.8.0 — int64 value=2 Wh, scaler 0x03 (not in divisor table) → 2 Wh → kWh
-		expect(store.states["LocalPulse.0.Import_total"]).to.equal(0.002);
+		assert.strictEqual(store.states["LocalPulse.0.Import_total"], 0.002);
 		// OBIS 1-0:2.8.0 — int64 value=46 Wh → 0.046 kWh
-		expect(store.states["LocalPulse.0.Export_total"]).to.equal(0.046);
+		assert.strictEqual(store.states["LocalPulse.0.Export_total"], 0.046);
 	});
 });

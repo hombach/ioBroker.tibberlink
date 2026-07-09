@@ -1,4 +1,4 @@
-import { expect } from "chai";
+import assert from "node:assert";
 import { type IHomeInfo } from "./projectUtils.ts";
 import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES, type MockStore } from "./testHelpers.test.ts";
 import { TibberCharts } from "./tibberCharts.ts";
@@ -38,14 +38,14 @@ describe("TibberCharts – generateFlexChartJSON", () => {
 		await drainMicrotasks();
 
 		const result = store.states[`Homes.${HOME}.PricesTotal.jsonFlexCharts`] as string;
-		expect(result).to.be.a("string");
+		assert.strictEqual(typeof result, "string");
 		// Must be valid JSON array (the series data)
 		const parsed: unknown[][] = JSON.parse(result);
-		expect(parsed).to.be.an("array");
+		assert.ok(Array.isArray(parsed));
 		// 8 slots + 1 duplicated final slot = 9 entries
-		expect(parsed).to.have.lengthOf(9);
+		assert.strictEqual(parsed.length, 9);
 		// Each entry is [timestamp_ms, total_price]
-		expect(parsed[0]).to.have.lengthOf(2);
+		assert.strictEqual(parsed[0].length, 2);
 	});
 
 	it("works with an empty tomorrow array", async () => {
@@ -55,8 +55,8 @@ describe("TibberCharts – generateFlexChartJSON", () => {
 		await drainMicrotasks();
 
 		const result = store.states[`Homes.${HOME}.PricesTotal.jsonFlexCharts`] as string;
-		expect(result).to.be.a("string");
-		expect(result.length).to.be.greaterThan(0);
+		assert.strictEqual(typeof result, "string");
+		assert.ok(result.length > 0);
 	});
 
 	it("replaces %%CalcChannelsData%% with empty marker when no active channels", async () => {
@@ -70,7 +70,7 @@ describe("TibberCharts – generateFlexChartJSON", () => {
 		await drainMicrotasks();
 
 		const result = store.states[`Homes.${HOME}.PricesTotal.jsonFlexCharts`] as string;
-		expect(result).to.include(`[{xAxis: ""}, {xAxis: ""}]`);
+		assert.ok(result.includes(`[{xAxis: ""}, {xAxis: ""}]`));
 	});
 
 	it("skips homes with PriceDataPollActive=false", async () => {
@@ -80,6 +80,6 @@ describe("TibberCharts – generateFlexChartJSON", () => {
 		await charts.generateFlexChartJSONAllHomes([inactiveHome]);
 		await drainMicrotasks();
 
-		expect(store.states[`Homes.${HOME}.PricesTotal.jsonFlexCharts`]).to.be.undefined;
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesTotal.jsonFlexCharts`], undefined);
 	});
 });

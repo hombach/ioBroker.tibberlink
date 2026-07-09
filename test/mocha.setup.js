@@ -32,20 +32,3 @@ _Module._resolveFilename = function (request, parent, isMain, options) {
 		throw err;
 	}
 };
-
-// enable the should interface with sinon
-// and load chai-as-promised and sinon-chai by default
-/*
-import chaiAsPromised from "chai-as-promised";
-*/
-import sinonChai from "sinon-chai";
-import { should, use } from "chai";
-
-should();
-use(sinonChai);
-
-// Dynamischer Import für ES-Module
-(async () => {
-	const chaiAsPromised = await import("chai-as-promised");
-	use(chaiAsPromised.default);
-})();
