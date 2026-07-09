@@ -149,6 +149,105 @@ describe("TibberCalculator – BestPercentage OutputJSON", () => {
 	});
 });
 
+// ── SmartBatteryBuffer EfficiencyLoss (issue #918 regression) ──────────────
+
+// Real 2-day Tibber price series (192 quarter-hour slots) supplied for #918.
+// Each entry is [epochMillis, total €/kWh]; only startsAt + total matter for SBB.
+// prettier-ignore
+const SBB_DEMO_PRICES: Array<[number, number]> = [
+	[1783548000000,1.1322],[1783548900000,1.1354],[1783549800000,1.1267],[1783550700000,1.093],[1783551600000,1.1271],[1783552500000,1.0925],[1783553400000,1.0914],[1783554300000,1.0871],[1783555200000,1.0764],[1783556100000,1.0564],[1783557000000,1.0755],[1783557900000,1.0609],[1783558800000,1.0562],[1783559700000,1.0525],[1783560600000,1.0524],[1783561500000,1.0713],[1783562400000,1.0407],[1783563300000,1.0544],[1783564200000,1.0814],[1783565100000,1.0961],[1783566000000,1.0792],[1783566900000,1.1134],[1783567800000,1.137],[1783568700000,1.1491],[1783569600000,1.1294],[1783570500000,1.1552],[1783571400000,1.1776],[1783572300000,1.2348],[1783573200000,1.1501],[1783574100000,1.1582],[1783575000000,1.1901],[1783575900000,1.2222],[1783576800000,1.1788],[1783577700000,1.2121],[1783578600000,1.2262],[1783579500000,1.2454],[1783580400000,1.1856],[1783581300000,1.1566],[1783582200000,1.0947],[1783583100000,1.0607],[1783584000000,1.0764],[1783584900000,1.0241],[1783585800000,0.9739],[1783586700000,0.8733],[1783587600000,0.9976],[1783588500000,0.9226],[1783589400000,0.8852],[1783590300000,0.8468],[1783591200000,0.8877],[1783592100000,0.7595],[1783593000000,0.7054],[1783593900000,0.6579],[1783594800000,0.7097],[1783595700000,0.6463],[1783596600000,0.5601],[1783597500000,0.4606],[1783598400000,0.524],[1783599300000,0.5349],[1783600200000,0.5618],[1783601100000,0.6034],[1783602000000,0.4973],[1783602900000,0.6008],[1783603800000,0.7143],[1783604700000,0.841],[1783605600000,0.6982],[1783606500000,0.8164],[1783607400000,0.9106],[1783608300000,1.0233],[1783609200000,0.8596],[1783610100000,1.0394],[1783611000000,1.1276],[1783611900000,1.226],[1783612800000,1.1573],[1783613700000,1.2112],[1783614600000,1.2231],[1783615500000,1.2328],[1783616400000,1.2981],[1783617300000,1.3506],[1783618200000,1.4295],[1783619100000,1.5853],[1783620000000,1.5849],[1783620900000,1.6286],[1783621800000,1.7007],[1783622700000,1.7528],[1783623600000,1.8012],[1783624500000,1.7511],[1783625400000,1.6397],[1783626300000,1.52],[1783627200000,1.7188],[1783628100000,1.5616],[1783629000000,1.4356],[1783629900000,1.3106],[1783630800000,1.4602],[1783631700000,1.3714],[1783632600000,1.2896],[1783633500000,1.2515],[1783634400000,1.4204],[1783635300000,1.3023],[1783636200000,1.2415],[1783637100000,1.2264],[1783638000000,1.2596],[1783638900000,1.2569],[1783639800000,1.2555],[1783640700000,1.2412],[1783641600000,1.2482],[1783642500000,1.2392],[1783643400000,1.239],[1783644300000,1.2403],[1783645200000,1.2104],[1783646100000,1.2213],[1783647000000,1.2357],[1783647900000,1.268],[1783648800000,1.204],[1783649700000,1.2206],[1783650600000,1.2594],[1783651500000,1.301],[1783652400000,1.1923],[1783653300000,1.2291],[1783654200000,1.3147],[1783655100000,1.3508],[1783656000000,1.2062],[1783656900000,1.2689],[1783657800000,1.3255],[1783658700000,1.3785],[1783659600000,1.2657],[1783660500000,1.3165],[1783661400000,1.3309],[1783662300000,1.3237],[1783663200000,1.2977],[1783664100000,1.2895],[1783665000000,1.271],[1783665900000,1.2606],[1783666800000,1.2839],[1783667700000,1.2496],[1783668600000,1.1621],[1783669500000,1.0719],[1783670400000,1.1726],[1783671300000,1.1333],[1783672200000,1.017],[1783673100000,0.9236],[1783674000000,1.028],[1783674900000,0.9324],[1783675800000,0.8718],[1783676700000,0.8227],[1783677600000,0.8977],[1783678500000,0.8326],[1783679400000,0.7938],[1783680300000,0.6695],[1783681200000,0.7085],[1783682100000,0.6516],[1783683000000,0.6166],[1783683900000,0.529],[1783684800000,0.6129],[1783685700000,0.6132],[1783686600000,0.6601],[1783687500000,0.69],[1783688400000,0.6364],[1783689300000,0.7543],[1783690200000,0.8373],[1783691100000,0.9622],[1783692000000,0.794],[1783692900000,0.9372],[1783693800000,1.0507],[1783694700000,1.1567],[1783695600000,1.1379],[1783696500000,1.1678],[1783697400000,1.2213],[1783698300000,1.2533],[1783699200000,1.2364],[1783700100000,1.2602],[1783701000000,1.2969],[1783701900000,1.3374],[1783702800000,1.352],[1783703700000,1.3892],[1783704600000,1.3968],[1783705500000,1.5017],[1783706400000,1.5042],[1783707300000,1.5328],[1783708200000,1.5742],[1783709100000,1.5639],[1783710000000,1.5657],[1783710900000,1.5108],[1783711800000,1.3919],[1783712700000,1.3192],[1783713600000,1.3323],[1783714500000,1.3093],[1783715400000,1.2673],[1783716300000,1.2526],[1783717200000,1.3053],[1783718100000,1.2855],[1783719000000,1.2586],[1783719900000,1.2397],[1783720800000,1.2397],
+];
+
+/** Builds an IPrice-shaped array (startsAt + total) from the demo series. */
+function demoPrices(): Array<{ startsAt: string; total: number }> {
+	return SBB_DEMO_PRICES.map(([ts, total]) => ({ startsAt: new Date(ts).toISOString(), total }));
+}
+
+/** Runs the SBB calculator over the demo prices for one efficiencyLoss and returns the classification. */
+async function runSbb(efficiencyLoss: number): Promise<{ cheapTotals: number[]; expensiveTotals: number[] }> {
+	const { adapter, store } = createMockAdapter({
+		UseCalculator: true,
+		CalculatorList: [makeChannelConfig({ chType: enCalcType.SmartBatteryBuffer, chAmountHours: 5 })],
+	});
+	injectPrices(store, HOME, demoPrices());
+	injectState(store, `Homes.${HOME}.Calculations.0.AmountHours`, 5);
+	injectState(store, `Homes.${HOME}.Calculations.0.EfficiencyLoss`, efficiencyLoss);
+
+	const calc = new TibberCalculator(adapter);
+	await (calc as unknown as { executeCalculatorSmartBatteryBuffer(ch: number): Promise<void> }).executeCalculatorSmartBatteryBuffer(0);
+	await drainMicrotasks();
+
+	const cheap: Array<{ total: number; output: boolean }> = JSON.parse(store.states[`Homes.${HOME}.Calculations.0.OutputJSON`] as string);
+	const expensive: Array<{ total: number; output: boolean }> = JSON.parse(store.states[`Homes.${HOME}.Calculations.0.OutputJSON2`] as string);
+	return {
+		cheapTotals: cheap.filter(e => e.output).map(e => e.total),
+		expensiveTotals: expensive.filter(e => e.output).map(e => e.total),
+	};
+}
+
+describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss with real price data (#918)", () => {
+	it("produces meaningfully different classifications for efficiencyLoss 0.25 vs 0.4", async () => {
+		const low = await runSbb(0.25);
+		const high = await runSbb(0.4);
+
+		// AmountHours=5 → maxCheapCount=20; the cheap cap is reached in both runs,
+		// so the "charge" set is identical (the 20 cheapest slots).
+		expect(low.cheapTotals).to.have.lengthOf(20);
+		expect(high.cheapTotals).to.have.lengthOf(20);
+
+		// The efficiencyLoss effect shows on the feed-in ("expensive") side:
+		// a higher loss widens the required price gap → wider idle band → fewer feed-in slots.
+		expect(low.expensiveTotals).to.have.lengthOf(159);
+		expect(high.expensiveTotals).to.have.lengthOf(148);
+		expect(high.expensiveTotals.length).to.be.lessThan(low.expensiveTotals.length);
+
+		// The stricter run is a strict subset of the looser one.
+		const lowSet = new Set(low.expensiveTotals);
+		expect(high.expensiveTotals.every(t => lowSet.has(t))).to.be.true;
+
+		// Concrete boundary example: 0.8733 (visible price dip) is "feed-in" at 0.25 but idle at 0.4.
+		expect(low.expensiveTotals).to.include(0.8733);
+		expect(high.expensiveTotals).to.not.include(0.8733);
+	});
+
+	it("never leaves the expensive set empty (guards the #918 regression)", async () => {
+		// The operator-precedence bug classified every slot as cheap → zero expensive.
+		expect((await runSbb(0.25)).expensiveTotals).to.not.be.empty;
+		expect((await runSbb(0.4)).expensiveTotals).to.not.be.empty;
+	});
+});
+
+describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss", () => {
+	// Regression for #918: an operator-precedence bug (`total ?? 0 < x` instead of
+	// `(total ?? 0) < x`) made the delta/efficiencyLoss gate always truthy, so every
+	// slot was classified "cheap" and none "expensive" — efficiencyLoss had no effect.
+	it("classifies the most expensive slot as expensive when efficiencyLoss is applied", async () => {
+		// AmountHours=8 → maxCheapCount=32 (effectively unbounded for 8 prices),
+		// so classification is governed purely by the price-delta / efficiencyLoss logic.
+		const { adapter, store } = createMockAdapter({
+			UseCalculator: true,
+			CalculatorList: [makeChannelConfig({ chType: enCalcType.SmartBatteryBuffer, chAmountHours: 8 })],
+		});
+		injectPrices(store, HOME);
+		injectState(store, `Homes.${HOME}.Calculations.0.AmountHours`, 8);
+		injectState(store, `Homes.${HOME}.Calculations.0.EfficiencyLoss`, 0.25);
+
+		const calc = new TibberCalculator(adapter);
+		await (calc as unknown as { executeCalculatorSmartBatteryBuffer(ch: number): Promise<void> }).executeCalculatorSmartBatteryBuffer(0);
+		await drainMicrotasks();
+
+		// OutputJSON2 flags the "expensive" slots (feed into home). With efficiencyLoss
+		// applied, the priciest slot (0.30) exceeds maxCheapTotal + minDelta → expensive.
+		const raw = store.states[`Homes.${HOME}.Calculations.0.OutputJSON2`] as string;
+		const json: Array<{ total: number; output: boolean }> = JSON.parse(raw);
+		const expensiveTotals = json.filter(e => e.output).map(e => e.total);
+
+		// The bug classified everything as cheap → zero expensive slots.
+		expect(expensiveTotals).to.not.be.empty;
+		expect(expensiveTotals).to.include(0.3);
+	});
+});
+
 // ── startCalculatorTasks: UseCalculator guard ──────────────────────────────
 
 describe("TibberCalculator – startCalculatorTasks", () => {

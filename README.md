@@ -107,7 +107,7 @@ This method requires the "FlexCharts" adapter to be installed separately.
 
 - The TibberLink adapter creates a state called `jsonFlexCharts`.
 
-                    <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
+                      <img src="docu/jsonFlexChartsState.png" width="938" alt="jsonFlexCharts State">
 
 - The FlexCharts adapter renders this state via the following URL:
     ```
@@ -242,6 +242,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) fixed regression where smart battery buffer ignored the EfficiencyLoss parameter (#918)
+
 ### 7.1.3 (2026-06-27)
 
 - (HombachC) updated axios
