@@ -163,14 +163,25 @@ function demoPrices(): Array<{ startsAt: string; total: number }> {
 	return SBB_DEMO_PRICES.map(([ts, total]) => ({ startsAt: new Date(ts).toISOString(), total }));
 }
 
-/** Runs the SBB calculator over the demo prices for one efficiencyLoss and returns the classification. */
-async function runSbb(efficiencyLoss: number): Promise<{ cheapTotals: number[]; normalTotals: number[]; expensiveTotals: number[] }> {
+/**
+ * Runs the SBB calculator for one efficiencyLoss and returns the three-way slot classification
+ * (charge / idle / feed-in) as sorted price arrays.
+ *
+ * @param efficiencyLoss - Battery round-trip efficiency loss (0..1).
+ * @param prices - Price slots to feed in; defaults to the real 2-day demo series.
+ * @param amountHours - AmountHours state value (maxCheapCount = amountHours * 4).
+ */
+async function runSbb(
+	efficiencyLoss: number,
+	prices: Parameters<typeof injectPrices>[2] = demoPrices(),
+	amountHours = 5,
+): Promise<{ cheapTotals: number[]; normalTotals: number[]; expensiveTotals: number[] }> {
 	const { adapter, store } = createMockAdapter({
 		UseCalculator: true,
-		CalculatorList: [makeChannelConfig({ chType: enCalcType.SmartBatteryBuffer, chAmountHours: 5 })],
+		CalculatorList: [makeChannelConfig({ chType: enCalcType.SmartBatteryBuffer, chAmountHours: amountHours })],
 	});
-	injectPrices(store, HOME, demoPrices());
-	injectState(store, `Homes.${HOME}.Calculations.0.AmountHours`, 5);
+	injectPrices(store, HOME, prices);
+	injectState(store, `Homes.${HOME}.Calculations.0.AmountHours`, amountHours);
 	injectState(store, `Homes.${HOME}.Calculations.0.EfficiencyLoss`, efficiencyLoss);
 
 	const calc = new TibberCalculator(adapter);
@@ -184,11 +195,12 @@ async function runSbb(efficiencyLoss: number): Promise<{ cheapTotals: number[]; 
 	const expensive: Array<{ startsAt: string; total: number; output: boolean }> = JSON.parse(store.states[`Homes.${HOME}.Calculations.0.OutputJSON2`] as string);
 	const expensiveKeys = new Set(expensive.filter(e => e.output).map(e => e.startsAt));
 	const cheapKeys = new Set(cheap.filter(e => e.output).map(e => e.startsAt));
+	const asc = (a: number, b: number): number => a - b;
 	return {
-		cheapTotals: cheap.filter(e => e.output).map(e => e.total),
-		expensiveTotals: expensive.filter(e => e.output).map(e => e.total),
+		cheapTotals: cheap.filter(e => e.output).map(e => e.total).sort(asc),
+		expensiveTotals: expensive.filter(e => e.output).map(e => e.total).sort(asc),
 		// idle slots: neither charge nor feed-in
-		normalTotals: cheap.filter(e => !cheapKeys.has(e.startsAt) && !expensiveKeys.has(e.startsAt)).map(e => e.total),
+		normalTotals: cheap.filter(e => !cheapKeys.has(e.startsAt) && !expensiveKeys.has(e.startsAt)).map(e => e.total).sort(asc),
 	};
 }
 
@@ -227,34 +239,37 @@ describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss with real price
 	});
 });
 
-describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss", () => {
-	// Regression for #918: an operator-precedence bug (`total ?? 0 < x` instead of
-	// `(total ?? 0) < x`) made the delta/efficiencyLoss gate always truthy, so every
-	// slot was classified "cheap" and none "expensive" — efficiencyLoss had no effect.
-	it("classifies the most expensive slot as expensive when efficiencyLoss is applied", async () => {
-		// AmountHours=8 → maxCheapCount=32 (effectively unbounded for 8 prices),
-		// so classification is governed purely by the price-delta / efficiencyLoss logic.
-		const { adapter, store } = createMockAdapter({
-			UseCalculator: true,
-			CalculatorList: [makeChannelConfig({ chType: enCalcType.SmartBatteryBuffer, chAmountHours: 8 })],
-		});
-		injectPrices(store, HOME);
-		injectState(store, `Homes.${HOME}.Calculations.0.AmountHours`, 8);
-		injectState(store, `Homes.${HOME}.Calculations.0.EfficiencyLoss`, 0.25);
+describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss exact slot split", () => {
+	// TEST_PRICES totals sorted: 0.10 0.12 0.15 0.18 0.20 0.25 0.28 0.30.
+	// AmountHours=8 → maxCheapCount=32 → the cheap cap never binds, so the whole
+	// three-way split (charge / idle / feed-in) is governed purely by efficiencyLoss.
+	// This is the branch that exercises the cheap-side delta gate (the real-data test
+	// with AmountHours=5 hits the cap and only exercises the feed-in gate).
+	it("splits the slots exactly as expected for efficiencyLoss 0.25", async () => {
+		const r = await runSbb(0.25, TEST_PRICES, 8);
+		expect(r.cheapTotals, "charge").to.deep.equal([0.1, 0.12, 0.15, 0.18, 0.2, 0.25]);
+		expect(r.normalTotals, "idle").to.deep.equal([0.28]);
+		expect(r.expensiveTotals, "feed-in").to.deep.equal([0.3]);
+	});
 
-		const calc = new TibberCalculator(adapter);
-		await (calc as unknown as { executeCalculatorSmartBatteryBuffer(ch: number): Promise<void> }).executeCalculatorSmartBatteryBuffer(0);
-		await drainMicrotasks();
+	it("splits the slots exactly as expected for efficiencyLoss 0.4", async () => {
+		const r = await runSbb(0.4, TEST_PRICES, 8);
+		expect(r.cheapTotals, "charge").to.deep.equal([0.1, 0.12, 0.15, 0.18, 0.2]);
+		expect(r.normalTotals, "idle").to.deep.equal([0.25]);
+		expect(r.expensiveTotals, "feed-in").to.deep.equal([0.28, 0.3]);
+	});
 
-		// OutputJSON2 flags the "expensive" slots (feed into home). With efficiencyLoss
-		// applied, the priciest slot (0.30) exceeds maxCheapTotal + minDelta → expensive.
-		const raw = store.states[`Homes.${HOME}.Calculations.0.OutputJSON2`] as string;
-		const json: Array<{ total: number; output: boolean }> = JSON.parse(raw);
-		const expensiveTotals = json.filter(e => e.output).map(e => e.total);
+	it("shifts slots from charge to idle/feed-in as efficiencyLoss grows", async () => {
+		const low = await runSbb(0.25, TEST_PRICES, 8);
+		const high = await runSbb(0.4, TEST_PRICES, 8);
 
-		// The bug classified everything as cheap → zero expensive slots.
-		expect(expensiveTotals).to.not.be.empty;
-		expect(expensiveTotals).to.include(0.3);
+		// Both runs keep a populated idle band (bug → idle band was empty).
+		expect(low.normalTotals).to.not.be.empty;
+		expect(high.normalTotals).to.not.be.empty;
+
+		// Higher loss → fewer charge slots, more feed-in slots (0.25 moves out of charge).
+		expect(high.cheapTotals.length).to.be.lessThan(low.cheapTotals.length);
+		expect(high.expensiveTotals.length).to.be.greaterThan(low.expensiveTotals.length);
 	});
 });
 
