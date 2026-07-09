@@ -242,8 +242,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.1.4 (2026-07-09)
 
 - (HombachC) fixed regression where smart battery buffer ignored the EfficiencyLoss parameter (#918)
 
@@ -277,18 +276,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) added current month consumption docu
 - (HombachC) updated release-script
 - (HombachC) fixed adapter checker warnings
-
-### 7.0.0 (2026-06-04)
-
-- (copilot) BREAKING: Adapter requires node.js >= 22 now
-- (HombachC) Adapter requires admin >=7.6.20 now
-- (grok) added current month consumption (#872)
-- (HombachC) upgraded typescript to 6.x
-- (HombachC) fixed vulnerability in axios
-- (HombachC) fixed some type definitions
-- (HombachC) extended FlexCharts docu
-- (HombachC) updated dependencies
-- (HombachC) updated projectUtils
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

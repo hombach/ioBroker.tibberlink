@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "7.1.3",
+    "version": "7.1.4",
     "news": {
+      "7.1.4": {
+        "en": "fixed regression where smart battery buffer ignored the EfficiencyLoss parameter (#918)",
+        "de": "Behobene Regression, bei der der intelligente Batteriepuffer den Effizienzverlustparameter ignorierte (#918).",
+        "ru": "Исправлена регрессия, в которой интеллектуальный буфер батареи игнорировал параметр EfficiencyLoss (#918)",
+        "pt": "Regressão corrigida onde o buffer de bateria inteligente ignorava o parâmetro EfficiencyLoss (#918)",
+        "nl": "gecorrigeerde regressie waarbij de slimme batterijbuffer de parameter EfficiencyLoss negeerde (#918)",
+        "fr": "Correction d'une régression où le tampon de batterie intelligent ignorait le paramètre EfficiencyLoss (#918)",
+        "it": "Risolto il problema di regressione in cui il buffer della batteria intelligente ignorava il parametro EfficiencyLoss (#918)",
+        "es": "Regresión corregida donde el búfer de batería inteligente ignoraba el parámetro EfficiencyLoss (#918)",
+        "pl": "naprawiono regresję, w której inteligentny bufor baterii ignorował parametr EfficiencyLoss (#918)",
+        "uk": "виправлено регресію, через яку інтелектуальний буфер батареї ігнорував параметр EfficiencyLoss (#918)",
+        "zh-cn": "修复了智能电池缓冲区忽略效率损失参数的回归问题（#918）"
+      },
       "7.1.3": {
         "en": "updated axios\nfixed local SML parsing for EMH meters reporting meter_mode 4 but sending binary SML data (#912)\nfixed false warn log for SBB when no price slot matches current quarter (#912)",
         "de": "aktualisiertes Axios\nLokales SML-Parsing für EMH-Zähler, die meter_mode 4 melden, aber binäre SML-Daten senden, wurde korrigiert (#912).\nFehlerhafte Warnmeldung für SBB behoben, wenn kein Preissegment dem aktuellen Quartal entspricht (#912).",
@@ -80,19 +93,6 @@
         "pl": "naprawić wrażliwość w aksjozach\naktualizacji zależności",
         "uk": "зафіксувати вразливість в осях\nоновлення залежності",
         "zh-cn": "在轴线中固定脆弱性\n更新依赖关系"
-      },
-      "6.2.1": {
-        "en": "optimize pull of consumption data (#860)\nswitch to ES2023 code\nupdate dependencies",
-        "de": "optimieren von verbrauchsdaten (#860)\neS2023-Code wechseln\naktualisierung der abhängigkeiten",
-        "ru": "оптимизация данных о потреблении (#860)\nпереход на код ES2023\nобновление зависимостей",
-        "pt": "otimizar os dados de consumo (# 860)\nmudar para o código ES2023\natualizar dependências",
-        "nl": "optimalisatie van verbruiksgegevens (#860)\nschakel naar ES2023 code\nafhankelijkheden bijwerken",
-        "fr": "optimiser le tirage des données de consommation (#860)\npasser au code ES2023\nmettre à jour les dépendances",
-        "it": "ottimizzare l'estrazione dei dati di consumo (#860)\npassare al codice ES2023\naggiornamento dipendenze",
-        "es": "optimización de los datos de consumo (#860)\nconmutación al código ES2023\ndependencias de actualización",
-        "pl": "optymalizacja poboru danych konsumpcyjnych (# 860)\nprzełączanie na kod ES2023\naktualizacji zależności",
-        "uk": "оптимізоване навантаження даних споживання (#860)\nперемкніть код ES2023\nоновлення залежності",
-        "zh-cn": "优化消费数据的牵引(# 860)\n切换到 ES2023 代码\n更新依赖关系"
       }
     },
     "messages": [
