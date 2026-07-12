@@ -242,7 +242,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 7.1.5 (2026-07-12)
 
 - (HombachC) added a regression test confirming best single hours LTF no longer switches on the wrong day (#631)
 - (HombachC) worked around a Tibber server bug that returns `to` equal to `from` in weekly historical consumption data (#890)
@@ -271,16 +271,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 7.1.1 (2026-06-07)
 
 - (HombachC) optimized vehicle states
-- (HombachC) fixed adapter checker warnings
-
-### 7.1.0 (2026-06-07)
-
-- (claude) added integration for vehicles(#67)
-- (HombachC) optimized documentation
-- (claude) added code documentation
-- (claude) performance optimization of event listeners
-- (HombachC) added current month consumption docu
-- (HombachC) updated release-script
 - (HombachC) fixed adapter checker warnings
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)

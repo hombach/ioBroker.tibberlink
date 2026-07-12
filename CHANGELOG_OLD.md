@@ -17,6 +17,16 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+## 7.1.0 (2026-06-07)
+
+- (claude) added integration for vehicles(#67)
+- (HombachC) optimized documentation
+- (claude) added code documentation
+- (claude) performance optimization of event listeners
+- (HombachC) added current month consumption docu
+- (HombachC) updated release-script
+- (HombachC) fixed adapter checker warnings
+
 ## 7.0.0 (2026-06-04)
 
 - (copilot) BREAKING: Adapter requires node.js >= 22 now
