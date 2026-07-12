@@ -244,6 +244,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 -->
 ### **WORK IN PROGRESS**
 
+- (HombachC) added a regression test confirming best single hours LTF no longer switches on the wrong day (#631)
 - (HombachC) worked around a Tibber server bug that returns `to` equal to `from` in weekly historical consumption data (#890)
 - (HombachC) removed redundant test devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) and switched unit tests to Node's built-in assert
 

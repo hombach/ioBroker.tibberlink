@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { enCalcType } from "./projectUtils.ts";
 import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES } from "./testHelpers.test.ts";
-import { TibberCalculator } from "./tibberCalculator.ts";
+import { checkQuarterMatch, TibberCalculator } from "./tibberCalculator.ts";
 
 /** Order-independent array equality (replacement for chai's `to.have.members`). */
 function sameMembers<T>(actual: T[], expected: T[], msg?: string): void {
@@ -313,5 +313,33 @@ describe("TibberCalculator – startCalculatorTasks", () => {
 		if (raw !== undefined) {
 			assert.strictEqual(raw, "[]");
 		}
+	});
+});
+
+// ── checkQuarterMatch: current-slot detection (issue #631) ─────────────────
+
+describe("TibberCalculator – checkQuarterMatch (#631 wrong-day regression)", () => {
+	// #631: the output variable switched at e.g. 23:00 on the CURRENT day although the
+	// selected cheapest slot was 23:00 on the NEXT day. Root cause was the old checkHourMatch,
+	// which compared only the hour-of-day (getHours()) and ignored the date. checkQuarterMatch
+	// must compare the full timestamp, so a same-hour slot on another day must NOT match now.
+	const iso = (d: Date): string => d.toISOString();
+
+	it("matches a slot whose 15-minute window contains now", () => {
+		const now = new Date();
+		assert.strictEqual(checkQuarterMatch({ startsAt: iso(now) } as never), true);
+	});
+
+	it("does NOT match a slot at the same hour-of-day on the next day", () => {
+		const now = new Date();
+		const sameHourTomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+		// Old buggy checkHourMatch (getHours() only) would have returned true here.
+		assert.strictEqual(checkQuarterMatch({ startsAt: iso(sameHourTomorrow) } as never), false);
+	});
+
+	it("does NOT match a slot two hours later on the same day", () => {
+		const now = new Date();
+		const twoHoursLater = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+		assert.strictEqual(checkQuarterMatch({ startsAt: iso(twoHoursLater) } as never), false);
 	});
 });

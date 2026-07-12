@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberCalculator = void 0;
+exports.checkQuarterMatch = checkQuarterMatch;
 const date_fns_1 = require("date-fns");
 const projectUtils_js_1 = require("./projectUtils.js");
 class TibberCalculator extends projectUtils_js_1.ProjectUtils {

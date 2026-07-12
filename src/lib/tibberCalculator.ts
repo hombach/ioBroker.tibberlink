@@ -1765,7 +1765,7 @@ export class TibberCalculator extends ProjectUtils {
  * @param entry - An object of type `IPrice` containing a `startsAt` property (ISO date string).
  * @returns True if the current time is within the 15-minute block, otherwise false.
  */
-function checkQuarterMatch(entry: IPrice): boolean {
+export function checkQuarterMatch(entry: IPrice): boolean {
 	const now = new Date();
 	const start = parseISO(entry.startsAt ?? "");
 	const end = addMinutes(start, 15);
