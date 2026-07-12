@@ -1,5 +1,7 @@
 import assert from "node:assert";
 import type { IConfig } from "tibber-api";
+import type { IConsumption } from "tibber-api/lib/src/models/IConsumption.js";
+import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution.js";
 import { createMockAdapter, drainMicrotasks, TEST_PRICES, type MockStore } from "./testHelpers.test.ts";
 import { TibberAPICaller } from "./tibberAPICaller.ts";
 
@@ -84,5 +86,62 @@ describe("TibberAPICaller – fetchPriceMinimum", () => {
 
 		const startsAt = store.states[`Homes.${HOME}.PricesToday.minimum.startsAt`] as string;
 		assert.strictEqual(startsAt, "2023-01-01T00:15:00.000Z");
+	});
+});
+
+// ── fixConsumptionEndDates (issue #890) ────────────────────────────────────
+
+type EndDateFixer = { fixConsumptionEndDates(c: IConsumption[], r: EnergyResolution): IConsumption[] };
+
+/** Minimal weekly consumption entry with the Tibber `to === from` quirk from issue #890. */
+function weeklyEntry(from: string): IConsumption {
+	return {
+		from,
+		to: from, // Tibber server returns to === from for weekly buckets
+		cost: 1,
+		unitPrice: 0.2,
+		unitPriceVAT: 0.03,
+		consumption: 10,
+		consumptionUnit: "kWh",
+		totalCost: 1.2,
+		unitCost: 1,
+		currency: "EUR",
+	};
+}
+
+describe("TibberAPICaller – fixConsumptionEndDates (#890)", () => {
+	it("sets each weekly bucket's `to` to the next bucket's `from`", () => {
+		const { caller } = makeCaller();
+		// Real data shape from the issue: consecutive Mondays, to === from.
+		const input = [weeklyEntry("2026-04-20T00:00:00.000+02:00"), weeklyEntry("2026-04-27T00:00:00.000+02:00")];
+
+		const result = (caller as unknown as EndDateFixer).fixConsumptionEndDates(input, EnergyResolution.WEEKLY);
+
+		// bucket 0 ends where bucket 1 starts
+		assert.strictEqual(result[0].from, "2026-04-20T00:00:00.000+02:00");
+		assert.strictEqual(result[0].to, "2026-04-27T00:00:00.000+02:00");
+		// last bucket has no successor → from + 7 days, offset preserved
+		assert.strictEqual(result[1].from, "2026-04-27T00:00:00.000+02:00");
+		assert.strictEqual(result[1].to, "2026-05-04T00:00:00.000+02:00");
+	});
+
+	it("advances the last bucket across a month boundary correctly", () => {
+		const { caller } = makeCaller();
+		const input = [weeklyEntry("2026-12-28T00:00:00.000+01:00")];
+
+		const result = (caller as unknown as EndDateFixer).fixConsumptionEndDates(input, EnergyResolution.WEEKLY);
+
+		// 2026-12-28 + 7 days = 2027-01-04, offset kept
+		assert.strictEqual(result[0].to, "2027-01-04T00:00:00.000+01:00");
+	});
+
+	it("leaves correctly-filled entries (to !== from) untouched", () => {
+		const { caller } = makeCaller();
+		const entry = weeklyEntry("2026-04-20T00:00:00.000+02:00");
+		entry.to = "2026-04-27T00:00:00.000+02:00"; // already correct (e.g. daily/hourly case)
+
+		const result = (caller as unknown as EndDateFixer).fixConsumptionEndDates([entry], EnergyResolution.WEEKLY);
+
+		assert.strictEqual(result[0].to, "2026-04-27T00:00:00.000+02:00");
 	});
 });

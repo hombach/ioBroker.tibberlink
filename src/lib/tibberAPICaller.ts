@@ -499,7 +499,7 @@ export class TibberAPICaller extends ProjectUtils {
 							consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
 						}
 						*/
-						const consumption: IConsumption[] = await this.tibberQuery.getConsumption(type, numCons, homeID);
+						const consumption: IConsumption[] = this.fixConsumptionEndDates(await this.tibberQuery.getConsumption(type, numCons, homeID), type);
 
 						void this.checkAndSetValue(
 							`Homes.${homeID}.Consumption.${state}`,
@@ -563,6 +563,72 @@ export class TibberAPICaller extends ProjectUtils {
 			}
 		}
 		return sum > 0 ? sum : undefined;
+	}
+
+	/**
+	 * Works around a Tibber server quirk where aggregated consumption resolutions (currently WEEKLY)
+	 * return `to` equal to `from` instead of the end of the period (#890). Only entries where
+	 * `to === from` are corrected; correctly-filled entries (e.g. hourly/daily) are left untouched.
+	 *
+	 * The end of bucket `i` equals the start of bucket `i+1` (DST-safe, no reformatting); the most
+	 * recent bucket has no successor, so its end is derived by advancing `from` by one period.
+	 *
+	 * @param consumption - Consumption entries as returned by the Tibber API, in chronological order.
+	 * @param resolution - The energy resolution the entries were requested with.
+	 * @returns The same array with corrected `to` timestamps.
+	 */
+	private fixConsumptionEndDates(consumption: IConsumption[], resolution: EnergyResolution): IConsumption[] {
+		if (!Array.isArray(consumption)) {
+			return consumption;
+		}
+		for (let i = 0; i < consumption.length; i++) {
+			const entry = consumption[i];
+			if (!entry?.from || entry.to !== entry.from) {
+				continue;
+			}
+			const next = consumption[i + 1];
+			entry.to = next?.from && next.from !== entry.from ? next.from : this.addPeriodKeepingOffset(entry.from, resolution);
+		}
+		return consumption;
+	}
+
+	/**
+	 * Advances an ISO-8601 timestamp by exactly one period of the given resolution while preserving
+	 * the literal UTC offset suffix (e.g. `+02:00`). Calendar math is done on the wall-clock
+	 * components so month/year boundaries are handled correctly regardless of the host time zone.
+	 *
+	 * @param fromIso - ISO-8601 timestamp with offset, e.g. `2026-04-20T00:00:00.000+02:00`.
+	 * @param resolution - The energy resolution defining the period length.
+	 * @returns The advanced timestamp string, or the input unchanged if it cannot be parsed.
+	 */
+	private addPeriodKeepingOffset(fromIso: string, resolution: EnergyResolution): string {
+		const match = fromIso.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2})$/);
+		if (!match) {
+			return fromIso;
+		}
+		const [, year, month, day, hour, minute, second, fraction = ``, offset] = match;
+		const dt = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second)));
+		switch (resolution) {
+			case EnergyResolution.HOURLY:
+				dt.setUTCHours(dt.getUTCHours() + 1);
+				break;
+			case EnergyResolution.DAILY:
+				dt.setUTCDate(dt.getUTCDate() + 1);
+				break;
+			case EnergyResolution.WEEKLY:
+				dt.setUTCDate(dt.getUTCDate() + 7);
+				break;
+			case EnergyResolution.MONTHLY:
+				dt.setUTCMonth(dt.getUTCMonth() + 1);
+				break;
+			case EnergyResolution.ANNUAL:
+				dt.setUTCFullYear(dt.getUTCFullYear() + 1);
+				break;
+		}
+		const pad = (n: number): string => String(n).padStart(2, `0`);
+		const date = `${dt.getUTCFullYear()}-${pad(dt.getUTCMonth() + 1)}-${pad(dt.getUTCDate())}`;
+		const time = `${pad(dt.getUTCHours())}:${pad(dt.getUTCMinutes())}:${pad(dt.getUTCSeconds())}`;
+		return `${date}T${time}${fraction}${offset}`;
 	}
 
 	/**

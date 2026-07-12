@@ -340,7 +340,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 ];
                 for (const { type, state, numCons, description } of resolutions) {
                     if (numCons && numCons > 0) {
-                        const consumption = await this.tibberQuery.getConsumption(type, numCons, homeID);
+                        const consumption = this.fixConsumptionEndDates(await this.tibberQuery.getConsumption(type, numCons, homeID), type);
                         void this.checkAndSetValue(`Homes.${homeID}.Consumption.${state}`, JSON.stringify(consumption), `Historical consumption last ${description}s as json)`, `json`);
                         if (description == `day`) {
                             const currentMonthConsumption = this.getCurrentMonthConsumption(consumption);
@@ -381,6 +381,49 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             }
         }
         return sum > 0 ? sum : undefined;
+    }
+    fixConsumptionEndDates(consumption, resolution) {
+        if (!Array.isArray(consumption)) {
+            return consumption;
+        }
+        for (let i = 0; i < consumption.length; i++) {
+            const entry = consumption[i];
+            if (!entry?.from || entry.to !== entry.from) {
+                continue;
+            }
+            const next = consumption[i + 1];
+            entry.to = next?.from && next.from !== entry.from ? next.from : this.addPeriodKeepingOffset(entry.from, resolution);
+        }
+        return consumption;
+    }
+    addPeriodKeepingOffset(fromIso, resolution) {
+        const match = fromIso.match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(\.\d+)?(Z|[+-]\d{2}:\d{2})$/);
+        if (!match) {
+            return fromIso;
+        }
+        const [, year, month, day, hour, minute, second, fraction = ``, offset] = match;
+        const dt = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second)));
+        switch (resolution) {
+            case EnergyResolution_js_1.EnergyResolution.HOURLY:
+                dt.setUTCHours(dt.getUTCHours() + 1);
+                break;
+            case EnergyResolution_js_1.EnergyResolution.DAILY:
+                dt.setUTCDate(dt.getUTCDate() + 1);
+                break;
+            case EnergyResolution_js_1.EnergyResolution.WEEKLY:
+                dt.setUTCDate(dt.getUTCDate() + 7);
+                break;
+            case EnergyResolution_js_1.EnergyResolution.MONTHLY:
+                dt.setUTCMonth(dt.getUTCMonth() + 1);
+                break;
+            case EnergyResolution_js_1.EnergyResolution.ANNUAL:
+                dt.setUTCFullYear(dt.getUTCFullYear() + 1);
+                break;
+        }
+        const pad = (n) => String(n).padStart(2, `0`);
+        const date = `${dt.getUTCFullYear()}-${pad(dt.getUTCMonth() + 1)}-${pad(dt.getUTCDate())}`;
+        const time = `${pad(dt.getUTCHours())}:${pad(dt.getUTCMinutes())}:${pad(dt.getUTCSeconds())}`;
+        return `${date}T${time}${fraction}${offset}`;
     }
     async fetchPrice(homeId, objectDestination, price) {
         const basePath = `Homes.${homeId}.${objectDestination}`;
