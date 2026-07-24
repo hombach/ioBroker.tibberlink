@@ -25,7 +25,7 @@
     "node": ">= 22.18.0"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.4.1",
+    "@iobroker/adapter-core": "^3.4.3",
     "axios": "^1.18.1",
     "cron": "^4.4.0",
     "date-fns": "^4.4.0",
