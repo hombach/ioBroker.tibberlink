@@ -48,6 +48,8 @@ interface DeviceCapability {
 	id: string;
 	value: unknown;
 	unit?: string;
+	description?: string;
+	availableValues?: string[];
 }
 
 /** Full device detail as returned by GET /homes/{homeId}/devices/{deviceId}. */
@@ -55,6 +57,7 @@ interface TibberDeviceDetail {
 	id: string;
 	externalId?: string;
 	info?: { name?: string; brand?: string; model?: string };
+	status?: { lastSeen?: string };
 	capabilities?: DeviceCapability[];
 }
 
@@ -332,6 +335,14 @@ export class TibberDataAPI extends ProjectUtils {
 			this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" caps=${JSON.stringify(detail.capabilities ?? [])}`);
 			if (this.isVehicle(detail)) {
 				await this.writeVehicleStates(detail, homeId);
+			} else if (this.isCharger(detail)) {
+				await this.writeChargerStates(detail, homeId);
+			} else {
+				// Deliberately skip unrecognized device types (e.g. future PV inverters / heat pumps)
+				// so they can be added consciously instead of being written as chargers by default.
+				this.adapter.log.debug(
+					`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" is neither vehicle nor charger — skipping (caps: ${(detail.capabilities ?? []).map(c => c.id).join(", ") || "none"})`,
+				);
 			}
 		}
 	}
@@ -339,11 +350,29 @@ export class TibberDataAPI extends ProjectUtils {
 	/**
 	 * Determines whether a device is a vehicle based on its capabilities array.
 	 *
+	 * Uses `range.remaining` (estimated driving range) as the discriminator rather than
+	 * `storage.stateOfCharge`, because a battery/PV inverter can also report a state of charge —
+	 * only a vehicle has a driving range.
+	 *
 	 * @param device - Full device detail from the detail endpoint.
-	 * @returns True if the device has a state-of-charge capability.
+	 * @returns True if the device reports a remaining driving range.
 	 */
 	private isVehicle(device: TibberDeviceDetail): boolean {
-		return device.capabilities?.some(c => c.id === "storage.stateOfCharge") ?? false;
+		return device.capabilities?.some(c => c.id === "range.remaining") ?? false;
+	}
+
+	/**
+	 * Determines whether a device is a charger (EVSE/wallbox) based on its capabilities array.
+	 *
+	 * Uses the presence of a charge-current control capability (`charging.current.*`, e.g.
+	 * `charging.current.max`) as the discriminator. `connector.status`/`charging.status` alone are
+	 * not sufficient, as vehicles report those too; only an EVSE controls the charge current.
+	 *
+	 * @param device - Full device detail from the detail endpoint.
+	 * @returns True if the device reports a charge-current control capability.
+	 */
+	private isCharger(device: TibberDeviceDetail): boolean {
+		return device.capabilities?.some(c => c.id.startsWith("charging.current.")) ?? false;
 	}
 
 	/**
@@ -391,6 +420,9 @@ export class TibberDataAPI extends ProjectUtils {
 		await this.checkAndSetChannel(basePath, displayName);
 		void this.checkAndSetValue(`${basePath}.HomeId`, homeId, "Associated home ID");
 		void this.checkAndSetValue(`${basePath}.LastUpdated`, new Date().toISOString(), "Timestamp of last data update");
+		if (device.status?.lastSeen) {
+			void this.checkAndSetValue(`${basePath}.LastSeen`, device.status.lastSeen, "Timestamp the device was last seen by Tibber", "date");
+		}
 
 		const soc = findCap("storage.stateOfCharge");
 		if (soc !== undefined) {
@@ -417,6 +449,94 @@ export class TibberDataAPI extends ProjectUtils {
 		if (chargingStatus !== undefined) {
 			void this.checkAndSetValue(`${basePath}.ChargingStatus`, String(chargingStatus.value), "Charging status", "info.status");
 		}
+	}
+
+	/**
+	 * Creates or updates ioBroker states for a charger (or any non-vehicle) device.
+	 *
+	 * Charger capabilities differ between brands (e.g. go-e vs. Wallbox Pulsar Plus), so instead of a
+	 * fixed curated mapping this writes every reported capability generically: one state per capability,
+	 * named after its (sanitized) capability id, typed by the reported value and labelled with the
+	 * API-provided description. This way any charger surfaces all of its data without code changes.
+	 *
+	 * @param device - Full device detail from the Tibber Data API detail endpoint.
+	 * @param homeId - The home ID the charger is associated with.
+	 */
+	private async writeChargerStates(device: TibberDeviceDetail, homeId: string): Promise<void> {
+		const key = this.parseDeviceKey(device.externalId, device.id);
+		const displayName = device.info?.name ?? key;
+		const caps = device.capabilities ?? [];
+
+		this.adapter.log.debug(`[tibberDataAPI]: writing states for charger "${displayName}" (${key}), caps: ${caps.map(c => c.id).join(", ") || "none"}`);
+		const basePath = `Chargers.${key}`;
+
+		await this.checkAndSetDevice("Chargers");
+		await this.checkAndSetChannel(basePath, displayName);
+		void this.checkAndSetValue(`${basePath}.HomeId`, homeId, "Associated home ID");
+		void this.checkAndSetValue(`${basePath}.LastUpdated`, new Date().toISOString(), "Timestamp of last data update");
+		if (device.status?.lastSeen) {
+			void this.checkAndSetValue(`${basePath}.LastSeen`, device.status.lastSeen, "Timestamp the device was last seen by Tibber", "date");
+		}
+		if (device.info?.brand) {
+			void this.checkAndSetValue(`${basePath}.Brand`, device.info.brand, "Charger brand");
+		}
+		if (device.info?.model) {
+			void this.checkAndSetValue(`${basePath}.Model`, device.info.model, "Charger model");
+		}
+
+		for (const cap of caps) {
+			this.writeCapabilityState(basePath, cap);
+		}
+	}
+
+	/**
+	 * Writes a single device capability to an ioBroker state, choosing the state type from the
+	 * reported value: boolean → indicator, number (or numeric string) → value, anything else → text
+	 * (objects/arrays are serialized to JSON).
+	 *
+	 * @param basePath - The device's base state path (e.g. `Chargers.<id>`).
+	 * @param cap - The capability entry to write.
+	 */
+	private writeCapabilityState(basePath: string, cap: DeviceCapability): void {
+		const stateName = `${basePath}.${this.sanitizeId(cap.id)}`;
+		const description = cap.description ?? cap.id;
+		const value = cap.value;
+
+		if (typeof value === "boolean") {
+			void this.checkAndSetValueBoolean(stateName, value, description);
+			return;
+		}
+		if (typeof value === "number") {
+			void this.checkAndSetValueNumber(stateName, value, description, cap.unit);
+			return;
+		}
+		if (typeof value === "string") {
+			const numeric = Number(value);
+			if (value.trim() !== "" && !Number.isNaN(numeric)) {
+				void this.checkAndSetValueNumber(stateName, numeric, description, cap.unit);
+			} else {
+				void this.checkAndSetValue(stateName, value, description, "info.status");
+			}
+			return;
+		}
+		if (value !== null && value !== undefined) {
+			void this.checkAndSetValue(stateName, JSON.stringify(value), description, "json");
+		}
+	}
+
+	/**
+	 * Derives a stable, path-safe key for a device from its externalId (`vendor:serial`) or, if absent,
+	 * from its device id.
+	 *
+	 * @param externalId - Raw externalId string from the Tibber device, if any.
+	 * @param fallbackId - The device id to use when no externalId is present.
+	 * @returns Sanitized key suitable for an ioBroker state path.
+	 */
+	private parseDeviceKey(externalId: string | undefined, fallbackId: string): string {
+		const source = externalId ?? fallbackId;
+		const colonIndex = source.indexOf(":");
+		const raw = colonIndex >= 0 ? source.slice(colonIndex + 1) : source;
+		return this.sanitizeId(raw);
 	}
 
 	/**
