@@ -189,10 +189,19 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
             if (this.isVehicle(detail)) {
                 await this.writeVehicleStates(detail, homeId);
             }
+            else if (this.isCharger(detail)) {
+                await this.writeChargerStates(detail, homeId);
+            }
+            else {
+                this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" is neither vehicle nor charger — skipping (caps: ${(detail.capabilities ?? []).map(c => c.id).join(", ") || "none"})`);
+            }
         }
     }
     isVehicle(device) {
-        return device.capabilities?.some(c => c.id === "storage.stateOfCharge") ?? false;
+        return device.capabilities?.some(c => c.id === "range.remaining") ?? false;
+    }
+    isCharger(device) {
+        return device.capabilities?.some(c => c.id.startsWith("charging.current.")) ?? false;
     }
     sanitizeId(id) {
         return id.replace(/[^a-zA-Z0-9_-]/g, "_");
@@ -216,6 +225,9 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
         await this.checkAndSetChannel(basePath, displayName);
         void this.checkAndSetValue(`${basePath}.HomeId`, homeId, "Associated home ID");
         void this.checkAndSetValue(`${basePath}.LastUpdated`, new Date().toISOString(), "Timestamp of last data update");
+        if (device.status?.lastSeen) {
+            void this.checkAndSetValue(`${basePath}.LastSeen`, device.status.lastSeen, "Timestamp the device was last seen by Tibber", "date");
+        }
         const soc = findCap("storage.stateOfCharge");
         if (soc !== undefined) {
             void this.checkAndSetValueNumber(`${basePath}.StateOfCharge`, Number(soc.value), "State of charge in %", "%", "value.battery");
@@ -237,6 +249,61 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
         if (chargingStatus !== undefined) {
             void this.checkAndSetValue(`${basePath}.ChargingStatus`, String(chargingStatus.value), "Charging status", "info.status");
         }
+    }
+    async writeChargerStates(device, homeId) {
+        const key = this.parseDeviceKey(device.externalId, device.id);
+        const displayName = device.info?.name ?? key;
+        const caps = device.capabilities ?? [];
+        this.adapter.log.debug(`[tibberDataAPI]: writing states for charger "${displayName}" (${key}), caps: ${caps.map(c => c.id).join(", ") || "none"}`);
+        const basePath = `Chargers.${key}`;
+        await this.checkAndSetDevice("Chargers");
+        await this.checkAndSetChannel(basePath, displayName);
+        void this.checkAndSetValue(`${basePath}.HomeId`, homeId, "Associated home ID");
+        void this.checkAndSetValue(`${basePath}.LastUpdated`, new Date().toISOString(), "Timestamp of last data update");
+        if (device.status?.lastSeen) {
+            void this.checkAndSetValue(`${basePath}.LastSeen`, device.status.lastSeen, "Timestamp the device was last seen by Tibber", "date");
+        }
+        if (device.info?.brand) {
+            void this.checkAndSetValue(`${basePath}.Brand`, device.info.brand, "Charger brand");
+        }
+        if (device.info?.model) {
+            void this.checkAndSetValue(`${basePath}.Model`, device.info.model, "Charger model");
+        }
+        for (const cap of caps) {
+            this.writeCapabilityState(basePath, cap);
+        }
+    }
+    writeCapabilityState(basePath, cap) {
+        const stateName = `${basePath}.${this.sanitizeId(cap.id)}`;
+        const description = cap.description ?? cap.id;
+        const value = cap.value;
+        if (typeof value === "boolean") {
+            void this.checkAndSetValueBoolean(stateName, value, description);
+            return;
+        }
+        if (typeof value === "number") {
+            void this.checkAndSetValueNumber(stateName, value, description, cap.unit);
+            return;
+        }
+        if (typeof value === "string") {
+            const numeric = Number(value);
+            if (value.trim() !== "" && !Number.isNaN(numeric)) {
+                void this.checkAndSetValueNumber(stateName, numeric, description, cap.unit);
+            }
+            else {
+                void this.checkAndSetValue(stateName, value, description, "info.status");
+            }
+            return;
+        }
+        if (value !== null && value !== undefined) {
+            void this.checkAndSetValue(stateName, JSON.stringify(value), description, "json");
+        }
+    }
+    parseDeviceKey(externalId, fallbackId) {
+        const source = externalId ?? fallbackId;
+        const colonIndex = source.indexOf(":");
+        const raw = colonIndex >= 0 ? source.slice(colonIndex + 1) : source;
+        return this.sanitizeId(raw);
     }
     async saveRefreshToken(token) {
         await this.adapter.setStateAsync(REFRESH_TOKEN_STATE_ID, { val: token, ack: true });
