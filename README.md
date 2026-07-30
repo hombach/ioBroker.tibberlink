@@ -256,8 +256,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.2.0 (2026-07-30)
 
 - (HombachC) added polling of charger/wallbox devices from the Tibber Data API, written to `Chargers.<id>.*` (#925)
 - (HombachC) added a `LastSeen` state (device-reported last-seen timestamp) for vehicles and chargers
@@ -287,11 +286,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) updated adapter-core
 - (HombachC) fixed adapter checker warnings
 - (HombachC) updated dependencies
-
-### 7.1.1 (2026-06-07)
-
-- (HombachC) optimized vehicle states
-- (HombachC) fixed adapter checker warnings
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
