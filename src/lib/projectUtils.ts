@@ -1,5 +1,9 @@
 import type * as utils from "@iobroker/adapter-core";
 
+// ─────────────────────────────────────────────────────────────────────────────────────────────
+// ADAPTER-SPECIFIC SECTION — only for ioBroker.tibberlink. Do NOT copy to other adapters.
+// ─────────────────────────────────────────────────────────────────────────────────────────────
+
 export enum enCalcType {
 	BestCost = 1,
 	BestSingleHours = 2,
@@ -50,6 +54,15 @@ export interface IHomeInfo {
 	PriceDataPollActive: boolean;
 }
 
+/* ═══════════════════════════════════════════════════════════════════════════════════════════════
+ * ║  SHARED REGION — class ProjectUtils                                                            ║
+ * ║  Keep this block IDENTICAL across all of my own ioBroker adapters                              ║
+ * ║  (tibberlink, go-e-charger, chargemaster, goodwe-pv, teslafi, …).                              ║
+ * ║  Everything ABOVE this banner is adapter-specific and must NOT be copied.                      ║
+ * ║  When you change anything below, bump the date and propagate the block to the other adapters.  ║
+ * ║  Last changed: 2026-08-09                                                                      ║
+ * ═══════════════════════════════════════════════════════════════════════════════════════════════ */
+
 /**
  * ProjectUtils
  */
@@ -66,12 +79,25 @@ export class ProjectUtils {
 	}
 
 	/**
+	 * Replaces all characters not allowed in ioBroker object IDs with an underscore.
+	 *
+	 * Use this whenever a segment of an object ID is built from external data,
+	 * e.g. names or IDs received from a device API.
+	 *
+	 * @param text - The raw text to be used as part of an object ID.
+	 * @returns The sanitized text, safe for use in object IDs.
+	 */
+	sanitizeIdSegment(text: string): string {
+		return text.replace(this.adapter.FORBIDDEN_CHARS, "_").trim();
+	}
+
+	/**
 	 * Retrieves the value of a given state by its name.
 	 *
 	 * @param stateName - A string representing the name of the state to retrieve.
 	 * @returns A Promise that resolves with the value of the state if it exists, otherwise resolves with null.
 	 */
-	protected async getStateValue(stateName: string): Promise<any> {
+	async getStateValue(stateName: string): Promise<any> {
 		try {
 			const stateObject = await this.getState(stateName);
 			return stateObject?.val ?? null; // errors have already been handled in getState()
@@ -144,7 +170,7 @@ export class ProjectUtils {
 	 * @param stateName - Full path to state, like 0_userdata.0.other.isSummer
 	 * @returns State object: {val: false, ack: true, ts: 1591117034451, …}, or null if error
 	 */
-	private async asyncGetForeignState(stateName: string): Promise<ioBroker.State | null | undefined> {
+	private async asyncGetForeignState(stateName: string): Promise<ioBroker.State | null> {
 		try {
 			const stateObject = await this.adapter.getForeignObjectAsync(stateName); // Check state existence
 			if (!stateObject) {
@@ -153,7 +179,7 @@ export class ProjectUtils {
 				// Get state value, so like: {val: false, ack: true, ts: 1591117034451, …}
 				const stateValueObject = await this.adapter.getForeignStateAsync(stateName);
 				if (!this.isLikeEmpty(stateValueObject)) {
-					return stateValueObject;
+					return stateValueObject ?? null;
 				}
 				throw new Error(`Unable to retrieve info from state '${stateName}'.`);
 			}
@@ -195,7 +221,7 @@ export class ProjectUtils {
 	 * @param forceMode - Optional boolean indicating if the state should be reinitiated if it already exists (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	protected async checkAndSetValue(
+	async checkAndSetValue(
 		stateName: string,
 		value: string,
 		description = "-",
@@ -213,8 +239,10 @@ export class ProjectUtils {
 				read: true,
 				write: writeable,
 			};
+			// forceMode uses extendObject (merge) instead of setObject, so user customizations
+			// (e.g. history/logging settings) on the state are preserved across restarts (see #927 / S5054).
 			await (forceMode
-				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				? this.adapter.extendObject(stateName, { type: "state", common: commonObj, native: {} })
 				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
 
 			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
@@ -239,7 +267,7 @@ export class ProjectUtils {
 	 * @param step - Optional number setting value step
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	protected async checkAndSetValueNumber(
+	async checkAndSetValueNumber(
 		stateName: string,
 		value: number,
 		description = "-",
@@ -260,20 +288,15 @@ export class ProjectUtils {
 				desc: description,
 				read: true,
 				write: writeable,
-				// Add unit only if it's provided and not null or undefined
-				...((unit ?? undefined) ? { unit } : {}),
-				// Add minimum, maximum and step for value only if it's provided and not null or undefined
-				...((min ?? undefined) ? { min } : {}),
-				...((max ?? undefined) ? { max } : {}),
-				...((step ?? undefined) ? { step } : {}),
+				// Add unit, min, max and step only if provided and not null/undefined — note that 0 is a valid value!
+				...(unit != null ? { unit } : {}),
+				...(min != null ? { min } : {}),
+				...(max != null ? { max } : {}),
+				...(step != null ? { step } : {}),
 			};
-			// Add unit only if it's provided
-			if (unit != null) {
-				commonObj.unit = unit;
-			}
 
 			await (forceMode
-				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				? this.adapter.extendObject(stateName, { type: "state", common: commonObj, native: {} })
 				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
 
 			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
@@ -294,7 +317,7 @@ export class ProjectUtils {
 	 * @param forceMode - Optional boolean indicating if the state should be overwritten if it already exists (default is false).
 	 * @returns A Promise that resolves when the state is checked, created (if necessary), and updated.
 	 */
-	protected async checkAndSetValueBoolean(
+	async checkAndSetValueBoolean(
 		stateName: string,
 		value: boolean,
 		description = "-",
@@ -314,7 +337,7 @@ export class ProjectUtils {
 			};
 
 			await (forceMode
-				? this.adapter.setObject(stateName, { type: "state", common: commonObj, native: {} })
+				? this.adapter.extendObject(stateName, { type: "state", common: commonObj, native: {} })
 				: this.adapter.setObjectNotExistsAsync(stateName, { type: "state", common: commonObj, native: {} }));
 
 			if (!dontUpdate || !(await this.adapter.getStateAsync(stateName))) {
@@ -342,7 +365,7 @@ export class ProjectUtils {
 			commonObj.icon = icon;
 		}
 		await (forceMode
-			? this.adapter.setObject(folderObjectName, {
+			? this.adapter.extendObject(folderObjectName, {
 					type: "folder",
 					common: commonObj,
 					native: {},
@@ -378,7 +401,7 @@ export class ProjectUtils {
 			commonObj.icon = icon;
 		}
 		await (forceMode
-			? this.adapter.setObject(deviceObjectName, {
+			? this.adapter.extendObject(deviceObjectName, {
 					type: "device",
 					common: commonObj,
 					native: {},
@@ -408,7 +431,7 @@ export class ProjectUtils {
 			commonObj.icon = icon;
 		}
 		await (forceMode
-			? this.adapter.setObject(channelObjectName, {
+			? this.adapter.extendObject(channelObjectName, {
 					type: "channel",
 					common: commonObj,
 					native: {},
@@ -427,23 +450,30 @@ export class ProjectUtils {
 	 * @param context - A string providing context for where the error occurred.
 	 * @returns A string representing the formatted error message.
 	 */
-	public generateErrorMessage(error: any, context: string): string {
+	public generateErrorMessage(error: unknown, context: string): string {
 		let errorMessages = "";
+		// narrow the unknown error to the optional shape we read from
+		const err = (error ?? {}) as {
+			errors?: { message?: string }[];
+			message?: string;
+			statusMessage?: string;
+			statusText?: string;
+		};
 		// Check if error object has an 'errors' property that is an array
-		if (error.errors && Array.isArray(error.errors)) {
+		if (err.errors && Array.isArray(err.errors)) {
 			// Iterate over the array of errors and concatenate their messages
-			for (const err of error.errors) {
+			for (const e of err.errors) {
 				if (errorMessages) {
 					errorMessages += ", ";
 				}
-				errorMessages += err.message;
+				errorMessages += e.message;
 			}
-		} else if (error.message) {
-			errorMessages = error.message; // If 'errors' array is not present, use the 'message' property of the error object
+		} else if (err.message) {
+			errorMessages = err.message; // If 'errors' array is not present, use the 'message' property of the error object
 		} else {
 			errorMessages = "Unknown error"; // If no 'errors' or 'message' property is found, default to "Unknown error"
 		}
 		// Construct the final error message string with status, context, and error messages
-		return `Error (${error.statusMessage || error.statusText || "Unknown Status"}) occurred during: -${context}- : ${errorMessages}`;
+		return `Error (${err.statusMessage || err.statusText || "Unknown Status"}) occurred during: -${context}- : ${errorMessages}`;
 	}
 }

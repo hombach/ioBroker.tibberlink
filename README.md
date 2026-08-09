@@ -259,6 +259,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) projectUtils: use extendObject instead of setObject in forceMode so user customizations survive restarts (#927)
+- (HombachC) projectUtils: fixed min/max/step value of 0 being dropped from number state definitions
 - (HombachC) updated tibber-api to 5.6.0
 - (HombachC) updated dependencies
 

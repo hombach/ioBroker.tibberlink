@@ -80,6 +80,10 @@ export function createMockAdapter(config: Record<string, unknown> = {}): {
 			store.objects[id] = obj;
 			cb?.(null);
 		},
+		extendObject: (id: string, obj: object): Promise<void> => {
+			store.objects[id] = { ...(store.objects[id] ?? {}), ...obj };
+			return Promise.resolve();
+		},
 		extendObjectAsync: (id: string, obj: object): Promise<void> => {
 			store.objects[id] = { ...(store.objects[id] ?? {}), ...obj };
 			return Promise.resolve();
