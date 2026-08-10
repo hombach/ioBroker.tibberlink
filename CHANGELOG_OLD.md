@@ -17,6 +17,15 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+## 7.1.2 (2026-06-19)
+
+- (HombachC) fixed adapter crash on null liveMeasurement from Tibber feed (#910)
+- (HombachC) improved vehicles & chargers OAuth2 setup documentation
+- (HombachC) fixed setInterval/clearInterval to use adapter-managed variants
+- (HombachC) removed yarn dependency, replaced with npm in release script
+- (HombachC) updated adapter-core
+- (HombachC) fixed adapter checker warnings
+- (HombachC) updated dependencies
 
 ## 7.1.1 (2026-06-07)
 
