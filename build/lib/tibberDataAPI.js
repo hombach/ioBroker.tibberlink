@@ -184,16 +184,21 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
         const devices = await this.fetchDevices(accessToken, homeId);
         this.adapter.log.debug(`[tibberDataAPI]: home ${homeId} — found ${devices.length} device(s)`);
         for (const device of devices) {
-            const detail = await this.fetchDevice(accessToken, homeId, device.id);
-            this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" caps=${JSON.stringify(detail.capabilities ?? [])}`);
-            if (this.isVehicle(detail)) {
-                await this.writeVehicleStates(detail, homeId);
+            try {
+                const detail = await this.fetchDevice(accessToken, homeId, device.id);
+                this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" caps=${JSON.stringify(detail.capabilities ?? [])}`);
+                if (this.isVehicle(detail)) {
+                    await this.writeVehicleStates(detail, homeId);
+                }
+                else if (this.isCharger(detail)) {
+                    await this.writeChargerStates(detail, homeId);
+                }
+                else {
+                    this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" is neither vehicle nor charger — skipping (caps: ${(detail.capabilities ?? []).map(c => c.id).join(", ") || "none"})`);
+                }
             }
-            else if (this.isCharger(detail)) {
-                await this.writeChargerStates(detail, homeId);
-            }
-            else {
-                this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" is neither vehicle nor charger — skipping (caps: ${(detail.capabilities ?? []).map(c => c.id).join(", ") || "none"})`);
+            catch (error) {
+                this.adapter.log.warn(`[tibberDataAPI]: failed to process device ${device.id}: ${error.message}`);
             }
         }
     }
@@ -300,10 +305,18 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
         }
     }
     parseDeviceKey(externalId, fallbackId) {
-        const source = externalId ?? fallbackId;
-        const colonIndex = source.indexOf(":");
-        const raw = colonIndex >= 0 ? source.slice(colonIndex + 1) : source;
-        return this.sanitizeId(raw);
+        for (const source of [externalId, fallbackId]) {
+            if (!source || source.trim() === "") {
+                continue;
+            }
+            const colonIndex = source.indexOf(":");
+            const raw = colonIndex >= 0 ? source.slice(colonIndex + 1) : source;
+            const key = this.sanitizeId(raw).replace(/^[_-]+|[_-]+$/g, "");
+            if (key !== "") {
+                return key;
+            }
+        }
+        return "unknown";
     }
     async saveRefreshToken(token) {
         await this.adapter.setStateAsync(REFRESH_TOKEN_STATE_ID, { val: token, ack: true });

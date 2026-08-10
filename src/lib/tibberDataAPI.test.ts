@@ -69,4 +69,32 @@ describe("TibberDataAPI – writeChargerStates (#925)", () => {
 		assert.strictEqual((api as unknown as Detector).isCharger(GOE_CHARGER), true);
 		assert.strictEqual((api as unknown as Detector).isVehicle(GOE_CHARGER), false);
 	});
+
+	// Wallbox Pulsar Plus reports an EMPTY externalId (#925 tester feedback) → must fall back to the
+	// device id instead of producing an invalid state path "Chargers." (id ending in ".").
+	it("falls back to the device id when externalId is empty", async () => {
+		const { adapter, store } = makeDataApi();
+		const api = new TibberDataAPI(adapter);
+		const pulsar = {
+			id: "wallbox-abc-123",
+			externalId: "",
+			info: { name: "PulsarPlus SN 161722" },
+			capabilities: [
+				{ id: "connector.status", description: "charger connector status", value: "connected", availableValues: ["connected", "disconnected", "unknown"] },
+				{ id: "charging.status", description: "charger charging status", value: "idle", availableValues: ["charging", "idle", "unknown"] },
+				{ id: "charging.current.max", description: "maximum allowed charge current", value: 16, unit: "A" },
+				{ id: "charging.current.offlineFallback", description: "fallback current if charger goes offline", value: 0, unit: "A" },
+			],
+		};
+
+		await (api as unknown as ChargerWriter).writeChargerStates(pulsar, "home-1");
+		await drainMicrotasks();
+
+		const base = "Chargers.wallbox-abc-123";
+		assert.strictEqual(store.states[`${base}.charging_current_max`], 16);
+		assert.strictEqual(store.states[`${base}.connector_status`], "connected");
+		assert.strictEqual(store.states[`${base}.HomeId`], "home-1");
+		// no invalid "Chargers." channel must be created
+		assert.strictEqual(store.objects["Chargers."], undefined);
+	});
 });

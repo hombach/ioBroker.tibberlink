@@ -331,18 +331,23 @@ export class TibberDataAPI extends ProjectUtils {
 		const devices = await this.fetchDevices(accessToken, homeId);
 		this.adapter.log.debug(`[tibberDataAPI]: home ${homeId} — found ${devices.length} device(s)`);
 		for (const device of devices) {
-			const detail = await this.fetchDevice(accessToken, homeId, device.id);
-			this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" caps=${JSON.stringify(detail.capabilities ?? [])}`);
-			if (this.isVehicle(detail)) {
-				await this.writeVehicleStates(detail, homeId);
-			} else if (this.isCharger(detail)) {
-				await this.writeChargerStates(detail, homeId);
-			} else {
-				// Deliberately skip unrecognized device types (e.g. future PV inverters / heat pumps)
-				// so they can be added consciously instead of being written as chargers by default.
-				this.adapter.log.debug(
-					`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" is neither vehicle nor charger — skipping (caps: ${(detail.capabilities ?? []).map(c => c.id).join(", ") || "none"})`,
-				);
+			// Isolate each device: a single malformed device must not abort the whole poll.
+			try {
+				const detail = await this.fetchDevice(accessToken, homeId, device.id);
+				this.adapter.log.debug(`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" caps=${JSON.stringify(detail.capabilities ?? [])}`);
+				if (this.isVehicle(detail)) {
+					await this.writeVehicleStates(detail, homeId);
+				} else if (this.isCharger(detail)) {
+					await this.writeChargerStates(detail, homeId);
+				} else {
+					// Deliberately skip unrecognized device types (e.g. future PV inverters / heat pumps)
+					// so they can be added consciously instead of being written as chargers by default.
+					this.adapter.log.debug(
+						`[tibberDataAPI]: device "${detail.info?.name ?? detail.id}" is neither vehicle nor charger — skipping (caps: ${(detail.capabilities ?? []).map(c => c.id).join(", ") || "none"})`,
+					);
+				}
+			} catch (error) {
+				this.adapter.log.warn(`[tibberDataAPI]: failed to process device ${device.id}: ${(error as Error).message}`);
 			}
 		}
 	}
@@ -525,18 +530,32 @@ export class TibberDataAPI extends ProjectUtils {
 	}
 
 	/**
-	 * Derives a stable, path-safe key for a device from its externalId (`vendor:serial`) or, if absent,
-	 * from its device id.
+	 * Derives a stable, path-safe key for a device from its externalId (`vendor:serial`) or, if absent
+	 * or empty, from its device id.
+	 *
+	 * The externalId may be missing OR an empty string (the Wallbox Pulsar Plus reports an empty
+	 * externalId, #925), so a plain `??` fallback is not enough — an empty/blank candidate must fall
+	 * through to the next one. A key that sanitizes to empty (which would produce an invalid id ending
+	 * in ".") is rejected.
 	 *
 	 * @param externalId - Raw externalId string from the Tibber device, if any.
-	 * @param fallbackId - The device id to use when no externalId is present.
-	 * @returns Sanitized key suitable for an ioBroker state path.
+	 * @param fallbackId - The device id to use when no usable externalId is present.
+	 * @returns Sanitized key suitable for an ioBroker state path, or "unknown" if nothing usable.
 	 */
 	private parseDeviceKey(externalId: string | undefined, fallbackId: string): string {
-		const source = externalId ?? fallbackId;
-		const colonIndex = source.indexOf(":");
-		const raw = colonIndex >= 0 ? source.slice(colonIndex + 1) : source;
-		return this.sanitizeId(raw);
+		for (const source of [externalId, fallbackId]) {
+			if (!source || source.trim() === "") {
+				continue;
+			}
+			const colonIndex = source.indexOf(":");
+			const raw = colonIndex >= 0 ? source.slice(colonIndex + 1) : source;
+			// sanitize, then strip leading/trailing separators so the key can never be empty or dot-ended
+			const key = this.sanitizeId(raw).replace(/^[_-]+|[_-]+$/g, "");
+			if (key !== "") {
+				return key;
+			}
+		}
+		return "unknown";
 	}
 
 	/**
