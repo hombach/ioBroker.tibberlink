@@ -71,12 +71,32 @@ const EMH_EHZB_HEX =
 	"070100020800ff01726201650000a401621e520369000000000000002e01010163ddea00" +
 	"76050001b85e62006200726302017101636f720000001b1b1b1b1a020b62";
 
+// eBZ DD3 (EBZ5DD32R06DTA_107) — plain OBIS text telegram (IEC 62056-21).
+// Same meter family reports meter_mode=5 in issue #931; the ASCII parser must
+// extract states from it (before the fix, mode 5 fell through to the SML parser).
+const EBZ_MODE5_HEX =
+	"2f45425a35444433325230364454415f3130370d0a312d303a302e302e302a323535283145425a30313031303033313331290d0a" +
+	"312d303a39362e312e302a323535283145425a30313031303033313331290d0a" +
+	"312d303a312e382e302a323535283030373435392e37383437313635322a6b5768290d0a" +
+	"312d303a312e382e312a323535283030303030312e3030332a6b5768290d0a" +
+	"312d303a312e382e322a323535283030373435382e3738312a6b5768290d0a" +
+	"312d303a322e382e302a323535283032373532312e33393931323739342a6b5768290d0a" +
+	"312d303a31362e372e302a323535283030303030322e36392a57290d0a" +
+	"312d303a33362e372e302a323535283030303133352e39352a57290d0a" +
+	"312d303a35362e372e302a323535283030303233392e39312a57290d0a" +
+	"312d303a37362e372e302a323535282d3030303337332e31372a57290d0a" +
+	"312d303a33322e372e302a323535283233362e312a56290d0a" +
+	"312d303a35322e372e302a323535283233352e372a56290d0a" +
+	"312d303a37322e372e302a323535283233392e312a56290d0a" +
+	"312d303a39362e352e302a323535283030314334313034290d0a" +
+	"302d303a39362e382e302a323535283036344641453235290d0a210d0a";
+
 function makePulseAdapter(): ReturnType<typeof createMockAdapter> {
 	return createMockAdapter({ PulseList: [{ puName: "Test Pulse" }] });
 }
 
 type SmlParser = { extractAndParseSMLMessages(p: number, t: string, f: boolean): void };
-type AsciiParser = { extractAndParseMode1_4Messages(p: number, t: string, f: boolean): void };
+type AsciiParser = { extractAndParseAsciiMessages(p: number, t: string, f: boolean): void };
 
 function parseSml(hex: string): ReturnType<typeof createMockAdapter>["store"] {
 	const { adapter, store } = makePulseAdapter();
@@ -100,14 +120,30 @@ describe("TibberLocal – extractAndParseSMLMessages (issue #912 EMH regression)
 		assert.strictEqual(store.states["LocalPulse.0.Export_total"], 7997.9);
 	});
 
-	it("mode-1/4 ASCII parser yields no states for binary SML data (root cause of #912)", async () => {
+	it("ASCII/OBIS parser yields no states for binary SML data (root cause of #912)", async () => {
 		// Confirms the bug: routing binary SML to the ASCII parser silently produces nothing
 		const { adapter, store } = makePulseAdapter();
 		const local = new TibberLocal(adapter);
-		(local as unknown as AsciiParser).extractAndParseMode1_4Messages(0, EMH_ISSUE_912_HEX, true);
+		(local as unknown as AsciiParser).extractAndParseAsciiMessages(0, EMH_ISSUE_912_HEX, true);
 		await drainMicrotasks();
 
 		assert.strictEqual(store.states["LocalPulse.0.Power"], undefined);
+	});
+});
+
+describe("TibberLocal – extractAndParseAsciiMessages (eBZ plain OBIS, issue #931 mode 5)", () => {
+	it("extracts Power, Import_total and Export_total from plain OBIS text telegram", async () => {
+		const { adapter, store } = makePulseAdapter();
+		const local = new TibberLocal(adapter);
+		(local as unknown as AsciiParser).extractAndParseAsciiMessages(0, EBZ_MODE5_HEX, true);
+		await drainMicrotasks();
+
+		// 1-0:16.7.0(000002.69*W) — instantaneous power, rounded to 1 decimal
+		assert.strictEqual(store.states["LocalPulse.0.Power"], 2.7);
+		// 1-0:1.8.0(007459.78471652*kWh) — import energy
+		assert.strictEqual(store.states["LocalPulse.0.Import_total"], 7459.8);
+		// 1-0:2.8.0(027521.39912794*kWh) — export energy
+		assert.strictEqual(store.states["LocalPulse.0.Export_total"], 27521.4);
 	});
 });
 

@@ -93,17 +93,18 @@ export class TibberLocal extends ProjectUtils {
 							this.adapter.log.debug(`[tibberLocal]: trying to parse meter mode ${this.meterMode}`);
 							switch (this.meterMode) {
 								case 1:
-									this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
+									this.extractAndParseAsciiMessages(pulse, hexString, firstDataRun);
 									break;
 								case 3:
 									this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
 									break;
 								case 4:
+								case 5:
 									if (hexString.toLowerCase().startsWith("1b1b1b1b")) {
-										this.adapter.log.debug(`[tibberLocal]: meter_mode 4 but binary SML detected — using mode 3 parser`);
+										this.adapter.log.debug(`[tibberLocal]: meter_mode ${this.meterMode} but binary SML detected — using mode 3 parser`);
 										this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
 									} else {
-										this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
+										this.extractAndParseAsciiMessages(pulse, hexString, firstDataRun);
 									}
 									break;
 								default:
@@ -276,7 +277,7 @@ export class TibberLocal extends ProjectUtils {
 								firstTime,
 							);
 							this.meterMode = obj[key];
-							if (![1, 3, 4].includes(obj[key])) {
+							if (![1, 3, 4, 5].includes(obj[key])) {
 								this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
 							}
 						}
@@ -543,17 +544,18 @@ export class TibberLocal extends ProjectUtils {
 	}
 
 	/**
-	 * Extracts and parses Mode 1 and 4 energy meter messages from a hexadecimal string.
+	 * Extracts and parses plain-text (ASCII) OBIS energy meter messages from a hexadecimal string.
 	 *
-	 * This method takes a hexadecimal string representing Mode 1 or 4 meter messages, converts it to an ASCII string,
-	 * and then parses the string to extract relevant measurement data. The extracted data includes the name,
-	 * value, and unit of each measurement, which are then processed and logged.
+	 * Used for all meters that transmit their telegram as plain IEC 62056-21 / OBIS text rather than
+	 * binary SML — this covers meter modes 1, 4 and 5. The hexadecimal string is converted to an ASCII
+	 * string and parsed line by line to extract the name, value and unit of each measurement, which are
+	 * then processed and logged.
 	 *
 	 * @param pulse - An identifier for the pulse.
-	 * @param transfer - A string representing the hexadecimal Mode 1 or 4 messages to be parsed.
+	 * @param transfer - A string representing the hexadecimal ASCII/OBIS messages to be parsed.
 	 * @param forceMode - An optional boolean indicating whether to force the mode (default is false).
 	 */
-	private extractAndParseMode1_4Messages(pulse: number, transfer: string, forceMode = false): void {
+	private extractAndParseAsciiMessages(pulse: number, transfer: string, forceMode = false): void {
 		/**
 		 * Represents the result of parsing a pulse signal.
 		 */
@@ -620,7 +622,7 @@ export class TibberLocal extends ProjectUtils {
 				}
 			}
 		}
-		this.adapter.log.debug(`[tibberLocal]: Pulse mode 1 or 4 parse result: ${JSON.stringify(PulseParseResults)}`);
+		this.adapter.log.debug(`[tibberLocal]: Pulse ASCII/OBIS (mode 1/4/5) parse result: ${JSON.stringify(PulseParseResults)}`);
 	}
 
 	/**

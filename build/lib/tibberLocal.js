@@ -58,18 +58,19 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                         this.adapter.log.debug(`[tibberLocal]: trying to parse meter mode ${this.meterMode}`);
                         switch (this.meterMode) {
                             case 1:
-                                this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
+                                this.extractAndParseAsciiMessages(pulse, hexString, firstDataRun);
                                 break;
                             case 3:
                                 this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
                                 break;
                             case 4:
+                            case 5:
                                 if (hexString.toLowerCase().startsWith("1b1b1b1b")) {
-                                    this.adapter.log.debug(`[tibberLocal]: meter_mode 4 but binary SML detected — using mode 3 parser`);
+                                    this.adapter.log.debug(`[tibberLocal]: meter_mode ${this.meterMode} but binary SML detected — using mode 3 parser`);
                                     this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
                                 }
                                 else {
-                                    this.extractAndParseMode1_4Messages(pulse, hexString, firstDataRun);
+                                    this.extractAndParseAsciiMessages(pulse, hexString, firstDataRun);
                                 }
                                 break;
                             default:
@@ -162,7 +163,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                         if (typeof obj[key] === "number") {
                             void this.checkAndSetValueNumber(`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`, Math.round(obj[key] * 10) / 10, `Mode of your Pulse to grid-meter communication`, ``, `value`, false, false, firstTime);
                             this.meterMode = obj[key];
-                            if (![1, 3, 4].includes(obj[key])) {
+                            if (![1, 3, 4, 5].includes(obj[key])) {
                                 this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
                             }
                         }
@@ -289,7 +290,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.debug(`[tibberLocal]: Format for https://tasmota-sml-parser.dicp.net :\n ${output.join("")}`);
         }
     }
-    extractAndParseMode1_4Messages(pulse, transfer, forceMode = false) {
+    extractAndParseAsciiMessages(pulse, transfer, forceMode = false) {
         const PulseParseResults = [];
         const asciTransfer = hexToAscii(transfer);
         const lines = asciTransfer.split("\r\n");
@@ -313,7 +314,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                 }
             }
         }
-        this.adapter.log.debug(`[tibberLocal]: Pulse mode 1 or 4 parse result: ${JSON.stringify(PulseParseResults)}`);
+        this.adapter.log.debug(`[tibberLocal]: Pulse ASCII/OBIS (mode 1/4/5) parse result: ${JSON.stringify(PulseParseResults)}`);
     }
     isValidUnixTimestampAndConvert(n) {
         const currentTime = Math.floor(Date.now() / 1000);

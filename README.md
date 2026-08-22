@@ -172,6 +172,21 @@ https://github.com/marq24/ha-tibber-pulse-local
 
 If everything works correctly, the meter data will be written to ioBroker states every 2 seconds.
 
+### Supported meter modes
+
+The Tibber Bridge reports a `meter_mode` for the attached grid meter. The adapter supports both telegram
+encodings used by common meters:
+
+| `meter_mode` | Encoding | Example meters |
+| --- | --- | --- |
+| 1 | Plain OBIS text | ZPA GH305 |
+| 3 | Binary SML | ISKRA, EasyMeter, EMH, EFR |
+| 4 | Plain OBIS text (or binary SML on some EMH meters) | eBZ DD3 |
+| 5 | Plain OBIS text | eBZ |
+
+If your meter reports a different mode or does not update, please open an issue with the raw HEX telegram
+from the debug log. Full technical details: [Info/PulseMeterModes.md](Info/PulseMeterModes.md).
+
 ## Vehicles & Chargers Configuration
 
 Tibber operates two separate APIs with different purposes:
@@ -259,6 +274,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) fixed local Pulse meter mode 5 (plain OBIS text, e.g. eBZ meters) not being parsed, leaving states frozen (#931)
+- (HombachC) documented the supported Pulse meter modes (README + Info/PulseMeterModes.md)
 - (HombachC) updated dependencies
 
 ### 7.2.1 (2026-08-10)
