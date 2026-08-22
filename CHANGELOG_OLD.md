@@ -17,6 +17,12 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+## 7.1.3 (2026-06-27)
+
+- (HombachC) updated axios
+- (HombachC) fixed local SML parsing for EMH meters reporting meter_mode 4 but sending binary SML data (#912)
+- (HombachC) fixed false warn log for SBB when no price slot matches current quarter (#912)
+
 ## 7.1.2 (2026-06-19)
 
 - (HombachC) fixed adapter crash on null liveMeasurement from Tibber feed (#910)

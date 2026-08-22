@@ -101,8 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.2.2 (2026-08-22)
 
 - (HombachC) fixed local Pulse meter mode 5 (plain OBIS text, e.g. eBZ meters) not being parsed, leaving states frozen (#931)
 - (HombachC) documented the supported Pulse meter modes (README + Info/PulseMeterModes.md)
@@ -131,12 +130,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 7.1.4 (2026-07-09)
 
 - (HombachC) fixed regression where smart battery buffer ignored the EfficiencyLoss parameter (#918)
-
-### 7.1.3 (2026-06-27)
-
-- (HombachC) updated axios
-- (HombachC) fixed local SML parsing for EMH meters reporting meter_mode 4 but sending binary SML data (#912)
-- (HombachC) fixed false warn log for SBB when no price slot matches current quarter (#912)
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

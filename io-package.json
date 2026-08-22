@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "7.2.1",
+    "version": "7.2.2",
     "news": {
+      "7.2.2": {
+        "en": "fixed local Pulse meter mode 5 (plain OBIS text, e.g. eBZ meters) not being parsed, leaving states frozen (#931)\ndocumented the supported Pulse meter modes (README + Info/PulseMeterModes.md)\nrestructured the README: moved the Calculator, Graph Output, Local Pulse and Vehicles & Chargers guides into separate files under docu/\nupdated dependencies",
+        "de": "Lokaler Pulsmessermodus 5 (einfacher OBIS-Text, z. B. eBZ-Messgeräte) wurde behoben, wodurch Zustände eingefroren blieben (#931).\nDie unterstützten Pulsmessermodi wurden dokumentiert (README + Info/PulseMeterModes.md)\nDie README-Datei wurde umstrukturiert: Die Anleitungen für Taschenrechner, Grafikausgabe, Lokaler Impuls und Fahrzeuge & Ladegeräte wurden in separate Dateien unter docu/ verschoben.\naktualisierte Abhängigkeiten",
+        "ru": "Исправлена ошибка, из-за которой локальный режим пульсометра 5 (простой текст OBIS, например, для счетчиков eBZ) не обрабатывался, что приводило к замораживанию состояний (#931).\nОписаны поддерживаемые режимы работы пульсометра (README + Info/PulseMeterModes.md)\nРеструктуризация файла README: руководства по калькулятору, графическому выводу, локальному импульсному сигналу и транспортным средствам и зарядным устройствам перемещены в отдельные файлы в папке docu/.\nобновленные зависимости",
+        "pt": "Corrigido o modo 5 do medidor de pulso local (texto OBIS simples, por exemplo, medidores eBZ) que não estava sendo analisado, deixando os estados congelados (#931)\nDocumentamos os modos de medidor de pulso suportados (README + Info/PulseMeterModes.md)\nReestruturamos o arquivo README: movemos os guias da Calculadora, Saída de Gráfico, Pulso Local e Veículos e Carregadores para arquivos separados em docu/\ndependências atualizadas",
+        "nl": "Opgelost: lokale pulsmeter modus 5 (platte OBIS-tekst, bijv. eBZ-meters) wordt niet geparseerd, waardoor statussen bevroren blijven (#931)\nDe ondersteunde pulsmeter-modi zijn gedocumenteerd (README + Info/PulseMeterModes.md).\nDe README is opnieuw gestructureerd: de handleidingen voor de rekenmachine, grafische uitvoer, lokale puls en voertuigen en laders zijn verplaatst naar aparte bestanden onder docu/.\nbijgewerkte afhankelijkheden",
+        "fr": "Correction du mode 5 du compteur de pouls local (texte OBIS brut, par exemple les compteurs eBZ) qui n'était pas analysé, laissant les états figés (#931)\nLes modes de mesure du pouls pris en charge sont documentés (README + Info/PulseMeterModes.md)\nRestructuration du fichier README : les guides « Calculatrice », « Sortie graphique », « Impulsion locale » et « Véhicules et chargeurs » ont été déplacés dans des fichiers séparés sous docu/\ndépendances mises à jour",
+        "it": "La modalità 5 del misuratore di impulsi locale fisso (testo OBIS semplice, ad esempio misuratori eBZ) non viene analizzata, lasciando gli stati bloccati (#931)\nDocumentare le modalità del misuratore di pulsazioni supportate (README + Info/PulseMeterModes.md)\nRistrutturato il README: spostate le guide Calcolatrice, Output grafico, Impulso locale e Veicoli e caricabatterie in file separati nella cartella docu/\ndipendenze aggiornate",
+        "es": "Se corrigió el modo 5 del medidor de pulso local (texto OBIS simple, por ejemplo, medidores eBZ) que no se analizaba, dejando los estados congelados (#931).\nSe documentaron los modos de medidor de pulso compatibles (README + Info/PulseMeterModes.md).\nSe reestructuró el README: se movieron las guías de Calculadora, Salida gráfica, Pulso local y Vehículos y cargadores a archivos separados en docu/\ndependencias actualizadas",
+        "pl": "naprawiono błąd, w wyniku którego lokalny tryb miernika pulsu 5 (zwykły tekst OBIS, np. mierniki eBZ) nie był analizowany, co powodowało zamrożenie stanów (#931)\nudokumentowano obsługiwane tryby miernika pulsu (README + Info/PulseMeterModes.md)\nzrestrukturyzowano plik README: przeniesiono przewodniki dotyczące kalkulatora, wyników wykresu, impulsów lokalnych oraz pojazdów i ładowarek do osobnych plików w katalogu docu/\nzaktualizowane zależności",
+        "uk": "виправлено помилку, через яку локальний режим 5 вимірювача імпульсів (звичайний текст OBIS, наприклад, лічильники eBZ) не оброблявся, що призводило до зависання станів (#931)\nзадокументовано підтримувані режими вимірювання пульсу (README + Info/PulseMeterModes.md)\nреструктуровано README: перенесено посібники з калькулятора, графічного виводу, локального імпульсу та транспортних засобів і зарядних пристроїв в окремі файли в docu/\nоновлені залежності",
+        "zh-cn": "修复了本地脉搏计模式 5（纯 OBIS 文本，例如 eBZ 计）无法解析，导致状态冻结的问题 (#931)\n记录了支持的脉搏计模式（README + Info/PulseMeterModes.md）\n重新组织了 README 文件：将计算器、图形输出、本地脉冲和车辆及充电器指南移至 docu/ 目录下的单独文件中。\n更新依赖项"
+      },
       "7.2.1": {
         "en": "fixed charger devices with an empty externalId (e.g. Wallbox Pulsar Plus) producing an invalid state id; a single bad device no longer aborts the whole Data API poll (#925)\nprojectUtils: use extendObject instead of setObject in forceMode so user customizations survive restarts (#927)\nprojectUtils: fixed min/max/step value of 0 being dropped from number state definitions\nupdated tibber-api to 5.6.0\nupdated dependencies",
         "de": "Fest installierte Ladegeräte mit leerer externalId (z. B. Wallbox Pulsar Plus) erzeugen eine ungültige Status-ID; ein einzelnes fehlerhaftes Gerät bricht die gesamte Data-API-Abfrage nicht mehr ab (#925).\nprojectUtils: Verwenden Sie extendObject anstelle von setObject im forceMode, damit Benutzeranpassungen auch nach Neustarts erhalten bleiben (#927)\nprojectUtils: Der Fehler, dass der Wert 0 für min/max/step aus den Zahlenzustandsdefinitionen entfernt wurde, wurde behoben.\ntibber-api wurde auf Version 5.6.0 aktualisiert.\naktualisierte Abhängigkeiten",
@@ -80,19 +93,6 @@
         "pl": "naprawiono awarię adaptera przy null liveMeasurement z kanału Tibber (#910)\nulepszona dokumentacja konfiguracji OAuth2 dla pojazdów i ładowarek\nnaprawiono setInterval/clearInterval, aby używać wariantów zarządzanych przez adapter\nusunięto zależność od yarn, zastąpiono ją npm w skrypcie wydania\nzaktualizowany rdzeń adaptera\nstałe ostrzeżenia kontrolera adaptera\nzaktualizowane zależności",
         "uk": "виправлено збій адаптера при нульовому живому вимірюванні з Tibber-каналу (#910)\nпокращена документація щодо налаштування OAuth2 для транспортних засобів та зарядних пристроїв\nвиправлено setInterval/clearInterval для використання варіантів, керованих адаптером\nвидалено залежність від yarn, замінено на npm у релізному скрипті\nоновлене ядро адаптера\nвиправлені попередження перевірки адаптерів\nоновлені залежності",
         "zh-cn": "修复了从 Tibber 数据源获取空实时测量值时适配器崩溃的问题 (#910)\n改进的车辆和充电器 OAuth2 设置文档\n已修复 setInterval/clearInterval 以使用适配器管理的变体\n发布脚本中已移除 yarn 依赖，替换为 npm。\n更新适配器核心\n修复适配器检查器警告\n更新依赖项"
-      },
-      "7.1.1": {
-        "en": "optimized vehicle states\nfixed adapter checker warnings",
-        "de": "optimierte fahrzeugzustände\nwarnhinweise für feste adapterprüfgeräte",
-        "ru": "оптимизированное состояние автомобиля\nпредупреждения о проверке адаптера",
-        "pt": "estados otimizados do veículo\navisos de verificação do adaptador fixo",
-        "nl": "geoptimaliseerde voertuigtoestanden\nwaarschuwingen voor vaste adaptercontrole",
-        "fr": "état optimisé du véhicule\navertissements de vérification de l'adaptateur fixe",
-        "it": "stati del veicolo ottimizzati\navvertenze di controllo dell'adattatore fisso",
-        "es": "estados de vehículos optimizados\navisos de control de adaptador fijo",
-        "pl": "zoptymalizowane stany pojazdów\nostrzeżenia dotyczące sprawdzania adaptera",
-        "uk": "оптимізовані стани транспортних засобів\nвиправлені попередження перевірки адаптера",
-        "zh-cn": "优化车辆状态\n固定适配器检查器警告"
       }
     },
     "messages": [
