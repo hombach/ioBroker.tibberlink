@@ -279,6 +279,59 @@ describe("TibberCalculator – SmartBatteryBuffer EfficiencyLoss exact slot spli
 	});
 });
 
+// ── SmartBatteryBuffer EfficiencyLoss range validation (issue #934) ─────────
+
+describe("TibberCalculator – EfficiencyLoss range validation (#934)", () => {
+	// Directly exercises the validation helper with a warn-spy.
+	async function validate(efficiencyLoss: unknown): Promise<{ result: number; warnings: string[] }> {
+		const { adapter, store } = createMockAdapter({
+			UseCalculator: true,
+			CalculatorList: [makeChannelConfig({ chType: enCalcType.SmartBatteryBuffer })],
+		});
+		injectState(store, `Homes.${HOME}.Calculations.0.EfficiencyLoss`, efficiencyLoss);
+		const warnings: string[] = [];
+		(adapter.log as unknown as { warn: (m: string) => void }).warn = (m: string): void => {
+			warnings.push(m);
+		};
+		const calc = new TibberCalculator(adapter);
+		const result = await (calc as unknown as { getValidatedEfficiencyLoss(h: string, c: number): Promise<number> }).getValidatedEfficiencyLoss(HOME, 0);
+		return { result, warnings };
+	}
+
+	it("passes valid values in 0…1 through unchanged and silently", async () => {
+		for (const v of [0, 0.25, 0.4, 1]) {
+			const { result, warnings } = await validate(v);
+			assert.strictEqual(result, v, `value ${v}`);
+			assert.strictEqual(warnings.length, 0, `no warning for ${v}`);
+		}
+	});
+
+	it("clamps values > 1 to 1 and warns (the 25-instead-of-0.25 typo)", async () => {
+		const { result, warnings } = await validate(25);
+		assert.strictEqual(result, 1);
+		assert.strictEqual(warnings.length, 1);
+		assert.ok(warnings[0].includes("outside the valid range"), "warning mentions the range");
+	});
+
+	it("clamps values < 0 to 0 and warns", async () => {
+		const { result, warnings } = await validate(-5);
+		assert.strictEqual(result, 0);
+		assert.strictEqual(warnings.length, 1);
+	});
+
+	it("never rescales — 25 is clamped to 1, not converted to 0.25", async () => {
+		const { result } = await validate(25);
+		assert.notStrictEqual(result, 0.25);
+	});
+
+	// Behavioural proof: a typo like 25 must not blow up minDelta. Clamped to 1, the SBB
+	// classification equals the eff=1 run; a negative value equals the eff=0 run.
+	it("SBB output for an out-of-range value equals the clamped-boundary run", async () => {
+		assert.deepStrictEqual(await runSbb(25, TEST_PRICES, 8), await runSbb(1, TEST_PRICES, 8), "25 ≡ 1");
+		assert.deepStrictEqual(await runSbb(-5, TEST_PRICES, 8), await runSbb(0, TEST_PRICES, 8), "-5 ≡ 0");
+	});
+});
+
 // ── startCalculatorTasks: UseCalculator guard ──────────────────────────────
 
 describe("TibberCalculator – startCalculatorTasks", () => {

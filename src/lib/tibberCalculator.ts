@@ -692,11 +692,15 @@ export class TibberCalculator extends ProjectUtils {
 			void this.checkAndSetValueNumber(
 				`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`,
 				channelConfig.chEfficiencyLoss,
-				`efficiency loss between charge and discharge of battery system`,
+				`efficiency loss between charge and discharge of battery system (range 0…1, e.g. 0.25 = 25% loss)`,
 				undefined,
 				`level.max`,
-				true,
-				true,
+				true, // writeable
+				true, // dontUpdate — keep the user's stored value
+				true, // forceMode — update the object definition (adds min/max/step) on existing installs
+				0, // min
+				1, // max
+				0.05, // step
 			);
 			const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
 			if (typeof valueEfficiencyLoss === "number") {
@@ -711,6 +715,33 @@ export class TibberCalculator extends ProjectUtils {
 			this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: setup of state EfficiencyLoss for calculator`));
 		}
 	}
+
+	/**
+	 * Reads the EfficiencyLoss input state and validates it against the allowed range 0…1
+	 * (0.25 = 25% round-trip loss). Out-of-range values — e.g. `25` entered instead of `0.25` —
+	 * are clamped to the range and a warning is logged. The value is never silently rescaled,
+	 * so a typo stays visible to the user instead of being turned into a plausible-looking number.
+	 *
+	 * @param homeId - ID of the home this channel belongs to.
+	 * @param channel - Index of the channel in `CalculatorList`.
+	 * @returns The efficiency loss clamped to the range 0…1.
+	 */
+	private async getValidatedEfficiencyLoss(homeId: string, channel: number): Promise<number> {
+		const raw: number = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+		if (typeof raw !== "number" || Number.isNaN(raw)) {
+			this.adapter.log.warn(`[tibberCalculator]: EfficiencyLoss for home ${homeId} channel ${channel} is not a valid number (${raw}); using 0`);
+			return 0;
+		}
+		if (raw < 0 || raw > 1) {
+			const clamped = Math.min(1, Math.max(0, raw));
+			this.adapter.log.warn(
+				`[tibberCalculator]: EfficiencyLoss for home ${homeId} channel ${channel} is ${raw}, which is outside the valid range 0…1 (0.25 = 25% loss). Using ${clamped} instead — please correct the value; it must NOT be entered as a percentage.`,
+			);
+			return clamped;
+		}
+		return raw;
+	}
+
 	/**
 	 * Creates the AverageTotalCost output state, which holds the mean total price of the
 	 * cheapest block determined by a BestHoursBlock channel.
@@ -1368,7 +1399,7 @@ export class TibberCalculator extends ProjectUtils {
 				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
 				// maxCheapCount is an upper bound.
 				// The actual number of cheap slots is determined by price distance (minDelta), not by the requested hour count.
-				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
+				const efficiencyLoss: number = await this.getValidatedEfficiencyLoss(channelConfig.chHomeID, channel);
 				const cheapTimeSlots: IPrice[] = [];
 				const normalTimeSlots: IPrice[] = [];
 				const expensiveTimeSlots: IPrice[] = [];
@@ -1450,7 +1481,7 @@ export class TibberCalculator extends ProjectUtils {
 				// chActive and inside LTF -> choose desired value
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF);
 				const maxCheapCount: number = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
-				const efficiencyLoss: number = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
+				const efficiencyLoss: number = await this.getValidatedEfficiencyLoss(channelConfig.chHomeID, channel);
 				const cheapTimeSlots: IPrice[] = [];
 				const normalTimeSlots: IPrice[] = [];
 				const expensiveTimeSlots: IPrice[] = [];

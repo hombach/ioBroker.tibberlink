@@ -452,7 +452,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             if (channelConfig.chEfficiencyLoss === undefined) {
                 channelConfig.chEfficiencyLoss = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`, channelConfig.chEfficiencyLoss, `efficiency loss between charge and discharge of battery system`, undefined, `level.max`, true, true);
+            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`, channelConfig.chEfficiencyLoss, `efficiency loss between charge and discharge of battery system (range 0…1, e.g. 0.25 = 25% loss)`, undefined, `level.max`, true, true, true, 0, 1, 0.05);
             const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
             if (typeof valueEfficiencyLoss === "number") {
                 channelConfig.chEfficiencyLoss = valueEfficiencyLoss;
@@ -465,6 +465,19 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
         catch (error) {
             this.adapter.log.warn(this.generateErrorMessage(error, `[tibberCalculator]: setup of state EfficiencyLoss for calculator`));
         }
+    }
+    async getValidatedEfficiencyLoss(homeId, channel) {
+        const raw = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
+        if (typeof raw !== "number" || Number.isNaN(raw)) {
+            this.adapter.log.warn(`[tibberCalculator]: EfficiencyLoss for home ${homeId} channel ${channel} is not a valid number (${raw}); using 0`);
+            return 0;
+        }
+        if (raw < 0 || raw > 1) {
+            const clamped = Math.min(1, Math.max(0, raw));
+            this.adapter.log.warn(`[tibberCalculator]: EfficiencyLoss for home ${homeId} channel ${channel} is ${raw}, which is outside the valid range 0…1 (0.25 = 25% loss). Using ${clamped} instead — please correct the value; it must NOT be entered as a percentage.`);
+            return clamped;
+        }
+        return raw;
     }
     setup_chAverageTotalCost(homeId, channel) {
         try {
@@ -858,7 +871,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             else if (modeLTF && now < channelConfig.chStartTime) {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 const maxCheapCount = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
-                const efficiencyLoss = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
+                const efficiencyLoss = await this.getValidatedEfficiencyLoss(channelConfig.chHomeID, channel);
                 const cheapTimeSlots = [];
                 const normalTimeSlots = [];
                 const expensiveTimeSlots = [];
@@ -921,7 +934,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 const maxCheapCount = (await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.AmountHours`)) * 4;
-                const efficiencyLoss = await this.getStateValue(`Homes.${channelConfig.chHomeID}.Calculations.${channel}.EfficiencyLoss`);
+                const efficiencyLoss = await this.getValidatedEfficiencyLoss(channelConfig.chHomeID, channel);
                 const cheapTimeSlots = [];
                 const normalTimeSlots = [];
                 const expensiveTimeSlots = [];
