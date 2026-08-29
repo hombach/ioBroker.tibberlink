@@ -204,6 +204,9 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                         if (typeof obj[key] === "string") {
                             void this.checkAndSetValue(`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`, obj[key], this.adapter.config.PulseList[pulse].puName, `info.name`, false, false, firstTime);
                         }
+                        else if (typeof obj[key] === "boolean") {
+                            void this.checkAndSetValueBoolean(`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`, obj[key], this.adapter.config.PulseList[pulse].puName, `indicator`, false, false, firstTime);
+                        }
                         else {
                             void this.checkAndSetValueNumber(`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`, obj[key], this.adapter.config.PulseList[pulse].puName, "", `info.name`, false, false, firstTime);
                         }

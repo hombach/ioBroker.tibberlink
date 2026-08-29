@@ -97,6 +97,7 @@ function makePulseAdapter(): ReturnType<typeof createMockAdapter> {
 
 type SmlParser = { extractAndParseSMLMessages(p: number, t: string, f: boolean): void };
 type AsciiParser = { extractAndParseAsciiMessages(p: number, t: string, f: boolean): void };
+type InfoParser = { fetchPulseInfo(p: number, obj: unknown, prefix: string, firstTime: boolean): void };
 
 function parseSml(hex: string): ReturnType<typeof createMockAdapter>["store"] {
 	const { adapter, store } = makePulseAdapter();
@@ -104,6 +105,50 @@ function parseSml(hex: string): ReturnType<typeof createMockAdapter>["store"] {
 	(local as unknown as SmlParser).extractAndParseSMLMessages(0, hex, true);
 	return store;
 }
+
+// ── fetchPulseInfo ─────────────────────────────────────────────────────────
+
+describe("TibberLocal – fetchPulseInfo (issue #935 boolean states)", () => {
+	// Realistic node_status excerpt: usb_power and the nested autolevel_enable are booleans,
+	// meter_mode/rssi are numbers, product a string.
+	const NODE_STATUS = {
+		node_status: {
+			product_id: "49344",
+			meter_mode: 5,
+			node_avg_rssi: -31.75,
+			usb_power: true,
+			baud_9600: { autolevel: { autolevel_enable: false } },
+		},
+	};
+
+	it("creates boolean-typed states for boolean values (usb_power, autolevel_enable)", async () => {
+		const { adapter, store } = makePulseAdapter();
+		const local = new TibberLocal(adapter);
+		(local as unknown as InfoParser).fetchPulseInfo(0, NODE_STATUS, "", true);
+		await drainMicrotasks();
+
+		const usbId = "LocalPulse.0.PulseInfo.node_status.usb_power";
+		const autoId = "LocalPulse.0.PulseInfo.node_status.baud_9600.autolevel.autolevel_enable";
+
+		// Values written correctly …
+		assert.strictEqual(store.states[usbId], true);
+		assert.strictEqual(store.states[autoId], false);
+		// … and — the actual bug — the object type must be boolean, not number
+		assert.strictEqual((store.objects[usbId] as ioBroker.StateObject).common.type, "boolean");
+		assert.strictEqual((store.objects[autoId] as ioBroker.StateObject).common.type, "boolean");
+	});
+
+	it("still creates number-typed states for numeric values", async () => {
+		const { adapter, store } = makePulseAdapter();
+		const local = new TibberLocal(adapter);
+		(local as unknown as InfoParser).fetchPulseInfo(0, NODE_STATUS, "", true);
+		await drainMicrotasks();
+
+		const rssiId = "LocalPulse.0.PulseInfo.node_status.node_avg_rssi";
+		assert.strictEqual(store.states[rssiId], -31.75);
+		assert.strictEqual((store.objects[rssiId] as ioBroker.StateObject).common.type, "number");
+	});
+});
 
 // ── extractAndParseSMLMessages ─────────────────────────────────────────────
 

@@ -381,6 +381,16 @@ export class TibberLocal extends ProjectUtils {
 								false,
 								firstTime,
 							);
+						} else if (typeof obj[key] === "boolean") {
+							void this.checkAndSetValueBoolean(
+								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
+								obj[key],
+								this.adapter.config.PulseList[pulse].puName,
+								`indicator`,
+								false,
+								false,
+								firstTime,
+							);
 						} else {
 							void this.checkAndSetValueNumber(
 								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
