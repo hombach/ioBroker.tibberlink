@@ -17,6 +17,7 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+
 ## 7.1.3 (2026-06-27)
 
 - (HombachC) updated axios
@@ -31,7 +32,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) removed yarn dependency, replaced with npm in release script
 - (HombachC) updated adapter-core
 - (HombachC) fixed adapter checker warnings
-- (HombachC) updated dependencies
 
 ## 7.1.1 (2026-06-07)
 
@@ -57,7 +57,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 - (HombachC) fixed vulnerability in axios
 - (HombachC) fixed some type definitions
 - (HombachC) extended FlexCharts docu
-- (HombachC) updated projectUtils
 
 ## 6.2.2 (2026-04-13)
 
@@ -132,7 +131,6 @@ If you're not currently a Tibber user, I would greatly appreciate it if you coul
 
 - (HombachC) fix jsonconfig schema definition (#762)
 - (HombachC) optimize cron jobs
-- (HombachC) update axios
 
 ## 5.0.2 (2025-08-29)
 
