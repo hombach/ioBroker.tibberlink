@@ -93,3 +93,6 @@ dist
 .vs/
 
 .commitinfo
+
+# Claude Code local config (machine-specific paths & permissions)
+.claude/
