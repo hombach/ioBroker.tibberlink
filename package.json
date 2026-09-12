@@ -7,7 +7,7 @@
 		"email": "tibberlink@homba.ch"
 	},
 	"homepage": "https://github.com/Hombach/ioBroker.tibberlink",
-	"license": "GPL-3.0-only",
+	"license": "MIT",
 	"keywords": [
 		"ioBroker",
 		"power",

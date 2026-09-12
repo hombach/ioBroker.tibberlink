@@ -1,299 +1,281 @@
 {
-  "common": {
-    "name": "tibberlink",
-    "version": "7.2.3",
-    "news": {
-      "7.2.3": {
-        "en": "fixed local Pulse boolean states (e.g. usb_power, autolevel_enable) being created as type number, causing recurring log errors (#935)\nSmartBatteryBuffer: EfficiencyLoss is now validated to the range 0…1; out-of-range values (e.g. 25 instead of 0.25) are clamped with a warning instead of corrupting the calculation, and the state now carries min/max/step (#934)\nupdated dependencies",
-        "de": "Behoben wurde das Problem, dass lokale Pulse-Boolesche Zustände (z. B. usb_power, autolevel_enable) als Zahlentyp erstellt wurden, was zu wiederkehrenden Protokollfehlern führte (#935).\nSmartBatteryBuffer: Der Effizienzverlust wird nun im Bereich 0…1 validiert; Werte außerhalb des Bereichs (z. B. 25 statt 0,25) werden mit einer Warnung begrenzt, anstatt die Berechnung zu verfälschen, und der Status enthält nun min/max/step (#934)\naktualisierte Abhängigkeiten",
-        "ru": "Исправлена ошибка, из-за которой локальные логические состояния Pulse (например, usb_power, autolevel_enable) создавались как числовой тип, что приводило к повторяющимся ошибкам в логах (#935)\nSmartBatteryBuffer: теперь EfficiencyLoss проверяется в диапазоне 0…1; значения, выходящие за пределы диапазона (например, 25 вместо 0,25), ограничиваются предупреждением вместо искажения вычислений, а состояние теперь содержит min/max/step (#934)\nобновленные зависимости",
-        "pt": "Corrigido o problema em que estados booleanos locais do Pulse (por exemplo, usb_power, autolevel_enable) eram criados como tipo número, causando erros recorrentes nos logs (#935)\nSmartBatteryBuffer: A perda de eficiência agora é validada no intervalo de 0 a 1; valores fora do intervalo (por exemplo, 25 em vez de 0,25) são limitados com um aviso em vez de corromper o cálculo, e o estado agora carrega mínimo/máximo/passo (#934)\ndependências atualizadas",
-        "nl": "Opgelost probleem waarbij lokale Pulse booleaanse statussen (bijv. usb_power, autolevel_enable) werden aangemaakt als typenummer, wat terugkerende logfouten veroorzaakte (#935)\nSmartBatteryBuffer: EfficiencyLoss wordt nu gevalideerd voor het bereik 0…1; waarden buiten dit bereik (bijv. 25 in plaats van 0,25) worden afgekapt met een waarschuwing in plaats van de berekening te verstoren, en de status bevat nu min/max/stap (#934)\nbijgewerkte afhankelijkheden",
-        "fr": "Correction d'un problème où les états booléens locaux de Pulse (par exemple usb_power, autolevel_enable) étaient créés en tant que type numérique, ce qui provoquait des erreurs de journalisation récurrentes (#935).\nSmartBatteryBuffer : La perte d’efficacité est désormais validée dans la plage 0…1 ; les valeurs hors plage (par exemple 25 au lieu de 0,25) sont limitées avec un avertissement au lieu de corrompre le calcul, et l’état contient désormais min/max/step (#934)\ndépendances mises à jour",
-        "it": "Risolto il problema per cui gli stati booleani locali di Pulse (ad es. usb_power, autolevel_enable) venivano creati come tipo numerico, causando errori di log ricorrenti (#935)\nSmartBatteryBuffer: EfficiencyLoss è ora convalidato nell'intervallo 0…1; i valori fuori intervallo (ad esempio 25 invece di 0,25) vengono limitati con un avviso invece di corrompere il calcolo e lo stato ora contiene min/max/step (#934)\ndipendenze aggiornate",
-        "es": "Se corrigió un error que provocaba que los estados booleanos locales de Pulse (por ejemplo, usb_power, autolevel_enable) se crearan como números de tipo, lo que causaba errores recurrentes en el registro (#935).\nSmartBatteryBuffer: EfficiencyLoss ahora se valida en el rango 0…1; los valores fuera de rango (por ejemplo, 25 en lugar de 0,25) se limitan con una advertencia en lugar de corromper el cálculo, y el estado ahora lleva min/max/step (#934).\ndependencias actualizadas",
-        "pl": "naprawiono lokalne stany logiczne Pulse (np. usb_power, autolevel_enable) tworzone jako numer typu, co powodowało powtarzające się błędy dziennika (#935)\nSmartBatteryBuffer: EfficiencyLoss jest teraz weryfikowany w zakresie 0…1; wartości poza zakresem (np. 25 zamiast 0,25) są ograniczane ostrzeżeniem, zamiast zakłócać obliczenia, a stan teraz zawiera min./maks./krok (#934)\nzaktualizowane zależności",
-        "uk": "виправлено створення локальних імпульсних логічних станів (наприклад, usb_power, autolevel_enable) як номера типу, що призводило до повторюваних помилок журналу (#935)\nSmartBatteryBuffer: EfficiencyLoss тепер перевіряється в діапазоні 0…1; значення поза діапазоном (наприклад, 25 замість 0,25) обмежуються попередженням, а не спотворюють розрахунок, а стан тепер містить значення min/max/step (#934)\nоновлені залежності",
-        "zh-cn": "修复了本地 Pulse 布尔状态（例如 usb_power、autolevel_enable）被创建为类型数字的问题，该问题会导致反复出现日志错误（#935）\nSmartBatteryBuffer：效率损失现在验证范围为 0…1；超出范围的值（例如 25 而不是 0.25）会被限制并发出警告，而不是破坏计算，并且状态现在包含最小值/最大值/步长 (#934)\n更新依赖项"
-      },
-      "7.2.2": {
-        "en": "fixed local Pulse meter mode 5 (plain OBIS text, e.g. eBZ meters) not being parsed, leaving states frozen (#931)\ndocumented the supported Pulse meter modes (README + Info/PulseMeterModes.md)\nrestructured the README: moved the Calculator, Graph Output, Local Pulse and Vehicles & Chargers guides into separate files under docu/\nupdated dependencies",
-        "de": "Lokaler Pulsmessermodus 5 (einfacher OBIS-Text, z. B. eBZ-Messgeräte) wurde behoben, wodurch Zustände eingefroren blieben (#931).\nDie unterstützten Pulsmessermodi wurden dokumentiert (README + Info/PulseMeterModes.md)\nDie README-Datei wurde umstrukturiert: Die Anleitungen für Taschenrechner, Grafikausgabe, Lokaler Impuls und Fahrzeuge & Ladegeräte wurden in separate Dateien unter docu/ verschoben.\naktualisierte Abhängigkeiten",
-        "ru": "Исправлена ошибка, из-за которой локальный режим пульсометра 5 (простой текст OBIS, например, для счетчиков eBZ) не обрабатывался, что приводило к замораживанию состояний (#931).\nОписаны поддерживаемые режимы работы пульсометра (README + Info/PulseMeterModes.md)\nРеструктуризация файла README: руководства по калькулятору, графическому выводу, локальному импульсному сигналу и транспортным средствам и зарядным устройствам перемещены в отдельные файлы в папке docu/.\nобновленные зависимости",
-        "pt": "Corrigido o modo 5 do medidor de pulso local (texto OBIS simples, por exemplo, medidores eBZ) que não estava sendo analisado, deixando os estados congelados (#931)\nDocumentamos os modos de medidor de pulso suportados (README + Info/PulseMeterModes.md)\nReestruturamos o arquivo README: movemos os guias da Calculadora, Saída de Gráfico, Pulso Local e Veículos e Carregadores para arquivos separados em docu/\ndependências atualizadas",
-        "nl": "Opgelost: lokale pulsmeter modus 5 (platte OBIS-tekst, bijv. eBZ-meters) wordt niet geparseerd, waardoor statussen bevroren blijven (#931)\nDe ondersteunde pulsmeter-modi zijn gedocumenteerd (README + Info/PulseMeterModes.md).\nDe README is opnieuw gestructureerd: de handleidingen voor de rekenmachine, grafische uitvoer, lokale puls en voertuigen en laders zijn verplaatst naar aparte bestanden onder docu/.\nbijgewerkte afhankelijkheden",
-        "fr": "Correction du mode 5 du compteur de pouls local (texte OBIS brut, par exemple les compteurs eBZ) qui n'était pas analysé, laissant les états figés (#931)\nLes modes de mesure du pouls pris en charge sont documentés (README + Info/PulseMeterModes.md)\nRestructuration du fichier README : les guides « Calculatrice », « Sortie graphique », « Impulsion locale » et « Véhicules et chargeurs » ont été déplacés dans des fichiers séparés sous docu/\ndépendances mises à jour",
-        "it": "La modalità 5 del misuratore di impulsi locale fisso (testo OBIS semplice, ad esempio misuratori eBZ) non viene analizzata, lasciando gli stati bloccati (#931)\nDocumentare le modalità del misuratore di pulsazioni supportate (README + Info/PulseMeterModes.md)\nRistrutturato il README: spostate le guide Calcolatrice, Output grafico, Impulso locale e Veicoli e caricabatterie in file separati nella cartella docu/\ndipendenze aggiornate",
-        "es": "Se corrigió el modo 5 del medidor de pulso local (texto OBIS simple, por ejemplo, medidores eBZ) que no se analizaba, dejando los estados congelados (#931).\nSe documentaron los modos de medidor de pulso compatibles (README + Info/PulseMeterModes.md).\nSe reestructuró el README: se movieron las guías de Calculadora, Salida gráfica, Pulso local y Vehículos y cargadores a archivos separados en docu/\ndependencias actualizadas",
-        "pl": "naprawiono błąd, w wyniku którego lokalny tryb miernika pulsu 5 (zwykły tekst OBIS, np. mierniki eBZ) nie był analizowany, co powodowało zamrożenie stanów (#931)\nudokumentowano obsługiwane tryby miernika pulsu (README + Info/PulseMeterModes.md)\nzrestrukturyzowano plik README: przeniesiono przewodniki dotyczące kalkulatora, wyników wykresu, impulsów lokalnych oraz pojazdów i ładowarek do osobnych plików w katalogu docu/\nzaktualizowane zależności",
-        "uk": "виправлено помилку, через яку локальний режим 5 вимірювача імпульсів (звичайний текст OBIS, наприклад, лічильники eBZ) не оброблявся, що призводило до зависання станів (#931)\nзадокументовано підтримувані режими вимірювання пульсу (README + Info/PulseMeterModes.md)\nреструктуровано README: перенесено посібники з калькулятора, графічного виводу, локального імпульсу та транспортних засобів і зарядних пристроїв в окремі файли в docu/\nоновлені залежності",
-        "zh-cn": "修复了本地脉搏计模式 5（纯 OBIS 文本，例如 eBZ 计）无法解析，导致状态冻结的问题 (#931)\n记录了支持的脉搏计模式（README + Info/PulseMeterModes.md）\n重新组织了 README 文件：将计算器、图形输出、本地脉冲和车辆及充电器指南移至 docu/ 目录下的单独文件中。\n更新依赖项"
-      },
-      "7.2.1": {
-        "en": "fixed charger devices with an empty externalId (e.g. Wallbox Pulsar Plus) producing an invalid state id; a single bad device no longer aborts the whole Data API poll (#925)\nprojectUtils: use extendObject instead of setObject in forceMode so user customizations survive restarts (#927)\nprojectUtils: fixed min/max/step value of 0 being dropped from number state definitions\nupdated tibber-api to 5.6.0\nupdated dependencies",
-        "de": "Fest installierte Ladegeräte mit leerer externalId (z. B. Wallbox Pulsar Plus) erzeugen eine ungültige Status-ID; ein einzelnes fehlerhaftes Gerät bricht die gesamte Data-API-Abfrage nicht mehr ab (#925).\nprojectUtils: Verwenden Sie extendObject anstelle von setObject im forceMode, damit Benutzeranpassungen auch nach Neustarts erhalten bleiben (#927)\nprojectUtils: Der Fehler, dass der Wert 0 für min/max/step aus den Zahlenzustandsdefinitionen entfernt wurde, wurde behoben.\ntibber-api wurde auf Version 5.6.0 aktualisiert.\naktualisierte Abhängigkeiten",
-        "ru": "Устройства с фиксированным зарядным устройством, у которых пустой externalId (например, Wallbox Pulsar Plus), выдают недопустимый идентификатор состояния; одно неисправное устройство больше не прерывает весь опрос Data API (#925)\nprojectUtils: использовать extendObject вместо setObject в forceMode, чтобы пользовательские настройки сохранялись после перезапуска (#927)\nprojectUtils: исправлена ошибка, из-за которой значение min/max/step, равное 0, удалялось из определений состояния чисел.\nОбновлен tibber-api до версии 5.6.0\nобновленные зависимости",
-        "pt": "Dispositivos de carregadores fixos com um externalId vazio (por exemplo, Wallbox Pulsar Plus) produzindo um ID de estado inválido; um único dispositivo ruim não interrompe mais toda a pesquisa da API de dados (#925)\nprojectUtils: usar extendObject em vez de setObject em forceMode para que as personalizações do usuário sobrevivam às reinicializações (#927)\nprojectUtils: corrigiu-se a remoção do valor mínimo/máximo/incremento 0 das definições de estado numérico.\nAtualizei a API do Tibber para a versão 5.6.0.\ndependências atualizadas",
-        "nl": "Vaste laadapparaten met een lege externalId (bijv. Wallbox Pulsar Plus) produceren een ongeldige status-ID; één defect apparaat zorgt er niet langer voor dat de hele Data API-poll wordt afgebroken (#925)\nprojectUtils: gebruik extendObject in plaats van setObject in forceMode zodat gebruikersaanpassingen behouden blijven na herstarts (#927)\nprojectUtils: vaste min/max/stapwaarde van 0 wordt verwijderd uit definities van numerieke statussen\nTibber-API bijgewerkt naar versie 5.6.0.\nbijgewerkte afhankelijkheden",
-        "fr": "Les chargeurs fixes avec un externalId vide (par exemple, Wallbox Pulsar Plus) produisent un identifiant d'état invalide ; un seul appareil défectueux n'interrompt plus l'ensemble de l'interrogation de l'API de données (#925)\nprojectUtils : utiliser extendObject au lieu de setObject en mode force pour que les personnalisations de l’utilisateur soient conservées après un redémarrage (#927)\nprojectUtils : les valeurs minimales, maximales et d’incrément de 0 ont été supprimées des définitions d’état numérique.\nMise à jour de l'API Tibber vers la version 5.6.0\ndépendances mises à jour",
-        "it": "Dispositivi di ricarica fissi con externalId vuoto (ad es. Wallbox Pulsar Plus) che producono un ID di stato non valido; un singolo dispositivo difettoso non interrompe più l'intero polling dell'API dati (#925)\nprojectUtils: utilizzare extendObject invece di setObject in forceMode in modo che le personalizzazioni dell'utente persistano dopo il riavvio (#927)\nprojectUtils: il valore minimo/massimo/passo fisso di 0 viene rimosso dalle definizioni dello stato numerico\ntibber-api aggiornato alla versione 5.6.0\ndipendenze aggiornate",
-        "es": "Se corrigieron los dispositivos de cargador con un externalId vacío (por ejemplo, Wallbox Pulsar Plus) que producían un ID de estado no válido; un solo dispositivo defectuoso ya no interrumpe toda la consulta de la API de datos (#925).\nprojectUtils: usar extendObject en lugar de setObject en forceMode para que las personalizaciones del usuario se conserven tras los reinicios (#927)\nprojectUtils: se corrigió el problema por el cual el valor mínimo/máximo/de paso de 0 se eliminaba de las definiciones de estado numérico.\ntibber-api actualizado a la versión 5.6.0\ndependencias actualizadas",
-        "pl": "naprawiono urządzenia ładujące z pustym externalId (np. Wallbox Pulsar Plus) generujące nieprawidłowy identyfikator stanu; pojedyncze wadliwe urządzenie nie powoduje już przerwania całego sondowania interfejsu API danych (#925)\nprojectUtils: użyj extendObject zamiast setObject w forceMode, aby dostosowania użytkownika przetrwały ponowne uruchomienia (#927)\nprojectUtils: naprawiono usuwanie wartości min./maks./kroku z definicji stanu liczbowego\nzaktualizowano tibber-api do wersji 5.6.0\nzaktualizowane zależności",
-        "uk": "виправлено помилку, через яку зарядні пристрої з порожнім externalId (наприклад, Wallbox Pulsar Plus) видавали недійсний ідентифікатор стану; один несправний пристрій більше не перериває весь опит Data API (#925)\nprojectUtils: використовувати extendObject замість setObject у forceMode, щоб налаштування користувача зберігалися після перезапусків (#927)\nprojectUtils: виправлено помилку, через яку значення min/max/step, рівне 0, видалялося з визначень числових станів\nоновлено tibber-api до версії 5.6.0\nоновлені залежності",
-        "zh-cn": "外部 ID 为空的固定充电设备（例如 Wallbox Pulsar Plus）会产生无效的状态 ID；单个故障设备不再导致整个数据 API 轮询中止 (#925)\nprojectUtils：在 forceMode 中使用 extendObject 而不是 setObject，以便用户自定义设置能够在重启后保留 (#927)\nprojectUtils：修复了从数值状态定义中删除最小值/最大值/步长值为 0 的问题\n已将 tibber-api 更新至 5.6.0 版本\n更新依赖项"
-      },
-      "7.2.0": {
-        "en": "added polling of charger/wallbox devices from the Tibber Data API, written to `Chargers.<id>.*` (#925)\nadded a `LastSeen` state (device-reported last-seen timestamp) for vehicles and chargers",
-        "de": "zusätzliche Abfrage von Ladegerät / Wallbox-Geräten aus der Tibber Data API, geschrieben an \"Chargers. <id>.*\" (#925)\nhinzufügen eines \"LastSeen\" -Zustands (Geräte-berichteter letzter Zeitstempel) für Fahrzeuge und Ladegeräte",
-        "ru": "добавлен опрос устройств зарядного устройства/стенной коробки из API данных Tibber, написанный на «Chargers.<id>.*» (#925)\nдобавлено состояние «LastSeen» (зарегистрированная на устройстве последняя видимая метка времени) для транспортных средств и зарядных устройств",
-        "pt": "adicionado votação de dispositivos carregador/wallbox da API de dados Tibber, escrito para `Chargers.<id>.*` (#925)\nadicionado um estado `LastSeen ` (dispositivo-relatado última vez) para veículos e carregadores",
-        "nl": "toegevoegd peiling van oplader/wallbox-apparaten van de Tibber Data API, geschreven aan de \"Chargers.<id>.*\ntoegevoegd een status \"Lastseen\" voor voertuigen en opladers",
-        "fr": "ajouté le sondage des appareils chargeur/boîte à parois de l'API Tibber Data, écrit à `Chargers.<id>.*` (#925)\na ajouté un état `LastSeen` pour les véhicules et chargeurs",
-        "it": "aggiunta di inquinamento dei dispositivi di caricabatterie/wallbox dalla Tibber Data API, scritta a `Chargers\naggiunto uno stato `LastSeen` (device-reported last-seen timestamp) per veicoli e caricabatterie",
-        "es": "añadida la votación de los dispositivos de cargador/wallbox de la API de datos de Tibber, escrita a 'Chargers\nañadió un estado de `LastSeen ' (temporal de última vista del dispositivo) para vehículos y cargadores",
-        "pl": "dodane sondaże urządzeń do ładowania / tapet z API danych Tibber, napisane na 'Ładowarki. < id >. *' (# 925)\ndodano stan 'LastSeen' (ostatnio widziany znacznik czasu) dla pojazdów i ładowarek",
-        "uk": "додано опитування пристроїв зарядного пристрою/гаманця з API даних Tibber, написаного до `Chargers.<id>.*` (#925)\nдодано стан `LastSeen` (device-reported last-seen timestamp) для транспортних засобів та зарядних пристроїв",
-        "zh-cn": "增加了Tibber Data API的充电器/墙箱设备的投票,写给“主管者”\n为车辆和充电机添加了`最后一眼 ' 状态(装置 -- -- 报告的最后一眼时间戳)"
-      },
-      "7.1.5": {
-        "en": "added a regression test confirming best single hours LTF no longer switches on the wrong day (#631)\nworked around a Tibber server bug that returns `to` equal to `from` in weekly historical consumption data (#890)\nremoved redundant test devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) and switched unit tests to Node's built-in assert",
-        "de": "Es wurde ein Regressionstest hinzugefügt, der bestätigt, dass die beste Einzelstunden-LTF nicht mehr am falschen Tag schaltet (#631).\nwurde ein Fehler auf dem Tibber-Server behoben, der in wöchentlichen historischen Verbrauchsdaten `to` gleich `from` zurückgibt (#890).\nDie redundanten Testabhängigkeiten (chai, chai-as-promised, sinon-chai, proxyquire) wurden entfernt und die Unit-Tests auf die in Node integrierte Assert-Funktion umgestellt.",
-        "ru": "Добавлен регрессионный тест, подтверждающий, что лучшие часы LTF больше не переключаются в неподходящий день (#631)\nУстранили ошибку на сервере Tibber, из-за которой в еженедельных исторических данных о потреблении возвращается значение `to`, равное `from` (#890).\nУдалены избыточные зависимости для разработки тестов (chai, chai-as-promised, sinon-chai, proxyquire) и модульные тесты заменены на встроенный в Node метод assert.",
-        "pt": "Adicionado um teste de regressão confirmando que o melhor LTF de horas individuais não muda mais no dia errado (#631)\nContornou um bug do servidor Tibber que retorna `to` igual a `from` em dados históricos de consumo semanal (#890)\nRemovi as dependências de desenvolvimento redundantes dos testes (chai, chai-as-promised, sinon-chai, proxyquire) e migrei os testes unitários para o assert integrado do Node.js.",
-        "nl": "Er is een regressietest toegevoegd die bevestigt dat de LTF voor de beste afzonderlijke uren niet langer op de verkeerde dag schakelt (#631).\nIk heb een bug in de Tibber-server omzeild die ervoor zorgt dat `to` gelijk is aan `from` in de wekelijkse historische verbruiksgegevens (#890).\nOverbodige test-devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) zijn verwijderd en unit tests zijn overgeschakeld naar Node's ingebouwde assert.",
-        "fr": "Ajout d'un test de régression confirmant que le meilleur LTF horaire unique ne bascule plus le mauvais jour (#631)\nJ'ai contourné un bug du serveur Tibber qui renvoie `to` égal à `from` dans les données de consommation historiques hebdomadaires (#890)\nSuppression des dépendances de développement de test redondantes (chai, chai-as-promised, sinon-chai, proxyquire) et passage aux assertions intégrées de Node pour les tests unitaires",
-        "it": "aggiunto un test di regressione che conferma che la migliore funzione LTF per singole ore non si attiva più nel giorno sbagliato (#631)\nè stato risolto un bug del server Tibber che restituisce `to` uguale a `from` nei dati storici di consumo settimanali (#890)\nHo rimosso le dipendenze di sviluppo ridondanti per i test (chai, chai-as-promised, sinon-chai, proxyquire) e ho sostituito i test unitari con l'assert integrato di Node.",
-        "es": "Se agregó una prueba de regresión que confirma que las mejores horas individuales LTF ya no cambian en el día equivocado (#631).\nSe solucionó un error del servidor Tibber que devolvía `to` igual a `from` en los datos históricos de consumo semanales (#890).\nSe eliminaron las dependencias de desarrollo de pruebas redundantes (chai, chai-as-promised, sinon-chai, proxyquire) y se cambiaron las pruebas unitarias a la función assert integrada de Node.",
-        "pl": "dodano test regresji potwierdzający, że najlepsze pojedyncze godziny LTF nie przełączają się już w niewłaściwy dzień (#631)\nobejście błędu serwera Tibber, który powoduje, że w tygodniowych danych historycznych dotyczących zużycia zwracane jest `do` równe `z` (#890)\nusunięto zbędne zależności testowe (chai, chai-as-promised, sinon-chai, proxyquire) i zmieniono testy jednostkowe na wbudowane assert Node'a",
-        "uk": "додано регресійний тест, який підтверджує, що LTF для найкращих окремих годин більше не перемикається в неправильний день (#631)\nвирішено проблему сервера Tibber, яка повертає значення `to`, що дорівнює `from` у щотижневих історичних даних споживання (#890)\nвидалено надлишкові тестові devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) та переключено модульні тести на вбудовану функцію assert Node",
-        "zh-cn": "新增回归测试，确认最佳单小时 LTF 不再在错误日期切换（#631）\n修复了 Tibber 服务器的一个 bug，该 bug 会导致每周历史消费数据中 `to` 返回的值等于 `from` (#890)\n移除了冗余的测试开发依赖项（chai、chai-as-promised、sinon-chai、proxyquire），并将单元测试切换到 Node 内置的 assert 语句。"
-      },
-      "7.1.4": {
-        "en": "fixed regression where smart battery buffer ignored the EfficiencyLoss parameter (#918)",
-        "de": "Behobene Regression, bei der der intelligente Batteriepuffer den Effizienzverlustparameter ignorierte (#918).",
-        "ru": "Исправлена регрессия, в которой интеллектуальный буфер батареи игнорировал параметр EfficiencyLoss (#918)",
-        "pt": "Regressão corrigida onde o buffer de bateria inteligente ignorava o parâmetro EfficiencyLoss (#918)",
-        "nl": "gecorrigeerde regressie waarbij de slimme batterijbuffer de parameter EfficiencyLoss negeerde (#918)",
-        "fr": "Correction d'une régression où le tampon de batterie intelligent ignorait le paramètre EfficiencyLoss (#918)",
-        "it": "Risolto il problema di regressione in cui il buffer della batteria intelligente ignorava il parametro EfficiencyLoss (#918)",
-        "es": "Regresión corregida donde el búfer de batería inteligente ignoraba el parámetro EfficiencyLoss (#918)",
-        "pl": "naprawiono regresję, w której inteligentny bufor baterii ignorował parametr EfficiencyLoss (#918)",
-        "uk": "виправлено регресію, через яку інтелектуальний буфер батареї ігнорував параметр EfficiencyLoss (#918)",
-        "zh-cn": "修复了智能电池缓冲区忽略效率损失参数的回归问题（#918）"
-      },
-      "7.1.3": {
-        "en": "updated axios\nfixed local SML parsing for EMH meters reporting meter_mode 4 but sending binary SML data (#912)\nfixed false warn log for SBB when no price slot matches current quarter (#912)",
-        "de": "aktualisiertes Axios\nLokales SML-Parsing für EMH-Zähler, die meter_mode 4 melden, aber binäre SML-Daten senden, wurde korrigiert (#912).\nFehlerhafte Warnmeldung für SBB behoben, wenn kein Preissegment dem aktuellen Quartal entspricht (#912).",
-        "ru": "обновленные аксиосы\nИсправлена ошибка локального анализа SML для счетчиков EMH, сообщающих о режиме meter_mode 4, но отправляющих двоичные данные SML (#912)\nИсправлено ложное предупреждение в журнале SBB, когда ни один ценовой слот не соответствует текущему кварталу (#912)",
-        "pt": "axios atualizado\nCorreção na análise local de SML para medidores EMH que reportam meter_mode 4, mas enviam dados SML binários (#912)\nCorrigido o registro de aviso falso para SBB quando nenhum intervalo de preço corresponde ao trimestre atual (#912)",
-        "nl": "axios bijgewerkt\nDe lokale SML-parsing voor EMH-meters die meter_mode 4 rapporteren maar binaire SML-gegevens verzenden, is gecorrigeerd (#912).\nFoutmelding voor SBB gecorrigeerd wanneer geen prijsslot overeenkomt met het huidige kwartaal (#912)",
-        "fr": "axios mis à jour\nCorrection de l'analyse SML locale pour les compteurs EMH signalant meter_mode 4 mais envoyant des données SML binaires (#912)\nCorrection d'un faux avertissement dans le journal SBB lorsqu'aucun emplacement de prix ne correspond au trimestre en cours (#912)",
-        "it": "axios aggiornato\nCorretto il parsing SML locale per i contatori EMH che segnalano meter_mode 4 ma inviano dati SML binari (#912)\nCorretto il registro degli avvisi errati per SBB quando nessuna fascia di prezzo corrisponde al trimestre corrente (#912)",
-        "es": "Axios actualizado\nSe corrigió el análisis local de SML para medidores EMH que informaban meter_mode 4 pero enviaban datos SML binarios (#912).\nSe corrigió el registro de advertencia falso para SBB cuando ningún espacio de precio coincide con el trimestre actual (#912)",
-        "pl": "zaktualizowane aksjomaty\nnaprawiono lokalną analizę SML dla liczników EMH zgłaszających meter_mode 4, ale wysyłających binarne dane SML (#912)\nnaprawiono log fałszywych ostrzeżeń dla SBB, gdy żaden slot cenowy nie pasował do bieżącego kwartału (#912)",
-        "uk": "оновлений Axios\nвиправлено локальний розбір SML для лічильників EMH, які повідомляють про meter_mode 4, але надсилають двійкові дані SML (#912)\nвиправлено помилковий журнал попереджень для SBB, коли жоден ціновий слот не відповідає поточному кварталу (#912)",
-        "zh-cn": "更新后的 axios\n修复了 EMH 电表报告 meter_mode 4 但发送二进制 SML 数据的本地 SML 解析问题 (#912)\n修复了当没有价格档位与当前季度匹配时 SBB 的错误警告日志记录问题 (#912)"
-      }
-    },
-    "messages": [
-      {
-        "condition": {
-          "operand": "and",
-          "rules": [
-            "oldVersion<6.1.0",
-            "newVersion>=6.1.0"
-          ]
-        },
-        "title": {
-          "en": "Important notice!",
-          "de": "Wichtiger Hinweis!",
-          "ru": "Важное замечание!",
-          "pt": "Notícia importante!",
-          "nl": "Belangrijke mededeling!",
-          "fr": "Avis important!",
-          "it": "Avviso IMPORTANTE!",
-          "es": "Noticia importante!",
-          "pl": "Ważna uwaga!",
-          "uk": "Погода!",
-          "zh-cn": "重要通知!"
-        },
-        "text": {
-          "en": "The adapter behavior has changed! The FlexCharts X-axis now adapts to the window size. Because of this, the templates were updated. Please compare your template with the new examples and adjust it if needed.",
-          "de": "Das Verhalten des Adapters hat sich geändert! Die X-Achse der FlexCharts passt sich jetzt der Fenstergröße an. Daher wurden die Templates aktualisiert. Bitte vergleicht euer Template mit den neuen Vorlagen und passt es bei Bedarf an.",
-          "ru": "Поведение адаптера изменилось! Ось X в FlexCharts теперь адаптируется к размеру окна. Поэтому шаблоны были обновлены. Пожалуйста, сравните свой шаблон с новыми примерами и при необходимости скорректируйте его.",
-          "pt": "O comportamento do adaptador mudou! O eixo X do FlexCharts agora se adapta ao tamanho da janela. Por isso, os modelos foram atualizados. Compare seu modelo com os novos exemplos e ajuste-o se necessário.",
-          "nl": "Het gedrag van de adapter is veranderd! De X-as van FlexCharts past zich nu aan de venstergrootte aan. Daarom zijn de templates bijgewerkt. Vergelijk je template met de nieuwe voorbeelden en pas deze indien nodig aan.",
-          "fr": "Le comportement de l'adaptateur a changé ! L’axe X de FlexCharts s’adapte désormais à la taille de la fenêtre. Les modèles ont donc été mis à jour. Veuillez comparer votre modèle avec les nouveaux exemples et l’ajuster si nécessaire.",
-          "it": "Il comportamento dell'adattatore è cambiato! L’asse X di FlexCharts ora si adatta alla dimensione della finestra. Per questo motivo, i template sono stati aggiornati. Confronta il tuo template con i nuovi esempi e adattalo se necessario.",
-          "es": "¡El comportamiento del adaptador ha cambiado! El eje X de FlexCharts ahora se adapta al tamaño de la ventana. Por ello, los templates se han actualizado. Compara tu template con los nuevos ejemplos y ajústalo si es necesario.",
-          "pl": "Zachowanie adaptera zmieniło się! Oś X w FlexCharts teraz dostosowuje się do rozmiaru okna. Dlatego szablony zostały zaktualizowane. Porównaj swój szablon z nowymi przykładami i dostosuj go w razie potrzeby.",
-          "uk": "Поведінка адаптера змінилася! Вісь X у FlexCharts тепер адаптується до розміру вікна. Тому шаблони було оновлено. Порівняйте свій шаблон з новими прикладами та за потреби змініть його.",
-          "zh-cn": "适配器行为已更改！FlexCharts 的 X 轴现在会根据窗口大小自动调整，因此模板已更新。请将您的模板与新示例进行比较，并在需要时进行调整。"
-        },
-        "level": "warn",
-        "buttons": [
-          "agree",
-          "cancel"
-        ]
-      }
-    ],
-    "titleLang": {
-      "en": "Tibber Link",
-      "de": "Tibber Link",
-      "ru": "Тиббер Ссылка",
-      "pt": "Tibber Link",
-      "nl": "Tibber Link",
-      "fr": "Tibber Link",
-      "it": "Tibber Link",
-      "es": "Tibber Link",
-      "pl": "Tibber Link",
-      "uk": "Посилання",
-      "zh-cn": "网络联系"
-    },
-    "desc": {
-      "en": "Links Tibber API data to be used in ioBroker",
-      "de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
-      "ru": "Ссылки на данные Tibber API для использования в ioBroker",
-      "pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
-      "nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
-      "fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
-      "it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
-      "es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
-      "pl": "Łączy dane z API Tibber do użycia w ioBroker",
-      "uk": "Посилання на дані Tibber API для використання в ioBroker",
-      "zh-cn": "连接Tibber API数据以在ioBroker中使用"
-    },
-    "authors": [
-      "Hombach <TibberLink@homba.ch>"
-    ],
-    "keywords": [
-      "power",
-      "energy",
-      "Tibber"
-    ],
-    "licenseInformation": {
-      "license": "GPL-3.0-only",
-      "type": "free"
-    },
-    "platform": "Javascript/Node.js",
-    "icon": "tibberlink.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
-    "readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
-    "loglevel": "info",
-    "tier": 2,
-    "mode": "daemon",
-    "messagebox": true,
-    "type": "energy",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=6.0.11"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=7.6.20"
-      }
-    ],
-    "plugins": {
-      "sentry": {
-        "dsn": "https://eb119579a7dd76e359395df22aa265f8@o415875.ingest.us.sentry.io/4510376005009408"
-      }
-    }
-  },
-  "encryptedNative": [
-    "TibberAPIToken",
-    "TibberClientSecret"
-  ],
-  "protectedNative": [
-    "TibberAPIToken",
-    "TibberClientSecret"
-  ],
-  "native": {
-    "TibberAPIToken": "",
-    "TibberClientId": "",
-    "TibberClientSecret": "",
-    "TibberAuthCode": "",
-    "TibberDataApiInterval": 5,
-    "HomesList": [
-      {
-        "feedActive": "false",
-        "priceDataPollActive": "true",
-        "homeID": "None available - restart adapter after entering token",
-        "statsActive": "false",
-        "numberConsHourly": 24,
-        "numberConsDaily": 7,
-        "numberConsWeekly": 4,
-        "numberConsMonthly": 4,
-        "numberConsAnnual": 2
-      }
-    ],
-    "CalculatorList": [
-      {
-        "chHomeID": "None available - restart adapter after entering token",
-        "chType": "best cost",
-        "chName": "Channel Name",
-        "chActive": "false",
-        "chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
-        "chValueOn": "true",
-        "chValueOff": "false",
-        "chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
-        "chValueOn2": "true",
-        "chValueOff2": "false"
-      }
-    ],
-    "PulseList": [
-      {
-        "puName": "Pulse Local",
-        "tibberBridgeUrl": "tibber-host",
-        "tibberBridgePassword": "xxxx-xxxx",
-        "tibberPulseLocalNodeId": 1,
-        "tibberBridgeRawDataInterval": 2000
-      }
-    ]
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Information"
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "role": "indicator.connected",
-        "name": "Device or service connected",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.LastSentryLogMonth",
-      "type": "state",
-      "common": {
-        "role": "value",
-        "name": "Last month for Sentry log",
-        "type": "number",
-        "unit": "",
-        "read": true,
-        "write": false,
-        "def": 0
-      },
-      "native": {}
-    }
-  ]
+	"common": {
+		"name": "tibberlink",
+		"version": "7.2.3",
+		"news": {
+			"7.2.3": {
+				"en": "fixed local Pulse boolean states (e.g. usb_power, autolevel_enable) being created as type number, causing recurring log errors (#935)\nSmartBatteryBuffer: EfficiencyLoss is now validated to the range 0…1; out-of-range values (e.g. 25 instead of 0.25) are clamped with a warning instead of corrupting the calculation, and the state now carries min/max/step (#934)\nupdated dependencies",
+				"de": "Behoben wurde das Problem, dass lokale Pulse-Boolesche Zustände (z. B. usb_power, autolevel_enable) als Zahlentyp erstellt wurden, was zu wiederkehrenden Protokollfehlern führte (#935).\nSmartBatteryBuffer: Der Effizienzverlust wird nun im Bereich 0…1 validiert; Werte außerhalb des Bereichs (z. B. 25 statt 0,25) werden mit einer Warnung begrenzt, anstatt die Berechnung zu verfälschen, und der Status enthält nun min/max/step (#934)\naktualisierte Abhängigkeiten",
+				"ru": "Исправлена ошибка, из-за которой локальные логические состояния Pulse (например, usb_power, autolevel_enable) создавались как числовой тип, что приводило к повторяющимся ошибкам в логах (#935)\nSmartBatteryBuffer: теперь EfficiencyLoss проверяется в диапазоне 0…1; значения, выходящие за пределы диапазона (например, 25 вместо 0,25), ограничиваются предупреждением вместо искажения вычислений, а состояние теперь содержит min/max/step (#934)\nобновленные зависимости",
+				"pt": "Corrigido o problema em que estados booleanos locais do Pulse (por exemplo, usb_power, autolevel_enable) eram criados como tipo número, causando erros recorrentes nos logs (#935)\nSmartBatteryBuffer: A perda de eficiência agora é validada no intervalo de 0 a 1; valores fora do intervalo (por exemplo, 25 em vez de 0,25) são limitados com um aviso em vez de corromper o cálculo, e o estado agora carrega mínimo/máximo/passo (#934)\ndependências atualizadas",
+				"nl": "Opgelost probleem waarbij lokale Pulse booleaanse statussen (bijv. usb_power, autolevel_enable) werden aangemaakt als typenummer, wat terugkerende logfouten veroorzaakte (#935)\nSmartBatteryBuffer: EfficiencyLoss wordt nu gevalideerd voor het bereik 0…1; waarden buiten dit bereik (bijv. 25 in plaats van 0,25) worden afgekapt met een waarschuwing in plaats van de berekening te verstoren, en de status bevat nu min/max/stap (#934)\nbijgewerkte afhankelijkheden",
+				"fr": "Correction d'un problème où les états booléens locaux de Pulse (par exemple usb_power, autolevel_enable) étaient créés en tant que type numérique, ce qui provoquait des erreurs de journalisation récurrentes (#935).\nSmartBatteryBuffer : La perte d’efficacité est désormais validée dans la plage 0…1 ; les valeurs hors plage (par exemple 25 au lieu de 0,25) sont limitées avec un avertissement au lieu de corrompre le calcul, et l’état contient désormais min/max/step (#934)\ndépendances mises à jour",
+				"it": "Risolto il problema per cui gli stati booleani locali di Pulse (ad es. usb_power, autolevel_enable) venivano creati come tipo numerico, causando errori di log ricorrenti (#935)\nSmartBatteryBuffer: EfficiencyLoss è ora convalidato nell'intervallo 0…1; i valori fuori intervallo (ad esempio 25 invece di 0,25) vengono limitati con un avviso invece di corrompere il calcolo e lo stato ora contiene min/max/step (#934)\ndipendenze aggiornate",
+				"es": "Se corrigió un error que provocaba que los estados booleanos locales de Pulse (por ejemplo, usb_power, autolevel_enable) se crearan como números de tipo, lo que causaba errores recurrentes en el registro (#935).\nSmartBatteryBuffer: EfficiencyLoss ahora se valida en el rango 0…1; los valores fuera de rango (por ejemplo, 25 en lugar de 0,25) se limitan con una advertencia en lugar de corromper el cálculo, y el estado ahora lleva min/max/step (#934).\ndependencias actualizadas",
+				"pl": "naprawiono lokalne stany logiczne Pulse (np. usb_power, autolevel_enable) tworzone jako numer typu, co powodowało powtarzające się błędy dziennika (#935)\nSmartBatteryBuffer: EfficiencyLoss jest teraz weryfikowany w zakresie 0…1; wartości poza zakresem (np. 25 zamiast 0,25) są ograniczane ostrzeżeniem, zamiast zakłócać obliczenia, a stan teraz zawiera min./maks./krok (#934)\nzaktualizowane zależności",
+				"uk": "виправлено створення локальних імпульсних логічних станів (наприклад, usb_power, autolevel_enable) як номера типу, що призводило до повторюваних помилок журналу (#935)\nSmartBatteryBuffer: EfficiencyLoss тепер перевіряється в діапазоні 0…1; значення поза діапазоном (наприклад, 25 замість 0,25) обмежуються попередженням, а не спотворюють розрахунок, а стан тепер містить значення min/max/step (#934)\nоновлені залежності",
+				"zh-cn": "修复了本地 Pulse 布尔状态（例如 usb_power、autolevel_enable）被创建为类型数字的问题，该问题会导致反复出现日志错误（#935）\nSmartBatteryBuffer：效率损失现在验证范围为 0…1；超出范围的值（例如 25 而不是 0.25）会被限制并发出警告，而不是破坏计算，并且状态现在包含最小值/最大值/步长 (#934)\n更新依赖项"
+			},
+			"7.2.2": {
+				"en": "fixed local Pulse meter mode 5 (plain OBIS text, e.g. eBZ meters) not being parsed, leaving states frozen (#931)\ndocumented the supported Pulse meter modes (README + Info/PulseMeterModes.md)\nrestructured the README: moved the Calculator, Graph Output, Local Pulse and Vehicles & Chargers guides into separate files under docu/\nupdated dependencies",
+				"de": "Lokaler Pulsmessermodus 5 (einfacher OBIS-Text, z. B. eBZ-Messgeräte) wurde behoben, wodurch Zustände eingefroren blieben (#931).\nDie unterstützten Pulsmessermodi wurden dokumentiert (README + Info/PulseMeterModes.md)\nDie README-Datei wurde umstrukturiert: Die Anleitungen für Taschenrechner, Grafikausgabe, Lokaler Impuls und Fahrzeuge & Ladegeräte wurden in separate Dateien unter docu/ verschoben.\naktualisierte Abhängigkeiten",
+				"ru": "Исправлена ошибка, из-за которой локальный режим пульсометра 5 (простой текст OBIS, например, для счетчиков eBZ) не обрабатывался, что приводило к замораживанию состояний (#931).\nОписаны поддерживаемые режимы работы пульсометра (README + Info/PulseMeterModes.md)\nРеструктуризация файла README: руководства по калькулятору, графическому выводу, локальному импульсному сигналу и транспортным средствам и зарядным устройствам перемещены в отдельные файлы в папке docu/.\nобновленные зависимости",
+				"pt": "Corrigido o modo 5 do medidor de pulso local (texto OBIS simples, por exemplo, medidores eBZ) que não estava sendo analisado, deixando os estados congelados (#931)\nDocumentamos os modos de medidor de pulso suportados (README + Info/PulseMeterModes.md)\nReestruturamos o arquivo README: movemos os guias da Calculadora, Saída de Gráfico, Pulso Local e Veículos e Carregadores para arquivos separados em docu/\ndependências atualizadas",
+				"nl": "Opgelost: lokale pulsmeter modus 5 (platte OBIS-tekst, bijv. eBZ-meters) wordt niet geparseerd, waardoor statussen bevroren blijven (#931)\nDe ondersteunde pulsmeter-modi zijn gedocumenteerd (README + Info/PulseMeterModes.md).\nDe README is opnieuw gestructureerd: de handleidingen voor de rekenmachine, grafische uitvoer, lokale puls en voertuigen en laders zijn verplaatst naar aparte bestanden onder docu/.\nbijgewerkte afhankelijkheden",
+				"fr": "Correction du mode 5 du compteur de pouls local (texte OBIS brut, par exemple les compteurs eBZ) qui n'était pas analysé, laissant les états figés (#931)\nLes modes de mesure du pouls pris en charge sont documentés (README + Info/PulseMeterModes.md)\nRestructuration du fichier README : les guides « Calculatrice », « Sortie graphique », « Impulsion locale » et « Véhicules et chargeurs » ont été déplacés dans des fichiers séparés sous docu/\ndépendances mises à jour",
+				"it": "La modalità 5 del misuratore di impulsi locale fisso (testo OBIS semplice, ad esempio misuratori eBZ) non viene analizzata, lasciando gli stati bloccati (#931)\nDocumentare le modalità del misuratore di pulsazioni supportate (README + Info/PulseMeterModes.md)\nRistrutturato il README: spostate le guide Calcolatrice, Output grafico, Impulso locale e Veicoli e caricabatterie in file separati nella cartella docu/\ndipendenze aggiornate",
+				"es": "Se corrigió el modo 5 del medidor de pulso local (texto OBIS simple, por ejemplo, medidores eBZ) que no se analizaba, dejando los estados congelados (#931).\nSe documentaron los modos de medidor de pulso compatibles (README + Info/PulseMeterModes.md).\nSe reestructuró el README: se movieron las guías de Calculadora, Salida gráfica, Pulso local y Vehículos y cargadores a archivos separados en docu/\ndependencias actualizadas",
+				"pl": "naprawiono błąd, w wyniku którego lokalny tryb miernika pulsu 5 (zwykły tekst OBIS, np. mierniki eBZ) nie był analizowany, co powodowało zamrożenie stanów (#931)\nudokumentowano obsługiwane tryby miernika pulsu (README + Info/PulseMeterModes.md)\nzrestrukturyzowano plik README: przeniesiono przewodniki dotyczące kalkulatora, wyników wykresu, impulsów lokalnych oraz pojazdów i ładowarek do osobnych plików w katalogu docu/\nzaktualizowane zależności",
+				"uk": "виправлено помилку, через яку локальний режим 5 вимірювача імпульсів (звичайний текст OBIS, наприклад, лічильники eBZ) не оброблявся, що призводило до зависання станів (#931)\nзадокументовано підтримувані режими вимірювання пульсу (README + Info/PulseMeterModes.md)\nреструктуровано README: перенесено посібники з калькулятора, графічного виводу, локального імпульсу та транспортних засобів і зарядних пристроїв в окремі файли в docu/\nоновлені залежності",
+				"zh-cn": "修复了本地脉搏计模式 5（纯 OBIS 文本，例如 eBZ 计）无法解析，导致状态冻结的问题 (#931)\n记录了支持的脉搏计模式（README + Info/PulseMeterModes.md）\n重新组织了 README 文件：将计算器、图形输出、本地脉冲和车辆及充电器指南移至 docu/ 目录下的单独文件中。\n更新依赖项"
+			},
+			"7.2.1": {
+				"en": "fixed charger devices with an empty externalId (e.g. Wallbox Pulsar Plus) producing an invalid state id; a single bad device no longer aborts the whole Data API poll (#925)\nprojectUtils: use extendObject instead of setObject in forceMode so user customizations survive restarts (#927)\nprojectUtils: fixed min/max/step value of 0 being dropped from number state definitions\nupdated tibber-api to 5.6.0\nupdated dependencies",
+				"de": "Fest installierte Ladegeräte mit leerer externalId (z. B. Wallbox Pulsar Plus) erzeugen eine ungültige Status-ID; ein einzelnes fehlerhaftes Gerät bricht die gesamte Data-API-Abfrage nicht mehr ab (#925).\nprojectUtils: Verwenden Sie extendObject anstelle von setObject im forceMode, damit Benutzeranpassungen auch nach Neustarts erhalten bleiben (#927)\nprojectUtils: Der Fehler, dass der Wert 0 für min/max/step aus den Zahlenzustandsdefinitionen entfernt wurde, wurde behoben.\ntibber-api wurde auf Version 5.6.0 aktualisiert.\naktualisierte Abhängigkeiten",
+				"ru": "Устройства с фиксированным зарядным устройством, у которых пустой externalId (например, Wallbox Pulsar Plus), выдают недопустимый идентификатор состояния; одно неисправное устройство больше не прерывает весь опрос Data API (#925)\nprojectUtils: использовать extendObject вместо setObject в forceMode, чтобы пользовательские настройки сохранялись после перезапуска (#927)\nprojectUtils: исправлена ошибка, из-за которой значение min/max/step, равное 0, удалялось из определений состояния чисел.\nОбновлен tibber-api до версии 5.6.0\nобновленные зависимости",
+				"pt": "Dispositivos de carregadores fixos com um externalId vazio (por exemplo, Wallbox Pulsar Plus) produzindo um ID de estado inválido; um único dispositivo ruim não interrompe mais toda a pesquisa da API de dados (#925)\nprojectUtils: usar extendObject em vez de setObject em forceMode para que as personalizações do usuário sobrevivam às reinicializações (#927)\nprojectUtils: corrigiu-se a remoção do valor mínimo/máximo/incremento 0 das definições de estado numérico.\nAtualizei a API do Tibber para a versão 5.6.0.\ndependências atualizadas",
+				"nl": "Vaste laadapparaten met een lege externalId (bijv. Wallbox Pulsar Plus) produceren een ongeldige status-ID; één defect apparaat zorgt er niet langer voor dat de hele Data API-poll wordt afgebroken (#925)\nprojectUtils: gebruik extendObject in plaats van setObject in forceMode zodat gebruikersaanpassingen behouden blijven na herstarts (#927)\nprojectUtils: vaste min/max/stapwaarde van 0 wordt verwijderd uit definities van numerieke statussen\nTibber-API bijgewerkt naar versie 5.6.0.\nbijgewerkte afhankelijkheden",
+				"fr": "Les chargeurs fixes avec un externalId vide (par exemple, Wallbox Pulsar Plus) produisent un identifiant d'état invalide ; un seul appareil défectueux n'interrompt plus l'ensemble de l'interrogation de l'API de données (#925)\nprojectUtils : utiliser extendObject au lieu de setObject en mode force pour que les personnalisations de l’utilisateur soient conservées après un redémarrage (#927)\nprojectUtils : les valeurs minimales, maximales et d’incrément de 0 ont été supprimées des définitions d’état numérique.\nMise à jour de l'API Tibber vers la version 5.6.0\ndépendances mises à jour",
+				"it": "Dispositivi di ricarica fissi con externalId vuoto (ad es. Wallbox Pulsar Plus) che producono un ID di stato non valido; un singolo dispositivo difettoso non interrompe più l'intero polling dell'API dati (#925)\nprojectUtils: utilizzare extendObject invece di setObject in forceMode in modo che le personalizzazioni dell'utente persistano dopo il riavvio (#927)\nprojectUtils: il valore minimo/massimo/passo fisso di 0 viene rimosso dalle definizioni dello stato numerico\ntibber-api aggiornato alla versione 5.6.0\ndipendenze aggiornate",
+				"es": "Se corrigieron los dispositivos de cargador con un externalId vacío (por ejemplo, Wallbox Pulsar Plus) que producían un ID de estado no válido; un solo dispositivo defectuoso ya no interrumpe toda la consulta de la API de datos (#925).\nprojectUtils: usar extendObject en lugar de setObject en forceMode para que las personalizaciones del usuario se conserven tras los reinicios (#927)\nprojectUtils: se corrigió el problema por el cual el valor mínimo/máximo/de paso de 0 se eliminaba de las definiciones de estado numérico.\ntibber-api actualizado a la versión 5.6.0\ndependencias actualizadas",
+				"pl": "naprawiono urządzenia ładujące z pustym externalId (np. Wallbox Pulsar Plus) generujące nieprawidłowy identyfikator stanu; pojedyncze wadliwe urządzenie nie powoduje już przerwania całego sondowania interfejsu API danych (#925)\nprojectUtils: użyj extendObject zamiast setObject w forceMode, aby dostosowania użytkownika przetrwały ponowne uruchomienia (#927)\nprojectUtils: naprawiono usuwanie wartości min./maks./kroku z definicji stanu liczbowego\nzaktualizowano tibber-api do wersji 5.6.0\nzaktualizowane zależności",
+				"uk": "виправлено помилку, через яку зарядні пристрої з порожнім externalId (наприклад, Wallbox Pulsar Plus) видавали недійсний ідентифікатор стану; один несправний пристрій більше не перериває весь опит Data API (#925)\nprojectUtils: використовувати extendObject замість setObject у forceMode, щоб налаштування користувача зберігалися після перезапусків (#927)\nprojectUtils: виправлено помилку, через яку значення min/max/step, рівне 0, видалялося з визначень числових станів\nоновлено tibber-api до версії 5.6.0\nоновлені залежності",
+				"zh-cn": "外部 ID 为空的固定充电设备（例如 Wallbox Pulsar Plus）会产生无效的状态 ID；单个故障设备不再导致整个数据 API 轮询中止 (#925)\nprojectUtils：在 forceMode 中使用 extendObject 而不是 setObject，以便用户自定义设置能够在重启后保留 (#927)\nprojectUtils：修复了从数值状态定义中删除最小值/最大值/步长值为 0 的问题\n已将 tibber-api 更新至 5.6.0 版本\n更新依赖项"
+			},
+			"7.2.0": {
+				"en": "added polling of charger/wallbox devices from the Tibber Data API, written to `Chargers.<id>.*` (#925)\nadded a `LastSeen` state (device-reported last-seen timestamp) for vehicles and chargers",
+				"de": "zusätzliche Abfrage von Ladegerät / Wallbox-Geräten aus der Tibber Data API, geschrieben an \"Chargers. <id>.*\" (#925)\nhinzufügen eines \"LastSeen\" -Zustands (Geräte-berichteter letzter Zeitstempel) für Fahrzeuge und Ladegeräte",
+				"ru": "добавлен опрос устройств зарядного устройства/стенной коробки из API данных Tibber, написанный на «Chargers.<id>.*» (#925)\nдобавлено состояние «LastSeen» (зарегистрированная на устройстве последняя видимая метка времени) для транспортных средств и зарядных устройств",
+				"pt": "adicionado votação de dispositivos carregador/wallbox da API de dados Tibber, escrito para `Chargers.<id>.*` (#925)\nadicionado um estado `LastSeen ` (dispositivo-relatado última vez) para veículos e carregadores",
+				"nl": "toegevoegd peiling van oplader/wallbox-apparaten van de Tibber Data API, geschreven aan de \"Chargers.<id>.*\ntoegevoegd een status \"Lastseen\" voor voertuigen en opladers",
+				"fr": "ajouté le sondage des appareils chargeur/boîte à parois de l'API Tibber Data, écrit à `Chargers.<id>.*` (#925)\na ajouté un état `LastSeen` pour les véhicules et chargeurs",
+				"it": "aggiunta di inquinamento dei dispositivi di caricabatterie/wallbox dalla Tibber Data API, scritta a `Chargers\naggiunto uno stato `LastSeen` (device-reported last-seen timestamp) per veicoli e caricabatterie",
+				"es": "añadida la votación de los dispositivos de cargador/wallbox de la API de datos de Tibber, escrita a 'Chargers\nañadió un estado de `LastSeen ' (temporal de última vista del dispositivo) para vehículos y cargadores",
+				"pl": "dodane sondaże urządzeń do ładowania / tapet z API danych Tibber, napisane na 'Ładowarki. < id >. *' (# 925)\ndodano stan 'LastSeen' (ostatnio widziany znacznik czasu) dla pojazdów i ładowarek",
+				"uk": "додано опитування пристроїв зарядного пристрою/гаманця з API даних Tibber, написаного до `Chargers.<id>.*` (#925)\nдодано стан `LastSeen` (device-reported last-seen timestamp) для транспортних засобів та зарядних пристроїв",
+				"zh-cn": "增加了Tibber Data API的充电器/墙箱设备的投票,写给“主管者”\n为车辆和充电机添加了`最后一眼 ' 状态(装置 -- -- 报告的最后一眼时间戳)"
+			},
+			"7.1.5": {
+				"en": "added a regression test confirming best single hours LTF no longer switches on the wrong day (#631)\nworked around a Tibber server bug that returns `to` equal to `from` in weekly historical consumption data (#890)\nremoved redundant test devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) and switched unit tests to Node's built-in assert",
+				"de": "Es wurde ein Regressionstest hinzugefügt, der bestätigt, dass die beste Einzelstunden-LTF nicht mehr am falschen Tag schaltet (#631).\nwurde ein Fehler auf dem Tibber-Server behoben, der in wöchentlichen historischen Verbrauchsdaten `to` gleich `from` zurückgibt (#890).\nDie redundanten Testabhängigkeiten (chai, chai-as-promised, sinon-chai, proxyquire) wurden entfernt und die Unit-Tests auf die in Node integrierte Assert-Funktion umgestellt.",
+				"ru": "Добавлен регрессионный тест, подтверждающий, что лучшие часы LTF больше не переключаются в неподходящий день (#631)\nУстранили ошибку на сервере Tibber, из-за которой в еженедельных исторических данных о потреблении возвращается значение `to`, равное `from` (#890).\nУдалены избыточные зависимости для разработки тестов (chai, chai-as-promised, sinon-chai, proxyquire) и модульные тесты заменены на встроенный в Node метод assert.",
+				"pt": "Adicionado um teste de regressão confirmando que o melhor LTF de horas individuais não muda mais no dia errado (#631)\nContornou um bug do servidor Tibber que retorna `to` igual a `from` em dados históricos de consumo semanal (#890)\nRemovi as dependências de desenvolvimento redundantes dos testes (chai, chai-as-promised, sinon-chai, proxyquire) e migrei os testes unitários para o assert integrado do Node.js.",
+				"nl": "Er is een regressietest toegevoegd die bevestigt dat de LTF voor de beste afzonderlijke uren niet langer op de verkeerde dag schakelt (#631).\nIk heb een bug in de Tibber-server omzeild die ervoor zorgt dat `to` gelijk is aan `from` in de wekelijkse historische verbruiksgegevens (#890).\nOverbodige test-devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) zijn verwijderd en unit tests zijn overgeschakeld naar Node's ingebouwde assert.",
+				"fr": "Ajout d'un test de régression confirmant que le meilleur LTF horaire unique ne bascule plus le mauvais jour (#631)\nJ'ai contourné un bug du serveur Tibber qui renvoie `to` égal à `from` dans les données de consommation historiques hebdomadaires (#890)\nSuppression des dépendances de développement de test redondantes (chai, chai-as-promised, sinon-chai, proxyquire) et passage aux assertions intégrées de Node pour les tests unitaires",
+				"it": "aggiunto un test di regressione che conferma che la migliore funzione LTF per singole ore non si attiva più nel giorno sbagliato (#631)\nè stato risolto un bug del server Tibber che restituisce `to` uguale a `from` nei dati storici di consumo settimanali (#890)\nHo rimosso le dipendenze di sviluppo ridondanti per i test (chai, chai-as-promised, sinon-chai, proxyquire) e ho sostituito i test unitari con l'assert integrato di Node.",
+				"es": "Se agregó una prueba de regresión que confirma que las mejores horas individuales LTF ya no cambian en el día equivocado (#631).\nSe solucionó un error del servidor Tibber que devolvía `to` igual a `from` en los datos históricos de consumo semanales (#890).\nSe eliminaron las dependencias de desarrollo de pruebas redundantes (chai, chai-as-promised, sinon-chai, proxyquire) y se cambiaron las pruebas unitarias a la función assert integrada de Node.",
+				"pl": "dodano test regresji potwierdzający, że najlepsze pojedyncze godziny LTF nie przełączają się już w niewłaściwy dzień (#631)\nobejście błędu serwera Tibber, który powoduje, że w tygodniowych danych historycznych dotyczących zużycia zwracane jest `do` równe `z` (#890)\nusunięto zbędne zależności testowe (chai, chai-as-promised, sinon-chai, proxyquire) i zmieniono testy jednostkowe na wbudowane assert Node'a",
+				"uk": "додано регресійний тест, який підтверджує, що LTF для найкращих окремих годин більше не перемикається в неправильний день (#631)\nвирішено проблему сервера Tibber, яка повертає значення `to`, що дорівнює `from` у щотижневих історичних даних споживання (#890)\nвидалено надлишкові тестові devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) та переключено модульні тести на вбудовану функцію assert Node",
+				"zh-cn": "新增回归测试，确认最佳单小时 LTF 不再在错误日期切换（#631）\n修复了 Tibber 服务器的一个 bug，该 bug 会导致每周历史消费数据中 `to` 返回的值等于 `from` (#890)\n移除了冗余的测试开发依赖项（chai、chai-as-promised、sinon-chai、proxyquire），并将单元测试切换到 Node 内置的 assert 语句。"
+			},
+			"7.1.4": {
+				"en": "fixed regression where smart battery buffer ignored the EfficiencyLoss parameter (#918)",
+				"de": "Behobene Regression, bei der der intelligente Batteriepuffer den Effizienzverlustparameter ignorierte (#918).",
+				"ru": "Исправлена регрессия, в которой интеллектуальный буфер батареи игнорировал параметр EfficiencyLoss (#918)",
+				"pt": "Regressão corrigida onde o buffer de bateria inteligente ignorava o parâmetro EfficiencyLoss (#918)",
+				"nl": "gecorrigeerde regressie waarbij de slimme batterijbuffer de parameter EfficiencyLoss negeerde (#918)",
+				"fr": "Correction d'une régression où le tampon de batterie intelligent ignorait le paramètre EfficiencyLoss (#918)",
+				"it": "Risolto il problema di regressione in cui il buffer della batteria intelligente ignorava il parametro EfficiencyLoss (#918)",
+				"es": "Regresión corregida donde el búfer de batería inteligente ignoraba el parámetro EfficiencyLoss (#918)",
+				"pl": "naprawiono regresję, w której inteligentny bufor baterii ignorował parametr EfficiencyLoss (#918)",
+				"uk": "виправлено регресію, через яку інтелектуальний буфер батареї ігнорував параметр EfficiencyLoss (#918)",
+				"zh-cn": "修复了智能电池缓冲区忽略效率损失参数的回归问题（#918）"
+			},
+			"7.1.3": {
+				"en": "updated axios\nfixed local SML parsing for EMH meters reporting meter_mode 4 but sending binary SML data (#912)\nfixed false warn log for SBB when no price slot matches current quarter (#912)",
+				"de": "aktualisiertes Axios\nLokales SML-Parsing für EMH-Zähler, die meter_mode 4 melden, aber binäre SML-Daten senden, wurde korrigiert (#912).\nFehlerhafte Warnmeldung für SBB behoben, wenn kein Preissegment dem aktuellen Quartal entspricht (#912).",
+				"ru": "обновленные аксиосы\nИсправлена ошибка локального анализа SML для счетчиков EMH, сообщающих о режиме meter_mode 4, но отправляющих двоичные данные SML (#912)\nИсправлено ложное предупреждение в журнале SBB, когда ни один ценовой слот не соответствует текущему кварталу (#912)",
+				"pt": "axios atualizado\nCorreção na análise local de SML para medidores EMH que reportam meter_mode 4, mas enviam dados SML binários (#912)\nCorrigido o registro de aviso falso para SBB quando nenhum intervalo de preço corresponde ao trimestre atual (#912)",
+				"nl": "axios bijgewerkt\nDe lokale SML-parsing voor EMH-meters die meter_mode 4 rapporteren maar binaire SML-gegevens verzenden, is gecorrigeerd (#912).\nFoutmelding voor SBB gecorrigeerd wanneer geen prijsslot overeenkomt met het huidige kwartaal (#912)",
+				"fr": "axios mis à jour\nCorrection de l'analyse SML locale pour les compteurs EMH signalant meter_mode 4 mais envoyant des données SML binaires (#912)\nCorrection d'un faux avertissement dans le journal SBB lorsqu'aucun emplacement de prix ne correspond au trimestre en cours (#912)",
+				"it": "axios aggiornato\nCorretto il parsing SML locale per i contatori EMH che segnalano meter_mode 4 ma inviano dati SML binari (#912)\nCorretto il registro degli avvisi errati per SBB quando nessuna fascia di prezzo corrisponde al trimestre corrente (#912)",
+				"es": "Axios actualizado\nSe corrigió el análisis local de SML para medidores EMH que informaban meter_mode 4 pero enviaban datos SML binarios (#912).\nSe corrigió el registro de advertencia falso para SBB cuando ningún espacio de precio coincide con el trimestre actual (#912)",
+				"pl": "zaktualizowane aksjomaty\nnaprawiono lokalną analizę SML dla liczników EMH zgłaszających meter_mode 4, ale wysyłających binarne dane SML (#912)\nnaprawiono log fałszywych ostrzeżeń dla SBB, gdy żaden slot cenowy nie pasował do bieżącego kwartału (#912)",
+				"uk": "оновлений Axios\nвиправлено локальний розбір SML для лічильників EMH, які повідомляють про meter_mode 4, але надсилають двійкові дані SML (#912)\nвиправлено помилковий журнал попереджень для SBB, коли жоден ціновий слот не відповідає поточному кварталу (#912)",
+				"zh-cn": "更新后的 axios\n修复了 EMH 电表报告 meter_mode 4 但发送二进制 SML 数据的本地 SML 解析问题 (#912)\n修复了当没有价格档位与当前季度匹配时 SBB 的错误警告日志记录问题 (#912)"
+			}
+		},
+		"messages": [
+			{
+				"condition": {
+					"operand": "and",
+					"rules": ["oldVersion<6.1.0", "newVersion>=6.1.0"]
+				},
+				"title": {
+					"en": "Important notice!",
+					"de": "Wichtiger Hinweis!",
+					"ru": "Важное замечание!",
+					"pt": "Notícia importante!",
+					"nl": "Belangrijke mededeling!",
+					"fr": "Avis important!",
+					"it": "Avviso IMPORTANTE!",
+					"es": "Noticia importante!",
+					"pl": "Ważna uwaga!",
+					"uk": "Погода!",
+					"zh-cn": "重要通知!"
+				},
+				"text": {
+					"en": "The adapter behavior has changed! The FlexCharts X-axis now adapts to the window size. Because of this, the templates were updated. Please compare your template with the new examples and adjust it if needed.",
+					"de": "Das Verhalten des Adapters hat sich geändert! Die X-Achse der FlexCharts passt sich jetzt der Fenstergröße an. Daher wurden die Templates aktualisiert. Bitte vergleicht euer Template mit den neuen Vorlagen und passt es bei Bedarf an.",
+					"ru": "Поведение адаптера изменилось! Ось X в FlexCharts теперь адаптируется к размеру окна. Поэтому шаблоны были обновлены. Пожалуйста, сравните свой шаблон с новыми примерами и при необходимости скорректируйте его.",
+					"pt": "O comportamento do adaptador mudou! O eixo X do FlexCharts agora se adapta ao tamanho da janela. Por isso, os modelos foram atualizados. Compare seu modelo com os novos exemplos e ajuste-o se necessário.",
+					"nl": "Het gedrag van de adapter is veranderd! De X-as van FlexCharts past zich nu aan de venstergrootte aan. Daarom zijn de templates bijgewerkt. Vergelijk je template met de nieuwe voorbeelden en pas deze indien nodig aan.",
+					"fr": "Le comportement de l'adaptateur a changé ! L’axe X de FlexCharts s’adapte désormais à la taille de la fenêtre. Les modèles ont donc été mis à jour. Veuillez comparer votre modèle avec les nouveaux exemples et l’ajuster si nécessaire.",
+					"it": "Il comportamento dell'adattatore è cambiato! L’asse X di FlexCharts ora si adatta alla dimensione della finestra. Per questo motivo, i template sono stati aggiornati. Confronta il tuo template con i nuovi esempi e adattalo se necessario.",
+					"es": "¡El comportamiento del adaptador ha cambiado! El eje X de FlexCharts ahora se adapta al tamaño de la ventana. Por ello, los templates se han actualizado. Compara tu template con los nuevos ejemplos y ajústalo si es necesario.",
+					"pl": "Zachowanie adaptera zmieniło się! Oś X w FlexCharts teraz dostosowuje się do rozmiaru okna. Dlatego szablony zostały zaktualizowane. Porównaj swój szablon z nowymi przykładami i dostosuj go w razie potrzeby.",
+					"uk": "Поведінка адаптера змінилася! Вісь X у FlexCharts тепер адаптується до розміру вікна. Тому шаблони було оновлено. Порівняйте свій шаблон з новими прикладами та за потреби змініть його.",
+					"zh-cn": "适配器行为已更改！FlexCharts 的 X 轴现在会根据窗口大小自动调整，因此模板已更新。请将您的模板与新示例进行比较，并在需要时进行调整。"
+				},
+				"level": "warn",
+				"buttons": ["agree", "cancel"]
+			}
+		],
+		"titleLang": {
+			"en": "Tibber Link",
+			"de": "Tibber Link",
+			"ru": "Тиббер Ссылка",
+			"pt": "Tibber Link",
+			"nl": "Tibber Link",
+			"fr": "Tibber Link",
+			"it": "Tibber Link",
+			"es": "Tibber Link",
+			"pl": "Tibber Link",
+			"uk": "Посилання",
+			"zh-cn": "网络联系"
+		},
+		"desc": {
+			"en": "Links Tibber API data to be used in ioBroker",
+			"de": "Verknüpft Tibber API-Daten zur Verwendung in ioBroker",
+			"ru": "Ссылки на данные Tibber API для использования в ioBroker",
+			"pt": "Vincula os dados da API do Tibber para serem usados no ioBroker",
+			"nl": "Koppelt Tibber API-gegevens om te worden gebruikt in ioBroker",
+			"fr": "Liaisons des données de l'API Tibber à utiliser dans ioBroker",
+			"it": "Collega i dati dell'API di Tibber da utilizzare in ioBroker",
+			"es": "Enlaza los datos de la API de Tibber para ser utilizados en ioBroker",
+			"pl": "Łączy dane z API Tibber do użycia w ioBroker",
+			"uk": "Посилання на дані Tibber API для використання в ioBroker",
+			"zh-cn": "连接Tibber API数据以在ioBroker中使用"
+		},
+		"authors": ["Hombach <TibberLink@homba.ch>"],
+		"keywords": ["power", "energy", "Tibber"],
+		"licenseInformation": {
+			"license": "MIT",
+			"type": "free"
+		},
+		"platform": "Javascript/Node.js",
+		"icon": "tibberlink.png",
+		"enabled": true,
+		"extIcon": "https://raw.githubusercontent.com/Hombach/ioBroker.tibberlink/master/admin/tibberlink.png",
+		"readme": "https://github.com/Hombach/ioBroker.tibberlink/blob/master/README.md",
+		"loglevel": "info",
+		"tier": 2,
+		"mode": "daemon",
+		"messagebox": true,
+		"type": "energy",
+		"compact": true,
+		"connectionType": "cloud",
+		"dataSource": "poll",
+		"adminUI": {
+			"config": "json"
+		},
+		"dependencies": [
+			{
+				"js-controller": ">=6.0.11"
+			}
+		],
+		"globalDependencies": [
+			{
+				"admin": ">=7.6.20"
+			}
+		],
+		"plugins": {
+			"sentry": {
+				"dsn": "https://eb119579a7dd76e359395df22aa265f8@o415875.ingest.us.sentry.io/4510376005009408"
+			}
+		}
+	},
+	"encryptedNative": ["TibberAPIToken", "TibberClientSecret"],
+	"protectedNative": ["TibberAPIToken", "TibberClientSecret"],
+	"native": {
+		"TibberAPIToken": "",
+		"TibberClientId": "",
+		"TibberClientSecret": "",
+		"TibberAuthCode": "",
+		"TibberDataApiInterval": 5,
+		"HomesList": [
+			{
+				"feedActive": "false",
+				"priceDataPollActive": "true",
+				"homeID": "None available - restart adapter after entering token",
+				"statsActive": "false",
+				"numberConsHourly": 24,
+				"numberConsDaily": 7,
+				"numberConsWeekly": 4,
+				"numberConsMonthly": 4,
+				"numberConsAnnual": 2
+			}
+		],
+		"CalculatorList": [
+			{
+				"chHomeID": "None available - restart adapter after entering token",
+				"chType": "best cost",
+				"chName": "Channel Name",
+				"chActive": "false",
+				"chTargetState": "choose your state to drive, like 0_userdata.0.example_state",
+				"chValueOn": "true",
+				"chValueOff": "false",
+				"chTargetState2": "choose your second state to drive, like 0_userdata.0.example_state_2",
+				"chValueOn2": "true",
+				"chValueOff2": "false"
+			}
+		],
+		"PulseList": [
+			{
+				"puName": "Pulse Local",
+				"tibberBridgeUrl": "tibber-host",
+				"tibberBridgePassword": "xxxx-xxxx",
+				"tibberPulseLocalNodeId": 1,
+				"tibberBridgeRawDataInterval": 2000
+			}
+		]
+	},
+	"objects": [],
+	"instanceObjects": [
+		{
+			"_id": "info",
+			"type": "channel",
+			"common": {
+				"name": "Information"
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.connection",
+			"type": "state",
+			"common": {
+				"role": "indicator.connected",
+				"name": "Device or service connected",
+				"type": "boolean",
+				"read": true,
+				"write": false,
+				"def": false
+			},
+			"native": {}
+		},
+		{
+			"_id": "info.LastSentryLogMonth",
+			"type": "state",
+			"common": {
+				"role": "value",
+				"name": "Last month for Sentry log",
+				"type": "number",
+				"unit": "",
+				"read": true,
+				"write": false,
+				"def": 0
+			},
+			"native": {}
+		}
+	]
 }
