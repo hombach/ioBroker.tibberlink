@@ -106,7 +106,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) switch to iobroker testing 6.x
 - (HombachC) added node 26 tests
-- (HombachC) updated dependencies
+- (HombachC) updated dependencies, axios
 
 ### 7.2.3 (2026-08-29)
 
