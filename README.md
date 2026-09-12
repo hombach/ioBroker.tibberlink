@@ -101,8 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.2.4 (2026-09-12)
 
 - (HombachC) Tibber Data API: the actual OAuth error response (HTTP status + body, e.g. invalid_grant) is now logged instead of only "Request failed with status code 400", and a failed auth-code exchange re-logs the authorization URL with a hint that codes are single-use and short-lived (#940)
 - (HombachC) switch to iobroker testing 6.x
@@ -135,12 +134,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) added polling of charger/wallbox devices from the Tibber Data API, written to `Chargers.<id>.*` (#925)
 - (HombachC) added a `LastSeen` state (device-reported last-seen timestamp) for vehicles and chargers
-
-### 7.1.5 (2026-07-12)
-
-- (HombachC) added a regression test confirming best single hours LTF no longer switches on the wrong day (#631)
-- (HombachC) worked around a Tibber server bug that returns `to` equal to `from` in weekly historical consumption data (#890)
-- (HombachC) removed redundant test devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) and switched unit tests to Node's built-in assert
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

@@ -17,6 +17,12 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+## 7.1.5 (2026-07-12)
+
+- (HombachC) added a regression test confirming best single hours LTF no longer switches on the wrong day (#631)
+- (HombachC) worked around a Tibber server bug that returns `to` equal to `from` in weekly historical consumption data (#890)
+- (HombachC) removed redundant test devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) and switched unit tests to Node's built-in assert
+
 ## 7.1.4 (2026-07-09)
 
 - (HombachC) fixed regression where smart battery buffer ignored the EfficiencyLoss parameter (#918)
