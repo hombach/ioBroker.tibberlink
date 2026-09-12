@@ -104,6 +104,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) switch to iobroker testing 6.x
+- (HombachC) added node 26 tests
 - (HombachC) updated dependencies
 
 ### 7.2.3 (2026-08-29)
