@@ -1,4 +1,5 @@
 import assert from "node:assert";
+import { AxiosError, AxiosHeaders } from "axios";
 import { createMockAdapter, drainMicrotasks } from "./testHelpers.test.ts";
 import { TibberDataAPI } from "./tibberDataAPI.ts";
 
@@ -96,5 +97,50 @@ describe("TibberDataAPI – writeChargerStates (#925)", () => {
 		assert.strictEqual(store.states[`${base}.HomeId`], "home-1");
 		// no invalid "Chargers." channel must be created
 		assert.strictEqual(store.objects["Chargers."], undefined);
+	});
+});
+
+// The Data API init failed with only "Request failed with status code 400" logged, hiding the actual
+// OAuth error (e.g. invalid_grant) that Tibber returns in the response body (#940). describeError must
+// surface HTTP status + body so the reason is visible in the log.
+type ErrorDescriber = { describeError(e: unknown): string };
+
+function makeAxiosError(status: number, data: unknown): AxiosError {
+	return new AxiosError("Request failed with status code " + status, "ERR_BAD_REQUEST", undefined, undefined, {
+		status,
+		statusText: "Bad Request",
+		data,
+		headers: new AxiosHeaders(),
+		config: { headers: new AxiosHeaders() },
+	});
+}
+
+describe("TibberDataAPI – describeError (#940)", () => {
+	const describe_ = (e: unknown): string => (TibberDataAPI as unknown as ErrorDescriber).describeError(e);
+
+	it("surfaces HTTP status and the OAuth error body from an axios error", () => {
+		const err = makeAxiosError(400, { error: "invalid_grant", error_description: "The authorization code is invalid or expired." });
+		const msg = describe_(err);
+		assert.ok(msg.includes("HTTP 400"), `expected HTTP 400 in "${msg}"`);
+		assert.ok(msg.includes("invalid_grant"), `expected invalid_grant in "${msg}"`);
+		assert.ok(msg.includes("invalid or expired"), `expected error_description in "${msg}"`);
+	});
+
+	it("passes through a plain string response body", () => {
+		const err = makeAxiosError(401, "unauthorized_client");
+		const msg = describe_(err);
+		assert.ok(msg.includes("HTTP 401"), `expected HTTP 401 in "${msg}"`);
+		assert.ok(msg.includes("unauthorized_client"), `expected body in "${msg}"`);
+	});
+
+	it("falls back to the axios message when there is no response (network/timeout)", () => {
+		const err = new AxiosError("timeout of 30000ms exceeded", "ECONNABORTED");
+		const msg = describe_(err);
+		assert.ok(msg.includes("no response"), `expected network hint in "${msg}"`);
+		assert.ok(msg.includes("timeout"), `expected original message in "${msg}"`);
+	});
+
+	it("uses the plain message for a non-axios Error", () => {
+		assert.strictEqual(describe_(new Error("boom")), "boom");
 	});
 });

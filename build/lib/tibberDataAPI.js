@@ -71,9 +71,23 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
             return true;
         }
         catch (error) {
-            this.adapter.log.error(`[tibberDataAPI]: initialization failed: ${error.message}`);
+            this.adapter.log.error(`[tibberDataAPI]: initialization failed: ${TibberDataAPI.describeError(error)}`);
+            if (authCode) {
+                this.adapter.log.warn(`[tibberDataAPI]: the authorization code could not be exchanged — codes are single-use and expire within minutes. ` +
+                    `Please re-authorize by opening this URL and pasting the FRESH code immediately: ${TibberDataAPI.buildAuthUrl(clientId)}`);
+            }
             return false;
         }
+    }
+    static describeError(error) {
+        if (axios_1.default.isAxiosError(error)) {
+            const status = error.response?.status;
+            const data = error.response?.data;
+            const body = data === undefined || data === null ? "" : typeof data === "string" ? data : JSON.stringify(data);
+            const statusPart = status !== undefined ? `HTTP ${status}` : "no response (network/timeout)";
+            return body ? `${statusPart}: ${body}` : `${statusPart}: ${error.message}`;
+        }
+        return error instanceof Error ? error.message : String(error);
     }
     async updateVehicleData() {
         const clientId = this.adapter.config.TibberClientId;
@@ -90,7 +104,7 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
             }
         }
         catch (error) {
-            this.adapter.log.warn(`[tibberDataAPI]: vehicle update failed: ${error.message}`);
+            this.adapter.log.warn(`[tibberDataAPI]: vehicle update failed: ${TibberDataAPI.describeError(error)}`);
         }
     }
     extractCode(input) {

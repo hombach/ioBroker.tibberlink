@@ -143,9 +143,37 @@ export class TibberDataAPI extends ProjectUtils {
 			}
 			return true;
 		} catch (error) {
-			this.adapter.log.error(`[tibberDataAPI]: initialization failed: ${(error as Error).message}`);
+			this.adapter.log.error(`[tibberDataAPI]: initialization failed: ${TibberDataAPI.describeError(error)}`);
+			// A failed code exchange leaves the user stuck: the auth code is single-use and short-lived, so
+			// simply restarting the adapter just retries the already-spent code (→ HTTP 400 again, #940).
+			// Re-log the authorize URL with a hint so they can restart the flow with a fresh code.
+			if (authCode) {
+				this.adapter.log.warn(
+					`[tibberDataAPI]: the authorization code could not be exchanged — codes are single-use and expire within minutes. ` +
+						`Please re-authorize by opening this URL and pasting the FRESH code immediately: ${TibberDataAPI.buildAuthUrl(clientId)}`,
+				);
+			}
 			return false;
 		}
+	}
+
+	/**
+	 * Formats a caught error for logging. For axios errors it surfaces the HTTP status and the response
+	 * body — for the OAuth token endpoint this is the actual Tibber error (e.g. `invalid_grant`), which
+	 * the bare `Error.message` ("Request failed with status code 400") hides (#940).
+	 *
+	 * @param error - The caught error of unknown type.
+	 * @returns A single-line description including HTTP status and response body when available.
+	 */
+	private static describeError(error: unknown): string {
+		if (axios.isAxiosError(error)) {
+			const status = error.response?.status;
+			const data = error.response?.data;
+			const body = data === undefined || data === null ? "" : typeof data === "string" ? data : JSON.stringify(data);
+			const statusPart = status !== undefined ? `HTTP ${status}` : "no response (network/timeout)";
+			return body ? `${statusPart}: ${body}` : `${statusPart}: ${error.message}`;
+		}
+		return error instanceof Error ? error.message : String(error);
 	}
 
 	/**
@@ -165,7 +193,7 @@ export class TibberDataAPI extends ProjectUtils {
 				await this.processHomeDevices(accessToken, home.id);
 			}
 		} catch (error) {
-			this.adapter.log.warn(`[tibberDataAPI]: vehicle update failed: ${(error as Error).message}`);
+			this.adapter.log.warn(`[tibberDataAPI]: vehicle update failed: ${TibberDataAPI.describeError(error)}`);
 		}
 	}
 
