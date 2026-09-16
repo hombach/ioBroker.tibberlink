@@ -9,7 +9,7 @@ Tibber operates two separate APIs with different purposes:
 
 Neither API replaces the other — they complement each other. The vehicle and charger feature described here uses the Data API and therefore needs its own credentials in addition to the main API token.
 
-> Developer/research notes on the Data API (endpoints, device schema, capabilities) live in [../Info/TibberDataAPI.md](../Info/TibberDataAPI.md).
+> Developer/research notes on the Data API (endpoints, device schema, capabilities) live in [../info/TibberDataAPI.md](../info/TibberDataAPI.md).
 
 ## Prerequisites
 

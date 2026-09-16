@@ -22,4 +22,4 @@ encodings used by common meters:
 | 5 | Plain OBIS text | eBZ |
 
 If your meter reports a different mode or does not update, please open an issue with the raw HEX telegram
-from the debug log. Full technical details: [../Info/PulseMeterModes.md](../Info/PulseMeterModes.md).
+from the debug log. Full technical details: [../info/PulseMeterModes.md](../info/PulseMeterModes.md).
