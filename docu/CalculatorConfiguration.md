@@ -14,7 +14,8 @@ _Part of the [ioBroker.tibberlink documentation](../README.md)._
 - The values to be written to the output state can be defined in "value YES" and "value NO," e.g., "true" for boolean states or a number or text to be written.
 - Outputs:
     - "Best cost": Utilizes the "TriggerPrice" state as input, producing a "YES" output every hour when the current Tibber energy cost is below the trigger price.
-    - "Best single hours": Generates a "YES" output during the least expensive hours, with the number defined in the "AmountHours" state.
+    - "Best single hours": Generates a "YES" output during the least expensive hours, with the number defined in the "AmountHours" state.  
+      Optionally, enable "Include price ties at the boundary" in the channel settings: after selecting "AmountHours" slots, all following slots that share the same price as the last selected (boundary) slot are switched ON as well. This lets you cover a whole price plateau — e.g. all 0-cent quarter-hours during a low-price phase — instead of cutting it off at the configured amount. Disabled by default, so existing channels keep their exact "AmountHours" behavior.
     - "Best hours block": Outputs "YES" during the most cost-effective block of hours, with the number of hours specified in the "AmountHours" state.  
       Additionally, the average total cost in the determined block is written to a state "AverageTotalCost" nearby the input states of this channel. Also start and end hour of the block is written to "BlockStartFullHour" and "BlockEndFullHour" as a result of the calculation.
     - "Best percentage": Outputs "YES" during the least expensive hour and any other hours where the price falls within the percentage range specified in the "Percentage" settings state.

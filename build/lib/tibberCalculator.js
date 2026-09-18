@@ -711,6 +711,16 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.warn(this.generateErrorMessage(error, `execute calculator for ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)} in channel ${channel}`));
         }
     }
+    static selectBestSingleCount(sortedPrices, amountHours, extendPlateau) {
+        let count = Math.min(amountHours, sortedPrices.length);
+        if (extendPlateau && count > 0) {
+            const boundary = sortedPrices[count - 1].total ?? 0;
+            while (count < sortedPrices.length && Math.abs((sortedPrices[count].total ?? 0) - boundary) < 1e-9) {
+                count++;
+            }
+        }
+        return count;
+    }
     async executeCalculatorBestSingleHours(channel, modeLTF = false) {
         const now = new Date();
         const channelConfig = this.adapter.config.CalculatorList[channel];
@@ -722,7 +732,8 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             else if (modeLTF && now < channelConfig.chStartTime) {
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
-                const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkQuarterMatch(entry));
+                const count = TibberCalculator.selectBestSingleCount(filteredPrices, channelConfig.chAmountHours, channelConfig.chExtendPlateau);
+                const channelResult = filteredPrices.slice(0, count).map((entry) => checkQuarterMatch(entry));
                 const jsonOutput = filteredPrices
                     .map((entry, index) => ({
                     hour: entry.startsAt ? new Date(entry.startsAt).getHours() : null,
@@ -743,7 +754,8 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF);
                 filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
-                const channelResult = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry) => checkQuarterMatch(entry));
+                const count = TibberCalculator.selectBestSingleCount(filteredPrices, channelConfig.chAmountHours, channelConfig.chExtendPlateau);
+                const channelResult = filteredPrices.slice(0, count).map((entry) => checkQuarterMatch(entry));
                 if (channelResult.some(value => value)) {
                     valueToSet = channelConfig.chValueOn;
                 }

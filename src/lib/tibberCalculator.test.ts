@@ -107,6 +107,70 @@ describe("TibberCalculator – BestSingleHours OutputJSON", () => {
 	});
 });
 
+// ── BestSingleHours plateau extension (#945) ───────────────────────────────
+
+describe("TibberCalculator – BestSingleHours plateau extension (#945)", () => {
+	// 4 slots share the cheapest price (0.00 = a zero-cost plateau), then rising prices.
+	const PLATEAU_PRICES = [
+		{ startsAt: "2023-01-01T00:00:00.000Z", total: 0.0 },
+		{ startsAt: "2023-01-01T00:15:00.000Z", total: 0.0 },
+		{ startsAt: "2023-01-01T00:30:00.000Z", total: 0.0 },
+		{ startsAt: "2023-01-01T00:45:00.000Z", total: 0.0 },
+		{ startsAt: "2023-01-01T01:00:00.000Z", total: 0.2 },
+		{ startsAt: "2023-01-01T01:15:00.000Z", total: 0.3 },
+	];
+
+	async function runBSH(
+		store: ReturnType<typeof createMockAdapter>["store"],
+		adapter: ReturnType<typeof createMockAdapter>["adapter"],
+	): Promise<Array<{ total: number; output: boolean }>> {
+		const calc = new TibberCalculator(adapter);
+		await (calc as unknown as { executeCalculatorBestSingleHours(ch: number): Promise<void> }).executeCalculatorBestSingleHours(0);
+		await drainMicrotasks();
+		return JSON.parse(store.states[`Homes.${HOME}.Calculations.0.OutputJSON`] as string);
+	}
+
+	it("cuts off at chAmountHours when the flag is off (default behaviour unchanged)", async () => {
+		const { adapter, store } = createMockAdapter({
+			UseCalculator: true,
+			CalculatorList: [makeChannelConfig({ chType: enCalcType.BestSingleHours, chAmountHours: 2, chExtendPlateau: false })],
+		});
+		injectPrices(store, HOME, PLATEAU_PRICES);
+
+		const json = await runBSH(store, adapter);
+		// only 2 of the 4 equally-cheap slots are marked ON
+		assert.strictEqual(json.filter(e => e.output).length, 2);
+	});
+
+	it("extends over the whole plateau when the flag is on", async () => {
+		const { adapter, store } = createMockAdapter({
+			UseCalculator: true,
+			CalculatorList: [makeChannelConfig({ chType: enCalcType.BestSingleHours, chAmountHours: 2, chExtendPlateau: true })],
+		});
+		injectPrices(store, HOME, PLATEAU_PRICES);
+
+		const json = await runBSH(store, adapter);
+		const on = json.filter(e => e.output);
+		// all 4 slots tied at the boundary price (0.00) are marked ON, not just 2
+		assert.strictEqual(on.length, 4);
+		assert.ok(
+			on.every(e => e.total === 0),
+			"all switched-on slots share the boundary price",
+		);
+	});
+
+	it("does not over-extend when the boundary price is unique", async () => {
+		const { adapter, store } = createMockAdapter({
+			UseCalculator: true,
+			CalculatorList: [makeChannelConfig({ chType: enCalcType.BestSingleHours, chAmountHours: 2, chExtendPlateau: true })],
+		});
+		injectPrices(store, HOME); // TEST_PRICES – all totals distinct, so no tie at the boundary
+
+		const json = await runBSH(store, adapter);
+		assert.strictEqual(json.filter(e => e.output).length, 2);
+	});
+});
+
 // ── BestHoursBlock OutputJSON ──────────────────────────────────────────────
 
 describe("TibberCalculator – BestHoursBlock OutputJSON", () => {

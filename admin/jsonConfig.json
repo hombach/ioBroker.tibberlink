@@ -655,6 +655,21 @@
 
 						{
 							"type": "checkbox",
+							"label": "LBL_chExtendPlateau",
+							"tooltip": "TTIP_chExtendPlateau",
+							"attr": "chExtendPlateau",
+							"default": false,
+							"hidden": "data.chType !== 2 && data.chType !== 5",
+							"xs": 12,
+							"sm": 12,
+							"md": 12,
+							"lg": 12,
+							"xl": 12,
+							"newLine": true
+						},
+
+						{
+							"type": "checkbox",
 							"label": "LBL_chGraphEnabled",
 							"tooltip": "TTIP_chGraphEnabled",
 							"attr": "chGraphEnabled",

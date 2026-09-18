@@ -1116,6 +1116,30 @@ export class TibberCalculator extends ProjectUtils {
 	}
 
 	/**
+	 * Determines how many of the price-sorted slots to select for BestSingleHours.
+	 *
+	 * Normally this is `amountHours`. When `extendPlateau` is enabled, the selection is stretched to also
+	 * include every following slot whose price ties the boundary (Nth-cheapest) slot, so a price plateau
+	 * (e.g. multiple 0-cent quarters) is taken as a whole instead of being cut off at N (#945).
+	 *
+	 * @param sortedPrices - Prices sorted ascending by total.
+	 * @param amountHours - Configured number of slots to select (chAmountHours).
+	 * @param extendPlateau - When true, also include all slots tied with the boundary slot's price.
+	 * @returns The number of leading slots to mark as selected.
+	 */
+	private static selectBestSingleCount(sortedPrices: IPrice[], amountHours: number, extendPlateau: boolean): number {
+		let count = Math.min(amountHours, sortedPrices.length);
+		if (extendPlateau && count > 0) {
+			const boundary = sortedPrices[count - 1].total ?? 0;
+			// tolerate float noise; Tibber returns identical totals for tied slots
+			while (count < sortedPrices.length && Math.abs((sortedPrices[count].total ?? 0) - boundary) < 1e-9) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	/**
 	 * Executes the BestSingleHours (or BestSingleHoursLTF) calculator logic for the given channel.
 	 * Selects the N cheapest individual 15-minute slots and sets the output to ON during the matching slot.
 	 * Writes the full price schedule with per-slot output flags to OutputJSON.
@@ -1139,8 +1163,9 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Find channel result ***
 				// sort by total cost
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
-				// get first amount of block entries und test for matching time block
-				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
+				// get first amount of block entries (extending over a price plateau if enabled) and test for matching time block
+				const count = TibberCalculator.selectBestSingleCount(filteredPrices, channelConfig.chAmountHours, channelConfig.chExtendPlateau);
+				const channelResult: boolean[] = filteredPrices.slice(0, count).map((entry: IPrice) => checkQuarterMatch(entry));
 				//#endregion
 
 				//#region *** Mark the entries with the result and create JSON output ***
@@ -1169,8 +1194,9 @@ export class TibberCalculator extends ProjectUtils {
 				//#region *** Find channel result ***
 				// sort by total cost
 				filteredPrices.sort((a, b) => (a.total ?? 0) - (b.total ?? 0));
-				// get first chAmountHours entries und test for matching time block
-				const channelResult: boolean[] = filteredPrices.slice(0, channelConfig.chAmountHours).map((entry: IPrice) => checkQuarterMatch(entry));
+				// get first chAmountHours entries (extending over a price plateau if enabled) and test for matching time block
+				const count = TibberCalculator.selectBestSingleCount(filteredPrices, channelConfig.chAmountHours, channelConfig.chExtendPlateau);
+				const channelResult: boolean[] = filteredPrices.slice(0, count).map((entry: IPrice) => checkQuarterMatch(entry));
 				// identify if any element is true
 				if (channelResult.some(value => value)) {
 					valueToSet = channelConfig.chValueOn;

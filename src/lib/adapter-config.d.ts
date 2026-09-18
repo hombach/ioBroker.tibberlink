@@ -58,6 +58,7 @@ declare global {
 					chValueOff2: string;
 					chTriggerPrice: number;
 					chAmountHours: number;
+					chExtendPlateau: boolean;
 					chStartTime: Date;
 					chStopTime: Date;
 					chRepeatDays: number;
