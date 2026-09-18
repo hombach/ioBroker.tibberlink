@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "tibberlink",
-    "version": "7.2.4",
+    "version": "7.3.0",
     "news": {
+      "7.3.0": {
+        "en": "BestSingleHours: added optional \"Include price ties at the boundary\" per channel — after the configured AmountHours it also switches on all following slots sharing the boundary price, so a whole price plateau (e.g. all 0-cent quarters) is covered; disabled by default (#945)\nFix docu typo\nupdated dependencies",
+        "de": "BestSingleHours: optionale Option „Preisbindung an der Grenze einbeziehen“ pro Kanal hinzugefügt — nach dem eingestellten AmountHours werden alle folgenden Slots aktiviert, sodass ein ganzes Preisplateau abgedeckt ist; standardmäßig deaktiviert (#945)\nTippfehler beheben\nNeue Abhängigkeiten",
+        "ru": "BestSingleHours: добавлена опция «Указывать ценовые ограничения на границе» для каждого канала — после заданного значения AmountHours она также переключает все следующие слоты, разделяющие граничную цену, поэтому сохраняется весь ценовой диапазон (например, все кварталы, равные 0 центов); по умолчанию отключено (#945)\nИсправить опечатку в документе\nобновленные зависимости",
+        "pt": "BestSingleHours: adicionou a opção “Incluir preços no limite” por canal — após o AmountHours configurado, ele também ativa todos os seguintes slots que compartilham o preço limite, então todo o patamar de preços é coberto; desativado por padrão (#945)\nFix docu\nnovas dependências",
+        "nl": "BestSingleHours: optioneel „Inclusief prijsvoorwaarden aan de grens” per kanaal toegevoegd — na het geconfigureerde Amounthours worden ook alle volgende slots ingeschakeld die de grensprijs delen, zodat een heel prijsplafond (bijv. alle kwartalen van 0 cent) is gedekt; standaard uitgeschakeld (#945)\nTypefout in de docu herstellen\nbijgewerkte afhankelijkheden",
+        "fr": "BestSingleHours : ajout de l'option « Inclure les prix à la limite » par chaîne. Une fois AmountHours configuré, tous les créneaux suivants partagent le prix limite, ce qui permet de couvrir un plateau de prix complet (par exemple, tous les trimestres de 0 cent) ; désactivé par défaut (#945)\nFix Docu Typo\ndépendances mises à jour",
+        "it": "BestSingleHours: aggiunto l'opzione «Includi i limiti di prezzo» per canale: dopo l'amount Hours configurato attiva anche tutti i seguenti slot a prezzo limite, quindi è coperto l'intero plateau di prezzo (ad esempio tutti i trimestri da 0 centesimi); disabilitato di default (#945)\nFix typo\ndipendenze aggiornate",
+        "es": "BestSingleHours: se añadió la opción «Incluir precios en el límite» por canal. Tras configurar AmounthHours, también se activan todas las siguientes franjas horarias que comparten el precio límite, por lo que se cubre toda una meseta de precios (por ejemplo, los trimestres de 0 céntimos); se desactiva por defecto (#945)\nCorregir error docu\ndependencias actualizadas",
+        "pl": "BestSingleHours: dodano opcjonalne „Uwzględnij wiązania cen na granicy” na kanał — po skonfigurowanym AmountHours włącza również wszystkie poniższe sloty dzielące cenę graniczną, więc cały płaskowyż cen (np. wszystkie kwartały 0-centowe) jest objęty; domyślnie wyłączone (#945)\nNapraw literówkę dokumentu\nzaktualizowane zależności",
+        "uk": "BestSingleHours: додано необов'язкове «Включити цінові зв'язки на межі» на канал - після налаштованої AmountHours він також вмикає всі наступні слоти, які поділяють граничну ціну, тому покрито цінове плато (наприклад, усі квартали 0 центів); вимкнено за замовчуванням (#945)\nВиправлено помилку документа\nоновлені залежності",
+        "zh-cn": "BestSingleHours：为每个频道添加了可选的 “包括边界价格平衡” ——在配置了 AmountHours 之后，它还会开启所有共享边界价格的时段，因此涵盖了整个价格平衡（例如所有 0 美分的季度）；默认情况下禁用 (#945)\n修复文档拼写错误\n更新的依赖关系"
+      },
       "7.2.4": {
         "en": "Tibber Data API: the actual OAuth error response (HTTP status + body, e.g. invalid_grant) is now logged instead of only \"Request failed with status code 400\", and a failed auth-code exchange re-logs the authorization URL with a hint that codes are single-use and short-lived (#940)\nswitch to iobroker testing 6.x\nadded node 26 tests\nupdated dependencies, axios\nrelicensing",
         "de": "Tibber Data API: Die eigentliche OAuth-Fehlerantwort (HTTP-Status und Text, z. B. invalid_grant) wird nun protokolliert, statt nur „Request failed with status code 400\", und ein fehlgeschlagener Auth-Code-Austausch loggt die Autorisierungs-URL erneut mit dem Hinweis, dass es sich um Einmalcodes handelt (#940)\nzu iobroker test 6.x wechseln\nNode 26 Tests hinzugefügt\nNeue Abhängigkeiten, Axios\nRelizenzierung",
@@ -80,19 +93,6 @@
         "pl": "dodano test regresji potwierdzający, że najlepsze pojedyncze godziny LTF nie przełączają się już w niewłaściwy dzień (#631)\nobejście błędu serwera Tibber, który powoduje, że w tygodniowych danych historycznych dotyczących zużycia zwracane jest `do` równe `z` (#890)\nusunięto zbędne zależności testowe (chai, chai-as-promised, sinon-chai, proxyquire) i zmieniono testy jednostkowe na wbudowane assert Node'a",
         "uk": "додано регресійний тест, який підтверджує, що LTF для найкращих окремих годин більше не перемикається в неправильний день (#631)\nвирішено проблему сервера Tibber, яка повертає значення `to`, що дорівнює `from` у щотижневих історичних даних споживання (#890)\nвидалено надлишкові тестові devDependencies (chai, chai-as-promised, sinon-chai, proxyquire) та переключено модульні тести на вбудовану функцію assert Node",
         "zh-cn": "新增回归测试，确认最佳单小时 LTF 不再在错误日期切换（#631）\n修复了 Tibber 服务器的一个 bug，该 bug 会导致每周历史消费数据中 `to` 返回的值等于 `from` (#890)\n移除了冗余的测试开发依赖项（chai、chai-as-promised、sinon-chai、proxyquire），并将单元测试切换到 Node 内置的 assert 语句。"
-      },
-      "7.1.4": {
-        "en": "fixed regression where smart battery buffer ignored the EfficiencyLoss parameter (#918)",
-        "de": "Behobene Regression, bei der der intelligente Batteriepuffer den Effizienzverlustparameter ignorierte (#918).",
-        "ru": "Исправлена регрессия, в которой интеллектуальный буфер батареи игнорировал параметр EfficiencyLoss (#918)",
-        "pt": "Regressão corrigida onde o buffer de bateria inteligente ignorava o parâmetro EfficiencyLoss (#918)",
-        "nl": "gecorrigeerde regressie waarbij de slimme batterijbuffer de parameter EfficiencyLoss negeerde (#918)",
-        "fr": "Correction d'une régression où le tampon de batterie intelligent ignorait le paramètre EfficiencyLoss (#918)",
-        "it": "Risolto il problema di regressione in cui il buffer della batteria intelligente ignorava il parametro EfficiencyLoss (#918)",
-        "es": "Regresión corregida donde el búfer de batería inteligente ignoraba el parámetro EfficiencyLoss (#918)",
-        "pl": "naprawiono regresję, w której inteligentny bufor baterii ignorował parametr EfficiencyLoss (#918)",
-        "uk": "виправлено регресію, через яку інтелектуальний буфер батареї ігнорував параметр EfficiencyLoss (#918)",
-        "zh-cn": "修复了智能电池缓冲区忽略效率损失参数的回归问题（#918）"
       }
     },
     "messages": [

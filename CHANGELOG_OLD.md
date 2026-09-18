@@ -17,6 +17,11 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+## 7.2.0 (2026-07-30)
+
+- (HombachC) added polling of charger/wallbox devices from the Tibber Data API, written to `Chargers.<id>.*` (#925)
+- (HombachC) added a `LastSeen` state (device-reported last-seen timestamp) for vehicles and chargers
+
 ## 7.1.5 (2026-07-12)
 
 - (HombachC) added a regression test confirming best single hours LTF no longer switches on the wrong day (#631)

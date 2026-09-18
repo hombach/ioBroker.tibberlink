@@ -101,8 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.3.0 (2026-09-18)
 
 - (HombachC) BestSingleHours: added optional "Include price ties at the boundary" per channel — after the configured AmountHours it also switches on all following slots sharing the boundary price, so a whole price plateau (e.g. all 0-cent quarters) is covered; disabled by default (#945)
 - (GermanBluefox) Fix docu typo
@@ -136,11 +135,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) projectUtils: fixed min/max/step value of 0 being dropped from number state definitions
 - (HombachC) updated tibber-api to 5.6.0
 - (HombachC) updated dependencies
-
-### 7.2.0 (2026-07-30)
-
-- (HombachC) added polling of charger/wallbox devices from the Tibber Data API, written to `Chargers.<id>.*` (#925)
-- (HombachC) added a `LastSeen` state (device-reported last-seen timestamp) for vehicles and chargers
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
