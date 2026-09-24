@@ -1,6 +1,6 @@
 import assert from "node:assert";
 import { createMockAdapter, drainMicrotasks } from "./testHelpers.test.ts";
-import { TibberLocal } from "./tibberLocal.ts";
+import { TibberLocal, bridgeEndpointPath } from "./tibberLocal.ts";
 
 // ── Meter telegrams ────────────────────────────────────────────────────────
 
@@ -107,6 +107,16 @@ function parseSml(hex: string): ReturnType<typeof createMockAdapter>["store"] {
 }
 
 // ── fetchPulseInfo ─────────────────────────────────────────────────────────
+
+
+describe("bridgeEndpointPath (#947 FW endpoint rename)", () => {
+	it("maps data/metrics to new and legacy Bridge paths", () => {
+		assert.strictEqual(bridgeEndpointPath("data", "new", 1), "/node_data.json?node_id=1");
+		assert.strictEqual(bridgeEndpointPath("data", "legacy", 1), "/data.json?node_id=1");
+		assert.strictEqual(bridgeEndpointPath("metrics", "new", 3), "/node_metrics.json?node_id=3");
+		assert.strictEqual(bridgeEndpointPath("metrics", "legacy", 3), "/metrics.json?node_id=3");
+	});
+});
 
 describe("TibberLocal – fetchPulseInfo (issue #935 boolean states)", () => {
 	// Realistic node_status excerpt: usb_power and the nested autolevel_enable are booleans,

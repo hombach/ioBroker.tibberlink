@@ -3,11 +3,31 @@ import axios, { type AxiosRequestConfig, type AxiosResponse } from "axios";
 import { format, formatDuration, intervalToDuration } from "date-fns";
 import { ProjectUtils } from "./projectUtils.js";
 
+/** Bridge FW ≥1794 renamed local JSON endpoints; keep legacy paths as fallback (#947). */
+export type BridgeEndpointMode = "new" | "legacy";
+export type BridgeEndpointKind = "data" | "metrics";
+
+/**
+ * Builds the Bridge HTTP path for local Pulse data/metrics.
+ *
+ * @param kind - data = raw meter telegram, metrics = node/hub status JSON
+ * @param mode - new FW uses /node_*.json; legacy uses /*.json
+ * @param nodeId - Pulse node id on the bridge
+ */
+export function bridgeEndpointPath(kind: BridgeEndpointKind, mode: BridgeEndpointMode, nodeId: number): string {
+	if (kind === "data") {
+		return mode === "new" ? `/node_data.json?node_id=${nodeId}` : `/data.json?node_id=${nodeId}`;
+	}
+	return mode === "new" ? `/node_metrics.json?node_id=${nodeId}` : `/metrics.json?node_id=${nodeId}`;
+}
+
 /**
  * TibberLocal
  */
 export class TibberLocal extends ProjectUtils {
 	intervalList: ioBroker.Interval[];
+	/** Per Pulse index: which Bridge JSON endpoint set works (FW-dependent). */
+	private readonly bridgeEndpointMode = new Map<number, BridgeEndpointMode>();
 	TestData = "";
 	// example HEX strings  -  meter mode 3 e.g. for "ISKRA ISK00 7034" meters
 	// TestData: string = `1b1b1b1b01010101760512923b426200620072630101760101050630be6c0b090149534b0004316b61010163a9b600760512923b43620062007263070177010b090149534b0004316b61070100620affff726201650b7415f27a77078181c78203ff010101010449534b0177070100000009ff010101010b090149534b0004316b610177070100010800ff65000101a001621e52ff59000000000ee32fcb0177070100010801ff0101621e52ff59000000000ee32fcb0177070100010802ff0101621e52ff5900000000000000000177070100020800ff0101621e52ff590000000007318ead0177070100020801ff0101621e52ff590000000007318ead0177070100020802ff0101621e52ff5900000000000000000177070100100700ff0101621b520055fffffff10177078181c78205ff010101018302268dd6b5bfb5760a1b2c763b034bd3af9863ea9000593a8da767ec1ba01e9b6e8d52fa200e7ec7517fc100295699650b01010163d03800760512923b4462006200726302017101630a84001b1b1b1b1a00a9f2`;
@@ -151,30 +171,23 @@ export class TibberLocal extends ProjectUtils {
 	/**
 	 * Fetches the raw metrics JSON from the local Tibber Bridge for the given Pulse device.
 	 * Authenticates with HTTP Basic auth using the configured bridge password.
+	 * Tries `/node_metrics.json` first (Bridge FW ≥1794), falls back to `/metrics.json` (#947).
 	 *
 	 * @param pulse - Index of the Pulse entry in `PulseList` config.
-	 * @returns Resolves with the raw response body string from the bridge.
+	 * @returns Resolves with the parsed metrics object from the bridge.
 	 */
-	private async getPulseData(pulse: number): Promise<string> {
+	private async getPulseData(pulse: number): Promise<any> {
 		const auth = `Basic ${Buffer.from(`admin:${this.adapter.config.PulseList[pulse].tibberBridgePassword}`).toString("base64")}`;
-		const options = {
-			hostname: this.adapter.config.PulseList[pulse].tibberBridgeUrl,
-			path: `/metrics.json?node_id=${this.adapter.config.PulseList[pulse].tibberPulseLocalNodeId}`,
-			method: "GET",
-			headers: {
-				Authorization: auth,
-				Host: this.adapter.config.PulseList[pulse].tibberBridgeUrl,
-				lang: "de-de",
-				"content-type": "application/json",
-				"user-agent": "okhttp/3.14.9",
-			},
-		};
 		try {
-			const response = await axios.request({
-				url: options.path,
-				method: options.method,
-				baseURL: `http://${options.hostname}`,
-				headers: options.headers,
+			const response = await this.axiosWithBridgeFallback<any>(pulse, "metrics", {
+				method: "GET",
+				headers: {
+					Authorization: auth,
+					Host: this.adapter.config.PulseList[pulse].tibberBridgeUrl,
+					lang: "de-de",
+					"content-type": "application/json",
+					"user-agent": "okhttp/3.14.9",
+				},
 			});
 			if (response.data) {
 				response.data = JSON.parse(JSON.stringify(response.data).replace(/\$type/g, "type"));
@@ -184,34 +197,6 @@ export class TibberLocal extends ProjectUtils {
 			this.adapter.log.error(`Error while polling metrics (getPulseData). ${error as Error}`);
 			throw error;
 		}
-		/*
-		{
-			"$type": "node_status",
-			"node_status": {
-				"product_id": 49344,
-				"bootloader_version": 17563650,
-				"meter_mode": 3,
-				"node_battery_voltage": 2.779,
-				"node_temperature": 25.168,
-				"node_avg_rssi": -31.75,
-				"node_avg_lqi": 199.009,
-				"radio_tx_power": 0,
-				"node_uptime_ms": 19804222967,
-				"meter_msg_count_sent": 77,
-				"meter_pkg_count_sent": 103,
-				"time_in_em0_ms": 3144,
-				"time_in_em1_ms": 26,
-				"time_in_em2_ms": 296980,
-				"acmp_rx_autolevel_300": 147,
-				"acmp_rx_autolevel_9600": 146
-			},
-			"hub_attachments": {
-				"meter_pkg_count_recv": 103,
-				"meter_reading_count_recv": 77,
-				"node_version": "1007-56bd9fb9"
-			}
-		}
-		*/
 	}
 
 	/**
@@ -250,10 +235,11 @@ export class TibberLocal extends ProjectUtils {
 							);
 						}
 						break;
+					case "temperature":
 					case "node_temperature":
 						if (typeof obj[key] === "number") {
 							void this.checkAndSetValueNumber(
-								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
+								`LocalPulse.${pulse}.PulseInfo.${prefix}node_temperature`,
 								Math.round(obj[key] * 10) / 10,
 								`Temperature of this Tibber Pulse unit`,
 								"°C",
@@ -282,12 +268,13 @@ export class TibberLocal extends ProjectUtils {
 							}
 						}
 						break;
+					case "battery_voltage":
 					case "node_battery_voltage":
 						if (typeof obj[key] === "number") {
 							void this.checkAndSetValueNumber(
-								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
+								`LocalPulse.${pulse}.PulseInfo.${prefix}node_battery_voltage`,
 								Math.round(obj[key] * 100) / 100,
-								`Temperature of this Tibber Pulse unit`,
+								`Battery voltage of this Tibber Pulse unit`,
 								"V",
 								`value.voltage`,
 								false,
@@ -410,6 +397,7 @@ export class TibberLocal extends ProjectUtils {
 
 	/**
 	 * Retrieves data as a hex string from a specified pulse device.
+	 * Tries `/node_data.json` first (Bridge FW ≥1794), falls back to `/data.json` (#947).
 	 *
 	 * @param pulse - A number representing the index of the Pulse device in the PulseList configuration.
 	 * @returns A Promise that resolves with the data as a hex string if successful.
@@ -417,23 +405,65 @@ export class TibberLocal extends ProjectUtils {
 	 */
 	private async getDataAsHexString(pulse: number): Promise<string> {
 		const auth = `Basic ${Buffer.from(`admin:${this.adapter.config.PulseList[pulse].tibberBridgePassword}`).toString("base64")}`;
-		const options: AxiosRequestConfig = {
-			method: "GET",
-			url: `http://${this.adapter.config.PulseList[pulse].tibberBridgeUrl}/data.json?node_id=${this.adapter.config.PulseList[pulse].tibberPulseLocalNodeId}`,
-			headers: {
-				Authorization: auth,
-			},
-			responseType: "arraybuffer", // important for handling binary data
-		};
 		try {
-			const response: AxiosResponse<ArrayBuffer> = await axios(options);
+			const response = await this.axiosWithBridgeFallback<ArrayBuffer>(pulse, "data", {
+				method: "GET",
+				headers: {
+					Authorization: auth,
+				},
+				responseType: "arraybuffer", // important for handling binary data
+			});
 			const buffer = Buffer.from(response.data);
-			const hexString = buffer.toString("hex");
-			return hexString;
+			return buffer.toString("hex");
 		} catch (error) {
 			this.adapter.log.error(`An error occured during local poll of Pulse data (getDataAsHexString)`);
 			throw error;
 		}
+	}
+
+	/**
+	 * GET against the local Bridge with endpoint fallback for FW renaming (#947).
+	 * Remembers the working mode per Pulse so later polls skip the failing path.
+	 *
+	 * @param pulse - PulseList index
+	 * @param kind - data or metrics
+	 * @param config - axios config without url/baseURL
+	 */
+	private async axiosWithBridgeFallback<T>(
+		pulse: number,
+		kind: BridgeEndpointKind,
+		config: Omit<AxiosRequestConfig, "url" | "baseURL">,
+	): Promise<AxiosResponse<T>> {
+		const preferred = this.bridgeEndpointMode.get(pulse) ?? "new";
+		const order: BridgeEndpointMode[] = preferred === "new" ? ["new", "legacy"] : ["legacy", "new"];
+		const nodeId = this.adapter.config.PulseList[pulse].tibberPulseLocalNodeId;
+		const baseURL = `http://${this.adapter.config.PulseList[pulse].tibberBridgeUrl}`;
+		let lastError: unknown;
+
+		for (const mode of order) {
+			const endpointPath = bridgeEndpointPath(kind, mode, nodeId);
+			try {
+				const response = await axios.request<T>({
+					...config,
+					baseURL,
+					url: endpointPath,
+				});
+				if (this.bridgeEndpointMode.get(pulse) !== mode) {
+					this.bridgeEndpointMode.set(pulse, mode);
+					this.adapter.log.info(`[tibberLocal]: Pulse ${pulse} Bridge ${kind} endpoint: ${mode} (${endpointPath})`);
+				}
+				return response;
+			} catch (error) {
+				lastError = error;
+				const status = (error as { response?: { status?: number } })?.response?.status;
+				if (status === 404) {
+					this.adapter.log.debug(`[tibberLocal]: ${endpointPath} → 404, trying alternate endpoint`);
+					continue;
+				}
+				throw error;
+			}
+		}
+		throw lastError;
 	}
 
 	/**
