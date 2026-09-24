@@ -101,6 +101,11 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) fixed local Pulse poll after Tibber Bridge firmware update (~1794): use /node_data.json and /node_metrics.json with automatic fallback to the legacy paths (#947)
+
 ### 7.3.0 (2026-09-18)
 
 - (HombachC) BestSingleHours: added optional "Include price ties at the boundary" per channel — after the configured AmountHours it also switches on all following slots sharing the boundary price, so a whole price plateau (e.g. all 0-cent quarters) is covered; disabled by default (#945)
