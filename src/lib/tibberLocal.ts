@@ -425,6 +425,14 @@ export class TibberLocal extends ProjectUtils {
 	 * GET against the local Bridge with endpoint fallback for FW renaming (#947).
 	 * Remembers the working mode per Pulse so later polls skip the failing path.
 	 *
+	 * The order is derived once from the remembered mode into a local array, so concurrent polls each
+	 * fall back along the path they actually tried instead of racing on the shared preference (cf.
+	 * tomquist/AstraMeter#686). A 404 always means "this path doesn't exist on this firmware" → try the
+	 * alternate. While no working mode is established yet (first probe or right after an OTA reset the
+	 * mode), we also try the alternate on any other error, because we cannot yet trust which firmware
+	 * generation answers; once a mode is established, a non-404 error is treated as a real fault
+	 * (auth/network) and is not masked by switching endpoints.
+	 *
 	 * @param pulse - PulseList index
 	 * @param kind - data or metrics
 	 * @param config - axios config without url/baseURL
@@ -434,13 +442,16 @@ export class TibberLocal extends ProjectUtils {
 		kind: BridgeEndpointKind,
 		config: Omit<AxiosRequestConfig, "url" | "baseURL">,
 	): Promise<AxiosResponse<T>> {
-		const preferred = this.bridgeEndpointMode.get(pulse) ?? "new";
-		const order: BridgeEndpointMode[] = preferred === "new" ? ["new", "legacy"] : ["legacy", "new"];
+		const remembered = this.bridgeEndpointMode.get(pulse);
+		const modeEstablished = remembered !== undefined;
+		const order: BridgeEndpointMode[] = (remembered ?? "new") === "new" ? ["new", "legacy"] : ["legacy", "new"];
 		const nodeId = this.adapter.config.PulseList[pulse].tibberPulseLocalNodeId;
 		const baseURL = `http://${this.adapter.config.PulseList[pulse].tibberBridgeUrl}`;
 		let lastError: unknown;
 
-		for (const mode of order) {
+		for (let i = 0; i < order.length; i++) {
+			const mode = order[i];
+			const isLastAttempt = i === order.length - 1;
 			const endpointPath = bridgeEndpointPath(kind, mode, nodeId);
 			try {
 				const response = await axios.request<T>({
@@ -455,11 +466,15 @@ export class TibberLocal extends ProjectUtils {
 				return response;
 			} catch (error) {
 				lastError = error;
+				if (isLastAttempt) {
+					break;
+				}
 				const status = (error as { response?: { status?: number } })?.response?.status;
-				if (status === 404) {
-					this.adapter.log.debug(`[tibberLocal]: ${endpointPath} → 404, trying alternate endpoint`);
+				if (status === 404 || !modeEstablished) {
+					this.adapter.log.debug(`[tibberLocal]: ${endpointPath} failed (${status ?? "no response"}), trying alternate endpoint`);
 					continue;
 				}
+				// Established, working endpoint returned a non-404 error → real fault, don't switch paths.
 				throw error;
 			}
 		}

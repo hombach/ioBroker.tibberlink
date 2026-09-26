@@ -1,4 +1,5 @@
 import assert from "node:assert";
+import axios from "axios";
 import { createMockAdapter, drainMicrotasks } from "./testHelpers.test.ts";
 import { TibberLocal, bridgeEndpointPath } from "./tibberLocal.ts";
 
@@ -115,6 +116,149 @@ describe("bridgeEndpointPath (#947 FW endpoint rename)", () => {
 		assert.strictEqual(bridgeEndpointPath("data", "legacy", 1), "/data.json?node_id=1");
 		assert.strictEqual(bridgeEndpointPath("metrics", "new", 3), "/node_metrics.json?node_id=3");
 		assert.strictEqual(bridgeEndpointPath("metrics", "legacy", 3), "/metrics.json?node_id=3");
+	});
+});
+
+// ── axiosWithBridgeFallback (#947 endpoint fallback logic) ──────────────────
+
+type FallbackApi = {
+	axiosWithBridgeFallback<T>(pulse: number, kind: "data" | "metrics", config: object): Promise<{ data: T; status: number }>;
+};
+
+/** Builds an error shaped like an axios HTTP error (has `response.status`). */
+function httpError(status: number): Error {
+	const err = new Error(`Request failed with status code ${status}`) as Error & { response?: { status: number } };
+	err.response = { status };
+	return err;
+}
+
+/**
+ * Creates a TibberLocal with a stubbed `axios.request` that answers only for the paths the given
+ * `responder` accepts. Records every requested URL so tests can assert the fallback order and that a
+ * remembered mode skips the failing path.
+ *
+ * @param responder - Returns a fake axios response for a known url, or throws to simulate a failure.
+ */
+function makeLocalWithBridge(responder: (url: string) => unknown): {
+	local: TibberLocal;
+	tried: string[];
+	restore: () => void;
+} {
+	const { adapter } = createMockAdapter({
+		UseLocalPulseData: true,
+		PulseList: [{ puName: "P", tibberBridgeUrl: "10.0.0.1", tibberBridgePassword: "pw", tibberPulseLocalNodeId: 3 }],
+	});
+	const local = new TibberLocal(adapter);
+	const tried: string[] = [];
+	const original = axios.request;
+	(axios as unknown as { request: (cfg: { url?: string }) => Promise<unknown> }).request = (cfg): Promise<unknown> => {
+		const url = cfg.url ?? "";
+		tried.push(url);
+		try {
+			return Promise.resolve(responder(url));
+		} catch (error) {
+			return Promise.reject(error);
+		}
+	};
+	return {
+		local,
+		tried,
+		restore: () => {
+			(axios as unknown as { request: typeof original }).request = original;
+		},
+	};
+}
+
+/** Answers only for the listed paths with a 200; everything else 404s (simulates one firmware generation). */
+function onlyServes(...paths: string[]): (url: string) => unknown {
+	return (url: string): unknown => {
+		if (paths.includes(url)) {
+			return { data: "OK", status: 200 };
+		}
+		throw httpError(404);
+	};
+}
+
+describe("TibberLocal – axiosWithBridgeFallback (#947 endpoint fallback)", () => {
+	const NEW = bridgeEndpointPath("metrics", "new", 3);
+	const LEG = bridgeEndpointPath("metrics", "legacy", 3);
+
+	it("uses the new endpoint on new firmware with a single request", async () => {
+		const { local, tried, restore } = makeLocalWithBridge(onlyServes(NEW));
+		try {
+			const res = await (local as unknown as FallbackApi).axiosWithBridgeFallback(0, "metrics", { method: "GET" });
+			assert.strictEqual(res.data, "OK");
+			assert.deepStrictEqual(tried, [NEW]);
+		} finally {
+			restore();
+		}
+	});
+
+	it("falls back to the legacy endpoint on 404 and remembers it for later polls", async () => {
+		const { local, tried, restore } = makeLocalWithBridge(onlyServes(LEG));
+		try {
+			await (local as unknown as FallbackApi).axiosWithBridgeFallback(0, "metrics", { method: "GET" });
+			// first poll probes new (404) then succeeds on legacy
+			assert.deepStrictEqual(tried, [NEW, LEG]);
+			await (local as unknown as FallbackApi).axiosWithBridgeFallback(0, "metrics", { method: "GET" });
+			// second poll goes straight to the remembered legacy endpoint — no wasted probe
+			assert.deepStrictEqual(tried, [NEW, LEG, LEG]);
+		} finally {
+			restore();
+		}
+	});
+
+	it("does NOT switch endpoints on a non-404 fault once a mode is established", async () => {
+		let calls = 0;
+		const { local, tried, restore } = makeLocalWithBridge(url => {
+			if (url !== NEW) {
+				throw httpError(404);
+			}
+			calls++;
+			if (calls === 1) {
+				return { data: "OK", status: 200 }; // first call establishes 'new'
+			}
+			throw httpError(500); // later the established endpoint faults
+		});
+		try {
+			await (local as unknown as FallbackApi).axiosWithBridgeFallback(0, "metrics", { method: "GET" });
+			await assert.rejects((local as unknown as FallbackApi).axiosWithBridgeFallback(0, "metrics", { method: "GET" }), /500/);
+			assert.ok(!tried.includes(LEG), "a 500 on the established endpoint must not silently fall back to legacy");
+		} finally {
+			restore();
+		}
+	});
+
+	it("falls back on ANY error during the first probe, not only 404 (point 2)", async () => {
+		// new endpoint faults with a non-404 while no mode is established yet; legacy works
+		const { local, tried, restore } = makeLocalWithBridge(url => {
+			if (url === NEW) {
+				throw httpError(500);
+			}
+			if (url === LEG) {
+				return { data: "OK", status: 200 };
+			}
+			throw httpError(404);
+		});
+		try {
+			const res = await (local as unknown as FallbackApi).axiosWithBridgeFallback(0, "metrics", { method: "GET" });
+			assert.strictEqual(res.data, "OK");
+			assert.deepStrictEqual(tried, [NEW, LEG]);
+		} finally {
+			restore();
+		}
+	});
+
+	it("throws when both endpoints fail", async () => {
+		const { local, tried, restore } = makeLocalWithBridge(() => {
+			throw httpError(404);
+		});
+		try {
+			await assert.rejects((local as unknown as FallbackApi).axiosWithBridgeFallback(0, "metrics", { method: "GET" }));
+			assert.deepStrictEqual(tried, [NEW, LEG]);
+		} finally {
+			restore();
+		}
 	});
 });
 
