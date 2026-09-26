@@ -101,8 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.3.1 (2026-09-26)
 
 - (HombachC) fixed local Pulse poll after Tibber Bridge firmware update (~1794): use /node_data.json and /node_metrics.json with automatic fallback to the legacy paths; during the first probe the fallback now triggers on any error (not only HTTP 404) so uncommon firmware responses are handled too (#947)
 - (HombachC) updated dependencies
@@ -133,13 +132,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) documented the supported Pulse meter modes (README + Info/PulseMeterModes.md)
 - (HombachC) restructured the README: moved the Calculator, Graph Output, Local Pulse and Vehicles & Chargers guides into separate files under docu/
 - (HombachC) updated dependencies
-
-### 7.2.1 (2026-08-10)
-
-- (HombachC) fixed charger devices with an empty externalId (e.g. Wallbox Pulsar Plus) producing an invalid state id; a single bad device no longer aborts the whole Data API poll (#925)
-- (HombachC) projectUtils: use extendObject instead of setObject in forceMode so user customizations survive restarts (#927)
-- (HombachC) projectUtils: fixed min/max/step value of 0 being dropped from number state definitions
-- (HombachC) updated tibber-api to 5.6.0
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

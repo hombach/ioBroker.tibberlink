@@ -17,6 +17,13 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+## 7.2.1 (2026-08-10)
+
+- (HombachC) fixed charger devices with an empty externalId (e.g. Wallbox Pulsar Plus) producing an invalid state id; a single bad device no longer aborts the whole Data API poll (#925)
+- (HombachC) projectUtils: use extendObject instead of setObject in forceMode so user customizations survive restarts (#927)
+- (HombachC) projectUtils: fixed min/max/step value of 0 being dropped from number state definitions
+- (HombachC) updated tibber-api to 5.6.0
+
 ## 7.2.0 (2026-07-30)
 
 - (HombachC) added polling of charger/wallbox devices from the Tibber Data API, written to `Chargers.<id>.*` (#925)
