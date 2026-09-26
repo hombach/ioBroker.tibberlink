@@ -105,6 +105,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) fixed local Pulse poll after Tibber Bridge firmware update (~1794): use /node_data.json and /node_metrics.json with automatic fallback to the legacy paths; during the first probe the fallback now triggers on any error (not only HTTP 404) so uncommon firmware responses are handled too (#947)
+- (HombachC) updated dependencies
 
 ### 7.3.0 (2026-09-18)
 
@@ -139,7 +140,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) projectUtils: use extendObject instead of setObject in forceMode so user customizations survive restarts (#927)
 - (HombachC) projectUtils: fixed min/max/step value of 0 being dropped from number state definitions
 - (HombachC) updated tibber-api to 5.6.0
-- (HombachC) updated dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
