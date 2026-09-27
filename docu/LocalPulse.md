@@ -3,9 +3,9 @@
 _Part of the [ioBroker.tibberlink documentation](../README.md)._
 
 To make it work, you need to modify the web interface of the Bridge to remain permanently enabled.
-marq24 provides an excellent description of how to do this for his Home Assistant integration here:
+marq24 provides an excellent step-by-step description of how to do this (for his Home Assistant integration, but the Bridge preparation is identical):
 
-https://github.com/marq24/ha-tibber-pulse-local
+📖 **[Tibber Bridge preparation guide](https://github.com/marq24/ha-tibber-pulse-local/blob/main/preparation.md)** (see also the [project overview](https://github.com/marq24/ha-tibber-pulse-local)).
 
 If everything works correctly, the meter data will be written to ioBroker states every 2 seconds.
 
