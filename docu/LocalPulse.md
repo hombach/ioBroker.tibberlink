@@ -21,6 +21,8 @@ Tibber Bridge firmware around `1794-…` renamed the local HTTP JSON paths:
 
 The adapter tries the new paths first and falls back to the legacy ones on HTTP 404, so both firmware generations keep working. See also [ha-tibber-pulse-local#129](https://github.com/marq24/ha-tibber-pulse-local/discussions/129) and issue #947.
 
+Firmware ≥1794 also **restructured** the metrics JSON: the former `node_status` / `hub_attachments` objects were replaced by `node`, `ir` and `hub`, and `node_uptime_ms` was renamed to `node_uptime` (still in milliseconds). The adapter handles the renamed uptime and writes the states under the new tree. The old `PulseInfo.node_status.*` / `PulseInfo.hub_attachments.*` states become orphans; the adapter prunes any PulseInfo state that has not been updated for more than 14 days (and removes the empty folders) automatically on startup, so no manual cleanup is required.
+
 ## Supported meter modes
 
 The Tibber Bridge reports a `meter_mode` for the attached grid meter. The adapter supports both telegram

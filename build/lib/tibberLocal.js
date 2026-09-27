@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberLocal = void 0;
 exports.bridgeEndpointPath = bridgeEndpointPath;
+exports.selectStalePulseInfoIds = selectStalePulseInfoIds;
+exports.selectEmptyFolderIds = selectEmptyFolderIds;
 const axios_1 = __importDefault(require("axios"));
 const date_fns_1 = require("date-fns");
 const projectUtils_js_1 = require("./projectUtils.js");
@@ -14,9 +16,24 @@ function bridgeEndpointPath(kind, mode, nodeId) {
     }
     return mode === "new" ? `/node_metrics.json?node_id=${nodeId}` : `/metrics.json?node_id=${nodeId}`;
 }
+function selectStalePulseInfoIds(states, now, maxAgeMs) {
+    const stale = [];
+    for (const [id, state] of Object.entries(states)) {
+        const ts = state?.ts;
+        if (typeof ts === "number" && ts > 0 && now - ts > maxAgeMs) {
+            stale.push(id);
+        }
+    }
+    return stale;
+}
+function selectEmptyFolderIds(remainingStateIds, folderIds) {
+    const empty = folderIds.filter(folder => !remainingStateIds.some(id => id.startsWith(`${folder}.`)));
+    return empty.sort((a, b) => b.split(".").length - a.split(".").length);
+}
 class TibberLocal extends projectUtils_js_1.ProjectUtils {
     intervalList;
     bridgeEndpointMode = new Map();
+    stalePulseInfoChecked = new Set();
     TestData = "";
     TestMode = false;
     MetricsDataInterval = 60000;
@@ -40,6 +57,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                     this.adapter.log.debug(`[tibberLocal]: Polled local Tibber Bridge metrics${firstMetricsRun ? " for the first time" : ""}: ${JSON.stringify(response)}`);
                     this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
                     firstMetricsRun = false;
+                    this.scheduleStalePulseInfoCleanup(pulse);
                 })
                     .catch(e => {
                     this.adapter.log.error(`[tibberLocal]: Error while polling and parsing Tibber Bridge metrics: ${e}`);
@@ -50,6 +68,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                         this.adapter.log.debug(`[tibberLocal]: Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
                         this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
                         firstMetricsRun = false;
+                        this.scheduleStalePulseInfoCleanup(pulse);
                     })
                         .catch(e => {
                         this.adapter.log.error(`[tibberLocal]: Error polling and parsing Tibber Bridge metrics: ${e}`);
@@ -137,6 +156,38 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
             throw error;
         }
     }
+    scheduleStalePulseInfoCleanup(pulse) {
+        if (this.stalePulseInfoChecked.has(pulse)) {
+            return;
+        }
+        this.stalePulseInfoChecked.add(pulse);
+        this.adapter.setTimeout(() => void this.cleanupStalePulseInfo(pulse), 15000);
+    }
+    async cleanupStalePulseInfo(pulse) {
+        const MAX_AGE_MS = 14 * 24 * 60 * 60 * 1000;
+        try {
+            const states = await this.adapter.getStatesAsync(`LocalPulse.${pulse}.PulseInfo.*`);
+            const staleIds = selectStalePulseInfoIds(states, Date.now(), MAX_AGE_MS);
+            if (staleIds.length === 0) {
+                return;
+            }
+            for (const id of staleIds) {
+                await this.adapter.delForeignObjectAsync(id);
+            }
+            this.adapter.log.info(`[tibberLocal]: removed ${staleIds.length} stale PulseInfo state(s) not updated for >14 days for Pulse ${pulse} (e.g. firmware-renamed orphans)`);
+            const remainingIds = Object.keys(states).filter(id => !staleIds.includes(id));
+            const objects = await this.adapter.getForeignObjectsAsync(`${this.adapter.namespace}.LocalPulse.${pulse}.PulseInfo.*`);
+            const folderIds = Object.values(objects)
+                .filter((o) => !!o && (o.type === "folder" || o.type === "channel" || o.type === "device"))
+                .map(o => o._id);
+            for (const id of selectEmptyFolderIds(remainingIds, folderIds)) {
+                await this.adapter.delForeignObjectAsync(id);
+            }
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberLocal]: cleanup of stale PulseInfo states`));
+        }
+    }
     fetchPulseInfo(pulse, obj, prefix = "", firstTime = false) {
         if (!obj || typeof obj !== "object") {
             this.adapter.log.warn(`Got bad Pulse info data to fetch!: ${obj}`);
@@ -176,8 +227,9 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                         }
                         break;
                     case "node_uptime_ms":
+                    case "node_uptime":
                         if (typeof obj[key] === "number") {
-                            void this.checkAndSetValueNumber(`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`, obj[key], `Uptime of your Tibber Pulse in ms`, "ms", `date`, false, false, firstTime);
+                            void this.checkAndSetValueNumber(`LocalPulse.${pulse}.PulseInfo.${prefix}node_uptime_ms`, obj[key], `Uptime of your Tibber Pulse in ms`, "ms", `date`, false, false, firstTime);
                             function formatMilliseconds(ms) {
                                 const duration = (0, date_fns_1.intervalToDuration)({ start: 0, end: ms });
                                 const formattedDuration = (0, date_fns_1.formatDuration)(duration, { format: ["months", "days", "hours", "minutes", "seconds"] });

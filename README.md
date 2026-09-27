@@ -104,6 +104,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) fixed local Pulse uptime not being converted on Bridge firmware ≥1794: the renamed `node_uptime` field (now in ms) is again shown as a human-readable duration, same as the former `node_uptime_ms` (#947)
+- (HombachC) local Pulse: automatically remove orphaned PulseInfo states left behind by a Bridge firmware update (metrics restructured from node_status/hub_attachments to node/ir/hub) — states not updated for more than 14 days are pruned on startup, and empty folders are removed afterwards (#947)
 - (HombachC) docs: link the local Pulse guide directly to marq24's Bridge preparation instructions
 
 ### 7.3.1 (2026-09-26)

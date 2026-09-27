@@ -22,12 +22,50 @@ export function bridgeEndpointPath(kind: BridgeEndpointKind, mode: BridgeEndpoin
 }
 
 /**
+ * Selects PulseInfo state ids that the Bridge no longer updates. A state whose last-update timestamp
+ * (`ts`) is older than `maxAgeMs` is considered abandoned — e.g. an orphan left behind when a firmware
+ * update restructured the metrics JSON (`node_status`/`hub_attachments` → `node`/`ir`/`hub`, #947).
+ * States without a usable `ts` are always kept (never delete on missing data).
+ *
+ * @param states - Map of state id → state (or null/undefined), as returned by getStates.
+ * @param now - Current epoch time in ms.
+ * @param maxAgeMs - Maximum age (ms) before a state counts as stale.
+ * @returns The ids to delete.
+ */
+export function selectStalePulseInfoIds(states: Record<string, { ts?: number } | null | undefined>, now: number, maxAgeMs: number): string[] {
+	const stale: string[] = [];
+	for (const [id, state] of Object.entries(states)) {
+		const ts = state?.ts;
+		if (typeof ts === "number" && ts > 0 && now - ts > maxAgeMs) {
+			stale.push(id);
+		}
+	}
+	return stale;
+}
+
+/**
+ * Determines which folder/channel/device ids have no remaining state below them, so empty containers
+ * left behind after stale states were removed can be pruned too. Returned deepest-first so a parent
+ * that only held (now-removed) empty children is pruned as well.
+ *
+ * @param remainingStateIds - Ids of all states that still exist after stale ones were deleted.
+ * @param folderIds - Ids of folder/channel/device objects to check.
+ * @returns The empty container ids, ordered deepest-first.
+ */
+export function selectEmptyFolderIds(remainingStateIds: string[], folderIds: string[]): string[] {
+	const empty = folderIds.filter(folder => !remainingStateIds.some(id => id.startsWith(`${folder}.`)));
+	return empty.sort((a, b) => b.split(".").length - a.split(".").length);
+}
+
+/**
  * TibberLocal
  */
 export class TibberLocal extends ProjectUtils {
 	intervalList: ioBroker.Interval[];
 	/** Per Pulse index: which Bridge JSON endpoint set works (FW-dependent). */
 	private readonly bridgeEndpointMode = new Map<number, BridgeEndpointMode>();
+	/** Per Pulse index: guards the one-shot stale-PulseInfo cleanup so it runs only once per session. */
+	private readonly stalePulseInfoChecked = new Set<number>();
 	TestData = "";
 	// example HEX strings  -  meter mode 3 e.g. for "ISKRA ISK00 7034" meters
 	// TestData: string = `1b1b1b1b01010101760512923b426200620072630101760101050630be6c0b090149534b0004316b61010163a9b600760512923b43620062007263070177010b090149534b0004316b61070100620affff726201650b7415f27a77078181c78203ff010101010449534b0177070100000009ff010101010b090149534b0004316b610177070100010800ff65000101a001621e52ff59000000000ee32fcb0177070100010801ff0101621e52ff59000000000ee32fcb0177070100010802ff0101621e52ff5900000000000000000177070100020800ff0101621e52ff590000000007318ead0177070100020801ff0101621e52ff590000000007318ead0177070100020802ff0101621e52ff5900000000000000000177070100100700ff0101621b520055fffffff10177078181c78205ff010101018302268dd6b5bfb5760a1b2c763b034bd3af9863ea9000593a8da767ec1ba01e9b6e8d52fa200e7ec7517fc100295699650b01010163d03800760512923b4462006200726302017101630a84001b1b1b1b1a00a9f2`;
@@ -81,6 +119,7 @@ export class TibberLocal extends ProjectUtils {
 						);
 						this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
 						firstMetricsRun = false;
+						this.scheduleStalePulseInfoCleanup(pulse);
 					})
 					.catch(e => {
 						this.adapter.log.error(`[tibberLocal]: Error while polling and parsing Tibber Bridge metrics: ${e}`);
@@ -94,6 +133,7 @@ export class TibberLocal extends ProjectUtils {
 							this.adapter.log.debug(`[tibberLocal]: Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
 							this.fetchPulseInfo(pulse, response, "", firstMetricsRun);
 							firstMetricsRun = false;
+							this.scheduleStalePulseInfoCleanup(pulse);
 						})
 						.catch(e => {
 							this.adapter.log.error(`[tibberLocal]: Error polling and parsing Tibber Bridge metrics: ${e}`);
@@ -200,6 +240,58 @@ export class TibberLocal extends ProjectUtils {
 	}
 
 	/**
+	 * Schedules the one-shot stale-PulseInfo cleanup for a Pulse, guarded so it runs only once per
+	 * session and only after metrics have been polled at least once (so the currently valid states have
+	 * a fresh timestamp and are never mistaken for stale). The short delay lets the just-issued state
+	 * writes settle before we read timestamps back.
+	 *
+	 * @param pulse - Index of the Pulse entry in PulseList config.
+	 */
+	private scheduleStalePulseInfoCleanup(pulse: number): void {
+		if (this.stalePulseInfoChecked.has(pulse)) {
+			return;
+		}
+		this.stalePulseInfoChecked.add(pulse);
+		this.adapter.setTimeout(() => void this.cleanupStalePulseInfo(pulse), 15000);
+	}
+
+	/**
+	 * Removes states below `LocalPulse.<pulse>.PulseInfo` that the Bridge no longer updates and then
+	 * prunes any container that became empty. This clears orphans left behind when a Bridge firmware
+	 * update restructured the metrics JSON (`node_status`/`hub_attachments` → `node`/`ir`/`hub`, #947):
+	 * with metrics polled at least once per minute, anything untouched for more than 14 days is stale.
+	 *
+	 * @param pulse - Index of the Pulse entry in PulseList config.
+	 */
+	private async cleanupStalePulseInfo(pulse: number): Promise<void> {
+		const MAX_AGE_MS = 14 * 24 * 60 * 60 * 1000;
+		try {
+			const states = await this.adapter.getStatesAsync(`LocalPulse.${pulse}.PulseInfo.*`);
+			const staleIds = selectStalePulseInfoIds(states, Date.now(), MAX_AGE_MS);
+			if (staleIds.length === 0) {
+				return;
+			}
+			for (const id of staleIds) {
+				await this.adapter.delForeignObjectAsync(id);
+			}
+			this.adapter.log.info(
+				`[tibberLocal]: removed ${staleIds.length} stale PulseInfo state(s) not updated for >14 days for Pulse ${pulse} (e.g. firmware-renamed orphans)`,
+			);
+			// Prune any folder/channel/device object that has no state left below it.
+			const remainingIds = Object.keys(states).filter(id => !staleIds.includes(id));
+			const objects = await this.adapter.getForeignObjectsAsync(`${this.adapter.namespace}.LocalPulse.${pulse}.PulseInfo.*`);
+			const folderIds = Object.values(objects)
+				.filter((o): o is ioBroker.Object => !!o && (o.type === "folder" || o.type === "channel" || o.type === "device"))
+				.map(o => o._id);
+			for (const id of selectEmptyFolderIds(remainingIds, folderIds)) {
+				await this.adapter.delForeignObjectAsync(id);
+			}
+		} catch (error) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `[tibberLocal]: cleanup of stale PulseInfo states`));
+		}
+	}
+
+	/**
 	 * Fetches and processes information from a given Tibber Bridge object.
 	 *
 	 * This method recursively iterates through the provided `obj`, processes specific keys, and updates the corresponding states.
@@ -283,10 +375,13 @@ export class TibberLocal extends ProjectUtils {
 							);
 						}
 						break;
+					// Bridge FW <1794 sends "node_uptime_ms"; FW ≥1794 renamed it to "node_uptime" (still in ms, #947).
+					// Both are normalized to the same two states so the human-readable uptime keeps working.
 					case "node_uptime_ms":
+					case "node_uptime":
 						if (typeof obj[key] === "number") {
 							void this.checkAndSetValueNumber(
-								`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`,
+								`LocalPulse.${pulse}.PulseInfo.${prefix}node_uptime_ms`,
 								obj[key],
 								`Uptime of your Tibber Pulse in ms`,
 								"ms",

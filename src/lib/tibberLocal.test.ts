@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import axios from "axios";
 import { createMockAdapter, drainMicrotasks } from "./testHelpers.test.ts";
-import { TibberLocal, bridgeEndpointPath } from "./tibberLocal.ts";
+import { TibberLocal, bridgeEndpointPath, selectStalePulseInfoIds, selectEmptyFolderIds } from "./tibberLocal.ts";
 
 // ── Meter telegrams ────────────────────────────────────────────────────────
 
@@ -301,6 +301,90 @@ describe("TibberLocal – fetchPulseInfo (issue #935 boolean states)", () => {
 		const rssiId = "LocalPulse.0.PulseInfo.node_status.node_avg_rssi";
 		assert.strictEqual(store.states[rssiId], -31.75);
 		assert.strictEqual((store.objects[rssiId] as ioBroker.StateObject).common.type, "number");
+	});
+});
+
+describe("stale PulseInfo cleanup helpers (#947 firmware orphans)", () => {
+	const DAY = 24 * 60 * 60 * 1000;
+	const NOW = 1_790_000_000_000;
+	const MAX_AGE = 14 * DAY;
+
+	it("selects only states older than the max age, keeping fresh ones", () => {
+		const states = {
+			"tibberlink.0.LocalPulse.0.PulseInfo.node.node_temperature": { ts: NOW - 30 * 1000 }, // fresh
+			"tibberlink.0.LocalPulse.0.PulseInfo.node_status.node_temperature": { ts: NOW - 20 * DAY }, // stale orphan
+			"tibberlink.0.LocalPulse.0.PulseInfo.hub_attachments.node_version": { ts: NOW - 15 * DAY }, // stale orphan
+		};
+		assert.deepStrictEqual(selectStalePulseInfoIds(states, NOW, MAX_AGE), [
+			"tibberlink.0.LocalPulse.0.PulseInfo.node_status.node_temperature",
+			"tibberlink.0.LocalPulse.0.PulseInfo.hub_attachments.node_version",
+		]);
+	});
+
+	it("keeps states exactly at the boundary and those without a usable ts", () => {
+		const states = {
+			"a.boundary": { ts: NOW - MAX_AGE }, // exactly 14d → not older-than → keep
+			"a.no_ts": {}, // missing ts → keep (never delete on missing data)
+			"a.null": null, // null state → keep
+			"a.zero_ts": { ts: 0 }, // bogus ts → keep
+		};
+		assert.deepStrictEqual(selectStalePulseInfoIds(states, NOW, MAX_AGE), []);
+	});
+
+	it("finds empty containers deepest-first and leaves non-empty ones", () => {
+		const remaining = ["p.node.node_temperature"]; // only this state survives
+		const folders = ["p.node", "p.node_status", "p.node_status.baud_9600", "p.hub_attachments"];
+		// node still has a child → kept; the others are empty; deepest (baud_9600) comes first
+		assert.deepStrictEqual(selectEmptyFolderIds(remaining, folders), [
+			"p.node_status.baud_9600",
+			"p.node_status",
+			"p.hub_attachments",
+		]);
+	});
+});
+
+describe("TibberLocal – fetchPulseInfo (issue #947 FW ≥1794 node_uptime)", () => {
+	// New firmware nests the node status under "node" and renamed node_uptime_ms → node_uptime (still ms).
+	const NEW_NODE_METRICS = {
+		node: {
+			node_uptime: 211637616, // ms, ~2.45 days
+		},
+	};
+	// Old firmware for comparison: node_status.node_uptime_ms.
+	const OLD_NODE_STATUS = {
+		node_status: {
+			node_uptime_ms: 6546049000, // ms, ~75.7 days
+		},
+	};
+
+	it("converts the renamed node_uptime (ms) into a human-readable string and keeps the raw ms value", async () => {
+		const { adapter, store } = makePulseAdapter();
+		const local = new TibberLocal(adapter);
+		(local as unknown as InfoParser).fetchPulseInfo(0, NEW_NODE_METRICS, "", true);
+		await drainMicrotasks();
+
+		const rawId = "LocalPulse.0.PulseInfo.node.node_uptime_ms";
+		const textId = "LocalPulse.0.PulseInfo.node.node_uptime";
+		// raw ms preserved as a number
+		assert.strictEqual(store.states[rawId], 211637616);
+		assert.strictEqual((store.objects[rawId] as ioBroker.StateObject).common.type, "number");
+		// human-readable uptime is a formatted string, not the raw number
+		assert.strictEqual((store.objects[textId] as ioBroker.StateObject).common.type, "string");
+		assert.strictEqual(typeof store.states[textId], "string");
+		assert.ok(String(store.states[textId]).includes("days"), `expected a formatted duration, got "${store.states[textId]}"`);
+	});
+
+	it("still handles the legacy node_uptime_ms field the same way", async () => {
+		const { adapter, store } = makePulseAdapter();
+		const local = new TibberLocal(adapter);
+		(local as unknown as InfoParser).fetchPulseInfo(0, OLD_NODE_STATUS, "", true);
+		await drainMicrotasks();
+
+		const rawId = "LocalPulse.0.PulseInfo.node_status.node_uptime_ms";
+		const textId = "LocalPulse.0.PulseInfo.node_status.node_uptime";
+		assert.strictEqual(store.states[rawId], 6546049000);
+		assert.strictEqual((store.objects[textId] as ioBroker.StateObject).common.type, "string");
+		assert.ok(String(store.states[textId]).includes("months"), `expected a formatted duration, got "${store.states[textId]}"`);
 	});
 });
 
