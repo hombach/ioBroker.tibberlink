@@ -101,8 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.3.2 (2026-09-27)
 
 - (HombachC) fixed local Pulse uptime not being converted on Bridge firmware ≥1794: the renamed `node_uptime` field (now in ms) is again shown as a human-readable duration, same as the former `node_uptime_ms` (#947)
 - (HombachC) local Pulse: automatically remove orphaned PulseInfo states left behind by a Bridge firmware update (metrics restructured from node_status/hub_attachments to node/ir/hub) — states not updated for more than 14 days are pruned on startup, and empty folders are removed afterwards (#947)
@@ -131,13 +130,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) fixed local Pulse boolean states (e.g. usb_power, autolevel_enable) being created as type number, causing recurring log errors (#935)
 - (HombachC) SmartBatteryBuffer: EfficiencyLoss is now validated to the range 0…1; out-of-range values (e.g. 25 instead of 0.25) are clamped with a warning instead of corrupting the calculation, and the state now carries min/max/step (#934)
-- (HombachC) updated dependencies
-
-### 7.2.2 (2026-08-22)
-
-- (HombachC) fixed local Pulse meter mode 5 (plain OBIS text, e.g. eBZ meters) not being parsed, leaving states frozen (#931)
-- (HombachC) documented the supported Pulse meter modes (README + Info/PulseMeterModes.md)
-- (HombachC) restructured the README: moved the Calculator, Graph Output, Local Pulse and Vehicles & Chargers guides into separate files under docu/
 - (HombachC) updated dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
