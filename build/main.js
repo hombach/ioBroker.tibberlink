@@ -36,6 +36,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils = __importStar(require("@iobroker/adapter-core"));
 const cron_1 = require("cron");
 const date_fns_1 = require("date-fns");
+const tibber_api_1 = require("tibber-api");
 const tibberAPICaller_js_1 = require("./lib/tibberAPICaller.js");
 const tibberCalculator_js_1 = require("./lib/tibberCalculator.js");
 const tibberCharts_js_1 = require("./lib/tibberCharts.js");
@@ -211,8 +212,8 @@ class Tibberlink extends utils.Adapter {
                         do {
                             attempt++;
                             await this.delay(this.getRandomDelay(4, 6));
-                            await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, "QUARTER_HOURLY");
-                            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, "QUARTER_HOURLY");
+                            await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, tibber_api_1.PriceResolution.QUARTER_HOURLY);
+                            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, tibber_api_1.PriceResolution.QUARTER_HOURLY);
                             this.log.debug(`Cron job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
                         } while (!okPrice && attempt < 15);
                         void tibberCalculator.startCalculatorTasks();
@@ -232,7 +233,7 @@ class Tibberlink extends utils.Adapter {
                         do {
                             attempt++;
                             await this.delay(this.getRandomDelay(4, 6));
-                            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, "QUARTER_HOURLY");
+                            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, tibber_api_1.PriceResolution.QUARTER_HOURLY);
                             this.log.debug(`Cron job PricesTomorrow - attempt ${attempt}, okPrice: ${okPrice}`);
                         } while (!okPrice && attempt < 8);
                         void tibberCalculator.startCalculatorTasks();
@@ -383,7 +384,7 @@ class Tibberlink extends utils.Adapter {
         let attempt = 0;
         do {
             attempt++;
-            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, "QUARTER_HOURLY", true);
+            okPrice = await tibberAPICaller.updatePricesTodayAllHomes(this.homeInfoList, tibber_api_1.PriceResolution.QUARTER_HOURLY, true);
             this.log.debug(`Loop job PricesToday - attempt ${attempt}, okPrice: ${okPrice}`);
             await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice && attempt < 10);
@@ -396,7 +397,7 @@ class Tibberlink extends utils.Adapter {
         let attempt = 0;
         do {
             attempt++;
-            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, "QUARTER_HOURLY", true);
+            okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, tibber_api_1.PriceResolution.QUARTER_HOURLY, true);
             this.log.debug(`Loop job PricesTomorrow - attempt ${attempt}, okPrice: ${okPrice}`);
             await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice && attempt < 8);
