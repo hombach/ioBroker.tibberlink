@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberAPICaller = void 0;
 const date_fns_1 = require("date-fns");
 const tibber_api_1 = require("tibber-api");
-const EnergyResolution_js_1 = require("tibber-api/lib/src/models/enums/EnergyResolution.js");
 const projectUtils_js_1 = require("./projectUtils.js");
 class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
     tibberConfig;
@@ -308,31 +307,31 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 const homeID = home.homeID;
                 const resolutions = [
                     {
-                        type: EnergyResolution_js_1.EnergyResolution.HOURLY,
+                        type: tibber_api_1.EnergyResolution.HOURLY,
                         state: `jsonHourly`,
                         numCons: home.numberConsHourly,
                         description: `hour`,
                     },
                     {
-                        type: EnergyResolution_js_1.EnergyResolution.DAILY,
+                        type: tibber_api_1.EnergyResolution.DAILY,
                         state: `jsonDaily`,
                         numCons: home.numberConsDaily,
                         description: `day`,
                     },
                     {
-                        type: EnergyResolution_js_1.EnergyResolution.WEEKLY,
+                        type: tibber_api_1.EnergyResolution.WEEKLY,
                         state: `jsonWeekly`,
                         numCons: home.numberConsWeekly,
                         description: `week`,
                     },
                     {
-                        type: EnergyResolution_js_1.EnergyResolution.MONTHLY,
+                        type: tibber_api_1.EnergyResolution.MONTHLY,
                         state: `jsonMonthly`,
                         numCons: home.numberConsMonthly,
                         description: `month`,
                     },
                     {
-                        type: EnergyResolution_js_1.EnergyResolution.ANNUAL,
+                        type: tibber_api_1.EnergyResolution.ANNUAL,
                         state: `jsonAnnual`,
                         numCons: home.numberConsAnnual,
                         description: `year`,
@@ -404,19 +403,19 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         const [, year, month, day, hour, minute, second, fraction = ``, offset] = match;
         const dt = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute), Number(second)));
         switch (resolution) {
-            case EnergyResolution_js_1.EnergyResolution.HOURLY:
+            case tibber_api_1.EnergyResolution.HOURLY:
                 dt.setUTCHours(dt.getUTCHours() + 1);
                 break;
-            case EnergyResolution_js_1.EnergyResolution.DAILY:
+            case tibber_api_1.EnergyResolution.DAILY:
                 dt.setUTCDate(dt.getUTCDate() + 1);
                 break;
-            case EnergyResolution_js_1.EnergyResolution.WEEKLY:
+            case tibber_api_1.EnergyResolution.WEEKLY:
                 dt.setUTCDate(dt.getUTCDate() + 7);
                 break;
-            case EnergyResolution_js_1.EnergyResolution.MONTHLY:
+            case tibber_api_1.EnergyResolution.MONTHLY:
                 dt.setUTCMonth(dt.getUTCMonth() + 1);
                 break;
-            case EnergyResolution_js_1.EnergyResolution.ANNUAL:
+            case tibber_api_1.EnergyResolution.ANNUAL:
                 dt.setUTCFullYear(dt.getUTCFullYear() + 1);
                 break;
         }

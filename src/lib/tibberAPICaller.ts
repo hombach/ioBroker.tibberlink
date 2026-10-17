@@ -1,13 +1,16 @@
 import type * as utils from "@iobroker/adapter-core";
 import { addMinutes, isSameMonth, isValid, parseISO } from "date-fns";
-import { TibberQuery, type IConfig } from "tibber-api";
-import type { IAddress } from "tibber-api/lib/src/models/IAddress.js";
-import type { IConsumption } from "tibber-api/lib/src/models/IConsumption.js";
-import type { IContactInfo } from "tibber-api/lib/src/models/IContactInfo.js";
-import type { ILegalEntity } from "tibber-api/lib/src/models/ILegalEntity.js";
-import type { IPrice } from "tibber-api/lib/src/models/IPrice.js";
-import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution.js";
-import type { PriceResolution } from "tibber-api/lib/src/models/enums/PriceResolution.js";
+import {
+	EnergyResolution,
+	TibberQuery,
+	type IAddress,
+	type IConfig,
+	type IConsumption,
+	type IContactInfo,
+	type ILegalEntity,
+	type IPrice,
+	type PriceResolution,
+} from "tibber-api";
 import { ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
 /**

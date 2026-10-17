@@ -1,6 +1,5 @@
 import type * as utils from "@iobroker/adapter-core";
-import type { IPrice } from "tibber-api/lib/src/models/IPrice";
-import { PriceLevel } from "tibber-api/lib/src/models/enums/PriceLevel";
+import { PriceLevel, type IPrice } from "tibber-api";
 
 /** Minimal in-memory store used by the mock adapter. */
 export type MockStore = {
