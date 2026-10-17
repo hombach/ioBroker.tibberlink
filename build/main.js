@@ -328,6 +328,12 @@ class Tibberlink extends utils.Adapter {
                             if (this.config.FeedConfigPowerFactor) {
                                 tibberFeedConfigs[index].powerFactor = true;
                             }
+                            if (this.config.FeedConfigPowerReactive) {
+                                tibberFeedConfigs[index].powerReactive = true;
+                            }
+                            if (this.config.FeedConfigPowerProductionReactive) {
+                                tibberFeedConfigs[index].powerProductionReactive = true;
+                            }
                             if (this.config.FeedConfigVoltagePhase1) {
                                 tibberFeedConfigs[index].voltagePhase1 = true;
                             }

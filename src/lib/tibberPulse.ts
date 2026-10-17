@@ -297,6 +297,22 @@ export class TibberPulse extends ProjectUtils {
 				"kWh",
 			);
 			void this.checkAndSetValueNumber(`${basePath}.powerFactor`, liveMeasurement.powerFactor, "Power factor (active power / apparent power)");
+			if (this.adapter.config.FeedConfigPowerReactive) {
+				void this.checkAndSetValueNumber(
+					`${basePath}.powerReactive`,
+					liveMeasurement.powerReactive,
+					`Reactive power consumption (Q+) at the moment; on some meters this value is not part of every data frame therefore the value is null at some timestamps`,
+					"kvar",
+				);
+			}
+			if (this.adapter.config.FeedConfigPowerProductionReactive) {
+				void this.checkAndSetValueNumber(
+					`${basePath}.powerProductionReactive`,
+					liveMeasurement.powerProductionReactive,
+					`Net reactive power production (Q-) at the moment; on some meters this value is not part of every data frame therefore the value is null at some timestamps`,
+					"kvar",
+				);
+			}
 			void this.checkAndSetValueNumber(
 				`${basePath}.signalStrength`,
 				liveMeasurement.signalStrength,

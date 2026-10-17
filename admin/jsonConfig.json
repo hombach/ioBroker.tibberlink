@@ -442,6 +442,32 @@
 					"xl": 4
 				},
 
+				"FeedConfigPowerReactive": {
+					"type": "checkbox",
+					"noTranslation": true,
+					"label": "PowerReactive",
+					"hidden": "!data.TibberAPIToken",
+					"default": false,
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4,
+					"newLine": true
+				},
+				"FeedConfigPowerProductionReactive": {
+					"type": "checkbox",
+					"noTranslation": true,
+					"label": "PowerProductionReactive",
+					"hidden": "!data.TibberAPIToken",
+					"default": false,
+					"xs": 12,
+					"sm": 12,
+					"md": 6,
+					"lg": 4,
+					"xl": 4
+				},
+
 				"_headerDocumentation": {
 					"type": "header",
 					"text": "",
