@@ -159,6 +159,35 @@
 					"xl": 12,
 					"newLine": true
 				},
+				"PriceHistoryActive": {
+					"type": "checkbox",
+					"label": "LBL_PriceHistoryActive",
+					"tooltip": "TTIP_PriceHistoryActive",
+					"hidden": "!data.TibberAPIToken",
+					"default": false,
+					"xs": 12,
+					"sm": 12,
+					"md": 8,
+					"lg": 6,
+					"xl": 6,
+					"newLine": true
+				},
+				"PriceHistoryDays": {
+					"type": "number",
+					"label": "LBL_PriceHistoryDays",
+					"tooltip": "TTIP_PriceHistoryDays",
+					"hidden": "!data.TibberAPIToken",
+					"disabled": "!data.PriceHistoryActive",
+					"min": 1,
+					"max": 31,
+					"step": 1,
+					"default": 7,
+					"xs": 12,
+					"sm": 6,
+					"md": 4,
+					"lg": 3,
+					"xl": 2
+				},
 
 				"_feedDataDetailHeader": {
 					"type": "header",

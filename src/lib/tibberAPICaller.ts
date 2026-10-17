@@ -10,6 +10,7 @@ import {
 	type ILegalEntity,
 	type IPrice,
 	type IProduction,
+	PriceRangeResolution,
 	type PriceResolution,
 } from "tibber-api";
 import { ProjectUtils, type IHomeInfo } from "./projectUtils.js";
@@ -530,6 +531,95 @@ export class TibberAPICaller extends ProjectUtils {
 			}
 		} catch (error: unknown) {
 			this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: pull of consumption data`));
+		}
+	}
+
+	/**
+	 * updates the price history (last N full days before today) of all homes with active price poll,
+	 * if the price history is activated in the adapter configuration.
+	 *
+	 * @param homeInfoList - homeInfo list object
+	 * @returns okprice - got valid data for all homes
+	 */
+	async updatePriceHistoryAllHomes(homeInfoList: IHomeInfo[]): Promise<boolean> {
+		if (!this.adapter.config.PriceHistoryActive) {
+			return true;
+		}
+		const days = TibberAPICaller.getPriceHistoryDays(this.adapter.config.PriceHistoryDays);
+		let okprice = true;
+		for (const curHomeInfo of homeInfoList) {
+			if (!curHomeInfo.PriceDataPollActive) {
+				continue;
+			}
+			if (!(await this.updatePriceHistory(curHomeInfo.ID, days))) {
+				okprice = false;
+			}
+		}
+		return okprice;
+	}
+
+	/**
+	 * Normalizes the configured number of price history days to the range supported by Tibber
+	 * (hourly resolution, max. 744 records per request = 31 days).
+	 *
+	 * @param configured - configured number of days (may be undefined / invalid)
+	 * @returns number of days between 1 and 31, default 7
+	 */
+	static getPriceHistoryDays(configured: unknown): number {
+		const days = Math.floor(Number(configured));
+		if (!Number.isFinite(days) || days < 1) {
+			return 7;
+		}
+		return Math.min(days, 31);
+	}
+
+	/**
+	 * updates the price history of one home with hourly prices of the last N full days before today
+	 *
+	 * @param homeId - homeId string
+	 * @param days - number of past days (1..31)
+	 * @returns okprice - got valid data
+	 */
+	private async updatePriceHistory(homeId: string, days: number): Promise<boolean> {
+		if (!homeId) {
+			return false;
+		}
+		try {
+			const startOfToday = new Date();
+			startOfToday.setHours(0, 0, 0, 0);
+			const range = await this.tibberQuery.getEnergyPriceRange(homeId, PriceRangeResolution.HOURLY, { last: days * 24, before: startOfToday });
+			const prices: IPrice[] = Array.isArray(range?.nodes) ? range.nodes.filter(p => typeof p?.total === "number") : [];
+			if (prices.length === 0) {
+				throw new Error(`[tibberAPICaller]: Got no price history from Tibber [you might not have a valid (or fully confirmed) contract]`);
+			}
+			this.adapter.log.debug(`[tibberAPICaller]: Got ${prices.length} hourly history prices for home ${homeId} (requested ${days} days)`);
+			const basePath = `Homes.${homeId}.PricesHistory`;
+			await this.checkAndSetValue(
+				`${basePath}.json`,
+				JSON.stringify(prices),
+				`Hourly prices of the last ${days} days before today as json`,
+				`json`,
+				false,
+				false,
+				true,
+			);
+			const round = (value: number): number => Math.round(1000 * value) / 1000;
+			const avg = (key: "total" | "energy" | "tax"): number => round(prices.reduce((sum, p) => sum + (p[key] ?? 0), 0) / prices.length);
+			await this.checkAndSetValueNumber(`${basePath}.average.total`, avg("total"), `Average total price of the price history`);
+			await this.checkAndSetValueNumber(`${basePath}.average.energy`, avg("energy"), `Average spot market price of the price history`);
+			await this.checkAndSetValueNumber(`${basePath}.average.tax`, avg("tax"), `Average tax price of the price history`);
+			const minEntry = prices.reduce((min, cur) => ((cur.total ?? 0) < (min.total ?? 0) ? cur : min));
+			const maxEntry = prices.reduce((max, cur) => ((cur.total ?? 0) > (max.total ?? 0) ? cur : max));
+			await this.checkAndSetValueNumber(`${basePath}.minimum.total`, round(minEntry.total ?? 0), `Lowest total price of the price history`);
+			await this.checkAndSetValue(`${basePath}.minimum.startsAt`, minEntry.startsAt ?? `---`, `Start time of the lowest price of the price history`);
+			await this.checkAndSetValueNumber(`${basePath}.maximum.total`, round(maxEntry.total ?? 0), `Highest total price of the price history`);
+			await this.checkAndSetValue(`${basePath}.maximum.startsAt`, maxEntry.startsAt ?? `---`, `Start time of the highest price of the price history`);
+			await this.checkAndSetValueNumber(`${basePath}.days`, days, `Number of days covered by the price history`);
+			await this.checkAndSetValue(`${basePath}.lastUpdate`, new Date().toString(), `last update of price history`);
+			return true;
+		} catch (error: unknown) {
+			this.adapter.log.warn(this.generateErrorMessage(error, `[tibberAPICaller]: pull of price history`));
+			return false;
 		}
 	}
 
