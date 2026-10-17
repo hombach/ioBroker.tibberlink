@@ -134,3 +134,40 @@ describe("TibberPulse – invalid token handling (tibber-api 6)", () => {
 		assert.strictEqual(pulse.feedUnauthenticated, false);
 	});
 });
+
+describe("TibberPulse – reactive power states (tibber-api 6)", () => {
+	function makeConfiguredPulse(config: Record<string, unknown>): { pulse: TibberPulse; store: ReturnType<typeof createMockAdapter>["store"] } {
+		const { adapter, store } = createMockAdapter(config);
+		const fakeConfig = {
+			apiEndpoint: { apiKey: "test-key", queryUrl: "https://api.tibber.com/v1-beta/gql", userAgent: "test" },
+			homeId: HOME,
+		} as unknown as IConfig;
+		return { pulse: new TibberPulse(fakeConfig, adapter), store };
+	}
+	const frame = { power: 500, powerProduction: 0, powerReactive: 0.12, powerProductionReactive: 0.03 } as ILiveMeasurement;
+
+	it("writes powerReactive and powerProductionReactive when enabled", async () => {
+		const { pulse, store } = makeConfiguredPulse({ FeedConfigPowerReactive: true, FeedConfigPowerProductionReactive: true });
+		(pulse as unknown as Fetcher).fetchLiveMeasurement("LiveMeasurement", { ...frame });
+		await drainMicrotasks();
+		assert.strictEqual(store.states[`Homes.${HOME}.LiveMeasurement.powerReactive`], 0.12);
+		assert.strictEqual(store.states[`Homes.${HOME}.LiveMeasurement.powerProductionReactive`], 0.03);
+		const obj = store.objects[`Homes.${HOME}.LiveMeasurement.powerReactive`] as { common: { unit?: string } };
+		assert.strictEqual(obj.common.unit, "kvar");
+	});
+
+	it("does not create reactive power states when disabled (default)", async () => {
+		const { pulse, store } = makeConfiguredPulse({});
+		(pulse as unknown as Fetcher).fetchLiveMeasurement("LiveMeasurement", { ...frame });
+		await drainMicrotasks();
+		assert.strictEqual(store.objects[`Homes.${HOME}.LiveMeasurement.powerReactive`], undefined);
+		assert.strictEqual(store.objects[`Homes.${HOME}.LiveMeasurement.powerProductionReactive`], undefined);
+	});
+
+	it("skips a reactive value missing from a frame without throwing", async () => {
+		const { pulse, store } = makeConfiguredPulse({ FeedConfigPowerReactive: true });
+		(pulse as unknown as Fetcher).fetchLiveMeasurement("LiveMeasurement", { power: 100 } as ILiveMeasurement);
+		await drainMicrotasks();
+		assert.strictEqual(store.objects[`Homes.${HOME}.LiveMeasurement.powerReactive`], undefined);
+	});
+});
