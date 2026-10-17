@@ -146,6 +146,19 @@
 						}
 					]
 				},
+				"ProductionDataActive": {
+					"type": "checkbox",
+					"label": "LBL_ProductionDataActive",
+					"tooltip": "TTIP_ProductionDataActive",
+					"hidden": "!data.TibberAPIToken",
+					"default": false,
+					"xs": 12,
+					"sm": 12,
+					"md": 12,
+					"lg": 12,
+					"xl": 12,
+					"newLine": true
+				},
 
 				"_feedDataDetailHeader": {
 					"type": "header",

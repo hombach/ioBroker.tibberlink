@@ -19,6 +19,7 @@ declare global {
 					numberConsAnnual: number;
 				},
 			];
+			ProductionDataActive: boolean;
 			FeedConfigLastMeterConsumption: boolean;
 			FeedConfigAccumulatedConsumption: boolean;
 			FeedConfigAccumulatedProduction: boolean;

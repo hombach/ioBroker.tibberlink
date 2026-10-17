@@ -187,7 +187,7 @@ class Tibberlink extends utils.Adapter {
                 void this.jobPricesTodayLOOP(tibberAPICaller);
                 void this.jobPricesTomorrowLOOP(tibberAPICaller);
                 void tibberCalculator.startCalculatorTasks(false, true);
-                void tibberAPICaller.updateConsumptionAllHomes();
+                void tibberAPICaller.updateConsumptionAllHomes().then(() => tibberAPICaller.updateProductionAllHomes());
                 void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
                     cronTime: "4 */15 * * * *",
@@ -196,7 +196,7 @@ class Tibberlink extends utils.Adapter {
                         await tibberCalculator.startCalculatorTasks();
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                         await this.delay(this.getRandomDelay(2, 4));
-                        void tibberAPICaller.updateConsumptionAllHomes();
+                        void tibberAPICaller.updateConsumptionAllHomes().then(() => tibberAPICaller.updateProductionAllHomes());
                     },
                     start: true,
                     runOnInit: false,

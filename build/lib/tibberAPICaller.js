@@ -357,6 +357,66 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: pull of consumption data`));
         }
     }
+    async updateProductionAllHomes() {
+        if (!this.adapter.config.ProductionDataActive) {
+            return;
+        }
+        try {
+            for (const home of this.adapter.config.HomesList) {
+                if (!home.statsActive || !home.homeID) {
+                    continue;
+                }
+                const homeID = home.homeID;
+                const resolutions = [
+                    { type: tibber_api_1.EnergyResolution.HOURLY, state: `jsonHourly`, numProd: home.numberConsHourly, description: `hour` },
+                    { type: tibber_api_1.EnergyResolution.DAILY, state: `jsonDaily`, numProd: home.numberConsDaily, description: `day` },
+                    { type: tibber_api_1.EnergyResolution.WEEKLY, state: `jsonWeekly`, numProd: home.numberConsWeekly, description: `week` },
+                    { type: tibber_api_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numProd: home.numberConsMonthly, description: `month` },
+                    { type: tibber_api_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numProd: home.numberConsAnnual, description: `year` },
+                ];
+                for (const { type, state, numProd, description } of resolutions) {
+                    if (numProd && numProd > 0) {
+                        const production = this.fixConsumptionEndDates(await this.tibberQuery.getProduction(type, numProd, homeID), type);
+                        void this.checkAndSetValue(`Homes.${homeID}.Production.${state}`, JSON.stringify(production), `Historical production (grid feed-in) last ${description}s as json`, `json`);
+                        if (description == `day`) {
+                            const { production: monthProduction, profit: monthProfit } = this.getCurrentMonthProduction(production);
+                            await this.checkAndSetValueNumber(`Homes.${homeID}.Production.currentMonthProduction`, monthProduction, `Total production (grid feed-in) for the current month`, `kWh`, `value.energy.produced`);
+                            await this.checkAndSetValueNumber(`Homes.${homeID}.Production.currentMonthProfit`, monthProfit, `Total profit (feed-in revenue) for the current month`, production.find(p => p?.currency)?.currency);
+                        }
+                    }
+                    else {
+                        void this.checkAndSetValue(`Homes.${homeID}.Production.${state}`, `[]`);
+                    }
+                }
+                this.adapter.log.debug(`[tibberAPICaller]: Got all production data from Tibber Server for home: ${homeID}`);
+            }
+        }
+        catch (error) {
+            this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: pull of production data`));
+        }
+    }
+    getCurrentMonthProduction(production) {
+        const now = new Date();
+        let sumProduction = 0;
+        let sumProfit = 0;
+        for (const entry of production ?? []) {
+            const dateStr = entry?.from ?? entry?.to;
+            if (!dateStr) {
+                continue;
+            }
+            const entryDate = (0, date_fns_1.parseISO)(dateStr);
+            if (!(0, date_fns_1.isValid)(entryDate) || !(0, date_fns_1.isSameMonth)(entryDate, now)) {
+                continue;
+            }
+            if (typeof entry.production === "number" && isFinite(entry.production) && entry.production >= 0) {
+                sumProduction += entry.production;
+            }
+            if (typeof entry.profit === "number" && isFinite(entry.profit) && entry.profit >= 0) {
+                sumProfit += entry.profit;
+            }
+        }
+        return { production: Math.round(1000 * sumProduction) / 1000, profit: Math.round(100 * sumProfit) / 100 };
+    }
     getCurrentMonthConsumption(consumption) {
         if (!consumption || consumption.length === 0) {
             return undefined;

@@ -9,6 +9,7 @@ import {
 	type IContactInfo,
 	type ILegalEntity,
 	type IPrice,
+	type IProduction,
 	type PriceResolution,
 } from "tibber-api";
 import { ProjectUtils, type IHomeInfo } from "./projectUtils.js";
@@ -533,6 +534,98 @@ export class TibberAPICaller extends ProjectUtils {
 	}
 
 	/**
+	 * updates historical production (grid feed-in) data of all homes with enabled statistics,
+	 * if production data is activated in the adapter configuration.
+	 * Uses the same resolutions and record counts as the consumption statistics.
+	 *
+	 * @returns void - data will be written to ioBroker objects as JSON
+	 */
+	async updateProductionAllHomes(): Promise<void> {
+		if (!this.adapter.config.ProductionDataActive) {
+			return;
+		}
+		try {
+			for (const home of this.adapter.config.HomesList) {
+				if (!home.statsActive || !home.homeID) {
+					continue;
+				}
+				const homeID = home.homeID;
+				const resolutions = [
+					{ type: EnergyResolution.HOURLY, state: `jsonHourly`, numProd: home.numberConsHourly, description: `hour` },
+					{ type: EnergyResolution.DAILY, state: `jsonDaily`, numProd: home.numberConsDaily, description: `day` },
+					{ type: EnergyResolution.WEEKLY, state: `jsonWeekly`, numProd: home.numberConsWeekly, description: `week` },
+					{ type: EnergyResolution.MONTHLY, state: `jsonMonthly`, numProd: home.numberConsMonthly, description: `month` },
+					{ type: EnergyResolution.ANNUAL, state: `jsonAnnual`, numProd: home.numberConsAnnual, description: `year` },
+				];
+				for (const { type, state, numProd, description } of resolutions) {
+					if (numProd && numProd > 0) {
+						const production: IProduction[] = this.fixConsumptionEndDates(await this.tibberQuery.getProduction(type, numProd, homeID), type);
+
+						void this.checkAndSetValue(
+							`Homes.${homeID}.Production.${state}`,
+							JSON.stringify(production),
+							`Historical production (grid feed-in) last ${description}s as json`,
+							`json`,
+						);
+
+						if (description == `day`) {
+							const { production: monthProduction, profit: monthProfit } = this.getCurrentMonthProduction(production);
+							await this.checkAndSetValueNumber(
+								`Homes.${homeID}.Production.currentMonthProduction`,
+								monthProduction,
+								`Total production (grid feed-in) for the current month`,
+								`kWh`,
+								`value.energy.produced`,
+							);
+							await this.checkAndSetValueNumber(
+								`Homes.${homeID}.Production.currentMonthProfit`,
+								monthProfit,
+								`Total profit (feed-in revenue) for the current month`,
+								production.find(p => p?.currency)?.currency,
+							);
+						}
+					} else {
+						void this.checkAndSetValue(`Homes.${homeID}.Production.${state}`, `[]`);
+					}
+				}
+				this.adapter.log.debug(`[tibberAPICaller]: Got all production data from Tibber Server for home: ${homeID}`);
+			}
+		} catch (error: unknown) {
+			this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: pull of production data`));
+		}
+	}
+
+	/**
+	 * Calculates the total production (grid feed-in) and profit for the current month.
+	 * Entries with missing, invalid or negative values are ignored.
+	 *
+	 * @param production - List of production entries to evaluate.
+	 * @returns The summed production (kWh) and profit for the current calendar month (0 if none).
+	 */
+	private getCurrentMonthProduction(production: IProduction[]): { production: number; profit: number } {
+		const now = new Date();
+		let sumProduction = 0;
+		let sumProfit = 0;
+		for (const entry of production ?? []) {
+			const dateStr = entry?.from ?? entry?.to;
+			if (!dateStr) {
+				continue;
+			}
+			const entryDate = parseISO(dateStr);
+			if (!isValid(entryDate) || !isSameMonth(entryDate, now)) {
+				continue;
+			}
+			if (typeof entry.production === "number" && isFinite(entry.production) && entry.production >= 0) {
+				sumProduction += entry.production;
+			}
+			if (typeof entry.profit === "number" && isFinite(entry.profit) && entry.profit >= 0) {
+				sumProfit += entry.profit;
+			}
+		}
+		return { production: Math.round(1000 * sumProduction) / 1000, profit: Math.round(100 * sumProfit) / 100 };
+	}
+
+	/**
 	 * Calculates the total consumption for the current month.
 	 *
 	 * Iterates through all provided consumption entries, validates the
@@ -580,7 +673,7 @@ export class TibberAPICaller extends ProjectUtils {
 	 * @param resolution - The energy resolution the entries were requested with.
 	 * @returns The same array with corrected `to` timestamps.
 	 */
-	private fixConsumptionEndDates(consumption: IConsumption[], resolution: EnergyResolution): IConsumption[] {
+	private fixConsumptionEndDates<T extends { from: string; to: string }>(consumption: T[], resolution: EnergyResolution): T[] {
 		if (!Array.isArray(consumption)) {
 			return consumption;
 		}
