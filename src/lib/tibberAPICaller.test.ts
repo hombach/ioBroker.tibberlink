@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { EnergyResolution, type IConfig, type IConsumption } from "tibber-api";
+import { EnergyResolution, type IConfig, type IConsumption, type IProduction } from "tibber-api";
 import { createMockAdapter, drainMicrotasks, TEST_PRICES, type MockStore } from "./testHelpers.test.ts";
 import { TibberAPICaller } from "./tibberAPICaller.ts";
 
@@ -141,5 +141,89 @@ describe("TibberAPICaller – fixConsumptionEndDates (#890)", () => {
 		const result = (caller as unknown as EndDateFixer).fixConsumptionEndDates([entry], EnergyResolution.WEEKLY);
 
 		assert.strictEqual(result[0].to, "2026-04-27T00:00:00.000+02:00");
+	});
+});
+
+// ── updateProductionAllHomes ───────────────────────────────────────────────
+
+describe("TibberAPICaller – updateProductionAllHomes", () => {
+	const home = {
+		homeID: HOME,
+		statsActive: true,
+		numberConsHourly: 0,
+		numberConsDaily: 3,
+		numberConsWeekly: 0,
+		numberConsMonthly: 0,
+		numberConsAnnual: 0,
+	};
+
+	function makeProductionCaller(config: Record<string, unknown>): {
+		caller: TibberAPICaller;
+		store: MockStore;
+		calls: { resolution: EnergyResolution; lastCount: number; homeId?: string }[];
+	} {
+		const { adapter, store } = createMockAdapter(config);
+		const fakeConfig = {
+			apiEndpoint: { apiKey: "test-key", queryUrl: "https://api.tibber.com/v1-beta/gql", userAgent: "test" },
+			homeId: HOME,
+		} as unknown as IConfig;
+		const caller = new TibberAPICaller(fakeConfig, adapter);
+		const calls: { resolution: EnergyResolution; lastCount: number; homeId?: string }[] = [];
+		const now = new Date();
+		const iso = (d: Date): string => d.toISOString();
+		const day = (offset: number): Date => new Date(now.getFullYear(), now.getMonth(), 1 + offset, 12);
+		caller.tibberQuery.getProduction = (resolution: EnergyResolution, lastCount: number, homeId?: string): Promise<IProduction[]> => {
+			calls.push({ resolution, lastCount, homeId });
+			const mk = (d: Date, production: number | null, profit: number | null): IProduction =>
+				({
+					from: iso(d),
+					to: iso(new Date(d.getTime() + 86_400_000)),
+					production,
+					profit,
+					unitPrice: 0.08,
+					unitPriceVAT: 0,
+					productionUnit: "kWh",
+					currency: "EUR",
+				}) as unknown as IProduction;
+			// one entry of the previous month, two of the current month (one with null values)
+			return Promise.resolve([mk(day(-5), 9, 0.9), mk(day(0), 2.5, 0.2), mk(day(0), null, null), mk(day(0), 1.25, 0.1)]);
+		};
+		return { caller, store, calls };
+	}
+
+	it("does nothing when production data is disabled (default)", async () => {
+		const { caller, store, calls } = makeProductionCaller({ HomesList: [home] });
+		await caller.updateProductionAllHomes();
+		await drainMicrotasks();
+		assert.strictEqual(calls.length, 0);
+		assert.strictEqual(store.states[`Homes.${HOME}.Production.jsonDaily`], undefined);
+	});
+
+	it("writes JSON and current month production / profit when enabled", async () => {
+		const { caller, store, calls } = makeProductionCaller({ HomesList: [home], ProductionDataActive: true });
+		await caller.updateProductionAllHomes();
+		await drainMicrotasks();
+
+		assert.deepStrictEqual(calls, [{ resolution: EnergyResolution.DAILY, lastCount: 3, homeId: HOME }]);
+		const daily = JSON.parse(store.states[`Homes.${HOME}.Production.jsonDaily`] as string) as IProduction[];
+		assert.strictEqual(daily.length, 4);
+		assert.strictEqual(store.states[`Homes.${HOME}.Production.jsonHourly`], "[]");
+		assert.strictEqual(store.states[`Homes.${HOME}.Production.currentMonthProduction`], 3.75);
+		assert.strictEqual(store.states[`Homes.${HOME}.Production.currentMonthProfit`], 0.3);
+		const profitObj = store.objects[`Homes.${HOME}.Production.currentMonthProfit`] as { common: { unit?: string } };
+		assert.strictEqual(profitObj.common.unit, "EUR");
+	});
+
+	it("skips homes without statistics enabled", async () => {
+		const { caller, calls } = makeProductionCaller({ HomesList: [{ ...home, statsActive: false }], ProductionDataActive: true });
+		await caller.updateProductionAllHomes();
+		assert.strictEqual(calls.length, 0);
+	});
+
+	it("catches API rejections (tibber-api 6) without throwing", async () => {
+		const { caller } = makeProductionCaller({ HomesList: [home], ProductionDataActive: true });
+		caller.tibberQuery.getProduction = (): Promise<IProduction[]> =>
+			Promise.reject({ errors: [{ message: "Context creation failed", extensions: { code: "UNAUTHENTICATED" } }], httpCode: 200 });
+		await assert.doesNotReject(caller.updateProductionAllHomes());
 	});
 });
