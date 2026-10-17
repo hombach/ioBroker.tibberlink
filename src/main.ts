@@ -288,6 +288,25 @@ class Tibberlink extends utils.Adapter {
 				}
 				//#endregion
 
+				//#region *** jobPriceHistory - "30 5 0 * * *" = 00:05:30, every day + random delay; only if price history is configured
+				if (this.config.PriceHistoryActive) {
+					void tibberAPICaller.updatePriceHistoryAllHomes(this.homeInfoList);
+					const jobPriceHistory = CronJob.from({
+						cronTime: "30 5 0 * * *",
+						onTick: async () => {
+							await this.delay(this.getRandomDelay(4, 6));
+							const okHistory = await tibberAPICaller.updatePriceHistoryAllHomes(this.homeInfoList);
+							this.log.debug(`Cron job PriceHistory done, okHistory: ${okHistory}`);
+						},
+						start: true,
+						runOnInit: false,
+					});
+					if (jobPriceHistory) {
+						this.cronList.push(jobPriceHistory);
+					}
+				}
+				//#endregion
+
 				// finally start live data feed if configured
 				//#region *** If user uses live feed - start feed connection ***
 				if (this.homeInfoList.some(info => info.FeedActive)) {

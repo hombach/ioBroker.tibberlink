@@ -1,5 +1,13 @@
 import assert from "node:assert";
-import { EnergyResolution, type IConfig, type IConsumption, type IProduction } from "tibber-api";
+import {
+	EnergyResolution,
+	PriceRangeResolution,
+	type IConfig,
+	type IConsumption,
+	type IPagingOptions,
+	type IProduction,
+	type ISubscriptionPriceConnection,
+} from "tibber-api";
 import { createMockAdapter, drainMicrotasks, TEST_PRICES, type MockStore } from "./testHelpers.test.ts";
 import { TibberAPICaller } from "./tibberAPICaller.ts";
 
@@ -225,5 +233,84 @@ describe("TibberAPICaller – updateProductionAllHomes", () => {
 		caller.tibberQuery.getProduction = (): Promise<IProduction[]> =>
 			Promise.reject({ errors: [{ message: "Context creation failed", extensions: { code: "UNAUTHENTICATED" } }], httpCode: 200 });
 		await assert.doesNotReject(caller.updateProductionAllHomes());
+	});
+});
+
+// ── updatePriceHistoryAllHomes ─────────────────────────────────────────────
+
+describe("TibberAPICaller – updatePriceHistoryAllHomes", () => {
+	const homeInfo = [{ ID: HOME, NameInApp: "x", RealTime: false, FeedActive: false, PriceDataPollActive: true }];
+
+	function makeHistoryCaller(config: Record<string, unknown>): {
+		caller: TibberAPICaller;
+		store: MockStore;
+		calls: { homeId: string; resolution: PriceRangeResolution; paging: IPagingOptions }[];
+	} {
+		const { adapter, store } = createMockAdapter(config);
+		const fakeConfig = {
+			apiEndpoint: { apiKey: "test-key", queryUrl: "https://api.tibber.com/v1-beta/gql", userAgent: "test" },
+			homeId: HOME,
+		} as unknown as IConfig;
+		const caller = new TibberAPICaller(fakeConfig, adapter);
+		const calls: { homeId: string; resolution: PriceRangeResolution; paging: IPagingOptions }[] = [];
+		caller.tibberQuery.getEnergyPriceRange = (homeId: string, resolution: PriceRangeResolution, paging: IPagingOptions): Promise<ISubscriptionPriceConnection> => {
+			calls.push({ homeId, resolution, paging });
+			return Promise.resolve({ pageInfo: {}, edges: [], nodes: TEST_PRICES } as unknown as ISubscriptionPriceConnection);
+		};
+		return { caller, store, calls };
+	}
+
+	it("normalizes the configured number of days", () => {
+		assert.strictEqual(TibberAPICaller.getPriceHistoryDays(undefined), 7);
+		assert.strictEqual(TibberAPICaller.getPriceHistoryDays(0), 7);
+		assert.strictEqual(TibberAPICaller.getPriceHistoryDays("abc"), 7);
+		assert.strictEqual(TibberAPICaller.getPriceHistoryDays(3), 3);
+		assert.strictEqual(TibberAPICaller.getPriceHistoryDays(99), 31);
+	});
+
+	it("does nothing when price history is disabled (default)", async () => {
+		const { caller, store, calls } = makeHistoryCaller({});
+		assert.strictEqual(await caller.updatePriceHistoryAllHomes(homeInfo), true);
+		assert.strictEqual(calls.length, 0);
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesHistory.json`], undefined);
+	});
+
+	it("requests hourly prices of the last N full days and writes json, average, min and max", async () => {
+		const { caller, store, calls } = makeHistoryCaller({ PriceHistoryActive: true, PriceHistoryDays: 2 });
+		assert.strictEqual(await caller.updatePriceHistoryAllHomes(homeInfo), true);
+		await drainMicrotasks();
+
+		assert.strictEqual(calls.length, 1);
+		assert.strictEqual(calls[0].homeId, HOME);
+		assert.strictEqual(calls[0].resolution, PriceRangeResolution.HOURLY);
+		assert.strictEqual(calls[0].paging.last, 48);
+		const before = calls[0].paging.before as Date;
+		assert.ok(before instanceof Date);
+		assert.deepStrictEqual([before.getHours(), before.getMinutes(), before.getSeconds()], [0, 0, 0]);
+
+		assert.strictEqual(JSON.parse(store.states[`Homes.${HOME}.PricesHistory.json`] as string).length, TEST_PRICES.length);
+		const expectedAvg = Math.round((1000 * TEST_PRICES.reduce((s, p) => s + (p.total ?? 0), 0)) / TEST_PRICES.length) / 1000;
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesHistory.average.total`], expectedAvg);
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesHistory.minimum.total`], 0.1);
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesHistory.minimum.startsAt`], "2023-01-01T00:15:00.000Z");
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesHistory.maximum.total`], 0.3);
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesHistory.days`], 2);
+	});
+
+	it("skips homes with disabled price poll", async () => {
+		const { caller, calls } = makeHistoryCaller({ PriceHistoryActive: true });
+		await caller.updatePriceHistoryAllHomes([{ ...homeInfo[0], PriceDataPollActive: false }]);
+		assert.strictEqual(calls.length, 0);
+	});
+
+	it("returns false on empty data or rejected API calls without throwing", async () => {
+		const { caller, store } = makeHistoryCaller({ PriceHistoryActive: true });
+		caller.tibberQuery.getEnergyPriceRange = (): Promise<ISubscriptionPriceConnection> =>
+			Promise.resolve({ nodes: [] } as unknown as ISubscriptionPriceConnection);
+		assert.strictEqual(await caller.updatePriceHistoryAllHomes(homeInfo), false);
+		caller.tibberQuery.getEnergyPriceRange = (): Promise<ISubscriptionPriceConnection> =>
+			Promise.reject({ errors: [{ message: "boom" }], httpCode: 500 });
+		assert.strictEqual(await caller.updatePriceHistoryAllHomes(homeInfo), false);
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesHistory.json`], undefined);
 	});
 });

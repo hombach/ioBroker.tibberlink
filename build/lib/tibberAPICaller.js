@@ -357,6 +357,64 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: pull of consumption data`));
         }
     }
+    async updatePriceHistoryAllHomes(homeInfoList) {
+        if (!this.adapter.config.PriceHistoryActive) {
+            return true;
+        }
+        const days = TibberAPICaller.getPriceHistoryDays(this.adapter.config.PriceHistoryDays);
+        let okprice = true;
+        for (const curHomeInfo of homeInfoList) {
+            if (!curHomeInfo.PriceDataPollActive) {
+                continue;
+            }
+            if (!(await this.updatePriceHistory(curHomeInfo.ID, days))) {
+                okprice = false;
+            }
+        }
+        return okprice;
+    }
+    static getPriceHistoryDays(configured) {
+        const days = Math.floor(Number(configured));
+        if (!Number.isFinite(days) || days < 1) {
+            return 7;
+        }
+        return Math.min(days, 31);
+    }
+    async updatePriceHistory(homeId, days) {
+        if (!homeId) {
+            return false;
+        }
+        try {
+            const startOfToday = new Date();
+            startOfToday.setHours(0, 0, 0, 0);
+            const range = await this.tibberQuery.getEnergyPriceRange(homeId, tibber_api_1.PriceRangeResolution.HOURLY, { last: days * 24, before: startOfToday });
+            const prices = Array.isArray(range?.nodes) ? range.nodes.filter(p => typeof p?.total === "number") : [];
+            if (prices.length === 0) {
+                throw new Error(`[tibberAPICaller]: Got no price history from Tibber [you might not have a valid (or fully confirmed) contract]`);
+            }
+            this.adapter.log.debug(`[tibberAPICaller]: Got ${prices.length} hourly history prices for home ${homeId} (requested ${days} days)`);
+            const basePath = `Homes.${homeId}.PricesHistory`;
+            await this.checkAndSetValue(`${basePath}.json`, JSON.stringify(prices), `Hourly prices of the last ${days} days before today as json`, `json`, false, false, true);
+            const round = (value) => Math.round(1000 * value) / 1000;
+            const avg = (key) => round(prices.reduce((sum, p) => sum + (p[key] ?? 0), 0) / prices.length);
+            await this.checkAndSetValueNumber(`${basePath}.average.total`, avg("total"), `Average total price of the price history`);
+            await this.checkAndSetValueNumber(`${basePath}.average.energy`, avg("energy"), `Average spot market price of the price history`);
+            await this.checkAndSetValueNumber(`${basePath}.average.tax`, avg("tax"), `Average tax price of the price history`);
+            const minEntry = prices.reduce((min, cur) => ((cur.total ?? 0) < (min.total ?? 0) ? cur : min));
+            const maxEntry = prices.reduce((max, cur) => ((cur.total ?? 0) > (max.total ?? 0) ? cur : max));
+            await this.checkAndSetValueNumber(`${basePath}.minimum.total`, round(minEntry.total ?? 0), `Lowest total price of the price history`);
+            await this.checkAndSetValue(`${basePath}.minimum.startsAt`, minEntry.startsAt ?? `---`, `Start time of the lowest price of the price history`);
+            await this.checkAndSetValueNumber(`${basePath}.maximum.total`, round(maxEntry.total ?? 0), `Highest total price of the price history`);
+            await this.checkAndSetValue(`${basePath}.maximum.startsAt`, maxEntry.startsAt ?? `---`, `Start time of the highest price of the price history`);
+            await this.checkAndSetValueNumber(`${basePath}.days`, days, `Number of days covered by the price history`);
+            await this.checkAndSetValue(`${basePath}.lastUpdate`, new Date().toString(), `last update of price history`);
+            return true;
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberAPICaller]: pull of price history`));
+            return false;
+        }
+    }
     async updateProductionAllHomes() {
         if (!this.adapter.config.ProductionDataActive) {
             return;
