@@ -1,6 +1,6 @@
 import type * as utils from "@iobroker/adapter-core";
 import { addHours, addMinutes, differenceInMinutes, isAfter, isBefore, parseISO, subHours } from "date-fns";
-import type { IPrice } from "tibber-api/lib/src/models/IPrice";
+import type { IPrice } from "tibber-api";
 import { enCalcType, ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
 // https://echarts.apache.org/examples/en/index.html

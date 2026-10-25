@@ -1,7 +1,5 @@
 import assert from "node:assert";
-import type { IConfig } from "tibber-api";
-import type { IConsumption } from "tibber-api/lib/src/models/IConsumption.js";
-import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution.js";
+import { EnergyResolution, type IConfig, type IConsumption } from "tibber-api";
 import { createMockAdapter, drainMicrotasks, TEST_PRICES, type MockStore } from "./testHelpers.test.ts";
 import { TibberAPICaller } from "./tibberAPICaller.ts";
 

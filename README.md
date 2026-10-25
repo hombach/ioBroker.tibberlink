@@ -104,6 +104,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) upgraded tibber-api to 6.0.0 - API query errors are now rejected and handled, imports switched to the tibber-api package root
+- (HombachC) fixed endless live feed reconnect loop on an invalid / rejected Tibber API token - reconnects now stop with a single error log until the adapter is restarted
 - (HombachC) updated dependencies
 - (HombachC) fixed adapter checker warnings
 
