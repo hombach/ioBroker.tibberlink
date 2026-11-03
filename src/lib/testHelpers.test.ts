@@ -87,9 +87,21 @@ export function createMockAdapter(config: Record<string, unknown> = {}): {
 			store.objects[id] = { ...(store.objects[id] ?? {}), ...obj };
 			return Promise.resolve();
 		},
-		delObjectAsync: (id: string): Promise<void> => {
+		delObjectAsync: (id: string, options?: { recursive?: boolean }): Promise<void> => {
 			delete store.objects[id];
 			delete store.states[id];
+			if (options?.recursive) {
+				for (const key of Object.keys(store.objects)) {
+					if (key.startsWith(`${id}.`)) {
+						delete store.objects[key];
+					}
+				}
+				for (const key of Object.keys(store.states)) {
+					if (key.startsWith(`${id}.`)) {
+						delete store.states[key];
+					}
+				}
+			}
 			return Promise.resolve();
 		},
 		subscribeStates: (_pattern: string): void => {},
