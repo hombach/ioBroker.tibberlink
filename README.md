@@ -104,6 +104,8 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) fix stale price index states after DST change days (92/100 quarter hours)
+- (HombachC) ignore price slots without total price in minimum/maximum/average calculation
 - (HombachC) updated dependencies
 - (HombachC) fixed adapter checker warnings
 

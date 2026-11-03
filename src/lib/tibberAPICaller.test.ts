@@ -2,7 +2,7 @@ import assert from "node:assert";
 import type { IConfig } from "tibber-api";
 import type { IConsumption } from "tibber-api/lib/src/models/IConsumption.js";
 import { EnergyResolution } from "tibber-api/lib/src/models/enums/EnergyResolution.js";
-import { createMockAdapter, drainMicrotasks, TEST_PRICES, type MockStore } from "./testHelpers.test.ts";
+import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES, type MockStore } from "./testHelpers.test.ts";
 import { TibberAPICaller } from "./tibberAPICaller.ts";
 
 const HOME = "test-home-1";
@@ -86,6 +86,175 @@ describe("TibberAPICaller – fetchPriceMinimum", () => {
 
 		const startsAt = store.states[`Homes.${HOME}.PricesToday.minimum.startsAt`] as string;
 		assert.strictEqual(startsAt, "2023-01-01T00:15:00.000Z");
+	});
+});
+
+// ── null-price handling ────────────────────────────────────────────────────
+
+type PriceStats = {
+	fetchPriceMinimum(h: string, d: string, p: unknown[]): void;
+	fetchPriceMaximum(h: string, d: string, p: unknown[]): void;
+	fetchPriceAverage(h: string, d: string, p: unknown[]): void;
+};
+
+/** TEST_PRICES plus one slot with total === null (would have been treated as 0 before). */
+const PRICES_WITH_NULL = [...TEST_PRICES, { startsAt: "2023-01-01T02:00:00.000Z", total: null, energy: null, tax: null, level: null }];
+
+describe("TibberAPICaller – null prices are ignored", () => {
+	it("minimum ignores entries with total == null", async () => {
+		const { caller, store } = makeCaller();
+		(caller as unknown as PriceStats).fetchPriceMinimum(HOME, "PricesToday.minimum", PRICES_WITH_NULL);
+		await drainMicrotasks();
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.minimum.total`], 0.1);
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.minimum.startsAt`], "2023-01-01T00:15:00.000Z");
+	});
+
+	it("maximum ignores entries with total == null", async () => {
+		const { caller, store } = makeCaller();
+		(caller as unknown as PriceStats).fetchPriceMaximum(HOME, "PricesToday.maximum", [{ ...PRICES_WITH_NULL[8] }, ...TEST_PRICES]);
+		await drainMicrotasks();
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.maximum.total`], 0.3);
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.maximum.startsAt`], "2023-01-01T00:00:00.000Z");
+	});
+
+	it("average is not diluted by entries with total == null", async () => {
+		const { caller, store } = makeCaller();
+		(caller as unknown as PriceStats).fetchPriceAverage(HOME, "PricesToday.average", PRICES_WITH_NULL);
+		await drainMicrotasks();
+		const expected = Math.round((1000 * TEST_PRICES.reduce((s, p) => s + (p.total ?? 0), 0)) / TEST_PRICES.length) / 1000;
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.average.total`], expected);
+	});
+});
+
+// ── stale per-slot price states after DST days ─────────────────────────────
+
+type SlotCleanup = {
+	deleteSurplusPriceStates(h: string, f: string, c: number): Promise<void>;
+	emptyingPriceSlots(h: string, f: string): Promise<void>;
+	updatePricesToday(h: string, r: string, force?: boolean): Promise<boolean>;
+	updatePricesTomorrow(h: string, r: string, force?: boolean): Promise<boolean>;
+};
+
+/** Injects a complete per-slot price folder (folder object + sub states) like fetchPrice() creates it. */
+function injectSlot(store: MockStore, folder: string, slot: number, startsAt: string, total: number): void {
+	const base = `Homes.${HOME}.${folder}.${slot}`;
+	store.objects[base] = { type: "folder", common: { name: "valid from xx:xx" }, native: {} };
+	injectState(store, `${base}.total`, total);
+	injectState(store, `${base}.energy`, total);
+	injectState(store, `${base}.tax`, 0);
+	injectState(store, `${base}.startsAt`, startsAt);
+	injectState(store, `${base}.level`, "NORMAL");
+}
+
+/** Builds n quarter-hour prices starting at the given ISO date. */
+function quarterPrices(startIso: string, n: number): Array<{ startsAt: string; total: number; energy: number; tax: number; level: string }> {
+	const start = Date.parse(startIso);
+	return Array.from({ length: n }, (_, i) => ({
+		startsAt: new Date(start + i * 15 * 60_000).toISOString(),
+		total: 0.2 + i / 1000,
+		energy: 0.1,
+		tax: 0.1,
+		level: "NORMAL",
+	}));
+}
+
+describe("TibberAPICaller – stale price slot cleanup (DST 92/100 quarter hours)", () => {
+	it("deleteSurplusPriceStates removes slots >= count incl. sub states and keeps the others", async () => {
+		const { caller, store } = makeCaller();
+		for (let i = 94; i < 100; i++) {
+			injectSlot(store, "PricesToday", i, "2026-10-25T22:00:00.000Z", 0.19);
+		}
+		await (caller as unknown as SlotCleanup).deleteSurplusPriceStates(HOME, "PricesToday", 96);
+
+		assert.ok(store.objects[`Homes.${HOME}.PricesToday.94`]);
+		assert.ok(store.objects[`Homes.${HOME}.PricesToday.95`]);
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.95.total`], 0.19);
+		for (let i = 96; i < 100; i++) {
+			assert.strictEqual(store.objects[`Homes.${HOME}.PricesToday.${i}`], undefined, `folder ${i} should be deleted`);
+			assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.${i}.total`], undefined, `state ${i}.total should be deleted`);
+			assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.${i}.startsAt`], undefined, `state ${i}.startsAt should be deleted`);
+		}
+	});
+
+	it("deleteSurplusPriceStates does not call delObject for non-existing slots", async () => {
+		const { adapter, store } = createMockAdapter();
+		let delCalls = 0;
+		const orgDel = adapter.delObjectAsync.bind(adapter);
+		(adapter as unknown as { delObjectAsync: unknown }).delObjectAsync = (id: string, o?: unknown): Promise<void> => {
+			delCalls++;
+			return (orgDel as (id: string, o?: unknown) => Promise<void>)(id, o);
+		};
+		const caller = new TibberAPICaller({ homeId: HOME } as unknown as IConfig, adapter);
+		await (caller as unknown as SlotCleanup).deleteSurplusPriceStates(HOME, "PricesToday", 96);
+		assert.strictEqual(delCalls, 0);
+		assert.deepStrictEqual(store.objects, {});
+	});
+
+	it("updatePricesToday removes leftovers 96..99 of a previous 100-slot DST day", async () => {
+		const { caller, store } = makeCaller();
+		for (let i = 0; i < 100; i++) {
+			injectSlot(store, "PricesToday", i, "2026-10-25T00:00:00.000+02:00", 0.19);
+		}
+		const prices = quarterPrices("2026-11-03T00:00:00.000+01:00", 96);
+		(caller.tibberQuery as unknown as { getTodaysEnergyPrices: unknown }).getTodaysEnergyPrices = (): Promise<unknown> => Promise.resolve(prices);
+
+		await (caller as unknown as SlotCleanup).updatePricesToday(HOME, "QUARTER_HOURLY", true);
+		await drainMicrotasks();
+
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.95.startsAt`], prices[95].startsAt);
+		for (let i = 96; i < 100; i++) {
+			assert.strictEqual(store.objects[`Homes.${HOME}.PricesToday.${i}`], undefined, `folder ${i} should be deleted`);
+			assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.${i}.total`], undefined);
+		}
+	});
+
+	it("updatePricesToday removes slots 92..95 on a 92-slot DST day", async () => {
+		const { caller, store } = makeCaller();
+		for (let i = 0; i < 96; i++) {
+			injectSlot(store, "PricesToday", i, "2026-03-28T00:00:00.000+01:00", 0.19);
+		}
+		const prices = quarterPrices("2026-03-29T00:00:00.000+01:00", 92);
+		(caller.tibberQuery as unknown as { getTodaysEnergyPrices: unknown }).getTodaysEnergyPrices = (): Promise<unknown> => Promise.resolve(prices);
+
+		await (caller as unknown as SlotCleanup).updatePricesToday(HOME, "QUARTER_HOURLY", true);
+		await drainMicrotasks();
+
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesToday.91.startsAt`], prices[91].startsAt);
+		for (let i = 92; i < 96; i++) {
+			assert.strictEqual(store.objects[`Homes.${HOME}.PricesToday.${i}`], undefined, `folder ${i} should be deleted`);
+		}
+	});
+
+	it("updatePricesTomorrow writes all 100 slots on a DST fall-back day", async () => {
+		const { caller, store } = makeCaller();
+		const prices = quarterPrices("2099-10-25T00:00:00.000+02:00", 100);
+		(caller.tibberQuery as unknown as { getTomorrowsEnergyPrices: unknown }).getTomorrowsEnergyPrices = (): Promise<unknown> => Promise.resolve(prices);
+
+		await (caller as unknown as SlotCleanup).updatePricesTomorrow(HOME, "QUARTER_HOURLY", true);
+		await drainMicrotasks();
+
+		assert.strictEqual(store.states[`Homes.${HOME}.PricesTomorrow.99.startsAt`], prices[99].startsAt);
+	});
+
+	it("updatePricesTomorrow without prices empties slots 0..95 incl. startsAt and deletes 96..99", async () => {
+		const { caller, store } = makeCaller();
+		for (let i = 0; i < 100; i++) {
+			injectSlot(store, "PricesTomorrow", i, "2026-10-25T00:00:00.000+02:00", 0.19);
+		}
+		(caller.tibberQuery as unknown as { getTomorrowsEnergyPrices: unknown }).getTomorrowsEnergyPrices = (): Promise<unknown> => Promise.resolve([]);
+
+		await (caller as unknown as SlotCleanup).updatePricesTomorrow(HOME, "QUARTER_HOURLY", true);
+		await drainMicrotasks();
+
+		for (let i = 0; i < 96; i++) {
+			assert.ok(store.objects[`Homes.${HOME}.PricesTomorrow.${i}`], `folder ${i} should be kept`);
+			assert.strictEqual(store.states[`Homes.${HOME}.PricesTomorrow.${i}.total`], 0);
+			assert.strictEqual(store.states[`Homes.${HOME}.PricesTomorrow.${i}.startsAt`], "Not known now");
+		}
+		for (let i = 96; i < 100; i++) {
+			assert.strictEqual(store.objects[`Homes.${HOME}.PricesTomorrow.${i}`], undefined, `folder ${i} should be deleted`);
+			assert.strictEqual(store.states[`Homes.${HOME}.PricesTomorrow.${i}.startsAt`], undefined);
+		}
 	});
 });
 
