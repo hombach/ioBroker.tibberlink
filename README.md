@@ -106,7 +106,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) upgraded tibber-api to 6.0.0 - API query errors are now rejected and handled, imports switched to the tibber-api package root
 - (HombachC) fixed endless live feed reconnect loop on an invalid / rejected Tibber API token - reconnects now stop with a single error log until the adapter is restarted
+- (HombachC) fix stale price index states after DST change days (92/100 quarter hours)
+- (HombachC) ignore price slots without total price in minimum/maximum/average calculation
 - (HombachC) updated dependencies
+- (HombachC) fixed adapter checker warnings
 
 ### 7.3.2 (2026-09-27)
 

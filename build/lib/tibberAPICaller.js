@@ -4,6 +4,8 @@ exports.TibberAPICaller = void 0;
 const date_fns_1 = require("date-fns");
 const tibber_api_1 = require("tibber-api");
 const projectUtils_js_1 = require("./projectUtils.js");
+const PRICE_SLOTS_REGULAR_DAY = 96;
+const PRICE_SLOTS_MAX = 100;
 class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
     tibberConfig;
     tibberQuery;
@@ -143,11 +145,10 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 for (let i = 0; i < newPricesToday.length; i++) {
                     await this.fetchPrice(homeId, `PricesToday.${i}`, newPricesToday[i]);
                 }
+                await this.deleteSurplusPriceStates(homeId, `PricesToday`, newPricesToday.length);
             }
             this.adapter.log.debug(`[tibberAPICaller]: Emptying prices tomorrow and average cause existing ones are obsolete after rollover`);
-            for (let i = 0; i < 96; i++) {
-                this.emptyingPrice(homeId, `PricesTomorrow.${i}`);
-            }
+            await this.emptyingPriceSlots(homeId, `PricesTomorrow`);
             this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
             this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
             this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
@@ -200,6 +201,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 for (let i = 0; i < pricesToday.length; i++) {
                     await this.fetchPrice(homeId, `PricesToday.${i}`, pricesToday[i]);
                 }
+                await this.deleteSurplusPriceStates(homeId, `PricesToday`, pricesToday.length);
                 void this.checkAndSetValue(`Homes.${homeId}.PricesToday.jsonBYpriceASC`, JSON.stringify(pricesToday.sort((a, b) => (a.total ?? 0) - (b.total ?? 0))), `prices sorted by cost ascending as json`);
                 if (pricesToday[2]?.startsAt) {
                     const newDate = new Date(pricesToday[2].startsAt);
@@ -257,9 +259,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                 void this.checkAndSetValue(`Homes.${homeId}.PricesTomorrow.json`, JSON.stringify(pricesTomorrow), `The prices tomorrow as json`);
                 if (pricesTomorrow.length === 0) {
                     this.adapter.log.debug(`[tibberAPICaller]: Emptying prices tomorrow and average cause existing ones are obsolete...`);
-                    for (let timeblock = 0; timeblock < 96; timeblock++) {
-                        this.emptyingPrice(homeId, `PricesTomorrow.${timeblock}`);
-                    }
+                    await this.emptyingPriceSlots(homeId, `PricesTomorrow`);
                     this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
                     this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
                     this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
@@ -271,6 +271,7 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
                         const price = pricesTomorrow[i];
                         await this.fetchPrice(homeId, `PricesTomorrow.${i}`, price);
                     }
+                    await this.deleteSurplusPriceStates(homeId, `PricesTomorrow`, pricesTomorrow.length);
                     this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
                     this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
                     this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow);
@@ -435,8 +436,9 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         void this.checkAndSetValue(`${basePath}.startsAt`, price.startsAt ?? `---`, `Start time of the price`);
         void this.checkAndSetValue(`${basePath}.level`, price.level ?? `---`, `Price level compared to recent price values`);
     }
-    fetchPriceAverage(homeId, objectDestination, price) {
-        if (!price || price.length === 0) {
+    fetchPriceAverage(homeId, objectDestination, priceInput) {
+        const price = this.validPrices(priceInput);
+        if (price.length === 0) {
             return;
         }
         const sumValues = (key) => price.reduce((sum, item) => (item && typeof item[key] === "number" ? sum + item[key] : sum), 0);
@@ -445,8 +447,9 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         void this.checkAndSetValueNumber(`${basePath}.energy`, Math.round(1000 * (sumValues("energy") / price.length)) / 1000, `Todays average spotmarket price`);
         void this.checkAndSetValueNumber(`${basePath}.tax`, Math.round(1000 * (sumValues("tax") / price.length)) / 1000, `Todays average tax price`);
     }
-    async fetchPriceRemainingAverage(homeId, objectDestination, price) {
-        if (!price || price.length === 0) {
+    async fetchPriceRemainingAverage(homeId, objectDestination, priceInput) {
+        const price = this.validPrices(priceInput);
+        if (price.length === 0) {
             return;
         }
         const now = new Date();
@@ -470,8 +473,9 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         await this.checkAndSetValueNumber(`${basePath}.energy`, Math.round((energySum / count) * 1000) / 1000, `Todays remaining average spot market price`);
         await this.checkAndSetValueNumber(`${basePath}.tax`, Math.round((taxSum / count) * 1000) / 1000, `Todays remaining average tax price`);
     }
-    fetchPriceMaximum(homeId, objectDestination, price) {
-        if (!price || price.length === 0) {
+    fetchPriceMaximum(homeId, objectDestination, priceInput) {
+        const price = this.validPrices(priceInput);
+        if (price.length === 0) {
             return;
         }
         const maxEntry = price.reduce((max, current) => ((current.total ?? 0) > (max.total ?? 0) ? current : max));
@@ -482,8 +486,9 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         void this.checkAndSetValue(`${basePath}.level`, maxEntry.level ?? `---`, `Price level compared to recent price values`);
         void this.checkAndSetValue(`${basePath}.startsAt`, maxEntry.startsAt ?? `---`, `Start time of the price maximum`);
     }
-    fetchPriceMinimum(homeId, objectDestination, price) {
-        if (!price || price.length === 0) {
+    fetchPriceMinimum(homeId, objectDestination, priceInput) {
+        const price = this.validPrices(priceInput);
+        if (price.length === 0) {
             return;
         }
         const minEntry = price.reduce((min, current) => ((current.total ?? 0) < (min.total ?? 0) ? current : min));
@@ -500,6 +505,33 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
         void this.checkAndSetValueNumber(`${basePath}.energy`, 0, "Spotmarket price");
         void this.checkAndSetValueNumber(`${basePath}.tax`, 0, "Tax part of the price (energy tax, VAT, etc.)");
         void this.checkAndSetValue(`${basePath}.level`, "Not known now", "Price level compared to recent price values");
+        void this.checkAndSetValue(`${basePath}.startsAt`, "Not known now", "Start time of the price");
+    }
+    async emptyingPriceSlots(homeId, folder) {
+        for (let slot = 0; slot < PRICE_SLOTS_REGULAR_DAY; slot++) {
+            this.emptyingPrice(homeId, `${folder}.${slot}`);
+        }
+        await this.deleteSurplusPriceStates(homeId, folder, PRICE_SLOTS_REGULAR_DAY);
+    }
+    async deleteSurplusPriceStates(homeId, folder, count) {
+        for (let slot = Math.max(0, count); slot < PRICE_SLOTS_MAX; slot++) {
+            const id = `Homes.${homeId}.${folder}.${slot}`;
+            try {
+                if ((await this.adapter.getObjectAsync(id)) || (await this.adapter.getObjectAsync(`${id}.total`))) {
+                    await this.adapter.delObjectAsync(id, { recursive: true });
+                    this.adapter.log.debug(`[tibberAPICaller]: deleted obsolete price slot ${id}`);
+                }
+            }
+            catch (error) {
+                this.adapter.log.warn(this.generateErrorMessage(error, `deletion of obsolete price slot ${id}`));
+            }
+        }
+    }
+    validPrices(price) {
+        if (!Array.isArray(price)) {
+            return [];
+        }
+        return price.filter(item => item && typeof item.total === "number" && Number.isFinite(item.total));
     }
     emptyingPriceAverage(homeId, objectDestination) {
         const basePath = `Homes.${homeId}.${objectDestination}`;
