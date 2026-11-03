@@ -15,6 +15,11 @@ import {
 } from "tibber-api";
 import { ProjectUtils, type IHomeInfo } from "./projectUtils.js";
 
+/** Number of quarter-hour price slots on a regular day. */
+const PRICE_SLOTS_REGULAR_DAY = 96;
+/** Maximum number of quarter-hour price slots per day (DST fall-back day has 25 h = 100 slots). */
+const PRICE_SLOTS_MAX = 100;
+
 /**
  * TibberAPICaller
  */
@@ -241,13 +246,13 @@ export class TibberAPICaller extends ProjectUtils {
 				for (let i = 0; i < newPricesToday.length; i++) {
 					await this.fetchPrice(homeId, `PricesToday.${i}`, newPricesToday[i]);
 				}
+				// remove index folders left over from days with more slots (e.g. DST day with 100 quarter hours)
+				await this.deleteSurplusPriceStates(homeId, `PricesToday`, newPricesToday.length);
 			}
 
 			// emptying PricesTomorrow states
 			this.adapter.log.debug(`[tibberAPICaller]: Emptying prices tomorrow and average cause existing ones are obsolete after rollover`);
-			for (let i = 0; i < 96; i++) {
-				this.emptyingPrice(homeId, `PricesTomorrow.${i}`);
-			}
+			await this.emptyingPriceSlots(homeId, `PricesTomorrow`);
 			this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
 			this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
 			this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
@@ -322,6 +327,8 @@ export class TibberAPICaller extends ProjectUtils {
 					// states as 0, 1, 2 ... for hourly resolution or 0,1,2...95 for 15 minutes resolution
 					await this.fetchPrice(homeId, `PricesToday.${i}`, pricesToday[i]);
 				}
+				// remove index folders left over from days with more slots (e.g. DST day with 100 quarter hours)
+				await this.deleteSurplusPriceStates(homeId, `PricesToday`, pricesToday.length);
 				void this.checkAndSetValue(
 					`Homes.${homeId}.PricesToday.jsonBYpriceASC`,
 					JSON.stringify(pricesToday.sort((a, b) => (a.total ?? 0) - (b.total ?? 0))),
@@ -399,9 +406,7 @@ export class TibberAPICaller extends ProjectUtils {
 				if (pricesTomorrow.length === 0) {
 					// pricing not known, before about 13:00 - delete all the states
 					this.adapter.log.debug(`[tibberAPICaller]: Emptying prices tomorrow and average cause existing ones are obsolete...`);
-					for (let timeblock = 0; timeblock < 96; timeblock++) {
-						this.emptyingPrice(homeId, `PricesTomorrow.${timeblock}`);
-					}
+					await this.emptyingPriceSlots(homeId, `PricesTomorrow`);
 					this.emptyingPriceAverage(homeId, `PricesTomorrow.average`);
 					this.emptyingPriceMaximum(homeId, `PricesTomorrow.maximum`);
 					this.emptyingPriceMinimum(homeId, `PricesTomorrow.minimum`);
@@ -418,6 +423,8 @@ export class TibberAPICaller extends ProjectUtils {
 						const price = pricesTomorrow[i];
 						await this.fetchPrice(homeId, `PricesTomorrow.${i}`, price);
 					}
+					// remove index folders left over from days with more slots (e.g. DST day with 100 quarter hours)
+					await this.deleteSurplusPriceStates(homeId, `PricesTomorrow`, pricesTomorrow.length);
 					this.fetchPriceAverage(homeId, `PricesTomorrow.average`, pricesTomorrow);
 					this.fetchPriceMaximum(homeId, `PricesTomorrow.maximum`, pricesTomorrow);
 					this.fetchPriceMinimum(homeId, `PricesTomorrow.minimum`, pricesTomorrow);
@@ -843,10 +850,11 @@ export class TibberAPICaller extends ProjectUtils {
 	 *
 	 * @param homeId - Home ID string used to build the state path.
 	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
-	 * @param price - Array of IPrice objects to average.
+	 * @param priceInput - Array of IPrice objects to average (entries without numeric total are ignored).
 	 */
-	private fetchPriceAverage(homeId: string, objectDestination: string, price: IPrice[]): void {
-		if (!price || price.length === 0) {
+	private fetchPriceAverage(homeId: string, objectDestination: string, priceInput: IPrice[]): void {
+		const price = this.validPrices(priceInput);
+		if (price.length === 0) {
 			return;
 		}
 
@@ -867,10 +875,11 @@ export class TibberAPICaller extends ProjectUtils {
 	 *
 	 * @param homeId - homeId string
 	 * @param objectDestination - destination state path
-	 * @param price - array of IPrice for today
+	 * @param priceInput - array of IPrice for today (entries without numeric total are ignored)
 	 */
-	private async fetchPriceRemainingAverage(homeId: string, objectDestination: string, price: IPrice[]): Promise<void> {
-		if (!price || price.length === 0) {
+	private async fetchPriceRemainingAverage(homeId: string, objectDestination: string, priceInput: IPrice[]): Promise<void> {
+		const price = this.validPrices(priceInput);
+		if (price.length === 0) {
 			return;
 		}
 		const now = new Date();
@@ -900,10 +909,11 @@ export class TibberAPICaller extends ProjectUtils {
 	 *
 	 * @param homeId - Home ID string used to build the state path.
 	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
-	 * @param price - Array of IPrice objects to search.
+	 * @param priceInput - Array of IPrice objects to search (entries without numeric total are ignored).
 	 */
-	private fetchPriceMaximum(homeId: string, objectDestination: string, price: IPrice[]): void {
-		if (!price || price.length === 0) {
+	private fetchPriceMaximum(homeId: string, objectDestination: string, priceInput: IPrice[]): void {
+		const price = this.validPrices(priceInput);
+		if (price.length === 0) {
 			return;
 		}
 		// find maximum entry
@@ -925,10 +935,11 @@ export class TibberAPICaller extends ProjectUtils {
 	 *
 	 * @param homeId - Home ID string used to build the state path.
 	 * @param objectDestination - Sub-path appended to `Homes.<homeId>.` for the target state folder.
-	 * @param price - Array of IPrice objects to search.
+	 * @param priceInput - Array of IPrice objects to search (entries without numeric total are ignored).
 	 */
-	private fetchPriceMinimum(homeId: string, objectDestination: string, price: IPrice[]): void {
-		if (!price || price.length === 0) {
+	private fetchPriceMinimum(homeId: string, objectDestination: string, priceInput: IPrice[]): void {
+		const price = this.validPrices(priceInput);
+		if (price.length === 0) {
 			return;
 		}
 		// find minimum entry
@@ -959,6 +970,59 @@ export class TibberAPICaller extends ProjectUtils {
 		void this.checkAndSetValueNumber(`${basePath}.energy`, 0, "Spotmarket price");
 		void this.checkAndSetValueNumber(`${basePath}.tax`, 0, "Tax part of the price (energy tax, VAT, etc.)");
 		void this.checkAndSetValue(`${basePath}.level`, "Not known now", "Price level compared to recent price values");
+		void this.checkAndSetValue(`${basePath}.startsAt`, "Not known now", "Start time of the price");
+	}
+
+	/**
+	 * Empties the per-slot price folders of a day (e.g. PricesTomorrow) when no prices are known.
+	 * Slots 0..95 of a regular day are kept as (emptied) objects, so existing bindings stay valid;
+	 * surplus slots 96..99 (only used on a DST fall-back day) are deleted.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param folder - Price folder below `Homes.<homeId>.`, e.g. `PricesTomorrow`.
+	 */
+	private async emptyingPriceSlots(homeId: string, folder: string): Promise<void> {
+		for (let slot = 0; slot < PRICE_SLOTS_REGULAR_DAY; slot++) {
+			this.emptyingPrice(homeId, `${folder}.${slot}`);
+		}
+		await this.deleteSurplusPriceStates(homeId, folder, PRICE_SLOTS_REGULAR_DAY);
+	}
+
+	/**
+	 * Deletes per-slot price folders (`Homes.<homeId>.<folder>.<N>`) for all N from `count` up to 99, if they exist.
+	 * Needed because the number of quarter-hour slots per day varies with DST (92 / 96 / 100), and otherwise
+	 * stale slots of a longer day would remain visible forever.
+	 *
+	 * @param homeId - Home ID string used to build the state path.
+	 * @param folder - Price folder below `Homes.<homeId>.`, e.g. `PricesToday` or `PricesTomorrow`.
+	 * @param count - Number of valid slots of the current data; all slots with index >= count are removed.
+	 */
+	private async deleteSurplusPriceStates(homeId: string, folder: string, count: number): Promise<void> {
+		for (let slot = Math.max(0, count); slot < PRICE_SLOTS_MAX; slot++) {
+			const id = `Homes.${homeId}.${folder}.${slot}`;
+			try {
+				// check folder and its total state, so also slots without folder object (older versions) get cleaned up
+				if ((await this.adapter.getObjectAsync(id)) || (await this.adapter.getObjectAsync(`${id}.total`))) {
+					await this.adapter.delObjectAsync(id, { recursive: true });
+					this.adapter.log.debug(`[tibberAPICaller]: deleted obsolete price slot ${id}`);
+				}
+			} catch (error: unknown) {
+				this.adapter.log.warn(this.generateErrorMessage(error, `deletion of obsolete price slot ${id}`));
+			}
+		}
+	}
+
+	/**
+	 * Returns only price entries with a numeric total price (Tibber may deliver null for unknown slots).
+	 *
+	 * @param price - Array of IPrice objects.
+	 * @returns Filtered array containing only entries with a numeric `total`.
+	 */
+	private validPrices(price: IPrice[] | null | undefined): IPrice[] {
+		if (!Array.isArray(price)) {
+			return [];
+		}
+		return price.filter(item => item && typeof item.total === "number" && Number.isFinite(item.total));
 	}
 	/**
 	 * Resets average price sub-states (total, energy, tax) to zero.
