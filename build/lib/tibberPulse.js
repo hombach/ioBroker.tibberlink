@@ -13,6 +13,7 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
     countedFeedDisconnects = 0;
     lastFeedWarningTime = null;
     deltaFeedWarningTime = 0;
+    feedUnauthenticated = false;
     constructor(tibberConfig, adapter) {
         super(adapter);
         this.tibberConfig = tibberConfig;
@@ -22,6 +23,10 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
         this.addEventHandlerOnFeed(this.tibberFeed);
     }
     async connectPulseStream() {
+        if (this.feedUnauthenticated) {
+            this.adapter.log.debug(`Skipping connect of Tibber feed - API token was rejected as unauthenticated`);
+            return;
+        }
         try {
             await this.tibberFeed.connect();
         }
@@ -48,6 +53,9 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
         currentFeed.on("disconnected", data => {
             void this.adapter.setState("info.connection", false, true);
             if (!this.adapter.config.HomesList.some(info => info.feedActive)) {
+                return;
+            }
+            if (this.feedUnauthenticated) {
                 return;
             }
             this.deltaFeedWarningTime = this.lastFeedWarningTime ? (Date.now() - this.lastFeedWarningTime.getTime()) / 60_000 : 0;
@@ -78,6 +86,10 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
             void this.reconnect();
         });
         currentFeed.on("error", error => {
+            if (TibberPulse.isUnauthenticatedError(error)) {
+                this.handleUnauthenticated();
+                return;
+            }
             let errorMessage = "";
             if (error instanceof Error) {
                 if (error.message) {
@@ -93,6 +105,9 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
             else if (typeof error === "string") {
                 errorMessage = error;
             }
+            else if (Array.isArray(error) && error.length > 0) {
+                errorMessage = error.map(e => e?.message ?? JSON.stringify(e)).join(", ");
+            }
             else {
                 errorMessage = "Unknown error";
             }
@@ -102,6 +117,36 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
             const receivedData = data;
             this.fetchLiveMeasurement("LiveMeasurement", receivedData);
         });
+    }
+    static isUnauthenticatedError(error) {
+        const hasUnauthCode = (list) => Array.isArray(list) && list.some(e => e?.extensions?.code === "UNAUTHENTICATED");
+        if (typeof error === "string") {
+            return /unauthenticated|invalid token/i.test(error);
+        }
+        if (error instanceof Error) {
+            return /unauthenticated|invalid token/i.test(error.message);
+        }
+        if (Array.isArray(error)) {
+            return hasUnauthCode(error);
+        }
+        if (error && typeof error === "object") {
+            return hasUnauthCode(error.errors);
+        }
+        return false;
+    }
+    handleUnauthenticated() {
+        void this.adapter.setState("info.connection", false, true);
+        if (this.feedUnauthenticated) {
+            return;
+        }
+        this.feedUnauthenticated = true;
+        this.adapter.log.error(`Tibber feed for home ${this.tibberConfig.homeId ?? "unknown"} rejected the API token (unauthenticated) - reconnects stopped. Please verify your Tibber API token and restart the adapter.`);
+        try {
+            this.tibberFeed.close();
+        }
+        catch (error) {
+            this.adapter.log.debug(`Error on feed close after unauthenticated: ${error.message}`);
+        }
     }
     fetchLiveMeasurement(objectDestination, liveMeasurement) {
         if (!liveMeasurement) {
@@ -153,13 +198,23 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
         }
     }
     async reconnect() {
+        if (this.feedUnauthenticated) {
+            return;
+        }
         this.reconnectTime = 6000;
         do {
             this.adapter.log.debug(`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`);
             await this.adapter.delay(this.reconnectTime);
+            if (this.feedUnauthenticated) {
+                break;
+            }
             await this.connectPulseStream();
             this.reconnectTime = Math.min(this.reconnectTime + 2000, this.maxReconnectTime);
-        } while (!this.tibberFeed.connected);
+        } while (!this.tibberFeed.connected && !this.feedUnauthenticated);
+        if (this.feedUnauthenticated) {
+            this.adapter.log.debug(`Reconnection to TibberFeed stopped - API token was rejected as unauthenticated`);
+            return;
+        }
         this.adapter.log.debug(`Reconnection successful!`);
     }
 }

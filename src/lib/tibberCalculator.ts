@@ -1,6 +1,6 @@
 import type * as utils from "@iobroker/adapter-core";
 import { addDays, addMinutes, format, parseISO } from "date-fns";
-import type { IPrice } from "tibber-api/lib/src/models/IPrice.js";
+import type { IPrice } from "tibber-api";
 import { ProjectUtils, enCalcType, getCalcTypeDescription } from "./projectUtils.js";
 
 /**

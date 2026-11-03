@@ -1,6 +1,5 @@
 import assert from "node:assert";
-import type { IConfig } from "tibber-api";
-import type { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement.js";
+import type { IConfig, ILiveMeasurement } from "tibber-api";
 import { createMockAdapter, drainMicrotasks } from "./testHelpers.test.ts";
 import { TibberPulse } from "./tibberPulse.ts";
 
@@ -52,5 +51,86 @@ describe("TibberPulse – fetchLiveMeasurement null guard (#910)", () => {
 		await drainMicrotasks();
 
 		assert.strictEqual(store.states[`Homes.${HOME}.LiveMeasurement.power`], 0);
+	});
+});
+
+// tibber-api 6: on an invalid token the feed emits an "Unauthenticated" error and stops reconnecting
+// until connect() is called again. The adapter's own reconnect loop must not keep calling connect()
+// forever in that case.
+describe("TibberPulse – invalid token handling (tibber-api 6)", () => {
+	const UNAUTH_MSG = "Unauthenticated! Invalid token. Please provide a valid token and try again.";
+
+	function makeFeedPulse(): {
+		pulse: TibberPulse;
+		store: ReturnType<typeof createMockAdapter>["store"];
+		errors: string[];
+		connectCalls: () => number;
+	} {
+		const { adapter, store } = createMockAdapter({ HomesList: [{ feedActive: true, homeID: HOME }] });
+		const errors: string[] = [];
+		(adapter.log as unknown as { error: (m: string) => void }).error = (m: string) => errors.push(m);
+		(adapter as unknown as { delay: (ms: number) => Promise<void> }).delay = () => Promise.resolve();
+		const fakeConfig = {
+			apiEndpoint: { apiKey: "test-key", queryUrl: "https://api.tibber.com/v1-beta/gql", userAgent: "test" },
+			homeId: HOME,
+		} as unknown as IConfig;
+		const pulse = new TibberPulse(fakeConfig, adapter);
+		let calls = 0;
+		// never open a real websocket in unit tests
+		pulse.tibberFeed.connect = (): Promise<void> => {
+			calls++;
+			pulse.tibberFeed.emit("error", UNAUTH_MSG);
+			return Promise.resolve();
+		};
+		pulse.tibberFeed.close = (): void => {};
+		return { pulse, store, errors, connectCalls: () => calls };
+	}
+
+	it("detects unauthenticated errors in all known shapes", () => {
+		assert.strictEqual(TibberPulse.isUnauthenticatedError(UNAUTH_MSG), true);
+		assert.strictEqual(TibberPulse.isUnauthenticatedError(new Error(UNAUTH_MSG)), true);
+		assert.strictEqual(TibberPulse.isUnauthenticatedError([{ message: "x", extensions: { code: "UNAUTHENTICATED" } }]), true);
+		assert.strictEqual(TibberPulse.isUnauthenticatedError({ errors: [{ extensions: { code: "UNAUTHENTICATED" } }], httpCode: 200 }), true);
+		assert.strictEqual(TibberPulse.isUnauthenticatedError("Connection timeout"), false);
+		assert.strictEqual(TibberPulse.isUnauthenticatedError(new Error("socket hang up")), false);
+		assert.strictEqual(TibberPulse.isUnauthenticatedError([{ message: "x", extensions: { code: "INTERNAL" } }]), false);
+		assert.strictEqual(TibberPulse.isUnauthenticatedError(undefined), false);
+	});
+
+	it("logs a single error and stops reconnecting after the token was rejected", async () => {
+		const { pulse, store, errors, connectCalls } = makeFeedPulse();
+
+		pulse.tibberFeed.emit("error", UNAUTH_MSG);
+		pulse.tibberFeed.emit("error", UNAUTH_MSG);
+		pulse.tibberFeed.emit("disconnected", "Disconnected from Tibber feed.");
+		await drainMicrotasks();
+
+		assert.strictEqual(pulse.feedUnauthenticated, true);
+		assert.strictEqual(errors.length, 1);
+		assert.strictEqual(connectCalls(), 0, "no reconnect after unauthenticated");
+		assert.strictEqual(store.states["info.connection"], false);
+
+		await pulse.connectPulseStream();
+		assert.strictEqual(connectCalls(), 0, "connectPulseStream is a no-op after unauthenticated");
+	});
+
+	it("ends a running reconnect loop when the token is rejected during reconnect", async () => {
+		const { pulse, errors, connectCalls } = makeFeedPulse();
+
+		// regular disconnect starts the reconnect loop; the first connect attempt is rejected as unauthenticated
+		pulse.tibberFeed.emit("disconnected", "Disconnected from Tibber feed.");
+		await drainMicrotasks();
+
+		assert.strictEqual(connectCalls(), 1, "loop stops after the first rejected attempt");
+		assert.strictEqual(pulse.feedUnauthenticated, true);
+		assert.strictEqual(errors.length, 1);
+	});
+
+	it("keeps warning (not stopping) on other feed errors", async () => {
+		const { pulse } = makeFeedPulse();
+		pulse.tibberFeed.emit("error", "Connection timeout");
+		pulse.tibberFeed.emit("error", [{ message: "some graphql error" }]);
+		await drainMicrotasks();
+		assert.strictEqual(pulse.feedUnauthenticated, false);
 	});
 });

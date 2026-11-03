@@ -1,6 +1,5 @@
 import type * as utils from "@iobroker/adapter-core";
-import { TibberFeed, TibberQuery, type IConfig } from "tibber-api";
-import type { ILiveMeasurement } from "tibber-api/lib/src/models/ILiveMeasurement.js";
+import { TibberFeed, TibberQuery, type IConfig, type ILiveMeasurement } from "tibber-api";
 import { ProjectUtils } from "./projectUtils.js";
 
 /**
@@ -16,6 +15,7 @@ export class TibberPulse extends ProjectUtils {
 	countedFeedDisconnects = 0;
 	lastFeedWarningTime: Date | null = null;
 	deltaFeedWarningTime = 0;
+	feedUnauthenticated = false;
 
 	/**
 	 * constructor
@@ -36,6 +36,10 @@ export class TibberPulse extends ProjectUtils {
 	 * connectPulseStream
 	 */
 	async connectPulseStream(): Promise<void> {
+		if (this.feedUnauthenticated) {
+			this.adapter.log.debug(`Skipping connect of Tibber feed - API token was rejected as unauthenticated`);
+			return;
+		}
 		try {
 			await this.tibberFeed.connect();
 		} catch (error) {
@@ -91,6 +95,10 @@ export class TibberPulse extends ProjectUtils {
 			if (!this.adapter.config.HomesList.some(info => info.feedActive)) {
 				return;
 			}
+			if (this.feedUnauthenticated) {
+				// token was rejected - tibber-api stops reconnecting, so must we (no endless reconnect loop)
+				return;
+			}
 
 			this.deltaFeedWarningTime = this.lastFeedWarningTime ? (Date.now() - this.lastFeedWarningTime.getTime()) / 60_000 : 0;
 
@@ -122,6 +130,10 @@ export class TibberPulse extends ProjectUtils {
 
 		// Add error handler on connection
 		currentFeed.on("error", error => {
+			if (TibberPulse.isUnauthenticatedError(error)) {
+				this.handleUnauthenticated();
+				return;
+			}
 			let errorMessage = "";
 			if (error instanceof Error) {
 				if (error.message) {
@@ -133,6 +145,8 @@ export class TibberPulse extends ProjectUtils {
 				}
 			} else if (typeof error === "string") {
 				errorMessage = error;
+			} else if (Array.isArray(error) && error.length > 0) {
+				errorMessage = error.map(e => (e as { message?: string })?.message ?? JSON.stringify(e)).join(", ");
 			} else {
 				errorMessage = "Unknown error";
 			}
@@ -144,6 +158,53 @@ export class TibberPulse extends ProjectUtils {
 			const receivedData: ILiveMeasurement = data;
 			this.fetchLiveMeasurement("LiveMeasurement", receivedData);
 		});
+	}
+
+	/**
+	 * Checks whether an error emitted by the Tibber feed signals a rejected (invalid) API token.
+	 * Since tibber-api 6 the feed emits an "Unauthenticated! Invalid token..." error and stops
+	 * reconnecting by itself; GraphQL errors may also carry the code UNAUTHENTICATED.
+	 *
+	 * @param error - The payload of the feed "error" event (string, Error, GraphQL error array or object).
+	 * @returns true if the error indicates an unauthenticated / invalid token
+	 */
+	static isUnauthenticatedError(error: unknown): boolean {
+		const hasUnauthCode = (list: unknown): boolean =>
+			Array.isArray(list) && list.some(e => (e as { extensions?: { code?: string } })?.extensions?.code === "UNAUTHENTICATED");
+		if (typeof error === "string") {
+			return /unauthenticated|invalid token/i.test(error);
+		}
+		if (error instanceof Error) {
+			return /unauthenticated|invalid token/i.test(error.message);
+		}
+		if (Array.isArray(error)) {
+			return hasUnauthCode(error);
+		}
+		if (error && typeof error === "object") {
+			return hasUnauthCode((error as { errors?: unknown }).errors);
+		}
+		return false;
+	}
+
+	/**
+	 * Stops all reconnect attempts of this feed after the Tibber server rejected the API token.
+	 * Logs a single error instead of retrying forever; a restart of the adapter (e.g. after
+	 * entering a valid token) re-enables the feed.
+	 */
+	private handleUnauthenticated(): void {
+		void this.adapter.setState("info.connection", false, true);
+		if (this.feedUnauthenticated) {
+			return;
+		}
+		this.feedUnauthenticated = true;
+		this.adapter.log.error(
+			`Tibber feed for home ${this.tibberConfig.homeId ?? "unknown"} rejected the API token (unauthenticated) - reconnects stopped. Please verify your Tibber API token and restart the adapter.`,
+		);
+		try {
+			this.tibberFeed.close();
+		} catch (error) {
+			this.adapter.log.debug(`Error on feed close after unauthenticated: ${(error as Error).message}`);
+		}
 	}
 
 	/**
@@ -287,15 +348,25 @@ export class TibberPulse extends ProjectUtils {
 	 * @returns A Promise that resolves when reconnection is successful, or rejects with an error message.
 	 */
 	private async reconnect(): Promise<void> {
+		if (this.feedUnauthenticated) {
+			return;
+		}
 		this.reconnectTime = 6000; // reinit
 		do {
 			this.adapter.log.debug(
 				`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`,
 			);
 			await this.adapter.delay(this.reconnectTime);
+			if (this.feedUnauthenticated) {
+				break;
+			}
 			await this.connectPulseStream();
 			this.reconnectTime = Math.min(this.reconnectTime + 2000, this.maxReconnectTime);
-		} while (!this.tibberFeed.connected);
+		} while (!this.tibberFeed.connected && !this.feedUnauthenticated);
+		if (this.feedUnauthenticated) {
+			this.adapter.log.debug(`Reconnection to TibberFeed stopped - API token was rejected as unauthenticated`);
+			return;
+		}
 		this.adapter.log.debug(`Reconnection successful!`);
 	}
 }
