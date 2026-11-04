@@ -101,8 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.3.3 (2026-11-04)
 
 - (HombachC) upgraded tibber-api to 6.0.0 - API query errors are now rejected and handled, imports switched to the tibber-api package root
 - (HombachC) fixed endless live feed reconnect loop on an invalid / rejected Tibber API token - reconnects now stop with a single error log until the adapter is restarted
@@ -135,12 +134,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) added node 26 tests
 - (HombachC) updated dependencies, axios
 - (HombachC) relicensing
-
-### 7.2.3 (2026-08-29)
-
-- (HombachC) fixed local Pulse boolean states (e.g. usb_power, autolevel_enable) being created as type number, causing recurring log errors (#935)
-- (HombachC) SmartBatteryBuffer: EfficiencyLoss is now validated to the range 0…1; out-of-range values (e.g. 25 instead of 0.25) are clamped with a warning instead of corrupting the calculation, and the state now carries min/max/step (#934)
-- (HombachC) updated dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
