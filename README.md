@@ -101,11 +101,15 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) live feed: added optional states powerReactive and powerProductionReactive (reactive power Q+/Q- in kvar, provided by tibber-api 6) - disabled by default
+
 ### 7.3.3 (2026-11-04)
 
 - (HombachC) upgraded tibber-api to 6.0.0 - API query errors are now rejected and handled, imports switched to the tibber-api package root
 - (HombachC) fixed endless live feed reconnect loop on an invalid / rejected Tibber API token - reconnects now stop with a single error log until the adapter is restarted
-- (HombachC) live feed: added optional states powerReactive and powerProductionReactive (reactive power Q+/Q- in kvar, provided by tibber-api 6) - disabled by default
 - (HombachC) fix stale price index states after DST change days (92/100 quarter hours)
 - (HombachC) ignore price slots without total price in minimum/maximum/average calculation
 - (HombachC) updated dependencies
