@@ -34,6 +34,8 @@ declare global {
 			FeedConfigMaxPowerProduction: boolean;
 			FeedConfigLastMeterProduction: boolean;
 			FeedConfigPowerFactor: boolean;
+			FeedConfigPowerReactive: boolean;
+			FeedConfigPowerProductionReactive: boolean;
 			FeedConfigVoltagePhase1: boolean;
 			FeedConfigVoltagePhase2: boolean;
 			FeedConfigVoltagePhase3: boolean;

@@ -188,6 +188,12 @@ class TibberPulse extends projectUtils_js_1.ProjectUtils {
             void this.checkAndSetValueNumber(`${basePath}.maxPowerProduction`, liveMeasurement.maxPowerProduction, "Max net grid feed-in since midnight", "W");
             void this.checkAndSetValueNumber(`${basePath}.lastMeterProduction`, Math.round(1000 * liveMeasurement.lastMeterProduction) / 1000, `Latest grid feed-in meter state`, "kWh");
             void this.checkAndSetValueNumber(`${basePath}.powerFactor`, liveMeasurement.powerFactor, "Power factor (active power / apparent power)");
+            if (this.adapter.config.FeedConfigPowerReactive) {
+                void this.checkAndSetValueNumber(`${basePath}.powerReactive`, liveMeasurement.powerReactive, `Reactive power consumption (Q+) at the moment; on some meters this value is not part of every data frame therefore the value is null at some timestamps`, "kvar");
+            }
+            if (this.adapter.config.FeedConfigPowerProductionReactive) {
+                void this.checkAndSetValueNumber(`${basePath}.powerProductionReactive`, liveMeasurement.powerProductionReactive, `Net reactive power production (Q-) at the moment; on some meters this value is not part of every data frame therefore the value is null at some timestamps`, "kvar");
+            }
             void this.checkAndSetValueNumber(`${basePath}.signalStrength`, liveMeasurement.signalStrength, `Device signal strength (Pulse - dB; Watty - percent)`);
             void this.checkAndSetValueNumber(`${basePath}.voltagePhase1`, liveMeasurement.voltagePhase1, `Voltage on phase 1; on some meters this value is not part of every data frame therefore the value is null at some timestamps`, "V");
             void this.checkAndSetValueNumber(`${basePath}.voltagePhase2`, liveMeasurement.voltagePhase2, `Voltage on phase 2; on some meters this value is not part of every data frame therefore the value is null at some timestamps`, "V");
