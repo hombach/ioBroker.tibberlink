@@ -106,6 +106,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 - (HombachC) added optional historical production (grid feed-in) data incl. profit as Homes.<id>.Production.* (JSON per resolution, current month production and profit) based on tibber-api 6 getProduction - disabled by default
 - (HombachC) added optional price history: hourly prices of the last N days (1-31, default 7) as Homes.<id>.PricesHistory.* (JSON, average, minimum, maximum) based on tibber-api 6 getEnergyPriceRange - disabled by default
+- (HombachC) keep polling PricesTomorrow in the afternoon while empty (#973)
 - (HombachC) live feed: added optional states powerReactive and powerProductionReactive (reactive power Q+/Q- in kvar, provided by tibber-api 6) - disabled by default
 
 ### 7.3.3 (2026-11-04)

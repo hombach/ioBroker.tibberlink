@@ -37,6 +37,7 @@ const utils = __importStar(require("@iobroker/adapter-core"));
 const cron_1 = require("cron");
 const date_fns_1 = require("date-fns");
 const tibber_api_1 = require("tibber-api");
+const projectUtils_js_1 = require("./lib/projectUtils.js");
 const tibberAPICaller_js_1 = require("./lib/tibberAPICaller.js");
 const tibberCalculator_js_1 = require("./lib/tibberCalculator.js");
 const tibberCharts_js_1 = require("./lib/tibberCharts.js");
@@ -58,6 +59,7 @@ class Tibberlink extends utils.Adapter {
         this.queryUrl = "https://api.tibber.com/v1-beta/gql";
     }
     cronList;
+    afternoonPricesTomorrowTimer;
     homeInfoList = [];
     queryUrl = "";
     tibberCalculator = new tibberCalculator_js_1.TibberCalculator(this);
@@ -187,7 +189,7 @@ class Tibberlink extends utils.Adapter {
                 void this.jobPricesTodayLOOP(tibberAPICaller);
                 void this.jobPricesTomorrowLOOP(tibberAPICaller);
                 void tibberCalculator.startCalculatorTasks(false, true);
-                void tibberAPICaller.updateConsumptionAllHomes().then(() => tibberAPICaller.updateProductionAllHomes());
+                void tibberAPICaller.updateConsumptionAllHomes();
                 void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                 const jobCurrentPrice = cron_1.CronJob.from({
                     cronTime: "4 */15 * * * *",
@@ -196,7 +198,8 @@ class Tibberlink extends utils.Adapter {
                         await tibberCalculator.startCalculatorTasks();
                         void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
                         await this.delay(this.getRandomDelay(2, 4));
-                        void tibberAPICaller.updateConsumptionAllHomes().then(() => tibberAPICaller.updateProductionAllHomes());
+                        void tibberAPICaller.updateConsumptionAllHomes();
+                        void this.maybeScheduleAfternoonPricesTomorrowRetry(tibberAPICaller);
                     },
                     start: true,
                     runOnInit: false,
@@ -256,22 +259,6 @@ class Tibberlink extends utils.Adapter {
                 });
                 if (jobDailyPriceRollover) {
                     this.cronList.push(jobDailyPriceRollover);
-                }
-                if (this.config.PriceHistoryActive) {
-                    void tibberAPICaller.updatePriceHistoryAllHomes(this.homeInfoList);
-                    const jobPriceHistory = cron_1.CronJob.from({
-                        cronTime: "30 5 0 * * *",
-                        onTick: async () => {
-                            await this.delay(this.getRandomDelay(4, 6));
-                            const okHistory = await tibberAPICaller.updatePriceHistoryAllHomes(this.homeInfoList);
-                            this.log.debug(`Cron job PriceHistory done, okHistory: ${okHistory}`);
-                        },
-                        start: true,
-                        runOnInit: false,
-                    });
-                    if (jobPriceHistory) {
-                        this.cronList.push(jobPriceHistory);
-                    }
                 }
                 if (this.homeInfoList.some(info => info.FeedActive)) {
                     const tibberFeedConfigs = Array.from({ length: this.homeInfoList.length }, () => {
@@ -424,6 +411,53 @@ class Tibberlink extends utils.Adapter {
             await this.delay(this.getRandomDelay(4, 6));
         } while (!okPrice && attempt < 8);
     }
+    async maybeScheduleAfternoonPricesTomorrowRetry(tibberAPICaller) {
+        if (!(0, projectUtils_js_1.isAfternoonPricesTomorrowRetryWindow)()) {
+            return;
+        }
+        if (this.afternoonPricesTomorrowTimer !== undefined) {
+            return;
+        }
+        if (!(await this.anyHomeNeedsPricesTomorrowFetch())) {
+            return;
+        }
+        const delayMs = this.getRandomDelay(2, 12);
+        this.log.debug(`Afternoon PricesTomorrow retry scheduled in ~${Math.round(delayMs / 60000)} min (${delayMs} ms)`);
+        this.afternoonPricesTomorrowTimer = this.setTimeout(() => {
+            this.afternoonPricesTomorrowTimer = undefined;
+            void (async () => {
+                try {
+                    const okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, tibber_api_1.PriceResolution.QUARTER_HOURLY);
+                    this.log.debug(`Afternoon PricesTomorrow retry done, okPrice: ${okPrice}`);
+                    if (okPrice) {
+                        void this.tibberCalculator.startCalculatorTasks();
+                        void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
+                    }
+                }
+                catch (error) {
+                    this.log.warn(`Afternoon PricesTomorrow retry failed: ${error.message}`);
+                }
+            })();
+        }, delayMs);
+    }
+    async anyHomeNeedsPricesTomorrowFetch() {
+        const now = new Date();
+        for (const home of this.homeInfoList) {
+            if (!home.PriceDataPollActive) {
+                continue;
+            }
+            try {
+                const state = await this.getStateAsync(`Homes.${home.ID}.PricesTomorrow.json`);
+                if ((0, projectUtils_js_1.pricesTomorrowStateNeedsFetch)(state?.val, now)) {
+                    return true;
+                }
+            }
+            catch {
+                return true;
+            }
+        }
+        return false;
+    }
     getRandomDelay = (minMinutes, maxMinutes) => {
         if (minMinutes >= maxMinutes) {
             throw new Error("minMinutes should be less than maxMinutes");
@@ -477,6 +511,10 @@ class Tibberlink extends utils.Adapter {
     }
     async onUnload(callback) {
         try {
+            if (this.afternoonPricesTomorrowTimer !== undefined) {
+                this.clearTimeout(this.afternoonPricesTomorrowTimer);
+                this.afternoonPricesTomorrowTimer = undefined;
+            }
             for (const cronJob of this.cronList) {
                 await cronJob.stop();
             }

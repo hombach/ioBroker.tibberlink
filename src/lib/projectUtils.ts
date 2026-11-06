@@ -54,6 +54,48 @@ export interface IHomeInfo {
 	PriceDataPollActive: boolean;
 }
 
+/**
+ * Local-time window for the afternoon PricesTomorrow follow-up poll (#973).
+ * Inclusive of 13:00, exclusive of 20:00.
+ *
+ * @param now - Reference time (defaults to now); injectable for tests.
+ * @returns true when a delayed afternoon retry may be scheduled.
+ */
+export function isAfternoonPricesTomorrowRetryWindow(now: Date = new Date()): boolean {
+	const hour = now.getHours();
+	return hour >= 13 && hour < 20;
+}
+
+/**
+ * Whether a PricesTomorrow.json state value still needs a Tibber fetch.
+ * Mirrors the skip rule in `updatePricesTomorrow`: filled when slot[2].startsAt is on/after tomorrow 00:00.
+ *
+ * @param jsonVal - Raw state value (JSON string, array, null, …).
+ * @param now - Reference time (defaults to now); injectable for tests.
+ * @returns true when empty, unparsable, or not yet tomorrow's prices.
+ */
+export function pricesTomorrowStateNeedsFetch(jsonVal: unknown, now: Date = new Date()): boolean {
+	const morgen = new Date(now);
+	morgen.setDate(morgen.getDate() + 1);
+	morgen.setHours(0, 0, 0, 0);
+	if (jsonVal == null || jsonVal === "") {
+		return true;
+	}
+	try {
+		const prices = typeof jsonVal === "string" ? JSON.parse(jsonVal) : jsonVal;
+		if (!Array.isArray(prices) || prices.length === 0) {
+			return true;
+		}
+		const startsAt = (prices[2] as { startsAt?: string } | undefined)?.startsAt;
+		if (!startsAt) {
+			return true;
+		}
+		return new Date(startsAt) < morgen;
+	} catch {
+		return true;
+	}
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════════════════════════
  * ║  SHARED REGION — class ProjectUtils                                                            ║
  * ║  Keep this block IDENTICAL across all of my own ioBroker adapters                              ║
