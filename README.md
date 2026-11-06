@@ -104,6 +104,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 
 ### **WORK IN PROGRESS**
 
+- (HombachC) keep polling PricesTomorrow in the afternoon while empty (#973)
 - (HombachC) live feed: added optional states powerReactive and powerProductionReactive (reactive power Q+/Q- in kvar, provided by tibber-api 6) - disabled by default
 
 ### 7.3.3 (2026-11-04)

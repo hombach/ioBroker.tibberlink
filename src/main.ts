@@ -3,7 +3,7 @@ import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
 import { addDays, format, isSameDay, roundToNearestMinutes } from "date-fns";
 import { PriceResolution, type IConfig } from "tibber-api";
-import type { IHomeInfo } from "./lib/projectUtils.js";
+import { isAfternoonPricesTomorrowRetryWindow, pricesTomorrowStateNeedsFetch, type IHomeInfo } from "./lib/projectUtils.js";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
 import { TibberCharts } from "./lib/tibberCharts.js";
@@ -33,6 +33,8 @@ class Tibberlink extends utils.Adapter {
 	}
 
 	private cronList: CronJob[];
+	/** Pending afternoon PricesTomorrow follow-up (#973); cleared on fire/unload. */
+	private afternoonPricesTomorrowTimer: ioBroker.Timeout | undefined;
 	private homeInfoList: IHomeInfo[] = [];
 	private queryUrl = "";
 	private tibberCalculator = new TibberCalculator(this);
@@ -217,6 +219,8 @@ class Tibberlink extends utils.Adapter {
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 						await this.delay(this.getRandomDelay(2, 4)); // random delay to avoid too many requests at the same time if many users
 						void tibberAPICaller.updateConsumptionAllHomes();
+						// #973: do NOT poll PricesTomorrow on this busy tick; maybe schedule a delayed afternoon retry
+						void this.maybeScheduleAfternoonPricesTomorrowRetry(tibberAPICaller);
 					},
 					start: true,
 					runOnInit: false,
@@ -470,6 +474,67 @@ class Tibberlink extends utils.Adapter {
 	}
 
 	/**
+	 * Between 13:00 and 20:00 local time, if any home still lacks tomorrow's prices, schedule
+	 * one follow-up poll with a random delay of 2–12 minutes (~7±5) so we avoid Tibber's busy
+	 * :00/:15/:30/:45 CurrentPrice ticks (#973). Noon cron and 23:56 job stay unchanged.
+	 * Uses forceUpdate=false so the existing skip-if-already-filled logic applies. A pending
+	 * timer blocks further schedules until it fires or unload clears it.
+	 *
+	 * @param tibberAPICaller - TibberAPICaller instance used to fetch price data.
+	 */
+	private async maybeScheduleAfternoonPricesTomorrowRetry(tibberAPICaller: TibberAPICaller): Promise<void> {
+		if (!isAfternoonPricesTomorrowRetryWindow()) {
+			return;
+		}
+		if (this.afternoonPricesTomorrowTimer !== undefined) {
+			return; // one delayed poll already pending
+		}
+		if (!(await this.anyHomeNeedsPricesTomorrowFetch())) {
+			return;
+		}
+		const delayMs = this.getRandomDelay(2, 12);
+		this.log.debug(`Afternoon PricesTomorrow retry scheduled in ~${Math.round(delayMs / 60000)} min (${delayMs} ms)`);
+		this.afternoonPricesTomorrowTimer = this.setTimeout(() => {
+			this.afternoonPricesTomorrowTimer = undefined;
+			void (async (): Promise<void> => {
+				try {
+					const okPrice = await tibberAPICaller.updatePricesTomorrowAllHomes(this.homeInfoList, PriceResolution.QUARTER_HOURLY);
+					this.log.debug(`Afternoon PricesTomorrow retry done, okPrice: ${okPrice}`);
+					if (okPrice) {
+						void this.tibberCalculator.startCalculatorTasks();
+						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
+					}
+				} catch (error: unknown) {
+					this.log.warn(`Afternoon PricesTomorrow retry failed: ${(error as Error).message}`);
+				}
+			})();
+		}, delayMs);
+	}
+
+	/**
+	 * Checks whether any price-polling home still has empty or stale PricesTomorrow.json.
+	 *
+	 * @returns true when at least one home needs a tomorrow-price fetch.
+	 */
+	private async anyHomeNeedsPricesTomorrowFetch(): Promise<boolean> {
+		const now = new Date();
+		for (const home of this.homeInfoList) {
+			if (!home.PriceDataPollActive) {
+				continue;
+			}
+			try {
+				const state = await this.getStateAsync(`Homes.${home.ID}.PricesTomorrow.json`);
+				if (pricesTomorrowStateNeedsFetch(state?.val, now)) {
+					return true;
+				}
+			} catch {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * generates random delay time in milliseconds between min minutes and max minutes
 	 *
 	 * @param minMinutes - minimum minutes of delay as number
@@ -548,6 +613,10 @@ class Tibberlink extends utils.Adapter {
 	 */
 	private async onUnload(callback: () => void): Promise<void> {
 		try {
+			if (this.afternoonPricesTomorrowTimer !== undefined) {
+				this.clearTimeout(this.afternoonPricesTomorrowTimer);
+				this.afternoonPricesTomorrowTimer = undefined;
+			}
 			for (const cronJob of this.cronList) {
 				await cronJob.stop();
 			}
