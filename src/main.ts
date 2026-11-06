@@ -205,8 +205,8 @@ class Tibberlink extends utils.Adapter {
 				void this.jobPricesTodayLOOP(tibberAPICaller);
 				void this.jobPricesTomorrowLOOP(tibberAPICaller);
 				void tibberCalculator.startCalculatorTasks(false, true);
-				// Get consumption data for the first time
-				void tibberAPICaller.updateConsumptionAllHomes();
+				// Get consumption and production data for the first time
+				void tibberAPICaller.updateConsumptionAllHomes().then(() => tibberAPICaller.updateProductionAllHomes());
 				void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 
 				//#region *** jobCurrentPrice - "4 */15 * * * *", // jede 15. Minute, Sekunde 4
@@ -218,7 +218,7 @@ class Tibberlink extends utils.Adapter {
 						await tibberCalculator.startCalculatorTasks();
 						void this.tibberCharts.generateFlexChartJSONAllHomes(this.homeInfoList);
 						await this.delay(this.getRandomDelay(2, 4)); // random delay to avoid too many requests at the same time if many users
-						void tibberAPICaller.updateConsumptionAllHomes();
+						void tibberAPICaller.updateConsumptionAllHomes().then(() => tibberAPICaller.updateProductionAllHomes());
 						// #973: do NOT poll PricesTomorrow on this busy tick; maybe schedule a delayed afternoon retry
 						void this.maybeScheduleAfternoonPricesTomorrowRetry(tibberAPICaller);
 					},
@@ -289,6 +289,25 @@ class Tibberlink extends utils.Adapter {
 				});
 				if (jobDailyPriceRollover) {
 					this.cronList.push(jobDailyPriceRollover);
+				}
+				//#endregion
+
+				//#region *** jobPriceHistory - "30 5 0 * * *" = 00:05:30, every day + random delay; only if price history is configured
+				if (this.config.PriceHistoryActive) {
+					void tibberAPICaller.updatePriceHistoryAllHomes(this.homeInfoList);
+					const jobPriceHistory = CronJob.from({
+						cronTime: "30 5 0 * * *",
+						onTick: async () => {
+							await this.delay(this.getRandomDelay(4, 6));
+							const okHistory = await tibberAPICaller.updatePriceHistoryAllHomes(this.homeInfoList);
+							this.log.debug(`Cron job PriceHistory done, okHistory: ${okHistory}`);
+						},
+						start: true,
+						runOnInit: false,
+					});
+					if (jobPriceHistory) {
+						this.cronList.push(jobPriceHistory);
+					}
 				}
 				//#endregion
 
