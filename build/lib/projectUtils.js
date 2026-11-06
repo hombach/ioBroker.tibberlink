@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProjectUtils = exports.enCalcType = void 0;
 exports.getCalcTypeDescription = getCalcTypeDescription;
+exports.isAfternoonPricesTomorrowRetryWindow = isAfternoonPricesTomorrowRetryWindow;
+exports.pricesTomorrowStateNeedsFetch = pricesTomorrowStateNeedsFetch;
 var enCalcType;
 (function (enCalcType) {
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
@@ -29,6 +31,32 @@ function getCalcTypeDescription(calcType) {
         [enCalcType.SmartBatteryBufferLTF]: `smart battery buffer LTF`,
     };
     return descriptions[calcType] || `Unknown`;
+}
+function isAfternoonPricesTomorrowRetryWindow(now = new Date()) {
+    const hour = now.getHours();
+    return hour >= 13 && hour < 20;
+}
+function pricesTomorrowStateNeedsFetch(jsonVal, now = new Date()) {
+    const morgen = new Date(now);
+    morgen.setDate(morgen.getDate() + 1);
+    morgen.setHours(0, 0, 0, 0);
+    if (jsonVal == null || jsonVal === "") {
+        return true;
+    }
+    try {
+        const prices = typeof jsonVal === "string" ? JSON.parse(jsonVal) : jsonVal;
+        if (!Array.isArray(prices) || prices.length === 0) {
+            return true;
+        }
+        const startsAt = prices[2]?.startsAt;
+        if (!startsAt) {
+            return true;
+        }
+        return new Date(startsAt) < morgen;
+    }
+    catch {
+        return true;
+    }
 }
 class ProjectUtils {
     adapter;
