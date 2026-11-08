@@ -101,6 +101,12 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+
+### **WORK IN PROGRESS**
+
+- (HombachC) added optional historical production (grid feed-in) data incl. profit as Homes.<id>.Production.* (JSON per resolution, current month production and profit) based on tibber-api 6 getProduction - disabled by default
+- (HombachC) added optional price history: hourly prices of the last N days (1-31, default 7) as Homes.<id>.PricesHistory.* (JSON, average, minimum, maximum) based on tibber-api 6 getEnergyPriceRange - disabled by default
+
 ### 7.4.0 (2026-11-06)
 
 - (HombachC) keep polling PricesTomorrow in the afternoon while empty (#973)

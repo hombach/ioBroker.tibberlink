@@ -358,6 +358,124 @@ class TibberAPICaller extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: pull of consumption data`));
         }
     }
+    async updatePriceHistoryAllHomes(homeInfoList) {
+        if (!this.adapter.config.PriceHistoryActive) {
+            return true;
+        }
+        const days = TibberAPICaller.getPriceHistoryDays(this.adapter.config.PriceHistoryDays);
+        let okprice = true;
+        for (const curHomeInfo of homeInfoList) {
+            if (!curHomeInfo.PriceDataPollActive) {
+                continue;
+            }
+            if (!(await this.updatePriceHistory(curHomeInfo.ID, days))) {
+                okprice = false;
+            }
+        }
+        return okprice;
+    }
+    static getPriceHistoryDays(configured) {
+        const days = Math.floor(Number(configured));
+        if (!Number.isFinite(days) || days < 1) {
+            return 7;
+        }
+        return Math.min(days, 31);
+    }
+    async updatePriceHistory(homeId, days) {
+        if (!homeId) {
+            return false;
+        }
+        try {
+            const startOfToday = new Date();
+            startOfToday.setHours(0, 0, 0, 0);
+            const range = await this.tibberQuery.getEnergyPriceRange(homeId, tibber_api_1.PriceRangeResolution.HOURLY, { last: days * 24, before: startOfToday });
+            const prices = Array.isArray(range?.nodes) ? range.nodes.filter(p => typeof p?.total === "number") : [];
+            if (prices.length === 0) {
+                throw new Error(`[tibberAPICaller]: Got no price history from Tibber [you might not have a valid (or fully confirmed) contract]`);
+            }
+            this.adapter.log.debug(`[tibberAPICaller]: Got ${prices.length} hourly history prices for home ${homeId} (requested ${days} days)`);
+            const basePath = `Homes.${homeId}.PricesHistory`;
+            await this.checkAndSetValue(`${basePath}.json`, JSON.stringify(prices), `Hourly prices of the last ${days} days before today as json`, `json`, false, false, true);
+            const round = (value) => Math.round(1000 * value) / 1000;
+            const avg = (key) => round(prices.reduce((sum, p) => sum + (p[key] ?? 0), 0) / prices.length);
+            await this.checkAndSetValueNumber(`${basePath}.average.total`, avg("total"), `Average total price of the price history`);
+            await this.checkAndSetValueNumber(`${basePath}.average.energy`, avg("energy"), `Average spot market price of the price history`);
+            await this.checkAndSetValueNumber(`${basePath}.average.tax`, avg("tax"), `Average tax price of the price history`);
+            const minEntry = prices.reduce((min, cur) => ((cur.total ?? 0) < (min.total ?? 0) ? cur : min));
+            const maxEntry = prices.reduce((max, cur) => ((cur.total ?? 0) > (max.total ?? 0) ? cur : max));
+            await this.checkAndSetValueNumber(`${basePath}.minimum.total`, round(minEntry.total ?? 0), `Lowest total price of the price history`);
+            await this.checkAndSetValue(`${basePath}.minimum.startsAt`, minEntry.startsAt ?? `---`, `Start time of the lowest price of the price history`);
+            await this.checkAndSetValueNumber(`${basePath}.maximum.total`, round(maxEntry.total ?? 0), `Highest total price of the price history`);
+            await this.checkAndSetValue(`${basePath}.maximum.startsAt`, maxEntry.startsAt ?? `---`, `Start time of the highest price of the price history`);
+            await this.checkAndSetValueNumber(`${basePath}.days`, days, `Number of days covered by the price history`);
+            await this.checkAndSetValue(`${basePath}.lastUpdate`, new Date().toString(), `last update of price history`);
+            return true;
+        }
+        catch (error) {
+            this.adapter.log.warn(this.generateErrorMessage(error, `[tibberAPICaller]: pull of price history`));
+            return false;
+        }
+    }
+    async updateProductionAllHomes() {
+        if (!this.adapter.config.ProductionDataActive) {
+            return;
+        }
+        try {
+            for (const home of this.adapter.config.HomesList) {
+                if (!home.statsActive || !home.homeID) {
+                    continue;
+                }
+                const homeID = home.homeID;
+                const resolutions = [
+                    { type: tibber_api_1.EnergyResolution.HOURLY, state: `jsonHourly`, numProd: home.numberConsHourly, description: `hour` },
+                    { type: tibber_api_1.EnergyResolution.DAILY, state: `jsonDaily`, numProd: home.numberConsDaily, description: `day` },
+                    { type: tibber_api_1.EnergyResolution.WEEKLY, state: `jsonWeekly`, numProd: home.numberConsWeekly, description: `week` },
+                    { type: tibber_api_1.EnergyResolution.MONTHLY, state: `jsonMonthly`, numProd: home.numberConsMonthly, description: `month` },
+                    { type: tibber_api_1.EnergyResolution.ANNUAL, state: `jsonAnnual`, numProd: home.numberConsAnnual, description: `year` },
+                ];
+                for (const { type, state, numProd, description } of resolutions) {
+                    if (numProd && numProd > 0) {
+                        const production = this.fixConsumptionEndDates(await this.tibberQuery.getProduction(type, numProd, homeID), type);
+                        void this.checkAndSetValue(`Homes.${homeID}.Production.${state}`, JSON.stringify(production), `Historical production (grid feed-in) last ${description}s as json`, `json`);
+                        if (description == `day`) {
+                            const { production: monthProduction, profit: monthProfit } = this.getCurrentMonthProduction(production);
+                            await this.checkAndSetValueNumber(`Homes.${homeID}.Production.currentMonthProduction`, monthProduction, `Total production (grid feed-in) for the current month`, `kWh`, `value.energy.produced`);
+                            await this.checkAndSetValueNumber(`Homes.${homeID}.Production.currentMonthProfit`, monthProfit, `Total profit (feed-in revenue) for the current month`, production.find(p => p?.currency)?.currency);
+                        }
+                    }
+                    else {
+                        void this.checkAndSetValue(`Homes.${homeID}.Production.${state}`, `[]`);
+                    }
+                }
+                this.adapter.log.debug(`[tibberAPICaller]: Got all production data from Tibber Server for home: ${homeID}`);
+            }
+        }
+        catch (error) {
+            this.adapter.log.error(this.generateErrorMessage(error, `[tibberAPICaller]: pull of production data`));
+        }
+    }
+    getCurrentMonthProduction(production) {
+        const now = new Date();
+        let sumProduction = 0;
+        let sumProfit = 0;
+        for (const entry of production ?? []) {
+            const dateStr = entry?.from ?? entry?.to;
+            if (!dateStr) {
+                continue;
+            }
+            const entryDate = (0, date_fns_1.parseISO)(dateStr);
+            if (!(0, date_fns_1.isValid)(entryDate) || !(0, date_fns_1.isSameMonth)(entryDate, now)) {
+                continue;
+            }
+            if (typeof entry.production === "number" && isFinite(entry.production) && entry.production >= 0) {
+                sumProduction += entry.production;
+            }
+            if (typeof entry.profit === "number" && isFinite(entry.profit) && entry.profit >= 0) {
+                sumProfit += entry.profit;
+            }
+        }
+        return { production: Math.round(1000 * sumProduction) / 1000, profit: Math.round(100 * sumProfit) / 100 };
+    }
     getCurrentMonthConsumption(consumption) {
         if (!consumption || consumption.length === 0) {
             return undefined;
