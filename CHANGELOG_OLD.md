@@ -17,6 +17,14 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+## 7.2.4 (2026-09-12)
+
+- (HombachC) Tibber Data API: the actual OAuth error response (HTTP status + body, e.g. invalid_grant) is now logged instead of only "Request failed with status code 400", and a failed auth-code exchange re-logs the authorization URL with a hint that codes are single-use and short-lived (#940)
+- (HombachC) switch to iobroker testing 6.x
+- (HombachC) added node 26 tests
+- (HombachC) updated dependencies, axios
+- (HombachC) relicensing
+
 ## 7.2.3 (2026-08-29)
 
 - (HombachC) fixed local Pulse boolean states (e.g. usb_power, autolevel_enable) being created as type number, causing recurring log errors (#935)
