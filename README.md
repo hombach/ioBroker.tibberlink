@@ -105,6 +105,9 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### **WORK IN PROGRESS**
 
 - (HombachC) added optional historical production (grid feed-in) data incl. profit as Homes.<id>.Production.* (JSON per resolution, current month production and profit) based on tibber-api 6 getProduction - disabled by default
+
+### 7.4.0 (2026-11-06)
+
 - (HombachC) keep polling PricesTomorrow in the afternoon while empty (#973)
 - (HombachC) live feed: added optional states powerReactive and powerProductionReactive (reactive power Q+/Q- in kvar, provided by tibber-api 6) - disabled by default
 
@@ -133,14 +136,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) BestSingleHours: added optional "Include price ties at the boundary" per channel — after the configured AmountHours it also switches on all following slots sharing the boundary price, so a whole price plateau (e.g. all 0-cent quarters) is covered; disabled by default (#945)
 - (GermanBluefox) Fix docu typo
 - (HombachC) updated dependencies
-
-### 7.2.4 (2026-09-12)
-
-- (HombachC) Tibber Data API: the actual OAuth error response (HTTP status + body, e.g. invalid_grant) is now logged instead of only "Request failed with status code 400", and a failed auth-code exchange re-logs the authorization URL with a hint that codes are single-use and short-lived (#940)
-- (HombachC) switch to iobroker testing 6.x
-- (HombachC) added node 26 tests
-- (HombachC) updated dependencies, axios
-- (HombachC) relicensing
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
