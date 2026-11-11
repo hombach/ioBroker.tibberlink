@@ -101,8 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.4.1 (2026-11-11)
 
 - (HombachC) added optional historical production (grid feed-in) data incl. profit as Homes.<id>.Production.\* (JSON per resolution, current month production and profit) based on tibber-api 6 getProduction - disabled by default
 - (HombachC) added optional price history: hourly prices of the last N days (1-31, default 7) as Homes.<id>.PricesHistory.\* (JSON, average, minimum, maximum) based on tibber-api 6 getEnergyPriceRange - disabled by default
@@ -132,12 +131,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 ### 7.3.1 (2026-09-26)
 
 - (HombachC) fixed local Pulse poll after Tibber Bridge firmware update (~1794): use /node_data.json and /node_metrics.json with automatic fallback to the legacy paths; during the first probe the fallback now triggers on any error (not only HTTP 404) so uncommon firmware responses are handled too (#947)
-- (HombachC) updated dependencies
-
-### 7.3.0 (2026-09-18)
-
-- (HombachC) BestSingleHours: added optional "Include price ties at the boundary" per channel — after the configured AmountHours it also switches on all following slots sharing the boundary price, so a whole price plateau (e.g. all 0-cent quarters) is covered; disabled by default (#945)
-- (GermanBluefox) Fix docu typo
 - (HombachC) updated dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
