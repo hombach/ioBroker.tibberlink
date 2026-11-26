@@ -119,6 +119,19 @@ export function toBoolean(value: unknown): boolean | undefined {
 	return undefined;
 }
 
+/**
+ * Checks whether a string is an ISO-8601 timestamp with milliseconds and an explicit time zone,
+ * like "2023-11-17T21:00:00.000+01:00" or "2023-11-17T20:00:00.000Z".
+ * Timestamps without offset are rejected, because they would silently be interpreted in the
+ * time zone of the ioBroker host.
+ *
+ * @param value - String to check.
+ * @returns true if the string matches the expected format.
+ */
+export function isIso8601WithOffset(value: string): boolean {
+	return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}(Z|[+-]\d{2}:\d{2})$/.test(value) && !isNaN(new Date(value).getTime());
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════════════════════════
  * ║  SHARED REGION — class ProjectUtils                                                            ║
  * ║  Keep this block IDENTICAL across all of my own ioBroker adapters                              ║

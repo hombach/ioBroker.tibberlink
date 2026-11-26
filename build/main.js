@@ -593,8 +593,7 @@ class Tibberlink extends utils.Adapter {
                                         break;
                                     case "StartTime":
                                         if (typeof state.val === "string") {
-                                            const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
-                                            if (iso8601RegEx.test(state.val)) {
+                                            if ((0, projectUtils_js_1.isIso8601WithOffset)(state.val)) {
                                                 const dateWithTimeZone = new Date(state.val);
                                                 const roundedDate = (0, date_fns_1.roundToNearestMinutes)(dateWithTimeZone, { nearestTo: 15, roundingMethod: "floor" });
                                                 this.config.CalculatorList[calcChannel].chStartTime = roundedDate;
@@ -611,8 +610,7 @@ class Tibberlink extends utils.Adapter {
                                         break;
                                     case "StopTime":
                                         if (typeof state.val === "string") {
-                                            const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
-                                            if (iso8601RegEx.test(state.val)) {
+                                            if ((0, projectUtils_js_1.isIso8601WithOffset)(state.val)) {
                                                 const dateWithTimeZone = new Date(state.val);
                                                 const roundedDate = (0, date_fns_1.roundToNearestMinutes)(dateWithTimeZone, { nearestTo: 15, roundingMethod: "floor" });
                                                 this.config.CalculatorList[calcChannel].chStopTime = roundedDate;

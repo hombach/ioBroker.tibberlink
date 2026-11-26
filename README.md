@@ -109,6 +109,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (Schimi1983) calculator "Active" states now also accept "true"/"false" strings (e.g. from VIS) and repair such values on start
 - (Schimi1983) fixed calculator output values like "12abc" or "12:00" being converted to numbers
 - (Schimi1983) fixed calculator error when price states are still empty after the first start
+- (Schimi1983) calculator StartTime/StopTime now require a time zone (e.g. "+01:00" or "Z") as the warning already stated - values without time zone are rejected with a warning
 
 ### 7.4.1 (2026-11-11)
 

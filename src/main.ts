@@ -3,7 +3,7 @@ import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
 import { addDays, format, isSameDay, roundToNearestMinutes } from "date-fns";
 import { PriceResolution, type IConfig } from "tibber-api";
-import { isAfternoonPricesTomorrowRetryWindow, pricesTomorrowStateNeedsFetch, toBoolean, type IHomeInfo } from "./lib/projectUtils.js";
+import { isAfternoonPricesTomorrowRetryWindow, isIso8601WithOffset, pricesTomorrowStateNeedsFetch, toBoolean, type IHomeInfo } from "./lib/projectUtils.js";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
 import { TibberCharts } from "./lib/tibberCharts.js";
@@ -718,8 +718,7 @@ class Tibberlink extends utils.Adapter {
 										if (typeof state.val === "string") {
 											// Check if the string is in ISO-8601 format with a timezone offset
 											// like: "2023-11-17T21:00:00.000+01:00"
-											const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
-											if (iso8601RegEx.test(state.val)) {
+											if (isIso8601WithOffset(state.val)) {
 												const dateWithTimeZone = new Date(state.val);
 												// floor to nearest 15-minute interval
 												// TODO remove after test: const minutes = dateWithTimeZone.getMinutes();
@@ -753,8 +752,7 @@ class Tibberlink extends utils.Adapter {
 										if (typeof state.val === "string") {
 											// Check if the string is in ISO-8601 format with a timezone offset
 											// like: "2023-11-17T21:00:00.000+01:00"
-											const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
-											if (iso8601RegEx.test(state.val)) {
+											if (isIso8601WithOffset(state.val)) {
 												const dateWithTimeZone = new Date(state.val);
 												// floor to nearest 15-minute interval
 												// TODO remove after test: const minutes = dateWithTimeZone.getMinutes();

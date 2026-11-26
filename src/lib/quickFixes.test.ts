@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { enCalcType, toBoolean } from "./projectUtils.ts";
+import { enCalcType, isIso8601WithOffset, toBoolean } from "./projectUtils.ts";
 import { createMockAdapter, drainMicrotasks, injectState, TEST_PRICES } from "./testHelpers.test.ts";
 import { convertValue, parsePriceArray, TibberCalculator } from "./tibberCalculator.ts";
 
@@ -105,5 +105,20 @@ describe("TibberCalculator – BestCost without current price (fail-safe)", () =
 		await drainMicrotasks();
 
 		assert.strictEqual(store.states[`Homes.${HOME}.Calculations.0.Output`], true);
+	});
+});
+
+describe("projectUtils – isIso8601WithOffset", () => {
+	it("accepts timestamps with offset or Z", () => {
+		assert.strictEqual(isIso8601WithOffset("2023-11-17T21:00:00.000+01:00"), true);
+		assert.strictEqual(isIso8601WithOffset("2023-11-17T20:00:00.000Z"), true);
+	});
+	it("rejects timestamps without time zone", () => {
+		assert.strictEqual(isIso8601WithOffset("2023-11-17T21:00:00.000"), false);
+	});
+	it("rejects malformed values", () => {
+		assert.strictEqual(isIso8601WithOffset("2023-11-17T21:00:00.000Z+01:00"), false);
+		assert.strictEqual(isIso8601WithOffset("2023-13-45T21:00:00.000Z"), false);
+		assert.strictEqual(isIso8601WithOffset("tomorrow"), false);
 	});
 });
