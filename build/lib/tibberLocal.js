@@ -3,13 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TibberLocal = void 0;
+exports.TibberLocal = exports.BRIDGE_REQUEST_TIMEOUT_MS = void 0;
 exports.bridgeEndpointPath = bridgeEndpointPath;
 exports.selectStalePulseInfoIds = selectStalePulseInfoIds;
 exports.selectEmptyFolderIds = selectEmptyFolderIds;
 const axios_1 = __importDefault(require("axios"));
 const date_fns_1 = require("date-fns");
 const projectUtils_js_1 = require("./projectUtils.js");
+exports.BRIDGE_REQUEST_TIMEOUT_MS = 10_000;
 function bridgeEndpointPath(kind, mode, nodeId) {
     if (kind === "data") {
         return mode === "new" ? `/node_data.json?node_id=${nodeId}` : `/data.json?node_id=${nodeId}`;
@@ -37,7 +38,8 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
     TestData = "";
     TestMode = false;
     MetricsDataInterval = 60000;
-    meterMode = 0;
+    meterModes = new Map();
+    pollsInFlight = new Set();
     constructor(adapter) {
         super(adapter);
         this.intervalList = [];
@@ -63,6 +65,10 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                     this.adapter.log.error(`[tibberLocal]: Error while polling and parsing Tibber Bridge metrics: ${e}`);
                 });
                 const jobBridgeMetrics = this.adapter.setInterval(() => {
+                    const jobKey = `${pulse}.metrics`;
+                    if (!this.tryStartPoll(jobKey)) {
+                        return;
+                    }
                     this.getPulseData(pulse)
                         .then(response => {
                         this.adapter.log.debug(`[tibberLocal]: Polled local Tibber Bridge metrics: ${JSON.stringify(response)}`);
@@ -72,18 +78,24 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                     })
                         .catch(e => {
                         this.adapter.log.error(`[tibberLocal]: Error polling and parsing Tibber Bridge metrics: ${e}`);
-                    });
+                    })
+                        .finally(() => this.pollsInFlight.delete(jobKey));
                 }, this.MetricsDataInterval);
                 if (jobBridgeMetrics) {
                     this.intervalList.push(jobBridgeMetrics);
                 }
                 const jobPulseLocal = this.adapter.setInterval(() => {
+                    const jobKey = `${pulse}.data`;
+                    if (!this.tryStartPoll(jobKey)) {
+                        return;
+                    }
                     this.getDataAsHexString(pulse)
                         .then(hexString => {
                         this.adapter.log.debug(`[tibberLocal]: got HEX data from local pulse: ${hexString}`);
                         void this.checkAndSetValue(`LocalPulse.${pulse}.SMLDataHEX`, hexString, this.adapter.config.PulseList[pulse].puName);
-                        this.adapter.log.debug(`[tibberLocal]: trying to parse meter mode ${this.meterMode}`);
-                        switch (this.meterMode) {
+                        const meterMode = this.meterModes.get(pulse) ?? 0;
+                        this.adapter.log.debug(`[tibberLocal]: trying to parse meter mode ${meterMode}`);
+                        switch (meterMode) {
                             case 1:
                                 this.extractAndParseAsciiMessages(pulse, hexString, firstDataRun);
                                 break;
@@ -93,7 +105,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                             case 4:
                             case 5:
                                 if (hexString.toLowerCase().startsWith("1b1b1b1b")) {
-                                    this.adapter.log.debug(`[tibberLocal]: meter_mode ${this.meterMode} but binary SML detected — using mode 3 parser`);
+                                    this.adapter.log.debug(`[tibberLocal]: meter_mode ${meterMode} but binary SML detected — using mode 3 parser`);
                                     this.extractAndParseSMLMessages(pulse, hexString, firstDataRun);
                                 }
                                 else {
@@ -107,7 +119,8 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                     })
                         .catch(error => {
                         this.adapter.log.warn(`[tibberLocal]: Error local polling of Tibber Pulse RAW data: ${error}`);
-                    });
+                    })
+                        .finally(() => this.pollsInFlight.delete(jobKey));
                 }, this.adapter.config.PulseList[pulse].tibberBridgeRawDataInterval);
                 if (jobPulseLocal) {
                     this.intervalList.push(jobPulseLocal);
@@ -132,6 +145,14 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
         catch (e) {
             this.adapter.log.warn(e.message);
         }
+    }
+    tryStartPoll(jobKey) {
+        if (this.pollsInFlight.has(jobKey)) {
+            this.adapter.log.debug(`[tibberLocal]: previous poll ${jobKey} still running - skipping this interval`);
+            return false;
+        }
+        this.pollsInFlight.add(jobKey);
+        return true;
     }
     async getPulseData(pulse) {
         const auth = `Basic ${Buffer.from(`admin:${this.adapter.config.PulseList[pulse].tibberBridgePassword}`).toString("base64")}`;
@@ -214,7 +235,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
                     case "meter_mode":
                         if (typeof obj[key] === "number") {
                             void this.checkAndSetValueNumber(`LocalPulse.${pulse}.PulseInfo.${prefix}${key}`, Math.round(obj[key] * 10) / 10, `Mode of your Pulse to grid-meter communication`, ``, `value`, false, false, firstTime);
-                            this.meterMode = obj[key];
+                            this.meterModes.set(pulse, obj[key]);
                             if (![1, 3, 4, 5].includes(obj[key])) {
                                 this.adapter.log.warn(`Potential problems with Pulse meter mode ${obj[key]}`);
                             }
@@ -299,6 +320,7 @@ class TibberLocal extends projectUtils_js_1.ProjectUtils {
             const endpointPath = bridgeEndpointPath(kind, mode, nodeId);
             try {
                 const response = await axios_1.default.request({
+                    timeout: exports.BRIDGE_REQUEST_TIMEOUT_MS,
                     ...config,
                     baseURL,
                     url: endpointPath,

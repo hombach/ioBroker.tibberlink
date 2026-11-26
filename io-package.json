@@ -213,7 +213,8 @@
   ],
   "protectedNative": [
     "TibberAPIToken",
-    "TibberClientSecret"
+    "TibberClientSecret",
+    "PulseList"
   ],
   "native": {
     "TibberAPIToken": "",
