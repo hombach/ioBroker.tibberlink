@@ -3,7 +3,7 @@ import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
 import { addDays, format, isSameDay, roundToNearestMinutes } from "date-fns";
 import { PriceResolution, type IConfig } from "tibber-api";
-import { isAfternoonPricesTomorrowRetryWindow, pricesTomorrowStateNeedsFetch, type IHomeInfo } from "./lib/projectUtils.js";
+import { isAfternoonPricesTomorrowRetryWindow, pricesTomorrowStateNeedsFetch, toBoolean, type IHomeInfo } from "./lib/projectUtils.js";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
 import { TibberCharts } from "./lib/tibberCharts.js";
@@ -362,7 +362,7 @@ class Tibberlink extends utils.Adapter {
 							if (this.config.FeedConfigAccumulatedCost) {
 								tibberFeedConfigs[index].accumulatedCost = true;
 							}
-							if (this.config.FeedConfigAccumulatedCost) {
+							if (this.config.FeedConfigAccumulatedReward) {
 								tibberFeedConfigs[index].accumulatedReward = true;
 							}
 							if (this.config.FeedConfigCurrency) {
@@ -671,18 +671,20 @@ class Tibberlink extends utils.Adapter {
 						if (!isNaN(calcChannel) && calcChannel < this.config.CalculatorList.length && settingType !== undefined) {
 							if (this.config.CalculatorList[calcChannel].chHomeID === homeIDToMatch) {
 								switch (settingType) {
-									case "Active":
-										// Update .chActive based on state.val if it's a boolean
-										if (typeof state.val === "boolean") {
-											this.config.CalculatorList[calcChannel].chActive = state.val;
+									case "Active": {
+										// Update .chActive based on state.val if it's a boolean (or a "true"/"false" string, e.g. written by VIS widgets)
+										const activeValue = toBoolean(state.val);
+										if (activeValue !== undefined) {
+											this.config.CalculatorList[calcChannel].chActive = activeValue;
 											this.log.debug(
 												`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to Active: ${this.config.CalculatorList[calcChannel].chActive}`,
 											);
-											void this.setState(id, state.val, true); // set acknowledge true
+											void this.setState(id, activeValue, true); // set acknowledge true
 										} else {
 											this.log.warn(`Wrong type for channel: ${calcChannel} - chActive: ${state.val}`);
 										}
 										break;
+									}
 									case "TriggerPrice":
 										// Update .chTriggerPrice based on state.val if it's a number
 										if (typeof state.val === "number") {
@@ -786,7 +788,7 @@ class Tibberlink extends utils.Adapter {
 														"yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
 													)}`,
 												);
-												void this.setState(id, format(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+												void this.setState(id, format(roundedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
 											} else {
 												this.log.warn(
 													`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStopTime: ${state.val}`,

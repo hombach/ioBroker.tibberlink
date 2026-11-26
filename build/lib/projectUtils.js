@@ -4,6 +4,7 @@ exports.ProjectUtils = exports.enCalcType = void 0;
 exports.getCalcTypeDescription = getCalcTypeDescription;
 exports.isAfternoonPricesTomorrowRetryWindow = isAfternoonPricesTomorrowRetryWindow;
 exports.pricesTomorrowStateNeedsFetch = pricesTomorrowStateNeedsFetch;
+exports.toBoolean = toBoolean;
 var enCalcType;
 (function (enCalcType) {
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
@@ -57,6 +58,21 @@ function pricesTomorrowStateNeedsFetch(jsonVal, now = new Date()) {
     catch {
         return true;
     }
+}
+function toBoolean(value) {
+    if (typeof value === "boolean") {
+        return value;
+    }
+    if (typeof value === "string") {
+        const normalized = value.trim().toLowerCase();
+        if (normalized === "true") {
+            return true;
+        }
+        if (normalized === "false") {
+            return false;
+        }
+    }
+    return undefined;
 }
 class ProjectUtils {
     adapter;

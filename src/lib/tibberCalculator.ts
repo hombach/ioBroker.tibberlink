@@ -1,7 +1,7 @@
 import type * as utils from "@iobroker/adapter-core";
 import { addDays, addMinutes, format, parseISO } from "date-fns";
 import type { IPrice } from "tibber-api";
-import { ProjectUtils, enCalcType, getCalcTypeDescription } from "./projectUtils.js";
+import { ProjectUtils, enCalcType, getCalcTypeDescription, toBoolean } from "./projectUtils.js";
 
 /**
  * TibberCalculator
@@ -135,8 +135,13 @@ export class TibberCalculator extends ProjectUtils {
 				true,
 				true, // set to false if adapter config from database should be used
 			);
-			const valueActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
-			if (typeof valueActive === "boolean") {
+			const rawActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
+			const valueActive = toBoolean(rawActive);
+			if (valueActive !== undefined) {
+				if (typeof rawActive !== "boolean") {
+					// @KI_HINWEIS: repair states holding "true"/"false" strings (e.g. written by VIS) so value and boolean state type match again
+					await this.adapter.setState(`Homes.${homeId}.Calculations.${channel}.Active`, valueActive, true);
+				}
 				channelConfig.chActive = valueActive;
 				this.adapter.log.debug(
 					`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to Active: ${channelConfig.chActive}`,
@@ -1089,8 +1094,11 @@ export class TibberCalculator extends ProjectUtils {
 				const filteredPrices: IPrice[] = await this.getPricesLTF(channel, modeLTF, true);
 
 				//#region *** Find channel result ***
-				const currentPrice = await this.getStateValue(`Homes.${channelConfig.chHomeID}.CurrentPrice.total`);
-				if (channelConfig.chTriggerPrice > currentPrice) {
+				const currentPrice: unknown = await this.getStateValue(`Homes.${channelConfig.chHomeID}.CurrentPrice.total`);
+				// @KI_HINWEIS: without a known current price the output must stay OFF - `trigger > null` would be true and switch ON (fail-safe)
+				if (typeof currentPrice !== "number" || !Number.isFinite(currentPrice)) {
+					this.adapter.log.debug(`[tibberCalculator]: channel ${channel} - no valid current price available, output stays off`);
+				} else if (channelConfig.chTriggerPrice > currentPrice) {
 					valueToSet = channelConfig.chValueOn;
 				}
 				//#endregion
@@ -1758,8 +1766,8 @@ export class TibberCalculator extends ProjectUtils {
 	 */
 	async getPricesLTF(channel: number, modeLTF: boolean, modeTwoDays = false): Promise<IPrice[]> {
 		const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
-		const pricesToday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
-		const pricesTomorrow: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
+		const pricesToday: IPrice[] = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
+		const pricesTomorrow: IPrice[] = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
 		let mergedPrices: IPrice[] = pricesToday;
 		// Merge prices if pricesTomorrow is not empty
 		if (pricesTomorrow.length !== 0) {
@@ -1773,7 +1781,7 @@ export class TibberCalculator extends ProjectUtils {
 			return mergedPrices;
 		}
 		// Limited Time Frame mode
-		const pricesYesterday: IPrice[] = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
+		const pricesYesterday: IPrice[] = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
 		const startTime: Date = chStartTime;
 		const stopTime: Date = chStopTime;
 
@@ -1837,12 +1845,32 @@ export function checkQuarterMatch(entry: IPrice): boolean {
  * @param Value - The string to be converted into a boolean, number, or returned as a string.
  * @returns A boolean if the string is "true" or "false", a number if the string represents a valid numeric value, or the original string if no conversion is possible.
  */
-function convertValue(Value: string): boolean | number | string {
+export function convertValue(Value: string): boolean | number | string {
 	if (Value.toLowerCase() === "true") {
 		return true;
 	} else if (Value.toLowerCase() === "false") {
 		return false;
 	}
-	const numericValue = parseFloat(Value);
-	return isNaN(numericValue) ? Value : numericValue;
+	// Number() instead of parseFloat(): "12abc" or "12:00" must stay strings, blank strings must not become 0
+	const numericValue = Value.trim() === "" ? NaN : Number(Value);
+	return Number.isFinite(numericValue) ? numericValue : Value;
+}
+
+/**
+ * Parses a price JSON state value into an array. Missing, empty or invalid values result in an empty array,
+ * so calculator channels don't crash with a TypeError before the first price poll.
+ *
+ * @param value - Raw state value (JSON string or null).
+ * @returns Array of prices (possibly empty).
+ */
+export function parsePriceArray(value: unknown): IPrice[] {
+	if (typeof value !== "string" || value.trim() === "") {
+		return [];
+	}
+	try {
+		const parsed: unknown = JSON.parse(value);
+		return Array.isArray(parsed) ? (parsed as IPrice[]) : [];
+	} catch {
+		return [];
+	}
 }

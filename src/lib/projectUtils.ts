@@ -96,6 +96,29 @@ export function pricesTomorrowStateNeedsFetch(jsonVal: unknown, now: Date = new 
 	}
 }
 
+/**
+ * Converts a state value to a boolean. Accepts real booleans and the strings "true"/"false"
+ * (case-insensitive, trimmed), which some VIS widgets or scripts write into boolean states.
+ *
+ * @param value - Raw state value.
+ * @returns The boolean value, or `undefined` if the value can't be interpreted as boolean.
+ */
+export function toBoolean(value: unknown): boolean | undefined {
+	if (typeof value === "boolean") {
+		return value;
+	}
+	if (typeof value === "string") {
+		const normalized = value.trim().toLowerCase();
+		if (normalized === "true") {
+			return true;
+		}
+		if (normalized === "false") {
+			return false;
+		}
+	}
+	return undefined;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════════════════════════
  * ║  SHARED REGION — class ProjectUtils                                                            ║
  * ║  Keep this block IDENTICAL across all of my own ioBroker adapters                              ║
