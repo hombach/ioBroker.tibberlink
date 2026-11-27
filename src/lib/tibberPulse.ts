@@ -10,32 +10,87 @@ export class TibberPulse extends ProjectUtils {
 	tibberQuery: TibberQuery;
 	tibberFeed: TibberFeed;
 	httpQueryUrl: string;
-	reconnectTime = 6000;
-	maxReconnectTime = 900000;
 	countedFeedDisconnects = 0;
 	lastFeedWarningTime: Date | null = null;
 	deltaFeedWarningTime = 0;
 	feedUnauthenticated = false;
+	/** Set by {@link closePulseStream} on adapter unload - no further connects or state writes afterwards. */
+	feedClosed = false;
+	private readonly onConnectionChange?: (connected: boolean) => void;
 
 	/**
 	 * constructor
 	 *
 	 * @param tibberConfig - The Tibber config object
 	 * @param adapter - ioBroker adapter instance
+	 * @param onConnectionChange - Optional callback for connection changes of this feed. If given, the caller
+	 * is responsible for info.connection (e.g. to combine several feeds), otherwise this feed sets it directly.
 	 */
-	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance) {
+	constructor(tibberConfig: IConfig, adapter: utils.AdapterInstance, onConnectionChange?: (connected: boolean) => void) {
 		super(adapter);
 		this.tibberConfig = tibberConfig;
+		this.onConnectionChange = onConnectionChange;
 		this.tibberQuery = new TibberQuery(this.tibberConfig);
-		this.tibberFeed = new TibberFeed(this.tibberQuery);
+		this.tibberFeed = TibberPulse.createFeed(this.tibberQuery);
 		this.httpQueryUrl = tibberConfig.apiEndpoint.queryUrl;
 		this.addEventHandlerOnFeed(this.tibberFeed);
+	}
+
+	/**
+	 * Creates a TibberFeed with tibber-api's own auto-reconnect enabled.
+	 *
+	 *
+	 * @param tibberQuery - Query instance holding the config of this feed.
+	 * @returns The new TibberFeed.
+	 */
+	private static createFeed(tibberQuery: TibberQuery): TibberFeed {
+		// @KI_HINWEIS: Tibber requires jitter + exponential backoff for WebSocket reconnects
+		// (https://developer.tibber.com/docs/guides/calling-api). tibber-api implements exactly that, incl. the
+		// pause after HTTP 429 and the stop after 4401/4403 - so the adapter must not run its own reconnect loop.
+		// parameters: idle timeout, returnAllFields, connection timeout (library defaults), autoReconnect
+		return new TibberFeed(tibberQuery, 60000, false, 30000, true);
+	}
+
+	/**
+	 * Reports a connection change of this feed - either to the callback given in the constructor
+	 * or directly to info.connection.
+	 *
+	 * @param connected - true if the feed is connected
+	 */
+	private setConnected(connected: boolean): void {
+		if (this.feedClosed) {
+			return;
+		}
+		if (this.onConnectionChange) {
+			this.onConnectionChange(connected);
+		} else {
+			void this.adapter.setState("info.connection", connected, true);
+		}
+	}
+
+	/**
+	 * Closes the feed for good (adapter unload): removes all listeners, so no reconnect or state write
+	 * happens afterwards, and closes the WebSocket. Tibber limits the number of open WebSockets, so the
+	 * old connection must not stay open while the adapter restarts.
+	 */
+	closePulseStream(): void {
+		this.feedClosed = true;
+		try {
+			this.tibberFeed.removeAllListeners();
+			// active = false closes the socket and cancels pending (re)connect timers inside tibber-api
+			this.tibberFeed.active = false;
+		} catch (error) {
+			this.adapter.log.debug(`Error on feed close: ${(error as Error).message}`);
+		}
 	}
 
 	/**
 	 * connectPulseStream
 	 */
 	async connectPulseStream(): Promise<void> {
+		if (this.feedClosed) {
+			return;
+		}
 		if (this.feedUnauthenticated) {
 			this.adapter.log.debug(`Skipping connect of Tibber feed - API token was rejected as unauthenticated`);
 			return;
@@ -60,7 +115,7 @@ export class TibberPulse extends ProjectUtils {
 			this.adapter.log.warn(`Error on feed close: ${(error as Error).message}`);
 		}
 		// Reinitialize TibberFeed and re-attach event handlers
-		this.tibberFeed = new TibberFeed(new TibberQuery(this.tibberConfig));
+		this.tibberFeed = TibberPulse.createFeed(new TibberQuery(this.tibberConfig));
 		this.addEventHandlerOnFeed(this.tibberFeed);
 	}
 
@@ -74,24 +129,24 @@ export class TibberPulse extends ProjectUtils {
 		// Set info.connection state for event "connected"
 		currentFeed.on("connected", data => {
 			this.adapter.log.debug(`Tibber feed connected: ${data.toString()}`);
-			void this.adapter.setState("info.connection", true, true);
+			this.setConnected(true);
 		});
 
 		/**
 		 * Handles the disconnection of a data feed and manages reconnection attempts with incremental delays.
 		 *
-		 * This method is triggered when the data feed gets disconnected. It updates the connection state (`info.connection` to `false`) and monitors the frequency of disconnection attempts to avoid excessive reconnections.
+		 * This method is triggered when the data feed gets disconnected. It updates the connection state (`info.connection` to `false`) and monitors the frequency of disconnections. The reconnect itself is done by tibber-api (exponential backoff with jitter).
 		 *
 		 * The following logic is applied:
 		 * - **Disconnection count (`countedFeedDisconnects`)**: Tracks the number of disconnections. Warnings are logged when the feed disconnects 5 or 25 times. At 25 disconnections, an error is logged instead of a warning.
 		 * - **Warning time interval (`deltaFeedWarningTime`)**: Measures the time (in minutes) since the last disconnection warning. If more than 60 minutes have passed, the warning counter resets.
 		 * - If the feed disconnects frequently within a **30-minute window**, it logs a warning and resets the disconnection counter.
-		 * - After each disconnection, the system tries to reconnect, logging the result. If disconnections occur too often, warnings or errors are logged based on the number of reconnection attempts.
+		 * - If disconnections occur too often, warnings or errors are logged based on the number of disconnections.
 		 *
 		 * @param data - The error message sent by Tibber upon disconnection, which is logged for diagnostic purposes.
 		 */
 		currentFeed.on("disconnected", data => {
-			void this.adapter.setState("info.connection", false, true);
+			this.setConnected(false);
 			if (!this.adapter.config.HomesList.some(info => info.feedActive)) {
 				return;
 			}
@@ -109,7 +164,7 @@ export class TibberPulse extends ProjectUtils {
 			}
 
 			this.countedFeedDisconnects++;
-			const loggingTextBlock = `to reconnect with incremental delay -  Error text sent by Tibber: ${data.toString()}`;
+			const loggingTextBlock = `to reconnect with increasing delay - Error text sent by Tibber: ${data.toString()}`;
 
 			if (this.deltaFeedWarningTime > 30) {
 				this.countedFeedDisconnects = 0;
@@ -125,7 +180,6 @@ export class TibberPulse extends ProjectUtils {
 					this.adapter.log.debug(`A feed was disconnected. I try ${loggingTextBlock}`);
 				}
 			}
-			void this.reconnect();
 		});
 
 		// Add error handler on connection
@@ -192,7 +246,7 @@ export class TibberPulse extends ProjectUtils {
 	 * entering a valid token) re-enables the feed.
 	 */
 	private handleUnauthenticated(): void {
-		void this.adapter.setState("info.connection", false, true);
+		this.setConnected(false);
 		if (this.feedUnauthenticated) {
 			return;
 		}
@@ -355,34 +409,5 @@ export class TibberPulse extends ProjectUtils {
 				"A",
 			);
 		}
-	}
-
-	/**
-	 * Tries to reconnect to TibberFeed in a loop, with incremental delay between attempts,
-	 * and generates a formatted error message if unsuccessful.
-	 *
-	 * @returns A Promise that resolves when reconnection is successful, or rejects with an error message.
-	 */
-	private async reconnect(): Promise<void> {
-		if (this.feedUnauthenticated) {
-			return;
-		}
-		this.reconnectTime = 6000; // reinit
-		do {
-			this.adapter.log.debug(
-				`Attempting to reconnect to TibberFeed in ${this.reconnectTime / 1000}sec interval - (of max. ${this.maxReconnectTime / 1000}sec)`,
-			);
-			await this.adapter.delay(this.reconnectTime);
-			if (this.feedUnauthenticated) {
-				break;
-			}
-			await this.connectPulseStream();
-			this.reconnectTime = Math.min(this.reconnectTime + 2000, this.maxReconnectTime);
-		} while (!this.tibberFeed.connected && !this.feedUnauthenticated);
-		if (this.feedUnauthenticated) {
-			this.adapter.log.debug(`Reconnection to TibberFeed stopped - API token was rejected as unauthenticated`);
-			return;
-		}
-		this.adapter.log.debug(`Reconnection successful!`);
 	}
 }
