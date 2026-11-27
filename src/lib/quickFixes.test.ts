@@ -45,6 +45,15 @@ describe("tibberCalculator – parsePriceArray", () => {
 		assert.deepStrictEqual(parsePriceArray("not json"), []);
 		assert.deepStrictEqual(parsePriceArray("{}"), []);
 	});
+	it("reports why a value was rejected", () => {
+		const reasons: string[] = [];
+		parsePriceArray("not json", r => reasons.push(r));
+		parsePriceArray("{}", r => reasons.push(r));
+		parsePriceArray(null, r => reasons.push(r));
+		assert.strictEqual(reasons.length, 2, "missing values are not reported, invalid ones are");
+		assert.ok(reasons[0].startsWith("invalid JSON"));
+		assert.strictEqual(reasons[1], "JSON is not an array");
+	});
 	it("returns the parsed array", () => {
 		assert.deepStrictEqual(parsePriceArray('[{"total":0.1}]'), [{ total: 0.1 }]);
 	});
