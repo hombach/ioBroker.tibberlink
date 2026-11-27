@@ -39,7 +39,6 @@ export class TibberPulse extends ProjectUtils {
 	/**
 	 * Creates a TibberFeed with tibber-api's own auto-reconnect enabled.
 	 *
-	 *
 	 * @param tibberQuery - Query instance holding the config of this feed.
 	 * @returns The new TibberFeed.
 	 */
