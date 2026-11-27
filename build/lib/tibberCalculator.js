@@ -104,7 +104,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to Active: ${channelConfig.chActive}`);
             }
             else {
-                this.adapter.log.debug(`[tibberCalculator]: wrong type for chActive: ${valueActive}`);
+                this.adapter.log.debug(`[tibberCalculator]: wrong type for chActive: ${rawActive}`);
             }
             switch (channelConfig.chType) {
                 case projectUtils_js_1.enCalcType.BestCost:
@@ -1117,10 +1117,13 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             this.adapter.log.debug(`[tibberCalculator]: channel ${channel} - ${(0, projectUtils_js_1.getCalcTypeDescription)(channelConfig.chType)}; setting state 2: ${sOutState} to ${valueToSet2}`);
         }
     }
+    logInvalidPriceJson(stateName) {
+        return (reason) => this.adapter.log.debug(`[tibberCalculator]: ${stateName}.json ignored - ${reason}`);
+    }
     async getPricesLTF(channel, modeLTF, modeTwoDays = false) {
         const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
-        const pricesToday = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
-        const pricesTomorrow = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
+        const pricesToday = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`), this.logInvalidPriceJson(`PricesToday`));
+        const pricesTomorrow = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`), this.logInvalidPriceJson(`PricesTomorrow`));
         let mergedPrices = pricesToday;
         if (pricesTomorrow.length !== 0) {
             mergedPrices = [...pricesToday, ...pricesTomorrow];
@@ -1131,7 +1134,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             return mergedPrices;
         }
-        const pricesYesterday = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
+        const pricesYesterday = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`), this.logInvalidPriceJson(`PricesYesterday`));
         const startTime = chStartTime;
         const stopTime = chStopTime;
         if (pricesYesterday.length !== 0) {
@@ -1174,15 +1177,20 @@ function convertValue(Value) {
     const numericValue = Value.trim() === "" ? NaN : Number(Value);
     return Number.isFinite(numericValue) ? numericValue : Value;
 }
-function parsePriceArray(value) {
+function parsePriceArray(value, onInvalid) {
     if (typeof value !== "string" || value.trim() === "") {
         return [];
     }
     try {
         const parsed = JSON.parse(value);
-        return Array.isArray(parsed) ? parsed : [];
+        if (Array.isArray(parsed)) {
+            return parsed;
+        }
+        onInvalid?.("JSON is not an array");
+        return [];
     }
-    catch {
+    catch (error) {
+        onInvalid?.(`invalid JSON: ${error.message}`);
         return [];
     }
 }

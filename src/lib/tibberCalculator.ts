@@ -147,7 +147,7 @@ export class TibberCalculator extends ProjectUtils {
 					`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to Active: ${channelConfig.chActive}`,
 				);
 			} else {
-				this.adapter.log.debug(`[tibberCalculator]: wrong type for chActive: ${valueActive}`);
+				this.adapter.log.debug(`[tibberCalculator]: wrong type for chActive: ${rawActive}`);
 			}
 			//#endregion
 
@@ -1752,6 +1752,16 @@ export class TibberCalculator extends ProjectUtils {
 	}
 
 	/**
+	 * Creates a callback for {@link parsePriceArray} that writes invalid price JSON states to the debug log.
+	 *
+	 * @param stateName - Name of the price state, e.g. "PricesToday".
+	 * @returns Callback taking the reason why the value was rejected.
+	 */
+	private logInvalidPriceJson(stateName: string): (reason: string) => void {
+		return (reason: string): void => this.adapter.log.debug(`[tibberCalculator]: ${stateName}.json ignored - ${reason}`);
+	}
+
+	/**
 	 * Retrieves price data for a specific channel, optionally limited to a defined time frame.
 	 * The function fetches price information for today, and if Limited Time Frame (LTF) mode is enabled, it merges the data from yesterday, today, and tomorrow,
 	 * filtering it according to the specified start and stop times.
@@ -1766,8 +1776,11 @@ export class TibberCalculator extends ProjectUtils {
 	 */
 	async getPricesLTF(channel: number, modeLTF: boolean, modeTwoDays = false): Promise<IPrice[]> {
 		const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
-		const pricesToday: IPrice[] = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
-		const pricesTomorrow: IPrice[] = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
+		const pricesToday: IPrice[] = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`), this.logInvalidPriceJson(`PricesToday`));
+		const pricesTomorrow: IPrice[] = parsePriceArray(
+			await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`),
+			this.logInvalidPriceJson(`PricesTomorrow`),
+		);
 		let mergedPrices: IPrice[] = pricesToday;
 		// Merge prices if pricesTomorrow is not empty
 		if (pricesTomorrow.length !== 0) {
@@ -1781,7 +1794,10 @@ export class TibberCalculator extends ProjectUtils {
 			return mergedPrices;
 		}
 		// Limited Time Frame mode
-		const pricesYesterday: IPrice[] = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
+		const pricesYesterday: IPrice[] = parsePriceArray(
+			await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`),
+			this.logInvalidPriceJson(`PricesYesterday`),
+		);
 		const startTime: Date = chStartTime;
 		const stopTime: Date = chStopTime;
 
@@ -1861,16 +1877,22 @@ export function convertValue(Value: string): boolean | number | string {
  * so calculator channels don't crash with a TypeError before the first price poll.
  *
  * @param value - Raw state value (JSON string or null).
+ * @param onInvalid - Optional callback, called with a reason if the value is not a valid price array (e.g. for a debug log).
  * @returns Array of prices (possibly empty).
  */
-export function parsePriceArray(value: unknown): IPrice[] {
+export function parsePriceArray(value: unknown, onInvalid?: (reason: string) => void): IPrice[] {
 	if (typeof value !== "string" || value.trim() === "") {
 		return [];
 	}
 	try {
 		const parsed: unknown = JSON.parse(value);
-		return Array.isArray(parsed) ? (parsed as IPrice[]) : [];
-	} catch {
+		if (Array.isArray(parsed)) {
+			return parsed as IPrice[];
+		}
+		onInvalid?.("JSON is not an array");
+		return [];
+	} catch (error) {
+		onInvalid?.(`invalid JSON: ${(error as Error).message}`);
 		return [];
 	}
 }
