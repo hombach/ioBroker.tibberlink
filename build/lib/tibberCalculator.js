@@ -93,7 +93,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             if (channelConfig.chActive === undefined) {
                 channelConfig.chActive = false;
             }
-            void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Active`, channelConfig.chActive, `Whether the calculation channel is active`, `switch.enable`, true, true);
+            await this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Active`, channelConfig.chActive, `Whether the calculation channel is active`, `switch.enable`, true, true);
             const rawActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
             const valueActive = (0, projectUtils_js_1.toBoolean)(rawActive);
             if (valueActive !== undefined) {
@@ -285,7 +285,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 today.setHours(0, 0, 0, 0);
                 channelConfig.chStartTime = today;
             }
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.StartTime`, channelConfig.chStartTime.toISOString(), `Start time for this channel`, `date`, true, true);
+            await this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.StartTime`, channelConfig.chStartTime.toISOString(), `Start time for this channel`, `date`, true, true);
             const valueStartTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StartTime`);
             if (typeof valueStartTime === "string") {
                 channelConfig.chStartTime.setTime(Date.parse(valueStartTime));
@@ -304,7 +304,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 today.setHours(23, 59, 0, 0);
                 channelConfig.chStopTime = today;
             }
-            void this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.StopTime`, channelConfig.chStopTime.toISOString(), `Stop time for this channel`, `date`, true, true);
+            await this.checkAndSetValue(`Homes.${homeId}.Calculations.${channel}.StopTime`, channelConfig.chStopTime.toISOString(), `Stop time for this channel`, `date`, true, true);
             const valueStopTime = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.StopTime`);
             if (typeof valueStopTime === "string") {
                 channelConfig.chStopTime.setTime(Date.parse(valueStopTime));
@@ -321,7 +321,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             if (channelConfig.chRepeatDays === undefined) {
                 channelConfig.chRepeatDays = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.RepeatDays`, channelConfig.chRepeatDays, `number of days to shift this LTF channel for repetition`, undefined, `level`, true, true);
+            await this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.RepeatDays`, channelConfig.chRepeatDays, `number of days to shift this LTF channel for repetition`, undefined, `level`, true, true);
             const valueRepeatDays = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.RepeatDays`);
             if (typeof valueRepeatDays === "number") {
                 channelConfig.chRepeatDays = valueRepeatDays;
@@ -347,7 +347,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
         }
         else {
             try {
-                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output`, false, `standard output if no special one selected in config`, `switch.enable`, false, true);
+                await this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output`, false, `standard output if no special one selected in config`, `switch.enable`, false, true);
             }
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output for calculator for Home ${homeId}, Channel ${channel}`));
@@ -361,7 +361,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
         }
         else {
             try {
-                void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output2`, false, `standard output2 if no special one selected in config`, `switch.enable`, false, true);
+                await this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Output2`, false, `standard output2 if no special one selected in config`, `switch.enable`, false, true);
             }
             catch (error) {
                 this.adapter.log.warn(this.generateErrorMessage(error, `setup of state Output2 for calculator for Home ${homeId}, Channel ${channel}`));
@@ -398,7 +398,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             if (channelConfig.chTriggerPrice === undefined) {
                 channelConfig.chTriggerPrice = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`, channelConfig.chTriggerPrice, `pricelevel to trigger this channel at`, undefined, `level.max`, true, true);
+            await this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`, channelConfig.chTriggerPrice, `pricelevel to trigger this channel at`, undefined, `level.max`, true, true);
             const valueTriggerPrice = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.TriggerPrice`);
             if (typeof valueTriggerPrice === "number") {
                 channelConfig.chTriggerPrice = valueTriggerPrice;
@@ -418,7 +418,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             if (channelConfig.chAmountHours === undefined) {
                 channelConfig.chAmountHours = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AmountHours`, channelConfig.chAmountHours, `value of hours to trigger this channel, resolution 0.25 hours = 15 minutes`, undefined, `level`, true, true);
+            await this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.AmountHours`, channelConfig.chAmountHours, `value of hours to trigger this channel, resolution 0.25 hours = 15 minutes`, undefined, `level`, true, true);
             const valueAmountHours = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.AmountHours`);
             if (typeof valueAmountHours === "number") {
                 channelConfig.chAmountHours = valueAmountHours * 4;
@@ -438,7 +438,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             if (channelConfig.chPercentage === undefined) {
                 channelConfig.chPercentage = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.Percentage`, channelConfig.chPercentage, `amount of percentage to trigger this channel`, undefined, `level.max`, true, true);
+            await this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.Percentage`, channelConfig.chPercentage, `amount of percentage to trigger this channel`, undefined, `level.max`, true, true);
             const valuePercentage = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Percentage`);
             if (typeof valuePercentage === "number") {
                 channelConfig.chPercentage = valuePercentage;
@@ -458,7 +458,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             if (channelConfig.chEfficiencyLoss === undefined) {
                 channelConfig.chEfficiencyLoss = 0;
             }
-            void this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`, channelConfig.chEfficiencyLoss, `efficiency loss between charge and discharge of battery system (range 0…1, e.g. 0.25 = 25% loss)`, undefined, `level.max`, true, true, true, 0, 1, 0.05);
+            await this.checkAndSetValueNumber(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`, channelConfig.chEfficiencyLoss, `efficiency loss between charge and discharge of battery system (range 0…1, e.g. 0.25 = 25% loss)`, undefined, `level.max`, true, true, true, 0, 1, 0.05);
             const valueEfficiencyLoss = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`);
             if (typeof valueEfficiencyLoss === "number") {
                 channelConfig.chEfficiencyLoss = valueEfficiencyLoss;

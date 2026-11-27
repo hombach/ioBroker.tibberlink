@@ -178,9 +178,9 @@ class Tibberlink extends utils.Adapter {
                 if (this.config.UseCalculator) {
                     try {
                         this.log.info(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
-                        this.config.CalculatorList.forEach(async (channel, index) => {
+                        for (const [index, channel] of this.config.CalculatorList.entries()) {
                             await tibberCalculator.setupCalculatorStates(channel.chHomeID, index);
-                        });
+                        }
                     }
                     catch (error) {
                         this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
