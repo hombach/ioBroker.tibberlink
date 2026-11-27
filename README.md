@@ -106,6 +106,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (Schimi1983) local Pulse: Bridge requests now time out after 10 seconds and a poll is skipped while the previous one is still running
 - (Schimi1983) local Pulse: the meter mode is now kept per Pulse
 - (Schimi1983) Tibber Data API: the refresh token is now stored encrypted (existing tokens keep working)
+  **Attention:** after downgrading to an older adapter version, or after restoring a backup onto a system with a different system secret, the stored token can no longer be used - please re-authorize the Data API with a new authorization code
 - (Schimi1983) the Bridge password is now a masked field and is no longer readable by other adapters
 - (Schimi1983) fixed calculator "best cost" switching ON when no current price is known - output now stays OFF
 - (Schimi1983) fixed live feed field "accumulatedReward" being requested by the "accumulatedCost" option instead of its own option
