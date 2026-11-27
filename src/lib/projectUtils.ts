@@ -132,6 +132,18 @@ export function isIso8601WithOffset(value: string): boolean {
 	return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}(Z|[+-]\d{2}:\d{2})$/.test(value) && !isNaN(new Date(value).getTime());
 }
 
+/**
+ * Builds the User-Agent for the Tibber GraphQL API. Tibber requires platform and driver version,
+ * e.g. "ioBroker/7.2.5 ioBroker.tibberlink/7.4.1" (tibber-api appends its own library version).
+ *
+ * @param adapterVersion - Version of this adapter.
+ * @param controllerVersion - Version of the js-controller (the platform).
+ * @returns User-Agent string without any user specific data.
+ */
+export function buildUserAgent(adapterVersion?: string, controllerVersion?: string): string {
+	return `ioBroker/${controllerVersion || "unknown"} ioBroker.tibberlink/${adapterVersion || "unknown"}`;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════════════════════════
  * ║  SHARED REGION — class ProjectUtils                                                            ║
  * ║  Keep this block IDENTICAL across all of my own ioBroker adapters                              ║

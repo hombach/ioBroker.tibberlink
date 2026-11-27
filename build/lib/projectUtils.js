@@ -6,6 +6,7 @@ exports.isAfternoonPricesTomorrowRetryWindow = isAfternoonPricesTomorrowRetryWin
 exports.pricesTomorrowStateNeedsFetch = pricesTomorrowStateNeedsFetch;
 exports.toBoolean = toBoolean;
 exports.isIso8601WithOffset = isIso8601WithOffset;
+exports.buildUserAgent = buildUserAgent;
 var enCalcType;
 (function (enCalcType) {
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
@@ -77,6 +78,9 @@ function toBoolean(value) {
 }
 function isIso8601WithOffset(value) {
     return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}(Z|[+-]\d{2}:\d{2})$/.test(value) && !isNaN(new Date(value).getTime());
+}
+function buildUserAgent(adapterVersion, controllerVersion) {
+    return `ioBroker/${controllerVersion || "unknown"} ioBroker.tibberlink/${adapterVersion || "unknown"}`;
 }
 class ProjectUtils {
     adapter;
