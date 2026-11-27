@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import type * as utils from "@iobroker/adapter-core";
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────
@@ -130,6 +131,35 @@ export function toBoolean(value: unknown): boolean | undefined {
  */
 export function isIso8601WithOffset(value: string): boolean {
 	return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}(Z|[+-]\d{2}:\d{2})$/.test(value) && !isNaN(new Date(value).getTime());
+}
+
+/**
+ * Builds the User-Agent for the Tibber GraphQL API. Tibber requires platform and driver version,
+ * e.g. "ioBroker/7.2.5 ioBroker.tibberlink/7.4.1 (3f9a…)" (tibber-api appends its own library version).
+ * The optional installation id keeps the User-Agent unique per installation without exposing secrets.
+ *
+ * @param adapterVersion - Version of this adapter.
+ * @param controllerVersion - Version of the js-controller (the platform).
+ * @param installationId - Optional anonymous installation id, see {@link hashInstallationId}.
+ * @returns User-Agent string without any user specific data.
+ */
+export function buildUserAgent(adapterVersion?: string, controllerVersion?: string, installationId?: string): string {
+	const base = `ioBroker/${controllerVersion || "unknown"} ioBroker.tibberlink/${adapterVersion || "unknown"}`;
+	return installationId ? `${base} (${installationId})` : base;
+}
+
+/**
+ * Creates an anonymous, stable installation id from the ioBroker system UUID.
+ * Salted SHA-256, shortened to 16 hex chars - the UUID itself can't be derived from it.
+ *
+ * @param systemUuid - Value of system.meta.uuid (native.uuid).
+ * @returns 16 hex characters, or undefined if no UUID is available.
+ */
+export function hashInstallationId(systemUuid?: string): string | undefined {
+	if (!systemUuid) {
+		return undefined;
+	}
+	return createHash("sha256").update(`ioBroker.tibberlink:${systemUuid}`).digest("hex").slice(0, 16);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════════════════════════

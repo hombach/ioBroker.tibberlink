@@ -35,6 +35,8 @@ var __importStar = (this && this.__importStar) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils = __importStar(require("@iobroker/adapter-core"));
 const cron_1 = require("cron");
+const node_fs_1 = require("node:fs");
+const node_path_1 = require("node:path");
 const date_fns_1 = require("date-fns");
 const tibber_api_1 = require("tibber-api");
 const projectUtils_js_1 = require("./lib/projectUtils.js");
@@ -62,6 +64,7 @@ class Tibberlink extends utils.Adapter {
     afternoonPricesTomorrowTimer;
     homeInfoList = [];
     queryUrl = "";
+    userAgent = "";
     tibberCalculator = new tibberCalculator_js_1.TibberCalculator(this);
     tibberCharts = new tibberCharts_js_1.TibberCharts(this);
     tibberDataAPI = new tibberDataAPI_js_1.TibberDataAPI(this);
@@ -83,12 +86,13 @@ class Tibberlink extends utils.Adapter {
             }
         }
         if (this.config.TibberAPIToken) {
+            this.userAgent = (0, projectUtils_js_1.buildUserAgent)(this.version, this.getControllerVersion(), await this.getInstallationId());
             const tibberConfigAPI = {
                 active: true,
                 apiEndpoint: {
                     apiKey: this.config.TibberAPIToken,
                     queryUrl: this.queryUrl,
-                    userAgent: `${this.config.TibberAPIToken.slice(5, 20).split("").reverse().join("")}${Date.now()}`,
+                    userAgent: this.userAgent,
                 },
             };
             const tibberAPICaller = new tibberAPICaller_js_1.TibberAPICaller(tibberConfigAPI, this);
@@ -283,7 +287,7 @@ class Tibberlink extends utils.Adapter {
                             apiEndpoint: {
                                 apiKey: this.config.TibberAPIToken,
                                 queryUrl: this.queryUrl,
-                                userAgent: `${this.config.TibberAPIToken.slice(5, 20).split("").reverse().join("")}${Date.now()}`,
+                                userAgent: this.userAgent,
                             },
                             timestamp: true,
                         };
@@ -402,6 +406,25 @@ class Tibberlink extends utils.Adapter {
                 }
                 this.log.info(`Tibber Data API: vehicle polling started every ${intervalMinutes} minute(s)`);
             }
+        }
+    }
+    async getInstallationId() {
+        try {
+            const uuidObj = await this.getForeignObjectAsync("system.meta.uuid");
+            const uuid = uuidObj?.native?.uuid;
+            return (0, projectUtils_js_1.hashInstallationId)(typeof uuid === "string" ? uuid : undefined);
+        }
+        catch {
+            return undefined;
+        }
+    }
+    getControllerVersion() {
+        try {
+            const pkg = JSON.parse((0, node_fs_1.readFileSync)((0, node_path_1.join)(utils.controllerDir, "package.json"), "utf8"));
+            return typeof pkg.version === "string" ? pkg.version : undefined;
+        }
+        catch {
+            return undefined;
         }
     }
     async jobPricesTodayLOOP(tibberAPICaller) {

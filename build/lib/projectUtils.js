@@ -6,6 +6,9 @@ exports.isAfternoonPricesTomorrowRetryWindow = isAfternoonPricesTomorrowRetryWin
 exports.pricesTomorrowStateNeedsFetch = pricesTomorrowStateNeedsFetch;
 exports.toBoolean = toBoolean;
 exports.isIso8601WithOffset = isIso8601WithOffset;
+exports.buildUserAgent = buildUserAgent;
+exports.hashInstallationId = hashInstallationId;
+const node_crypto_1 = require("node:crypto");
 var enCalcType;
 (function (enCalcType) {
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
@@ -77,6 +80,16 @@ function toBoolean(value) {
 }
 function isIso8601WithOffset(value) {
     return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}(Z|[+-]\d{2}:\d{2})$/.test(value) && !isNaN(new Date(value).getTime());
+}
+function buildUserAgent(adapterVersion, controllerVersion, installationId) {
+    const base = `ioBroker/${controllerVersion || "unknown"} ioBroker.tibberlink/${adapterVersion || "unknown"}`;
+    return installationId ? `${base} (${installationId})` : base;
+}
+function hashInstallationId(systemUuid) {
+    if (!systemUuid) {
+        return undefined;
+    }
+    return (0, node_crypto_1.createHash)("sha256").update(`ioBroker.tibberlink:${systemUuid}`).digest("hex").slice(0, 16);
 }
 class ProjectUtils {
     adapter;

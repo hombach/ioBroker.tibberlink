@@ -1,9 +1,19 @@
 // The adapter-core module gives you access to the core ioBroker functions you need to create an adapter
 import * as utils from "@iobroker/adapter-core";
 import { CronJob } from "cron";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import { addDays, format, isSameDay, roundToNearestMinutes } from "date-fns";
 import { PriceResolution, type IConfig } from "tibber-api";
-import { isAfternoonPricesTomorrowRetryWindow, isIso8601WithOffset, pricesTomorrowStateNeedsFetch, toBoolean, type IHomeInfo } from "./lib/projectUtils.js";
+import {
+	buildUserAgent,
+	hashInstallationId,
+	isAfternoonPricesTomorrowRetryWindow,
+	isIso8601WithOffset,
+	pricesTomorrowStateNeedsFetch,
+	toBoolean,
+	type IHomeInfo,
+} from "./lib/projectUtils.js";
 import { TibberAPICaller } from "./lib/tibberAPICaller.js";
 import { TibberCalculator } from "./lib/tibberCalculator.js";
 import { TibberCharts } from "./lib/tibberCharts.js";
@@ -37,6 +47,7 @@ class Tibberlink extends utils.Adapter {
 	private afternoonPricesTomorrowTimer: ioBroker.Timeout | undefined;
 	private homeInfoList: IHomeInfo[] = [];
 	private queryUrl = "";
+	private userAgent = "";
 	private tibberCalculator = new TibberCalculator(this);
 	private tibberCharts = new TibberCharts(this);
 	private tibberDataAPI = new TibberDataAPI(this);
@@ -66,13 +77,16 @@ class Tibberlink extends utils.Adapter {
 		}
 
 		if (this.config.TibberAPIToken) {
+			// @KI_HINWEIS: Tibber requires a User-Agent with platform and driver version (developer.tibber.com/docs/guides/calling-api);
+			// tibber-api appends its own "bisand/tibber-api/x.y.z"
+			this.userAgent = buildUserAgent(this.version, this.getControllerVersion(), await this.getInstallationId());
 			// Need 2 configs - API and Feed (feed changed query url)
 			const tibberConfigAPI: IConfig = {
 				active: true,
 				apiEndpoint: {
 					apiKey: this.config.TibberAPIToken,
 					queryUrl: this.queryUrl,
-					userAgent: `${this.config.TibberAPIToken.slice(5, 20).split("").reverse().join("")}${Date.now()}`,
+					userAgent: this.userAgent,
 				},
 			};
 			// Now read homes list from API
@@ -321,7 +335,7 @@ class Tibberlink extends utils.Adapter {
 							apiEndpoint: {
 								apiKey: this.config.TibberAPIToken,
 								queryUrl: this.queryUrl,
-								userAgent: `${this.config.TibberAPIToken.slice(5, 20).split("").reverse().join("")}${Date.now()}`,
+								userAgent: this.userAgent,
 							},
 							timestamp: true,
 						};
@@ -449,6 +463,36 @@ class Tibberlink extends utils.Adapter {
 				//#endregion
 				this.log.info(`Tibber Data API: vehicle polling started every ${intervalMinutes} minute(s)`);
 			}
+		}
+	}
+
+	/**
+	 * Anonymous, stable installation id for the User-Agent (hash of the ioBroker system UUID).
+	 * Tibber has blocked identical User-Agents with lots of traffic in the past, so every installation sends its own.
+	 *
+	 * @returns 16 hex characters, or undefined if the system UUID can't be read.
+	 */
+	private async getInstallationId(): Promise<string | undefined> {
+		try {
+			const uuidObj = await this.getForeignObjectAsync("system.meta.uuid");
+			const uuid: unknown = uuidObj?.native?.uuid;
+			return hashInstallationId(typeof uuid === "string" ? uuid : undefined);
+		} catch {
+			return undefined;
+		}
+	}
+
+	/**
+	 * Reads the installed js-controller version for the User-Agent header.
+	 *
+	 * @returns The js-controller version, or undefined if it can't be determined.
+	 */
+	private getControllerVersion(): string | undefined {
+		try {
+			const pkg = JSON.parse(readFileSync(join(utils.controllerDir, "package.json"), "utf8")) as { version?: unknown };
+			return typeof pkg.version === "string" ? pkg.version : undefined;
+		} catch {
+			return undefined;
 		}
 	}
 
