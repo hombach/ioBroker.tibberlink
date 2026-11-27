@@ -1206,7 +1206,7 @@
 							"default": "tibber-host"
 						},
 						{
-							"type": "text",
+							"type": "password",
 							"label": "LBL_item_tibberBridgePassword",
 							"tooltip": "TTIP_item_tibberBridgePassword",
 							"maxLength": 20,

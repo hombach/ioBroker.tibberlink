@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TibberDataAPI = exports.DATA_API_SCOPES = exports.PKCE_CHALLENGE = exports.PKCE_VERIFIER = void 0;
+exports.TibberDataAPI = exports.DATA_API_SCOPES = exports.PKCE_CHALLENGE = exports.PKCE_VERIFIER = exports.ENCRYPTED_TOKEN_PREFIX = void 0;
 const axios_1 = __importDefault(require("axios"));
 const projectUtils_js_1 = require("./projectUtils.js");
 const DATA_API_BASE = "https://data-api.tibber.com/v1";
@@ -11,6 +11,7 @@ const TOKEN_URL = "https://thewall.tibber.com/connect/token";
 const REDIRECT_URI = "http://localhost/";
 const REFRESH_TOKEN_STATE_ID = "info.tibberDataApiRefreshToken";
 const TOKEN_EXPIRY_SAFETY_MS = 60_000;
+exports.ENCRYPTED_TOKEN_PREFIX = "enc:";
 exports.PKCE_VERIFIER = "9865PlBfOdFKw3itj8kQSAFA0oVs6AVX5oMo5tr7Nts11e9YUHx0_BJrTryw_D7C";
 exports.PKCE_CHALLENGE = "Oey1jcnhbUa_fxI9A2NtdVrIk-QxD-9ARobHcVpOj7A";
 exports.DATA_API_SCOPES = "openid offline_access data-api-homes-read data-api-vehicles-read data-api-chargers-read";
@@ -333,12 +334,19 @@ class TibberDataAPI extends projectUtils_js_1.ProjectUtils {
         return "unknown";
     }
     async saveRefreshToken(token) {
-        await this.adapter.setStateAsync(REFRESH_TOKEN_STATE_ID, { val: token, ack: true });
+        await this.adapter.setStateAsync(REFRESH_TOKEN_STATE_ID, { val: `${exports.ENCRYPTED_TOKEN_PREFIX}${this.adapter.encrypt(token)}`, ack: true });
     }
     async loadRefreshToken() {
         const state = await this.adapter.getStateAsync(REFRESH_TOKEN_STATE_ID);
         const val = state?.val;
-        return typeof val === "string" && val.length > 0 ? val : null;
+        if (typeof val !== "string" || val.length === 0) {
+            return null;
+        }
+        if (!val.startsWith(exports.ENCRYPTED_TOKEN_PREFIX)) {
+            return val;
+        }
+        const decrypted = this.adapter.decrypt(val.slice(exports.ENCRYPTED_TOKEN_PREFIX.length));
+        return decrypted.length > 0 ? decrypted : null;
     }
     async clearAuthCodeFromConfig() {
         try {

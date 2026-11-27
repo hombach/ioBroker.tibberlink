@@ -101,15 +101,21 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 7.4.2 (2026-11-27)
 
+- (Schimi1983) local Pulse: Bridge requests now time out after 10 seconds and a poll is skipped while the previous one is still running
+- (Schimi1983) local Pulse: the meter mode is now kept per Pulse
+- (Schimi1983) Tibber Data API: the refresh token is now stored encrypted (existing tokens keep working)
+  **Attention:** after downgrading to an older adapter version, or after restoring a backup onto a system with a different system secret, the stored token can no longer be used - please re-authorize the Data API with a new authorization code
+- (Schimi1983) the Bridge password is now a masked field and is no longer readable by other adapters
 - (Schimi1983) fixed calculator "best cost" switching ON when no current price is known - output now stays OFF
 - (Schimi1983) fixed live feed field "accumulatedReward" being requested by the "accumulatedCost" option instead of its own option
 - (Schimi1983) fixed calculator StopTime state not being written with the value rounded to 15 minutes
 - (Schimi1983) calculator "Active" states now also accept "true"/"false" strings (e.g. from VIS) and repair such values on start
 - (Schimi1983) fixed calculator output values like "12abc" or "12:00" being converted to numbers
 - (Schimi1983) fixed calculator error when price states are still empty after the first start
-- (Schimi1983) calculator StartTime/StopTime now require a time zone (e.g. "+01:00" or "Z") as the warning already stated - values without time zone are rejected with a warning
+- (Schimi1983) **Attention:** calculator StartTime/StopTime now require a time zone (e.g. "+01:00" or "Z"), as the warning and the calculator documentation already stated. Values without time zone (e.g. "2025-01-01T12:00:00.000") are no longer accepted - please add the offset in your scripts or VIS
+- (HombachC) updated dependencies
 
 ### 7.4.1 (2026-11-11)
 
@@ -137,11 +143,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) fixed local Pulse uptime not being converted on Bridge firmware ≥1794: the renamed `node_uptime` field (now in ms) is again shown as a human-readable duration, same as the former `node_uptime_ms` (#947)
 - (HombachC) local Pulse: automatically remove orphaned PulseInfo states left behind by a Bridge firmware update (metrics restructured from node_status/hub_attachments to node/ir/hub) — states not updated for more than 14 days are pruned on startup, and empty folders are removed afterwards (#947)
 - (HombachC) docs: link the local Pulse guide directly to marq24's Bridge preparation instructions
-
-### 7.3.1 (2026-09-26)
-
-- (HombachC) fixed local Pulse poll after Tibber Bridge firmware update (~1794): use /node_data.json and /node_metrics.json with automatic fallback to the legacy paths; during the first probe the fallback now triggers on any error (not only HTTP 404) so uncommon firmware responses are handled too (#947)
-- (HombachC) updated dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 
