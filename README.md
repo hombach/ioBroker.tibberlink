@@ -101,8 +101,7 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
-
-### **WORK IN PROGRESS**
+### 7.4.2 (2026-11-27)
 
 - (Schimi1983) local Pulse: Bridge requests now time out after 10 seconds and a poll is skipped while the previous one is still running
 - (Schimi1983) local Pulse: the meter mode is now kept per Pulse
@@ -144,11 +143,6 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
 - (HombachC) fixed local Pulse uptime not being converted on Bridge firmware ≥1794: the renamed `node_uptime` field (now in ms) is again shown as a human-readable duration, same as the former `node_uptime_ms` (#947)
 - (HombachC) local Pulse: automatically remove orphaned PulseInfo states left behind by a Bridge firmware update (metrics restructured from node_status/hub_attachments to node/ir/hub) — states not updated for more than 14 days are pruned on startup, and empty folders are removed afterwards (#947)
 - (HombachC) docs: link the local Pulse guide directly to marq24's Bridge preparation instructions
-
-### 7.3.1 (2026-09-26)
-
-- (HombachC) fixed local Pulse poll after Tibber Bridge firmware update (~1794): use /node_data.json and /node_metrics.json with automatic fallback to the legacy paths; during the first probe the fallback now triggers on any error (not only HTTP 404) so uncommon firmware responses are handled too (#947)
-- (HombachC) updated dependencies
 
 ### Old Changes see [CHANGELOG OLD](CHANGELOG_OLD.md)
 

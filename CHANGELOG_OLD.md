@@ -17,6 +17,10 @@ This adapter facilitates the connection of data from your Tibber account's API t
 If you're not currently a Tibber user, I would greatly appreciate it if you could use my referral link: [Tibber Referral Link](https://invite.tibber.com/mu8c82n5).
 
 ## Changelog - OLD CHANGES
+## 7.3.1 (2026-09-26)
+
+- (HombachC) fixed local Pulse poll after Tibber Bridge firmware update (~1794): use /node_data.json and /node_metrics.json with automatic fallback to the legacy paths; during the first probe the fallback now triggers on any error (not only HTTP 404) so uncommon firmware responses are handled too (#947)
+- (HombachC) updated dependencies
 
 ## 7.3.0 (2026-09-18)
 
