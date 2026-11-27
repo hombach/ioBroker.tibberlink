@@ -2,6 +2,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TibberCalculator = void 0;
 exports.checkQuarterMatch = checkQuarterMatch;
+exports.convertValue = convertValue;
+exports.parsePriceArray = parsePriceArray;
 const date_fns_1 = require("date-fns");
 const projectUtils_js_1 = require("./projectUtils.js");
 class TibberCalculator extends projectUtils_js_1.ProjectUtils {
@@ -92,8 +94,12 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 channelConfig.chActive = false;
             }
             void this.checkAndSetValueBoolean(`Homes.${homeId}.Calculations.${channel}.Active`, channelConfig.chActive, `Whether the calculation channel is active`, `switch.enable`, true, true);
-            const valueActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
-            if (typeof valueActive === "boolean") {
+            const rawActive = await this.getStateValue(`Homes.${homeId}.Calculations.${channel}.Active`);
+            const valueActive = (0, projectUtils_js_1.toBoolean)(rawActive);
+            if (valueActive !== undefined) {
+                if (typeof rawActive !== "boolean") {
+                    await this.adapter.setState(`Homes.${homeId}.Calculations.${channel}.Active`, valueActive, true);
+                }
                 channelConfig.chActive = valueActive;
                 this.adapter.log.debug(`[tibberCalculator]: setup settings state in home: ${homeId} - channel: ${channel}-${channelConfig.chName} - set to Active: ${channelConfig.chActive}`);
             }
@@ -692,7 +698,10 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
                 }
                 const filteredPrices = await this.getPricesLTF(channel, modeLTF, true);
                 const currentPrice = await this.getStateValue(`Homes.${channelConfig.chHomeID}.CurrentPrice.total`);
-                if (channelConfig.chTriggerPrice > currentPrice) {
+                if (typeof currentPrice !== "number" || !Number.isFinite(currentPrice)) {
+                    this.adapter.log.debug(`[tibberCalculator]: channel ${channel} - no valid current price available, output stays off`);
+                }
+                else if (channelConfig.chTriggerPrice > currentPrice) {
                     valueToSet = channelConfig.chValueOn;
                 }
                 const jsonOutput = filteredPrices
@@ -1110,8 +1119,8 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
     }
     async getPricesLTF(channel, modeLTF, modeTwoDays = false) {
         const { chHomeID, chStartTime, chStopTime } = this.adapter.config.CalculatorList[channel];
-        const pricesToday = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
-        const pricesTomorrow = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
+        const pricesToday = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesToday.json`));
+        const pricesTomorrow = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesTomorrow.json`));
         let mergedPrices = pricesToday;
         if (pricesTomorrow.length !== 0) {
             mergedPrices = [...pricesToday, ...pricesTomorrow];
@@ -1122,7 +1131,7 @@ class TibberCalculator extends projectUtils_js_1.ProjectUtils {
             }
             return mergedPrices;
         }
-        const pricesYesterday = JSON.parse(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
+        const pricesYesterday = parsePriceArray(await this.getStateValue(`Homes.${chHomeID}.PricesYesterday.json`));
         const startTime = chStartTime;
         const stopTime = chStopTime;
         if (pricesYesterday.length !== 0) {
@@ -1162,7 +1171,19 @@ function convertValue(Value) {
     else if (Value.toLowerCase() === "false") {
         return false;
     }
-    const numericValue = parseFloat(Value);
-    return isNaN(numericValue) ? Value : numericValue;
+    const numericValue = Value.trim() === "" ? NaN : Number(Value);
+    return Number.isFinite(numericValue) ? numericValue : Value;
+}
+function parsePriceArray(value) {
+    if (typeof value !== "string" || value.trim() === "") {
+        return [];
+    }
+    try {
+        const parsed = JSON.parse(value);
+        return Array.isArray(parsed) ? parsed : [];
+    }
+    catch {
+        return [];
+    }
 }
 //# sourceMappingURL=tibberCalculator.js.map
