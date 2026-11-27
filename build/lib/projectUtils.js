@@ -4,6 +4,8 @@ exports.ProjectUtils = exports.enCalcType = void 0;
 exports.getCalcTypeDescription = getCalcTypeDescription;
 exports.isAfternoonPricesTomorrowRetryWindow = isAfternoonPricesTomorrowRetryWindow;
 exports.pricesTomorrowStateNeedsFetch = pricesTomorrowStateNeedsFetch;
+exports.toBoolean = toBoolean;
+exports.isIso8601WithOffset = isIso8601WithOffset;
 var enCalcType;
 (function (enCalcType) {
     enCalcType[enCalcType["BestCost"] = 1] = "BestCost";
@@ -57,6 +59,24 @@ function pricesTomorrowStateNeedsFetch(jsonVal, now = new Date()) {
     catch {
         return true;
     }
+}
+function toBoolean(value) {
+    if (typeof value === "boolean") {
+        return value;
+    }
+    if (typeof value === "string") {
+        const normalized = value.trim().toLowerCase();
+        if (normalized === "true") {
+            return true;
+        }
+        if (normalized === "false") {
+            return false;
+        }
+    }
+    return undefined;
+}
+function isIso8601WithOffset(value) {
+    return /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}(Z|[+-]\d{2}:\d{2})$/.test(value) && !isNaN(new Date(value).getTime());
 }
 class ProjectUtils {
     adapter;

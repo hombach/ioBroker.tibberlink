@@ -320,7 +320,7 @@ class Tibberlink extends utils.Adapter {
                             if (this.config.FeedConfigAccumulatedCost) {
                                 tibberFeedConfigs[index].accumulatedCost = true;
                             }
-                            if (this.config.FeedConfigAccumulatedCost) {
+                            if (this.config.FeedConfigAccumulatedReward) {
                                 tibberFeedConfigs[index].accumulatedReward = true;
                             }
                             if (this.config.FeedConfigCurrency) {
@@ -558,16 +558,18 @@ class Tibberlink extends utils.Adapter {
                         if (!isNaN(calcChannel) && calcChannel < this.config.CalculatorList.length && settingType !== undefined) {
                             if (this.config.CalculatorList[calcChannel].chHomeID === homeIDToMatch) {
                                 switch (settingType) {
-                                    case "Active":
-                                        if (typeof state.val === "boolean") {
-                                            this.config.CalculatorList[calcChannel].chActive = state.val;
+                                    case "Active": {
+                                        const activeValue = (0, projectUtils_js_1.toBoolean)(state.val);
+                                        if (activeValue !== undefined) {
+                                            this.config.CalculatorList[calcChannel].chActive = activeValue;
                                             this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to Active: ${this.config.CalculatorList[calcChannel].chActive}`);
-                                            void this.setState(id, state.val, true);
+                                            void this.setState(id, activeValue, true);
                                         }
                                         else {
                                             this.log.warn(`Wrong type for channel: ${calcChannel} - chActive: ${state.val}`);
                                         }
                                         break;
+                                    }
                                     case "TriggerPrice":
                                         if (typeof state.val === "number") {
                                             this.config.CalculatorList[calcChannel].chTriggerPrice = state.val;
@@ -591,8 +593,7 @@ class Tibberlink extends utils.Adapter {
                                         break;
                                     case "StartTime":
                                         if (typeof state.val === "string") {
-                                            const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
-                                            if (iso8601RegEx.test(state.val)) {
+                                            if ((0, projectUtils_js_1.isIso8601WithOffset)(state.val)) {
                                                 const dateWithTimeZone = new Date(state.val);
                                                 const roundedDate = (0, date_fns_1.roundToNearestMinutes)(dateWithTimeZone, { nearestTo: 15, roundingMethod: "floor" });
                                                 this.config.CalculatorList[calcChannel].chStartTime = roundedDate;
@@ -609,8 +610,7 @@ class Tibberlink extends utils.Adapter {
                                         break;
                                     case "StopTime":
                                         if (typeof state.val === "string") {
-                                            const iso8601RegEx = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})[.]\d{3}Z?([+-]\d{2}:\d{2})?$/;
-                                            if (iso8601RegEx.test(state.val)) {
+                                            if ((0, projectUtils_js_1.isIso8601WithOffset)(state.val)) {
                                                 const dateWithTimeZone = new Date(state.val);
                                                 const roundedDate = (0, date_fns_1.roundToNearestMinutes)(dateWithTimeZone, { nearestTo: 15, roundingMethod: "floor" });
                                                 this.config.CalculatorList[calcChannel].chStopTime = roundedDate;
@@ -620,7 +620,7 @@ class Tibberlink extends utils.Adapter {
                                                     this.log.warn(`Setting StopTime outside the feasible range (same or next day as StartTime) can lead to errors in calculations or unexpected behavior. Please verify your configuration.`);
                                                 }
                                                 this.log.debug(`calculator settings state in home: ${homeIDToMatch} - channel: ${calcChannel} - changed to StopTime: ${(0, date_fns_1.format)(roundedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")}`);
-                                                void this.setState(id, (0, date_fns_1.format)(dateWithTimeZone, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
+                                                void this.setState(id, (0, date_fns_1.format)(roundedDate, "yyyy-MM-dd'T'HH:mm:ss.SSSXXX"), true);
                                             }
                                             else {
                                                 this.log.warn(`Invalid ISO-8601 format or missing timezone offset for channel: ${calcChannel} - chStopTime: ${state.val}`);
