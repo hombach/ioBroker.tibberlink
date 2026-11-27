@@ -62,6 +62,8 @@ class Tibberlink extends utils.Adapter {
     afternoonPricesTomorrowTimer;
     homeInfoList = [];
     queryUrl = "";
+    tibberPulseInstances = [];
+    feedConnections = new Map();
     tibberCalculator = new tibberCalculator_js_1.TibberCalculator(this);
     tibberCharts = new tibberCharts_js_1.TibberCharts(this);
     tibberDataAPI = new tibberDataAPI_js_1.TibberDataAPI(this);
@@ -288,7 +290,6 @@ class Tibberlink extends utils.Adapter {
                             timestamp: true,
                         };
                     });
-                    const tibberPulseInstances = new Array(this.homeInfoList.length);
                     if (!this.homeInfoList.some(homeInfo => homeInfo.ID == `None available - restart adapter after entering token`)) {
                         await this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true });
                     }
@@ -374,8 +375,10 @@ class Tibberlink extends utils.Adapter {
                             if (this.config.FeedConfigSignalStrength) {
                                 tibberFeedConfigs[index].signalStrength = true;
                             }
-                            tibberPulseInstances[index] = new tibberPulse_js_1.TibberPulse(tibberFeedConfigs[index], this);
-                            tibberPulseInstances[index].connectPulseStream();
+                            const tibberPulse = new tibberPulse_js_1.TibberPulse(tibberFeedConfigs[index], this, connected => this.updateFeedConnection(index, connected));
+                            this.feedConnections.set(index, false);
+                            this.tibberPulseInstances.push(tibberPulse);
+                            void tibberPulse.connectPulseStream();
                         }
                         catch (error) {
                             this.log.warn(error.message);
@@ -525,6 +528,11 @@ class Tibberlink extends utils.Adapter {
             }
         }
     }
+    updateFeedConnection(index, connected) {
+        this.feedConnections.set(index, connected);
+        const allConnected = [...this.feedConnections.values()].every(Boolean);
+        void this.setState("info.connection", allConnected, true);
+    }
     async onUnload(callback) {
         try {
             if (this.afternoonPricesTomorrowTimer !== undefined) {
@@ -537,6 +545,10 @@ class Tibberlink extends utils.Adapter {
             if (this.config.UseLocalPulseData) {
                 this.tibberLocal.clearIntervals();
             }
+            for (const tibberPulse of this.tibberPulseInstances) {
+                tibberPulse.closePulseStream();
+            }
+            this.tibberPulseInstances = [];
             await this.setState("info.connection", false, true);
             callback();
         }

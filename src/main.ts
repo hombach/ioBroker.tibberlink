@@ -37,6 +37,10 @@ class Tibberlink extends utils.Adapter {
 	private afternoonPricesTomorrowTimer: ioBroker.Timeout | undefined;
 	private homeInfoList: IHomeInfo[] = [];
 	private queryUrl = "";
+	/** Live feeds of all homes - kept to close them on unload. */
+	private tibberPulseInstances: TibberPulse[] = [];
+	/** Connection state per live feed (index = home index), combined into info.connection. */
+	private feedConnections = new Map<number, boolean>();
 	private tibberCalculator = new TibberCalculator(this);
 	private tibberCharts = new TibberCharts(this);
 	private tibberDataAPI = new TibberDataAPI(this);
@@ -326,7 +330,6 @@ class Tibberlink extends utils.Adapter {
 							timestamp: true,
 						};
 					});
-					const tibberPulseInstances = new Array(this.homeInfoList.length); // array for TibberPulse-instances
 
 					if (!this.homeInfoList.some(homeInfo => homeInfo.ID == `None available - restart adapter after entering token`)) {
 						await this.delObjectAsync(`Homes.None available - restart adapter after entering token`, { recursive: true });
@@ -416,8 +419,10 @@ class Tibberlink extends utils.Adapter {
 							if (this.config.FeedConfigSignalStrength) {
 								tibberFeedConfigs[index].signalStrength = true;
 							}
-							tibberPulseInstances[index] = new TibberPulse(tibberFeedConfigs[index], this); // add new instance to array
-							tibberPulseInstances[index].connectPulseStream();
+							const tibberPulse = new TibberPulse(tibberFeedConfigs[index], this, connected => this.updateFeedConnection(index, connected));
+							this.feedConnections.set(index, false);
+							this.tibberPulseInstances.push(tibberPulse);
+							void tibberPulse.connectPulseStream();
 						} catch (error) {
 							this.log.warn((error as Error).message);
 						}
@@ -626,6 +631,19 @@ class Tibberlink extends utils.Adapter {
 	}
 
 	/**
+	 * Combines the connection state of all live feeds into info.connection:
+	 * true only if every started feed is connected, so one broken feed of several homes isn't hidden.
+	 *
+	 * @param index - Home index of the feed.
+	 * @param connected - New connection state of this feed.
+	 */
+	private updateFeedConnection(index: number, connected: boolean): void {
+		this.feedConnections.set(index, connected);
+		const allConnected = [...this.feedConnections.values()].every(Boolean);
+		void this.setState("info.connection", allConnected, true);
+	}
+
+	/**
 	 * Is called when adapter shuts down - callback has to be called under any circumstances!
 	 *
 	 * @param callback - void
@@ -642,6 +660,10 @@ class Tibberlink extends utils.Adapter {
 			if (this.config.UseLocalPulseData) {
 				this.tibberLocal.clearIntervals();
 			}
+			for (const tibberPulse of this.tibberPulseInstances) {
+				tibberPulse.closePulseStream();
+			}
+			this.tibberPulseInstances = [];
 			await this.setState("info.connection", false, true);
 			callback();
 		} catch (error) {

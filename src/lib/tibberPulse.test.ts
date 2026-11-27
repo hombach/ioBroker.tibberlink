@@ -114,16 +114,16 @@ describe("TibberPulse – invalid token handling (tibber-api 6)", () => {
 		assert.strictEqual(connectCalls(), 0, "connectPulseStream is a no-op after unauthenticated");
 	});
 
-	it("ends a running reconnect loop when the token is rejected during reconnect", async () => {
-		const { pulse, errors, connectCalls } = makeFeedPulse();
+	it("does not run an own reconnect loop on a regular disconnect (tibber-api reconnects itself)", async () => {
+		const { pulse, store, connectCalls } = makeFeedPulse();
 
-		// regular disconnect starts the reconnect loop; the first connect attempt is rejected as unauthenticated
+		pulse.tibberFeed.emit("connected", "connected");
 		pulse.tibberFeed.emit("disconnected", "Disconnected from Tibber feed.");
 		await drainMicrotasks();
 
-		assert.strictEqual(connectCalls(), 1, "loop stops after the first rejected attempt");
-		assert.strictEqual(pulse.feedUnauthenticated, true);
-		assert.strictEqual(errors.length, 1);
+		assert.strictEqual(connectCalls(), 0, "no connect() from the adapter - backoff + jitter are done by tibber-api");
+		assert.strictEqual(store.states["info.connection"], false);
+		assert.strictEqual((pulse.tibberFeed as unknown as { _autoReconnect: boolean })._autoReconnect, true, "tibber-api auto-reconnect enabled");
 	});
 
 	it("keeps warning (not stopping) on other feed errors", async () => {
@@ -169,5 +169,45 @@ describe("TibberPulse – reactive power states (tibber-api 6)", () => {
 		(pulse as unknown as Fetcher).fetchLiveMeasurement("LiveMeasurement", { power: 100 } as ILiveMeasurement);
 		await drainMicrotasks();
 		assert.strictEqual(store.objects[`Homes.${HOME}.LiveMeasurement.powerReactive`], undefined);
+	});
+});
+
+describe("TibberPulse – lifecycle", () => {
+	function makePulse(onChange?: (c: boolean) => void): { pulse: TibberPulse; store: ReturnType<typeof createMockAdapter>["store"] } {
+		const { adapter, store } = createMockAdapter({ HomesList: [{ feedActive: true, homeID: HOME }] });
+		const fakeConfig = {
+			apiEndpoint: { apiKey: "test-key", queryUrl: "https://api.tibber.com/v1-beta/gql", userAgent: "test" },
+			homeId: HOME,
+		} as unknown as IConfig;
+		return { pulse: new TibberPulse(fakeConfig, adapter, onChange), store };
+	}
+
+	it("reports connection changes to the callback instead of writing info.connection itself", () => {
+		const seen: boolean[] = [];
+		const { pulse, store } = makePulse(c => seen.push(c));
+		pulse.tibberFeed.emit("connected", "connected");
+		pulse.tibberFeed.emit("disconnected", "Disconnected from Tibber feed.");
+		assert.deepStrictEqual(seen, [true, false]);
+		assert.strictEqual(store.states["info.connection"], undefined);
+	});
+
+	it("closePulseStream closes the socket, removes listeners and blocks further connects", async () => {
+		const seen: boolean[] = [];
+		const { pulse } = makePulse(c => seen.push(c));
+		const feed = pulse.tibberFeed;
+		let connects = 0;
+		feed.connect = (): Promise<void> => {
+			connects++;
+			return Promise.resolve();
+		};
+
+		pulse.closePulseStream();
+		feed.emit("connected", "late event");
+		await pulse.connectPulseStream();
+
+		assert.strictEqual(feed.active, false, "feed deactivated (closes socket, cancels reconnect timers)");
+		assert.strictEqual(feed.listenerCount("disconnected"), 0);
+		assert.deepStrictEqual(seen, [], "no state changes after close");
+		assert.strictEqual(connects, 0);
 	});
 });
