@@ -7,6 +7,8 @@ const TOKEN_URL = "https://thewall.tibber.com/connect/token";
 const REDIRECT_URI = "http://localhost/";
 const REFRESH_TOKEN_STATE_ID = "info.tibberDataApiRefreshToken";
 const TOKEN_EXPIRY_SAFETY_MS = 60_000;
+/** Prefix marking an encrypted refresh token in the state (values without it are legacy plain text). */
+export const ENCRYPTED_TOKEN_PREFIX = "enc:";
 
 /**
  * Fixed PKCE verifier — avoids per-session random generation.
@@ -592,7 +594,9 @@ export class TibberDataAPI extends ProjectUtils {
 	 * @param token - The refresh token string to save.
 	 */
 	private async saveRefreshToken(token: string): Promise<void> {
-		await this.adapter.setStateAsync(REFRESH_TOKEN_STATE_ID, { val: token, ack: true });
+		// @KI_HINWEIS: the refresh token is long-lived (offline_access) - store it encrypted with the system secret,
+		// because states are readable by VIS, simple-api, web etc.
+		await this.adapter.setStateAsync(REFRESH_TOKEN_STATE_ID, { val: `${ENCRYPTED_TOKEN_PREFIX}${this.adapter.encrypt(token)}`, ack: true });
 	}
 
 	/**
@@ -603,7 +607,15 @@ export class TibberDataAPI extends ProjectUtils {
 	private async loadRefreshToken(): Promise<string | null> {
 		const state = await this.adapter.getStateAsync(REFRESH_TOKEN_STATE_ID);
 		const val = state?.val;
-		return typeof val === "string" && val.length > 0 ? val : null;
+		if (typeof val !== "string" || val.length === 0) {
+			return null;
+		}
+		if (!val.startsWith(ENCRYPTED_TOKEN_PREFIX)) {
+			// legacy plain-text token from older versions - it is stored encrypted on the next save
+			return val;
+		}
+		const decrypted = this.adapter.decrypt(val.slice(ENCRYPTED_TOKEN_PREFIX.length));
+		return decrypted.length > 0 ? decrypted : null;
 	}
 
 	/**
