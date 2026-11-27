@@ -86,7 +86,7 @@ class Tibberlink extends utils.Adapter {
             }
         }
         if (this.config.TibberAPIToken) {
-            this.userAgent = (0, projectUtils_js_1.buildUserAgent)(this.version, this.getControllerVersion());
+            this.userAgent = (0, projectUtils_js_1.buildUserAgent)(this.version, this.getControllerVersion(), await this.getInstallationId());
             const tibberConfigAPI = {
                 active: true,
                 apiEndpoint: {
@@ -406,6 +406,16 @@ class Tibberlink extends utils.Adapter {
                 }
                 this.log.info(`Tibber Data API: vehicle polling started every ${intervalMinutes} minute(s)`);
             }
+        }
+    }
+    async getInstallationId() {
+        try {
+            const uuidObj = await this.getForeignObjectAsync("system.meta.uuid");
+            const uuid = uuidObj?.native?.uuid;
+            return (0, projectUtils_js_1.hashInstallationId)(typeof uuid === "string" ? uuid : undefined);
+        }
+        catch {
+            return undefined;
         }
     }
     getControllerVersion() {

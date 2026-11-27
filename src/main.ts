@@ -7,6 +7,7 @@ import { addDays, format, isSameDay, roundToNearestMinutes } from "date-fns";
 import { PriceResolution, type IConfig } from "tibber-api";
 import {
 	buildUserAgent,
+	hashInstallationId,
 	isAfternoonPricesTomorrowRetryWindow,
 	isIso8601WithOffset,
 	pricesTomorrowStateNeedsFetch,
@@ -78,7 +79,7 @@ class Tibberlink extends utils.Adapter {
 		if (this.config.TibberAPIToken) {
 			// @KI_HINWEIS: Tibber requires a User-Agent with platform and driver version (developer.tibber.com/docs/guides/calling-api);
 			// tibber-api appends its own "bisand/tibber-api/x.y.z"
-			this.userAgent = buildUserAgent(this.version, this.getControllerVersion());
+			this.userAgent = buildUserAgent(this.version, this.getControllerVersion(), await this.getInstallationId());
 			// Need 2 configs - API and Feed (feed changed query url)
 			const tibberConfigAPI: IConfig = {
 				active: true,
@@ -462,6 +463,22 @@ class Tibberlink extends utils.Adapter {
 				//#endregion
 				this.log.info(`Tibber Data API: vehicle polling started every ${intervalMinutes} minute(s)`);
 			}
+		}
+	}
+
+	/**
+	 * Anonymous, stable installation id for the User-Agent (hash of the ioBroker system UUID).
+	 * Tibber has blocked identical User-Agents with lots of traffic in the past, so every installation sends its own.
+	 *
+	 * @returns 16 hex characters, or undefined if the system UUID can't be read.
+	 */
+	private async getInstallationId(): Promise<string | undefined> {
+		try {
+			const uuidObj = await this.getForeignObjectAsync("system.meta.uuid");
+			const uuid: unknown = uuidObj?.native?.uuid;
+			return hashInstallationId(typeof uuid === "string" ? uuid : undefined);
+		} catch {
+			return undefined;
 		}
 	}
 
