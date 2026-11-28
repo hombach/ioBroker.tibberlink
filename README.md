@@ -101,6 +101,10 @@ If you enjoyed this project — or just feeling generous, consider buying me a b
   Placeholder for the next version (at the beginning of the line):
   ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+
+- (Schimi1983) fixed calculator channels not being calculated right after the adapter start
+
 ### 7.4.2 (2026-11-27)
 
 - (Schimi1983) local Pulse: Bridge requests now time out after 10 seconds and a poll is skipped while the previous one is still running
