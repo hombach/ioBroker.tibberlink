@@ -193,9 +193,11 @@ class Tibberlink extends utils.Adapter {
 					try {
 						this.log.info(`Setting up calculator states for ${this.config.CalculatorList.length} channels`);
 
-						this.config.CalculatorList.forEach(async (channel, index) => {
+						// @KI_HINWEIS: sequential and awaited - the first calculator run below needs all channel states,
+						// and forEach(async) would neither wait nor let the surrounding try/catch see errors
+						for (const [index, channel] of this.config.CalculatorList.entries()) {
 							await tibberCalculator.setupCalculatorStates(channel.chHomeID, index);
-						});
+						}
 					} catch (error: unknown) {
 						this.log.warn(tibberAPICaller.generateErrorMessage(error, `setup of calculator states`));
 					}

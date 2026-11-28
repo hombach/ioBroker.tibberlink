@@ -127,7 +127,7 @@ export class TibberCalculator extends ProjectUtils {
 			if (channelConfig.chActive === undefined) {
 				channelConfig.chActive = false;
 			}
-			void this.checkAndSetValueBoolean(
+			await this.checkAndSetValueBoolean(
 				`Homes.${homeId}.Calculations.${channel}.Active`,
 				channelConfig.chActive,
 				`Whether the calculation channel is active`,
@@ -368,7 +368,7 @@ export class TibberCalculator extends ProjectUtils {
 				channelConfig.chStartTime = today;
 			}
 
-			void this.checkAndSetValue(
+			await this.checkAndSetValue(
 				`Homes.${homeId}.Calculations.${channel}.StartTime`,
 				channelConfig.chStartTime.toISOString(),
 				`Start time for this channel`,
@@ -396,7 +396,7 @@ export class TibberCalculator extends ProjectUtils {
 				today.setHours(23, 59, 0, 0); // sets clock to 0:00
 				channelConfig.chStopTime = today;
 			}
-			void this.checkAndSetValue(
+			await this.checkAndSetValue(
 				`Homes.${homeId}.Calculations.${channel}.StopTime`,
 				channelConfig.chStopTime.toISOString(),
 				`Stop time for this channel`,
@@ -422,7 +422,7 @@ export class TibberCalculator extends ProjectUtils {
 			if (channelConfig.chRepeatDays === undefined) {
 				channelConfig.chRepeatDays = 0;
 			}
-			void this.checkAndSetValueNumber(
+			await this.checkAndSetValueNumber(
 				`Homes.${homeId}.Calculations.${channel}.RepeatDays`,
 				channelConfig.chRepeatDays,
 				`number of days to shift this LTF channel for repetition`,
@@ -472,7 +472,7 @@ export class TibberCalculator extends ProjectUtils {
 			await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output`);
 		} else {
 			try {
-				void this.checkAndSetValueBoolean(
+				await this.checkAndSetValueBoolean(
 					`Homes.${homeId}.Calculations.${channel}.Output`,
 					false,
 					`standard output if no special one selected in config`,
@@ -499,7 +499,7 @@ export class TibberCalculator extends ProjectUtils {
 			await this.adapter.delObjectAsync(`Homes.${homeId}.Calculations.${channel}.Output2`);
 		} else {
 			try {
-				void this.checkAndSetValueBoolean(
+				await this.checkAndSetValueBoolean(
 					`Homes.${homeId}.Calculations.${channel}.Output2`,
 					false,
 					`standard output2 if no special one selected in config`,
@@ -581,7 +581,7 @@ export class TibberCalculator extends ProjectUtils {
 			if (channelConfig.chTriggerPrice === undefined) {
 				channelConfig.chTriggerPrice = 0;
 			}
-			void this.checkAndSetValueNumber(
+			await this.checkAndSetValueNumber(
 				`Homes.${homeId}.Calculations.${channel}.TriggerPrice`,
 				channelConfig.chTriggerPrice,
 				`pricelevel to trigger this channel at`,
@@ -618,7 +618,7 @@ export class TibberCalculator extends ProjectUtils {
 			if (channelConfig.chAmountHours === undefined) {
 				channelConfig.chAmountHours = 0;
 			}
-			void this.checkAndSetValueNumber(
+			await this.checkAndSetValueNumber(
 				`Homes.${homeId}.Calculations.${channel}.AmountHours`,
 				channelConfig.chAmountHours,
 				`value of hours to trigger this channel, resolution 0.25 hours = 15 minutes`,
@@ -656,7 +656,7 @@ export class TibberCalculator extends ProjectUtils {
 			if (channelConfig.chPercentage === undefined) {
 				channelConfig.chPercentage = 0;
 			}
-			void this.checkAndSetValueNumber(
+			await this.checkAndSetValueNumber(
 				`Homes.${homeId}.Calculations.${channel}.Percentage`,
 				channelConfig.chPercentage,
 				`amount of percentage to trigger this channel`,
@@ -694,7 +694,7 @@ export class TibberCalculator extends ProjectUtils {
 			if (channelConfig.chEfficiencyLoss === undefined) {
 				channelConfig.chEfficiencyLoss = 0;
 			}
-			void this.checkAndSetValueNumber(
+			await this.checkAndSetValueNumber(
 				`Homes.${homeId}.Calculations.${channel}.EfficiencyLoss`,
 				channelConfig.chEfficiencyLoss,
 				`efficiency loss between charge and discharge of battery system (range 0…1, e.g. 0.25 = 25% loss)`,
